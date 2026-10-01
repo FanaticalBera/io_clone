@@ -1,0 +1,72 @@
+[
+  {
+    "straightPixels": 40,
+    "perpendicularPixels": 45,
+    "previousPressOriginAngleDegrees": 48.36646066342981,
+    "previousPressOriginIgnored": false,
+    "swipeHeading": {
+      "x": 0,
+      "y": -1
+    },
+    "pcHeading": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 80,
+    "perpendicularPixels": 45,
+    "previousPressOriginAngleDegrees": 29.357753542791272,
+    "previousPressOriginIgnored": false,
+    "swipeHeading": {
+      "x": 0,
+      "y": -1
+    },
+    "pcHeading": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 160,
+    "perpendicularPixels": 45,
+    "previousPressOriginAngleDegrees": 15.708637829015746,
+    "previousPressOriginIgnored": false,
+    "swipeHeading": {
+      "x": 0,
+      "y": -1
+    },
+    "pcHeading": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 240,
+    "perpendicularPixels": 45,
+    "previousPressOriginAngleDegrees": 10.619655276155134,
+    "previousPressOriginIgnored": false,
+    "swipeHeading": {
+      "x": 0,
+      "y": -1
+    },
+    "pcHeading": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 400,
+    "perpendicularPixels": 45,
+    "previousPressOriginAngleDegrees": 6.418786730238786,
+    "previousPressOriginIgnored": true,
+    "swipeHeading": {
+      "x": 0,
+      "y": -1
+    },
+    "pcHeading": {
+      "x": 0,
+      "y": -1
+    }
+  }
+]

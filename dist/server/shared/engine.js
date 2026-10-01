@@ -1,0 +1,222 @@
+import { moveSpeed } from './config.js';
+import { tryRespawns } from './spawn.js';
+import { finishMatch } from './scoring.js';
+import { evaluateMode, roundDeadlineTicks } from './modes.js';
+import { stepSteering, quantizedEventTime, normalizeDirection } from './movement.js';
+import { addTrail, clearTrail, setOwner, participantForOwner, pruneDisconnectedTerritory } from './territory.js';
+import { captureCandidates } from './capture.js';
+import { markDead, emitEvent } from './life.js';
+export function isProtected(match, p, eventTick = match.tick) {
+    return p.lifeState === 'ALIVE' && eventTick < p.protectedUntilTick && p.spawnCells.has(p.cellId) && match.owners[p.cellId] === p.slot + 1;
+}
+function trailTouchesHome(match, p) {
+    for (const cell of p.trailCells)
+        for (const neighbor of match.map.cells[cell].neighbors)
+            if (neighbor >= 0 && match.owners[neighbor] === p.slot + 1)
+                return true;
+    return false;
+}
+export function applySimultaneousCaptures(match, returners) {
+    const ordered = [...returners].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+    const candidates = new Map();
+    for (const p of ordered)
+        if (p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1)
+            candidates.set(p, captureCandidates(match, p));
+    if (!candidates.size)
+        return;
+    const connectedBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && p.trailCells.size && trailTouchesHome(match, p)));
+    const winners = new Map(), gained = new Map();
+    for (const [p, cells] of candidates)
+        for (const id of cells)
+            if (!winners.has(id))
+                winners.set(id, p);
+    // Freeze capture contacts before transferring ownership or closing anyone's trail.
+    // The winning captured cell cuts exposed enemy trails just like direct head contact.
+    const cuts = new Map();
+    for (const [id, attacker] of winners)
+        for (const victim of match.participants) {
+            if (victim !== attacker && victim.lifeState === 'ALIVE' && (match.trailMasks[id] & (1 << victim.slot))) {
+                const attackers = cuts.get(victim) ?? new Set();
+                attackers.add(attacker);
+                cuts.set(victim, attackers);
+            }
+        }
+    const lostTerritory = new Set(), territoryAttackers = new Map();
+    for (const [id, p] of winners) {
+        if (match.owners[id] !== p.slot + 1) {
+            gained.set(p, (gained.get(p) ?? 0) + 1);
+            const previous = participantForOwner(match, match.owners[id]);
+            if (previous) {
+                lostTerritory.add(previous);
+                const attackers = territoryAttackers.get(previous) ?? new Set();
+                attackers.add(p);
+                territoryAttackers.set(previous, attackers);
+            }
+        }
+        setOwner(match, id, p.slot + 1);
+    }
+    // Prune only after all simultaneous winners have been applied, never during transfer.
+    for (const p of lostTerritory)
+        pruneDisconnectedTerritory(match, p);
+    // A live excursion also needs a home attachment. Capturing its base (or the
+    // bridge that causes that base to be pruned) cuts it even without painting its trail.
+    for (const victim of lostTerritory)
+        if (connectedBefore.has(victim) && !trailTouchesHome(match, victim)) {
+            const attackers = cuts.get(victim) ?? new Set();
+            for (const attacker of territoryAttackers.get(victim))
+                attackers.add(attacker);
+            cuts.set(victim, attackers);
+        }
+    for (const p of candidates.keys()) {
+        clearTrail(match, p);
+        emitEvent(match, { type: 'CAPTURE', participantId: p.participantId, amount: gained.get(p) ?? 0 });
+    }
+    // All simultaneous claims remain resolved against the same base state. One death
+    // and one credited killer per victim, including attackers killed in this batch.
+    for (const victim of [...cuts.keys()].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))) {
+        const killer = [...cuts.get(victim)].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))[0];
+        markDead(match, victim, 'TRAIL_CUT', killer);
+    }
+}
+export function resolveAtTime(match, eventTick = match.tick, wallVictims = new Set()) {
+    for (let iteration = 0; iteration < 32; iteration++) {
+        const ordered = [...match.participants].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+        const alive = ordered.filter(p => p.lifeState === 'ALIVE');
+        const masks = match.trailMasks.slice(), pending = new Map();
+        for (const p of alive) {
+            if (!isProtected(match, p, eventTick))
+                p.protectedUntilTick = 0;
+            if (match.owners[p.cellId] !== p.slot + 1) {
+                p.protectedUntilTick = 0;
+                if (!p.trailCells.has(p.cellId))
+                    pending.set(p, p.cellId);
+                masks[p.cellId] |= 1 << p.slot;
+            }
+        }
+        const deaths = new Map();
+        for (const attacker of alive) {
+            if (isProtected(match, attacker, eventTick))
+                continue;
+            for (const victim of alive)
+                if (victim !== attacker && (masks[attacker.cellId] & (1 << victim.slot))) {
+                    const attackers = deaths.get(victim) ?? [];
+                    attackers.push(attacker);
+                    deaths.set(victim, attackers);
+                }
+        }
+        for (const [victim, attackers] of deaths) {
+            attackers.sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+            markDead(match, victim, 'TRAIL_CUT', attackers[0]);
+        }
+        let wallDeaths = 0;
+        for (const p of alive)
+            if (wallVictims.has(p.participantId) && markDead(match, p, 'WALL_HIT'))
+                wallDeaths++;
+        for (const [p, id] of pending)
+            if (p.lifeState === 'ALIVE')
+                addTrail(match, p, id);
+        const returners = ordered.filter(p => p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1);
+        applySimultaneousCaptures(match, returners);
+        let territoryDeaths = 0;
+        for (const p of ordered)
+            if (p.lifeState === 'ALIVE' && p.territoryCount === 0) {
+                markDead(match, p, 'TERRITORY_LOST');
+                territoryDeaths++;
+            }
+        if (!deaths.size && !pending.size && !returners.length && !territoryDeaths && !wallDeaths) {
+            const outcome = evaluateMode(match, eventTick);
+            if (outcome)
+                finishMatch(match, outcome);
+            return;
+        }
+    }
+    throw new Error('Derived event limit');
+}
+export function advanceMovement(match, inputs = new Map()) {
+    if (match.phase !== 'RUNNING')
+        return;
+    const motions = new Map(), entries = [], wallEntries = [];
+    const distance = moveSpeed(match.config) / match.config.simulationHz;
+    for (const p of match.participants) {
+        if (p.lifeState !== 'ALIVE')
+            continue;
+        const input = inputs.get(p.participantId);
+        if (input && input.matchId === match.matchId && input.lifeId === p.lifeId && Number.isSafeInteger(input.seq) && input.seq > p.lastAppliedInputSeq) {
+            const direction = normalizeDirection(input.dx, input.dy);
+            if (direction)
+                p.targetDirection = direction;
+            if (Number.isFinite(input.dx) && Number.isFinite(input.dy))
+                p.lastAppliedInputSeq = input.seq;
+        }
+        const start = { ...p.position }, movement = stepSteering(match.map, start, p.cellId, p.direction, p.targetDirection, match.config);
+        p.direction = movement.direction;
+        const delta = { x: p.direction.x * distance, y: p.direction.y * distance };
+        const stopT = movement.blocked ? Math.min(1, Math.hypot(movement.position.x - start.x, movement.position.y - start.y) / distance) : 1;
+        motions.set(p.participantId, { start, delta, movement, lifeId: p.lifeId, stopT });
+        for (const e of movement.entries)
+            entries.push({ participantId: p.participantId, lifeId: p.lifeId, cellId: e.cellId, t: e.t, time: quantizedEventTime(e.t, match.config.simulationHz) });
+        if (movement.boundaryT !== null)
+            wallEntries.push({ participantId: p.participantId, lifeId: p.lifeId, cellId: movement.cellId, t: movement.boundaryT, time: quantizedEventTime(movement.boundaryT, match.config.simulationHz) });
+    }
+    entries.sort((a, b) => a.time - b.time);
+    const groups = new Map([[0, []]]);
+    for (const e of entries) {
+        const group = groups.get(e.time) ?? [];
+        group.push(e);
+        groups.set(e.time, group);
+    }
+    for (const e of wallEntries)
+        if (!groups.has(e.time))
+            groups.set(e.time, []);
+    const modeDeadlines = new Map();
+    for (const hold of match.modeState.holds) {
+        const fraction = hold.endsAtTick - match.tick;
+        if (fraction >= 0 && fraction <= 1) {
+            const time = quantizedEventTime(fraction, match.config.simulationHz);
+            groups.set(time, groups.get(time) ?? []);
+            modeDeadlines.set(time, Math.min(modeDeadlines.get(time) ?? fraction, fraction));
+        }
+    }
+    const deadline = roundDeadlineTicks(match), finalTick = deadline !== null && match.tick + 1 >= deadline;
+    for (const [time, group] of [...groups].sort((a, b) => a[0] - b[0])) {
+        if (match.phase !== 'RUNNING')
+            break;
+        if (finalTick && time >= quantizedEventTime(1, match.config.simulationHz))
+            continue;
+        const fraction = modeDeadlines.get(time) ?? Math.min(1, time * match.config.simulationHz / 1e6);
+        for (const p of match.participants) {
+            const motion = motions.get(p.participantId);
+            if (motion && p.lifeState === 'ALIVE' && p.lifeId === motion.lifeId) {
+                const t = Math.min(fraction, motion.stopT);
+                p.position = { x: motion.start.x + motion.delta.x * t, y: motion.start.y + motion.delta.y * t };
+            }
+        }
+        for (const e of group) {
+            const p = match.participants.find(p => p.participantId === e.participantId);
+            if (p && p.lifeState === 'ALIVE' && p.lifeId === e.lifeId)
+                p.cellId = e.cellId;
+        }
+        const walls = new Set(wallEntries.filter(e => e.time === time && match.participants.some(p => p.participantId === e.participantId && p.lifeId === e.lifeId && p.lifeState === 'ALIVE')).map(e => e.participantId));
+        // The time key is quantized; preserve the exact inside-boundary impact position.
+        for (const p of match.participants)
+            if (walls.has(p.participantId))
+                p.position = { ...motions.get(p.participantId).movement.position };
+        resolveAtTime(match, match.tick + fraction, walls);
+    }
+    if (match.phase === 'RUNNING')
+        for (const p of match.participants) {
+            const motion = motions.get(p.participantId);
+            if (motion && p.lifeState === 'ALIVE' && p.lifeId === motion.lifeId)
+                p.position = { ...motion.movement.position };
+        }
+}
+export function stepMatch(match, inputs = new Map()) {
+    if (match.phase !== 'RUNNING')
+        return;
+    tryRespawns(match);
+    advanceMovement(match, inputs);
+    match.tick++;
+    const outcome = evaluateMode(match);
+    if (outcome)
+        finishMatch(match, outcome);
+}

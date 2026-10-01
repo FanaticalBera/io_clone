@@ -1,0 +1,43 @@
+import {createMatch,stepMatch,buildView} from '../shared/game.js';
+import {botSpecs,createBotMemory,getBotInput,observeBot,type BotMemory} from '../shared/bot.js';
+import type {MatchState,MatchView,Vec,DirectionInput} from '../shared/model.js';
+import type {GameConfig} from '../shared/config.js';
+import type {GameModeConfig} from '../shared/modes.js';
+export class PracticeSession {
+ readonly selfId='local-human';readonly match:MatchState;
+ private memories=new Map<string,BotMemory>();private direction:Vec|null=null;private seq=0;
+ private frame=0;private lastTime:number|null=null;private accumulated=0;private disposed=false;private paused=false;
+ private visibility=()=>{this.lastTime=null;this.accumulated=0;};
+ constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig}={}){
+  const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed;
+  this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(7,1,matchId)],matchId,options.gameMode);
+  for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
+  this.publish(buildView(this.match),this.selfId);
+  if(options.autoStart!==false){
+   document.addEventListener('visibilitychange',this.visibility);const loop=(time:number)=>{if(this.disposed)return;this.advance(time);this.frame=requestAnimationFrame(loop);};this.frame=requestAnimationFrame(loop);
+  }
+ }
+ setDirection(direction:Vec):void {this.direction={...direction};}
+ setPaused(paused:boolean):void {this.paused=paused;this.lastTime=null;this.accumulated=0;}
+ advance(now:number):void {
+  if(this.disposed||this.paused||(typeof document!=='undefined'&&document.hidden)||this.match.phase!=='RUNNING'){this.lastTime=now;return;}
+  if(this.lastTime===null){this.lastTime=now;return;}
+  const delta=(now-this.lastTime)/1000;this.lastTime=now;
+  if(delta<0||delta>1){this.accumulated=0;return;}this.accumulated+=delta;
+  const step=1/this.match.config.simulationHz;let count=0;
+  while(this.accumulated+1e-9>=step&&count<5&&this.match.phase==='RUNNING'){
+   const inputs=new Map<string,DirectionInput>();
+   const human=this.match.participants.find(p=>p.participantId===this.selfId)!;
+   if(this.direction&&human.lifeState==='ALIVE')inputs.set(this.selfId,{matchId:this.match.matchId,lifeId:human.lifeId,seq:++this.seq,dx:this.direction.x,dy:this.direction.y});
+   for(const p of this.match.participants)if(p.kind==='BOT'&&p.lifeState==='ALIVE'){
+    const input=getBotInput(observeBot(this.match,p.participantId),this.memories.get(p.participantId)!);if(input)inputs.set(p.participantId,input);
+   }
+   const lifeId=human.lifeId;stepMatch(this.match,inputs);
+   if(human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}
+   this.accumulated-=step;count++;
+  }
+  if(count)this.publish(buildView(this.match),this.selfId);
+ }
+ dispose():void {this.disposed=true;if(typeof cancelAnimationFrame!=='undefined')cancelAnimationFrame(this.frame);if(typeof document!=='undefined')document.removeEventListener('visibilitychange',this.visibility);this.memories.clear();}
+}
+

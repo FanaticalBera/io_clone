@@ -1,0 +1,15 @@
+{
+  "url": "http://192.168.137.1:3003",
+  "protocolVersion": 3,
+  "moveCellsPerSecond": 4.2,
+  "turnRadiansPerSecond": 6,
+  "initial": {"x": -0.5, "y": 0.8660254037844387},
+  "target": {"x": -0.8660254037844387, "y": -0.5},
+  "actualAtFirstAcknowledgedSnapshot": {"x": -0.9016625334706188, "y": 0.4324403724623145},
+  "lastAppliedInputSeq": 1,
+  "matchId": "5869619f-52b4-484a-8484-add368a79947:round:1",
+  "httpStatus": 200,
+  "asset": "/assets/index-B_3o3K4g.js",
+  "cleanup": "room:leave and socket disconnect; empty-room TTL applies",
+  "scope": "Live server protocol and steering verification; not physical-phone subjective acceptance"
+}

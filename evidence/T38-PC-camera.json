@@ -1,0 +1,18 @@
+[
+  {
+    "mode": "practice",
+    "frames": 29,
+    "sampleMs": 1247.300000011921,
+    "maxCenterError": 5.684341886080802e-14,
+    "maxExcessMovement": -2.8555282420027552,
+    "condition": "Actual Phaser camera sampled in automated headless Chromium; continuity proof, not physical GPU FPS acceptance"
+  },
+  {
+    "mode": "online",
+    "frames": 29,
+    "sampleMs": 1245.199999988079,
+    "maxCenterError": 5.684341886080802e-14,
+    "maxExcessMovement": -7.999999999999893,
+    "condition": "Actual Phaser camera sampled in automated headless Chromium; continuity proof, not physical GPU FPS acceptance"
+  }
+]

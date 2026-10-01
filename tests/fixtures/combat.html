@@ -1,0 +1,27 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/src/client/style.css"></head><body><div id="app"></div><script type="module">
+import {UI} from '/src/client/ui.ts';
+import {createRenderer} from '/src/client/game-scene.ts';
+import {createMatch,buildView} from '/src/shared/game.ts';
+import {setOwner,neutralizeTerritory,addTrail} from '/src/shared/territory.ts';
+import {applySimultaneousCaptures,resolveAtTime,stepMatch} from '/src/shared/engine.ts';
+import {packSnapshot,unpackSnapshot} from '/src/shared/protocol.ts';
+import {SettingsStore} from '/src/client/settings.ts';
+import {KillHaptics} from '/src/client/haptics.ts';
+const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
+const ui=new UI({practice(){},leave(){},restart(){},testVibration:()=>haptics.kill()},settings),scene=createRenderer('field');scene.setKillFeedback(()=>haptics.kill());
+const m=createMatch({},4,[{participantId:'a',slot:0,nickname:'플레이어',kind:'HUMAN'},{participantId:'b',slot:6,nickname:'상대',kind:'BOT'}]);
+const [a,b]=m.participants,id=(q,r)=>m.map.byKey.get(q+','+r);let seq=0;
+for(const p of m.participants){neutralizeTerritory(m,p);p.protectedUntilTick=0;p.spawnCells.clear();}
+setOwner(m,id(0,-1),a.slot+1);a.cellId=id(0,-1);a.position={...m.map.cells[a.cellId].center};
+for(const q of [-3,-2,-1,0,1])setOwner(m,id(q,0),b.slot+1);b.cellId=id(-2,0);b.position={...m.map.cells[b.cellId].center};
+const show=(reset=false)=>{const view=unpackSnapshot(packSnapshot(buildView(m),++seq,performance.now(),a.participantId));scene.setView(view,a.participantId,true,reset);scene.freezePresentation();ui.updateView(view,a.participantId);};
+ui.showGame('ONLINE');show(true);
+window.fixture={scene,m,show,id,
+ freezeImpact(){return new Promise(resolve=>scene.game.events.once('postrender',()=>{scene.game.loop.sleep();resolve();}));},
+ resume(){scene.game.loop.wake();},
+ split(){addTrail(m,a,id(0,0));applySimultaneousCaptures(m,[a]);m.tick++;show();},
+ kill(){a.cellId=id(1,0);a.position={...m.map.cells[a.cellId].center};addTrail(m,b,a.cellId);resolveAtTime(m);m.tick++;show();},
+ mutual(){a.cellId=id(-1,0);b.cellId=id(0,0);for(const p of [a,b])p.position={...m.map.cells[p.cellId].center};addTrail(m,a,b.cellId);addTrail(m,b,a.cellId);resolveAtTime(m);m.tick++;show();},
+ wall(){a.cellId=id(22,0);a.position={...m.map.cells[a.cellId].center};a.position.x+=Math.sqrt(3)*16-1;a.direction={x:1,y:0};stepMatch(m);show();}
+};
+</script></body></html>

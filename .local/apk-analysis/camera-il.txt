@@ -1,0 +1,1962 @@
+CONST Game::StringEmpty = 
+CONST Game::scaleInc = 1
+CONST Game::leaderboard0 = 43-00-67-00-6B-00-49-00-5F-00-49-00-4B-00-30-00-6A-00-72-00-55-00-4E-00-45-00-41-00-49-00-51-00-42-00-51-00
+CONST Game::leaderboard1 = 78-00-78-00-78-00
+METHOD Game::UIShowControlSelection
+ IL_0000 ldarg.0 
+ IL_0001 ldfld Game::ControlSelectionScreen
+ IL_0006 ldc.i4.1 
+ IL_0007 callvirt UnityEngine.GameObject::SetActive
+ IL_000C ldarg.0 
+ IL_000D ldfld Game::ControlType
+ IL_0012 ldc.i4.m1 
+ IL_0013 bne.un IL_0029
+ IL_0018 ldarg.0 
+ IL_0019 ldfld Game::ControlSettingsOKBtn
+ IL_001E ldc.i4.0 
+ IL_001F callvirt UnityEngine.GameObject::SetActive
+ IL_0024 br IL_0035
+ IL_0029 ldarg.0 
+ IL_002A ldfld Game::ControlSettingsOKBtn
+ IL_002F ldc.i4.1 
+ IL_0030 callvirt UnityEngine.GameObject::SetActive
+ IL_0035 ldarg.0 
+ IL_0036 ldfld Game::SwipeSelectedShow
+ IL_003B ldc.i4.0 
+ IL_003C callvirt UnityEngine.GameObject::SetActive
+ IL_0041 ldarg.0 
+ IL_0042 ldfld Game::LeftJoystick2SelectedShow
+ IL_0047 ldc.i4.0 
+ IL_0048 callvirt UnityEngine.GameObject::SetActive
+ IL_004D ldarg.0 
+ IL_004E ldfld Game::RightJoystick2SelectedShow
+ IL_0053 ldc.i4.0 
+ IL_0054 callvirt UnityEngine.GameObject::SetActive
+ IL_0059 ldarg.0 
+ IL_005A ldfld Game::ControlType
+ IL_005F stloc.0 
+ IL_0060 ldloc.0 
+ IL_0061 switch IL_0083,IL_008E,IL_0099,IL_00A4,IL_00AF,IL_00BA
+ IL_007E br IL_00C5
+ IL_0083 ldarg.0 
+ IL_0084 call Game::UISwipeSelected
+ IL_0089 br IL_00C5
+ IL_008E ldarg.0 
+ IL_008F call Game::UILeftJoystickSelected
+ IL_0094 br IL_00C5
+ IL_0099 ldarg.0 
+ IL_009A call Game::UIRightJoystickSelected
+ IL_009F br IL_00C5
+ IL_00A4 ldarg.0 
+ IL_00A5 call Game::UILeftJoystick2Selected
+ IL_00AA br IL_00C5
+ IL_00AF ldarg.0 
+ IL_00B0 call Game::UIRightJoystick2Selected
+ IL_00B5 br IL_00C5
+ IL_00BA ldarg.0 
+ IL_00BB call Game::UIPointSelected
+ IL_00C0 br IL_00C5
+ IL_00C5 ldarg.0 
+ IL_00C6 ldfld Game::TitleUI
+ IL_00CB ldc.i4.0 
+ IL_00CC callvirt UnityEngine.GameObject::SetActive
+ IL_00D1 ret 
+METHOD Game::UISwipeSelected
+ IL_0000 ldarg.0 
+ IL_0001 ldc.i4.0 
+ IL_0002 stfld Game::ControlType
+ IL_0007 ldarg.0 
+ IL_0008 ldfld Game::SwipeSelectedShow
+ IL_000D ldc.i4.1 
+ IL_000E callvirt UnityEngine.GameObject::SetActive
+ IL_0013 ldarg.0 
+ IL_0014 ldfld Game::LeftJoystick2SelectedShow
+ IL_0019 ldc.i4.0 
+ IL_001A callvirt UnityEngine.GameObject::SetActive
+ IL_001F ldarg.0 
+ IL_0020 ldfld Game::RightJoystick2SelectedShow
+ IL_0025 ldc.i4.0 
+ IL_0026 callvirt UnityEngine.GameObject::SetActive
+ IL_002B ldarg.0 
+ IL_002C ldfld Game::ControlSettingsOKBtn
+ IL_0031 ldc.i4.1 
+ IL_0032 callvirt UnityEngine.GameObject::SetActive
+ IL_0037 ret 
+METHOD Game::RecViewportSize
+ IL_0000 ldarg.0 
+ IL_0001 call UnityEngine.Camera::get_main
+ IL_0006 callvirt UnityEngine.Camera::get_orthographicSize
+ IL_000B call UnityEngine.Camera::get_main
+ IL_0010 callvirt UnityEngine.Camera::get_aspect
+ IL_0015 mul 
+ IL_0016 conv.i4 
+ IL_0017 ldc.i4.2 
+ IL_0018 add 
+ IL_0019 stfld Game::visSizeH
+ IL_001E ldarg.0 
+ IL_001F call UnityEngine.Camera::get_main
+ IL_0024 callvirt UnityEngine.Camera::get_orthographicSize
+ IL_0029 conv.i4 
+ IL_002A ldc.i4.2 
+ IL_002B add 
+ IL_002C stfld Game::visSizeV
+ IL_0031 ldarg.0 
+ IL_0032 call Game::RecalcVisibleBounds
+ IL_0037 ret 
+METHOD Game::RecalcVisibleBounds
+ IL_0000 ldarg.0 
+ IL_0001 ldfld Game::LocalPlayer
+ IL_0006 brtrue IL_000C
+ IL_000B ret 
+ IL_000C ldarg.0 
+ IL_000D ldarg.0 
+ IL_000E ldfld Game::LocalPlayer
+ IL_0013 ldflda Player::MapPosition
+ IL_0018 ldfld Point::X
+ IL_001D ldarg.0 
+ IL_001E ldfld Game::visSizeH
+ IL_0023 sub 
+ IL_0024 ldc.i4.2 
+ IL_0025 sub 
+ IL_0026 stfld Game::_x1
+ IL_002B ldarg.0 
+ IL_002C ldfld Game::_x1
+ IL_0031 ldc.i4.0 
+ IL_0032 bge IL_003E
+ IL_0037 ldarg.0 
+ IL_0038 ldc.i4.0 
+ IL_0039 stfld Game::_x1
+ IL_003E ldarg.0 
+ IL_003F ldarg.0 
+ IL_0040 ldfld Game::LocalPlayer
+ IL_0045 ldflda Player::MapPosition
+ IL_004A ldfld Point::X
+ IL_004F ldarg.0 
+ IL_0050 ldfld Game::visSizeH
+ IL_0055 add 
+ IL_0056 ldc.i4.2 
+ IL_0057 add 
+ IL_0058 stfld Game::_x2
+ IL_005D ldarg.0 
+ IL_005E ldfld Game::_x2
+ IL_0063 ldsfld Settings::WorldSize
+ IL_0068 blt IL_007A
+ IL_006D ldarg.0 
+ IL_006E ldsfld Settings::WorldSize
+ IL_0073 ldc.i4.1 
+ IL_0074 sub 
+ IL_0075 stfld Game::_x2
+ IL_007A ldarg.0 
+ IL_007B ldarg.0 
+ IL_007C ldfld Game::LocalPlayer
+ IL_0081 ldflda Player::MapPosition
+ IL_0086 ldfld Point::Y
+ IL_008B ldarg.0 
+ IL_008C ldfld Game::visSizeV
+ IL_0091 sub 
+ IL_0092 ldc.i4.2 
+ IL_0093 sub 
+ IL_0094 stfld Game::_y1
+ IL_0099 ldarg.0 
+ IL_009A ldfld Game::_y1
+ IL_009F ldc.i4.0 
+ IL_00A0 bge IL_00AC
+ IL_00A5 ldarg.0 
+ IL_00A6 ldc.i4.0 
+ IL_00A7 stfld Game::_y1
+ IL_00AC ldarg.0 
+ IL_00AD ldarg.0 
+ IL_00AE ldfld Game::LocalPlayer
+ IL_00B3 ldflda Player::MapPosition
+ IL_00B8 ldfld Point::Y
+ IL_00BD ldarg.0 
+ IL_00BE ldfld Game::visSizeV
+ IL_00C3 add 
+ IL_00C4 ldc.i4.2 
+ IL_00C5 add 
+ IL_00C6 stfld Game::_y2
+ IL_00CB ldarg.0 
+ IL_00CC ldfld Game::_y2
+ IL_00D1 ldsfld Settings::WorldSize
+ IL_00D6 blt IL_00E8
+ IL_00DB ldarg.0 
+ IL_00DC ldsfld Settings::WorldSize
+ IL_00E1 ldc.i4.1 
+ IL_00E2 sub 
+ IL_00E3 stfld Game::_y2
+ IL_00E8 ret 
+METHOD Game::Render
+ IL_0000 ldc.i4.0 
+ IL_0001 stloc.0 
+ IL_0002 br IL_00A1
+ IL_0007 ldc.i4.0 
+ IL_0008 stloc.1 
+ IL_0009 br IL_0095
+ IL_000E ldsfld Settings::WorldSizeHalf
+ IL_0013 neg 
+ IL_0014 conv.r4 
+ IL_0015 ldloc.1 
+ IL_0016 conv.r4 
+ IL_0017 ldarg.0 
+ IL_0018 ldfld Game::wx
+ IL_001D mul 
+ IL_001E add 
+ IL_001F stloc.2 
+ IL_0020 ldsfld Settings::WorldSizeHalf
+ IL_0025 neg 
+ IL_0026 conv.r4 
+ IL_0027 ldloc.0 
+ IL_0028 conv.r4 
+ IL_0029 ldarg.0 
+ IL_002A ldfld Game::wy
+ IL_002F mul 
+ IL_0030 add 
+ IL_0031 stloc.3 
+ IL_0032 ldc.r4 0
+ IL_0037 stloc.s 4
+ IL_0039 ldloc.1 
+ IL_003A conv.r4 
+ IL_003B ldarg.0 
+ IL_003C ldfld Game::corrx
+ IL_0041 mul 
+ IL_0042 stloc.s 5
+ IL_0044 ldloc.1 
+ IL_0045 ldc.i4.2 
+ IL_0046 rem 
+ IL_0047 brtrue IL_0053
+ IL_004C ldc.r4 0.5
+ IL_0051 stloc.s 4
+ IL_0053 ldarg.0 
+ IL_0054 ldarg.0 
+ IL_0055 ldfld Game::QuadMesh
+ IL_005A ldloc.2 
+ IL_005B ldloc.s 5
+ IL_005D sub 
+ IL_005E ldarg.0 
+ IL_005F ldfld Game::gx
+ IL_0064 add 
+ IL_0065 ldloc.3 
+ IL_0066 ldloc.s 4
+ IL_0068 add 
+ IL_0069 newobj UnityEngine.Vector2::.ctor
+ IL_006E call UnityEngine.Vector2::op_Implicit
+ IL_0073 ldarg.0 
+ IL_0074 ldfld Game::BGMaterial
+ IL_0079 ldc.i4.0 
+ IL_007A ldc.i4.0 
+ IL_007B ldc.r4 0
+ IL_0080 ldarg.0 
+ IL_0081 ldfld Game::wx
+ IL_0086 ldarg.0 
+ IL_0087 ldfld Game::wy
+ IL_008C call Game::DrawBlock
+ IL_0091 ldloc.1 
+ IL_0092 ldc.i4.1 
+ IL_0093 add 
+ IL_0094 stloc.1 
+ IL_0095 ldloc.1 
+ IL_0096 ldc.i4.s 14
+ IL_0098 ble IL_000E
+ IL_009D ldloc.0 
+ IL_009E ldc.i4.1 
+ IL_009F add 
+ IL_00A0 stloc.0 
+ IL_00A1 ldloc.0 
+ IL_00A2 ldc.i4.s 13
+ IL_00A4 blt IL_0007
+ IL_00A9 ldarg.0 
+ IL_00AA ldfld Game::_x1
+ IL_00AF stloc.s 6
+ IL_00B1 br IL_0411
+ IL_00B6 ldarg.0 
+ IL_00B7 ldfld Game::_y1
+ IL_00BC stloc.s 7
+ IL_00BE br IL_03FE
+ IL_00C3 ldarg.0 
+ IL_00C4 ldfld Game::Map
+ IL_00C9 ldloc.s 6
+ IL_00CB ldloc.s 7
+ IL_00CD call TypeSpecification::Get
+ IL_00D2 stloc.s 8
+ IL_00D4 ldloc.s 8
+ IL_00D6 brtrue IL_00E6
+ IL_00DB ldstr "oops9"
+ IL_00E0 call UnityEngine.Debug::Log
+ IL_00E5 ret 
+ IL_00E6 ldloc.s 8
+ IL_00E8 ldfld Place::Owner
+ IL_00ED stloc.s 9
+ IL_00EF ldloc.s 9
+ IL_00F1 brfalse IL_02B9
+ IL_00F6 ldloc.s 8
+ IL_00F8 ldfld Place::RenderedAmount
+ IL_00FD ldc.r4 1
+ IL_0102 blt.un IL_0111
+ IL_0107 ldsfld Settings::HideBase
+ IL_010C brtrue IL_0111
+ IL_0111 ldloc.s 8
+ IL_0113 ldfld Place::RenderedAmount
+ IL_0118 ldc.r4 1
+ IL_011D bge.un IL_01CF
+ IL_0122 ldsfld Settings::DisableAppearAnimation
+ IL_0127 brtrue IL_01AF
+ IL_012C ldloc.s 8
+ IL_012E ldfld Place::RenderedAmount
+ IL_0133 ldc.r4 0
+ IL_0138 ble.un IL_01AF
+ IL_013D ldarg.0 
+ IL_013E ldarg.0 
+ IL_013F ldfld Game::QuadMesh
+ IL_0144 ldloc.s 8
+ IL_0146 ldflda Place::Position
+ IL_014B ldfld UnityEngine.Vector2::x
+ IL_0150 ldloc.s 6
+ IL_0152 conv.r4 
+ IL_0153 ldarg.0 
+ IL_0154 ldfld Game::deltaX
+ IL_0159 mul 
+ IL_015A sub 
+ IL_015B ldloc.s 8
+ IL_015D ldflda Place::Position
+ IL_0162 ldfld UnityEngine.Vector2::y
+ IL_0167 newobj UnityEngine.Vector2::.ctor
+ IL_016C call UnityEngine.Vector2::op_Implicit
+ IL_0171 ldarg.0 
+ IL_0172 ldfld Game::AppearMaterials
+ IL_0177 ldloc.s 8
+ IL_0179 ldfld Place::Owner
+ IL_017E ldfld Player::TrailColorId
+ IL_0183 ldelem.ref 
+ IL_0184 ldc.i4.s -2
+ IL_0186 ldc.i4.0 
+ IL_0187 ldloc.s 8
+ IL_0189 ldfld Place::RenderedAmount
+ IL_018E ldloc.s 8
+ IL_0190 ldfld Place::RenderedAmount
+ IL_0195 ldarg.0 
+ IL_0196 ldfld Game::scaleX
+ IL_019B mul 
+ IL_019C ldloc.s 8
+ IL_019E ldfld Place::RenderedAmount
+ IL_01A3 ldarg.0 
+ IL_01A4 ldfld Game::scaleY
+ IL_01A9 mul 
+ IL_01AA call Game::DrawBlock
+ IL_01AF ldloc.s 8
+ IL_01B1 dup 
+ IL_01B2 ldfld Place::RenderedAmount
+ IL_01B7 call UnityEngine.Time::get_deltaTime
+ IL_01BC ldloc.s 8
+ IL_01BE ldfld Place::RenderSpeed
+ IL_01C3 mul 
+ IL_01C4 add 
+ IL_01C5 stfld Place::RenderedAmount
+ IL_01CA br IL_02B9
+ IL_01CF ldloc.s 8
+ IL_01D1 ldc.r4 1
+ IL_01D6 stfld Place::RenderedAmount
+ IL_01DB ldsfld Settings::HideBase
+ IL_01E0 brtrue IL_02B9
+ IL_01E5 ldloc.s 6
+ IL_01E7 ldc.i4.2 
+ IL_01E8 rem 
+ IL_01E9 brtrue IL_0253
+ IL_01EE ldarg.0 
+ IL_01EF ldarg.0 
+ IL_01F0 ldfld Game::QuadMesh
+ IL_01F5 ldloc.s 8
+ IL_01F7 ldflda Place::Position
+ IL_01FC ldfld UnityEngine.Vector2::x
+ IL_0201 ldloc.s 6
+ IL_0203 conv.r4 
+ IL_0204 ldarg.0 
+ IL_0205 ldfld Game::deltaX
+ IL_020A mul 
+ IL_020B sub 
+ IL_020C ldloc.s 8
+ IL_020E ldflda Place::Position
+ IL_0213 ldfld UnityEngine.Vector2::y
+ IL_0218 newobj UnityEngine.Vector2::.ctor
+ IL_021D call UnityEngine.Vector2::op_Implicit
+ IL_0222 ldarg.0 
+ IL_0223 ldfld Game::BlockMaterials
+ IL_0228 ldloc.s 8
+ IL_022A ldfld Place::Owner
+ IL_022F ldfld Player::TrailColorId
+ IL_0234 ldelem.ref 
+ IL_0235 ldc.i4.s -2
+ IL_0237 ldc.i4.0 
+ IL_0238 ldc.r4 0
+ IL_023D ldarg.0 
+ IL_023E ldfld Game::scaleX
+ IL_0243 ldarg.0 
+ IL_0244 ldfld Game::scaleY
+ IL_0249 call Game::DrawBlock
+ IL_024E br IL_02B9
+ IL_0253 ldarg.0 
+ IL_0254 ldarg.0 
+ IL_0255 ldfld Game::QuadMesh
+ IL_025A ldloc.s 8
+ IL_025C ldflda Place::Position
+ IL_0261 ldfld UnityEngine.Vector2::x
+ IL_0266 ldloc.s 6
+ IL_0268 conv.r4 
+ IL_0269 ldarg.0 
+ IL_026A ldfld Game::deltaX
+ IL_026F mul 
+ IL_0270 sub 
+ IL_0271 ldloc.s 8
+ IL_0273 ldflda Place::Position
+ IL_0278 ldfld UnityEngine.Vector2::y
+ IL_027D ldc.r4 0.5
+ IL_0282 sub 
+ IL_0283 newobj UnityEngine.Vector2::.ctor
+ IL_0288 call UnityEngine.Vector2::op_Implicit
+ IL_028D ldarg.0 
+ IL_028E ldfld Game::BlockMaterials
+ IL_0293 ldloc.s 8
+ IL_0295 ldfld Place::Owner
+ IL_029A ldfld Player::TrailColorId
+ IL_029F ldelem.ref 
+ IL_02A0 ldc.i4.s -2
+ IL_02A2 ldc.i4.0 
+ IL_02A3 ldc.r4 0
+ IL_02A8 ldarg.0 
+ IL_02A9 ldfld Game::scaleX
+ IL_02AE ldarg.0 
+ IL_02AF ldfld Game::scaleY
+ IL_02B4 call Game::DrawBlock
+ IL_02B9 ldsfld Settings::DisableDieAnimation
+ IL_02BE brtrue IL_03F8
+ IL_02C3 ldloc.s 8
+ IL_02C5 ldfld Place::ZombieRenderedAmount
+ IL_02CA ldc.r4 0
+ IL_02CF ble.un IL_03F8
+ IL_02D4 ldloc.s 8
+ IL_02D6 ldfld Place::ZombieType
+ IL_02DB ldc.i4.1 
+ IL_02DC bne.un IL_0369
+ IL_02E1 ldarg.0 
+ IL_02E2 ldarg.0 
+ IL_02E3 ldfld Game::QuadMesh
+ IL_02E8 ldloc.s 8
+ IL_02EA ldflda Place::Position
+ IL_02EF ldfld UnityEngine.Vector2::x
+ IL_02F4 ldloc.s 6
+ IL_02F6 conv.r4 
+ IL_02F7 ldarg.0 
+ IL_02F8 ldfld Game::deltaX
+ IL_02FD mul 
+ IL_02FE sub 
+ IL_02FF ldloc.s 8
+ IL_0301 ldflda Place::Position
+ IL_0306 ldfld UnityEngine.Vector2::y
+ IL_030B newobj UnityEngine.Vector2::.ctor
+ IL_0310 call UnityEngine.Vector2::op_Implicit
+ IL_0315 ldarg.0 
+ IL_0316 ldfld Game::AppearMaterials
+ IL_031B ldloc.s 8
+ IL_031D ldfld Place::ZombieSkinId
+ IL_0322 ldelem.ref 
+ IL_0323 ldc.i4.m1 
+ IL_0324 ldc.i4.0 
+ IL_0325 ldc.r4 0
+ IL_032A ldloc.s 8
+ IL_032C ldfld Place::ZombieRenderedAmount
+ IL_0331 ldarg.0 
+ IL_0332 ldfld Game::scaleX
+ IL_0337 mul 
+ IL_0338 ldloc.s 8
+ IL_033A ldfld Place::ZombieRenderedAmount
+ IL_033F ldarg.0 
+ IL_0340 ldfld Game::scaleY
+ IL_0345 mul 
+ IL_0346 call Game::DrawBlock
+ IL_034B ldloc.s 8
+ IL_034D dup 
+ IL_034E ldfld Place::ZombieRenderedAmount
+ IL_0353 call UnityEngine.Time::get_deltaTime
+ IL_0358 ldsfld Settings::DisappearSpeed
+ IL_035D mul 
+ IL_035E sub 
+ IL_035F stfld Place::ZombieRenderedAmount
+ IL_0364 br IL_03F8
+ IL_0369 ldloc.s 8
+ IL_036B ldfld Place::ZombieType
+ IL_0370 ldc.i4.2 
+ IL_0371 bne.un IL_03F8
+ IL_0376 ldloc.s 8
+ IL_0378 ldfld Place::ZombieRenderedAmount
+ IL_037D ldc.r4 1
+ IL_0382 blt.un IL_03DF
+ IL_0387 ldarg.0 
+ IL_0388 ldarg.0 
+ IL_0389 ldfld Game::QuadMesh
+ IL_038E ldloc.s 8
+ IL_0390 ldflda Place::Position
+ IL_0395 ldfld UnityEngine.Vector2::x
+ IL_039A ldloc.s 6
+ IL_039C conv.r4 
+ IL_039D ldarg.0 
+ IL_039E ldfld Game::deltaX
+ IL_03A3 mul 
+ IL_03A4 sub 
+ IL_03A5 ldloc.s 8
+ IL_03A7 ldflda Place::Position
+ IL_03AC ldfld UnityEngine.Vector2::y
+ IL_03B1 newobj UnityEngine.Vector2::.ctor
+ IL_03B6 call UnityEngine.Vector2::op_Implicit
+ IL_03BB ldarg.0 
+ IL_03BC ldfld Game::AppearMaterials
+ IL_03C1 ldloc.s 8
+ IL_03C3 ldfld Place::ZombieSkinId
+ IL_03C8 ldelem.ref 
+ IL_03C9 ldc.i4.m1 
+ IL_03CA ldc.i4.0 
+ IL_03CB ldc.r4 0
+ IL_03D0 ldc.r4 1
+ IL_03D5 ldc.r4 1
+ IL_03DA call Game::DrawBlock
+ IL_03DF ldloc.s 8
+ IL_03E1 dup 
+ IL_03E2 ldfld Place::ZombieRenderedAmount
+ IL_03E7 call UnityEngine.Time::get_deltaTime
+ IL_03EC ldsfld Settings::TailDisappearSpeed
+ IL_03F1 mul 
+ IL_03F2 sub 
+ IL_03F3 stfld Place::ZombieRenderedAmount
+ IL_03F8 ldloc.s 7
+ IL_03FA ldc.i4.1 
+ IL_03FB add 
+ IL_03FC stloc.s 7
+ IL_03FE ldloc.s 7
+ IL_0400 ldarg.0 
+ IL_0401 ldfld Game::_y2
+ IL_0406 ble IL_00C3
+ IL_040B ldloc.s 6
+ IL_040D ldc.i4.1 
+ IL_040E add 
+ IL_040F stloc.s 6
+ IL_0411 ldloc.s 6
+ IL_0413 ldarg.0 
+ IL_0414 ldfld Game::_x2
+ IL_0419 ble IL_00B6
+ IL_041E ldsfld Settings::HideBorder
+ IL_0423 brtrue IL_0DA1
+ IL_0428 ldarg.0 
+ IL_0429 ldfld Game::LocalPlayer
+ IL_042E ldflda Player::WorldPosition
+ IL_0433 ldfld UnityEngine.Vector2::x
+ IL_0438 ldarg.0 
+ IL_0439 ldfld Game::visSizeH
+ IL_043E conv.r4 
+ IL_043F sub 
+ IL_0440 ldc.r4 4
+ IL_0445 sub 
+ IL_0446 conv.i4 
+ IL_0447 stloc.s 10
+ IL_0449 ldarg.0 
+ IL_044A ldfld Game::LocalPlayer
+ IL_044F ldflda Player::WorldPosition
+ IL_0454 ldfld UnityEngine.Vector2::x
+ IL_0459 ldarg.0 
+ IL_045A ldfld Game::visSizeH
+ IL_045F conv.r4 
+ IL_0460 add 
+ IL_0461 ldc.r4 4
+ IL_0466 add 
+ IL_0467 conv.i4 
+ IL_0468 stloc.s 11
+ IL_046A ldarg.0 
+ IL_046B ldfld Game::LocalPlayer
+ IL_0470 ldflda Player::WorldPosition
+ IL_0475 ldfld UnityEngine.Vector2::y
+ IL_047A ldarg.0 
+ IL_047B ldfld Game::visSizeV
+ IL_0480 conv.r4 
+ IL_0481 sub 
+ IL_0482 ldc.r4 4
+ IL_0487 sub 
+ IL_0488 conv.i4 
+ IL_0489 stloc.s 12
+ IL_048B ldarg.0 
+ IL_048C ldfld Game::LocalPlayer
+ IL_0491 ldflda Player::WorldPosition
+ IL_0496 ldfld UnityEngine.Vector2::y
+ IL_049B ldarg.0 
+ IL_049C ldfld Game::visSizeV
+ IL_04A1 conv.r4 
+ IL_04A2 add 
+ IL_04A3 ldc.r4 4
+ IL_04A8 add 
+ IL_04A9 conv.i4 
+ IL_04AA stloc.s 13
+ IL_04AC ldarg.0 
+ IL_04AD ldfld Game::LocalPlayer
+ IL_04B2 ldflda Player::WorldPosition
+ IL_04B7 ldfld UnityEngine.Vector2::y
+ IL_04BC ldsfld Settings::WorldSizeHalf
+ IL_04C1 neg 
+ IL_04C2 ldarg.0 
+ IL_04C3 ldfld Game::visSizeV
+ IL_04C8 add 
+ IL_04C9 ldc.i4.1 
+ IL_04CA add 
+ IL_04CB conv.r4 
+ IL_04CC bgt.un IL_0746
+ IL_04D1 ldsfld Settings::WorldSizeHalf
+ IL_04D6 neg 
+ IL_04D7 ldc.i4.2 
+ IL_04D8 sub 
+ IL_04D9 stloc.s 14
+ IL_04DB br IL_073A
+ IL_04E0 ldloc.s 14
+ IL_04E2 ldloc.s 10
+ IL_04E4 blt IL_0734
+ IL_04E9 ldloc.s 14
+ IL_04EB ldloc.s 11
+ IL_04ED bgt IL_0734
+ IL_04F2 ldloc.s 14
+ IL_04F4 ldc.i4.2 
+ IL_04F5 rem 
+ IL_04F6 brtrue IL_0617
+ IL_04FB ldarg.0 
+ IL_04FC ldarg.0 
+ IL_04FD ldfld Game::QuadMesh
+ IL_0502 ldc.r4 0.435
+ IL_0507 ldloc.s 14
+ IL_0509 conv.r4 
+ IL_050A add 
+ IL_050B ldsfld Settings::WorldSizeHalf
+ IL_0510 ldloc.s 14
+ IL_0512 add 
+ IL_0513 conv.r4 
+ IL_0514 ldarg.0 
+ IL_0515 ldfld Game::deltaX
+ IL_051A mul 
+ IL_051B sub 
+ IL_051C ldsfld Settings::WorldSizeHalf
+ IL_0521 neg 
+ IL_0522 conv.r4 
+ IL_0523 ldc.r4 1.5
+ IL_0528 sub 
+ IL_0529 newobj UnityEngine.Vector2::.ctor
+ IL_052E call UnityEngine.Vector2::op_Implicit
+ IL_0533 ldarg.0 
+ IL_0534 ldfld Game::BorderMaterial1
+ IL_0539 ldc.i4.s -3
+ IL_053B ldc.i4 180
+ IL_0540 ldc.r4 0
+ IL_0545 ldc.r4 2.05
+ IL_054A ldc.r4 2.05
+ IL_054F call Game::DrawBlock
+ IL_0554 ldarg.0 
+ IL_0555 ldarg.0 
+ IL_0556 ldfld Game::QuadMesh
+ IL_055B ldc.r4 0.435
+ IL_0560 ldloc.s 14
+ IL_0562 conv.r4 
+ IL_0563 add 
+ IL_0564 ldsfld Settings::WorldSizeHalf
+ IL_0569 ldloc.s 14
+ IL_056B add 
+ IL_056C conv.r4 
+ IL_056D ldarg.0 
+ IL_056E ldfld Game::deltaX
+ IL_0573 mul 
+ IL_0574 sub 
+ IL_0575 ldsfld Settings::WorldSizeHalf
+ IL_057A neg 
+ IL_057B conv.r4 
+ IL_057C ldc.r4 1.5
+ IL_0581 sub 
+ IL_0582 ldc.r4 3.02
+ IL_0587 sub 
+ IL_0588 newobj UnityEngine.Vector2::.ctor
+ IL_058D call UnityEngine.Vector2::op_Implicit
+ IL_0592 ldarg.0 
+ IL_0593 ldfld Game::BorderMaterial1
+ IL_0598 ldc.i4.s -3
+ IL_059A ldc.i4 180
+ IL_059F ldc.r4 0
+ IL_05A4 ldc.r4 2.05
+ IL_05A9 ldc.r4 2.05
+ IL_05AE call Game::DrawBlock
+ IL_05B3 ldarg.0 
+ IL_05B4 ldarg.0 
+ IL_05B5 ldfld Game::QuadMesh
+ IL_05BA ldc.r4 0.435
+ IL_05BF ldloc.s 14
+ IL_05C1 conv.r4 
+ IL_05C2 add 
+ IL_05C3 ldsfld Settings::WorldSizeHalf
+ IL_05C8 ldloc.s 14
+ IL_05CA add 
+ IL_05CB conv.r4 
+ IL_05CC ldarg.0 
+ IL_05CD ldfld Game::deltaX
+ IL_05D2 mul 
+ IL_05D3 sub 
+ IL_05D4 ldsfld Settings::WorldSizeHalf
+ IL_05D9 neg 
+ IL_05DA conv.r4 
+ IL_05DB ldc.r4 1.5
+ IL_05E0 sub 
+ IL_05E1 ldc.r4 6.04
+ IL_05E6 sub 
+ IL_05E7 newobj UnityEngine.Vector2::.ctor
+ IL_05EC call UnityEngine.Vector2::op_Implicit
+ IL_05F1 ldarg.0 
+ IL_05F2 ldfld Game::BorderMaterial1
+ IL_05F7 ldc.i4.s -3
+ IL_05F9 ldc.i4 180
+ IL_05FE ldc.r4 0
+ IL_0603 ldc.r4 2.05
+ IL_0608 ldc.r4 2.05
+ IL_060D call Game::DrawBlock
+ IL_0612 br IL_0734
+ IL_0617 ldarg.0 
+ IL_0618 ldarg.0 
+ IL_0619 ldfld Game::QuadMesh
+ IL_061E ldc.r4 0.425
+ IL_0623 ldloc.s 14
+ IL_0625 conv.r4 
+ IL_0626 add 
+ IL_0627 ldsfld Settings::WorldSizeHalf
+ IL_062C ldloc.s 14
+ IL_062E add 
+ IL_062F conv.r4 
+ IL_0630 ldarg.0 
+ IL_0631 ldfld Game::deltaX
+ IL_0636 mul 
+ IL_0637 sub 
+ IL_0638 ldsfld Settings::WorldSizeHalf
+ IL_063D neg 
+ IL_063E conv.r4 
+ IL_063F ldc.r4 1.5
+ IL_0644 sub 
+ IL_0645 ldc.r4 1.51
+ IL_064A sub 
+ IL_064B newobj UnityEngine.Vector2::.ctor
+ IL_0650 call UnityEngine.Vector2::op_Implicit
+ IL_0655 ldarg.0 
+ IL_0656 ldfld Game::BorderMaterial1
+ IL_065B ldc.i4.s -3
+ IL_065D ldc.i4 180
+ IL_0662 ldc.r4 0
+ IL_0667 ldc.r4 2.05
+ IL_066C ldc.r4 2.05
+ IL_0671 call Game::DrawBlock
+ IL_0676 ldarg.0 
+ IL_0677 ldarg.0 
+ IL_0678 ldfld Game::QuadMesh
+ IL_067D ldc.r4 0.425
+ IL_0682 ldloc.s 14
+ IL_0684 conv.r4 
+ IL_0685 add 
+ IL_0686 ldsfld Settings::WorldSizeHalf
+ IL_068B ldloc.s 14
+ IL_068D add 
+ IL_068E conv.r4 
+ IL_068F ldarg.0 
+ IL_0690 ldfld Game::deltaX
+ IL_0695 mul 
+ IL_0696 sub 
+ IL_0697 ldsfld Settings::WorldSizeHalf
+ IL_069C neg 
+ IL_069D conv.r4 
+ IL_069E ldc.r4 1.5
+ IL_06A3 sub 
+ IL_06A4 ldc.r4 4.53
+ IL_06A9 sub 
+ IL_06AA newobj UnityEngine.Vector2::.ctor
+ IL_06AF call UnityEngine.Vector2::op_Implicit
+ IL_06B4 ldarg.0 
+ IL_06B5 ldfld Game::BorderMaterial1
+ IL_06BA ldc.i4.s -3
+ IL_06BC ldc.i4 180
+ IL_06C1 ldc.r4 0
+ IL_06C6 ldc.r4 2.05
+ IL_06CB ldc.r4 2.05
+ IL_06D0 call Game::DrawBlock
+ IL_06D5 ldarg.0 
+ IL_06D6 ldarg.0 
+ IL_06D7 ldfld Game::QuadMesh
+ IL_06DC ldc.r4 0.425
+ IL_06E1 ldloc.s 14
+ IL_06E3 conv.r4 
+ IL_06E4 add 
+ IL_06E5 ldsfld Settings::WorldSizeHalf
+ IL_06EA ldloc.s 14
+ IL_06EC add 
+ IL_06ED conv.r4 
+ IL_06EE ldarg.0 
+ IL_06EF ldfld Game::deltaX
+ IL_06F4 mul 
+ IL_06F5 sub 
+ IL_06F6 ldsfld Settings::WorldSizeHalf
+ IL_06FB neg 
+ IL_06FC conv.r4 
+ IL_06FD ldc.r4 1.5
+ IL_0702 sub 
+ IL_0703 ldc.r4 7.55
+ IL_0708 sub 
+ IL_0709 newobj UnityEngine.Vector2::.ctor
+ IL_070E call UnityEngine.Vector2::op_Implicit
+ IL_0713 ldarg.0 
+ IL_0714 ldfld Game::BorderMaterial1
+ IL_0719 ldc.i4.s -3
+ IL_071B ldc.i4 180
+ IL_0720 ldc.r4 0
+ IL_0725 ldc.r4 2.05
+ IL_072A ldc.r4 2.05
+ IL_072F call Game::DrawBlock
+ IL_0734 ldloc.s 14
+ IL_0736 ldc.i4.1 
+ IL_0737 add 
+ IL_0738 stloc.s 14
+ IL_073A ldloc.s 14
+ IL_073C ldsfld Settings::WorldSizeHalf
+ IL_0741 blt IL_04E0
+ IL_0746 ldarg.0 
+ IL_0747 ldfld Game::LocalPlayer
+ IL_074C ldflda Player::WorldPosition
+ IL_0751 ldfld UnityEngine.Vector2::y
+ IL_0756 ldsfld Settings::WorldSizeHalf
+ IL_075B ldarg.0 
+ IL_075C ldfld Game::visSizeV
+ IL_0761 sub 
+ IL_0762 ldc.i4.1 
+ IL_0763 sub 
+ IL_0764 conv.r4 
+ IL_0765 blt.un IL_0A32
+ IL_076A ldsfld Settings::WorldSizeHalf
+ IL_076F neg 
+ IL_0770 ldc.i4.2 
+ IL_0771 sub 
+ IL_0772 stloc.s 15
+ IL_0774 br IL_0A26
+ IL_0779 ldloc.s 15
+ IL_077B ldloc.s 10
+ IL_077D blt IL_0A20
+ IL_0782 ldloc.s 15
+ IL_0784 ldloc.s 11
+ IL_0786 bgt IL_0A20
+ IL_078B ldloc.s 15
+ IL_078D ldc.i4.2 
+ IL_078E rem 
+ IL_078F brtrue IL_0906
+ IL_0794 ldarg.0 
+ IL_0795 ldarg.0 
+ IL_0796 ldfld Game::QuadMesh
+ IL_079B ldc.r4 0.435
+ IL_07A0 ldloc.s 15
+ IL_07A2 conv.r4 
+ IL_07A3 add 
+ IL_07A4 ldsfld Settings::WorldSizeHalf
+ IL_07A9 ldloc.s 15
+ IL_07AB add 
+ IL_07AC conv.r4 
+ IL_07AD ldarg.0 
+ IL_07AE ldfld Game::deltaX
+ IL_07B3 mul 
+ IL_07B4 sub 
+ IL_07B5 ldsfld Settings::WorldSizeHalf
+ IL_07BA conv.r4 
+ IL_07BB ldc.r4 0.5
+ IL_07C0 add 
+ IL_07C1 newobj UnityEngine.Vector2::.ctor
+ IL_07C6 call UnityEngine.Vector2::op_Implicit
+ IL_07CB ldarg.0 
+ IL_07CC ldfld Game::BorderMaterial1
+ IL_07D1 ldc.i4.s -3
+ IL_07D3 ldc.i4 180
+ IL_07D8 ldc.r4 0
+ IL_07DD ldc.r4 2.05
+ IL_07E2 ldc.r4 2.05
+ IL_07E7 call Game::DrawBlock
+ IL_07EC ldarg.0 
+ IL_07ED ldarg.0 
+ IL_07EE ldfld Game::QuadMesh
+ IL_07F3 ldc.r4 0.435
+ IL_07F8 ldloc.s 15
+ IL_07FA conv.r4 
+ IL_07FB add 
+ IL_07FC ldc.r4 1
+ IL_0801 add 
+ IL_0802 ldsfld Settings::WorldSizeHalf
+ IL_0807 ldloc.s 15
+ IL_0809 add 
+ IL_080A ldc.i4.1 
+ IL_080B add 
+ IL_080C conv.r4 
+ IL_080D ldarg.0 
+ IL_080E ldfld Game::deltaX
+ IL_0813 mul 
+ IL_0814 sub 
+ IL_0815 ldsfld Settings::WorldSizeHalf
+ IL_081A conv.r4 
+ IL_081B newobj UnityEngine.Vector2::.ctor
+ IL_0820 call UnityEngine.Vector2::op_Implicit
+ IL_0825 ldarg.0 
+ IL_0826 ldfld Game::BorderMaterial1
+ IL_082B ldc.i4.m1 
+ IL_082C ldc.i4 180
+ IL_0831 ldc.r4 0
+ IL_0836 ldc.r4 2.05
+ IL_083B ldc.r4 2.05
+ IL_0840 call Game::DrawBlock
+ IL_0845 ldarg.0 
+ IL_0846 ldarg.0 
+ IL_0847 ldfld Game::QuadMesh
+ IL_084C ldc.r4 0.435
+ IL_0851 ldloc.s 15
+ IL_0853 conv.r4 
+ IL_0854 add 
+ IL_0855 ldsfld Settings::WorldSizeHalf
+ IL_085A ldloc.s 15
+ IL_085C add 
+ IL_085D conv.r4 
+ IL_085E ldarg.0 
+ IL_085F ldfld Game::deltaX
+ IL_0864 mul 
+ IL_0865 sub 
+ IL_0866 ldsfld Settings::WorldSizeHalf
+ IL_086B conv.r4 
+ IL_086C ldc.r4 0.5
+ IL_0871 add 
+ IL_0872 ldc.r4 3.02
+ IL_0877 add 
+ IL_0878 newobj UnityEngine.Vector2::.ctor
+ IL_087D call UnityEngine.Vector2::op_Implicit
+ IL_0882 ldarg.0 
+ IL_0883 ldfld Game::BorderMaterial1
+ IL_0888 ldc.i4.s -3
+ IL_088A ldc.i4 180
+ IL_088F ldc.r4 0
+ IL_0894 ldc.r4 2.05
+ IL_0899 ldc.r4 2.05
+ IL_089E call Game::DrawBlock
+ IL_08A3 ldarg.0 
+ IL_08A4 ldarg.0 
+ IL_08A5 ldfld Game::QuadMesh
+ IL_08AA ldc.r4 0.435
+ IL_08AF ldloc.s 15
+ IL_08B1 conv.r4 
+ IL_08B2 add 
+ IL_08B3 ldsfld Settings::WorldSizeHalf
+ IL_08B8 ldloc.s 15
+ IL_08BA add 
+ IL_08BB conv.r4 
+ IL_08BC ldarg.0 
+ IL_08BD ldfld Game::deltaX
+ IL_08C2 mul 
+ IL_08C3 sub 
+ IL_08C4 ldsfld Settings::WorldSizeHalf
+ IL_08C9 conv.r4 
+ IL_08CA ldc.r4 0.5
+ IL_08CF add 
+ IL_08D0 ldc.r4 6.04
+ IL_08D5 add 
+ IL_08D6 newobj UnityEngine.Vector2::.ctor
+ IL_08DB call UnityEngine.Vector2::op_Implicit
+ IL_08E0 ldarg.0 
+ IL_08E1 ldfld Game::BorderMaterial1
+ IL_08E6 ldc.i4.s -3
+ IL_08E8 ldc.i4 180
+ IL_08ED ldc.r4 0
+ IL_08F2 ldc.r4 2.05
+ IL_08F7 ldc.r4 2.05
+ IL_08FC call Game::DrawBlock
+ IL_0901 br IL_0A20
+ IL_0906 ldarg.0 
+ IL_0907 ldarg.0 
+ IL_0908 ldfld Game::QuadMesh
+ IL_090D ldc.r4 0.425
+ IL_0912 ldloc.s 15
+ IL_0914 conv.r4 
+ IL_0915 add 
+ IL_0916 ldsfld Settings::WorldSizeHalf
+ IL_091B ldloc.s 15
+ IL_091D add 
+ IL_091E conv.r4 
+ IL_091F ldarg.0 
+ IL_0920 ldfld Game::deltaX
+ IL_0925 mul 
+ IL_0926 sub 
+ IL_0927 ldsfld Settings::WorldSizeHalf
+ IL_092C conv.r4 
+ IL_092D ldc.r4 0.5
+ IL_0932 add 
+ IL_0933 ldc.r4 1.51
+ IL_0938 add 
+ IL_0939 newobj UnityEngine.Vector2::.ctor
+ IL_093E call UnityEngine.Vector2::op_Implicit
+ IL_0943 ldarg.0 
+ IL_0944 ldfld Game::BorderMaterial1
+ IL_0949 ldc.i4.s -3
+ IL_094B ldc.i4 180
+ IL_0950 ldc.r4 0
+ IL_0955 ldc.r4 2.05
+ IL_095A ldc.r4 2.05
+ IL_095F call Game::DrawBlock
+ IL_0964 ldarg.0 
+ IL_0965 ldarg.0 
+ IL_0966 ldfld Game::QuadMesh
+ IL_096B ldc.r4 0.425
+ IL_0970 ldloc.s 15
+ IL_0972 conv.r4 
+ IL_0973 add 
+ IL_0974 ldsfld Settings::WorldSizeHalf
+ IL_0979 ldloc.s 15
+ IL_097B add 
+ IL_097C conv.r4 
+ IL_097D ldarg.0 
+ IL_097E ldfld Game::deltaX
+ IL_0983 mul 
+ IL_0984 sub 
+ IL_0985 ldsfld Settings::WorldSizeHalf
+ IL_098A conv.r4 
+ IL_098B ldc.r4 0.5
+ IL_0990 add 
+ IL_0991 ldc.r4 4.53
+ IL_0996 add 
+ IL_0997 newobj UnityEngine.Vector2::.ctor
+ IL_099C call UnityEngine.Vector2::op_Implicit
+ IL_09A1 ldarg.0 
+ IL_09A2 ldfld Game::BorderMaterial1
+ IL_09A7 ldc.i4.s -3
+ IL_09A9 ldc.i4 180
+ IL_09AE ldc.r4 0
+ IL_09B3 ldc.r4 2.05
+ IL_09B8 ldc.r4 2.05
+ IL_09BD call Game::DrawBlock
+ IL_09C2 ldarg.0 
+ IL_09C3 ldarg.0 
+ IL_09C4 ldfld Game::QuadMesh
+ IL_09C9 ldc.r4 0.425
+ IL_09CE ldloc.s 15
+ IL_09D0 conv.r4 
+ IL_09D1 add 
+ IL_09D2 ldsfld Settings::WorldSizeHalf
+ IL_09D7 ldloc.s 15
+ IL_09D9 add 
+ IL_09DA conv.r4 
+ IL_09DB ldarg.0 
+ IL_09DC ldfld Game::deltaX
+ IL_09E1 mul 
+ IL_09E2 sub 
+ IL_09E3 ldsfld Settings::WorldSizeHalf
+ IL_09E8 conv.r4 
+ IL_09E9 ldc.r4 0.5
+ IL_09EE add 
+ IL_09EF ldc.r4 7.55
+ IL_09F4 add 
+ IL_09F5 newobj UnityEngine.Vector2::.ctor
+ IL_09FA call UnityEngine.Vector2::op_Implicit
+ IL_09FF ldarg.0 
+ IL_0A00 ldfld Game::BorderMaterial1
+ IL_0A05 ldc.i4.s -3
+ IL_0A07 ldc.i4 180
+ IL_0A0C ldc.r4 0
+ IL_0A11 ldc.r4 2.05
+ IL_0A16 ldc.r4 2.05
+ IL_0A1B call Game::DrawBlock
+ IL_0A20 ldloc.s 15
+ IL_0A22 ldc.i4.1 
+ IL_0A23 add 
+ IL_0A24 stloc.s 15
+ IL_0A26 ldloc.s 15
+ IL_0A28 ldsfld Settings::WorldSizeHalf
+ IL_0A2D blt IL_0779
+ IL_0A32 ldarg.0 
+ IL_0A33 ldfld Game::LocalPlayer
+ IL_0A38 ldflda Player::WorldPosition
+ IL_0A3D ldfld UnityEngine.Vector2::x
+ IL_0A42 ldsfld Settings::WorldSizeHalf
+ IL_0A47 neg 
+ IL_0A48 ldarg.0 
+ IL_0A49 ldfld Game::visSizeH
+ IL_0A4E add 
+ IL_0A4F ldc.i4.1 
+ IL_0A50 add 
+ IL_0A51 conv.r4 
+ IL_0A52 bgt.un IL_0BCA
+ IL_0A57 ldsfld Settings::WorldSizeHalf
+ IL_0A5C neg 
+ IL_0A5D ldc.i4.s 11
+ IL_0A5F sub 
+ IL_0A60 stloc.s 16
+ IL_0A62 br IL_0BBB
+ IL_0A67 ldloc.s 16
+ IL_0A69 ldloc.s 12
+ IL_0A6B blt IL_0BB5
+ IL_0A70 ldloc.s 16
+ IL_0A72 ldloc.s 13
+ IL_0A74 bgt IL_0BB5
+ IL_0A79 ldloc.s 16
+ IL_0A7B ldc.i4.2 
+ IL_0A7C rem 
+ IL_0A7D brtrue IL_0B13
+ IL_0A82 ldarg.0 
+ IL_0A83 ldarg.0 
+ IL_0A84 ldfld Game::QuadMesh
+ IL_0A89 ldsfld Settings::WorldSizeHalf
+ IL_0A8E neg 
+ IL_0A8F ldc.i4.1 
+ IL_0A90 sub 
+ IL_0A91 conv.r4 
+ IL_0A92 ldc.r4 0.29
+ IL_0A97 sub 
+ IL_0A98 ldloc.s 16
+ IL_0A9A conv.r4 
+ IL_0A9B newobj UnityEngine.Vector2::.ctor
+ IL_0AA0 call UnityEngine.Vector2::op_Implicit
+ IL_0AA5 ldarg.0 
+ IL_0AA6 ldfld Game::BorderMaterial1
+ IL_0AAB ldc.i4.s -2
+ IL_0AAD ldc.i4.0 
+ IL_0AAE ldc.r4 0
+ IL_0AB3 ldc.r4 2
+ IL_0AB8 ldc.r4 2
+ IL_0ABD call Game::DrawBlock
+ IL_0AC2 ldarg.0 
+ IL_0AC3 ldarg.0 
+ IL_0AC4 ldfld Game::QuadMesh
+ IL_0AC9 ldsfld Settings::WorldSizeHalf
+ IL_0ACE neg 
+ IL_0ACF ldc.i4.1 
+ IL_0AD0 sub 
+ IL_0AD1 conv.r4 
+ IL_0AD2 ldc.r4 0.29
+ IL_0AD7 sub 
+ IL_0AD8 ldc.r4 2.55
+ IL_0ADD sub 
+ IL_0ADE ldloc.s 16
+ IL_0AE0 conv.r4 
+ IL_0AE1 ldc.r4 0.5
+ IL_0AE6 add 
+ IL_0AE7 newobj UnityEngine.Vector2::.ctor
+ IL_0AEC call UnityEngine.Vector2::op_Implicit
+ IL_0AF1 ldarg.0 
+ IL_0AF2 ldfld Game::BorderMaterial1
+ IL_0AF7 ldc.i4.s -2
+ IL_0AF9 ldc.i4.0 
+ IL_0AFA ldc.r4 0
+ IL_0AFF ldc.r4 2
+ IL_0B04 ldc.r4 2
+ IL_0B09 call Game::DrawBlock
+ IL_0B0E br IL_0BB5
+ IL_0B13 ldarg.0 
+ IL_0B14 ldarg.0 
+ IL_0B15 ldfld Game::QuadMesh
+ IL_0B1A ldsfld Settings::WorldSizeHalf
+ IL_0B1F neg 
+ IL_0B20 ldc.i4.1 
+ IL_0B21 sub 
+ IL_0B22 conv.r4 
+ IL_0B23 ldc.r4 0.14
+ IL_0B28 sub 
+ IL_0B29 ldc.r4 1
+ IL_0B2E sub 
+ IL_0B2F ldloc.s 16
+ IL_0B31 ldc.i4.2 
+ IL_0B32 add 
+ IL_0B33 conv.r4 
+ IL_0B34 newobj UnityEngine.Vector2::.ctor
+ IL_0B39 call UnityEngine.Vector2::op_Implicit
+ IL_0B3E ldarg.0 
+ IL_0B3F ldfld Game::BorderMaterial1
+ IL_0B44 ldc.i4.s -2
+ IL_0B46 ldc.i4 180
+ IL_0B4B ldc.r4 0
+ IL_0B50 ldc.r4 2
+ IL_0B55 ldc.r4 2
+ IL_0B5A call Game::DrawBlock
+ IL_0B5F ldarg.0 
+ IL_0B60 ldarg.0 
+ IL_0B61 ldfld Game::QuadMesh
+ IL_0B66 ldsfld Settings::WorldSizeHalf
+ IL_0B6B neg 
+ IL_0B6C ldc.i4.1 
+ IL_0B6D sub 
+ IL_0B6E conv.r4 
+ IL_0B6F ldc.r4 0.14
+ IL_0B74 sub 
+ IL_0B75 ldc.r4 1
+ IL_0B7A sub 
+ IL_0B7B ldc.r4 2.55
+ IL_0B80 sub 
+ IL_0B81 ldloc.s 16
+ IL_0B83 conv.r4 
+ IL_0B84 ldc.r4 2.5
+ IL_0B89 add 
+ IL_0B8A newobj UnityEngine.Vector2::.ctor
+ IL_0B8F call UnityEngine.Vector2::op_Implicit
+ IL_0B94 ldarg.0 
+ IL_0B95 ldfld Game::BorderMaterial1
+ IL_0B9A ldc.i4.s -2
+ IL_0B9C ldc.i4 180
+ IL_0BA1 ldc.r4 0
+ IL_0BA6 ldc.r4 2
+ IL_0BAB ldc.r4 2
+ IL_0BB0 call Game::DrawBlock
+ IL_0BB5 ldloc.s 16
+ IL_0BB7 ldc.i4.1 
+ IL_0BB8 add 
+ IL_0BB9 stloc.s 16
+ IL_0BBB ldloc.s 16
+ IL_0BBD ldsfld Settings::WorldSizeHalf
+ IL_0BC2 ldc.i4.s 9
+ IL_0BC4 add 
+ IL_0BC5 blt IL_0A67
+ IL_0BCA ldarg.0 
+ IL_0BCB ldfld Game::LocalPlayer
+ IL_0BD0 ldflda Player::WorldPosition
+ IL_0BD5 ldfld UnityEngine.Vector2::x
+ IL_0BDA ldsfld Settings::WorldSizeHalf
+ IL_0BDF ldarg.0 
+ IL_0BE0 ldfld Game::visSizeH
+ IL_0BE5 sub 
+ IL_0BE6 ldc.i4.1 
+ IL_0BE7 sub 
+ IL_0BE8 conv.r4 
+ IL_0BE9 blt.un IL_0DA1
+ IL_0BEE ldsfld Settings::WorldSizeHalf
+ IL_0BF3 neg 
+ IL_0BF4 ldc.i4.s 9
+ IL_0BF6 sub 
+ IL_0BF7 stloc.s 17
+ IL_0BF9 br IL_0D92
+ IL_0BFE ldloc.s 17
+ IL_0C00 ldloc.s 12
+ IL_0C02 blt IL_0D8C
+ IL_0C07 ldloc.s 17
+ IL_0C09 ldloc.s 13
+ IL_0C0B bgt IL_0D8C
+ IL_0C10 ldloc.s 17
+ IL_0C12 ldc.i4.2 
+ IL_0C13 rem 
+ IL_0C14 brtrue IL_0CD0
+ IL_0C19 ldarg.0 
+ IL_0C1A ldarg.0 
+ IL_0C1B ldfld Game::QuadMesh
+ IL_0C20 ldsfld Settings::WorldSizeHalf
+ IL_0C25 ldc.i4.1 
+ IL_0C26 add 
+ IL_0C27 conv.r4 
+ IL_0C28 ldsfld Settings::WorldSize
+ IL_0C2D ldc.i4.1 
+ IL_0C2E add 
+ IL_0C2F conv.r4 
+ IL_0C30 ldarg.0 
+ IL_0C31 ldfld Game::deltaX
+ IL_0C36 mul 
+ IL_0C37 sub 
+ IL_0C38 ldc.r4 0.43
+ IL_0C3D sub 
+ IL_0C3E ldloc.s 17
+ IL_0C40 conv.r4 
+ IL_0C41 ldc.r4 0.5
+ IL_0C46 sub 
+ IL_0C47 newobj UnityEngine.Vector2::.ctor
+ IL_0C4C call UnityEngine.Vector2::op_Implicit
+ IL_0C51 ldarg.0 
+ IL_0C52 ldfld Game::BorderMaterial1
+ IL_0C57 ldc.i4.s -2
+ IL_0C59 ldc.i4 180
+ IL_0C5E ldc.r4 0
+ IL_0C63 ldc.r4 2
+ IL_0C68 ldc.r4 2
+ IL_0C6D call Game::DrawBlock
+ IL_0C72 ldarg.0 
+ IL_0C73 ldarg.0 
+ IL_0C74 ldfld Game::QuadMesh
+ IL_0C79 ldsfld Settings::WorldSizeHalf
+ IL_0C7E ldc.i4.1 
+ IL_0C7F add 
+ IL_0C80 conv.r4 
+ IL_0C81 ldsfld Settings::WorldSize
+ IL_0C86 ldc.i4.1 
+ IL_0C87 add 
+ IL_0C88 conv.r4 
+ IL_0C89 ldarg.0 
+ IL_0C8A ldfld Game::deltaX
+ IL_0C8F mul 
+ IL_0C90 sub 
+ IL_0C91 ldc.r4 0.43
+ IL_0C96 sub 
+ IL_0C97 ldc.r4 2.52
+ IL_0C9C add 
+ IL_0C9D ldloc.s 17
+ IL_0C9F conv.r4 
+ IL_0CA0 newobj UnityEngine.Vector2::.ctor
+ IL_0CA5 call UnityEngine.Vector2::op_Implicit
+ IL_0CAA ldarg.0 
+ IL_0CAB ldfld Game::BorderMaterial1
+ IL_0CB0 ldc.i4.s -2
+ IL_0CB2 ldc.i4 180
+ IL_0CB7 ldc.r4 0
+ IL_0CBC ldc.r4 2
+ IL_0CC1 ldc.r4 2
+ IL_0CC6 call Game::DrawBlock
+ IL_0CCB br IL_0D8C
+ IL_0CD0 ldarg.0 
+ IL_0CD1 ldarg.0 
+ IL_0CD2 ldfld Game::QuadMesh
+ IL_0CD7 ldsfld Settings::WorldSizeHalf
+ IL_0CDC ldc.i4.1 
+ IL_0CDD add 
+ IL_0CDE conv.r4 
+ IL_0CDF ldsfld Settings::WorldSize
+ IL_0CE4 ldc.i4.1 
+ IL_0CE5 add 
+ IL_0CE6 conv.r4 
+ IL_0CE7 ldarg.0 
+ IL_0CE8 ldfld Game::deltaX
+ IL_0CED mul 
+ IL_0CEE sub 
+ IL_0CEF ldc.r4 0.6
+ IL_0CF4 sub 
+ IL_0CF5 ldc.r4 1
+ IL_0CFA add 
+ IL_0CFB ldloc.s 17
+ IL_0CFD conv.r4 
+ IL_0CFE ldc.r4 1.5
+ IL_0D03 add 
+ IL_0D04 newobj UnityEngine.Vector2::.ctor
+ IL_0D09 call UnityEngine.Vector2::op_Implicit
+ IL_0D0E ldarg.0 
+ IL_0D0F ldfld Game::BorderMaterial1
+ IL_0D14 ldc.i4.s -2
+ IL_0D16 ldc.i4.0 
+ IL_0D17 ldc.r4 0
+ IL_0D1C ldc.r4 2
+ IL_0D21 ldc.r4 2
+ IL_0D26 call Game::DrawBlock
+ IL_0D2B ldarg.0 
+ IL_0D2C ldarg.0 
+ IL_0D2D ldfld Game::QuadMesh
+ IL_0D32 ldsfld Settings::WorldSizeHalf
+ IL_0D37 ldc.i4.1 
+ IL_0D38 add 
+ IL_0D39 conv.r4 
+ IL_0D3A ldsfld Settings::WorldSize
+ IL_0D3F ldc.i4.1 
+ IL_0D40 add 
+ IL_0D41 conv.r4 
+ IL_0D42 ldarg.0 
+ IL_0D43 ldfld Game::deltaX
+ IL_0D48 mul 
+ IL_0D49 sub 
+ IL_0D4A ldc.r4 0.6
+ IL_0D4F sub 
+ IL_0D50 ldc.r4 1
+ IL_0D55 add 
+ IL_0D56 ldc.r4 2.52
+ IL_0D5B add 
+ IL_0D5C ldloc.s 17
+ IL_0D5E conv.r4 
+ IL_0D5F ldc.r4 2
+ IL_0D64 add 
+ IL_0D65 newobj UnityEngine.Vector2::.ctor
+ IL_0D6A call UnityEngine.Vector2::op_Implicit
+ IL_0D6F ldarg.0 
+ IL_0D70 ldfld Game::BorderMaterial1
+ IL_0D75 ldc.i4.s -2
+ IL_0D77 ldc.i4.0 
+ IL_0D78 ldc.r4 0
+ IL_0D7D ldc.r4 2
+ IL_0D82 ldc.r4 2
+ IL_0D87 call Game::DrawBlock
+ IL_0D8C ldloc.s 17
+ IL_0D8E ldc.i4.1 
+ IL_0D8F add 
+ IL_0D90 stloc.s 17
+ IL_0D92 ldloc.s 17
+ IL_0D94 ldsfld Settings::WorldSizeHalf
+ IL_0D99 ldc.i4.s 9
+ IL_0D9B add 
+ IL_0D9C blt IL_0BFE
+ IL_0DA1 ldsfld Settings::HideTail
+ IL_0DA6 brtrue IL_0F5A
+ IL_0DAB ldc.i4.0 
+ IL_0DAC stloc.s 18
+ IL_0DAE br IL_0F4E
+ IL_0DB3 ldarg.0 
+ IL_0DB4 ldfld Game::Players
+ IL_0DB9 ldloc.s 18
+ IL_0DBB ldelem.ref 
+ IL_0DBC stloc.s 19
+ IL_0DBE ldloc.s 19
+ IL_0DC0 ldfld Player::IsAlive
+ IL_0DC5 brfalse IL_0F48
+ IL_0DCA ldloc.s 19
+ IL_0DCC ldfld Player::Steps
+ IL_0DD1 ldc.i4.0 
+ IL_0DD2 ble IL_0F48
+ IL_0DD7 ldloc.s 19
+ IL_0DD9 ldflda Player::BottomLeftEdge
+ IL_0DDE ldfld Point::X
+ IL_0DE3 stloc.s 20
+ IL_0DE5 br IL_0F35
+ IL_0DEA ldloc.s 19
+ IL_0DEC ldflda Player::BottomLeftEdge
+ IL_0DF1 ldfld Point::Y
+ IL_0DF6 ldc.i4.1 
+ IL_0DF7 sub 
+ IL_0DF8 stloc.s 21
+ IL_0DFA br IL_0F1A
+ IL_0DFF ldloc.s 20
+ IL_0E01 ldarg.0 
+ IL_0E02 ldfld Game::_x1
+ IL_0E07 blt IL_0E33
+ IL_0E0C ldloc.s 20
+ IL_0E0E ldarg.0 
+ IL_0E0F ldfld Game::_x2
+ IL_0E14 bgt IL_0E33
+ IL_0E19 ldloc.s 21
+ IL_0E1B ldarg.0 
+ IL_0E1C ldfld Game::_y1
+ IL_0E21 blt IL_0E33
+ IL_0E26 ldloc.s 21
+ IL_0E28 ldarg.0 
+ IL_0E29 ldfld Game::_y2
+ IL_0E2E ble IL_0E38
+ IL_0E33 br IL_0F14
+ IL_0E38 ldloc.s 19
+ IL_0E3A ldfld Player::Tail
+ IL_0E3F ldloc.s 20
+ IL_0E41 ldloc.s 21
+ IL_0E43 call TypeSpecification::Get
+ IL_0E48 stloc.s 22
+ IL_0E4A ldloc.s 22
+ IL_0E4C ldc.i4.0 
+ IL_0E4D ble IL_0F14
+ IL_0E52 ldarg.0 
+ IL_0E53 ldloc.s 20
+ IL_0E55 ldloc.s 21
+ IL_0E57 call Game::ApplyOffset
+ IL_0E5C stloc.s 23
+ IL_0E5E ldloc.s 20
+ IL_0E60 ldc.i4.2 
+ IL_0E61 rem 
+ IL_0E62 brtrue IL_0EBD
+ IL_0E67 ldarg.0 
+ IL_0E68 ldarg.0 
+ IL_0E69 ldfld Game::QuadMesh
+ IL_0E6E ldloca.s 23
+ IL_0E70 ldfld UnityEngine.Vector2::x
+ IL_0E75 ldloc.s 20
+ IL_0E77 conv.r4 
+ IL_0E78 ldarg.0 
+ IL_0E79 ldfld Game::deltaX
+ IL_0E7E mul 
+ IL_0E7F sub 
+ IL_0E80 ldloca.s 23
+ IL_0E82 ldfld UnityEngine.Vector2::y
+ IL_0E87 newobj UnityEngine.Vector2::.ctor
+ IL_0E8C call UnityEngine.Vector2::op_Implicit
+ IL_0E91 ldarg.0 
+ IL_0E92 ldfld Game::TailMaterialsH
+ IL_0E97 ldloc.s 19
+ IL_0E99 ldfld Player::TrailColorId
+ IL_0E9E ldelem.ref 
+ IL_0E9F ldc.i4.s -3
+ IL_0EA1 ldc.i4.0 
+ IL_0EA2 ldc.r4 0.2
+ IL_0EA7 ldarg.0 
+ IL_0EA8 ldfld Game::scaleX
+ IL_0EAD ldarg.0 
+ IL_0EAE ldfld Game::scaleY
+ IL_0EB3 call Game::DrawBlock
+ IL_0EB8 br IL_0F14
+ IL_0EBD ldarg.0 
+ IL_0EBE ldarg.0 
+ IL_0EBF ldfld Game::QuadMesh
+ IL_0EC4 ldloca.s 23
+ IL_0EC6 ldfld UnityEngine.Vector2::x
+ IL_0ECB ldloc.s 20
+ IL_0ECD conv.r4 
+ IL_0ECE ldarg.0 
+ IL_0ECF ldfld Game::deltaX
+ IL_0ED4 mul 
+ IL_0ED5 sub 
+ IL_0ED6 ldloca.s 23
+ IL_0ED8 ldfld UnityEngine.Vector2::y
+ IL_0EDD ldc.r4 0.5
+ IL_0EE2 sub 
+ IL_0EE3 newobj UnityEngine.Vector2::.ctor
+ IL_0EE8 call UnityEngine.Vector2::op_Implicit
+ IL_0EED ldarg.0 
+ IL_0EEE ldfld Game::TailMaterialsH
+ IL_0EF3 ldloc.s 19
+ IL_0EF5 ldfld Player::TrailColorId
+ IL_0EFA ldelem.ref 
+ IL_0EFB ldc.i4.s -3
+ IL_0EFD ldc.i4.0 
+ IL_0EFE ldc.r4 0.2
+ IL_0F03 ldarg.0 
+ IL_0F04 ldfld Game::scaleX
+ IL_0F09 ldarg.0 
+ IL_0F0A ldfld Game::scaleY
+ IL_0F0F call Game::DrawBlock
+ IL_0F14 ldloc.s 21
+ IL_0F16 ldc.i4.1 
+ IL_0F17 add 
+ IL_0F18 stloc.s 21
+ IL_0F1A ldloc.s 21
+ IL_0F1C ldloc.s 19
+ IL_0F1E ldflda Player::TopRightEdge
+ IL_0F23 ldfld Point::Y
+ IL_0F28 ldc.i4.1 
+ IL_0F29 add 
+ IL_0F2A ble IL_0DFF
+ IL_0F2F ldloc.s 20
+ IL_0F31 ldc.i4.1 
+ IL_0F32 add 
+ IL_0F33 stloc.s 20
+ IL_0F35 ldloc.s 20
+ IL_0F37 ldloc.s 19
+ IL_0F39 ldflda Player::TopRightEdge
+ IL_0F3E ldfld Point::X
+ IL_0F43 ble IL_0DEA
+ IL_0F48 ldloc.s 18
+ IL_0F4A ldc.i4.1 
+ IL_0F4B add 
+ IL_0F4C stloc.s 18
+ IL_0F4E ldloc.s 18
+ IL_0F50 ldsfld Settings::PlayersCount
+ IL_0F55 blt IL_0DB3
+ IL_0F5A ldc.i4.0 
+ IL_0F5B stloc.s 24
+ IL_0F5D br IL_1469
+ IL_0F62 ldarg.0 
+ IL_0F63 ldfld Game::Players
+ IL_0F68 ldloc.s 24
+ IL_0F6A ldelem.ref 
+ IL_0F6B stloc.s 25
+ IL_0F6D ldloc.s 25
+ IL_0F6F ldfld Player::IsAlive
+ IL_0F74 brfalse IL_1463
+ IL_0F79 ldloc.s 25
+ IL_0F7B ldflda Player::MapPosition
+ IL_0F80 ldfld Point::X
+ IL_0F85 stloc.s 26
+ IL_0F87 ldloc.s 25
+ IL_0F89 ldflda Player::MapPosition
+ IL_0F8E ldfld Point::Y
+ IL_0F93 stloc.s 27
+ IL_0F95 ldloc.s 26
+ IL_0F97 ldarg.0 
+ IL_0F98 ldfld Game::_x1
+ IL_0F9D blt IL_0FC9
+ IL_0FA2 ldloc.s 26
+ IL_0FA4 ldarg.0 
+ IL_0FA5 ldfld Game::_x2
+ IL_0FAA bgt IL_0FC9
+ IL_0FAF ldloc.s 27
+ IL_0FB1 ldarg.0 
+ IL_0FB2 ldfld Game::_y1
+ IL_0FB7 blt IL_0FC9
+ IL_0FBC ldloc.s 27
+ IL_0FBE ldarg.0 
+ IL_0FBF ldfld Game::_y2
+ IL_0FC4 ble IL_0FCE
+ IL_0FC9 br IL_1463
+ IL_0FCE ldloc.s 25
+ IL_0FD0 ldfld Player::FaceId
+ IL_0FD5 ldc.i4.s 42
+ IL_0FD7 bge IL_1043
+ IL_0FDC ldarg.0 
+ IL_0FDD ldarg.0 
+ IL_0FDE ldfld Game::QuadMesh
+ IL_0FE3 ldloc.s 25
+ IL_0FE5 ldflda Player::WorldPosition
+ IL_0FEA ldfld UnityEngine.Vector2::x
+ IL_0FEF ldarg.0 
+ IL_0FF0 ldfld Game::deltaX
+ IL_0FF5 ldloc.s 25
+ IL_0FF7 ldflda Player::WorldPosition
+ IL_0FFC ldfld UnityEngine.Vector2::x
+ IL_1001 ldsfld Settings::WorldSizeHalf
+ IL_1006 conv.r4 
+ IL_1007 add 
+ IL_1008 mul 
+ IL_1009 sub 
+ IL_100A ldloc.s 25
+ IL_100C ldflda Player::WorldPosition
+ IL_1011 ldfld UnityEngine.Vector2::y
+ IL_1016 newobj UnityEngine.Vector2::.ctor
+ IL_101B call UnityEngine.Vector2::op_Implicit
+ IL_1020 ldloc.s 25
+ IL_1022 ldfld Player::FaceMaterial
+ IL_1027 ldc.i4.s -8
+ IL_1029 ldc.i4.0 
+ IL_102A ldc.r4 0
+ IL_102F ldc.r4 1
+ IL_1034 ldc.r4 1
+ IL_1039 call Game::DrawBlock
+ IL_103E br IL_1320
+ IL_1043 ldloc.s 25
+ IL_1045 ldfld Player::FaceId
+ IL_104A ldc.i4.s 42
+ IL_104C bne.un IL_10BE
+ IL_1051 ldarg.0 
+ IL_1052 ldarg.0 
+ IL_1053 ldfld Game::QuadMesh
+ IL_1058 ldloc.s 25
+ IL_105A ldflda Player::WorldPosition
+ IL_105F ldfld UnityEngine.Vector2::x
+ IL_1064 ldarg.0 
+ IL_1065 ldfld Game::deltaX
+ IL_106A ldloc.s 25
+ IL_106C ldflda Player::WorldPosition
+ IL_1071 ldfld UnityEngine.Vector2::x
+ IL_1076 ldsfld Settings::WorldSizeHalf
+ IL_107B conv.r4 
+ IL_107C add 
+ IL_107D mul 
+ IL_107E sub 
+ IL_107F ldloc.s 25
+ IL_1081 ldflda Player::WorldPosition
+ IL_1086 ldfld UnityEngine.Vector2::y
+ IL_108B ldc.r4 0.3
+ IL_1090 add 
+ IL_1091 newobj UnityEngine.Vector2::.ctor
+ IL_1096 call UnityEngine.Vector2::op_Implicit
+ IL_109B ldloc.s 25
+ IL_109D ldfld Player::FaceMaterial
+ IL_10A2 ldc.i4.s -8
+ IL_10A4 ldc.i4.0 
+ IL_10A5 ldc.r4 0
+ IL_10AA ldc.r4 1.667
+ IL_10AF ldc.r4 1.4
+ IL_10B4 call Game::DrawBlock
+ IL_10B9 br IL_1320
+ IL_10BE ldloc.s 25
+ IL_10C0 ldfld Player::FaceId
+ IL_10C5 ldc.i4.s 43
+ IL_10C7 bne.un IL_1139
+ IL_10CC ldarg.0 
+ IL_10CD ldarg.0 
+ IL_10CE ldfld Game::QuadMesh
+ IL_10D3 ldloc.s 25
+ IL_10D5 ldflda Player::WorldPosition
+ IL_10DA ldfld UnityEngine.Vector2::x
+ IL_10DF ldarg.0 
+ IL_10E0 ldfld Game::deltaX
+ IL_10E5 ldloc.s 25
+ IL_10E7 ldflda Player::WorldPosition
+ IL_10EC ldfld UnityEngine.Vector2::x
+ IL_10F1 ldsfld Settings::WorldSizeHalf
+ IL_10F6 conv.r4 
+ IL_10F7 add 
+ IL_10F8 mul 
+ IL_10F9 sub 
+ IL_10FA ldloc.s 25
+ IL_10FC ldflda Player::WorldPosition
+ IL_1101 ldfld UnityEngine.Vector2::y
+ IL_1106 ldc.r4 0.1
+ IL_110B add 
+ IL_110C newobj UnityEngine.Vector2::.ctor
+ IL_1111 call UnityEngine.Vector2::op_Implicit
+ IL_1116 ldloc.s 25
+ IL_1118 ldfld Player::FaceMaterial
+ IL_111D ldc.i4.s -8
+ IL_111F ldc.i4.0 
+ IL_1120 ldc.r4 0
+ IL_1125 ldc.r4 1.2
+ IL_112A ldc.r4 1.3243
+ IL_112F call Game::DrawBlock
+ IL_1134 br IL_1320
+ IL_1139 ldloc.s 25
+ IL_113B ldfld Player::FaceId
+ IL_1140 ldc.i4.s 44
+ IL_1142 bne.un IL_11B4
+ IL_1147 ldarg.0 
+ IL_1148 ldarg.0 
+ IL_1149 ldfld Game::QuadMesh
+ IL_114E ldloc.s 25
+ IL_1150 ldflda Player::WorldPosition
+ IL_1155 ldfld UnityEngine.Vector2::x
+ IL_115A ldarg.0 
+ IL_115B ldfld Game::deltaX
+ IL_1160 ldloc.s 25
+ IL_1162 ldflda Player::WorldPosition
+ IL_1167 ldfld UnityEngine.Vector2::x
+ IL_116C ldsfld Settings::WorldSizeHalf
+ IL_1171 conv.r4 
+ IL_1172 add 
+ IL_1173 mul 
+ IL_1174 sub 
+ IL_1175 ldloc.s 25
+ IL_1177 ldflda Player::WorldPosition
+ IL_117C ldfld UnityEngine.Vector2::y
+ IL_1181 ldc.r4 0.1
+ IL_1186 add 
+ IL_1187 newobj UnityEngine.Vector2::.ctor
+ IL_118C call UnityEngine.Vector2::op_Implicit
+ IL_1191 ldloc.s 25
+ IL_1193 ldfld Player::FaceMaterial
+ IL_1198 ldc.i4.s -8
+ IL_119A ldc.i4.0 
+ IL_119B ldc.r4 0
+ IL_11A0 ldc.r4 1
+ IL_11A5 ldc.r4 1.0197
+ IL_11AA call Game::DrawBlock
+ IL_11AF br IL_1320
+ IL_11B4 ldloc.s 25
+ IL_11B6 ldfld Player::FaceId
+ IL_11BB ldc.i4.s 45
+ IL_11BD bne.un IL_122F
+ IL_11C2 ldarg.0 
+ IL_11C3 ldarg.0 
+ IL_11C4 ldfld Game::QuadMesh
+ IL_11C9 ldloc.s 25
+ IL_11CB ldflda Player::WorldPosition
+ IL_11D0 ldfld UnityEngine.Vector2::x
+ IL_11D5 ldarg.0 
+ IL_11D6 ldfld Game::deltaX
+ IL_11DB ldloc.s 25
+ IL_11DD ldflda Player::WorldPosition
+ IL_11E2 ldfld UnityEngine.Vector2::x
+ IL_11E7 ldsfld Settings::WorldSizeHalf
+ IL_11EC conv.r4 
+ IL_11ED add 
+ IL_11EE mul 
+ IL_11EF sub 
+ IL_11F0 ldloc.s 25
+ IL_11F2 ldflda Player::WorldPosition
+ IL_11F7 ldfld UnityEngine.Vector2::y
+ IL_11FC ldc.r4 0.1
+ IL_1201 add 
+ IL_1202 newobj UnityEngine.Vector2::.ctor
+ IL_1207 call UnityEngine.Vector2::op_Implicit
+ IL_120C ldloc.s 25
+ IL_120E ldfld Player::FaceMaterial
+ IL_1213 ldc.i4.s -8
+ IL_1215 ldc.i4.0 
+ IL_1216 ldc.r4 0
+ IL_121B ldc.r4 1.3
+ IL_1220 ldc.r4 1.3351
+ IL_1225 call Game::DrawBlock
+ IL_122A br IL_1320
+ IL_122F ldloc.s 25
+ IL_1231 ldfld Player::FaceId
+ IL_1236 ldc.i4.s 46
+ IL_1238 bne.un IL_12AA
+ IL_123D ldarg.0 
+ IL_123E ldarg.0 
+ IL_123F ldfld Game::QuadMesh
+ IL_1244 ldloc.s 25
+ IL_1246 ldflda Player::WorldPosition
+ IL_124B ldfld UnityEngine.Vector2::x
+ IL_1250 ldarg.0 
+ IL_1251 ldfld Game::deltaX
+ IL_1256 ldloc.s 25
+ IL_1258 ldflda Player::WorldPosition
+ IL_125D ldfld UnityEngine.Vector2::x
+ IL_1262 ldsfld Settings::WorldSizeHalf
+ IL_1267 conv.r4 
+ IL_1268 add 
+ IL_1269 mul 
+ IL_126A sub 
+ IL_126B ldloc.s 25
+ IL_126D ldflda Player::WorldPosition
+ IL_1272 ldfld UnityEngine.Vector2::y
+ IL_1277 ldc.r4 0.1
+ IL_127C add 
+ IL_127D newobj UnityEngine.Vector2::.ctor
+ IL_1282 call UnityEngine.Vector2::op_Implicit
+ IL_1287 ldloc.s 25
+ IL_1289 ldfld Player::FaceMaterial
+ IL_128E ldc.i4.s -8
+ IL_1290 ldc.i4.0 
+ IL_1291 ldc.r4 0
+ IL_1296 ldc.r4 1.52802
+ IL_129B ldc.r4 1.3
+ IL_12A0 call Game::DrawBlock
+ IL_12A5 br IL_1320
+ IL_12AA ldloc.s 25
+ IL_12AC ldfld Player::FaceId
+ IL_12B1 ldc.i4.s 47
+ IL_12B3 bne.un IL_1320
+ IL_12B8 ldarg.0 
+ IL_12B9 ldarg.0 
+ IL_12BA ldfld Game::QuadMesh
+ IL_12BF ldloc.s 25
+ IL_12C1 ldflda Player::WorldPosition
+ IL_12C6 ldfld UnityEngine.Vector2::x
+ IL_12CB ldarg.0 
+ IL_12CC ldfld Game::deltaX
+ IL_12D1 ldloc.s 25
+ IL_12D3 ldflda Player::WorldPosition
+ IL_12D8 ldfld UnityEngine.Vector2::x
+ IL_12DD ldsfld Settings::WorldSizeHalf
+ IL_12E2 conv.r4 
+ IL_12E3 add 
+ IL_12E4 mul 
+ IL_12E5 sub 
+ IL_12E6 ldloc.s 25
+ IL_12E8 ldflda Player::WorldPosition
+ IL_12ED ldfld UnityEngine.Vector2::y
+ IL_12F2 ldc.r4 0.1
+ IL_12F7 add 
+ IL_12F8 newobj UnityEngine.Vector2::.ctor
+ IL_12FD call UnityEngine.Vector2::op_Implicit
+ IL_1302 ldloc.s 25
+ IL_1304 ldfld Player::FaceMaterial
+ IL_1309 ldc.i4.s -8
+ IL_130B ldc.i4.0 
+ IL_130C ldc.r4 0
+ IL_1311 ldc.r4 1.3
+ IL_1316 ldc.r4 1.3247
+ IL_131B call Game::DrawBlock
+ IL_1320 ldarg.0 
+ IL_1321 ldfld Game::frameCounter
+ IL_1326 brtrue IL_1463
+ IL_132B ldloc.s 25
+ IL_132D ldflda Player::WorldPosition
+ IL_1332 ldfld UnityEngine.Vector2::x
+ IL_1337 ldarg.0 
+ IL_1338 ldfld Game::LocalPlayer
+ IL_133D ldflda Player::WorldPosition
+ IL_1342 ldfld UnityEngine.Vector2::x
+ IL_1347 sub 
+ IL_1348 call UnityEngine.Mathf::Abs
+ IL_134D ldarg.0 
+ IL_134E ldfld Game::visSizeH
+ IL_1353 conv.r4 
+ IL_1354 bgt.un IL_1387
+ IL_1359 ldloc.s 25
+ IL_135B ldflda Player::WorldPosition
+ IL_1360 ldfld UnityEngine.Vector2::y
+ IL_1365 ldarg.0 
+ IL_1366 ldfld Game::LocalPlayer
+ IL_136B ldflda Player::WorldPosition
+ IL_1370 ldfld UnityEngine.Vector2::y
+ IL_1375 sub 
+ IL_1376 call UnityEngine.Mathf::Abs
+ IL_137B ldarg.0 
+ IL_137C ldfld Game::visSizeV
+ IL_1381 conv.r4 
+ IL_1382 ble IL_1391
+ IL_1387 ldsfld Settings::DebugRenderInvisible
+ IL_138C brfalse IL_1456
+ IL_1391 ldloc.s 25
+ IL_1393 ldfld Player::IsLocal
+ IL_1398 brtrue IL_1451
+ IL_139D ldloc.s 25
+ IL_139F ldfld Player::NameText
+ IL_13A4 callvirt UnityEngine.GameObject::get_transform
+ IL_13A9 ldloc.s 25
+ IL_13AB ldflda Player::WorldPosition
+ IL_13B0 ldfld UnityEngine.Vector2::x
+ IL_13B5 ldarg.0 
+ IL_13B6 ldfld Game::deltaX
+ IL_13BB ldloc.s 25
+ IL_13BD ldflda Player::WorldPosition
+ IL_13C2 ldfld UnityEngine.Vector2::x
+ IL_13C7 ldsfld Settings::WorldSizeHalf
+ IL_13CC conv.r4 
+ IL_13CD add 
+ IL_13CE mul 
+ IL_13CF sub 
+ IL_13D0 ldloc.s 25
+ IL_13D2 ldflda Player::WorldPosition
+ IL_13D7 ldfld UnityEngine.Vector2::y
+ IL_13DC newobj UnityEngine.Vector2::.ctor
+ IL_13E1 call UnityEngine.Vector2::get_up
+ IL_13E6 call UnityEngine.Vector2::op_Addition
+ IL_13EB call UnityEngine.Vector2::op_Implicit
+ IL_13F0 callvirt UnityEngine.Transform::set_position
+ IL_13F5 ldloc.s 25
+ IL_13F7 ldfld Player::NameText
+ IL_13FC callvirt UnityEngine.GameObject::get_transform
+ IL_1401 ldloc.s 25
+ IL_1403 ldfld Player::NameText
+ IL_1408 callvirt UnityEngine.GameObject::get_transform
+ IL_140D callvirt UnityEngine.Transform::get_position
+ IL_1412 stloc.s 28
+ IL_1414 ldloca.s 28
+ IL_1416 ldfld UnityEngine.Vector3::x
+ IL_141B ldloc.s 25
+ IL_141D ldfld Player::NameText
+ IL_1422 callvirt UnityEngine.GameObject::get_transform
+ IL_1427 callvirt UnityEngine.Transform::get_position
+ IL_142C stloc.s 29
+ IL_142E ldloca.s 29
+ IL_1430 ldfld UnityEngine.Vector3::y
+ IL_1435 ldc.r4 -7
+ IL_143A newobj UnityEngine.Vector3::.ctor
+ IL_143F callvirt UnityEngine.Transform::set_position
+ IL_1444 ldloc.s 25
+ IL_1446 ldfld Player::NameText
+ IL_144B ldc.i4.1 
+ IL_144C callvirt UnityEngine.GameObject::SetActive
+ IL_1451 br IL_1463
+ IL_1456 ldloc.s 25
+ IL_1458 ldfld Player::NameText
+ IL_145D ldc.i4.0 
+ IL_145E callvirt UnityEngine.GameObject::SetActive
+ IL_1463 ldloc.s 24
+ IL_1465 ldc.i4.1 
+ IL_1466 add 
+ IL_1467 stloc.s 24
+ IL_1469 ldloc.s 24
+ IL_146B ldsfld Settings::PlayersCount
+ IL_1470 blt IL_0F62
+ IL_1475 ldarg.0 
+ IL_1476 ldfld Game::LocalPlayer
+ IL_147B brfalse IL_14D8
+ IL_1480 call UnityEngine.Camera::get_main
+ IL_1485 callvirt UnityEngine.Component::get_transform
+ IL_148A ldarg.0 
+ IL_148B ldfld Game::LocalPlayer
+ IL_1490 ldflda Player::WorldPosition
+ IL_1495 ldfld UnityEngine.Vector2::x
+ IL_149A ldarg.0 
+ IL_149B ldfld Game::deltaX
+ IL_14A0 ldarg.0 
+ IL_14A1 ldfld Game::LocalPlayer
+ IL_14A6 ldflda Player::WorldPosition
+ IL_14AB ldfld UnityEngine.Vector2::x
+ IL_14B0 ldsfld Settings::WorldSizeHalf
+ IL_14B5 conv.r4 
+ IL_14B6 add 
+ IL_14B7 mul 
+ IL_14B8 sub 
+ IL_14B9 ldarg.0 
+ IL_14BA ldfld Game::LocalPlayer
+ IL_14BF ldflda Player::WorldPosition
+ IL_14C4 ldfld UnityEngine.Vector2::y
+ IL_14C9 ldsfld Settings::CamZ
+ IL_14CE newobj UnityEngine.Vector3::.ctor
+ IL_14D3 callvirt UnityEngine.Transform::set_position
+ IL_14D8 call UnityEngine.Camera::get_main
+ IL_14DD callvirt UnityEngine.Camera::get_orthographicSize
+ IL_14E2 ldarg.0 
+ IL_14E3 ldfld Game::nextSize
+ IL_14E8 sub 
+ IL_14E9 stloc.s 30
+ IL_14EB ldloc.s 30
+ IL_14ED call UnityEngine.Mathf::Abs
+ IL_14F2 conv.r8 
+ IL_14F3 ldc.r8 0.1
+ IL_14FC ble.un IL_152A
+ IL_1501 ldloc.s 30
+ IL_1503 call UnityEngine.Time::get_deltaTime
+ IL_1508 mul 
+ IL_1509 ldsfld Settings::ZoomSpeed
+ IL_150E mul 
+ IL_150F stloc.s 31
+ IL_1511 call UnityEngine.Camera::get_main
+ IL_1516 dup 
+ IL_1517 callvirt UnityEngine.Camera::get_orthographicSize
+ IL_151C ldloc.s 31
+ IL_151E sub 
+ IL_151F callvirt UnityEngine.Camera::set_orthographicSize
+ IL_1524 ldarg.0 
+ IL_1525 call Game::RecViewportSize
+ IL_152A ret 

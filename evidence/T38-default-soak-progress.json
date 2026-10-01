@@ -1,0 +1,21 @@
+{
+  "status": "PASSED",
+  "elapsedSeconds": 748.3965578000001,
+  "rooms": [],
+  "connections": 0,
+  "heap": 74004016,
+  "rss": 226193408,
+  "metrics": {
+    "steps": 43200,
+    "stepP95Ms": 0.8053999999829102,
+    "maxBacklogMs": 673.0681666667073,
+    "snapshotBytes": 615982475,
+    "snapshots": 71572
+  },
+  "rtt": {
+    "samples": 24,
+    "medianMs": 118.40260000000126,
+    "p95Ms": 226.05819999997038
+  },
+  "errors": []
+}

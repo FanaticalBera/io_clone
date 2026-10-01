@@ -1,0 +1,36 @@
+{
+  "errors": [],
+  "layouts": [
+    {
+      "width": 1280,
+      "height": 800,
+      "outside": [],
+      "overlaps": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "outside": [],
+      "overlaps": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "outside": [],
+      "overlaps": []
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "outside": [],
+      "overlaps": []
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "outside": [],
+      "overlaps": []
+    }
+  ],
+  "condition": "Automated Chromium layout inspection, not physical-device performance acceptance"
+}

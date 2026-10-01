@@ -1,0 +1,717 @@
+CONST Game::StringEmpty = 
+CONST Game::scaleInc = 1
+CONST Game::leaderboard0 = 43-00-67-00-6B-00-49-00-5F-00-49-00-4B-00-30-00-6A-00-72-00-55-00-4E-00-45-00-41-00-49-00-51-00-42-00-51-00
+CONST Game::leaderboard1 = 78-00-78-00-78-00
+METHOD Game::UISwipeSelected
+ IL_0000 ldarg.0 
+ IL_0001 ldc.i4.0 
+ IL_0002 stfld Game::ControlType
+ IL_0007 ldarg.0 
+ IL_0008 ldfld Game::SwipeSelectedShow
+ IL_000D ldc.i4.1 
+ IL_000E callvirt UnityEngine.GameObject::SetActive
+ IL_0013 ldarg.0 
+ IL_0014 ldfld Game::LeftJoystick2SelectedShow
+ IL_0019 ldc.i4.0 
+ IL_001A callvirt UnityEngine.GameObject::SetActive
+ IL_001F ldarg.0 
+ IL_0020 ldfld Game::RightJoystick2SelectedShow
+ IL_0025 ldc.i4.0 
+ IL_0026 callvirt UnityEngine.GameObject::SetActive
+ IL_002B ldarg.0 
+ IL_002C ldfld Game::ControlSettingsOKBtn
+ IL_0031 ldc.i4.1 
+ IL_0032 callvirt UnityEngine.GameObject::SetActive
+ IL_0037 ret 
+METHOD Game::UILeftJoystick2Selected
+ IL_0000 ldarg.0 
+ IL_0001 ldc.i4.3 
+ IL_0002 stfld Game::ControlType
+ IL_0007 ldarg.0 
+ IL_0008 ldfld Game::SwipeSelectedShow
+ IL_000D ldc.i4.0 
+ IL_000E callvirt UnityEngine.GameObject::SetActive
+ IL_0013 ldarg.0 
+ IL_0014 ldfld Game::LeftJoystick2SelectedShow
+ IL_0019 ldc.i4.1 
+ IL_001A callvirt UnityEngine.GameObject::SetActive
+ IL_001F ldarg.0 
+ IL_0020 ldfld Game::RightJoystick2SelectedShow
+ IL_0025 ldc.i4.0 
+ IL_0026 callvirt UnityEngine.GameObject::SetActive
+ IL_002B ldarg.0 
+ IL_002C ldfld Game::ControlSettingsOKBtn
+ IL_0031 ldc.i4.1 
+ IL_0032 callvirt UnityEngine.GameObject::SetActive
+ IL_0037 ret 
+METHOD Game::UIRightJoystick2Selected
+ IL_0000 ldarg.0 
+ IL_0001 ldc.i4.4 
+ IL_0002 stfld Game::ControlType
+ IL_0007 ldarg.0 
+ IL_0008 ldfld Game::SwipeSelectedShow
+ IL_000D ldc.i4.0 
+ IL_000E callvirt UnityEngine.GameObject::SetActive
+ IL_0013 ldarg.0 
+ IL_0014 ldfld Game::LeftJoystick2SelectedShow
+ IL_0019 ldc.i4.0 
+ IL_001A callvirt UnityEngine.GameObject::SetActive
+ IL_001F ldarg.0 
+ IL_0020 ldfld Game::RightJoystick2SelectedShow
+ IL_0025 ldc.i4.1 
+ IL_0026 callvirt UnityEngine.GameObject::SetActive
+ IL_002B ldarg.0 
+ IL_002C ldfld Game::ControlSettingsOKBtn
+ IL_0031 ldc.i4.1 
+ IL_0032 callvirt UnityEngine.GameObject::SetActive
+ IL_0037 ret 
+METHOD Game::SetMode
+ IL_0000 ldarg.0 
+ IL_0001 ldfld Game::GameMode
+ IL_0006 brtrue IL_0016
+ IL_000B ldarg.0 
+ IL_000C call Game::UISetClassicMode
+ IL_0011 br IL_001C
+ IL_0016 ldarg.0 
+ IL_0017 call Game::UISetExtremeMode
+ IL_001C ret 
+METHOD Game::Move
+ IL_0000 call UnityEngine.Time::get_deltaTime
+ IL_0005 ldsfld Settings::LocalPlayerSpeed
+ IL_000A mul 
+ IL_000B stloc.0 
+ IL_000C call UnityEngine.Time::get_deltaTime
+ IL_0011 ldsfld Settings::BotSpeed
+ IL_0016 mul 
+ IL_0017 ldsfld Settings::GroupsCount
+ IL_001C conv.r4 
+ IL_001D mul 
+ IL_001E stloc.1 
+ IL_001F ldc.i4.0 
+ IL_0020 stloc.2 
+ IL_0021 br IL_0182
+ IL_0026 ldarg.0 
+ IL_0027 ldfld Game::Players
+ IL_002C ldloc.2 
+ IL_002D ldelem.ref 
+ IL_002E stloc.3 
+ IL_002F ldloc.3 
+ IL_0030 brtrue IL_0044
+ IL_0035 ldstr "oops8"
+ IL_003A call UnityEngine.Debug::Log
+ IL_003F br IL_017E
+ IL_0044 ldloc.3 
+ IL_0045 ldfld Player::IsAlive
+ IL_004A brfalse IL_017E
+ IL_004F ldloc.3 
+ IL_0050 ldfld Player::IsLocal
+ IL_0055 brfalse IL_0066
+ IL_005A ldloc.3 
+ IL_005B ldloc.0 
+ IL_005C callvirt Player::Move
+ IL_0061 br IL_006D
+ IL_0066 ldloc.3 
+ IL_0067 ldloc.1 
+ IL_0068 callvirt Player::Move
+ IL_006D ldsfld Settings::OldMove
+ IL_0072 brtrue IL_0119
+ IL_0077 ldc.r4 1
+ IL_007C stloc.s 4
+ IL_007E ldloc.3 
+ IL_007F ldfld Player::IsLocal
+ IL_0084 brfalse IL_00D1
+ IL_0089 ldc.r4 6
+ IL_008E call UnityEngine.Time::get_deltaTime
+ IL_0093 mul 
+ IL_0094 stloc.s 4
+ IL_0096 ldloc.3 
+ IL_0097 ldloc.3 
+ IL_0098 ldfld Player::Direction
+ IL_009D call UnityEngine.Vector2::op_Implicit
+ IL_00A2 ldloc.3 
+ IL_00A3 ldfld Player::NextDirection
+ IL_00A8 call UnityEngine.Vector2::op_Implicit
+ IL_00AD ldloc.s 4
+ IL_00AF ldc.r4 0
+ IL_00B4 call UnityEngine.Vector3::RotateTowards
+ IL_00B9 stloc.s 5
+ IL_00BB ldloca.s 5
+ IL_00BD call UnityEngine.Vector3::get_normalized
+ IL_00C2 call UnityEngine.Vector2::op_Implicit
+ IL_00C7 stfld Player::Direction
+ IL_00CC br IL_0114
+ IL_00D1 ldc.r4 7.5
+ IL_00D6 call UnityEngine.Time::get_deltaTime
+ IL_00DB mul 
+ IL_00DC stloc.s 4
+ IL_00DE ldloc.3 
+ IL_00DF ldloc.3 
+ IL_00E0 ldfld Player::Direction
+ IL_00E5 call UnityEngine.Vector2::op_Implicit
+ IL_00EA ldloc.3 
+ IL_00EB ldfld Player::NextDirection
+ IL_00F0 call UnityEngine.Vector2::op_Implicit
+ IL_00F5 ldloc.s 4
+ IL_00F7 ldc.r4 0
+ IL_00FC call UnityEngine.Vector3::RotateTowards
+ IL_0101 stloc.s 6
+ IL_0103 ldloca.s 6
+ IL_0105 call UnityEngine.Vector3::get_normalized
+ IL_010A call UnityEngine.Vector2::op_Implicit
+ IL_010F stfld Player::Direction
+ IL_0114 br IL_0125
+ IL_0119 ldloc.3 
+ IL_011A ldloc.3 
+ IL_011B ldfld Player::NextDirection
+ IL_0120 stfld Player::Direction
+ IL_0125 ldarg.0 
+ IL_0126 ldloc.3 
+ IL_0127 call Game::CheckTailAdd
+ IL_012C ldarg.0 
+ IL_012D ldloc.3 
+ IL_012E call Game::CheckChangePlace
+ IL_0133 pop 
+ IL_0134 ldloc.3 
+ IL_0135 ldfld Player::TrailImage
+ IL_013A callvirt UnityEngine.GameObject::get_transform
+ IL_013F ldloc.3 
+ IL_0140 ldflda Player::WorldPosition
+ IL_0145 ldfld UnityEngine.Vector2::x
+ IL_014A ldarg.0 
+ IL_014B ldfld Game::deltaX
+ IL_0150 ldloc.3 
+ IL_0151 ldflda Player::WorldPosition
+ IL_0156 ldfld UnityEngine.Vector2::x
+ IL_015B ldsfld Settings::WorldSizeHalf
+ IL_0160 conv.r4 
+ IL_0161 add 
+ IL_0162 mul 
+ IL_0163 sub 
+ IL_0164 ldloc.3 
+ IL_0165 ldflda Player::WorldPosition
+ IL_016A ldfld UnityEngine.Vector2::y
+ IL_016F ldc.r4 -7
+ IL_0174 newobj UnityEngine.Vector3::.ctor
+ IL_0179 callvirt UnityEngine.Transform::set_position
+ IL_017E ldloc.2 
+ IL_017F ldc.i4.1 
+ IL_0180 add 
+ IL_0181 stloc.2 
+ IL_0182 ldloc.2 
+ IL_0183 ldsfld Settings::PlayersCount
+ IL_0188 blt IL_0026
+ IL_018D ldarg.0 
+ IL_018E dup 
+ IL_018F ldfld Game::frameCounter
+ IL_0194 dup 
+ IL_0195 stloc.s 7
+ IL_0197 ldc.i4.1 
+ IL_0198 add 
+ IL_0199 stfld Game::frameCounter
+ IL_019E ldloc.s 7
+ IL_01A0 ldc.i4.s 120
+ IL_01A2 blt IL_01B4
+ IL_01A7 ldarg.0 
+ IL_01A8 ldc.i4.0 
+ IL_01A9 stfld Game::frameCounter
+ IL_01AE ldarg.0 
+ IL_01AF call Game::CreateBots
+ IL_01B4 ldarg.0 
+ IL_01B5 call Game::CheckSwipe
+ IL_01BA ldarg.0 
+ IL_01BB ldfld Game::dieSoon
+ IL_01C0 brfalse IL_01F9
+ IL_01C5 ldarg.0 
+ IL_01C6 ldfld Game::timeBeforeDie
+ IL_01CB ldc.r4 0
+ IL_01D0 ble.un IL_01EC
+ IL_01D5 ldarg.0 
+ IL_01D6 dup 
+ IL_01D7 ldfld Game::timeBeforeDie
+ IL_01DC call UnityEngine.Time::get_deltaTime
+ IL_01E1 sub 
+ IL_01E2 stfld Game::timeBeforeDie
+ IL_01E7 br IL_01F9
+ IL_01EC ldarg.0 
+ IL_01ED ldc.i4.0 
+ IL_01EE stfld Game::dieSoon
+ IL_01F3 ldarg.0 
+ IL_01F4 call Game::FromGameToTitleUI
+ IL_01F9 ret 
+METHOD Game::GetPosition
+ IL_0000 ldloca.s 0
+ IL_0002 ldc.i4.0 
+ IL_0003 ldc.i4.0 
+ IL_0004 call Point::.ctor
+ IL_0009 ldc.i4.0 
+ IL_000A stloc.1 
+ IL_000B ldc.i4.0 
+ IL_000C stloc.2 
+ IL_000D ldc.i4.1 
+ IL_000E stloc.3 
+ IL_000F ldc.i4.5 
+ IL_0010 stloc.s 4
+ IL_0012 br IL_0078
+ IL_0017 ldsfld Settings::Margin
+ IL_001C ldsfld Settings::WorldSize
+ IL_0021 ldsfld Settings::Margin
+ IL_0026 sub 
+ IL_0027 call UnityEngine.Random::Range
+ IL_002C stloc.1 
+ IL_002D ldsfld Settings::Margin
+ IL_0032 ldsfld Settings::WorldSize
+ IL_0037 ldsfld Settings::Margin
+ IL_003C sub 
+ IL_003D call UnityEngine.Random::Range
+ IL_0042 stloc.2 
+ IL_0043 ldarg.0 
+ IL_0044 ldloc.1 
+ IL_0045 ldloc.2 
+ IL_0046 ldc.i4.3 
+ IL_0047 call Game::CheckAround
+ IL_004C stloc.3 
+ IL_004D ldarg.1 
+ IL_004E ldfld Player::IsLocal
+ IL_0053 brtrue IL_0067
+ IL_0058 ldarg.0 
+ IL_0059 ldloc.1 
+ IL_005A ldloc.2 
+ IL_005B call Game::IsFarFromLocal
+ IL_0060 brtrue IL_0067
+ IL_0065 ldc.i4.0 
+ IL_0066 stloc.3 
+ IL_0067 ldloc.3 
+ IL_0068 brfalse IL_0078
+ IL_006D ldloca.s 0
+ IL_006F ldloc.1 
+ IL_0070 ldloc.2 
+ IL_0071 call Point::.ctor
+ IL_0076 ldloc.0 
+ IL_0077 ret 
+ IL_0078 ldloc.s 4
+ IL_007A dup 
+ IL_007B ldc.i4.1 
+ IL_007C sub 
+ IL_007D stloc.s 4
+ IL_007F ldc.i4.0 
+ IL_0080 bgt IL_0017
+ IL_0085 ldc.i4.1 
+ IL_0086 stloc.3 
+ IL_0087 ldsfld Settings::WorldSizeInnerFrom
+ IL_008C stloc.s 5
+ IL_008E br IL_00F8
+ IL_0093 ldsfld Settings::WorldSizeInnerFrom
+ IL_0098 stloc.s 6
+ IL_009A br IL_00E6
+ IL_009F ldarg.0 
+ IL_00A0 ldloc.s 5
+ IL_00A2 ldloc.s 6
+ IL_00A4 ldc.i4.3 
+ IL_00A5 call Game::CheckAround
+ IL_00AA stloc.3 
+ IL_00AB ldloc.3 
+ IL_00AC brfalse IL_00E0
+ IL_00B1 ldarg.1 
+ IL_00B2 ldfld Player::IsLocal
+ IL_00B7 brtrue IL_00CD
+ IL_00BC ldarg.0 
+ IL_00BD ldloc.s 5
+ IL_00BF ldloc.s 6
+ IL_00C1 call Game::IsFarFromLocal
+ IL_00C6 brtrue IL_00CD
+ IL_00CB ldc.i4.0 
+ IL_00CC stloc.3 
+ IL_00CD ldloc.3 
+ IL_00CE brfalse IL_00E0
+ IL_00D3 ldloca.s 0
+ IL_00D5 ldloc.s 5
+ IL_00D7 ldloc.s 6
+ IL_00D9 call Point::.ctor
+ IL_00DE ldloc.0 
+ IL_00DF ret 
+ IL_00E0 ldloc.s 6
+ IL_00E2 ldc.i4.3 
+ IL_00E3 add 
+ IL_00E4 stloc.s 6
+ IL_00E6 ldloc.s 6
+ IL_00E8 ldsfld Settings::WorldSizeInnerTo
+ IL_00ED blt IL_009F
+ IL_00F2 ldloc.s 5
+ IL_00F4 ldc.i4.3 
+ IL_00F5 add 
+ IL_00F6 stloc.s 5
+ IL_00F8 ldloc.s 5
+ IL_00FA ldsfld Settings::WorldSizeInnerTo
+ IL_00FF blt IL_0093
+ IL_0104 ldc.i4.1 
+ IL_0105 stloc.3 
+ IL_0106 ldsfld Settings::Margin
+ IL_010B stloc.s 7
+ IL_010D br IL_017D
+ IL_0112 ldsfld Settings::Margin
+ IL_0117 stloc.s 8
+ IL_0119 br IL_0165
+ IL_011E ldarg.0 
+ IL_011F ldloc.s 7
+ IL_0121 ldloc.s 8
+ IL_0123 ldc.i4.3 
+ IL_0124 call Game::CheckAround
+ IL_0129 stloc.3 
+ IL_012A ldloc.3 
+ IL_012B brfalse IL_015F
+ IL_0130 ldarg.1 
+ IL_0131 ldfld Player::IsLocal
+ IL_0136 brtrue IL_014C
+ IL_013B ldarg.0 
+ IL_013C ldloc.s 7
+ IL_013E ldloc.s 8
+ IL_0140 call Game::IsFarFromLocal
+ IL_0145 brtrue IL_014C
+ IL_014A ldc.i4.0 
+ IL_014B stloc.3 
+ IL_014C ldloc.3 
+ IL_014D brfalse IL_015F
+ IL_0152 ldloca.s 0
+ IL_0154 ldloc.s 7
+ IL_0156 ldloc.s 8
+ IL_0158 call Point::.ctor
+ IL_015D ldloc.0 
+ IL_015E ret 
+ IL_015F ldloc.s 8
+ IL_0161 ldc.i4.3 
+ IL_0162 add 
+ IL_0163 stloc.s 8
+ IL_0165 ldloc.s 8
+ IL_0167 ldsfld Settings::WorldSize
+ IL_016C ldsfld Settings::Margin
+ IL_0171 sub 
+ IL_0172 blt IL_011E
+ IL_0177 ldloc.s 7
+ IL_0179 ldc.i4.3 
+ IL_017A add 
+ IL_017B stloc.s 7
+ IL_017D ldloc.s 7
+ IL_017F ldsfld Settings::WorldSize
+ IL_0184 ldsfld Settings::Margin
+ IL_0189 sub 
+ IL_018A blt IL_0112
+ IL_018F ldarg.1 
+ IL_0190 ldfld Player::IsLocal
+ IL_0195 brfalse IL_0254
+ IL_019A ldsfld Settings::Margin
+ IL_019F ldsfld Settings::WorldSize
+ IL_01A4 ldsfld Settings::Margin
+ IL_01A9 sub 
+ IL_01AA call UnityEngine.Random::Range
+ IL_01AF stloc.1 
+ IL_01B0 ldsfld Settings::Margin
+ IL_01B5 ldsfld Settings::WorldSize
+ IL_01BA ldsfld Settings::Margin
+ IL_01BF sub 
+ IL_01C0 call UnityEngine.Random::Range
+ IL_01C5 stloc.2 
+ IL_01C6 ldloc.1 
+ IL_01C7 ldc.i4.3 
+ IL_01C8 sub 
+ IL_01C9 stloc.s 9
+ IL_01CB br IL_0242
+ IL_01D0 ldloc.2 
+ IL_01D1 ldc.i4.3 
+ IL_01D2 sub 
+ IL_01D3 stloc.s 10
+ IL_01D5 br IL_0232
+ IL_01DA ldarg.0 
+ IL_01DB ldfld Game::Map
+ IL_01E0 ldloc.s 9
+ IL_01E2 ldloc.s 10
+ IL_01E4 call TypeSpecification::Get
+ IL_01E9 ldfld Place::Owner
+ IL_01EE brfalse IL_022C
+ IL_01F3 ldarg.0 
+ IL_01F4 ldfld Game::Map
+ IL_01F9 ldloc.s 9
+ IL_01FB ldloc.s 10
+ IL_01FD call TypeSpecification::Get
+ IL_0202 ldfld Place::Owner
+ IL_0207 ldfld Player::IsAlive
+ IL_020C brfalse IL_022C
+ IL_0211 ldarg.0 
+ IL_0212 ldarg.0 
+ IL_0213 ldfld Game::Map
+ IL_0218 ldloc.s 9
+ IL_021A ldloc.s 10
+ IL_021C call TypeSpecification::Get
+ IL_0221 ldfld Place::Owner
+ IL_0226 ldc.i4.1 
+ IL_0227 call Game::Die
+ IL_022C ldloc.s 10
+ IL_022E ldc.i4.1 
+ IL_022F add 
+ IL_0230 stloc.s 10
+ IL_0232 ldloc.s 10
+ IL_0234 ldloc.2 
+ IL_0235 ldc.i4.3 
+ IL_0236 add 
+ IL_0237 ble IL_01DA
+ IL_023C ldloc.s 9
+ IL_023E ldc.i4.1 
+ IL_023F add 
+ IL_0240 stloc.s 9
+ IL_0242 ldloc.s 9
+ IL_0244 ldloc.1 
+ IL_0245 ldc.i4.3 
+ IL_0246 add 
+ IL_0247 ble IL_01D0
+ IL_024C ldloc.1 
+ IL_024D ldloc.2 
+ IL_024E newobj Point::.ctor
+ IL_0253 ret 
+ IL_0254 ldloc.0 
+ IL_0255 ret 
+METHOD Game::GetDeltaX
+ IL_0000 ldarg.0 
+ IL_0001 ldfld Game::deltaX
+ IL_0006 ret 
+METHOD Game::SetControls
+ IL_0000 ldarg.0 
+ IL_0001 ldfld Game::JoystickArrow
+ IL_0006 ldc.i4.0 
+ IL_0007 callvirt UnityEngine.GameObject::SetActive
+ IL_000C ldarg.0 
+ IL_000D ldfld Game::JoystickAnalog
+ IL_0012 ldc.i4.0 
+ IL_0013 callvirt UnityEngine.GameObject::SetActive
+ IL_0018 ldarg.0 
+ IL_0019 ldfld Game::ControlType
+ IL_001E ldc.i4.0 
+ IL_001F ble IL_01A3
+ IL_0024 ldarg.0 
+ IL_0025 ldfld Game::ControlType
+ IL_002A ldc.i4.5 
+ IL_002B bge IL_01A3
+ IL_0030 ldarg.0 
+ IL_0031 ldfld Game::ControlType
+ IL_0036 ldc.i4.1 
+ IL_0037 bne.un IL_0084
+ IL_003C ldarg.0 
+ IL_003D ldfld Game::JoystickArrow
+ IL_0042 ldc.i4.1 
+ IL_0043 callvirt UnityEngine.GameObject::SetActive
+ IL_0048 ldarg.0 
+ IL_0049 ldfld Game::JoystickArrow
+ IL_004E callvirt token:0x2B0000DF
+ IL_0053 stloc.0 
+ IL_0054 ldloc.0 
+ IL_0055 call UnityEngine.Vector2::get_zero
+ IL_005A callvirt UnityEngine.RectTransform::set_anchorMin
+ IL_005F ldloc.0 
+ IL_0060 call UnityEngine.Vector2::get_zero
+ IL_0065 callvirt UnityEngine.RectTransform::set_anchorMax
+ IL_006A ldloc.0 
+ IL_006B ldc.r4 330
+ IL_0070 ldc.r4 330
+ IL_0075 newobj UnityEngine.Vector2::.ctor
+ IL_007A callvirt UnityEngine.RectTransform::set_anchoredPosition
+ IL_007F br IL_01A3
+ IL_0084 ldarg.0 
+ IL_0085 ldfld Game::ControlType
+ IL_008A ldc.i4.2 
+ IL_008B bne.un IL_00EC
+ IL_0090 ldarg.0 
+ IL_0091 ldfld Game::JoystickArrow
+ IL_0096 ldc.i4.1 
+ IL_0097 callvirt UnityEngine.GameObject::SetActive
+ IL_009C ldarg.0 
+ IL_009D ldfld Game::JoystickArrow
+ IL_00A2 callvirt token:0x2B0000DF
+ IL_00A7 stloc.1 
+ IL_00A8 ldloc.1 
+ IL_00A9 ldc.r4 1
+ IL_00AE ldc.r4 0
+ IL_00B3 newobj UnityEngine.Vector2::.ctor
+ IL_00B8 callvirt UnityEngine.RectTransform::set_anchorMin
+ IL_00BD ldloc.1 
+ IL_00BE ldc.r4 1
+ IL_00C3 ldc.r4 0
+ IL_00C8 newobj UnityEngine.Vector2::.ctor
+ IL_00CD callvirt UnityEngine.RectTransform::set_anchorMax
+ IL_00D2 ldloc.1 
+ IL_00D3 ldc.r4 -330
+ IL_00D8 ldc.r4 330
+ IL_00DD newobj UnityEngine.Vector2::.ctor
+ IL_00E2 callvirt UnityEngine.RectTransform::set_anchoredPosition
+ IL_00E7 br IL_01A3
+ IL_00EC ldarg.0 
+ IL_00ED ldfld Game::ControlType
+ IL_00F2 ldc.i4.3 
+ IL_00F3 bne.un IL_0140
+ IL_00F8 ldarg.0 
+ IL_00F9 ldfld Game::JoystickAnalog
+ IL_00FE ldc.i4.1 
+ IL_00FF callvirt UnityEngine.GameObject::SetActive
+ IL_0104 ldarg.0 
+ IL_0105 ldfld Game::JoystickAnalog
+ IL_010A callvirt token:0x2B0000DF
+ IL_010F stloc.2 
+ IL_0110 ldloc.2 
+ IL_0111 call UnityEngine.Vector2::get_zero
+ IL_0116 callvirt UnityEngine.RectTransform::set_anchorMin
+ IL_011B ldloc.2 
+ IL_011C call UnityEngine.Vector2::get_zero
+ IL_0121 callvirt UnityEngine.RectTransform::set_anchorMax
+ IL_0126 ldloc.2 
+ IL_0127 ldc.r4 250
+ IL_012C ldc.r4 300
+ IL_0131 newobj UnityEngine.Vector2::.ctor
+ IL_0136 callvirt UnityEngine.RectTransform::set_anchoredPosition
+ IL_013B br IL_01A3
+ IL_0140 ldarg.0 
+ IL_0141 ldfld Game::ControlType
+ IL_0146 ldc.i4.4 
+ IL_0147 bne.un IL_01A3
+ IL_014C ldarg.0 
+ IL_014D ldfld Game::JoystickAnalog
+ IL_0152 ldc.i4.1 
+ IL_0153 callvirt UnityEngine.GameObject::SetActive
+ IL_0158 ldarg.0 
+ IL_0159 ldfld Game::JoystickAnalog
+ IL_015E callvirt token:0x2B0000DF
+ IL_0163 stloc.3 
+ IL_0164 ldloc.3 
+ IL_0165 ldc.r4 1
+ IL_016A ldc.r4 0
+ IL_016F newobj UnityEngine.Vector2::.ctor
+ IL_0174 callvirt UnityEngine.RectTransform::set_anchorMin
+ IL_0179 ldloc.3 
+ IL_017A ldc.r4 1
+ IL_017F ldc.r4 0
+ IL_0184 newobj UnityEngine.Vector2::.ctor
+ IL_0189 callvirt UnityEngine.RectTransform::set_anchorMax
+ IL_018E ldloc.3 
+ IL_018F ldc.r4 -300
+ IL_0194 ldc.r4 300
+ IL_0199 newobj UnityEngine.Vector2::.ctor
+ IL_019E callvirt UnityEngine.RectTransform::set_anchoredPosition
+ IL_01A3 ret 
+METHOD Game::WorldToMap
+ IL_0000 ldarg.1 
+ IL_0001 ldsfld Settings::WorldSize
+ IL_0006 ldc.i4.2 
+ IL_0007 div 
+ IL_0008 conv.r4 
+ IL_0009 add 
+ IL_000A conv.i4 
+ IL_000B ldarg.2 
+ IL_000C ldsfld Settings::WorldSize
+ IL_0011 ldc.i4.2 
+ IL_0012 div 
+ IL_0013 conv.r4 
+ IL_0014 add 
+ IL_0015 conv.i4 
+ IL_0016 newobj Point::.ctor
+ IL_001B ret 
+METHOD Game::WorldToMap
+ IL_0000 ldarga.s 1
+ IL_0002 ldfld UnityEngine.Vector2::x
+ IL_0007 ldsfld Settings::WorldSize
+ IL_000C ldc.i4.2 
+ IL_000D div 
+ IL_000E conv.r4 
+ IL_000F add 
+ IL_0010 conv.i4 
+ IL_0011 ldarga.s 1
+ IL_0013 ldfld UnityEngine.Vector2::y
+ IL_0018 ldsfld Settings::WorldSize
+ IL_001D ldc.i4.2 
+ IL_001E div 
+ IL_001F conv.r4 
+ IL_0020 add 
+ IL_0021 conv.i4 
+ IL_0022 newobj Point::.ctor
+ IL_0027 ret 
+METHOD Player::Put
+ IL_0000 ldarg.0 
+ IL_0001 ldarg.1 
+ IL_0002 stfld Player::WorldPosition
+ IL_0007 ldarg.0 
+ IL_0008 ldflda Player::WorldPositionRounded
+ IL_000D ldarg.0 
+ IL_000E ldflda Player::WorldPosition
+ IL_0013 ldfld UnityEngine.Vector2::x
+ IL_0018 call UnityEngine.Mathf::Round
+ IL_001D stfld UnityEngine.Vector2::x
+ IL_0022 ldarg.0 
+ IL_0023 ldflda Player::WorldPositionRounded
+ IL_0028 ldarg.0 
+ IL_0029 ldflda Player::WorldPosition
+ IL_002E ldfld UnityEngine.Vector2::y
+ IL_0033 call UnityEngine.Mathf::Round
+ IL_0038 stfld UnityEngine.Vector2::y
+ IL_003D ldarg.0 
+ IL_003E ldarg.1 
+ IL_003F stfld Player::LastWorldPosition
+ IL_0044 ret 
+METHOD Player::Move
+ IL_0000 ldarg.0 
+ IL_0001 dup 
+ IL_0002 ldfld Player::WorldPosition
+ IL_0007 ldarg.0 
+ IL_0008 ldfld Player::Direction
+ IL_000D ldarg.1 
+ IL_000E call UnityEngine.Vector2::op_Multiply
+ IL_0013 call UnityEngine.Vector2::op_Addition
+ IL_0018 stfld Player::WorldPosition
+ IL_001D ldarg.0 
+ IL_001E ldflda Player::WorldPositionRounded
+ IL_0023 ldarg.0 
+ IL_0024 ldflda Player::WorldPosition
+ IL_0029 ldfld UnityEngine.Vector2::x
+ IL_002E call UnityEngine.Mathf::Round
+ IL_0033 stfld UnityEngine.Vector2::x
+ IL_0038 ldarg.0 
+ IL_0039 ldflda Player::WorldPositionRounded
+ IL_003E ldarg.0 
+ IL_003F ldflda Player::WorldPosition
+ IL_0044 ldfld UnityEngine.Vector2::y
+ IL_0049 call UnityEngine.Mathf::Round
+ IL_004E stfld UnityEngine.Vector2::y
+ IL_0053 ldarg.0 
+ IL_0054 ldfld Player::NameText
+ IL_0059 callvirt UnityEngine.GameObject::get_transform
+ IL_005E ldarg.0 
+ IL_005F ldfld Player::WorldPosition
+ IL_0064 call UnityEngine.Vector2::get_up
+ IL_0069 call UnityEngine.Vector2::op_Addition
+ IL_006E call UnityEngine.Vector2::op_Implicit
+ IL_0073 callvirt UnityEngine.Transform::set_position
+ IL_0078 ldarg.0 
+ IL_0079 ldfld Player::NameText
+ IL_007E callvirt UnityEngine.GameObject::get_transform
+ IL_0083 ldarg.0 
+ IL_0084 ldfld Player::NameText
+ IL_0089 callvirt UnityEngine.GameObject::get_transform
+ IL_008E callvirt UnityEngine.Transform::get_position
+ IL_0093 stloc.0 
+ IL_0094 ldloca.s 0
+ IL_0096 ldfld UnityEngine.Vector3::x
+ IL_009B ldsfld Game::Instance
+ IL_00A0 callvirt Game::GetDeltaX
+ IL_00A5 ldarg.0 
+ IL_00A6 ldflda Player::WorldPosition
+ IL_00AB ldfld UnityEngine.Vector2::x
+ IL_00B0 ldsfld Settings::WorldSizeHalf
+ IL_00B5 conv.r4 
+ IL_00B6 add 
+ IL_00B7 mul 
+ IL_00B8 sub 
+ IL_00B9 ldarg.0 
+ IL_00BA ldfld Player::NameText
+ IL_00BF callvirt UnityEngine.GameObject::get_transform
+ IL_00C4 callvirt UnityEngine.Transform::get_position
+ IL_00C9 stloc.1 
+ IL_00CA ldloca.s 1
+ IL_00CC ldfld UnityEngine.Vector3::y
+ IL_00D1 ldc.r4 -7
+ IL_00D6 newobj UnityEngine.Vector3::.ctor
+ IL_00DB callvirt UnityEngine.Transform::set_position
+ IL_00E0 ret 

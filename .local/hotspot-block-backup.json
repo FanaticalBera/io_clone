@@ -1,0 +1,7 @@
+﻿{
+    "localPort":  [
+                      "Any"
+                  ],
+    "rule":  "{CF8FB3FE-D440-493C-A3C8-969B17A137BF}",
+    "program":  "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.tools\\node-v24.21.0-win-x64\\node.exe"
+}

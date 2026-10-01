@@ -1,0 +1,19 @@
+private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
+ attachJoystick(element:HTMLElement):void {
+  this.joystick=element;const options={signal:this.abort.signal};
+  const release=()=>{const pointer=this.touchPointer;this.touchPointer=null;if(pointer!==null&&element.hasPointerCapture(pointer))element.releasePointerCapture(pointer);element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate(0px,0px)';};
+  const move=(event:PointerEvent)=>{if(!this.enabled||this.touchPointer!==event.pointerId)return;event.preventDefault();
+   const rect=element.getBoundingClientRect(),radius=Math.min(rect.width,rect.height)*0.44;
+   const dx=event.clientX-(rect.left+rect.width/2),dy=event.clientY-(rect.top+rect.height/2),length=Math.hypot(dx,dy),scale=length>radius?radius/length:1;
+   element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate('+dx*scale+'px,'+dy*scale+'px)';
+   if(length>=radius*0.15)this.setDirection({x:dx,y:dy});
+  };
+  element.addEventListener('pointerdown',event=>{if(!this.enabled||this.touchPointer!==null)return;this.touchPointer=event.pointerId;element.setPointerCapture(event.pointerId);move(event);},options);
+  element.addEventListener('pointermove',move,options);
+  for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{if((event as PointerEvent).pointerId===this.touchPointer)release();},options);
+  window.addEventListener('resize',release,options);window.addEventListener('blur',release,options);
+ }
+ reset():void {
+  this.keys.clear();if(this.touchPointer!==null&&this.joystick?.hasPointerCapture(this.touchPointer))this.joystick.releasePointerCapture(this.touchPointer);
+  this.touchPointer=null;const thumb=this.joystick?.querySelector<HTMLElement>('#joystick-thumb');if(thumb)thumb.style.transform='translate(0px,0px)';
+ }

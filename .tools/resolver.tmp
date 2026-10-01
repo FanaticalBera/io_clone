@@ -1,0 +1,42 @@
+export function applySimultaneousCaptures(match:MatchState,returners:Participant[]):void {
+ const ordered=[...returners].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
+ const candidates=new Map<Participant,Set<number>>();
+ for(const p of ordered)if(p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[p.cellId]===p.slot+1)candidates.set(p,captureCandidates(match,p));
+ const winners=new Map<number,Participant>(),gained=new Map<Participant,number>();
+ for(const [p,cells]of candidates)for(const id of cells)if(!winners.has(id))winners.set(id,p);
+ for(const [id,p]of winners){if(match.owners[id]!==p.slot+1)gained.set(p,(gained.get(p)??0)+1);setOwner(match,id,p.slot+1);}
+ for(const p of candidates.keys()){clearTrail(match,p);emitEvent(match,{type:'CAPTURE',participantId:p.participantId,amount:gained.get(p)??0});}
+}
+export function resolveAtTime(match:MatchState):void {
+ for(let iteration=0;iteration<32;iteration++){
+  const ordered=[...match.participants].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
+  const alive=ordered.filter(p=>p.lifeState==='ALIVE');
+  const masks=match.trailMasks.slice(),pending=new Map<Participant,number>();
+  for(const p of alive){
+   if(!isProtected(match,p))p.protectedUntilTick=0;
+   if(match.owners[p.cellId]!==p.slot+1){
+    p.protectedUntilTick=0;
+    if(!p.trailCells.has(p.cellId))pending.set(p,p.cellId);
+    masks[p.cellId]|=1<<p.slot;
+   }
+  }
+  const deaths=new Map<Participant,Participant[]>();
+  for(const attacker of alive){
+   if(isProtected(match,attacker))continue;
+   for(const victim of alive)if(victim!==attacker&&(masks[attacker.cellId]&(1<<victim.slot))){
+    const attackers=deaths.get(victim)??[];attackers.push(attacker);deaths.set(victim,attackers);
+   }
+  }
+  for(const [victim,attackers]of deaths){
+   attackers.sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
+   markDead(match,victim,'TRAIL_CUT',attackers[0]);
+  }
+  for(const [p,id]of pending)if(p.lifeState==='ALIVE')addTrail(match,p,id);
+  const returners=ordered.filter(p=>p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[p.cellId]===p.slot+1);
+  applySimultaneousCaptures(match,returners);
+  let territoryDeaths=0;
+  for(const p of ordered)if(p.lifeState==='ALIVE'&&p.territoryCount===0){markDead(match,p,'TERRITORY_LOST');territoryDeaths++;}
+  if(!deaths.size&&!pending.size&&!returners.length&&!territoryDeaths)return;
+ }
+ throw new Error('Derived event limit');
+}

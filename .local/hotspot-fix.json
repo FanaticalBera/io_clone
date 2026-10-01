@@ -1,0 +1,9 @@
+﻿{
+    "excludedPort":  3003,
+    "ok":  true,
+    "changedRule":  "{CF8FB3FE-D440-493C-A3C8-969B17A137BF}",
+    "preservedBlockPorts":  [
+                                "0-3002",
+                                "3004-65535"
+                            ]
+}

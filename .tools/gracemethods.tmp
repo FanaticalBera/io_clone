@@ -1,0 +1,31 @@
+disconnected(session:Session):void {
+  const current=this.member(session);if(!current)return;
+  current.member.graceUntil=this.sessions.now()+this.config.reconnectGraceSeconds*1000;
+  session.expiresAt=current.member.graceUntil;session.background=true;current.room.inputs.delete(current.member.memberId);
+  if(current.room.hostId===current.member.memberId)this.transferHost(current.room);current.room.revision++;
+ }
+ restored(session:Session):void {
+  const current=this.member(session);if(!current)return;
+  current.member.graceUntil=null;session.expiresAt=Infinity;session.background=false;current.room.bots.delete(current.member.memberId);
+  if(current.room.mode==='FRIEND'&&!current.room.hostId)this.transferHost(current.room);current.room.revision++;
+ }
+ private replaceWithBot(room:Room,participantId:string):void {
+  if(room.phase!=='RUNNING'||!room.match)return;
+  const match=room.match,old=match.participants.find(p=>p.participantId===participantId);if(!old)return;
+  leaveParticipant(match,old);match.participants=match.participants.filter(p=>p!==old);room.bots.delete(participantId);
+  const template=botSpecs(4,0,match.matchId+'-replacement-'+randomUUID())[old.slot%4];
+  const p=makeParticipant({...template,slot:old.slot});p.respawnAtTick=match.tick;match.participants.push(p);
+  room.bots.set(p.participantId,createBotMemory(match.seed^(p.slot*2654435761)^match.tick));trySpawn(match,p);
+ }
+ closeRoom(room:Room):void {
+  for(const member of room.members.values()){member.session.roomId=null;member.session.memberId=null;member.session.expiresAt=this.sessions.now()+60000;}
+  room.phase='CLOSED';room.match=null;room.members.clear();room.bots.clear();room.inputs.clear();room.phaseDeadline=null;room.emptyDeadline=null;this.rooms.delete(room.roomId);
+ }
+ private expireMembers(now:number):void {
+  for(const room of [...this.rooms.values()]){
+   for(const member of [...room.members.values()])if(member.graceUntil!==null&&member.graceUntil<=now){
+    const session=member.session;this.leave(session);this.sessions.sessions.delete(session.token);
+   }
+   if(room.emptyDeadline!==null&&room.emptyDeadline<=now&&!room.members.size)this.closeRoom(room);
+  }
+ }

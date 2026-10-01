@@ -1,0 +1,22 @@
+{
+  "turnRadiansPerSecond": 9,
+  "url": "http://192.168.137.1:3003",
+  "transport": "Socket.IO polling via PowerShell",
+  "cleanup": "room:leave and Engine.IO close; empty-room TTL applies",
+  "target": {
+    "y": -0.5,
+    "x": -0.8660254037844387
+  },
+  "initial": {
+    "x": -0.5,
+    "y": 0.8660254037844387
+  },
+  "protocolVersion": 3,
+  "moveCellsPerSecond": 4.2,
+  "actual": {
+    "x": -0.9016625334706188,
+    "y": 0.4324403724623145
+  },
+  "asset": "/assets/index-B2Yu2mG_.js",
+  "ack": 1
+}

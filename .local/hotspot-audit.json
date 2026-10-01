@@ -1,0 +1,76 @@
+﻿{
+    "port":  {
+                 "Protocol":  "TCP",
+                 "LocalPort":  "3003",
+                 "RemotePort":  "Any"
+             },
+    "rule":  {
+                 "Name":  "HEXHOLD-Hotspot-3003",
+                 "Enabled":  1,
+                 "Direction":  1,
+                 "Action":  2,
+                 "Profile":  0,
+                 "PolicyStoreSourceType":  1
+             },
+    "profiles":  [
+                     {
+                         "Name":  "Domain",
+                         "Enabled":  1,
+                         "AllowLocalFirewallRules":  1,
+                         "DefaultInboundAction":  4
+                     },
+                     {
+                         "Name":  "Private",
+                         "Enabled":  1,
+                         "AllowLocalFirewallRules":  1,
+                         "DefaultInboundAction":  4
+                     },
+                     {
+                         "Name":  "Public",
+                         "Enabled":  1,
+                         "AllowLocalFirewallRules":  1,
+                         "DefaultInboundAction":  4
+                     }
+                 ],
+    "address":  {
+                    "LocalAddress":  "192.168.137.1",
+                    "RemoteAddress":  "192.168.137.0/255.255.255.0"
+                },
+    "program":  {
+                    "Program":  "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.tools\\node-v24.21.0-win-x64\\node.exe"
+                },
+    "matchingBlockRules":  [
+                               {
+                                   "rule":  {
+                                                "Name":  "{86356D76-AD77-4F68-80DA-7B92A98915E9}",
+                                                "DisplayName":  "node.exe",
+                                                "Enabled":  1,
+                                                "Profile":  4
+                                            },
+                                   "ports":  {
+                                                 "Protocol":  "UDP",
+                                                 "LocalPort":  "Any"
+                                             },
+                                   "address":  {
+                                                   "LocalAddress":  "Any",
+                                                   "RemoteAddress":  "Any"
+                                               }
+                               },
+                               {
+                                   "rule":  {
+                                                "Name":  "{CF8FB3FE-D440-493C-A3C8-969B17A137BF}",
+                                                "DisplayName":  "node.exe",
+                                                "Enabled":  1,
+                                                "Profile":  4
+                                            },
+                                   "ports":  {
+                                                 "Protocol":  "TCP",
+                                                 "LocalPort":  "Any"
+                                             },
+                                   "address":  {
+                                                   "LocalAddress":  "Any",
+                                                   "RemoteAddress":  "Any"
+                                               }
+                               }
+                           ]
+}

@@ -1,0 +1,11 @@
+{
+ "condition":"Actual Windows PC, Codex in-app browser, active local practice with 8 participants and default 1519-cell map; simultaneous automated tests on same host",
+ "os":"Windows 10 10.0.19045",
+ "cpu":"AMD Ryzen 5 5600X", "logicalCores":12, "ramGBApprox":16,
+ "gpuInstalled":"NVIDIA GeForce RTX 3070 Ti (WMI); active WebGL backend not independently verified",
+ "canvasCSS":[773,892], "canvasPixels":[773,892],
+ "measurement":"Visible optional metrics meter, rolling 30-second rAF average while HUD visible",
+ "samplesAverageFPS":[110.6,116.4],
+ "targetAverageFPS":60,
+ "scope":"This viewport and observed rolling windows; no full-round minimum/one-percent-low acceptance claim"
+}

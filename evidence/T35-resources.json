@@ -1,0 +1,26 @@
+{
+  "rounds": [
+    [
+      "aa30cad7-6c73-4982-bc70-3e7b5d71a5b9:round:1",
+      "aa30cad7-6c73-4982-bc70-3e7b5d71a5b9:round:2",
+      "aa30cad7-6c73-4982-bc70-3e7b5d71a5b9:round:3"
+    ],
+    [
+      "a475a4a3-75b1-4527-ba3e-e438a898ab59:round:1",
+      "a475a4a3-75b1-4527-ba3e-e438a898ab59:round:2",
+      "a475a4a3-75b1-4527-ba3e-e438a898ab59:round:3"
+    ]
+  ],
+  "connections": 10,
+  "steps": 186,
+  "stepP95Ms": 1.580500000000029,
+  "snapshotBytes": 3537664,
+  "snapshots": 400,
+  "heapBefore": 21397440,
+  "heapAfter": 56133504,
+  "cleanup": {
+    "rooms": 0,
+    "sessions": 0,
+    "channels": 0
+  }
+}

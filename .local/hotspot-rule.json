@@ -1,0 +1,7 @@
+﻿{
+    "rule":  "HEXHOLD-Hotspot-3003",
+    "ok":  true,
+    "port":  3003,
+    "localAddress":  "192.168.137.1",
+    "remoteAddress":  "192.168.137.0/24"
+}

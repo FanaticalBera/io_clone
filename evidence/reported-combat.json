@@ -1,0 +1,28 @@
+{
+  "condition": "Controlled browser fixture using actual shared engine and wire snapshot roundtrip; full live two-browser gameplay is covered by multiplayer.spec.ts",
+  "split": {
+    "detached": 0,
+    "opponent": 3,
+    "displayed": [
+      "0.1%",
+      "0.1%"
+    ]
+  },
+  "kill": {
+    "played": 1,
+    "kills": 1,
+    "deaths": 0,
+    "active": 1,
+    "lastEventId": "match-4:2",
+    "feedback": "KILL"
+  },
+  "death": {
+    "played": 2,
+    "kills": 1,
+    "deaths": 1,
+    "active": 1,
+    "lastEventId": "match-4:3",
+    "feedback": "DEATH"
+  },
+  "pageErrors": []
+}

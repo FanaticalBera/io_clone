@@ -1,0 +1,37 @@
+createFriend(session:Session,nickname:unknown):Ack {
+  if(session.roomId)return{ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
+  const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
+  let code='';for(let attempt=0;attempt<32;attempt++){const candidate=this.codeGenerator();if(!/^[A-HJ-NP-Z2-9]{8}$/.test(candidate))throw new Error('Invalid generated code');if(![...this.rooms.values()].some(r=>r.code===candidate)){code=candidate;break;}}
+  if(!code)return{ok:false,code:'SERVER_BUSY',message:'새 방을 만들 수 없습니다. 잠시 후 다시 시도하세요.'};
+  const room=this.createRoom('FRIEND',code);if(!room)return{ok:false,code:'SERVER_BUSY',message:'대전 서버가 가득 찼습니다.'};
+  this.addMember(room,session,name);return{ok:true,roomId:room.roomId};
+ }
+ joinFriend(session:Session,nickname:unknown,rawCode:unknown):Ack {
+  if(session.roomId)return{ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
+  const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
+  this.advance();const code=typeof rawCode==='string'?rawCode.trim().toUpperCase():'';
+  const room=[...this.rooms.values()].find(r=>r.code===code&&r.mode==='FRIEND'&&r.phase!=='CLOSED');
+  if(!/^[A-HJ-NP-Z2-9]{8}$/.test(code)||!room)return{ok:false,code:'ROOM_NOT_FOUND',message:'존재하지 않는 방 코드입니다.'};
+  if(room.members.size>=8)return{ok:false,code:'ROOM_FULL',message:'친구 방의 사람 정원 8명이 모두 찼습니다.'};
+  this.addMember(room,session,name,room.phase!=='WAITING');return{ok:true,roomId:room.roomId};
+ }
+ start(session:Session):Ack {
+  const current=this.member(session);if(!current)return{ok:false,code:'ROOM_NOT_FOUND',message:'참가 중인 방이 없습니다.'};
+  if(current.room.hostId!==current.member.memberId)return{ok:false,code:'NOT_HOST',message:'방장만 처음 라운드를 시작할 수 있습니다.'};
+  if(current.room.phase!=='WAITING')return{ok:false,code:'BAD_PHASE',message:'이미 라운드를 준비하거나 진행 중입니다.'};
+  this.beginCountdown(current.room);return{ok:true,roomId:current.room.roomId};
+ }
+ transferHost(room:Room):void {
+  if(room.mode!=='FRIEND')return;
+  room.hostId=[...room.members.values()].filter(m=>m.session.connected).sort((a,b)=>a.joinOrder-b.joinOrder)[0]?.memberId??null;room.revision++;
+ }
+ leave(session:Session):Ack {
+  const current=this.member(session);if(!current)return{ok:true};
+  const {room,member}=current;
+  const p=room.match?.participants.find(p=>p.participantId===member.memberId);
+  if(room.phase==='RUNNING'&&room.match&&p)leaveParticipant(room.match,p);
+  room.members.delete(member.memberId);room.inputs.delete(member.memberId);session.roomId=null;session.memberId=null;
+  if(room.hostId===member.memberId)this.transferHost(room);
+  if(!room.members.size)room.emptyDeadline=this.sessions.now()+this.config.emptyRoomTtlSeconds*1000;
+  room.revision++;return{ok:true};
+ }

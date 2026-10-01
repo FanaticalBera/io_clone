@@ -1,0 +1,857 @@
+{
+  "condition": "Windows Node, actual Socket.IO over TCP proxy 50ms each direction; scripted public-state clients, no phone FPS claim",
+  "rounds": [
+    [
+      "a225449d-2bda-4bf1-bdc6-a96ce5150a70:round:1",
+      "a225449d-2bda-4bf1-bdc6-a96ce5150a70:round:2",
+      "a225449d-2bda-4bf1-bdc6-a96ce5150a70:round:3"
+    ],
+    [
+      "48186adc-def9-421b-939e-02aeba1c848a:round:1",
+      "48186adc-def9-421b-939e-02aeba1c848a:round:2",
+      "48186adc-def9-421b-939e-02aeba1c848a:round:3"
+    ]
+  ],
+  "final": {
+    "status": "PASSED",
+    "elapsedSeconds": 748.3965578000001,
+    "rooms": [],
+    "connections": 0,
+    "heap": 74004016,
+    "rss": 226193408,
+    "metrics": {
+      "steps": 43200,
+      "stepP95Ms": 0.8053999999829102,
+      "maxBacklogMs": 673.0681666667073,
+      "snapshotBytes": 615982475,
+      "snapshots": 71572
+    },
+    "rtt": {
+      "samples": 24,
+      "medianMs": 118.40260000000126,
+      "p95Ms": 226.05819999997038
+    },
+    "errors": []
+  },
+  "samples": [
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 33.868607499999996,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 815,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 811,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 42893208,
+      "rss": 156798976,
+      "metrics": {
+        "steps": 1626,
+        "stepP95Ms": 0.6978000000017346,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 23522034,
+        "snapshots": 2728
+      },
+      "rtt": {
+        "samples": 0
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 63.871125199999994,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 1715,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 1712,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 42029176,
+      "rss": 160268288,
+      "metrics": {
+        "steps": 3427,
+        "stepP95Ms": 0.6463000000003376,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 49281860,
+        "snapshots": 5728
+      },
+      "rtt": {
+        "samples": 1,
+        "medianMs": 120.67859999999928,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 93.877159,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 2615,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 2611,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 49116712,
+      "rss": 161374208,
+      "metrics": {
+        "steps": 5226,
+        "stepP95Ms": 0.6189000000013039,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 75109244,
+        "snapshots": 8728
+      },
+      "rtt": {
+        "samples": 2,
+        "medianMs": 120.67859999999928,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 123.88712919999999,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 3515,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 3512,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 33783312,
+      "rss": 213164032,
+      "metrics": {
+        "steps": 7027,
+        "stepP95Ms": 0.6062000000019907,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 100854100,
+        "snapshots": 11728
+      },
+      "rtt": {
+        "samples": 3,
+        "medianMs": 119.70309999999881,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 153.89564450000003,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 4416,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 4412,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 59323720,
+      "rss": 218349568,
+      "metrics": {
+        "steps": 8828,
+        "stepP95Ms": 0.5963000000010652,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 126504224,
+        "snapshots": 14736
+      },
+      "rtt": {
+        "samples": 4,
+        "medianMs": 119.86010000000533,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 183.9021964,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 5316,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 5312,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 34832960,
+      "rss": 215662592,
+      "metrics": {
+        "steps": 10628,
+        "stepP95Ms": 0.590200000006007,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 152192422,
+        "snapshots": 17736
+      },
+      "rtt": {
+        "samples": 5,
+        "medianMs": 119.70309999999881,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 213.90849490000002,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 6216,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 6212,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 53546120,
+      "rss": 218271744,
+      "metrics": {
+        "steps": 12428,
+        "stepP95Ms": 0.5834000000031665,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 177913324,
+        "snapshots": 20736
+      },
+      "rtt": {
+        "samples": 6,
+        "medianMs": 119.70309999999881,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 243.9143859,
+      "rooms": [
+        {
+          "round": 1,
+          "tick": 7116,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 1,
+          "tick": 7113,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 62302368,
+      "rss": 220364800,
+      "metrics": {
+        "steps": 14229,
+        "stepP95Ms": 0.5797000000020489,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 203571416,
+        "snapshots": 23738
+      },
+      "rtt": {
+        "samples": 7,
+        "medianMs": 118.74160000000848,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 273.9148369,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 516,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 513,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 34776056,
+      "rss": 221577216,
+      "metrics": {
+        "steps": 15429,
+        "stepP95Ms": 0.5768000000025495,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 220919804,
+        "snapshots": 25758
+      },
+      "rtt": {
+        "samples": 8,
+        "medianMs": 118.74160000000848,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 303.9190435,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 1416,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 1413,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 62048536,
+      "rss": 223752192,
+      "metrics": {
+        "steps": 17229,
+        "stepP95Ms": 0.5689999999885913,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 246662284,
+        "snapshots": 28758
+      },
+      "rtt": {
+        "samples": 9,
+        "medianMs": 118.40260000000126,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 333.92578349999997,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 2316,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 2312,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 24550224,
+      "rss": 220848128,
+      "metrics": {
+        "steps": 19028,
+        "stepP95Ms": 0.557200000010198,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 272312492,
+        "snapshots": 31756
+      },
+      "rtt": {
+        "samples": 10,
+        "medianMs": 118.40260000000126,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 363.92971249999994,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 3216,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 3213,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 29692544,
+      "rss": 223121408,
+      "metrics": {
+        "steps": 20829,
+        "stepP95Ms": 0.5464999999967404,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 297970102,
+        "snapshots": 34758
+      },
+      "rtt": {
+        "samples": 11,
+        "medianMs": 118.04369999998016,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 393.9394631,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 4116,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 4113,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 45694720,
+      "rss": 221003776,
+      "metrics": {
+        "steps": 22629,
+        "stepP95Ms": 0.5350000000034925,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 323816526,
+        "snapshots": 37758
+      },
+      "rtt": {
+        "samples": 12,
+        "medianMs": 118.04369999998016,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 423.9483323,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 5017,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 5013,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 66585080,
+      "rss": 223776768,
+      "metrics": {
+        "steps": 24430,
+        "stepP95Ms": 0.5233000000007451,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 349584450,
+        "snapshots": 40758
+      },
+      "rtt": {
+        "samples": 13,
+        "medianMs": 117.71250000002328,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 453.9560322,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 5917,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 5913,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 76254728,
+      "rss": 225366016,
+      "metrics": {
+        "steps": 26230,
+        "stepP95Ms": 0.5108999999938533,
+        "maxBacklogMs": 57.931366666666385,
+        "snapshotBytes": 375419704,
+        "snapshots": 43758
+      },
+      "rtt": {
+        "samples": 14,
+        "medianMs": 117.71250000002328,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 483.9670609,
+      "rooms": [
+        {
+          "round": 2,
+          "tick": 6817,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 2,
+          "tick": 6814,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 49720464,
+      "rss": 222003200,
+      "metrics": {
+        "steps": 28031,
+        "stepP95Ms": 0.5029999999969732,
+        "maxBacklogMs": 83.62530000001766,
+        "snapshotBytes": 401168244,
+        "snapshots": 46758
+      },
+      "rtt": {
+        "samples": 15,
+        "medianMs": 117.53649999998743,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 513.9888132,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 217,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 214,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 44615488,
+      "rss": 224669696,
+      "metrics": {
+        "steps": 29231,
+        "stepP95Ms": 0.5129999999771826,
+        "maxBacklogMs": 95.05060000001697,
+        "snapshotBytes": 418683488,
+        "snapshots": 48778
+      },
+      "rtt": {
+        "samples": 16,
+        "medianMs": 117.53649999998743,
+        "p95Ms": 120.67859999999928
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 543.99112,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 1118,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 1115,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 53192232,
+      "rss": 222527488,
+      "metrics": {
+        "steps": 31033,
+        "stepP95Ms": 0.5298999999940861,
+        "maxBacklogMs": 132.82216666666037,
+        "snapshotBytes": 444753698,
+        "snapshots": 51778
+      },
+      "rtt": {
+        "samples": 17,
+        "medianMs": 117.53649999998743,
+        "p95Ms": 159.88219999999274
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 574.0030941,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 2018,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 2015,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 59436648,
+      "rss": 224862208,
+      "metrics": {
+        "steps": 32833,
+        "stepP95Ms": 0.5527000000001863,
+        "maxBacklogMs": 232.24753333333342,
+        "snapshotBytes": 470491241,
+        "snapshots": 54748
+      },
+      "rtt": {
+        "samples": 18,
+        "medianMs": 117.71250000002328,
+        "p95Ms": 159.88219999999274
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 604.0664359,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 2919,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 2916,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 30740632,
+      "rss": 222154752,
+      "metrics": {
+        "steps": 34635,
+        "stepP95Ms": 0.5683000000426546,
+        "maxBacklogMs": 232.24753333333342,
+        "snapshotBytes": 496343335,
+        "snapshots": 57758
+      },
+      "rtt": {
+        "samples": 19,
+        "medianMs": 117.71250000002328,
+        "p95Ms": 159.88219999999274
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 634.0677767000001,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 3820,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 3817,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 76819224,
+      "rss": 225562624,
+      "metrics": {
+        "steps": 36437,
+        "stepP95Ms": 0.5887000000220723,
+        "maxBacklogMs": 232.24753333333342,
+        "snapshotBytes": 521946492,
+        "snapshots": 60758
+      },
+      "rtt": {
+        "samples": 20,
+        "medianMs": 118.04369999998016,
+        "p95Ms": 226.05819999997038
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 664.0760876,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 4720,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 4717,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 25065968,
+      "rss": 226152448,
+      "metrics": {
+        "steps": 38237,
+        "stepP95Ms": 0.651400000002468,
+        "maxBacklogMs": 481.50443333337137,
+        "snapshotBytes": 546638822,
+        "snapshots": 63548
+      },
+      "rtt": {
+        "samples": 21,
+        "medianMs": 118.04369999998016,
+        "p95Ms": 159.88219999999274
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 694.1190108000001,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 5621,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 5618,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 43857048,
+      "rss": 227794944,
+      "metrics": {
+        "steps": 40039,
+        "stepP95Ms": 0.7384999999776483,
+        "maxBacklogMs": 673.0681666667073,
+        "snapshotBytes": 571159501,
+        "snapshots": 66382
+      },
+      "rtt": {
+        "samples": 22,
+        "medianMs": 118.40260000000126,
+        "p95Ms": 159.88219999999274
+      },
+      "errors": []
+    },
+    {
+      "status": "RUNNING",
+      "elapsedSeconds": 724.1233992,
+      "rooms": [
+        {
+          "round": 3,
+          "tick": 6522,
+          "phase": "RUNNING",
+          "humans": 8
+        },
+        {
+          "round": 3,
+          "tick": 6519,
+          "phase": "RUNNING",
+          "humans": 2
+        }
+      ],
+      "connections": 10,
+      "heap": 55951784,
+      "rss": 222494720,
+      "metrics": {
+        "steps": 41841,
+        "stepP95Ms": 0.7900000000081491,
+        "maxBacklogMs": 673.0681666667073,
+        "snapshotBytes": 596521283,
+        "snapshots": 69310
+      },
+      "rtt": {
+        "samples": 23,
+        "medianMs": 118.40260000000126,
+        "p95Ms": 226.05819999997038
+      },
+      "errors": []
+    }
+  ],
+  "cleanup": {
+    "rooms": 0,
+    "connections": 0,
+    "channels": 0
+  }
+}
