@@ -1,5 +1,5 @@
 import {it,expect} from 'vitest';
-import {touchSwipeDirection,touchTrackpadCursor,TOUCH_SWIPE_THRESHOLD_PX,TOUCH_TRACKPAD_RADIUS_PX} from '../../src/client/controls.js';
+import {touchSwipeDirection,touchTrackpadCursor,TOUCH_SWIPE_THRESHOLD_PX,TOUCH_TRACKPAD_RADIUS_PX,TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX,TRACKPAD_ANGLE_DEAD_ZONE} from '../../src/client/controls.js';
 
 it('uses one CSS-pixel distance threshold and normalizes the accepted swipe',()=>{
  const anchor={x:130,y:240};
@@ -49,4 +49,11 @@ it('caps long virtual cursor travel so steering sensitivity does not decay with 
  const turned=touchTrackpadCursor({x:1,y:0},cursor,0,-24)!;
  const direction={x:turned.x/Math.hypot(turned.x,turned.y),y:turned.y/Math.hypot(turned.x,turned.y)};
  expect(direction.y).toBeLessThan(-.2);
+});
+
+
+it('reserves a neutral centre region for trackpad reversal stability',()=>{
+ expect(TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX).toBeGreaterThan(0);
+ expect(TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX).toBeLessThan(TOUCH_TRACKPAD_RADIUS_PX);
+ expect(TRACKPAD_ANGLE_DEAD_ZONE).toBeGreaterThan(2*Math.PI/180);
 });
