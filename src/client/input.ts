@@ -1,7 +1,7 @@
 import type {Vec} from '../shared/model.js';
 import {normalizeDirection} from '../shared/movement.js';
 import type {MobileControls} from './settings.js';
-import {touchSwipeDirection,JOYSTICK_DEAD_ZONE,JOYSTICK_ANGLE_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
+import {touchSwipeDirection,touchTrackpadCursor,JOYSTICK_DEAD_ZONE,JOYSTICK_ANGLE_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
 export type DirectionSink=(direction:Vec)=>void;
 const KEYS:Record<string,Vec>={w:{x:0,y:-1},arrowup:{x:0,y:-1},s:{x:0,y:1},arrowdown:{x:0,y:1},a:{x:-1,y:0},arrowleft:{x:-1,y:0},d:{x:1,y:0},arrowright:{x:1,y:0}};
 export class InputAdapter {
@@ -12,6 +12,7 @@ export class InputAdapter {
  set enabled(value:boolean){if(!value)this.reset();this.active=value;}
  setMobileControls(mode:MobileControls):void{if(this.mobileControls!==mode){this.reset();this.mobileControls=mode;}}
  private drag:{id:number;anchor:Vec}|null=null;
+ private trackpad:{id:number;last:Vec;cursor:Vec|null}|null=null;
  private keys=new Set<string>();private abort=new AbortController();private frame=0;
  private lastSent=-Infinity;private changed=true;
  constructor(private element:HTMLElement,private pointerToDirection:(x:number,y:number)=>Vec|null,private sink:DirectionSink){
@@ -27,19 +28,37 @@ export class InputAdapter {
   window.addEventListener('blur',()=>this.reset(),options);
   window.addEventListener('resize',()=>this.reset(),options);
   element.addEventListener('pointerdown',event=>{
-   if(!this.enabled||this.mobileControls!=='drag'||event.pointerType!=='touch'||!event.isPrimary||this.drag)return;
-   event.preventDefault();this.drag={id:event.pointerId,anchor:{x:event.clientX,y:event.clientY}};element.setPointerCapture(event.pointerId);
+   if(!this.enabled||event.pointerType!=='touch'||!event.isPrimary||this.drag||this.trackpad)return;
+   if(this.mobileControls==='drag'){
+    event.preventDefault();this.drag={id:event.pointerId,anchor:{x:event.clientX,y:event.clientY}};element.setPointerCapture(event.pointerId);
+   }else if(this.mobileControls==='trackpad'){
+    event.preventDefault();this.trackpad={id:event.pointerId,last:{x:event.clientX,y:event.clientY},cursor:null};element.setPointerCapture(event.pointerId);
+   }
   },options);
   element.addEventListener('pointermove',event=>{
-   if(!this.enabled||event.pointerType!=='touch'||this.drag?.id!==event.pointerId)return;
-   event.preventDefault();
-   if(this.keys.size)return;
-   const point={x:event.clientX,y:event.clientY},direction=touchSwipeDirection(this.drag.anchor,point);
-   if(direction){this.drag.anchor=point;this.setDirection(direction);}
+   if(!this.enabled||event.pointerType!=='touch')return;
+   if(this.drag?.id===event.pointerId){
+    event.preventDefault();if(this.keys.size)return;
+    const point={x:event.clientX,y:event.clientY},direction=touchSwipeDirection(this.drag.anchor,point);
+    if(direction){this.drag.anchor=point;this.setDirection(direction);}return;
+   }
+   if(this.trackpad?.id===event.pointerId){
+    event.preventDefault();if(this.keys.size)return;
+    const point={x:event.clientX,y:event.clientY},dx=point.x-this.trackpad.last.x,dy=point.y-this.trackpad.last.y;
+    this.trackpad.last=point;
+    const cursor=touchTrackpadCursor(this.direction,this.trackpad.cursor,dx,dy);
+    if(!cursor)return;
+    this.trackpad.cursor=cursor;
+    this.setPointerDirection(cursor);
+   }
   },options);
-  for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{if(this.drag?.id===(event as PointerEvent).pointerId)this.releaseDrag();},options);
+  for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{
+   const id=(event as PointerEvent).pointerId;
+   if(this.drag?.id===id)this.releaseDrag();
+   if(this.trackpad?.id===id)this.releaseTrackpad();
+  },options);
   element.addEventListener('pointermove',event=>{
-   if(!this.enabled||event.pointerType==='touch'||this.drag||this.touchPointer!==null||this.keys.size)return;
+   if(!this.enabled||event.pointerType==='touch'||this.drag||this.trackpad||this.touchPointer!==null||this.keys.size)return;
    this.pointAt(event.clientX,event.clientY);
   },options);
   const loop=(now:number)=>{this.flush(now);this.frame=requestAnimationFrame(loop);};
@@ -90,8 +109,9 @@ private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
   window.addEventListener('resize',release,options);window.addEventListener('blur',release,options);
  }
  private releaseDrag():void{const pointer=this.drag?.id;this.drag=null;if(pointer!==undefined&&this.element.hasPointerCapture(pointer))this.element.releasePointerCapture(pointer);}
+ private releaseTrackpad():void{const pointer=this.trackpad?.id;this.trackpad=null;if(pointer!==undefined&&this.element.hasPointerCapture(pointer))this.element.releasePointerCapture(pointer);}
  reset():void {
-  this.releaseDrag();
+  this.releaseDrag();this.releaseTrackpad();
   this.keys.clear();if(this.touchPointer!==null&&this.joystick?.hasPointerCapture(this.touchPointer))this.joystick.releasePointerCapture(this.touchPointer);
   this.touchPointer=null;const thumb=this.joystick?.querySelector<HTMLElement>('#joystick-thumb');if(thumb)thumb.style.transform='translate(0px,0px)';
  }
