@@ -1,7 +1,7 @@
 import type {Vec} from '../shared/model.js';
 import {normalizeDirection} from '../shared/movement.js';
 import type {MobileControls} from './settings.js';
-import {touchSwipeDirection,touchTrackpadCursor,JOYSTICK_DEAD_ZONE,JOYSTICK_ANGLE_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
+import {touchSwipeDirection,touchTrackpadCursor,TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX,TRACKPAD_ANGLE_DEAD_ZONE,JOYSTICK_DEAD_ZONE,JOYSTICK_ANGLE_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
 export type DirectionSink=(direction:Vec)=>void;
 const KEYS:Record<string,Vec>={w:{x:0,y:-1},arrowup:{x:0,y:-1},s:{x:0,y:1},arrowdown:{x:0,y:1},a:{x:-1,y:0},arrowleft:{x:-1,y:0},d:{x:1,y:0},arrowright:{x:1,y:0}};
 export class InputAdapter {
@@ -49,7 +49,7 @@ export class InputAdapter {
     const cursor=touchTrackpadCursor(this.direction,this.trackpad.cursor,dx,dy);
     if(!cursor)return;
     this.trackpad.cursor=cursor;
-    this.setPointerDirection(cursor);
+    this.setTrackpadDirection(cursor);
    }
   },options);
   for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{
@@ -87,6 +87,12 @@ export class InputAdapter {
   if(this.keys.size)return;
   const rect=this.element.getBoundingClientRect(),direction=this.pointerToDirection(clientX-rect.left,clientY-rect.top);
   if(direction)this.setPointerDirection(direction);
+ }
+ private setTrackpadDirection(vector:Vec):void{
+  if(this.keys.size||Math.hypot(vector.x,vector.y)<TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX)return;
+  const normalized=normalizeDirection(vector.x,vector.y);if(!normalized)return;
+  if(normalized.x*this.direction.x+normalized.y*this.direction.y>=Math.cos(TRACKPAD_ANGLE_DEAD_ZONE))return;
+  this.setDirection(normalized);
  }
  private setJoystickDirection(vector:Vec):void{
   if(this.keys.size)return;const normalized=normalizeDirection(vector.x,vector.y);if(!normalized)return;
