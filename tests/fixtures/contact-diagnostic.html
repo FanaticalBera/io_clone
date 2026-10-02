@@ -1,0 +1,11 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/src/client/style.css"></head><body><div id="app"></div><script type="module">
+import {UI} from '/src/client/ui.ts';
+import {createRenderer} from '/src/client/game-scene.ts';
+import {runContactMovement} from '/tests/contact-movement-fixture.ts';
+import {buildView} from '/src/shared/game.ts';
+import {packSnapshot,unpackSnapshot} from '/src/shared/protocol.ts';
+const f=runContactMovement('simultaneous-neutral');
+const ui=new UI({practice(){},leave(){},restart(){}}),scene=createRenderer('field');ui.showGame('PRACTICE');
+const view=unpackSnapshot(packSnapshot(buildView(f.m),1,0,f.a.participantId));scene.setView(view,f.a.participantId,false,true);ui.updateView(view,f.a.participantId);
+window.fixture={f,scene,view};
+</script></body></html>

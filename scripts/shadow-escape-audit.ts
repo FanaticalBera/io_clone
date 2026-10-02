@@ -1,0 +1,3 @@
+import {runShadowEscapeWitness} from '../tests/shadow-escape-fixture.js';
+const f=runShadowEscapeWitness();
+console.log(JSON.stringify({seed:f.match.seed,tick:f.match.tick,participantId:f.bot.participantId,lifeId:f.bot.lifeId,actualGoal:f.memory.goal,actualInput:f.actualInput,shadow:f.trace.shadow,branch:{cutTick:f.cutTick,returnTick:f.branch.tick,attackerState:f.attacker.lifeState,attackerTrail:[...f.attacker.trailCells],attackerHomeOwner:f.branch.owners[f.attacker.cellId],extraKills:f.attacker.kills-f.bot.kills,victimState:f.victim.lifeState,victimContext:f.victim.deathContext,otherHeads:'retained observed steering intent; no bot policy changes in original match'}},null,2));

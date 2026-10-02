@@ -1,0 +1,3687 @@
+[
+  {
+    "seed": 4,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 28,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 25,
+      "HOME_CAPTURE": 3
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4474,
+      "clearFrames": 25,
+      "missedFrames": 3,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 14908,
+        "VICTIM_RETURNS_FIRST": 994,
+        "CLEAR_KILL_OPPORTUNITY": 65,
+        "COUNTER_CUT_FIRST": 46,
+        "UNSAFE_RETURN": 6
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 2,
+        "VICTIM_RETURNS_FIRST": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2462,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 794,
+          "clear": 1,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 888,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 135,
+          "clear": 2,
+          "missed": 1
+        },
+        "ATTACK": {
+          "frames": 195,
+          "clear": 22,
+          "missed": 2
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 1304,
+          "position": {
+            "x": -930.855546512276,
+            "y": 0.7590974765680017
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 1073,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 1036,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 998,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 959,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 919,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 877,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 834,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 8,
+              "target": 833,
+              "distance": 4,
+              "path": [
+                743,
+                744,
+                789,
+                833
+              ],
+              "back": [],
+              "attackSeconds": 0.7666666666666667,
+              "returnSeconds": 0.7666666666666667,
+              "victimReturnLowerBound": 1.2470769080468593,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 877,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-7",
+          "lifeId": 1
+        },
+        {
+          "tick": 2587,
+          "position": {
+            "x": -351.63221331448585,
+            "y": -825.9353408874964
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 284,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 285,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 253,
+              "distance": 4,
+              "path": [
+                160,
+                190,
+                221,
+                253
+              ],
+              "back": [],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.8880815745205372,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 221,
+              "distance": 3,
+              "path": [
+                160,
+                190,
+                221
+              ],
+              "back": [],
+              "attackSeconds": 0.6333333333333333,
+              "returnSeconds": 0.6333333333333333,
+              "victimReturnLowerBound": 0.8880815745205372,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 191,
+              "distance": 2,
+              "path": [
+                161,
+                191
+              ],
+              "back": [],
+              "attackSeconds": 0.4,
+              "returnSeconds": 0.4,
+              "victimReturnLowerBound": 0.8880815745205372,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-1",
+              "slot": 1,
+              "observedTrailLength": 6,
+              "target": 162,
+              "distance": 2,
+              "path": [
+                133,
+                162
+              ],
+              "back": [],
+              "attackSeconds": 0.4666666666666667,
+              "returnSeconds": 0.4666666666666667,
+              "victimReturnLowerBound": 0.8880815745205372,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 455,
+              "distance": 12,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 456,
+              "distance": 11,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 419,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 383,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 348,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 313,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-6",
+              "slot": 6,
+              "observedTrailLength": 7,
+              "target": 312,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 3,
+          "goalBefore": "ESCAPE",
+          "selectedGoal": "EXPAND",
+          "selectedTarget": null,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "VICTIM_RETURNS_FIRST",
+          "participantId": "bot-4",
+          "lifeId": 3
+        }
+      ]
+    }
+  },
+  {
+    "seed": 4,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 22,
+    "causes": {
+      "PENDING_TRAIL_CONTACT": 3,
+      "EXISTING_TRAIL_CONTACT": 19
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3355,
+      "clearFrames": 19,
+      "missedFrames": 0,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 8838,
+        "VICTIM_RETURNS_FIRST": 548,
+        "COUNTER_CUT_FIRST": 73,
+        "CLEAR_KILL_OPPORTUNITY": 55,
+        "UNSAFE_RETURN": 16
+      },
+      "missedReasons": {},
+      "goals": {
+        "EXPAND": {
+          "frames": 1900,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 515,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 691,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 135,
+          "clear": 18,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 114,
+          "clear": 1,
+          "missed": 0
+        }
+      },
+      "witnesses": []
+    }
+  },
+  {
+    "seed": 19,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 22,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 20,
+      "HOME_CAPTURE": 1,
+      "PENDING_TRAIL_CONTACT": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4557,
+      "clearFrames": 22,
+      "missedFrames": 1,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 16716,
+        "VICTIM_RETURNS_FIRST": 777,
+        "CLEAR_KILL_OPPORTUNITY": 37,
+        "COUNTER_CUT_FIRST": 61,
+        "UNSAFE_RETURN": 24,
+        "TRAIL_BUDGET": 11
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2431,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1191,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 636,
+          "clear": 1,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 108,
+          "clear": 1,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 191,
+          "clear": 20,
+          "missed": 1
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 596,
+          "position": {
+            "x": -49.06777649020636,
+            "y": 662.0617403421436
+          },
+          "ownTrailLength": 6,
+          "candidates": [
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1349,
+              "distance": 2,
+              "path": [
+                1320,
+                1349
+              ],
+              "back": [
+                1350,
+                1351,
+                1352,
+                1353,
+                1382
+              ],
+              "attackSeconds": 0.43333333333333335,
+              "returnSeconds": 1.5666666666666667,
+              "victimReturnLowerBound": 0.6912049677568345,
+              "counterCutLowerBound": 0.8382547557217341,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1319,
+              "distance": 2,
+              "path": [
+                1289,
+                1319
+              ],
+              "back": [
+                1320,
+                1321,
+                1322,
+                1323,
+                1353,
+                1382
+              ],
+              "attackSeconds": 0.36666666666666664,
+              "returnSeconds": 1.7333333333333334,
+              "victimReturnLowerBound": 0.6912049677568345,
+              "counterCutLowerBound": 0.7323716005980372,
+              "reason": "UNSAFE_RETURN"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1288,
+              "distance": 2,
+              "path": [
+                1289,
+                1288
+              ],
+              "back": [
+                1289,
+                1290,
+                1291,
+                1292,
+                1323,
+                1353,
+                1382
+              ],
+              "attackSeconds": 0.4,
+              "returnSeconds": 2.2,
+              "victimReturnLowerBound": 0.6912049677568345,
+              "counterCutLowerBound": 0.6919720880911425,
+              "reason": "UNSAFE_RETURN"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1256,
+              "distance": 3,
+              "path": [
+                1258,
+                1257,
+                1256
+              ],
+              "back": [],
+              "attackSeconds": 0.6333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.6912049677568345,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1223,
+              "distance": 4,
+              "path": [
+                1258,
+                1225,
+                1224,
+                1223
+              ],
+              "back": [],
+              "attackSeconds": 0.9,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.6912049677568345,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1222,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1221,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1220,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1219,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1251,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1282,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1313,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1343,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1344,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 15,
+              "target": 1345,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 5,
+              "observedTrailLength": 3,
+              "target": 1077,
+              "distance": 12,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 5,
+              "observedTrailLength": 3,
+              "target": 1114,
+              "distance": 11,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 5,
+              "observedTrailLength": 3,
+              "target": 1150,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 1319,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-1",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 19,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 20,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 18,
+      "PENDING_TRAIL_CONTACT": 1,
+      "HOME_CAPTURE": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3386,
+      "clearFrames": 9,
+      "missedFrames": 1,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 7674,
+        "VICTIM_RETURNS_FIRST": 455,
+        "CLEAR_KILL_OPPORTUNITY": 18,
+        "TRAIL_BUDGET": 1,
+        "NO_RETURN_PATH": 2,
+        "COUNTER_CUT_FIRST": 33,
+        "UNSAFE_RETURN": 7
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1588,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 560,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 127,
+          "clear": 9,
+          "missed": 1
+        },
+        "STEAL": {
+          "frames": 1015,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 96,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 2831,
+          "position": {
+            "x": 74.29406298798897,
+            "y": 765.1418833513961
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1056,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1017,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1016,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1015,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1053,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1090,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1126,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1161,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1195,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1228,
+              "distance": 4,
+              "path": [
+                1323,
+                1293,
+                1261,
+                1228
+              ],
+              "back": [
+                1260
+              ],
+              "attackSeconds": 0.8,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.1113734126585524,
+              "counterCutLowerBound": 0.8,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1260,
+              "distance": 3,
+              "path": [
+                1323,
+                1292,
+                1260
+              ],
+              "back": [],
+              "attackSeconds": 0.5333333333333333,
+              "returnSeconds": 0.5333333333333333,
+              "victimReturnLowerBound": 1.1113734126585524,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 12,
+              "target": 1261,
+              "distance": 3,
+              "path": [
+                1323,
+                1293,
+                1261
+              ],
+              "back": [],
+              "attackSeconds": 0.5666666666666667,
+              "returnSeconds": 0.5666666666666667,
+              "victimReturnLowerBound": 1.1113734126585524,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 2,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 1228,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-4",
+          "lifeId": 5
+        }
+      ]
+    }
+  },
+  {
+    "seed": 73,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 19,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 17,
+      "HOME_CAPTURE": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4602,
+      "clearFrames": 7,
+      "missedFrames": 0,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 15297,
+        "VICTIM_RETURNS_FIRST": 790,
+        "COUNTER_CUT_FIRST": 35,
+        "UNSAFE_RETURN": 3,
+        "CLEAR_KILL_OPPORTUNITY": 10
+      },
+      "missedReasons": {},
+      "goals": {
+        "EXPAND": {
+          "frames": 2095,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 135,
+          "clear": 7,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 750,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 104,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1518,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": []
+    }
+  },
+  {
+    "seed": 73,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 24,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 22,
+      "PENDING_TRAIL_CONTACT": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3291,
+      "clearFrames": 30,
+      "missedFrames": 1,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 8173,
+        "VICTIM_RETURNS_FIRST": 571,
+        "CLEAR_KILL_OPPORTUNITY": 60,
+        "COUNTER_CUT_FIRST": 34,
+        "UNSAFE_RETURN": 6
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1854,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 151,
+          "clear": 30,
+          "missed": 1
+        },
+        "RETURN": {
+          "frames": 513,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 687,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 86,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 1413,
+          "position": {
+            "x": -237.7939502978883,
+            "y": -839.7801227496519
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 425,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 389,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 354,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 320,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 287,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 254,
+              "distance": 4,
+              "path": [
+                162,
+                191,
+                222,
+                254
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0778087421959046,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 222,
+              "distance": 3,
+              "path": [
+                162,
+                191,
+                222
+              ],
+              "back": [],
+              "attackSeconds": 0.7,
+              "returnSeconds": 0.7,
+              "victimReturnLowerBound": 1.0778087421959046,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 8,
+              "target": 253,
+              "distance": 4,
+              "path": [
+                162,
+                191,
+                221,
+                253
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0778087421959046,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 254,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-2",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 115,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 23,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 22,
+      "PENDING_TRAIL_CONTACT": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4545,
+      "clearFrames": 37,
+      "missedFrames": 5,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 14434,
+        "VICTIM_RETURNS_FIRST": 904,
+        "CLEAR_KILL_OPPORTUNITY": 58,
+        "COUNTER_CUT_FIRST": 55,
+        "TRAIL_BUDGET": 5,
+        "UNSAFE_RETURN": 2
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 3,
+        "GOAL_ESCAPE_BLOCK": 2
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2380,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 153,
+          "clear": 2,
+          "missed": 2
+        },
+        "STEAL": {
+          "frames": 1250,
+          "clear": 1,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 607,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 155,
+          "clear": 34,
+          "missed": 3
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 2717,
+          "position": {
+            "x": 539.0652228884485,
+            "y": 412.6328398805112
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1385,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1357,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1328,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1298,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1267,
+              "distance": 4,
+              "path": [
+                1168,
+                1202,
+                1235,
+                1267
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.1323221337619096,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1234,
+              "distance": 4,
+              "path": [
+                1132,
+                1167,
+                1201,
+                1234
+              ],
+              "back": [
+                1235
+              ],
+              "attackSeconds": 0.9,
+              "returnSeconds": 1.1,
+              "victimReturnLowerBound": 1.1323221337619096,
+              "counterCutLowerBound": 1.1288236081059861,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1200,
+              "distance": 4,
+              "path": [
+                1132,
+                1131,
+                1166,
+                1200
+              ],
+              "back": [
+                1201
+              ],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.1323221337619096,
+              "counterCutLowerBound": 1.0370525143192424,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1165,
+              "distance": 4,
+              "path": [
+                1132,
+                1131,
+                1130,
+                1165
+              ],
+              "back": [
+                1166,
+                1167
+              ],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.1323221337619096,
+              "counterCutLowerBound": 0.9950335579776014,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1129,
+              "distance": 4,
+              "path": [
+                1132,
+                1131,
+                1130,
+                1129
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.1323221337619096,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1128,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1127,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1162,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1196,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 14,
+              "target": 1229,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 1267,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-5",
+          "lifeId": 2
+        },
+        {
+          "tick": 3351,
+          "position": {
+            "x": 378.09525590221307,
+            "y": -638.0364501422293
+          },
+          "ownTrailLength": 13,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 372,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 337,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 303,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 270,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 269,
+              "distance": 4,
+              "path": [
+                266,
+                267,
+                268,
+                269
+              ],
+              "back": [],
+              "attackSeconds": 0.8333333333333334,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.9056408374836924,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 268,
+              "distance": 3,
+              "path": [
+                266,
+                267,
+                268
+              ],
+              "back": [
+                236,
+                205,
+                175,
+                146,
+                145
+              ],
+              "attackSeconds": 0.5666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.9056408374836924,
+              "counterCutLowerBound": null,
+              "reason": "TRAIL_BUDGET"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 267,
+              "distance": 2,
+              "path": [
+                266,
+                267
+              ],
+              "back": [
+                235,
+                204,
+                174,
+                145
+              ],
+              "attackSeconds": 0.3333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.9056408374836924,
+              "counterCutLowerBound": 0.3584541159654867,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 235,
+              "distance": 2,
+              "path": [
+                266,
+                235
+              ],
+              "back": [
+                204,
+                174,
+                145
+              ],
+              "attackSeconds": 0.23333333333333334,
+              "returnSeconds": 0.9333333333333333,
+              "victimReturnLowerBound": 0.9056408374836924,
+              "counterCutLowerBound": 0.4932040307421744,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 236,
+              "distance": 3,
+              "path": [
+                266,
+                267,
+                236
+              ],
+              "back": [
+                205,
+                175,
+                146,
+                145
+              ],
+              "attackSeconds": 0.5333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.9056408374836924,
+              "counterCutLowerBound": 0.3584541159654867,
+              "reason": "COUNTER_CUT_FIRST"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ESCAPE",
+          "selectedGoal": "ESCAPE",
+          "selectedTarget": null,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ESCAPE_BLOCK",
+          "participantId": "bot-4",
+          "lifeId": 4
+        }
+      ]
+    }
+  },
+  {
+    "seed": 115,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 20,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 16,
+      "PENDING_TRAIL_CONTACT": 2,
+      "WALL_HIT": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3459,
+      "clearFrames": 13,
+      "missedFrames": 4,
+      "candidateReasons": {
+        "VICTIM_RETURNS_FIRST": 390,
+        "OUT_OF_RANGE": 6458,
+        "CLEAR_KILL_OPPORTUNITY": 22,
+        "COUNTER_CUT_FIRST": 17,
+        "UNSAFE_RETURN": 5
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 4
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1894,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 101,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 81,
+          "clear": 13,
+          "missed": 4
+        },
+        "RETURN": {
+          "frames": 576,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 807,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 2574,
+          "position": {
+            "x": -665.1942078773758,
+            "y": -572.9534985232609
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 462,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 425,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 389,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 353,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 318,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 284,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 251,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 8,
+              "target": 283,
+              "distance": 4,
+              "path": [
+                280,
+                281,
+                282,
+                283
+              ],
+              "back": [],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": 0.8666666666666667,
+              "victimReturnLowerBound": 1.0700991958097354,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 284,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-2",
+          "lifeId": 2
+        }
+      ]
+    }
+  },
+  {
+    "seed": 17,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 27,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 24,
+      "TRAIL_CAPTURE": 1,
+      "HOME_CAPTURE": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4519,
+      "clearFrames": 32,
+      "missedFrames": 2,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 14652,
+        "VICTIM_RETURNS_FIRST": 802,
+        "COUNTER_CUT_FIRST": 44,
+        "CLEAR_KILL_OPPORTUNITY": 46,
+        "UNSAFE_RETURN": 9
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 2
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2306,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 706,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1162,
+          "clear": 1,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 200,
+          "clear": 31,
+          "missed": 2
+        },
+        "ESCAPE": {
+          "frames": 145,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 375,
+          "position": {
+            "x": 397.56852761608866,
+            "y": -384.0184677458879
+          },
+          "ownTrailLength": 2,
+          "candidates": [
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 674,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 632,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 591,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 551,
+              "distance": 4,
+              "path": [
+                437,
+                474,
+                512,
+                551
+              ],
+              "back": [
+                552,
+                553,
+                554,
+                515,
+                477,
+                440
+              ],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0799026839104349,
+              "counterCutLowerBound": 0.9107350020137752,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 512,
+              "distance": 3,
+              "path": [
+                437,
+                474,
+                512
+              ],
+              "back": [
+                513,
+                514,
+                515,
+                477,
+                440
+              ],
+              "attackSeconds": 0.6,
+              "returnSeconds": 1.7,
+              "victimReturnLowerBound": 1.0799026839104349,
+              "counterCutLowerBound": 0.9187297910886781,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 473,
+              "distance": 3,
+              "path": [
+                437,
+                436,
+                473
+              ],
+              "back": [
+                474,
+                475,
+                476,
+                477,
+                440
+              ],
+              "attackSeconds": 0.6,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0799026839104349,
+              "counterCutLowerBound": 0.7500676622685074,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 435,
+              "distance": 3,
+              "path": [
+                437,
+                436,
+                435
+              ],
+              "back": [
+                399,
+                364,
+                330,
+                297
+              ],
+              "attackSeconds": 0.6666666666666666,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0799026839104349,
+              "counterCutLowerBound": 0.6666666666666666,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 398,
+              "distance": 4,
+              "path": [
+                401,
+                400,
+                399,
+                398
+              ],
+              "back": [
+                363,
+                329,
+                296
+              ],
+              "attackSeconds": 0.8333333333333334,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0799026839104349,
+              "counterCutLowerBound": 0.7574132351090205,
+              "reason": "COUNTER_CUT_FIRST"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 362,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 361,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 360,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 396,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-4",
+              "slot": 4,
+              "observedTrailLength": 13,
+              "target": 432,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 435,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-5",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 17,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 14,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 13,
+      "HOME_CAPTURE": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3447,
+      "clearFrames": 17,
+      "missedFrames": 1,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 9874,
+        "VICTIM_RETURNS_FIRST": 340,
+        "CLEAR_KILL_OPPORTUNITY": 33,
+        "COUNTER_CUT_FIRST": 26,
+        "UNSAFE_RETURN": 3,
+        "NO_RETURN_PATH": 6
+      },
+      "missedReasons": {
+        "DANGER_POLICY_BLOCK": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1860,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 500,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 921,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 86,
+          "clear": 16,
+          "missed": 1
+        },
+        "ESCAPE": {
+          "frames": 80,
+          "clear": 1,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 1802,
+          "position": {
+            "x": 401.5566530276215,
+            "y": 0.31032329602562914
+          },
+          "ownTrailLength": 12,
+          "candidates": [
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 813,
+              "distance": 3,
+              "path": [
+                767,
+                768,
+                813
+              ],
+              "back": [],
+              "attackSeconds": 0.5,
+              "returnSeconds": 0.5,
+              "victimReturnLowerBound": 1.219408129425102,
+              "counterCutLowerBound": 1.3853679487600663,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 814,
+              "distance": 4,
+              "path": [
+                767,
+                768,
+                769,
+                814
+              ],
+              "back": [],
+              "attackSeconds": 0.7666666666666667,
+              "returnSeconds": 0.7666666666666667,
+              "victimReturnLowerBound": 1.219408129425102,
+              "counterCutLowerBound": 1.3853679487600663,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 815,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 816,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 772,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 728,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 685,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 642,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 600,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-5",
+              "slot": 7,
+              "observedTrailLength": 10,
+              "target": 599,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 2,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ESCAPE",
+          "selectedTarget": null,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "DANGER_POLICY_BLOCK",
+          "participantId": "bot-2",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 81,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 22,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 21,
+      "HOME_CAPTURE": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4547,
+      "clearFrames": 26,
+      "missedFrames": 0,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 16409,
+        "VICTIM_RETURNS_FIRST": 884,
+        "COUNTER_CUT_FIRST": 57,
+        "CLEAR_KILL_OPPORTUNITY": 58,
+        "TRAIL_BUDGET": 1
+      },
+      "missedReasons": {},
+      "goals": {
+        "EXPAND": {
+          "frames": 1959,
+          "clear": 1,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 696,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1568,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 215,
+          "clear": 24,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 109,
+          "clear": 1,
+          "missed": 0
+        }
+      },
+      "witnesses": []
+    }
+  },
+  {
+    "seed": 81,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 34,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 24,
+      "WALL_HIT": 9,
+      "PENDING_TRAIL_CONTACT": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3353,
+      "clearFrames": 16,
+      "missedFrames": 1,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 8003,
+        "VICTIM_RETURNS_FIRST": 475,
+        "CLEAR_KILL_OPPORTUNITY": 35,
+        "COUNTER_CUT_FIRST": 20,
+        "UNSAFE_RETURN": 4,
+        "TRAIL_BUDGET": 2
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 1
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1686,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 560,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 167,
+          "clear": 15,
+          "missed": 1
+        },
+        "ESCAPE": {
+          "frames": 126,
+          "clear": 1,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 814,
+          "clear": 0,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 656,
+          "position": {
+            "x": -147.67432400013507,
+            "y": -735.9744756792967
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 507,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 469,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 432,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 395,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 359,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 324,
+              "distance": 4,
+              "path": [
+                225,
+                257,
+                290,
+                324
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.8658552769405772,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 290,
+              "distance": 3,
+              "path": [
+                225,
+                257,
+                290
+              ],
+              "back": [],
+              "attackSeconds": 0.7,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.8658552769405772,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 289,
+              "distance": 3,
+              "path": [
+                224,
+                256,
+                289
+              ],
+              "back": [],
+              "attackSeconds": 0.6333333333333333,
+              "returnSeconds": 0.6333333333333333,
+              "victimReturnLowerBound": 0.8658552769405772,
+              "counterCutLowerBound": 1.0516319212474163,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 322,
+              "distance": 4,
+              "path": [
+                224,
+                255,
+                288,
+                322
+              ],
+              "back": [],
+              "attackSeconds": 0.8666666666666667,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 0.8658552769405772,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 356,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 391,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-3",
+              "slot": 5,
+              "observedTrailLength": 12,
+              "target": 427,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 290,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-5",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 32,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 23,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 21,
+      "HOME_CAPTURE": 1,
+      "PENDING_TRAIL_CONTACT": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4498,
+      "clearFrames": 34,
+      "missedFrames": 3,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 16619,
+        "VICTIM_RETURNS_FIRST": 914,
+        "COUNTER_CUT_FIRST": 35,
+        "CLEAR_KILL_OPPORTUNITY": 78,
+        "UNSAFE_RETURN": 3,
+        "UNKNOWN_VICTIM": 1,
+        "TRAIL_BUDGET": 1
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 3
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2323,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 551,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1307,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 187,
+          "clear": 33,
+          "missed": 3
+        },
+        "ESCAPE": {
+          "frames": 130,
+          "clear": 1,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 2261,
+          "position": {
+            "x": 302.6306373291443,
+            "y": 50.85092254579801
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 946,
+              "distance": 11,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 904,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 861,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 817,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 772,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 771,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 770,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 769,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 0,
+              "observedTrailLength": 9,
+              "target": 768,
+              "distance": 4,
+              "path": [
+                810,
+                811,
+                812,
+                768
+              ],
+              "back": [],
+              "attackSeconds": 0.8333333333333334,
+              "returnSeconds": 0.8333333333333334,
+              "victimReturnLowerBound": 1.784565172300321,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 770,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-2",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 32,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 21,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 19,
+      "PENDING_TRAIL_CONTACT": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3355,
+      "clearFrames": 22,
+      "missedFrames": 2,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 10542,
+        "VICTIM_RETURNS_FIRST": 510,
+        "COUNTER_CUT_FIRST": 45,
+        "CLEAR_KILL_OPPORTUNITY": 37,
+        "UNSAFE_RETURN": 5
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 2
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1961,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 95,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 481,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 690,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 128,
+          "clear": 22,
+          "missed": 2
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 606,
+          "position": {
+            "x": 906.8555922742445,
+            "y": -145.58182289600762
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 983,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 1023,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 1024,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 1025,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 1026,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 987,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 947,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 906,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 864,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 820,
+              "distance": 4,
+              "path": [
+                687,
+                730,
+                775,
+                820
+              ],
+              "back": [],
+              "attackSeconds": 0.8,
+              "returnSeconds": 0.8,
+              "victimReturnLowerBound": 1.2750085829636775,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 11,
+              "target": 863,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 864,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-4",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 123,
+    "mixed": false,
+    "ticks": 3600,
+    "deaths": 26,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 25,
+      "PENDING_TRAIL_CONTACT": 1
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 4524,
+      "clearFrames": 29,
+      "missedFrames": 6,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 14375,
+        "VICTIM_RETURNS_FIRST": 772,
+        "COUNTER_CUT_FIRST": 73,
+        "UNSAFE_RETURN": 3,
+        "CLEAR_KILL_OPPORTUNITY": 68
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 6
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 2253,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 685,
+          "clear": 0,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 1231,
+          "clear": 0,
+          "missed": 0
+        },
+        "ESCAPE": {
+          "frames": 131,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 224,
+          "clear": 29,
+          "missed": 6
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 560,
+          "position": {
+            "x": -562.1781925100473,
+            "y": 363.7432514840143
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1347,
+              "distance": 10,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1317,
+              "distance": 9,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1286,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1254,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1253,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1252,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1251,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1218,
+              "distance": 4,
+              "path": [
+                1113,
+                1149,
+                1184,
+                1218
+              ],
+              "back": [],
+              "attackSeconds": 0.9,
+              "returnSeconds": 0.9,
+              "victimReturnLowerBound": 1.4102192908232785,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            },
+            {
+              "victimId": "bot-7",
+              "slot": 7,
+              "observedTrailLength": 9,
+              "target": 1219,
+              "distance": 4,
+              "path": [
+                1114,
+                1150,
+                1185,
+                1219
+              ],
+              "back": [],
+              "attackSeconds": 0.9333333333333333,
+              "returnSeconds": 0.9333333333333333,
+              "victimReturnLowerBound": 1.4102192908232785,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 2,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 1252,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-1",
+          "lifeId": 1
+        }
+      ]
+    }
+  },
+  {
+    "seed": 123,
+    "mixed": true,
+    "ticks": 3600,
+    "deaths": 25,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 20,
+      "PENDING_TRAIL_CONTACT": 3,
+      "HOME_CAPTURE": 2
+    },
+    "failures": [],
+    "shadow": {
+      "decisionFrames": 3304,
+      "clearFrames": 15,
+      "missedFrames": 2,
+      "candidateReasons": {
+        "OUT_OF_RANGE": 9235,
+        "VICTIM_RETURNS_FIRST": 826,
+        "COUNTER_CUT_FIRST": 40,
+        "CLEAR_KILL_OPPORTUNITY": 38,
+        "NO_RETURN_PATH": 1,
+        "TRAIL_BUDGET": 4,
+        "UNSAFE_RETURN": 6
+      },
+      "missedReasons": {
+        "GOAL_ATTACK_TARGET_LOCK": 2
+      },
+      "goals": {
+        "EXPAND": {
+          "frames": 1930,
+          "clear": 0,
+          "missed": 0
+        },
+        "RETURN": {
+          "frames": 394,
+          "clear": 1,
+          "missed": 0
+        },
+        "STEAL": {
+          "frames": 724,
+          "clear": 0,
+          "missed": 0
+        },
+        "ATTACK": {
+          "frames": 139,
+          "clear": 13,
+          "missed": 2
+        },
+        "ESCAPE": {
+          "frames": 117,
+          "clear": 1,
+          "missed": 0
+        }
+      },
+      "witnesses": [
+        {
+          "tick": 1665,
+          "position": {
+            "x": 370.7736101166128,
+            "y": 314.61395533426753
+          },
+          "ownTrailLength": 0,
+          "candidates": [
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1331,
+              "distance": 8,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1300,
+              "distance": 7,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1268,
+              "distance": 6,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1235,
+              "distance": 5,
+              "path": [],
+              "back": [],
+              "attackSeconds": null,
+              "returnSeconds": null,
+              "victimReturnLowerBound": null,
+              "counterCutLowerBound": null,
+              "reason": "OUT_OF_RANGE"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1201,
+              "distance": 4,
+              "path": [
+                1093,
+                1130,
+                1166,
+                1201
+              ],
+              "back": [],
+              "attackSeconds": 0.9,
+              "returnSeconds": null,
+              "victimReturnLowerBound": 1.0303676319690829,
+              "counterCutLowerBound": null,
+              "reason": "VICTIM_RETURNS_FIRST"
+            },
+            {
+              "victimId": "bot-0",
+              "slot": 2,
+              "observedTrailLength": 6,
+              "target": 1166,
+              "distance": 3,
+              "path": [
+                1093,
+                1130,
+                1166
+              ],
+              "back": [],
+              "attackSeconds": 0.6666666666666666,
+              "returnSeconds": 0.6666666666666666,
+              "victimReturnLowerBound": 1.0303676319690829,
+              "counterCutLowerBound": null,
+              "reason": "CLEAR_KILL_OPPORTUNITY"
+            }
+          ],
+          "clearCount": 1,
+          "goalBefore": "ATTACK",
+          "selectedGoal": "ATTACK",
+          "selectedTarget": 1201,
+          "missed": true,
+          "event": "MISSED_KILL_OPPORTUNITY",
+          "missedReason": "GOAL_ATTACK_TARGET_LOCK",
+          "participantId": "bot-5",
+          "lifeId": 1
+        }
+      ]
+    }
+  }
+]

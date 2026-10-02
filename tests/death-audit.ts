@@ -1,5 +1,6 @@
 import {createMatch,stepMatch} from '../src/shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../src/shared/bot.js';
+import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
+import {summarizeOpportunities,type ShadowOpportunity} from '../src/shared/bot-opportunity.js';
 import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
 import {watchCaptureResolution,type CaptureResolutionTrace} from '../src/shared/engine.js';
 import {axialToWorld} from '../src/shared/hex.js';
@@ -12,12 +13,17 @@ function distanceToSegment(p:Vec,a:Vec,b:Vec):number {
 }
 // All positions, territories and trails here emerge from normal spawns,
 // ordinary input and stepMatch. No setOwner/addTrail or direct state setup.
-export function auditDeaths(seed:number,mixed=false,ticks=3600){
+export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false){
  const specs=mixed?[{participantId:'human-0',slot:0,nickname:'H0',kind:'HUMAN' as const},{participantId:'human-1',slot:1,nickname:'H1',kind:'HUMAN' as const},...botSpecs(6,2)]:botSpecs(8);
  const m=createMatch({},seed,specs),memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(seed+p.slot)]));
  const deaths:DeathTrace[]=[],captures:CaptureResolutionTrace[]=[],failures:string[]=[],seen=new Set<string>(),frozen=new Map<string,{lifeId:number;position:Vec}>();
  const origins=new Map(m.participants.map(p=>[p.participantId,{...m.map.cells[p.cellId]}])),lifeIds=new Map(m.participants.map(p=>[p.participantId,p.lifeId])),legs=new Map<string,number>();
  watchDeaths(m,trace=>deaths.push(trace));watchCaptureResolution(m,trace=>captures.push(trace));
+ const frames:ShadowOpportunity[]=[],witnesses:(ShadowOpportunity&{participantId:string;lifeId:number})[]=[],witnessGoals=new Set<string>();
+ if(shadow)for(const p of m.participants)if(p.kind==='BOT')watchBotDecisions(memories.get(p.participantId)!,trace=>{
+  if(!trace.shadow)return;frames.push(trace.shadow);
+  if(trace.shadow.missed&&!witnessGoals.has(trace.shadow.missedReason!)){witnessGoals.add(trace.shadow.missedReason!);witnesses.push({...trace.shadow,participantId:p.participantId,lifeId:p.lifeId});}
+ });
  const check=(ok:boolean,message:string)=>{if(!ok)failures.push(`tick ${m.tick}: ${message}`);};
  for(let tick=0;tick<ticks&&m.phase==='RUNNING';tick++){
   const before=deaths.length,eventCounter=m.eventCounter,inputs=new Map<string,DirectionInput>();
@@ -40,8 +46,9 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600){
    check(JSON.stringify([...trace.trailCells].sort((a,b)=>a-b))===JSON.stringify([...trace.trailMaskCells].sort((a,b)=>a-b)),'trail mask mismatch '+key);
    if(trace.reason==='TRAIL_CUT'){
     check(!!trace.context&&!!trace.killerId&&trace.killerId!==trace.victimId,'missing cause/killer '+key);
-    if(trace.context?.cause==='TRAIL_CONTACT')check(trace.killerCell===trace.context.cellId&&(trace.trailCells.includes(trace.context.cellId)||trace.pendingContact),'contact without trail '+key);
-    if(trace.context?.cause==='HOME_CAPTURE')check(trace.trailCells[0]===trace.context.cellId&&trace.rootHomeNeighbors.length===0,'connected home died '+key);
+    if(trace.context?.cause==='EXISTING_TRAIL_CONTACT')check(trace.killerCell===trace.context.cellId&&trace.diagnostic!.existingTrailContact&&(trace.diagnostic!.trailMasksBefore[trace.context.cellId]&(1<<p.slot))!==0,'contact without existing trail '+key);
+    if(trace.context?.cause==='PENDING_TRAIL_CONTACT')check(trace.killerCell===trace.context.cellId&&trace.pendingContact&&trace.diagnostic!.pendingTrails.some(t=>t.participantId===p.participantId&&t.cellId===trace.context!.cellId)&&(trace.diagnostic!.trailMasksBefore[trace.context.cellId]&(1<<p.slot))===0,'contact without pending trail '+key);
+    if(trace.context?.cause==='HOME_CAPTURE')check(trace.originCellId!==null?trace.originCellId===trace.context.cellId&&trace.originOwner!==p.slot+1:trace.trailCells[0]===trace.context.cellId&&trace.rootHomeNeighbors.length===0,'connected home died '+key);
     if(trace.context?.cause==='TRAIL_CAPTURE')check(captures.some(c=>c.tick===trace.tick&&c.participants.some(v=>v.participantId===p.participantId&&v.trailCells.includes(trace.context!.cellId)&&v.claimedTrailCells.includes(trace.context!.cellId))),'capture without trail '+key);
    }else if(trace.reason==='TERRITORY_LOST')check(trace.ownerCells===0,'territory death with land '+key);
    else if(trace.reason==='WALL_HIT')check(m.map.boundaryEdges.some(e=>distanceToSegment(trace.position,e.a,e.b)<.01),'wall death away from boundary '+key);
@@ -55,5 +62,5 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600){
   }
  }
  const causes:Record<string,number>={};for(const trace of deaths){const cause=trace.context?.cause??trace.reason;causes[cause]=(causes[cause]??0)+1;}
- return {seed,mixed,ticks:m.tick,deaths:deaths.length,causes,failures,traces:deaths};
+ return {seed,mixed,ticks:m.tick,deaths:deaths.length,causes,failures,traces:deaths,...(shadow?{shadow:{...summarizeOpportunities(frames),witnesses}}:{})};
 }

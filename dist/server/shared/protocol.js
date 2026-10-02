@@ -2,7 +2,7 @@ import { PROTOCOL_VERSION, validateConfig } from './config.js';
 import { isGameModeId, validateMode, GAME_MODES } from './modes.js';
 export function record(value) { return !!value && typeof value === 'object' && !Array.isArray(value); }
 function validDeathContext(value, count) {
-    return value === undefined || (record(value) && ['TRAIL_CONTACT', 'TRAIL_CAPTURE', 'HOME_CAPTURE'].includes(String(value.cause)) && Number.isInteger(value.cellId) && Number(value.cellId) >= 0 && Number(value.cellId) < count);
+    return value === undefined || (record(value) && ['TRAIL_CONTACT', 'EXISTING_TRAIL_CONTACT', 'PENDING_TRAIL_CONTACT', 'TRAIL_CAPTURE', 'HOME_CAPTURE', 'TERRITORY_LOST', 'WALL_HIT'].includes(String(value.cause)) && Number.isInteger(value.cellId) && Number(value.cellId) >= 0 && Number(value.cellId) < count && (value.eventTick === undefined || (typeof value.eventTick === 'number' && Number.isFinite(value.eventTick) && value.eventTick >= 0)));
 }
 export function validRequest(value) {
     return record(value) && typeof value.requestId === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(value.requestId) &&

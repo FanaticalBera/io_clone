@@ -35,7 +35,7 @@ export interface ServerEvents {
 }
 export function record(value:unknown):value is Record<string,unknown> {return !!value&&typeof value==='object'&&!Array.isArray(value);}
 function validDeathContext(value:unknown,count:number):boolean {
- return value===undefined||(record(value)&&['TRAIL_CONTACT','TRAIL_CAPTURE','HOME_CAPTURE'].includes(String(value.cause))&&Number.isInteger(value.cellId)&&Number(value.cellId)>=0&&Number(value.cellId)<count);
+ return value===undefined||(record(value)&&['TRAIL_CONTACT','EXISTING_TRAIL_CONTACT','PENDING_TRAIL_CONTACT','TRAIL_CAPTURE','HOME_CAPTURE','TERRITORY_LOST','WALL_HIT'].includes(String(value.cause))&&Number.isInteger(value.cellId)&&Number(value.cellId)>=0&&Number(value.cellId)<count&&(value.eventTick===undefined||(typeof value.eventTick==='number'&&Number.isFinite(value.eventTick)&&value.eventTick>=0)));
 }
 export function validRequest(value:unknown):value is CommandRequest {
  return record(value)&&typeof value.requestId==='string'&&/^[A-Za-z0-9_-]{1,96}$/.test(value.requestId)&&

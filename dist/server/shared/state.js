@@ -3,7 +3,7 @@ import { seededRandom, shuffled } from './random.js';
 import { validateMode } from './modes.js';
 export function makeParticipant(spec) {
     return { ...spec, position: { x: 0, y: 0 }, cellId: -1, direction: { x: 1, y: 0 }, targetDirection: null,
-        lifeId: 0, lifeState: 'DEAD_WAIT', trailCells: new Set(), spawnCells: new Set(),
+        lifeId: 0, lifeState: 'DEAD_WAIT', trailCells: new Set(), trailOriginCellId: null, spawnCells: new Set(),
         territoryCount: 0, controlScore: 0, kills: 0, deaths: 0, respawnAtTick: 0,
         protectedUntilTick: 0, deathReason: null, lastAppliedInputSeq: 0 };
 }

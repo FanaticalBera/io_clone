@@ -7,7 +7,7 @@ describe('normally spawned bots exploit medium movement loops',()=>{
    const f=runMediumAttack(personality,reverse);
    expect(f.attackTicks).toBeGreaterThan(0);expect(f.maxTrail).toBeGreaterThanOrEqual(2);expect(f.maxTrail).toBeLessThanOrEqual(6);
    expect(f.captures).toBe(0);expect(f.human).toMatchObject({lifeState:'DEAD_WAIT',deathReason:'TRAIL_CUT',deaths:1});
-   expect(f.match.events.find(e=>e.type==='DEATH'&&e.participantId===f.human.participantId)).toMatchObject({killerId:f.bot.participantId,deathContext:{cause:'TRAIL_CONTACT'}});
+   expect(f.match.events.find(e=>e.type==='DEATH'&&e.participantId===f.human.participantId)).toMatchObject({killerId:f.bot.participantId,deathContext:{cause:'EXISTING_TRAIL_CONTACT'}});
    expect(f.bot.kills).toBe(1);expect(f.human.trailCells.size).toBe(0);expect(f.match.trailMasks.some(mask=>(mask&(1<<f.human.slot))!==0)).toBe(false);
   }
  });

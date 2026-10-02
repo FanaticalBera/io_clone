@@ -10,12 +10,13 @@ export interface MapDefinition {
 }
 export type Personality = 'EXPAND' | 'ATTACK' | 'DEFEND' | 'SEEK_POINT';
 export type LifeState = 'ALIVE' | 'DEAD_WAIT' | 'SPAWN_BLOCKED' | 'FINISHED';
-export interface DeathContext {cause:'TRAIL_CONTACT'|'TRAIL_CAPTURE'|'HOME_CAPTURE';cellId:number}
+export type DeathCause='EXISTING_TRAIL_CONTACT'|'PENDING_TRAIL_CONTACT'|'TRAIL_CAPTURE'|'HOME_CAPTURE'|'TERRITORY_LOST'|'WALL_HIT';
+export interface DeathContext {cause:DeathCause|'TRAIL_CONTACT';cellId:number;eventTick?:number}
 export interface ParticipantSpec { participantId: string; slot: number; nickname: string; kind: 'HUMAN' | 'BOT'; personality?: Personality }
 export interface Participant extends ParticipantSpec {
  // direction is actual heading; null target means keep heading until input.
  position: Vec; cellId: number; direction: Vec; targetDirection: Vec|null; lifeId: number; lifeState: LifeState;
- trailCells: Set<number>; spawnCells: Set<number>; territoryCount: number; controlScore: number;
+ trailCells: Set<number>;trailOriginCellId:number|null; spawnCells: Set<number>; territoryCount: number; controlScore: number;
  kills: number; deaths: number; respawnAtTick: number; protectedUntilTick: number;
  deathReason: string | null; deathContext?:DeathContext; lastAppliedInputSeq: number;
 }
@@ -33,7 +34,7 @@ export interface MatchState {
  events: GameEvent[]; eventCounter: number; results: ResultRow[] | null; departed: ResultRow[];
  gameMode:GameModeConfig;modeState:ModeState;outcome:MatchOutcome|null;
 }
-export interface PublicParticipant extends Omit<Participant,'trailCells'|'spawnCells'> { protected: boolean }
+export interface PublicParticipant extends Omit<Participant,'trailCells'|'trailOriginCellId'|'spawnCells'> { protected: boolean }
 export interface MatchView {
  matchId: string; seed: number; tick: number; remainingTicks: number|null; phase: MatchState['phase'];
  config: GameConfig; mapId: string; owners: Uint8Array; trailMasks: Uint8Array;

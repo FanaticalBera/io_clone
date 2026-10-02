@@ -4,6 +4,7 @@ import {seededRandom} from './random.js';
 import {normalizeDirection,stepSteering} from './movement.js';
 import {moveSpeed} from './config.js';
 import {GAME_MODES,type GameModeConfig} from './modes.js';
+import {evaluateShadowOpportunities,shadowTravelSeconds,type ShadowOpportunity} from './bot-opportunity.js';
 export interface BotObservation {
  matchId:string; tick:number; config:MatchState['config']; map:MapDefinition; owners:Uint8Array;gameMode:GameModeConfig;
  self:PublicParticipant; ownTrail:number[]; others:PublicParticipant[]; trails:{cellId:number;slot:number}[];
@@ -14,7 +15,7 @@ export function createBotMemory(seed:number):BotMemory {
  return {path:[],nextDecisionTick:0,seq:0,random:seededRandom(seed),goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,knownHome:new Set(),grievances:new Map()};
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number}
-export interface BotDecisionTrace {tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[]}
+export interface BotDecisionTrace {tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];shadow?:ShadowOpportunity}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const decisionTraces=new WeakMap<BotMemory,BotDecisionTrace>();
 // Optional tactical audit: production decisions do not allocate trace records.
@@ -22,7 +23,7 @@ export function watchBotDecisions(memory:BotMemory,observer:(trace:BotDecisionTr
  botObservers.set(memory,observer);return()=>botObservers.delete(memory);
 }
 function publicParticipant(p:MatchState['participants'][number]):PublicParticipant {
- const {trailCells:_,spawnCells:__,...rest}=p;return {...rest,position:{...p.position},direction:{...p.direction},targetDirection:p.targetDirection?{...p.targetDirection}:null,protected:false};
+ const {trailCells:_,spawnCells:__,trailOriginCellId:___,...rest}=p;return {...rest,position:{...p.position},direction:{...p.direction},targetDirection:p.targetDirection?{...p.targetDirection}:null,protected:false};
 }
 export function observeBot(match:MatchState,participantId:string):BotObservation {
  const self=match.participants.find(p=>p.participantId===participantId);if(!self)throw new Error('Unknown bot');
@@ -219,12 +220,14 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
 }
 export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false):DirectionInput|null {
  if(obs.self.lifeState!=='ALIVE')return null;
+ let finishTrace:(()=>void)|undefined,perimeterReturn=false;
  if(memory.plannedLifeId!==obs.self.lifeId){memory.path=[];memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.knownHome.clear();memory.grievances.clear();}
  if(memory.lastCell!==obs.self.cellId){memory.lastCell=obs.self.cellId;memory.lastProgressTick=obs.tick;}
  const due=obs.tick>=memory.nextDecisionTick;
  if(due){
   const observer=botObservers.get(memory),trace:BotDecisionTrace|undefined=observer?{tick:obs.tick,from:memory.goal,to:memory.goal,ownTrail:obs.ownTrail.length,attackTarget:null,attacks:[]}:undefined;
   if(trace)decisionTraces.set(memory,trace);
+  if(trace){trace.shadow=evaluateShadowOpportunities(obs,{path:shortestPath,seconds:shadowTravelSeconds});trace.shadow.goalBefore=memory.goal;}
   memory.nextDecisionTick=obs.tick+Math.max(1,Math.round(obs.config.botDecisionMs*obs.config.simulationHz/1000));
   rememberIncursions(obs,memory);
   const settings=behavior[obs.self.personality??'EXPAND'],home=returnPath(obs),atHome=obs.owners[obs.self.cellId]===obs.self.slot+1;
@@ -254,7 +257,13 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
    safe.sort((a,b)=>{const score=(id:number)=>{const c=obs.map.cells[id].center,d=normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;return d.x*obs.self.direction.x+d.y*obs.self.direction.y;};return score(b)-score(a);});
    if(safe.length)memory.path=[safe[0]];
   }
-  if(trace&&observer){trace.to=memory.goal;trace.attackTarget=memory.attackTarget;decisionTraces.delete(memory);observer(trace);}
+  if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.to=memory.goal;trace.attackTarget=memory.attackTarget;
+   const shadow=trace.shadow!,clear=shadow.candidates.filter(c=>c.reason==='CLEAR_KILL_OPPORTUNITY');shadow.selectedGoal=memory.goal;shadow.selectedTarget=memory.attackTarget;
+   shadow.missed=clear.length>0&&!(memory.goal==='ATTACK'&&clear.some(c=>c.target===memory.attackTarget&&c.slot===memory.attackSlot));
+   if(shadow.missed)shadow.event='MISSED_KILL_OPPORTUNITY';
+   shadow.missedReason=!shadow.missed?null:perimeterReturn?'PERIMETER_GUARD':returnOnly?'RETURN_ONLY_BLOCK':trace.from==='ESCAPE'&&memory.goal==='ESCAPE'?'GOAL_ESCAPE_BLOCK':stuck?'STUCK_RECOVERY':homeLost?'HOME_ROUTE_LOST':memory.goal==='ATTACK'?'GOAL_ATTACK_TARGET_LOCK':danger?'DANGER_POLICY_BLOCK':trace.from==='RETURN'?'GOAL_RETURN_DETOUR_LIMIT':trace.attacks.find(a=>clear.some(c=>c.target===a.target&&c.slot===a.slot))?.reason??'CANDIDATE_OR_PRIORITY_BLOCK';
+   observer(trace);};
+  }
  }
  // Begin the next leg within a turn radius, before overshooting a waypoint.
  // A point-seeking bot otherwise orbits centers it cannot reach while turning.
@@ -270,9 +279,10 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   if(!safe(direction)){
    const alternatives=obs.map.cells[obs.self.cellId].neighbors.filter(id=>id>=0).map(id=>{const c=obs.map.cells[id].center;return normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;});
    alternatives.sort((a,b)=>(b.x*direction.x+b.y*direction.y)-(a.x*direction.x+a.y*direction.y));
-   const escape=alternatives.find(safe);if(escape){direction=escape;memory.path=[];memory.goal='RETURN';memory.nextDecisionTick=obs.tick;}
+   const escape=alternatives.find(safe);if(escape){direction=escape;memory.path=[];memory.goal='RETURN';memory.nextDecisionTick=obs.tick;perimeterReturn=true;}
   }
  }
+ finishTrace?.();
  if(!direction)return null;
  return {matchId:obs.matchId,lifeId:obs.self.lifeId,seq:++memory.seq,dx:direction.x,dy:direction.y};
 }

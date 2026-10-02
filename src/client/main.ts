@@ -14,6 +14,8 @@ import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js
 import './style.css';
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
+const diagnosticsEnabled=new URLSearchParams(location.search).get('debug')==='1';
+if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>{if(ui.mode==='ONLINE')ui.message('다음 판 참가 상태입니다. 방에 남아 있으면 자동 시작합니다.');else void startPractice(practice?.match.gameMode);},
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const scene=createRenderer('field');
@@ -41,7 +43,7 @@ async function stopOnline():Promise<void> {
 }
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.showGame('PRACTICE');
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),{}, {gameMode});input.setDirection(practice.match.participants[0].direction);}
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),{}, {gameMode,diagnostics:diagnosticsEnabled});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {

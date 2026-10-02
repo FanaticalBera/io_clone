@@ -15,9 +15,11 @@ export function addTrail(match:MatchState,p:Participant,cellId:number):void {
 export function clearTrail(match:MatchState,p:Participant):void {
  for(const cell of p.trailCells)match.trailMasks[cell]&=~(1<<p.slot);
  p.trailCells.clear();
+ p.trailOriginCellId=null;
 }
 export function visitCell(match:MatchState,p:Participant,cellId:number):'INSIDE'|'TRAIL'|'RETURN' {
  if(p.lifeState!=='ALIVE')return 'INSIDE';
+ if(!p.trailCells.size&&p.trailOriginCellId===null&&match.owners[p.cellId]===p.slot+1&&match.owners[cellId]!==p.slot+1)p.trailOriginCellId=p.cellId;
  p.cellId=cellId;
  if(match.owners[cellId]===p.slot+1)return p.trailCells.size?'RETURN':'INSIDE';
  p.protectedUntilTick=0;addTrail(match,p,cellId);return 'TRAIL';

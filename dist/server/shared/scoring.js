@@ -36,7 +36,7 @@ export function buildView(match) {
         gameMode: { ...match.gameMode }, modeState: { holds: match.modeState.holds.map(h => ({ ...h })) }, outcome: match.outcome ? { ...match.outcome } : null,
         phase: match.phase, config: { ...match.config }, mapId: match.map.mapId, owners: match.owners.slice(), trailMasks: match.trailMasks.slice(),
         participants: match.participants.map(p => {
-            const { trailCells: _, spawnCells: __, ...rest } = p;
+            const { trailCells: _, spawnCells: __, trailOriginCellId: ___, ...rest } = p;
             return { ...rest, ...(p.deathContext ? { deathContext: { ...p.deathContext } } : {}), position: { ...p.position }, direction: { ...p.direction }, targetDirection: p.targetDirection ? { ...p.targetDirection } : null,
                 protected: p.lifeState === 'ALIVE' && match.tick < p.protectedUntilTick && p.spawnCells.has(p.cellId) && match.owners[p.cellId] === p.slot + 1 };
         }),

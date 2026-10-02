@@ -5,6 +5,7 @@ import {COLORS} from './game-scene.js';
 import {SettingsStore} from './settings.js';
 import {browserHaptics} from './haptics.js';
 import {deathMessage} from './death-message.js';
+const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
 export interface UIActions { practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
@@ -144,6 +145,7 @@ export class UI {
   }
   const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING';
   death.textContent=self.lifeState==='SPAWN_BLOCKED'?'안전한 19칸을 찾고 있어요. 공간이 생기면 다시 등장합니다.':deathMessage(self.deathReason,self.deathContext)+'. '+Math.max(0,Math.ceil((self.respawnAtTick-view.tick)/view.config.simulationHz))+'초 후 재등장';
+  if(showDeathDiagnostic&&self.lifeState==='DEAD_WAIT'&&self.deathContext)death.textContent+=` [${self.deathContext.cause} · cell ${self.deathContext.cellId} · t ${(self.deathContext.eventTick??view.tick).toFixed(3)}]`;
   if(view.phase==='FINISHED')this.showResults(view.matchId,view.results??[],selfId,view.gameMode,view.outcome,view.owners.length);
  }
  showResults(matchId:string,rows:ResultRow[],selfId:string,mode=this.activeMode,outcome:MatchOutcome|null=null,totalCells=this.totalCells):void {

@@ -3,6 +3,7 @@ import { seededRandom } from './random.js';
 import { normalizeDirection, stepSteering } from './movement.js';
 import { moveSpeed } from './config.js';
 import { GAME_MODES } from './modes.js';
+import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
 export function createBotMemory(seed) {
     return { path: [], nextDecisionTick: 0, seq: 0, random: seededRandom(seed), goal: 'EXPAND', lastCell: -1, lastProgressTick: 0, plannedLifeId: 0, attackTarget: null, attackSlot: null, knownHome: new Set(), grievances: new Map() };
 }
@@ -14,7 +15,7 @@ export function watchBotDecisions(memory, observer) {
     return () => botObservers.delete(memory);
 }
 function publicParticipant(p) {
-    const { trailCells: _, spawnCells: __, ...rest } = p;
+    const { trailCells: _, spawnCells: __, trailOriginCellId: ___, ...rest } = p;
     return { ...rest, position: { ...p.position }, direction: { ...p.direction }, targetDirection: p.targetDirection ? { ...p.targetDirection } : null, protected: false };
 }
 export function observeBot(match, participantId) {
@@ -347,6 +348,7 @@ function planExpansion(obs, memory) {
 export function getBotInput(obs, memory, returnOnly = false) {
     if (obs.self.lifeState !== 'ALIVE')
         return null;
+    let finishTrace, perimeterReturn = false;
     if (memory.plannedLifeId !== obs.self.lifeId) {
         memory.path = [];
         memory.seq = 0;
@@ -368,6 +370,10 @@ export function getBotInput(obs, memory, returnOnly = false) {
         const observer = botObservers.get(memory), trace = observer ? { tick: obs.tick, from: memory.goal, to: memory.goal, ownTrail: obs.ownTrail.length, attackTarget: null, attacks: [] } : undefined;
         if (trace)
             decisionTraces.set(memory, trace);
+        if (trace) {
+            trace.shadow = evaluateShadowOpportunities(obs, { path: shortestPath, seconds: shadowTravelSeconds });
+            trace.shadow.goalBefore = memory.goal;
+        }
         memory.nextDecisionTick = obs.tick + Math.max(1, Math.round(obs.config.botDecisionMs * obs.config.simulationHz / 1000));
         rememberIncursions(obs, memory);
         const settings = behavior[obs.self.personality ?? 'EXPAND'], home = returnPath(obs), atHome = obs.owners[obs.self.cellId] === obs.self.slot + 1;
@@ -414,10 +420,19 @@ export function getBotInput(obs, memory, returnOnly = false) {
                 memory.path = [safe[0]];
         }
         if (trace && observer) {
-            trace.to = memory.goal;
-            trace.attackTarget = memory.attackTarget;
             decisionTraces.delete(memory);
-            observer(trace);
+            finishTrace = () => {
+                trace.to = memory.goal;
+                trace.attackTarget = memory.attackTarget;
+                const shadow = trace.shadow, clear = shadow.candidates.filter(c => c.reason === 'CLEAR_KILL_OPPORTUNITY');
+                shadow.selectedGoal = memory.goal;
+                shadow.selectedTarget = memory.attackTarget;
+                shadow.missed = clear.length > 0 && !(memory.goal === 'ATTACK' && clear.some(c => c.target === memory.attackTarget && c.slot === memory.attackSlot));
+                if (shadow.missed)
+                    shadow.event = 'MISSED_KILL_OPPORTUNITY';
+                shadow.missedReason = !shadow.missed ? null : perimeterReturn ? 'PERIMETER_GUARD' : returnOnly ? 'RETURN_ONLY_BLOCK' : trace.from === 'ESCAPE' && memory.goal === 'ESCAPE' ? 'GOAL_ESCAPE_BLOCK' : stuck ? 'STUCK_RECOVERY' : homeLost ? 'HOME_ROUTE_LOST' : memory.goal === 'ATTACK' ? 'GOAL_ATTACK_TARGET_LOCK' : danger ? 'DANGER_POLICY_BLOCK' : trace.from === 'RETURN' ? 'GOAL_RETURN_DETOUR_LIMIT' : trace.attacks.find(a => clear.some(c => c.target === a.target && c.slot === a.slot))?.reason ?? 'CANDIDATE_OR_PRIORITY_BLOCK';
+                observer(trace);
+            };
         }
     }
     // Begin the next leg within a turn radius, before overshooting a waypoint.
@@ -451,9 +466,11 @@ export function getBotInput(obs, memory, returnOnly = false) {
                 memory.path = [];
                 memory.goal = 'RETURN';
                 memory.nextDecisionTick = obs.tick;
+                perimeterReturn = true;
             }
         }
     }
+    finishTrace?.();
     if (!direction)
         return null;
     return { matchId: obs.matchId, lifeId: obs.self.lifeId, seq: ++memory.seq, dx: direction.x, dy: direction.y };
