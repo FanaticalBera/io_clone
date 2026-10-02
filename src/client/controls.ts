@@ -6,6 +6,8 @@ export const JOYSTICK_DEAD_ZONE=.25;
 export const POINTER_ANGLE_DEAD_ZONE=2*Math.PI/180;
 export const TOUCH_SWIPE_THRESHOLD_PX=28;
 export const TOUCH_TRACKPAD_RADIUS_PX=72;
+export const TOUCH_TRACKPAD_CENTER_DEAD_ZONE_PX=18;
+export const TRACKPAD_ANGLE_DEAD_ZONE=5*Math.PI/180;
 export const JOYSTICK_ANGLE_DEAD_ZONE=6*Math.PI/180;
 // Touch intent is a displacement, independent of the character/camera and mouse
 // filtering. The adapter advances its anchor only when this returns a heading.
