@@ -1,0 +1,2134 @@
+{
+  "date": "2026-10-03",
+  "seedCountPerRadius": 4,
+  "minutesPerRun": 20,
+  "sampleIntervalSeconds": 1,
+  "bandBasis": "largest single participant territory; global occupied bands separate",
+  "summary": [
+    {
+      "radius": 22,
+      "totalCells": 1519,
+      "cellsPerParticipant": 189.875,
+      "initialOwnedPercent": 10.006583278472679,
+      "independentSeeds": [
+        4,
+        19,
+        73,
+        115
+      ],
+      "identicalModeTrajectories": true,
+      "deathsPerMatchMinute": 13.25,
+      "killsPerMatchMinute": 13.25,
+      "deathsPerParticipantMinute": 1.65625,
+      "completedLifeSeconds": {
+        "mean": 32.39121661397996,
+        "min": 30.366727763095223,
+        "max": 34.265624988095226
+      },
+      "pairDistanceHex": 20.631808314499835,
+      "firstDirectTrailContactSeconds": {
+        "mean": 9.533642666666667,
+        "min": 3.0561953333333336,
+        "max": 15.269714666666665
+      },
+      "peakLeaderPercent": {
+        "mean": 27.27123107307439,
+        "min": 26.003949967083607,
+        "max": 29.624753127057275
+      },
+      "peakLeaderCells": {
+        "mean": 414.25,
+        "min": 395,
+        "max": 450
+      },
+      "leaderAtMinutes": {
+        "5": 19.667544437129692,
+        "10": 12.29427254772877,
+        "20": 12.91968400263331
+      },
+      "first25Reached": [
+        {
+          "seed": 4,
+          "seconds": 434.7
+        },
+        {
+          "seed": 19,
+          "seconds": 281.7
+        },
+        {
+          "seed": 73,
+          "seconds": 510.4
+        },
+        {
+          "seed": 115,
+          "seconds": 575.1333333333333
+        }
+      ],
+      "holdTargetReachedSeeds": [],
+      "holdMaintenanceStatus": "NOT_REACHED_UNVERIFIED",
+      "classicWinners": 0,
+      "meanExposedTrailCells": 3.2178619380513824,
+      "capturedPercentEquivalentPerMatchMinute": 120.57439104674127,
+      "globalOccupiedMaximum": 71.03357472021067,
+      "lateAliveCount": 7.342323651452282,
+      "respawnAttempts": 1055,
+      "successfulRespawns": 1055,
+      "failedBlockedRespawns": 0,
+      "periodicValidCenters": {
+        "mean": 128.91111573688593,
+        "min": 0,
+        "max": 812
+      },
+      "validCentersAtAttempts": {
+        "mean": 170.52890995260663,
+        "min": 8,
+        "max": 533
+      },
+      "zeroCenterSamples": [
+        {
+          "seed": 4,
+          "seconds": 909,
+          "leaderPercent": 18.03818301514154,
+          "occupiedPercent": 66.95194206714945,
+          "neutralCells": 502,
+          "neutralPercent": 33.04805793285056,
+          "validCenters": 0,
+          "alive": 8,
+          "deadWait": 0,
+          "spawnBlocked": 0,
+          "pairDistanceHex": 19.214285714285715,
+          "exposedTrailMean": 4.375
+        },
+        {
+          "seed": 73,
+          "seconds": 492,
+          "leaderPercent": 20.6714944042133,
+          "occupiedPercent": 66.49111257406187,
+          "neutralCells": 509,
+          "neutralPercent": 33.50888742593812,
+          "validCenters": 0,
+          "alive": 8,
+          "deadWait": 0,
+          "spawnBlocked": 0,
+          "pairDistanceHex": 19,
+          "exposedTrailMean": 4.75
+        },
+        {
+          "seed": 73,
+          "seconds": 756,
+          "leaderPercent": 13.36405529953917,
+          "occupiedPercent": 65.2402896642528,
+          "neutralCells": 528,
+          "neutralPercent": 34.7597103357472,
+          "validCenters": 0,
+          "alive": 8,
+          "deadWait": 0,
+          "spawnBlocked": 0,
+          "pairDistanceHex": 18.75,
+          "exposedTrailMean": 3
+        },
+        {
+          "seed": 73,
+          "seconds": 757,
+          "leaderPercent": 13.36405529953917,
+          "occupiedPercent": 65.96445029624753,
+          "neutralCells": 517,
+          "neutralPercent": 34.035549703752466,
+          "validCenters": 0,
+          "alive": 8,
+          "deadWait": 0,
+          "spawnBlocked": 0,
+          "pairDistanceHex": 20.035714285714285,
+          "exposedTrailMean": 2
+        },
+        {
+          "seed": 115,
+          "seconds": 575,
+          "leaderPercent": 21.85648452929559,
+          "occupiedPercent": 59.57867017774852,
+          "neutralCells": 614,
+          "neutralPercent": 40.42132982225148,
+          "validCenters": 0,
+          "alive": 7,
+          "deadWait": 1,
+          "spawnBlocked": 0,
+          "pairDistanceHex": 18.80952380952381,
+          "exposedTrailMean": 4.285714285714286
+        }
+      ],
+      "firstSpawnBlocked": [],
+      "leaderBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 4758,
+          "secondsInBand": 4751.266666664975,
+          "neutralCellCount": {
+            "mean": 745.639344262295,
+            "min": 440,
+            "max": 1367
+          },
+          "neutralPercentage": {
+            "mean": 49.087514434647275,
+            "min": 28.966425279789334,
+            "max": 89.99341672152732
+          },
+          "validSpawnCenterCount": {
+            "mean": 129.6395544346364,
+            "min": 0,
+            "max": 812
+          },
+          "aliveParticipantCount": {
+            "mean": 7.341530054644808,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.6584699453551912,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 1040,
+          "successfulRespawns": 1040,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 171.97019230769232,
+            "min": 8,
+            "max": 533
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 46,
+          "secondsInBand": 48.73333333333373,
+          "neutralCellCount": {
+            "mean": 608.7608695652174,
+            "min": 447,
+            "max": 748
+          },
+          "neutralPercentage": {
+            "mean": 40.076423276182844,
+            "min": 29.427254772876893,
+            "max": 49.24292297564187
+          },
+          "validSpawnCenterCount": {
+            "mean": 53.56521739130435,
+            "min": 4,
+            "max": 132
+          },
+          "aliveParticipantCount": {
+            "mean": 7.108695652173913,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.8913043478260869,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 15,
+          "successfulRespawns": 15,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 70.6,
+            "min": 28,
+            "max": 157
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "70–80%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ],
+      "occupiedBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 45,
+          "secondsInBand": 42.19999999999989,
+          "neutralCellCount": {
+            "mean": 1256.6,
+            "min": 1141,
+            "max": 1367
+          },
+          "neutralPercentage": {
+            "mean": 82.72547728768927,
+            "min": 75.11520737327189,
+            "max": 89.99341672152732
+          },
+          "validSpawnCenterCount": {
+            "mean": 482.6,
+            "min": 273,
+            "max": 812
+          },
+          "aliveParticipantCount": {
+            "mean": 7.644444444444445,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.35555555555555557,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 3,
+          "successfulRespawns": 3,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 390.3333333333333,
+            "min": 368,
+            "max": 419
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 1985,
+          "secondsInBand": 1977.4000000005992,
+          "neutralCellCount": {
+            "mean": 860.4478589420655,
+            "min": 760,
+            "max": 1129
+          },
+          "neutralPercentage": {
+            "mean": 56.64567866636354,
+            "min": 50.0329163923634,
+            "max": 74.32521395655036
+          },
+          "validSpawnCenterCount": {
+            "mean": 193.19899244332493,
+            "min": 24,
+            "max": 550
+          },
+          "aliveParticipantCount": {
+            "mean": 7.005037783375315,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.9949622166246851,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 644,
+          "successfulRespawns": 644,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 217.27173913043478,
+            "min": 56,
+            "max": 533
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2764,
+          "secondsInBand": 2770.6000000001095,
+          "neutralCellCount": {
+            "mean": 653.6657018813314,
+            "min": 457,
+            "max": 759
+          },
+          "neutralPercentage": {
+            "mean": 43.03263343524236,
+            "min": 30.085582620144834,
+            "max": 49.9670836076366
+          },
+          "validSpawnCenterCount": {
+            "mean": 77.3849493487699,
+            "min": 0,
+            "max": 279
+          },
+          "aliveParticipantCount": {
+            "mean": 7.5719971056439945,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.4280028943560058,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 408,
+          "successfulRespawns": 408,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 95.13235294117646,
+            "min": 8,
+            "max": 267
+          }
+        },
+        {
+          "band": "70–80%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73
+          ],
+          "sampleCount": 10,
+          "secondsInBand": 9.799999999999992,
+          "neutralCellCount": {
+            "mean": 448.7,
+            "min": 440,
+            "max": 455
+          },
+          "neutralPercentage": {
+            "mean": 29.539170506912445,
+            "min": 28.966425279789334,
+            "max": 29.953917050691246
+          },
+          "validSpawnCenterCount": {
+            "mean": 18,
+            "min": 5,
+            "max": 30
+          },
+          "aliveParticipantCount": {
+            "mean": 8,
+            "min": 8,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 0,
+          "successfulRespawns": 0,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ]
+    },
+    {
+      "radius": 28,
+      "totalCells": 2437,
+      "cellsPerParticipant": 304.625,
+      "initialOwnedPercent": 6.2371768567911365,
+      "independentSeeds": [
+        4,
+        19,
+        73,
+        115
+      ],
+      "identicalModeTrajectories": true,
+      "deathsPerMatchMinute": 8.4,
+      "killsPerMatchMinute": 8.4,
+      "deathsPerParticipantMinute": 1.05,
+      "completedLifeSeconds": {
+        "mean": 51.90014107075402,
+        "min": 44.824806931937154,
+        "max": 57.38529794260484
+      },
+      "pairDistanceHex": 27.93819485746008,
+      "firstDirectTrailContactSeconds": {
+        "mean": 11.382320166666666,
+        "min": 3.0561953333333336,
+        "max": 24.97272866666667
+      },
+      "peakLeaderPercent": {
+        "mean": 22.44562987279442,
+        "min": 20.311858842839555,
+        "max": 24.08699220352893
+      },
+      "peakLeaderCells": {
+        "mean": 547,
+        "min": 495,
+        "max": 587
+      },
+      "leaderAtMinutes": {
+        "5": 12.443578169881002,
+        "10": 11.243331965531391,
+        "20": 16.690603200656547
+      },
+      "first25Reached": [],
+      "holdTargetReachedSeeds": [],
+      "holdMaintenanceStatus": "NOT_REACHED_UNVERIFIED",
+      "classicWinners": 0,
+      "meanExposedTrailCells": 3.6520571809208935,
+      "capturedPercentEquivalentPerMatchMinute": 91.54749692244563,
+      "globalOccupiedMaximum": 76.89782519491177,
+      "lateAliveCount": 7.563278008298756,
+      "respawnAttempts": 671,
+      "successfulRespawns": 671,
+      "failedBlockedRespawns": 0,
+      "periodicValidCenters": {
+        "mean": 331.2335553705246,
+        "min": 7,
+        "max": 1594
+      },
+      "validCentersAtAttempts": {
+        "mean": 427.44262295081967,
+        "min": 34,
+        "max": 1177
+      },
+      "zeroCenterSamples": [],
+      "firstSpawnBlocked": [],
+      "leaderBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 4804,
+          "secondsInBand": 4799.999999998264,
+          "neutralCellCount": {
+            "mean": 1201.5895087427143,
+            "min": 563,
+            "max": 2285
+          },
+          "neutralPercentage": {
+            "mean": 49.30609391640196,
+            "min": 23.10217480508822,
+            "max": 93.76282314320886
+          },
+          "validSpawnCenterCount": {
+            "mean": 331.2335553705246,
+            "min": 7,
+            "max": 1594
+          },
+          "aliveParticipantCount": {
+            "mean": 7.580766028309742,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.4192339716902581,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 671,
+          "successfulRespawns": 671,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 427.44262295081967,
+            "min": 34,
+            "max": 1177
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "50–70%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "70–80%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ],
+      "occupiedBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 68,
+          "secondsInBand": 64.36666666666667,
+          "neutralCellCount": {
+            "mean": 2061.0882352941176,
+            "min": 1831,
+            "max": 2285
+          },
+          "neutralPercentage": {
+            "mean": 84.57481474329579,
+            "min": 75.13336068937218,
+            "max": 93.76282314320886
+          },
+          "validSpawnCenterCount": {
+            "mean": 1046.264705882353,
+            "min": 697,
+            "max": 1594
+          },
+          "aliveParticipantCount": {
+            "mean": 7.455882352941177,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.5441176470588235,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 10,
+          "successfulRespawns": 10,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 909.6,
+            "min": 714,
+            "max": 1177
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2049,
+          "secondsInBand": 2049.2666666670666,
+          "neutralCellCount": {
+            "mean": 1393.6490971205467,
+            "min": 1219,
+            "max": 1823
+          },
+          "neutralPercentage": {
+            "mean": 57.18707825689567,
+            "min": 50.02051702913418,
+            "max": 74.80508822322528
+          },
+          "validSpawnCenterCount": {
+            "mean": 465.7227916056613,
+            "min": 141,
+            "max": 1047
+          },
+          "aliveParticipantCount": {
+            "mean": 7.383113714006833,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.6168862859931674,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 417,
+          "successfulRespawns": 417,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 517.9736211031175,
+            "min": 225,
+            "max": 1013
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2620,
+          "secondsInBand": 2617.9666666669145,
+          "neutralCellCount": {
+            "mean": 1042.1339694656488,
+            "min": 732,
+            "max": 1218
+          },
+          "neutralPercentage": {
+            "mean": 42.762986026493536,
+            "min": 30.036930652441526,
+            "max": 49.97948297086582
+          },
+          "validSpawnCenterCount": {
+            "mean": 214.89198473282443,
+            "min": 16,
+            "max": 501
+          },
+          "aliveParticipantCount": {
+            "mean": 7.72824427480916,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.2717557251908397,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 244,
+          "successfulRespawns": 244,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 252.96311475409837,
+            "min": 34,
+            "max": 501
+          }
+        },
+        {
+          "band": "70–80%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 67,
+          "secondsInBand": 68.40000000000093,
+          "neutralCellCount": {
+            "mean": 691.1044776119403,
+            "min": 563,
+            "max": 731
+          },
+          "neutralPercentage": {
+            "mean": 28.35882140385475,
+            "min": 23.10217480508822,
+            "max": 29.995896594173164
+          },
+          "validSpawnCenterCount": {
+            "mean": 42.04477611940298,
+            "min": 7,
+            "max": 88
+          },
+          "aliveParticipantCount": {
+            "mean": 7.985074626865671,
+            "min": 7,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.014925373134328358,
+            "min": 0,
+            "max": 1
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 0,
+          "successfulRespawns": 0,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ]
+    },
+    {
+      "radius": 32,
+      "totalCells": 3169,
+      "cellsPerParticipant": 396.125,
+      "initialOwnedPercent": 4.796465762070054,
+      "independentSeeds": [
+        4,
+        19,
+        73,
+        115
+      ],
+      "identicalModeTrajectories": true,
+      "deathsPerMatchMinute": 6.075,
+      "killsPerMatchMinute": 6.075,
+      "deathsPerParticipantMinute": 0.759375,
+      "completedLifeSeconds": {
+        "mean": 72.33850064869208,
+        "min": 63.031576296568616,
+        "max": 81.85475466363634
+      },
+      "pairDistanceHex": 32.84855428016338,
+      "firstDirectTrailContactSeconds": {
+        "mean": 10.452971333333334,
+        "min": 3.0561953333333336,
+        "max": 21.255333333333333
+      },
+      "peakLeaderPercent": {
+        "mean": 22.641211738718837,
+        "min": 18.933417481855475,
+        "max": 29.125907226254338
+      },
+      "peakLeaderCells": {
+        "mean": 717.5,
+        "min": 600,
+        "max": 923
+      },
+      "leaderAtMinutes": {
+        "5": 11.912275165667403,
+        "10": 13.27705900915115,
+        "20": 11.841274850110445
+      },
+      "first25Reached": [
+        {
+          "seed": 4,
+          "seconds": 1070.7666666666667
+        }
+      ],
+      "holdTargetReachedSeeds": [],
+      "holdMaintenanceStatus": "NOT_REACHED_UNVERIFIED",
+      "classicWinners": 0,
+      "meanExposedTrailCells": 3.7216380778130635,
+      "capturedPercentEquivalentPerMatchMinute": 75.35815714736509,
+      "globalOccupiedMaximum": 76.90123067213632,
+      "lateAliveCount": 7.660788381742739,
+      "respawnAttempts": 486,
+      "successfulRespawns": 486,
+      "failedBlockedRespawns": 0,
+      "periodicValidCenters": {
+        "mean": 536.6124063280599,
+        "min": 19,
+        "max": 2278
+      },
+      "validCentersAtAttempts": {
+        "mean": 664.059670781893,
+        "min": 92,
+        "max": 1806
+      },
+      "zeroCenterSamples": [],
+      "firstSpawnBlocked": [],
+      "leaderBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 4748,
+          "secondsInBand": 4743.999999998315,
+          "neutralCellCount": {
+            "mean": 1564.8346672283067,
+            "min": 732,
+            "max": 3017
+          },
+          "neutralPercentage": {
+            "mean": 49.37944674118976,
+            "min": 23.09876932786368,
+            "max": 95.20353423792994
+          },
+          "validSpawnCenterCount": {
+            "mean": 539.540648694187,
+            "min": 19,
+            "max": 2278
+          },
+          "aliveParticipantCount": {
+            "mean": 7.697346251053075,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.30265374894692504,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 479,
+          "successfulRespawns": 479,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 667.4091858037579,
+            "min": 92,
+            "max": 1806
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4
+          ],
+          "sampleCount": 56,
+          "secondsInBand": 55.99999999999938,
+          "neutralCellCount": {
+            "mean": 1265.0535714285713,
+            "min": 1010,
+            "max": 1655
+          },
+          "neutralPercentage": {
+            "mean": 39.9196456746157,
+            "min": 31.871252761123383,
+            "max": 52.22467655411802
+          },
+          "validSpawnCenterCount": {
+            "mean": 288.3392857142857,
+            "min": 110,
+            "max": 825
+          },
+          "aliveParticipantCount": {
+            "mean": 7.625,
+            "min": 6,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.375,
+            "min": 0,
+            "max": 2
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 7,
+          "successfulRespawns": 7,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 434.85714285714283,
+            "min": 212,
+            "max": 733
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "70–80%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ],
+      "occupiedBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 89,
+          "secondsInBand": 87.63333333333432,
+          "neutralCellCount": {
+            "mean": 2691.932584269663,
+            "min": 2380,
+            "max": 3017
+          },
+          "neutralPercentage": {
+            "mean": 84.94580575164609,
+            "min": 75.10255601136005,
+            "max": 95.20353423792994
+          },
+          "validSpawnCenterCount": {
+            "mean": 1527.7078651685392,
+            "min": 1043,
+            "max": 2278
+          },
+          "aliveParticipantCount": {
+            "mean": 7.606741573033708,
+            "min": 6,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.39325842696629215,
+            "min": 0,
+            "max": 2
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 9,
+          "successfulRespawns": 9,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 1376.888888888889,
+            "min": 1190,
+            "max": 1806
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2042,
+          "secondsInBand": 2038.8333333338974,
+          "neutralCellCount": {
+            "mean": 1796.5729676787464,
+            "min": 1585,
+            "max": 2371
+          },
+          "neutralPercentage": {
+            "mean": 56.69211005612959,
+            "min": 50.015777847901546,
+            "max": 74.81855474913222
+          },
+          "validSpawnCenterCount": {
+            "mean": 718.9368266405485,
+            "min": 326,
+            "max": 1311
+          },
+          "aliveParticipantCount": {
+            "mean": 7.5421155729676785,
+            "min": 4,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.45788442703232124,
+            "min": 0,
+            "max": 4
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 309,
+          "successfulRespawns": 309,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 784.0517799352751,
+            "min": 310,
+            "max": 1288
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2624,
+          "secondsInBand": 2623.56666666691,
+          "neutralCellCount": {
+            "mean": 1353.0548780487804,
+            "min": 952,
+            "max": 1584
+          },
+          "neutralPercentage": {
+            "mean": 42.69658813659775,
+            "min": 30.04102240454402,
+            "max": 49.984222152098454
+          },
+          "validSpawnCenterCount": {
+            "mean": 369.7454268292683,
+            "min": 64,
+            "max": 726
+          },
+          "aliveParticipantCount": {
+            "mean": 7.8151676829268295,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.18483231707317074,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 167,
+          "successfulRespawns": 167,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 406.91616766467064,
+            "min": 92,
+            "max": 733
+          }
+        },
+        {
+          "band": "70–80%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 49,
+          "secondsInBand": 49.96666666666728,
+          "neutralCellCount": {
+            "mean": 858.734693877551,
+            "min": 732,
+            "max": 948
+          },
+          "neutralPercentage": {
+            "mean": 27.097970775561713,
+            "min": 23.09876932786368,
+            "max": 29.91479962133165
+          },
+          "validSpawnCenterCount": {
+            "mean": 74.26530612244898,
+            "min": 19,
+            "max": 127
+          },
+          "aliveParticipantCount": {
+            "mean": 7.938775510204081,
+            "min": 7,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.061224489795918366,
+            "min": 0,
+            "max": 1
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 1,
+          "successfulRespawns": 1,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 114,
+            "min": 114,
+            "max": 114
+          }
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ]
+    },
+    {
+      "radius": 36,
+      "totalCells": 3997,
+      "cellsPerParticipant": 499.625,
+      "initialOwnedPercent": 3.802852139104328,
+      "independentSeeds": [
+        4,
+        19,
+        73,
+        115
+      ],
+      "identicalModeTrajectories": true,
+      "deathsPerMatchMinute": 4.8625,
+      "killsPerMatchMinute": 4.8625,
+      "deathsPerParticipantMinute": 0.6078125,
+      "completedLifeSeconds": {
+        "mean": 88.45587535217417,
+        "min": 84.87005526143791,
+        "max": 91.75169747017543
+      },
+      "pairDistanceHex": 37.643213492724335,
+      "firstDirectTrailContactSeconds": {
+        "mean": 10.452971333333334,
+        "min": 3.0561953333333336,
+        "max": 21.255333333333333
+      },
+      "peakLeaderPercent": {
+        "mean": 24.143107330497873,
+        "min": 19.63972979734801,
+        "max": 26.84513385038779
+      },
+      "peakLeaderCells": {
+        "mean": 965,
+        "min": 785,
+        "max": 1073
+      },
+      "leaderAtMinutes": {
+        "5": 14.773580185138854,
+        "10": 12.621966474856142,
+        "20": 12.140355266449836
+      },
+      "first25Reached": [
+        {
+          "seed": 4,
+          "seconds": 488.3
+        },
+        {
+          "seed": 115,
+          "seconds": 1024.7666666666667
+        }
+      ],
+      "holdTargetReachedSeeds": [],
+      "holdMaintenanceStatus": "NOT_REACHED_UNVERIFIED",
+      "classicWinners": 0,
+      "meanExposedTrailCells": 3.8356025994959717,
+      "capturedPercentEquivalentPerMatchMinute": 63.777207905929444,
+      "globalOccupiedMaximum": 75.9819864898674,
+      "lateAliveCount": 7.776970954356846,
+      "respawnAttempts": 388,
+      "successfulRespawns": 388,
+      "failedBlockedRespawns": 0,
+      "periodicValidCenters": {
+        "mean": 793.1942131557036,
+        "min": 89,
+        "max": 3058
+      },
+      "validCentersAtAttempts": {
+        "mean": 968.2396907216495,
+        "min": 185,
+        "max": 2586
+      },
+      "zeroCenterSamples": [],
+      "firstSpawnBlocked": [],
+      "leaderBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 4786,
+          "secondsInBand": 4781.966666664947,
+          "neutralCellCount": {
+            "mean": 1982.768700376097,
+            "min": 960,
+            "max": 3845
+          },
+          "neutralPercentage": {
+            "mean": 49.60642232614687,
+            "min": 24.0180135101326,
+            "max": 96.19714786089567
+          },
+          "validSpawnCenterCount": {
+            "mean": 793.8710823234434,
+            "min": 89,
+            "max": 3058
+          },
+          "aliveParticipantCount": {
+            "mean": 7.756999582114501,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.24300041788549936,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 387,
+          "successfulRespawns": 387,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 969.1963824289405,
+            "min": 185,
+            "max": 2586
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            115
+          ],
+          "sampleCount": 18,
+          "secondsInBand": 18.03333333333332,
+          "neutralCellCount": {
+            "mean": 1755.7777777777778,
+            "min": 1612,
+            "max": 1955
+          },
+          "neutralPercentage": {
+            "mean": 43.92738998693465,
+            "min": 40.33024768576432,
+            "max": 48.911683762822115
+          },
+          "validSpawnCenterCount": {
+            "mean": 613.2222222222222,
+            "min": 484,
+            "max": 791
+          },
+          "aliveParticipantCount": {
+            "mean": 7.777777777777778,
+            "min": 7,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.2222222222222222,
+            "min": 0,
+            "max": 1
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 1,
+          "successfulRespawns": 1,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 598,
+            "min": 598,
+            "max": 598
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "70–80%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ],
+      "occupiedBands": [
+        {
+          "band": "0–25%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 114,
+          "secondsInBand": 112.06666666666878,
+          "neutralCellCount": {
+            "mean": 3427.035087719298,
+            "min": 3002,
+            "max": 3845
+          },
+          "neutralPercentage": {
+            "mean": 85.74018232972976,
+            "min": 75.10632974731048,
+            "max": 96.19714786089567
+          },
+          "validSpawnCenterCount": {
+            "mean": 2170.719298245614,
+            "min": 1475,
+            "max": 3058
+          },
+          "aliveParticipantCount": {
+            "mean": 7.605263157894737,
+            "min": 6,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.39473684210526316,
+            "min": 0,
+            "max": 2
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 14,
+          "successfulRespawns": 14,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 2010.7142857142858,
+            "min": 1649,
+            "max": 2586
+          }
+        },
+        {
+          "band": "25–50%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2053,
+          "secondsInBand": 2050.666666667256,
+          "neutralCellCount": {
+            "mean": 2255.815879201169,
+            "min": 1999,
+            "max": 2987
+          },
+          "neutralPercentage": {
+            "mean": 56.43772527398474,
+            "min": 50.01250938203653,
+            "max": 74.73104828621466
+          },
+          "validSpawnCenterCount": {
+            "mean": 1014.4106186069167,
+            "min": 547,
+            "max": 1829
+          },
+          "aliveParticipantCount": {
+            "mean": 7.641987335606429,
+            "min": 5,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.3580126643935704,
+            "min": 0,
+            "max": 3
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 242,
+          "successfulRespawns": 242,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 1096.3677685950413,
+            "min": 643,
+            "max": 1761
+          }
+        },
+        {
+          "band": "50–70%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            4,
+            19,
+            73,
+            115
+          ],
+          "sampleCount": 2582,
+          "secondsInBand": 2581.6000000002814,
+          "neutralCellCount": {
+            "mean": 1718.78350116189,
+            "min": 1200,
+            "max": 1998
+          },
+          "neutralPercentage": {
+            "mean": 43.001838908228386,
+            "min": 30.02251688766575,
+            "max": 49.98749061796347
+          },
+          "validSpawnCenterCount": {
+            "mean": 569.168086754454,
+            "min": 156,
+            "max": 973
+          },
+          "aliveParticipantCount": {
+            "mean": 7.850116189000775,
+            "min": 6,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0.1498838109992254,
+            "min": 0,
+            "max": 2
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 132,
+          "successfulRespawns": 132,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": 1,
+          "validCentersAtAttempts": {
+            "mean": 622.7727272727273,
+            "min": 185,
+            "max": 929
+          }
+        },
+        {
+          "band": "70–80%",
+          "status": "REACHED",
+          "visitedSeeds": [
+            19,
+            115
+          ],
+          "sampleCount": 55,
+          "secondsInBand": 55.666666666666956,
+          "neutralCellCount": {
+            "mean": 1115.709090909091,
+            "min": 960,
+            "max": 1198
+          },
+          "neutralPercentage": {
+            "mean": 27.91366251961699,
+            "min": 24.0180135101326,
+            "max": 29.97247935951964
+          },
+          "validSpawnCenterCount": {
+            "mean": 197.56363636363636,
+            "min": 89,
+            "max": 274
+          },
+          "aliveParticipantCount": {
+            "mean": 8,
+            "min": 8,
+            "max": 8
+          },
+          "deadWaitParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "spawnBlockedParticipantCount": {
+            "mean": 0,
+            "min": 0,
+            "max": 0
+          },
+          "respawnAttempts": 0,
+          "successfulRespawns": 0,
+          "failedBlockedRespawns": 0,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "80–90%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "90–95%",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        },
+        {
+          "band": "95%+",
+          "status": "NOT_REACHED_UNVERIFIED",
+          "visitedSeeds": [],
+          "sampleCount": 0,
+          "secondsInBand": null,
+          "neutralCellCount": null,
+          "neutralPercentage": null,
+          "validSpawnCenterCount": null,
+          "aliveParticipantCount": null,
+          "deadWaitParticipantCount": null,
+          "spawnBlockedParticipantCount": null,
+          "respawnAttempts": null,
+          "successfulRespawns": null,
+          "failedBlockedRespawns": null,
+          "respawnSuccessRate": null,
+          "validCentersAtAttempts": null
+        }
+      ]
+    }
+  ]
+}

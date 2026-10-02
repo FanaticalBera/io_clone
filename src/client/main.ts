@@ -11,6 +11,7 @@ import {KillHaptics} from './haptics.js';
 import type {MatchView} from '../shared/model.js';
 import type {WireSnapshot,RoomView} from '../shared/protocol.js';
 import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js';
+import {experimentalMapConfig,experimentalSeed} from '../shared/map-experiment.js';
 import './style.css';
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
@@ -43,7 +44,8 @@ async function stopOnline():Promise<void> {
 }
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.showGame('PRACTICE');
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),{}, {gameMode,diagnostics:diagnosticsEnabled});input.setDirection(practice.match.participants[0].direction);}
+ const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment=experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,diagnostics:diagnosticsEnabled});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {

@@ -1,0 +1,36 @@
+[
+  {
+    "radius": 22,
+    "seed": 4,
+    "ticks": 1200,
+    "hash": "bb37292c48f4722a8677229a8f15fe3715a4566c3d8c3ed5127ed81a4342b771",
+    "deaths": 7,
+    "lives": [
+      3,
+      1,
+      2,
+      3,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "radius": 36,
+    "seed": 4,
+    "ticks": 1200,
+    "hash": "245736e3787dae8fa07bdaf3ac6dd9a560fbc24b77362c01dc23ac578e66ca0b",
+    "deaths": 4,
+    "lives": [
+      1,
+      2,
+      2,
+      1,
+      1,
+      2,
+      1,
+      2
+    ]
+  }
+]
