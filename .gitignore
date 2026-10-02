@@ -1,0 +1,13 @@
+node_modules/
+.local/
+artifacts/
+tmp/
+test-results/
+playwright-report/
+*.log
+
+# Full diagnostic traces belong in .local/evidence; commit summaries only.
+evidence/death-diagnostic-v2.json
+evidence/contact-diagnostic-movement.json
+evidence/origin-capture-before.json
+evidence/origin-capture-after.json

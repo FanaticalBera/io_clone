@@ -1,0 +1,578 @@
+[
+  {
+    "scenario": "origin-only",
+    "reverse": false,
+    "seed": 115,
+    "captureTick": 149,
+    "directContacts": 0,
+    "contacts": [],
+    "origin": 613,
+    "originCoordinate": [
+      -14,
+      -3
+    ],
+    "originOwner": 2,
+    "first": 612,
+    "firstCoordinate": [
+      -15,
+      -3
+    ],
+    "neighbors": [
+      {
+        "id": 613,
+        "coordinate": [
+          -14,
+          -3
+        ],
+        "owner": 2
+      },
+      {
+        "id": 571,
+        "coordinate": [
+          -14,
+          -4
+        ],
+        "owner": 0
+      }
+    ],
+    "victim": {
+      "lifeState": "DEAD_WAIT",
+      "deathReason": "TRAIL_CUT",
+      "trailCells": [],
+      "territoryCount": 0
+    },
+    "capturerKills": 1,
+    "traces": [
+      {
+        "tick": 149,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              612,
+              570,
+              529,
+              490,
+              452,
+              415,
+              416,
+              380,
+              344,
+              379,
+              343,
+              309,
+              345,
+              417,
+              310
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": false,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 14,
+            "ownerCellsAfterTransfer": 14,
+            "claimedTrailCells": [],
+            "cut": true,
+            "markDeadCalled": true,
+            "markedDead": true,
+            "lifeStateAfter": "DEAD_WAIT",
+            "ownerCellsAfter": 0,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 613,
+            "originOwnerBefore": 1,
+            "originOwnerAfterTransfer": 2,
+            "firstHomeNeighborsAfterTransfer": [
+              571
+            ]
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              656,
+              614,
+              613,
+              572,
+              573,
+              615,
+              658,
+              701,
+              657,
+              700
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 29,
+            "ownerCellsAfterTransfer": 29,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 29,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 655,
+            "originOwnerBefore": 2,
+            "originOwnerAfterTransfer": 2,
+            "firstHomeNeighborsAfterTransfer": [
+              657,
+              614,
+              613,
+              655,
+              699,
+              700
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "origin-only",
+    "reverse": true,
+    "seed": 17,
+    "captureTick": 149,
+    "directContacts": 0,
+    "contacts": [],
+    "origin": 613,
+    "originCoordinate": [
+      -14,
+      -3
+    ],
+    "originOwner": 1,
+    "first": 612,
+    "firstCoordinate": [
+      -15,
+      -3
+    ],
+    "neighbors": [
+      {
+        "id": 613,
+        "coordinate": [
+          -14,
+          -3
+        ],
+        "owner": 1
+      },
+      {
+        "id": 571,
+        "coordinate": [
+          -14,
+          -4
+        ],
+        "owner": 0
+      }
+    ],
+    "victim": {
+      "lifeState": "DEAD_WAIT",
+      "deathReason": "TRAIL_CUT",
+      "trailCells": [],
+      "territoryCount": 0
+    },
+    "capturerKills": 1,
+    "traces": [
+      {
+        "tick": 149,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              656,
+              614,
+              613,
+              572,
+              573,
+              615,
+              658,
+              701,
+              657,
+              700
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 29,
+            "ownerCellsAfterTransfer": 29,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 29,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 655,
+            "originOwnerBefore": 1,
+            "originOwnerAfterTransfer": 1,
+            "firstHomeNeighborsAfterTransfer": [
+              657,
+              614,
+              613,
+              655,
+              699,
+              700
+            ]
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              612,
+              570,
+              529,
+              490,
+              452,
+              415,
+              416,
+              380,
+              344,
+              379,
+              343,
+              309,
+              345,
+              417,
+              310
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": false,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 14,
+            "ownerCellsAfterTransfer": 14,
+            "claimedTrailCells": [],
+            "cut": true,
+            "markDeadCalled": true,
+            "markedDead": true,
+            "lifeStateAfter": "DEAD_WAIT",
+            "ownerCellsAfter": 0,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 613,
+            "originOwnerBefore": 2,
+            "originOwnerAfterTransfer": 1,
+            "firstHomeNeighborsAfterTransfer": [
+              571
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "neighbor-only",
+    "reverse": false,
+    "seed": 115,
+    "captureTick": 360,
+    "directContacts": 0,
+    "contacts": [],
+    "origin": 613,
+    "originCoordinate": [
+      -14,
+      -3
+    ],
+    "originOwner": 1,
+    "first": 612,
+    "firstCoordinate": [
+      -15,
+      -3
+    ],
+    "neighbors": [
+      {
+        "id": 613,
+        "coordinate": [
+          -14,
+          -3
+        ],
+        "owner": 1
+      },
+      {
+        "id": 571,
+        "coordinate": [
+          -14,
+          -4
+        ],
+        "owner": 2
+      }
+    ],
+    "victim": {
+      "lifeState": "ALIVE",
+      "deathReason": null,
+      "trailCells": [
+        612,
+        611,
+        610,
+        568,
+        567,
+        527,
+        528,
+        569,
+        609
+      ],
+      "territoryCount": 16
+    },
+    "capturerKills": 0,
+    "traces": [
+      {
+        "tick": 360,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              612,
+              611,
+              610,
+              568,
+              567,
+              527,
+              528,
+              569,
+              609
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 16,
+            "ownerCellsAfterTransfer": 16,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 16,
+            "trailMaskCellsAfter": 9,
+            "originCellId": 613,
+            "originOwnerBefore": 1,
+            "originOwnerAfterTransfer": 1,
+            "firstHomeNeighborsAfterTransfer": [
+              613
+            ]
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              656,
+              657,
+              658,
+              659,
+              660,
+              661,
+              619,
+              618,
+              577,
+              576,
+              535,
+              495,
+              456,
+              418,
+              417,
+              416,
+              415,
+              414,
+              451,
+              489,
+              529,
+              570,
+              571,
+              531,
+              530,
+              704,
+              703
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 46,
+            "ownerCellsAfterTransfer": 46,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 46,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 655,
+            "originOwnerBefore": 2,
+            "originOwnerAfterTransfer": 2,
+            "firstHomeNeighborsAfterTransfer": [
+              657,
+              655,
+              699
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "neighbor-only",
+    "reverse": true,
+    "seed": 17,
+    "captureTick": 360,
+    "directContacts": 0,
+    "contacts": [],
+    "origin": 613,
+    "originCoordinate": [
+      -14,
+      -3
+    ],
+    "originOwner": 2,
+    "first": 612,
+    "firstCoordinate": [
+      -15,
+      -3
+    ],
+    "neighbors": [
+      {
+        "id": 613,
+        "coordinate": [
+          -14,
+          -3
+        ],
+        "owner": 2
+      },
+      {
+        "id": 571,
+        "coordinate": [
+          -14,
+          -4
+        ],
+        "owner": 1
+      }
+    ],
+    "victim": {
+      "lifeState": "ALIVE",
+      "deathReason": null,
+      "trailCells": [
+        612,
+        611,
+        610,
+        568,
+        567,
+        527,
+        528,
+        569,
+        609
+      ],
+      "territoryCount": 16
+    },
+    "capturerKills": 0,
+    "traces": [
+      {
+        "tick": 360,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              656,
+              657,
+              658,
+              659,
+              660,
+              661,
+              619,
+              618,
+              577,
+              576,
+              535,
+              495,
+              456,
+              418,
+              417,
+              416,
+              415,
+              414,
+              451,
+              489,
+              529,
+              570,
+              571,
+              531,
+              530,
+              704,
+              703
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 46,
+            "ownerCellsAfterTransfer": 46,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 46,
+            "trailMaskCellsAfter": 0,
+            "originCellId": 655,
+            "originOwnerBefore": 1,
+            "originOwnerAfterTransfer": 1,
+            "firstHomeNeighborsAfterTransfer": [
+              657,
+              655,
+              699
+            ]
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              612,
+              611,
+              610,
+              568,
+              567,
+              527,
+              528,
+              569,
+              609
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 16,
+            "ownerCellsAfterTransfer": 16,
+            "claimedTrailCells": [],
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 16,
+            "trailMaskCellsAfter": 9,
+            "originCellId": 613,
+            "originOwnerBefore": 2,
+            "originOwnerAfterTransfer": 2,
+            "firstHomeNeighborsAfterTransfer": [
+              613
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

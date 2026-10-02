@@ -24,7 +24,7 @@
 
 이미 서 있던 칸이 점령돼 그 밑에 생기는 선에는 movement 출발점이 없다. 그 경우와 직접 상태를 구성하는 기존 테스트의 null origin 처리에는 기존 첫 칸 인접 판정을 유지했다. 동시 returner 제외, 직접 접촉, simultaneous capture, pruning, 모드와 respawn 규칙은 유지한다. 출발점은 서버 내부 필드이며 공개 snapshot/봇 관찰에 새 정보로 노출하지 않는다.
 
-자료: [수정 전 이동 기록](../evidence/origin-capture-before.json), [수정 후 이동 기록](../evidence/origin-capture-after.json). 회귀 검증: `tests/core/origin-capture.test.ts`, `tests/e2e/movement-capture-cuts.spec.ts`.
+자료: [수정 전 이동 요약](../evidence/origin-capture-before-summary.json), [수정 후 이동 요약](../evidence/origin-capture-after-summary.json). 회귀 검증: `tests/core/origin-capture.test.ts`, `tests/e2e/movement-capture-cuts.spec.ts`.
 
 ## 2. 판정 변경 없이 실제 사망을 여섯 원인으로 분류
 
@@ -56,7 +56,7 @@ pending은 사망의 **4.86%**, BOT 349건 중 16건, HUMAN 21건 중 2건이다
 
 `http://127.0.0.1:3003/?debug=1`에서는 실제 사망 화면에 `[원인 · cell 번호 · t 사건 tick]`이 표시된다. 일반 주소는 원인에 맞는 한국어만 보여준다. debug 연습 경기의 `window.__HEXHOLD_DIAGNOSTICS__.get()`은 누적 원인별 수, 최근 사망 16개, 놓친 기회 64개와 독립 평가 수를 복사해 반환한다. 상대 봇의 사망도 수집한다. 온라인에서는 서버가 전달한 사망 원인 표시를 사용하며 이 연습용 getter로 서버 내부 기록을 제공하지 않는다.
 
-자료: [접촉/전체 점령 이동 재현](../evidence/contact-diagnostic-movement.json), [정상 이동 16판 사망 audit](../evidence/death-diagnostic-v2.json), [실제 사망 화면](../evidence/pending-contact-debug.png).
+자료: [접촉/전체 점령 이동 요약](../evidence/contact-diagnostic-summary.json), [정상 이동 16판 사망 audit 요약](../evidence/death-diagnostic-summary.json), [실제 사망 화면](../evidence/pending-contact-debug.png). 원시 기록은 로컬 `.local/evidence/`에 보관하며 Git에 추가하지 않는다. 생성 방법은 [진단 증거 보관 규칙](diagnostic-evidence.md)을 따른다.
 
 ## 3. 행동 정책 밖에서 MISSED_KILL_OPPORTUNITY 측정
 

@@ -1,0 +1,556 @@
+{
+  "contacts": [
+    {
+      "scenario": "simultaneous-neutral",
+      "reverse": false,
+      "seed": 115,
+      "goal": 612,
+      "nearestBodyDistance": 45.09821713582624,
+      "deaths": [
+        {
+          "tick": 19,
+          "victimId": "A",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "PENDING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 19.24939
+          },
+          "killerId": "B",
+          "killerCell": 612,
+          "victimCell": 612,
+          "position": {
+            "x": -886.81011340186,
+            "y": -156.30250213652056
+          },
+          "trailCells": [],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": true,
+          "originCellId": 613,
+          "originOwner": 1,
+          "diagnostic": {
+            "eventTick": 19.24939,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "B",
+                "cellId": 612
+              },
+              {
+                "participantId": "A",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": true,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        },
+        {
+          "tick": 19,
+          "victimId": "B",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "PENDING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 19.24939
+          },
+          "killerId": "A",
+          "killerCell": 612,
+          "victimCell": 612,
+          "position": {
+            "x": -907.3390724025927,
+            "y": -116.14766393268306
+          },
+          "trailCells": [],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": true,
+          "originCellId": 655,
+          "originOwner": 2,
+          "diagnostic": {
+            "eventTick": 19.24939,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "B",
+                "cellId": 612
+              },
+              {
+                "participantId": "A",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": true,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "simultaneous-neutral",
+      "reverse": true,
+      "seed": 17,
+      "goal": 612,
+      "nearestBodyDistance": 45.09821713582624,
+      "deaths": [
+        {
+          "tick": 19,
+          "victimId": "B",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "PENDING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 19.24939
+          },
+          "killerId": "A",
+          "killerCell": 612,
+          "victimCell": 612,
+          "position": {
+            "x": -886.81011340186,
+            "y": -156.30250213652056
+          },
+          "trailCells": [],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": true,
+          "originCellId": 613,
+          "originOwner": 2,
+          "diagnostic": {
+            "eventTick": 19.24939,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "A",
+                "cellId": 612
+              },
+              {
+                "participantId": "B",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": true,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        },
+        {
+          "tick": 19,
+          "victimId": "A",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "PENDING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 19.24939
+          },
+          "killerId": "B",
+          "killerCell": 612,
+          "victimCell": 612,
+          "position": {
+            "x": -907.3390724025927,
+            "y": -116.14766393268306
+          },
+          "trailCells": [],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": true,
+          "originCellId": 655,
+          "originOwner": 1,
+          "diagnostic": {
+            "eventTick": 19.24939,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "A",
+                "cellId": 612
+              },
+              {
+                "participantId": "B",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": true,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "existing-line",
+      "reverse": false,
+      "seed": 115,
+      "goal": 612,
+      "nearestBodyDistance": 72.48918080383291,
+      "deaths": [
+        {
+          "tick": 34,
+          "victimId": "A",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 34.67803
+          },
+          "killerId": "B",
+          "killerCell": 612,
+          "victimCell": 570,
+          "position": {
+            "x": -932.621087105553,
+            "y": -191.5493131848862
+          },
+          "trailCells": [
+            612,
+            611,
+            570
+          ],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [
+            570,
+            611,
+            612
+          ],
+          "rootHomeNeighbors": [
+            613,
+            571
+          ],
+          "pendingContact": false,
+          "originCellId": 613,
+          "originOwner": 1,
+          "diagnostic": {
+            "eventTick": 34.67803,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "B",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [
+              612,
+              611,
+              570
+            ],
+            "existingTrailContact": true,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "existing-line",
+      "reverse": true,
+      "seed": 17,
+      "goal": 612,
+      "nearestBodyDistance": 72.48918080383291,
+      "deaths": [
+        {
+          "tick": 34,
+          "victimId": "B",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 34.67803
+          },
+          "killerId": "A",
+          "killerCell": 612,
+          "victimCell": 570,
+          "position": {
+            "x": -932.621087105553,
+            "y": -191.5493131848862
+          },
+          "trailCells": [
+            612,
+            611,
+            570
+          ],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [
+            570,
+            611,
+            612
+          ],
+          "rootHomeNeighbors": [
+            613,
+            571
+          ],
+          "pendingContact": false,
+          "originCellId": 613,
+          "originOwner": 2,
+          "diagnostic": {
+            "eventTick": 34.67803,
+            "iteration": 0,
+            "pendingTrails": [
+              {
+                "participantId": "A",
+                "cellId": 612
+              }
+            ],
+            "victimTrailBefore": [
+              612,
+              611,
+              570
+            ],
+            "existingTrailContact": true,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "enemy-territory",
+      "reverse": false,
+      "seed": 115,
+      "goal": 612,
+      "nearestBodyDistance": 13.104826203229626,
+      "deaths": [
+        {
+          "tick": 64,
+          "victimId": "A",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 64.48603
+          },
+          "killerId": "B",
+          "killerCell": 612,
+          "victimCell": 654,
+          "position": {
+            "x": -919.6358162714466,
+            "y": -106.48860372880489
+          },
+          "trailCells": [
+            612,
+            654
+          ],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [
+            612,
+            654
+          ],
+          "rootHomeNeighbors": [
+            613,
+            571
+          ],
+          "pendingContact": false,
+          "originCellId": 613,
+          "originOwner": 1,
+          "diagnostic": {
+            "eventTick": 64.48603,
+            "iteration": 0,
+            "pendingTrails": [],
+            "victimTrailBefore": [
+              612,
+              654
+            ],
+            "existingTrailContact": true,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "enemy-territory",
+      "reverse": true,
+      "seed": 17,
+      "goal": 612,
+      "nearestBodyDistance": 13.104826203229626,
+      "deaths": [
+        {
+          "tick": 64,
+          "victimId": "B",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 612,
+            "eventTick": 64.48603
+          },
+          "killerId": "A",
+          "killerCell": 612,
+          "victimCell": 654,
+          "position": {
+            "x": -919.6358162714466,
+            "y": -106.48860372880489
+          },
+          "trailCells": [
+            612,
+            654
+          ],
+          "territoryCount": 19,
+          "ownerCells": 19,
+          "trailMaskCells": [
+            612,
+            654
+          ],
+          "rootHomeNeighbors": [
+            613,
+            571
+          ],
+          "pendingContact": false,
+          "originCellId": 613,
+          "originOwner": 2,
+          "diagnostic": {
+            "eventTick": 64.48603,
+            "iteration": 0,
+            "pendingTrails": [],
+            "victimTrailBefore": [
+              612,
+              654
+            ],
+            "existingTrailContact": true,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "scenario": "near-miss",
+      "reverse": false,
+      "seed": 115,
+      "goal": 612,
+      "nearestBodyDistance": 51.64319372683244,
+      "deaths": []
+    },
+    {
+      "scenario": "near-miss",
+      "reverse": true,
+      "seed": 17,
+      "goal": 612,
+      "nearestBodyDistance": 51.64319372683244,
+      "deaths": []
+    }
+  ],
+  "territoryLoss": [
+    {
+      "reverse": false,
+      "captureTick": 137,
+      "directContacts": 0,
+      "deaths": [
+        {
+          "tick": 137,
+          "victimId": "A",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TERRITORY_LOST",
+          "context": {
+            "cause": "TERRITORY_LOST",
+            "cellId": 533,
+            "eventTick": 137.03918
+          },
+          "victimCell": 533,
+          "position": {
+            "x": -764.1186580293931,
+            "y": -227.47411267962056
+          },
+          "trailCells": [],
+          "territoryCount": 0,
+          "ownerCells": 0,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": false,
+          "originCellId": null,
+          "originOwner": null,
+          "diagnostic": {
+            "eventTick": 137.03918,
+            "iteration": 0,
+            "pendingTrails": [],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    },
+    {
+      "reverse": true,
+      "captureTick": 137,
+      "directContacts": 0,
+      "deaths": [
+        {
+          "tick": 137,
+          "victimId": "B",
+          "victimKind": "HUMAN",
+          "lifeId": 1,
+          "reason": "TERRITORY_LOST",
+          "context": {
+            "cause": "TERRITORY_LOST",
+            "cellId": 533,
+            "eventTick": 137.03918
+          },
+          "victimCell": 533,
+          "position": {
+            "x": -764.1186580293931,
+            "y": -227.47411267962056
+          },
+          "trailCells": [],
+          "territoryCount": 0,
+          "ownerCells": 0,
+          "trailMaskCells": [],
+          "rootHomeNeighbors": [],
+          "pendingContact": false,
+          "originCellId": null,
+          "originOwner": null,
+          "diagnostic": {
+            "eventTick": 137.03918,
+            "iteration": 0,
+            "pendingTrails": [],
+            "victimTrailBefore": [],
+            "existingTrailContact": false,
+            "pendingTrailContact": false,
+            "captureOverlapCells": [],
+            "wallIntersection": false
+          }
+        }
+      ]
+    }
+  ]
+}
