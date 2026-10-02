@@ -24,3 +24,12 @@ describe('kill vibration',()=>{
   device.vibrate=()=>{throw new Error('unavailable');};expect(haptics.kill()).toBe(false);expect(()=>haptics.stop()).not.toThrow();device.supported=()=>false;expect(()=>haptics.stop()).not.toThrow();
  });
 });
+
+
+it('persists experimental trackpad controls',()=>{
+ const data=new Map<string,string>();
+ const storage={getItem:(key:string)=>data.get(key)??null,setItem:(key:string,value:string)=>{data.set(key,value);}};
+ const first=new SettingsStore(storage);first.update({mobileControls:'trackpad'});
+ expect(first.get().mobileControls).toBe('trackpad');
+ const second=new SettingsStore(storage);expect(second.get().mobileControls).toBe('trackpad');
+});
