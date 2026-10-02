@@ -404,3 +404,48 @@ T01~T37 구현·자동 검증 완료. T38은 부분 검증 후 WAITING_EXTERNAL,
 - 폰 `http://192.168.137.1:3003/` HTTP 200, 새 `/assets/index-BVpQwI8F.js` 제공 확인. 이번 변경은 클라이언트 입력만 바꿨으므로 실행 중인 경기 서버를 재시작하지 않았습니다. 기존 폰 탭을 새로고침하면 적용됩니다.
 
 고정 기준점의 감도 감소는 재현·수정됐지만, 실제 폰에서 편안해졌는지와 Six.io와의 체감 동등성은 아직 확인되지 않았습니다.
+
+## 2026-10-02 master 기준 모바일 입력 분리
+
+기준: `io_clone` origin `FanaticalBera/io_clone`, 로컬 `master`의 `33fd73c` (작업 시작 시 clean). 앞선 PC-pointer-derived touch도 사용자 실기기 인수 FAILED다. 사용자는 손을 뗐다 다른 위치에서 다시 돌리려 할 때 누른 위치에 따라 아래/오른쪽으로 임의 이동하는 느낌을 보고했고 작업 중단을 요청했다. 그 실패를 수용된 모델로 취급하지 않는다.
+
+코드 확인 결과 touch down/move가 `pointAt → GameScene.pointerDirection → mouse 2° filter`를 타며 캐릭터→손가락 절대 위치를 목표로 만들었다. Joystick도 `setPointerDirection`으로 mouse 필터를 공유했다. 실제 이동 경로는 입력 목표 → 연습 setDirection/온라인 sendDirection → engine의 targetDirection → stepSteering이며, 온라인 Presentation도 같은 stepSteering으로 미확인 입력을 재실행한다.
+
+구현:
+
+- 화면 스와이프의 상태는 `{id,anchor}` 하나다. primary touch down은 anchor만 저장한다. move의 current-anchor가 28 CSS px 이상이면 정규화한 목표를 즉시 setDirection으로 보내고 anchor=current로 갱신한다. 같은 방향의 스와이프도 anchor를 갱신한다. 거리 미달과 비정상 좌표는 목표/anchor를 유지한다.
+- Swipe는 scene.pointerDirection 또는 mouse 각도 필터를 호출하지 않는다. 입력 단계 RotateTowards·시간 보간·recent path·각도 필터를 추가하지 않았다. release/cancel/lost capture/resize/blur/disable/control-mode 변경은 gesture를 지우고 마지막 목표를 유지한다. 보조 touch는 gesture를 탈취하거나 중간에 primary로 승격하지 못한다.
+- `TOUCH_SWIPE_THRESHOLD_PX=28`: ±3px 미세 노이즈의 두 점 차이와 15~25px 짧은 되돌림을 막으며 이전 32px보다 발동 거리를 줄인 초기값. 이것 하나가 screen swipe의 튜닝 파라미터다.
+- Joystick의 radial 25%는 유지하고 별도 `JOYSTICK_ANGLE_DEAD_ZONE=6°`를 사용한다. 대표적 thumb offset 45px에서 1~3px 노이즈(약 1.3~3.8°)를 유지하고 의미 있는 목표는 즉시 발행한다. PC mouse 2°·keyboard와 packet 송신 30Hz/keepalive 10Hz는 유지했다.
+- `git diff`로 shared movement/config/engine, server, client presentation/main/game-scene에 변경이 없는 것을 확인했다. 속도 4.2칸/초·회전 9rad/s·fixed 30Hz·카메라·prediction/reconciliation·판정은 master 그대로다.
+
+파일 목록:
+
+- 제품: `src/client/input.ts`, `src/client/controls.ts`, `src/client/ui.ts`(조작 설명).
+- 테스트: `tests/core/controls.test.ts`(신규), `tests/fixtures/input.html`, `tests/e2e/input.spec.ts`, `tests/e2e/mobile.spec.ts`, `tests/e2e/camera.spec.ts`, `tests/e2e/settings.spec.ts`.
+- 문서: `README.md`, `docs/PRD.md`, `docs/TECH_SPEC.md`, `docs/sixio-controls-comparison.md`, `docs/steering-model.md`, `TASKS.md`, `VERIFICATION.md`.
+- 운영 클라이언트 빌드: `dist/client/index.html` 및 새 `index-CuIQ7-l-.js` (이전 JS 대체). 새 증거는 아래 목록이며 과거 증거 파일은 master 원본으로 보존했다. 테스트 캐시는 작업 변경에서 제외했다.
+
+검증 명령과 결과 (Node 24.21.0, Windows):
+
+- `npm run build`: client/server/tests 타입 검사 및 운영 빌드 성공, exit 0. 기존 Phaser chunk 크기 경고 유지.
+- `npm test`: **38파일 156개 통과**, exit 0. 신규 helper 4개는 거리 경계/정규화·화면 위치 독립성·mouse angle 필터 미적용·비정상 좌표/떨림을 검사한다. 기존 공용 회전·예측·서버·봇 검사는 유지했다.
+- 최종 `npm run typecheck`: 성공, exit 0.
+- `playwright test --config .local/steering-check.config.ts`: 전체 **33개 중 31개 통과**, exit 1. Windows webServer 종료 문제를 피하기 위해 Vite를 별도 테스트 세션에서 실행했다. 새 모바일 관련 **14개는 모두 통과** (input 6, camera 3, mobile 2, settings 3). 점령/절단/재연결/모드/오프라인 연습/PC/UI 회귀도 통과했다.
+- 전체 검사 실패 1: `multiplayer.spec.ts`의 T27은 `Waypoint did not complete`. `git archive HEAD`에서 client/shared를 별도 디렉터리에 추출하고 그 master 클라이언트를 5174에서 서비스해 동일한 원본 테스트를 재실행했다. **수정 전 master에서도 동일 위치/오류로 실패**, exit 1. 해당 시나리오는 한 번 목표를 요청한 뒤 waypoint 도달을 기다린다. 모바일 수정으로 새로 생긴 회귀가 아닌 기존 실패로 남기며 테스트/공용 movement를 변경하지 않았다. trace는 `.local/master-baseline-test-results/`에 보존했다.
+- 전체 검사 실패 2: 운영 LAN 검사 T36은 `172.30.208.1:3001 ECONNREFUSED`. 기존 서버의 수신 주소는 127.0.0.1이었다. 기존 서버를 건드리지 않고 해당 로컬 인터페이스에 테스트 전용 서버를 띄워 `playwright test tests/e2e/production.spec.ts --config .local/steering-check.config.ts --output .local/production-test-results` 재실행: **1개 통과, 43.2초, exit 0**. 테스트 서버는 종료했다. 최종 개별 실행 합계는 **32/33 통과, master에서도 재현되는 1개 실패**다. 모두 통과했다고 표시하지 않는다.
+
+브라우저 검증은 touch down 위치와 목표 분리, 오른쪽/위쪽/반대 목표, 긴 같은 방향 입력의 anchor 갱신, 25px 되돌림 유지, release 유지, secondary touch, cancel/lost capture/resize/blur/disable/mode/dispose 수명, mouse mapper 미호출, PC/joystick filter 독립성을 포함한다. noisy rightward 경로는 30개 위치에 ±1~3px를 섞었고 초기 유지 구간을 포함해 목표 방향 run 5개, 정지 후 작은 떨림에서는 추가 목표 변경 0개였다. 거리 기준만 쓰므로 유효 스와이프 끝점의 각도 노이즈는 기하 범위 내에서 남는다.
+
+중간 실패는 조건 완화로 덮지 않았다. 기존 initial heading 비교의 0/-0는 벡터 차이가 정확히 0인지로 비교했다. Joystick cancel은 native move가 전달된 후 확정된 위쪽 목표를 확인하고 취소해 release 보존을 검사했다. thumb 노이즈 검사를 경기 테스트에 붙였을 때 봇 탈락으로 joystick이 숨겨져 layout 준비가 실패하므로 별도의 실제 DOM joystick fixture로 분리했다. 제품 이동·시간 보간·판정·목표 기대값을 이 실패 때문에 조정하지 않았다.
+
+새 증거:
+
+- `evidence/mobile-swipe-distance-2026-10-02.json`: 직진 40/160/400px 후 동일 45px 수직 목표.
+- `evidence/mobile-swipe-noise-2026-10-02.json`: raw path 샘플별 목표와 목표 run 수.
+- `evidence/mobile-swipe-turn-2026-10-02.json`: 연습/온라인 90도 목표·중간 실제 회전.
+- `evidence/mobile-swipe-camera-2026-10-02.json`: 연속 U자 경로, 연습 99프레임/온라인 97프레임, 카메라 중심 오차 최대 약 1.14e-13 및 기존 displacement bound.
+- `evidence/mobile-swipe-settings-2026-10-02.png`: 바뀐 화면 드래그 안내.
+- `evidence/mobile-swipe-verification-2026-10-02.json`: 기준/파라미터/검사 결과 요약.
+
+**실기기 체감 수용은 미완료**다. 실제 기기의 입력 빈도·엄지 이동 거리·방향 전환 의도·U턴 반경·끌림/묵직함·어지러움과 joystick radial boundary 근처 노이즈는 자동 검사로 편안함을 확정할 수 없다. 충분한 반대 스와이프는 같은 화면 쪽에서도 반대 목표를 요청하는 정책이므로 실기기 수용에 포함해야 한다. 우선 screen swipe 거리 28px 하나만 조정 가능한 구조를 제공했고, Six.io 동등성이나 멀미 해소를 선언하지 않는다.

@@ -19,7 +19,7 @@ test('T31 real emulated touch controls both practice and online, retains directi
   expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection())).toEqual({x:1,y:0});
   await send('touchEnd',[{x:x-45,y:y-45,id:2}]);await send('touchMove',[{x:x-45,y:y+45,id:2}]);await send('touchEnd',[]);
   expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection())).toEqual({x:1,y:0});
-  await send('touchStart',[{x,y,id:1}]);await send('touchMove',[{x,y:y-45,id:1}]);await send('touchCancel',[]);
+  await send('touchStart',[{x,y,id:1}]);await send('touchMove',[{x,y:y-45,id:1}]);await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection())).toEqual({x:0,y:-1});await send('touchCancel',[]);
   expect((await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection())).y).toBe(-1);
   for(const viewport of [{width:844,height:390},{width:390,height:844},{width:844,height:360},{width:844,height:390}]){
    await page.setViewportSize(viewport);
@@ -49,6 +49,23 @@ test('T31 real emulated touch controls both practice and online, retains directi
   }
   await page.screenshot({path:'evidence/T31-mobile-online.png'});
  }finally{await context.close();await server.close();}
+});
+
+test('joystick thumb noise uses its own deadband while PC mouse retains its 2-degree filter',async({browser})=>{
+ const context=await browser.newContext({viewport:{width:844,height:700},hasTouch:true});try{
+  const page=await context.newPage();await page.goto('http://127.0.0.1:5173/tests/fixtures/input.html');await page.waitForFunction(()=>!!(window as any).fixture);
+  await page.evaluate(()=>{
+   const joystick=document.createElement('div');joystick.id='test-joystick';joystick.style.cssText='position:fixed;left:26px;bottom:26px;width:118px;height:118px;touch-action:none;background:#aaa;z-index:2';
+   joystick.innerHTML='<div id="joystick-thumb"></div>';document.body.append(joystick);(window as any).fixture.input.attachJoystick(joystick);
+  });
+  const cdp=await context.newCDPSession(page),send=(type:'touchStart'|'touchMove'|'touchEnd',points:{x:number;y:number;id:number}[])=>cdp.send('Input.dispatchTouchEvent',{type,touchPoints:points}),vector=()=>page.evaluate(()=>(window as any).fixture.input.direction);
+  const box=(await page.locator('#test-joystick').boundingBox())!,x=box.x+box.width/2,y=box.y+box.height/2;
+  await send('touchStart',[{x:x+45,y,id:1}]);
+  for(const noise of [1,-2,3,-1]){await send('touchMove',[{x:x+45,y:y+noise,id:1}]);await page.waitForTimeout(30);expect(await vector()).toEqual({x:1,y:0});}
+  await send('touchMove',[{x:x+45,y:y+8,id:1}]);await expect.poll(async()=>(await vector()).y).toBeGreaterThan(.15);
+  await send('touchMove',[{x:x+45,y,id:1}]);await expect.poll(vector).toEqual({x:1,y:0});await send('touchEnd',[]);
+  await page.mouse.move(445,303);await expect.poll(async()=>(await vector()).y).toBeGreaterThan(.06);
+ }finally{await context.close();}
 });
 
 

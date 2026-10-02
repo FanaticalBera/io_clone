@@ -6,11 +6,14 @@ the same fixed-step steering function, now at 9rad/s following U-turn feedback.
 The recent-path experiment, fixed-origin restoration and subsequent accepted-
 stroke reanchoring were all rejected on mobile. The user confirmed that PC mouse
 steering feels good while mobile screen drag fails even in local practice.
-Mobile touch now uses the same character-to-pointer-position calculation as PC
-mouse, including its 18 CSS-pixel exclusion radius and 2° heading filter. The
-camera and avatar coordinates are taken from the same rendered frame. Movement
-stays at 4.2 cells/s. This deliberately changes the touch interaction: the point
-under the finger chooses a heading from the character, starting on touch-down.
+The subsequent PC-pointer-derived touch interaction was also rejected: lifting
+and touching elsewhere changed the heading based on the press location. On
+2026-10-02, starting from master 33fd73c, mobile intent was separated again using
+one 28 CSS-pixel swipe displacement threshold. Touch-down only stores an anchor;
+accepted displacement publishes its normalized goal and advances the anchor.
+There is no touch angle filter, recent-path average, or input rotation ramp.
+PC mouse/keyboard, camera, shared 9rad/s steering and 4.2 cells/s remain unchanged.
+Joystick keeps its 25% radial dead zone with a separate 6-degree heading deadband.
 The turn budget exceeds the APK's 6rad/s to reduce the clone's turn radius.
 This replaces the rejected input-only steering;
 it does not claim identical Six.io feel. See [steering model](steering-model.md).
@@ -120,7 +123,7 @@ the result as worse, including unintended movement; the class and those input
 rules have now been removed. Its browser input and camera recordings remain in
 `evidence/mobile-swipe-input-comparison.json` and `evidence/mobile-swipe-camera.json`.
 
-## Current PC mouse / touch parity revision
+## PC mouse / touch parity revision — rejected by the user
 
 PC mouse interpreted the cursor position relative to the character while mobile
 interpreted displacement between accepted finger segments. A rightward 80px
@@ -136,4 +139,30 @@ position from the camera-mapped point, preventing a newer prediction from moving
 the control centre between render frames. Physics remains 4.2 cells/s and 9rad/s.
 This is a PC-derived interaction, not a claim of equivalent Six.io swipe input.
 Parity and camera recordings are in `evidence/mobile-pointer-input-comparison.json`
-and `evidence/mobile-pointer-camera.json`; physical phone comfort remains open.
+and `evidence/mobile-pointer-camera.json`. The user explicitly rejected this
+interaction and requested work stop; it is not an accepted phone control model.
+
+## 2026-10-02 independent mobile swipe intent
+
+The current adapter stores only a primary pointer ID and anchor. Below-threshold
+displacement keeps both the goal and anchor. A valid displacement of at least
+TOUCH_SWIPE_THRESHOLD_PX=28 requests normalize(current-anchor) directly and moves
+the anchor to current, including when the goal stays unchanged. Release and all
+gesture interruptions remove only the gesture state, preserving accepted intent.
+Touch never calls GameScene.pointerDirection or the mouse 2-degree filter.
+Actual turning remains in shared stepSteering at 9rad/s and 30Hz, in both
+practice authority and online authority/prediction. Transport frequency is unchanged.
+
+28px is an initial compromise: it exceeds micro-jitter and 15–25px short returns
+while reducing the previous 32px activation distance. The earlier reanchoring
+experiment also used an 8-degree angle filter; this revision removes that extra
+filter and keeps one adjustable distance parameter. This is not a guarantee that
+previous subjective complaints will disappear. A sufficiently large reverse
+stroke deliberately requests the opposite goal, even on the same side of the
+original touch position; physical-device acceptance must include that behavior.
+
+Joystick 6-degree deadband is independent from mouse 2 degrees and has no temporal
+smoothing. At a typical 45px thumb displacement it ignores 1–3px perpendicular
+noise. Near its existing radial boundary, the same pixel noise has a larger
+angular effect; acceptance remains open. Evidence and exact verification outcomes
+are recorded in VERIFICATION.md and evidence/mobile-swipe-*-2026-10-02.json.

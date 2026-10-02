@@ -1,0 +1,26 @@
+[
+  {
+    "straightPixels": 40,
+    "perpendicularPixels": 45,
+    "target": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 160,
+    "perpendicularPixels": 45,
+    "target": {
+      "x": 0,
+      "y": -1
+    }
+  },
+  {
+    "straightPixels": 400,
+    "perpendicularPixels": 45,
+    "target": {
+      "x": 0,
+      "y": -1
+    }
+  }
+]

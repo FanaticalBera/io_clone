@@ -163,3 +163,11 @@ PC·폰 테스트 서버 반영 완료. 폰 주소의 실제 Socket.IO polling �
 
 구현·자동 검증 완료: 운영 빌드/최종 타입 검사·38파일 159개 core/server·관련 브라우저 11개 최종 개별 실행 합계 통과, runner exit 0. 긴 직진 뒤 동일 회전 목표, U자 마지막 목표/실제 회전, release 유지, 카메라 연속성·입력 수명·PC·설정 회귀 확인. 증거는 `evidence/mobile-swipe-input-comparison.json`, `evidence/mobile-swipe-camera.json`, `VERIFICATION.md`입니다. 폰 주소는 새 `index-BVpQwI8F.js`를 제공하며 탭 새로고침으로 적용됩니다. 실제 폰의 조작감 인수는 사용자 재확인이 필요합니다.
 
+## 2026-10-02 master 33fd73c 기준 모바일 입력 단순화
+
+PC-pointer-derived touch도 사용자 실기기 인수 FAILED로 기록한다. 새 화면 조작은 primary touch의 {id,anchor}만 저장하고, 28 CSS px 이상 displacement를 정규화해 목표로 요청한 뒤 anchor를 갱신한다. 누른 위치만으로 목표를 바꾸지 않는다. screen swipe에 각도 필터·recent path·입력 회전/보간을 넣지 않는다. 취소/해제는 마지막 목표를 유지하며 오래된 gesture와 secondary touch는 입력을 탈취하지 못한다.
+
+Joystick radial 25%는 유지하고 별도 6도 deadband로 mouse 2도와 분리했다. PC·shared movement·server·Presentation·camera·packet 빈도·4.2칸/초·9rad/s·30Hz는 master와 동일하다. 제품 입력 구현과 자동 검증 완료: 빌드/타입·38파일 156개 통과, 모바일 관련 브라우저 14개 통과. 전체 브라우저 최종 개별 실행 합계 32/33 통과이며 T27 waypoint 실패는 원본 master에서도 동일하게 재현된다. 그 테스트나 공용 이동은 이번 작업에서 변경하지 않았다. 상세 명령/실패/새 증거는 VERIFICATION.md를 따른다.
+
+실기기 수용은 OPEN이다. screen swipe 튜닝은 거리 파라미터 하나로 시작하며, 자동 검사 성공을 편안함·Six.io 동등성·어지러움 해소로 간주하지 않는다.
+

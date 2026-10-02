@@ -1,1 +1,3 @@
 HEXHOLD http://127.0.0.1:3001
+{"event":"match_started","roomId":"80ee76a4-c916-4f72-8344-44ed2d7fed27","matchId":"80ee76a4-c916-4f72-8344-44ed2d7fed27:round:1"}
+{"event":"match_started","roomId":"b92d66ae-43b1-4b9a-98f1-74914b816018","matchId":"b92d66ae-43b1-4b9a-98f1-74914b816018:round:1"}

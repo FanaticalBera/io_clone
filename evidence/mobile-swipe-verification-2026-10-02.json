@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-02",
+  "baseBranch": "master",
+  "baseCommit": "33fd73c",
+  "repository": "FanaticalBera/io_clone",
+  "parameters": {
+    "swipeDistanceCssPx": 28,
+    "joystickRadialFraction": 0.25,
+    "joystickAngleDegrees": 6,
+    "mouseAngleDegrees": 2,
+    "moveCellsPerSecond": 4.2,
+    "turnRadiansPerSecond": 9,
+    "simulationHz": 30,
+    "changedInputMaxHz": 30,
+    "keepaliveHz": 10
+  },
+  "verification": {
+    "build": "passed",
+    "finalTypecheck": "passed",
+    "coreAndServerFiles": 38,
+    "coreAndServerTestsPassed": 156,
+    "mobileRelatedBrowserTestsPassed": 14,
+    "fullBrowserTests": 33,
+    "initialFullBrowserPassed": 31,
+    "initialFullBrowserFailed": 2,
+    "productionRetest": "passed after binding a test server to the local interface",
+    "finalIndividualBrowserPassed": 32,
+    "remainingFailure": "T27 Waypoint did not complete",
+    "unchangedMasterReproduction": "same T27 failure using archived master client"
+  },
+  "unchangedPaths": [
+    "src/shared/movement.ts",
+    "src/shared/config.ts",
+    "src/shared/engine.ts",
+    "src/server",
+    "src/client/game-scene.ts",
+    "src/client/presentation.ts",
+    "src/client/main.ts"
+  ],
+  "physicalDeviceAcceptance": "OPEN / not performed in this revision",
+  "sixIoEquivalentFeel": "not established",
+  "evidence": [
+    "mobile-swipe-distance-2026-10-02.json",
+    "mobile-swipe-noise-2026-10-02.json",
+    "mobile-swipe-turn-2026-10-02.json",
+    "mobile-swipe-camera-2026-10-02.json",
+    "mobile-swipe-settings-2026-10-02.png"
+  ],
+  "commands": [
+    "npm run build",
+    "npm test",
+    "npm run typecheck",
+    "playwright test --config .local/steering-check.config.ts",
+    "playwright test tests/e2e/multiplayer.spec.ts --config .local/steering-check.config.ts --output .local/master-baseline-test-results",
+    "playwright test tests/e2e/production.spec.ts --config .local/steering-check.config.ts --output .local/production-test-results"
+  ]
+}

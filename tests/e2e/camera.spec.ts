@@ -66,7 +66,7 @@ test('screen drag steers through intermediate headings at constant speed in prac
    const intended={x:-initial.y||0,y:initial.x||0};
    const config=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().config);expect(config.moveCellsPerSecond).toBe(4.2);expect(config.turnRadiansPerSecond).toBe(9);
    const speed=moveSpeed(config);
-   await expect.poll(()=>page.evaluate(()=>{const api=(window as any).__HEXHOLD_TEST__;return api.getView().participants.find((p:any)=>p.kind==='HUMAN').direction;})).toEqual(initial);
+   await expect.poll(()=>page.evaluate(initial=>{const api=(window as any).__HEXHOLD_TEST__,d=api.getView().participants.find((p:any)=>p.kind==='HUMAN').direction;return Math.hypot(d.x-initial.x,d.y-initial.y);},initial)).toBe(0);
    // Capture before injecting touch: awaiting CDP and polling can consume much
    // of a 200ms fixed-step turn on a loaded headless browser.
    await page.evaluate(()=>{
@@ -77,7 +77,7 @@ test('screen drag steers through intermediate headings at constant speed in prac
    });
    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:422,y:350,id:1}]});
    await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:422+80*intended.x,y:350+80*intended.y,id:1}]});
-   await expect.poll(()=>page.evaluate(intended=>{const d=(window as any).__HEXHOLD_TEST__.inputDirection();return d.x*intended.x+d.y*intended.y;},intended),{intervals:[10],timeout:1000}).toBeGreaterThanOrEqual(Math.cos(2*Math.PI/180));
+   await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection()),{intervals:[10],timeout:1000}).toEqual(intended);
    const target=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection());
    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    const samples=await page.evaluate(()=>(window as any).__STEERING_SAMPLES__) as any[];
@@ -94,11 +94,11 @@ test('screen drag steers through intermediate headings at constant speed in prac
    expect(excess.length).toBeGreaterThan(10);expect(Math.max(...excess),mode).toBeLessThanOrEqual(0);
    evidence.push({mode,initial,target,moveCellsPerSecond:config.moveCellsPerSecond,turnRadiansPerSecond:config.turnRadiansPerSecond,samples});await page.getByTestId('leave').click();
   }
-  await writeFile('evidence/drag-steering-camera.json',JSON.stringify(evidence,null,2));
+  await writeFile('evidence/mobile-swipe-turn-2026-10-02.json',JSON.stringify(evidence,null,2));
  }finally{await context.close();await server.close();}
 });
 
-test('mobile cursor follows a U around the character without reversing on same-side pullbacks',async({browser})=>{
+test('continuous swipe U-turns publish the final reverse goal in practice and online',async({browser})=>{
  const server=createGameServer({config:{countdownSeconds:.03},seed:()=>4});await new Promise<void>(r=>server.http.listen(3002,'127.0.0.1',r));
  const context=await browser.newContext({viewport:{width:844,height:700},hasTouch:true});
  await context.addInitScript(()=>{localStorage.setItem('hexhold.tutorialSeen','1');localStorage.setItem('hexhold.settings',JSON.stringify({mobileControls:'drag',killVibration:false}));});
@@ -114,7 +114,7 @@ test('mobile cursor follows a U around the character without reversing on same-s
    });
    const perp={x:-initial.y,y:initial.x};
    const intended={x:-initial.x||0,y:-initial.y||0};
-   await expect.poll(()=>page.evaluate(()=>{const api=(window as any).__HEXHOLD_TEST__;return api.getView().participants.find((p:any)=>p.kind==='HUMAN').direction;})).toEqual(initial);
+   await expect.poll(()=>page.evaluate(initial=>{const api=(window as any).__HEXHOLD_TEST__,d=api.getView().participants.find((p:any)=>p.kind==='HUMAN').direction;return Math.hypot(d.x-initial.x,d.y-initial.y);},initial)).toBe(0);
    await page.evaluate(()=>{
     (window as any).__UTURN_STOP__=false;(window as any).__UTURN_SAMPLES__=new Promise<any[]>(resolve=>{
      const api=(window as any).__HEXHOLD_TEST__,samples:any[]=[];let start=0;
@@ -130,8 +130,8 @@ test('mobile cursor follows a U around the character without reversing on same-s
    expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection()),mode+' pullback on same side').toEqual(initial);
    await touch('touchMove',80,0);
    for(let i=1;i<=18;i++){const angle=i*Math.PI/18;await touch('touchMove',80*Math.cos(angle),80*Math.sin(angle));}
-   await touch('touchMove',-120,0);
-   await expect.poll(()=>page.evaluate(intended=>{const p=(window as any).__HEXHOLD_TEST__.inputDirection();return p.x*intended.x+p.y*intended.y;},intended),{intervals:[20]}).toBeGreaterThanOrEqual(Math.cos(2*Math.PI/180));
+   await touch('touchMove',-125,0);await touch('touchMove',-170,0);
+   await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection()),{intervals:[20]}).toEqual(intended);
    const target=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection());
    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    await expect.poll(()=>page.evaluate(target=>{const api=(window as any).__HEXHOLD_TEST__,p=api.getView().participants.find((p:any)=>p.kind==='HUMAN').direction;return Math.hypot(p.x-target.x,p.y-target.y);},target),{intervals:[50]}).toBeLessThan(1e-9);
@@ -148,6 +148,6 @@ test('mobile cursor follows a U around the character without reversing on same-s
    evidence.push({mode,initial,intended,target,config:{moveCellsPerSecond:config.moveCellsPerSecond,turnRadiansPerSecond:config.turnRadiansPerSecond},fingerPoints,samples});
    await page.getByTestId('leave').click();
   }
-  await writeFile('evidence/mobile-pointer-camera.json',JSON.stringify(evidence,null,2));
+  await writeFile('evidence/mobile-swipe-camera-2026-10-02.json',JSON.stringify(evidence,null,2));
  }finally{await context.close();await server.close();}
 });

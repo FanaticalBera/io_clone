@@ -2,6 +2,8 @@
 import {InputAdapter} from '/src/client/input.ts';
 import {MOUSE_DEAD_ZONE} from '/src/client/controls.ts';
 const vectors=[];
-const input=new InputAdapter(document.querySelector('#surface'),(x,y)=>Math.hypot(x-400,y-300)<MOUSE_DEAD_ZONE?null:{x:x-400,y:y-300},v=>vectors.push({...v,time:performance.now()}));
-window.fixture={vectors,input};
+const points=[],pointerCalls=[];
+const input=new InputAdapter(document.querySelector('#surface'),(x,y)=>{pointerCalls.push({x,y});return Math.hypot(x-400,y-300)<MOUSE_DEAD_ZONE?null:{x:x-400,y:y-300};},v=>vectors.push({...v,time:performance.now()}));
+for(const type of ['pointerdown','pointermove'])document.querySelector('#surface').addEventListener(type,e=>points.push({type,id:e.pointerId,x:e.clientX,y:e.clientY,primary:e.isPrimary}));
+window.fixture={vectors,input,points,pointerCalls};
 </script></body></html>

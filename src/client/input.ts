@@ -1,7 +1,7 @@
 import type {Vec} from '../shared/model.js';
 import {normalizeDirection} from '../shared/movement.js';
 import type {MobileControls} from './settings.js';
-import {JOYSTICK_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
+import {touchSwipeDirection,JOYSTICK_DEAD_ZONE,JOYSTICK_ANGLE_DEAD_ZONE,POINTER_ANGLE_DEAD_ZONE} from './controls.js';
 export type DirectionSink=(direction:Vec)=>void;
 const KEYS:Record<string,Vec>={w:{x:0,y:-1},arrowup:{x:0,y:-1},s:{x:0,y:1},arrowdown:{x:0,y:1},a:{x:-1,y:0},arrowleft:{x:-1,y:0},d:{x:1,y:0},arrowright:{x:1,y:0}};
 export class InputAdapter {
@@ -11,7 +11,7 @@ export class InputAdapter {
  get enabled():boolean{return this.active;}
  set enabled(value:boolean){if(!value)this.reset();this.active=value;}
  setMobileControls(mode:MobileControls):void{if(this.mobileControls!==mode){this.reset();this.mobileControls=mode;}}
- private drag:{id:number}|null=null;
+ private drag:{id:number;anchor:Vec}|null=null;
  private keys=new Set<string>();private abort=new AbortController();private frame=0;
  private lastSent=-Infinity;private changed=true;
  constructor(private element:HTMLElement,private pointerToDirection:(x:number,y:number)=>Vec|null,private sink:DirectionSink){
@@ -27,14 +27,15 @@ export class InputAdapter {
   window.addEventListener('blur',()=>this.reset(),options);
   window.addEventListener('resize',()=>this.reset(),options);
   element.addEventListener('pointerdown',event=>{
-   if(!this.enabled||this.mobileControls!=='drag'||event.pointerType!=='touch'||this.drag)return;
-   event.preventDefault();this.drag={id:event.pointerId};element.setPointerCapture(event.pointerId);
-   this.pointAt(event.clientX,event.clientY);
+   if(!this.enabled||this.mobileControls!=='drag'||event.pointerType!=='touch'||!event.isPrimary||this.drag)return;
+   event.preventDefault();this.drag={id:event.pointerId,anchor:{x:event.clientX,y:event.clientY}};element.setPointerCapture(event.pointerId);
   },options);
   element.addEventListener('pointermove',event=>{
-   if(!this.enabled||this.drag?.id!==event.pointerId)return;
+   if(!this.enabled||event.pointerType!=='touch'||this.drag?.id!==event.pointerId)return;
    event.preventDefault();
-   this.pointAt(event.clientX,event.clientY);
+   if(this.keys.size)return;
+   const point={x:event.clientX,y:event.clientY},direction=touchSwipeDirection(this.drag.anchor,point);
+   if(direction){this.drag.anchor=point;this.setDirection(direction);}
   },options);
   for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{if(this.drag?.id===(event as PointerEvent).pointerId)this.releaseDrag();},options);
   element.addEventListener('pointermove',event=>{
@@ -68,6 +69,11 @@ export class InputAdapter {
   const rect=this.element.getBoundingClientRect(),direction=this.pointerToDirection(clientX-rect.left,clientY-rect.top);
   if(direction)this.setPointerDirection(direction);
  }
+ private setJoystickDirection(vector:Vec):void{
+  if(this.keys.size)return;const normalized=normalizeDirection(vector.x,vector.y);if(!normalized)return;
+  if(normalized.x*this.direction.x+normalized.y*this.direction.y>=Math.cos(JOYSTICK_ANGLE_DEAD_ZONE))return;
+  this.setDirection(normalized);
+ }
 private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
  attachJoystick(element:HTMLElement):void {
   this.joystick=element;const options={signal:this.abort.signal};
@@ -76,7 +82,7 @@ private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
    const rect=element.getBoundingClientRect(),radius=Math.min(rect.width,rect.height)*0.44;
    const dx=event.clientX-(rect.left+rect.width/2),dy=event.clientY-(rect.top+rect.height/2),length=Math.hypot(dx,dy),scale=length>radius?radius/length:1;
    element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate('+dx*scale+'px,'+dy*scale+'px)';
-   if(length>=radius*JOYSTICK_DEAD_ZONE)this.setPointerDirection({x:dx,y:dy});
+   if(length>=radius*JOYSTICK_DEAD_ZONE)this.setJoystickDirection({x:dx,y:dy});
   };
   element.addEventListener('pointerdown',event=>{if(!this.enabled||this.mobileControls!=='joystick'||this.touchPointer!==null)return;this.touchPointer=event.pointerId;element.setPointerCapture(event.pointerId);move(event);},options);
   element.addEventListener('pointermove',move,options);
