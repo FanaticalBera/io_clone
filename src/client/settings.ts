@@ -1,4 +1,4 @@
-export type MobileControls='joystick'|'drag';
+export type MobileControls='joystick'|'drag'|'trackpad';
 export interface Settings {mobileControls:MobileControls;killVibration:boolean}
 export const SETTINGS_KEY='hexhold.settings';
 const defaults:Settings={mobileControls:'joystick',killVibration:true};
@@ -6,7 +6,13 @@ type StorageAccess=Pick<Storage,'getItem'|'setItem'>;
 export class SettingsStore {
  private value:Settings={...defaults};private listeners=new Set<(settings:Settings)=>void>();
  constructor(private storage:StorageAccess|null=browserStorage()){
-  try{const saved=JSON.parse(storage?.getItem(SETTINGS_KEY)??'null');if(saved&&typeof saved==='object')this.value={mobileControls:saved.mobileControls==='drag'?'drag':'joystick',killVibration:typeof saved.killVibration==='boolean'?saved.killVibration:defaults.killVibration};}catch{}
+  try{
+   const saved=JSON.parse(storage?.getItem(SETTINGS_KEY)??'null');
+   if(saved&&typeof saved==='object'){
+    const mobileControls:MobileControls=saved.mobileControls==='drag'?'drag':saved.mobileControls==='trackpad'?'trackpad':'joystick';
+    this.value={mobileControls,killVibration:typeof saved.killVibration==='boolean'?saved.killVibration:defaults.killVibration};
+   }
+  }catch{}
  }
  get():Settings{return {...this.value};}
  update(patch:Partial<Settings>):void{
