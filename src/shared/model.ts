@@ -10,16 +10,17 @@ export interface MapDefinition {
 }
 export type Personality = 'EXPAND' | 'ATTACK' | 'DEFEND' | 'SEEK_POINT';
 export type LifeState = 'ALIVE' | 'DEAD_WAIT' | 'SPAWN_BLOCKED' | 'FINISHED';
+export interface DeathContext {cause:'TRAIL_CONTACT'|'TRAIL_CAPTURE'|'HOME_CAPTURE';cellId:number}
 export interface ParticipantSpec { participantId: string; slot: number; nickname: string; kind: 'HUMAN' | 'BOT'; personality?: Personality }
 export interface Participant extends ParticipantSpec {
  // direction is actual heading; null target means keep heading until input.
  position: Vec; cellId: number; direction: Vec; targetDirection: Vec|null; lifeId: number; lifeState: LifeState;
  trailCells: Set<number>; spawnCells: Set<number>; territoryCount: number; controlScore: number;
  kills: number; deaths: number; respawnAtTick: number; protectedUntilTick: number;
- deathReason: string | null; lastAppliedInputSeq: number;
+ deathReason: string | null; deathContext?:DeathContext; lastAppliedInputSeq: number;
 }
 export interface DirectionInput { matchId: string; lifeId: number; seq: number; dx: number; dy: number }
-export interface GameEvent { eventId: string; tick: number; type: 'CAPTURE'|'DEATH'|'SPAWN'|'POINT'|'FINISH'; participantId: string; amount?: number; reason?: string; killerId?:string; position?:Vec; lifeId?:number }
+export interface GameEvent { eventId: string; tick: number; type: 'CAPTURE'|'DEATH'|'SPAWN'|'POINT'|'FINISH'; participantId: string; amount?: number; reason?: string; killerId?:string; position?:Vec; lifeId?:number;deathContext?:DeathContext }
 export interface ResultRow {
  participantId: string; nickname: string; kind: 'HUMAN'|'BOT'; score: number; territory: number;
  controlScore: number; kills: number; deaths: number; rank: number | null; status: 'FINISHED'|'LEFT';

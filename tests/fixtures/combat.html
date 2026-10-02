@@ -9,6 +9,7 @@ import {SettingsStore} from '/src/client/settings.ts';
 import {KillHaptics} from '/src/client/haptics.ts';
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
 const ui=new UI({practice(){},leave(){},restart(){},testVibration:()=>haptics.kill()},settings),scene=createRenderer('field');scene.setKillFeedback(()=>haptics.kill());
+scene.setDeathFeedback(()=>haptics.death());
 const m=createMatch({},4,[{participantId:'a',slot:0,nickname:'플레이어',kind:'HUMAN'},{participantId:'b',slot:6,nickname:'상대',kind:'BOT'}]);
 const [a,b]=m.participants,id=(q,r)=>m.map.byKey.get(q+','+r);let seq=0;
 for(const p of m.participants){neutralizeTerritory(m,p);p.protectedUntilTick=0;p.spawnCells.clear();}

@@ -1,0 +1,5535 @@
+[
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 46,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -16,
+          -4
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -5
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 76,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.3333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.3333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0333333333333334,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3484674818648932,
+            "returnTime": 0.26666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3271599792971933,
+            "returnTime": 0.2
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2580454508189123,
+            "returnTime": 0.2
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4961406889141504,
+            "returnTime": 0.2
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7342359270093886,
+            "returnTime": 0.2
+          }
+        ]
+      },
+      {
+        "tick": 47,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.450416569894366,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.688511807989604,
+            "returnTime": 0.16666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 53,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6254401760005206,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 7,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.863535414095759,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 8,
+            "interrupt": true,
+            "reason": "TRAIL_BUDGET"
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -5
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -14,
+          -6
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          0
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 54,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          1
+        ],
+        "ownTrail": 3,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 7,
+    "tick": 83,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 18,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0992138145441108,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 24,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2682566608955361,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 26,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 32,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4261539008204756,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 38,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 4,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0767793226855253,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 44,
+        "from": "RETURN",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 50,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6666666666666666,
+            "returnTime": 0.6
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.6
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.195110687140432,
+            "returnTime": 0.6
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.43320592523567,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 56,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9333333333333333,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1892053818623134,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4273006199575515,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6653958580527894,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 58,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9666666666666667,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2414728317961408,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.479568069891379,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7176633079866166,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 64,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.405493260957871,
+            "returnTime": 0.13333333333333333
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 18,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -14,
+          -1
+        ],
+        "bot": [
+          -16,
+          -4
+        ],
+        "ownTrail": 2,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -1
+        ],
+        "bot": [
+          -17,
+          -3
+        ],
+        "ownTrail": 4,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -1
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -16,
+          -2
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 54,
+        "trail": 6,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 60,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          -1
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 66,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 44,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.6666666666666666,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.26666666666666666,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.4,
+            "returnTime": 0.7,
+            "counterTime": null
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.06666666666666667,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.3,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -17,
+          -2
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -18,
+          -2
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 7,
+    "tick": 81,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 30,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 36,
+        "from": "ESCAPE",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1955383399570385,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1549089252279754,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3930041633232135,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6310994014184512,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      },
+      {
+        "tick": 48,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.075362362911917,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3134576010071548,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.551552839102393,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 489,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.551552839102393,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 54,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0798081473011882,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3179033853964264,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.5559986234916645,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 489,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.5559986234916645,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 60,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7,
+            "returnTime": 0.3
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1181237360288891,
+            "returnTime": 0.3
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.330238465292742,
+            "returnTime": 0.3
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.5683337033879798,
+            "returnTime": 0.3
+          },
+          {
+            "target": 489,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.5683337033879798,
+            "returnTime": 0.3
+          },
+          {
+            "target": 451,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.5683337033879798,
+            "returnTime": 0.3
+          }
+        ]
+      },
+      {
+        "tick": 66,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.296825276561378,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.534920514656616,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7730157527518542,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7730157527518542,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 489,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7730157527518542,
+            "returnTime": 0.16666666666666666
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -13,
+          -2
+        ],
+        "ownTrail": 2,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -14,
+          -2
+        ],
+        "ownTrail": 3,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -16,
+          -4
+        ],
+        "bot": [
+          -15,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -5
+        ],
+        "bot": [
+          -15,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -15,
+          -6
+        ],
+        "bot": [
+          -14,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 54,
+        "trail": 5,
+        "human": [
+          -15,
+          -6
+        ],
+        "bot": [
+          -13,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 60,
+        "trail": 6,
+        "human": [
+          -14,
+          -7
+        ],
+        "bot": [
+          -12,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 66,
+        "trail": 7,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -12,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "STEAL"
+      }
+    ]
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 76,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 30,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 36,
+        "from": "ESCAPE",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1955383399570385,
+            "returnTime": 0.26666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.2
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1549089252279754,
+            "returnTime": 0.2
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3930041633232135,
+            "returnTime": 0.2
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4904613552510924,
+            "returnTime": 0.2
+          }
+        ]
+      },
+      {
+        "tick": 48,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6,
+            "returnTime": 0.2
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.075362362911917,
+            "returnTime": 0.2
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3134576010071548,
+            "returnTime": 0.2
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3134576010071548,
+            "returnTime": 0.2
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4353625525671558,
+            "returnTime": 0.2
+          }
+        ]
+      },
+      {
+        "tick": 54,
+        "from": "STEAL",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6,
+            "returnTime": 0.03333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0798081473011882,
+            "returnTime": 0.03333333333333333
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3179033853964264,
+            "returnTime": 0.03333333333333333
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3179033853964264,
+            "returnTime": 0.03333333333333333
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3179033853964264,
+            "returnTime": 0.03333333333333333
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -13,
+          -2
+        ],
+        "ownTrail": 2,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -14,
+          -2
+        ],
+        "ownTrail": 3,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -5
+        ],
+        "bot": [
+          -15,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -14,
+          -6
+        ],
+        "bot": [
+          -15,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -14,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 54,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -13,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      }
+    ]
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 1,
+    "tick": 24,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 18,
+        "from": "EXPAND",
+        "to": "ESCAPE",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "COUNTER_CUT_FIRST",
+            "seconds": 0.2,
+            "returnTime": 0.5,
+            "counterTime": 0.23333333333333334
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 18,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -14,
+          -1
+        ],
+        "ownTrail": 1,
+        "goal": "ESCAPE"
+      }
+    ]
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 8,
+    "tick": 65,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 30,
+        "from": "ESCAPE",
+        "to": "ESCAPE",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": []
+      },
+      {
+        "tick": 36,
+        "from": "ESCAPE",
+        "to": "STEAL",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "LOW_PRIORITY",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.7
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.7
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "STEAL",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 612,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.7666666666666667,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1549089252279754,
+            "returnTime": 1.1681701264942954
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1549089252279754,
+            "returnTime": 1.1681701264942954
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3930041633232135,
+            "returnTime": 1.1681701264942954
+          }
+        ]
+      },
+      {
+        "tick": 48,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 612,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.8,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9897280087927093,
+            "returnTime": 0.8
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9897280087927093,
+            "returnTime": 0.8
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2278232468879473,
+            "returnTime": 0.8
+          },
+          {
+            "target": 610,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2278232468879473,
+            "returnTime": 0.8
+          }
+        ]
+      },
+      {
+        "tick": 54,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 612,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.36666666666666664,
+            "returnTime": 0.6,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.6
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.6
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0385405506589112,
+            "returnTime": 0.6
+          },
+          {
+            "target": 610,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0385405506589112,
+            "returnTime": 0.6
+          },
+          {
+            "target": 568,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2766357887541493,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 60,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 612,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.16666666666666666,
+            "returnTime": 0.36666666666666664,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.36666666666666664,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6666666666666666,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 610,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 568,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.985244284007137,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -13,
+          -2
+        ],
+        "ownTrail": 2,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -14,
+          -2
+        ],
+        "ownTrail": 3,
+        "goal": "ESCAPE"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -17,
+          -2
+        ],
+        "bot": [
+          -15,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "STEAL"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -18,
+          -2
+        ],
+        "bot": [
+          -15,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -17,
+          -3
+        ],
+        "bot": [
+          -14,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 54,
+        "trail": 6,
+        "human": [
+          -17,
+          -4
+        ],
+        "bot": [
+          -15,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 60,
+        "trail": 7,
+        "human": [
+          -16,
+          -5
+        ],
+        "bot": [
+          -15,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 46,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -16,
+          -4
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -5
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 76,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.3333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.3333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0333333333333334,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3484674818648932,
+            "returnTime": 0.26666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3271599792971933,
+            "returnTime": 0.2
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2580454508189123,
+            "returnTime": 0.2
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4961406889141504,
+            "returnTime": 0.2
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7342359270093886,
+            "returnTime": 0.2
+          }
+        ]
+      },
+      {
+        "tick": 47,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.450416569894366,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.688511807989604,
+            "returnTime": 0.16666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 53,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6254401760005206,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 7,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.863535414095759,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 8,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 2.101630652190997,
+            "returnTime": 0.06666666666666667
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -5
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -14,
+          -6
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          0
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 54,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          1
+        ],
+        "ownTrail": 3,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 7,
+    "tick": 83,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 18,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0992138145441108,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 24,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2682566608955361,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 26,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 32,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4261539008204756,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 38,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 4,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0767793226855253,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 44,
+        "from": "RETURN",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 50,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6666666666666666,
+            "returnTime": 0.6
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.6
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.195110687140432,
+            "returnTime": 0.6
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.43320592523567,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 56,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9333333333333333,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1892053818623134,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4273006199575515,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6653958580527894,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 58,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9666666666666667,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2414728317961408,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.479568069891379,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7176633079866166,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 64,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.405493260957871,
+            "returnTime": 0.13333333333333333
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 18,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -14,
+          -1
+        ],
+        "bot": [
+          -16,
+          -4
+        ],
+        "ownTrail": 2,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -1
+        ],
+        "bot": [
+          -17,
+          -3
+        ],
+        "ownTrail": 4,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -1
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -16,
+          -2
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 54,
+        "trail": 6,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 60,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          -1
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 66,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 44,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.6666666666666666,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.26666666666666666,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.4,
+            "returnTime": 0.7,
+            "counterTime": null
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.06666666666666667,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.3,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -17,
+          -2
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -18,
+          -2
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 46,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 0.4666666666666667,
+            "counterTime": null
+          },
+          {
+            "target": 569,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.4,
+            "returnTime": 0.4666666666666667
+          },
+          {
+            "target": 528,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.4666666666666667
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -16,
+          -4
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -5
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 76,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.3333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.7666666666666667,
+            "returnTime": 0.3333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0333333333333334,
+            "returnTime": 0.26666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3484674818648932,
+            "returnTime": 0.26666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3271599792971933,
+            "returnTime": 0.2
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2580454508189123,
+            "returnTime": 0.2
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4961406889141504,
+            "returnTime": 0.2
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7342359270093886,
+            "returnTime": 0.2
+          }
+        ]
+      },
+      {
+        "tick": 47,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4831997755424364,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.450416569894366,
+            "returnTime": 0.16666666666666666
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.688511807989604,
+            "returnTime": 0.16666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 53,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4035949432966783,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 529,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6254401760005206,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 490,
+            "slot": 0,
+            "distance": 7,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.863535414095759,
+            "returnTime": 0.06666666666666667
+          },
+          {
+            "target": 452,
+            "slot": 0,
+            "distance": 8,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 2.101630652190997,
+            "returnTime": 0.06666666666666667
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -5
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -14,
+          -6
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          0
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 54,
+        "trail": 5,
+        "human": [
+          -13,
+          -7
+        ],
+        "bot": [
+          -20,
+          1
+        ],
+        "ownTrail": 3,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 7,
+    "tick": 83,
+    "humanState": "ALIVE",
+    "deaths": 0,
+    "traces": [
+      {
+        "tick": 18,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0992138145441108,
+            "returnTime": 0.5
+          }
+        ]
+      },
+      {
+        "tick": 24,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2682566608955361,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 26,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3567824592081479,
+            "returnTime": 0.7
+          }
+        ]
+      },
+      {
+        "tick": 32,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 3,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4261539008204756,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6642491389157137,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 38,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 4,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.0767793226855253,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.3148745607807635,
+            "returnTime": 0.6333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 44,
+        "from": "RETURN",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.3333333333333333,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9524935042401271,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4286839804306033,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1905887423353652,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 50,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6666666666666666,
+            "returnTime": 0.6
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.6
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.195110687140432,
+            "returnTime": 0.6
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.43320592523567,
+            "returnTime": 0.6
+          }
+        ]
+      },
+      {
+        "tick": 56,
+        "from": "EXPAND",
+        "to": "EXPAND",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.8666666666666667,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9333333333333333,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1892053818623134,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4273006199575515,
+            "returnTime": 0.43333333333333335
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.6653958580527894,
+            "returnTime": 0.43333333333333335
+          }
+        ]
+      },
+      {
+        "tick": 58,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 1,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 3,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9666666666666667,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.2414728317961408,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.479568069891379,
+            "returnTime": 0.36666666666666664
+          },
+          {
+            "target": 657,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.7176633079866166,
+            "returnTime": 0.36666666666666664
+          }
+        ]
+      },
+      {
+        "tick": 64,
+        "from": "RETURN",
+        "to": "RETURN",
+        "ownTrail": 2,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 698,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 654,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 4,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.9293027847673949,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 699,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 570,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.1673980228626328,
+            "returnTime": 0.13333333333333333
+          },
+          {
+            "target": 700,
+            "slot": 0,
+            "distance": 6,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.405493260957871,
+            "returnTime": 0.13333333333333333
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 18,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -13,
+          -2
+        ],
+        "bot": [
+          -16,
+          -3
+        ],
+        "ownTrail": 1,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -14,
+          -1
+        ],
+        "bot": [
+          -16,
+          -4
+        ],
+        "ownTrail": 2,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -15,
+          -1
+        ],
+        "bot": [
+          -17,
+          -3
+        ],
+        "ownTrail": 4,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -16,
+          -1
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 48,
+        "trail": 5,
+        "human": [
+          -16,
+          -2
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 54,
+        "trail": 6,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -18,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 60,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          -1
+        ],
+        "ownTrail": 1,
+        "goal": "RETURN"
+      },
+      {
+        "tick": 66,
+        "trail": 7,
+        "human": [
+          -15,
+          -4
+        ],
+        "bot": [
+          -19,
+          0
+        ],
+        "ownTrail": 0,
+        "goal": "RETURN"
+      }
+    ]
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 4,
+    "tick": 44,
+    "humanState": "DEAD_WAIT",
+    "deaths": 1,
+    "killer": "bot",
+    "traces": [
+      {
+        "tick": 24,
+        "from": "ESCAPE",
+        "to": "EXPAND",
+        "ownTrail": 0,
+        "attackTarget": null,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": false,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.5666666666666667,
+            "returnTime": 0.5333333333333333
+          }
+        ]
+      },
+      {
+        "tick": 30,
+        "from": "EXPAND",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 611,
+        "attacks": [
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.5333333333333333,
+            "returnTime": 0.6666666666666666,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 0.6333333333333333,
+            "returnTime": 0.6666666666666666
+          }
+        ]
+      },
+      {
+        "tick": 36,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.26666666666666666,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.43333333333333335,
+            "returnTime": 0.7,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.4,
+            "returnTime": 0.7,
+            "counterTime": null
+          }
+        ]
+      },
+      {
+        "tick": 42,
+        "from": "ATTACK",
+        "to": "ATTACK",
+        "ownTrail": 0,
+        "attackTarget": 653,
+        "attacks": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.23333333333333334,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 611,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.13333333333333333,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 653,
+            "slot": 0,
+            "distance": 1,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.06666666666666667,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          },
+          {
+            "target": 652,
+            "slot": 0,
+            "distance": 2,
+            "interrupt": true,
+            "reason": "SELECTABLE",
+            "seconds": 0.3,
+            "returnTime": 1.1681701264942954,
+            "counterTime": null
+          }
+        ]
+      }
+    ],
+    "samples": [
+      {
+        "tick": 24,
+        "trail": 1,
+        "human": [
+          -15,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "EXPAND"
+      },
+      {
+        "tick": 30,
+        "trail": 2,
+        "human": [
+          -16,
+          -3
+        ],
+        "bot": [
+          -17,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 36,
+        "trail": 3,
+        "human": [
+          -17,
+          -2
+        ],
+        "bot": [
+          -17,
+          -1
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      },
+      {
+        "tick": 42,
+        "trail": 4,
+        "human": [
+          -18,
+          -2
+        ],
+        "bot": [
+          -16,
+          -2
+        ],
+        "ownTrail": 0,
+        "goal": "ATTACK"
+      }
+    ]
+  }
+]

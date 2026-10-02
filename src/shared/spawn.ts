@@ -32,7 +32,7 @@ export function trySpawn(match:MatchState,p:Participant,reserved:ReadonlySet<num
  p.lifeState='ALIVE';p.lifeId++;p.cellId=best;p.position={...match.map.cells[best].center};
  const length=Math.hypot(p.position.x,p.position.y);
  p.direction=length?{x:-p.position.x/length,y:-p.position.y/length}:{x:1,y:0};
- p.spawnCells=new Set(zones[best]);p.lastAppliedInputSeq=0;p.targetDirection=null;p.deathReason=null;
+ p.spawnCells=new Set(zones[best]);p.lastAppliedInputSeq=0;p.targetDirection=null;p.deathReason=null;p.deathContext=undefined;
  p.protectedUntilTick=match.tick+Math.ceil(match.config.protectSeconds*match.config.simulationHz);
  for(const id of p.spawnCells)setOwner(match,id,p.slot+1);
  emitEvent(match,{type:'SPAWN',participantId:p.participantId});return true;

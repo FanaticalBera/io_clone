@@ -27,13 +27,15 @@ test('mobile swipe displacement retains direction and works in practice and onli
   await page.locator('#settings').click();await page.locator('#settings-close').click();await page.setViewportSize({width:844,height:390});expect(await direction()).toEqual(goal);
  }finally{await context.close();await server.close();}
 });
-test('confirmed kills vibrate once; replay, reset, wall death, off and unsupported API do not',async({browser})=>{
+test('confirmed kills and deaths vibrate once; replay, reset, off and unsupported API do not',async({browser})=>{
  const context=await browser.newContext({isMobile:true,hasTouch:true});await context.addInitScript(()=>{Object.assign(window,{vibrations:[]});Object.defineProperty(navigator,'vibrate',{configurable:true,writable:true,value:(pattern:number|number[])=>{(window as any).vibrations.push(pattern);return true;}});});
  try{
   const page=await context.newPage();await page.goto('http://127.0.0.1:5173/tests/fixtures/combat.html');await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());await page.locator('#settings').click();await page.locator('#vibration-test').click();await expect.poll(()=>page.evaluate(()=>(window as any).vibrations.length)).toBe(1);await page.locator('#settings-close').click();
   await page.evaluate(()=>{(window as any).vibrations=[];(window as any).fixture.kill();});expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([[35,20,55]]);
-  await page.evaluate(()=>{const f=(window as any).fixture;f.show();f.show(true);f.wall();});expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([[35,20,55]]);
-  await page.reload();await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());await page.locator('#settings').click();await page.locator('#kill-vibration').uncheck();await page.locator('#settings-close').click();await page.evaluate(()=>(window as any).fixture.kill());expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([]);
+  await page.evaluate(()=>{const f=(window as any).fixture;f.show();f.show(true);f.wall();f.show();});expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([[35,20,55],[90,40,120]]);
+  await page.evaluate(()=>(window as any).fixture.show(true));expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([[35,20,55],[90,40,120]]);
+  await page.reload();await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());await page.evaluate(()=>(window as any).fixture.mutual());expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([[90,40,120]]);
+  await page.reload();await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());await page.locator('#settings').click();await page.locator('#kill-vibration').uncheck();await page.locator('#settings-close').click();await page.evaluate(()=>{(window as any).fixture.kill();(window as any).fixture.wall();});expect(await page.evaluate(()=>(window as any).vibrations)).toEqual([]);
   await page.reload();await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());await page.evaluate(()=>Object.defineProperty(navigator,'vibrate',{value:undefined,configurable:true}));await page.locator('#settings').click();await expect(page.locator('#vibration-test')).toBeDisabled();await expect(page.locator('#vibration-support')).toContainText('지원하지');await page.locator('#settings-close').click();await page.evaluate(()=>(window as any).fixture.kill());
  }finally{await context.close();}
 });

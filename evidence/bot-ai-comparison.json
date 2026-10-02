@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-02",
+  "scenario": "8 bots per seed, 3600 ticks at 30Hz; same game rules; captured cells include recaptures",
+  "reproduce": "node node_modules/tsx/dist/cli.mjs scripts/bot-audit.ts",
+  "baseline": [
+    {"seed":4,"captures":484,"gained":2924,"walls":7,"deaths":26},
+    {"seed":19,"captures":498,"gained":3002,"walls":3,"deaths":24},
+    {"seed":73,"captures":493,"gained":3098,"walls":5,"deaths":26}
+  ],
+  "after": [
+    {"seed":4,"captures":378,"gained":3566,"walls":0,"deaths":18,"territory":[0,19,58,51,100,369,80,37]},
+    {"seed":19,"captures":387,"gained":3560,"walls":0,"deaths":12,"territory":[98,87,88,134,38,31,121,238]},
+    {"seed":73,"captures":382,"gained":3569,"walls":0,"deaths":16,"territory":[19,127,38,62,131,113,129,66]}
+  ],
+  "limits": "Deterministic bot simulations only; not human win rate or physical device acceptance. Zero wall deaths applies only to these samples."
+}

@@ -76,6 +76,7 @@ export function trySpawn(match, p, reserved = new Set()) {
     p.lastAppliedInputSeq = 0;
     p.targetDirection = null;
     p.deathReason = null;
+    p.deathContext = undefined;
     p.protectedUntilTick = match.tick + Math.ceil(match.config.protectSeconds * match.config.simulationHz);
     for (const id of p.spawnCells)
         setOwner(match, id, p.slot + 1);

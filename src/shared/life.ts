@@ -1,17 +1,26 @@
-import type {MatchState,Participant,GameEvent,ResultRow} from './model.js';
+import type {MatchState,Participant,GameEvent,ResultRow,DeathContext,Vec} from './model.js';
 import {clearTrail,neutralizeTerritory} from './territory.js';
 export function emitEvent(match:MatchState,event:Omit<GameEvent,'eventId'|'tick'>):void {
  match.events.push({...event,eventId:match.matchId+':'+(++match.eventCounter),tick:match.tick});
  match.events=match.events.filter(e=>e.tick>=match.tick-match.config.simulationHz).slice(-64);
 }
-export function markDead(match:MatchState,p:Participant,reason:string,killer?:Participant):boolean {
+export interface DeathTrace {tick:number;victimId:string;lifeId:number;reason:string;context?:DeathContext;killerId?:string;killerCell?:number;victimCell:number;position:Vec;trailCells:number[];territoryCount:number;ownerCells:number;trailMaskCells:number[];rootHomeNeighbors:number[];pendingContact:boolean}
+const deathObservers=new WeakMap<MatchState,(trace:DeathTrace)=>void>();
+export function watchDeaths(match:MatchState,observer:(trace:DeathTrace)=>void):()=>void {
+ deathObservers.set(match,observer);return()=>deathObservers.delete(match);
+}
+export function markDead(match:MatchState,p:Participant,reason:string,killer?:Participant,context?:DeathContext):boolean {
  if(p.lifeState!=='ALIVE'||match.phase!=='RUNNING')return false;
+ const observer=deathObservers.get(match);
+ if(observer){const first=p.trailCells.values().next().value;observer({tick:match.tick,victimId:p.participantId,lifeId:p.lifeId,reason,context,killerId:killer?.participantId,killerCell:killer?.cellId,victimCell:p.cellId,position:{...p.position},trailCells:[...p.trailCells],territoryCount:p.territoryCount,
+  ownerCells:match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0),trailMaskCells:match.map.cells.filter(c=>(match.trailMasks[c.id]&(1<<p.slot))!==0).map(c=>c.id),
+  rootHomeNeighbors:first===undefined?[]:match.map.cells[first].neighbors.filter(id=>id>=0&&match.owners[id]===p.slot+1),pendingContact:context?.cause==='TRAIL_CONTACT'&&context.cellId===p.cellId&&match.owners[p.cellId]!==p.slot+1&&!p.trailCells.has(p.cellId)});}
  clearTrail(match,p);neutralizeTerritory(match,p);p.lifeState='DEAD_WAIT';p.deaths++;
  match.modeState.holds=match.modeState.holds.filter(h=>h.participantId!==p.participantId);
- p.deathReason=reason;p.protectedUntilTick=0;p.lastAppliedInputSeq=0;p.targetDirection=null;
+ p.deathReason=reason;p.deathContext=context?{...context}:undefined;p.protectedUntilTick=0;p.lastAppliedInputSeq=0;p.targetDirection=null;
  p.respawnAtTick=match.tick+Math.ceil(match.config.respawnSeconds*match.config.simulationHz);
  if(killer&&killer.participantId!==p.participantId)killer.kills++;
- emitEvent(match,{type:'DEATH',participantId:p.participantId,reason,lifeId:p.lifeId,position:{...p.position},...(killer&&killer.participantId!==p.participantId?{killerId:killer.participantId}:{})});return true;
+ emitEvent(match,{type:'DEATH',participantId:p.participantId,reason,lifeId:p.lifeId,position:{...p.position},...(context?{deathContext:{...context}}:{}),...(killer&&killer.participantId!==p.participantId?{killerId:killer.participantId}:{})});return true;
 }
 export function leaveParticipant(match:MatchState,p:Participant):void {
  if(match.departed.some(row=>row.participantId===p.participantId))return;

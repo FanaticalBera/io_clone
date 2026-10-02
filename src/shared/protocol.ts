@@ -34,6 +34,9 @@ export interface ServerEvents {
  'match:result':(data:{matchId:string;results:ResultRow[];gameMode:GameModeConfig;modeState:MatchView['modeState'];outcome:MatchView['outcome']})=>void;'app:error':(error:AppError)=>void;
 }
 export function record(value:unknown):value is Record<string,unknown> {return !!value&&typeof value==='object'&&!Array.isArray(value);}
+function validDeathContext(value:unknown,count:number):boolean {
+ return value===undefined||(record(value)&&['TRAIL_CONTACT','TRAIL_CAPTURE','HOME_CAPTURE'].includes(String(value.cause))&&Number.isInteger(value.cellId)&&Number(value.cellId)>=0&&Number(value.cellId)<count);
+}
 export function validRequest(value:unknown):value is CommandRequest {
  return record(value)&&typeof value.requestId==='string'&&/^[A-Za-z0-9_-]{1,96}$/.test(value.requestId)&&
   (value.gameMode===undefined||isGameModeId(value.gameMode))&&Object.keys(value).every(key=>['requestId','nickname','code','gameMode'].includes(key));
@@ -75,14 +78,14 @@ export function unpackSnapshot(raw:unknown):MatchView {
     !Number.isSafeInteger(p.lifeId)||Number(p.lifeId)<0||!['ALIVE','DEAD_WAIT','SPAWN_BLOCKED','FINISHED'].includes(String(p.lifeState))||
     !record(p.position)||!record(p.direction)||![p.position.x,p.position.y,p.direction.x,p.direction.y].every(n=>typeof n==='number'&&Number.isFinite(n))||
     (p.targetDirection!==null&&(!record(p.targetDirection)||![p.targetDirection.x,p.targetDirection.y].every(n=>typeof n==='number'&&Number.isFinite(n))||Math.abs(Math.hypot(Number(p.targetDirection.x),Number(p.targetDirection.y))-1)>1e-6))||
-    ![p.territoryCount,p.controlScore,p.kills,p.deaths].every(n=>Number.isSafeInteger(n)&&Number(n)>=0)||typeof p.protected!=='boolean')throw new Error('Invalid participant');
+    ![p.territoryCount,p.controlScore,p.kills,p.deaths].every(n=>Number.isSafeInteger(n)&&Number(n)>=0)||typeof p.protected!=='boolean'||!validDeathContext(p.deathContext,count))throw new Error('Invalid participant');
   ids.add(p.participantId);slots.add(p.slot);
  }
  if(!Array.isArray(raw.events)||raw.events.length>64||raw.events.some(e=>!record(e)||typeof e.eventId!=='string'||!['CAPTURE','DEATH','SPAWN','POINT','FINISH'].includes(String(e.type))))throw new Error('Invalid events');
  for(const e of raw.events){
   if((e.position!==undefined&&(!record(e.position)||![e.position.x,e.position.y].every(n=>typeof n==='number'&&Number.isFinite(n))))||
      (e.killerId!==undefined&&(typeof e.killerId!=='string'||e.killerId.length>128))||
-     (e.lifeId!==undefined&&(!Number.isSafeInteger(e.lifeId)||Number(e.lifeId)<1)))throw new Error('Invalid combat event');
+     (e.lifeId!==undefined&&(!Number.isSafeInteger(e.lifeId)||Number(e.lifeId)<1))||!validDeathContext(e.deathContext,count))throw new Error('Invalid combat event');
  }
  if(!record(raw.modeState)||!Array.isArray(raw.modeState.holds)||raw.modeState.holds.length>8)throw new Error('Invalid mode state');
  const heldIds=new Set<string>();

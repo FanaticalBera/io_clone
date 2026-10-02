@@ -120,3 +120,15 @@ test('cancel, lost capture, resize, blur, disable and mode changes cannot revive
   expect(await f.page.evaluate(()=>(window as any).fixture.vectors.length)).toBe(count);
  }finally{await f.context.close();}
 });
+
+test('a touch released during respawn remains released and paused movement cannot accumulate into the next swipe',async({browser})=>{
+ const f=await touchFixture(browser);try{
+  await f.touch('touchStart',400,400);await f.touch('touchMove',445,400);
+  await f.page.evaluate(()=>(window as any).fixture.input.suspendForRespawn());const sent=await f.page.evaluate(()=>(window as any).fixture.vectors.length);
+  await f.touch('touchMove',445,300);expect(await f.vector()).toEqual({x:1,y:0});await f.page.waitForTimeout(120);expect(await f.page.evaluate(()=>(window as any).fixture.vectors.length)).toBe(sent);
+  await f.page.evaluate(()=>(window as any).fixture.input.enabled=true);await f.touch('touchMove',445,295);expect(await f.vector()).toEqual({x:1,y:0});
+  await f.touch('touchMove',445,255);expect(await f.vector()).toEqual({x:0,y:-1});
+  await f.page.evaluate(()=>(window as any).fixture.input.suspendForRespawn());await f.end();await f.page.evaluate(()=>(window as any).fixture.input.enabled=true);
+  await f.page.mouse.move(600,300);await expect.poll(async()=>(await f.vector()).x).toBeGreaterThan(.99);
+ }finally{await f.context.close();}
+});

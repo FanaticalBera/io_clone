@@ -449,3 +449,66 @@ T01~T37 구현·자동 검증 완료. T38은 부분 검증 후 WAITING_EXTERNAL,
 - `evidence/mobile-swipe-verification-2026-10-02.json`: 기준/파라미터/검사 결과 요약.
 
 **실기기 체감 수용은 미완료**다. 실제 기기의 입력 빈도·엄지 이동 거리·방향 전환 의도·U턴 반경·끌림/묵직함·어지러움과 joystick radial boundary 근처 노이즈는 자동 검사로 편안함을 확정할 수 없다. 충분한 반대 스와이프는 같은 화면 쪽에서도 반대 목표를 요청하는 정책이므로 실기기 수용에 포함해야 한다. 우선 screen swipe 거리 28px 하나만 조정 가능한 구조를 제공했고, Six.io 동등성이나 멀미 해소를 선언하지 않는다.
+
+## 2026-10-02 AI·가로 UI·넓은 시야 검증
+
+- `npm run build`: 최종 타입/서버/클라이언트 빌드 exit 0. JS `index-dHYPPRas.js`, CSS `index-Czs9M17x.css`.
+- `npx vitest run --maxWorkers=4`: 38파일 **168개 통과**, 11.8초, exit 0. 실제 시뮬레이션 확장/벽 회피 3시드, 도주 유지, 공격 목표 소멸 귀환, waypoint 조기 제거, 점령 예상 면적 회귀 포함.
+- `playwright test --config .local/steering-check.config.ts tests/e2e/landscape.spec.ts`: **1개 통과**, 25.5초, exit 0. 가로 시작 메뉴 4크기(640×320 포함), HUD 겹침 없음, 순위/미니맵 기본 닫힘·상호 배제·Escape·재시작 초기화, 세로/가로 안내, 미지원 fullscreen에서도 게임 유지 검사.
+- 최종 `playwright test --config .local/steering-check.config.ts tests/e2e/ui.spec.ts tests/e2e/mobile.spec.ts tests/e2e/settings.spec.ts tests/e2e/online.spec.ts tests/e2e/modes.spec.ts`: **11개 통과**, 2.2분, exit 0. 기존 입력, 조이스틱, 설정 일시정지/저장/진동, 실제 온라인 방, Classic/Hold 및 결과 회귀.
+- 추가 실행: camera 3개, capture-cuts 4개, ranking 1개의 assertions 통과. camera/capture 실행의 기본 webServer runner는 Windows teardown에서 종료되지 않아 Ctrl+C로 종료했다. 해당 실행을 runner exit 0으로 기록하지 않는다. 최종 UI 관련 검사는 기존 별도 서버 config로 정상 종료했다.
+
+중간 실패: 브라우저 검사와 기본 38-worker vitest를 동시에 실행해 practice 20초 및 새 bot simulation 15초 타임아웃이 발생했다. 검증을 분리하고 4 workers로 재실행해 모두 통과했다. timeout 기대값이나 게임 규칙은 완화하지 않았다. 새로운 landscape 검사에서는 fullscreen 미지원 안내가 다음 경기 갱신에서 숨겨져 닫기 버튼을 클릭하지 못했다. 안내를 5초 유지하도록 제품 코드를 고친 뒤 같은 검사를 통과했다.
+
+봇 비교: `node node_modules/tsx/dist/cli.mjs scripts/bot-audit.ts`, 30Hz 각 3600tick, 시드 4/19/73, 8봇. 이전/최종 데이터는 `evidence/bot-ai-comparison.json`. 같은 sample에서 점령 칸 누계 +18.5%, 벽 사망 15→0, 전체 사망 76→46. 재점령을 포함하는 누계이며 사람 상대 승률과 실제 폰에서의 체감은 미검증이다. 새 화면 증거는 `evidence/landscape-menu.png`, `evidence/landscape-game.png`에 보존했다. 기존 검사에서 덮어쓴 과거 evidence와 테스트 산출물은 원상 복원해 과거 기록을 보존했다.
+
+최신 운영 서버는 0.0.0.0:3003에서 hidden process로 실행했다. `http://127.0.0.1:3003/healthz` HTTP 200 및 최신 JS/CSS 제공을 확인했다. 현재 핫스팟 인터페이스 192.168.137.1은 꺼져 있어 폰 접속을 확인하지 않았다. 네트워크/방화벽 설정은 변경하지 않았다. 실제 기기 인수는 OPEN이며 기존 T27 waypoint의 master 재현 실패 상태도 이 작업에서 해결했다고 기록하지 않는다.
+
+## 2026-10-02 실제 이동의 출발 연결 절단·공격 기회 후속 검증
+
+정상 스폰(createMatch, 초기 19칸)·direction input·stepMatch로 재현했다. seed 115(A 피해자), seed 17(B 피해자) 모두 tick 172의 실제 RETURN/capture에서 출발 연결이 사라졌다. 직접 body→trail 접촉과 capture의 피해 trail 중첩 없이, 잔여 9칸 옆의 후속 trail 인접 때문에 변경 전 ALIVE/trail 15칸이 남았다. connectedBefore=true, candidates.has(victim)=false, lostTerritory=true, 기존 touchesHomeAfter=true, cuts=false, markDead 미호출이었다. synthetic만 통과한 기존 판정의 false positive를 확인하고 첫 외부 선 칸의 연결만 검사하도록 수정했다.
+
+- `npm run build`: Node 24.21.0, client/server/tests 타입 및 운영 빌드 성공, exit 0. 최종 JS `index-Ciy2huK_.js`, CSS `index-Czs9M17x.css`. 기존 Phaser chunk 크기 경고는 유지한다.
+- `node node_modules/vitest/vitest.mjs run --maxWorkers=4`: **40파일 180개 통과**, 9.27초, exit 0. 새 실제 이동 절단 4개는 내부에서 두 역할을 모두 실행하며 Classic/Hold, 출발 연결 유지 생존, 전체 영토 소멸 사망을 포함한다. 사망/처치 정확히 1회, masks/trail 제거, 같은 capture tick의 death, respawn 전 정지와 소유권 배열/count 일치를 확인했다. 새 무입력 HUMAN 공격 회귀 8개도 포함한다.
+- `playwright test --config .local/steering-check.config.ts tests/e2e/movement-capture-cuts.spec.ts tests/e2e/capture-cuts.spec.ts tests/e2e/reconnect.spec.ts tests/e2e/modes.spec.ts`: 첫 실행 7/10 통과. 기존 synthetic 절단 4개, Classic/공개 큐 모드 2개, 재연결 1개가 통과했다.
+- 이어 `playwright test --config .local/steering-check.config.ts tests/e2e/movement-capture-cuts.spec.ts tests/e2e/modes.spec.ts --grep 'real room movement|server Hold'`: **3개 통과**, 55.2초, exit 0. 실제 온라인 인간 A/B 양방향과 Hold 재실행이 통과했다. 최종 개별 실행 합계는 관련 **10/10**이며 전체 브라우저를 새로 완주했다는 뜻은 아니다.
+
+중간 실패 구분: 첫 온라인 이동 fixture는 2슬롯 config와 서버의 일반 8명 roster가 맞지 않아 Invalid participants였다. 서버 제품 규칙을 바꾸지 않고 일반 8명 정상 스폰을 사용한 뒤 무관한 봇만 정상 leaveParticipant lifecycle로 퇴장시켰다. 두 HUMAN의 ownership/trail/position은 직접 조작하지 않았다. Hold 첫 실패는 실행 중 diagnostics 소스 변경으로 Vite가 페이지를 새로고침해 메뉴로 복귀한 것이며 소스 변경 없이 동일 검사를 다시 통과했다. 최종 빌드 재실행의 전역 Node 22는 sandbox EPERM으로 실패하여 프로젝트 Node 24와 승인된 실행에서 빌드·전체 검사를 완료했다.
+
+온라인 회귀는 방향 입력을 실제 Room.inputs에 넣고 GameLoop.pump로 전진한다. 서버만 이동·trail·RETURN/capture·death를 계산하며 양쪽 브라우저에서 사망/처치 UI와 snapshot을 검사한다. screenshots `evidence/movement-home-cut-A.png`, `movement-home-cut-B.png`; 재현 전/후 journal·진단은 `movement-home-cut-before.json`, `movement-home-cut-after.json`. claimedTrailCells 빈 배열은 최종 core/e2e observer assertions로 별도 확인했다. `scripts/movement-capture-audit.ts`로 최종 진단을 재출력할 수 있다.
+
+AI 비교는 공유 연결 수정 후/공격 판단 변경 전과 변경 후를 구분했다. `scripts/idle-human-audit.ts`, seed 4/19/73/115/17/81/32/123, 정상 1 HUMAN+7 BOT, HUMAN 입력 0회. 최초 사망이 변경 전 5 TRAIL_CUT·3 WALL_HIT에서 변경 후 8 TRAIL_CUT로 바뀌었다. `evidence/idle-human-ai-before.json`, `idle-human-ai-after.json` 참조. HUMAN 자동 벽 회피나 이동 물리 변경은 없으며 관찰 거리 안에서 공격 가능성을 평가한다. 모든 배치에서 무조건 처치한다는 결과로 일반화하지 않는다.
+
+최종 운영 갱신: 동일 프로젝트 Node와 dist/server/server/index.js로 실행된 기존 3003 두 프로세스의 경로를 확인한 뒤 서버 하나(PID 27692, 0.0.0.0:3003)로 재시작했다. localhost health/root HTTP 200, 최신 JS 링크 제공 확인. 테스트 Vite 5173/5174는 종료했다. 네트워크/방화벽은 변경하지 않았고 실기기 재인수는 OPEN이다.
+
+## 2026-10-02 짧은 선 전술·침범 기억·부활 터치·사망 진동
+
+맵은 사용자 선택으로 반경 22(1,519칸)를 유지했다. 공용 이동·조향·판정·3초 respawn 규칙은 그대로다. 변경된 봇 판단과 클라이언트 입력/피드백은 docs/bot-ai-landscape.md의 마지막 두 절에 기록했다.
+
+- 최종 `npm run build`: Node 24.21.0, client/server/tests 타입 및 운영 빌드 성공, exit 0. JS `index-B3da_jGf.js`, CSS `index-Dyjnoj8K.css`. Phaser chunk 크기 경고는 기존대로다.
+- `node node_modules/vitest/vitest.mjs run --maxWorkers=4`: **41파일 190개 통과**, 9.34초, exit 0. 짧은 선과 안전한 RETURN 중 공격, 유리한 counter-cut/불리한 counter-cut 거절, 상대 귀환 우선 시 거절, 반복 손실 누적/감쇠, 작은 확장, 진행 중인 큰 확장 중단, seed별 경로 다양성/재현, 사망 진동 설정 검사를 추가했다. 기존 실제 movement 연결 절단·동시 점령·영토 정리·life·respawn 검사도 유지했다.
+- `playwright test --config .local/steering-check.config.ts tests/e2e/input.spec.ts tests/e2e/settings.spec.ts tests/e2e/mobile.spec.ts tests/e2e/respawn-touch.spec.ts tests/e2e/movement-capture-cuts.spec.ts tests/e2e/modes.spec.ts`: **20개 통과**, 1.9분, exit 0. 추가한 마지막 봇의 진행 중 확장 중단 이후 `mobile.spec.ts settings.spec.ts --grep 'real emulated touch|mobile swipe displacement'`의 모바일 연습/온라인 관련 **2개 재검사 통과**, 21.5초, exit 0. 전 브라우저 스위트 완주와 구분한다.
+
+새 respawn 검사는 실제 방의 8명 정상 스폰을 사용하고 무관한 봇만 정상 leave lifecycle로 퇴장시킨다. 실제 CDP primary touch를 유지한 채 HUMAN의 실제 직진→WALL_HIT→3초 대기→tryRespawns를 진행한다. 위치/영토/trail을 death/respawn 상태로 직접 수정하지 않는다. 각 drag/trackpad/joystick에서 DEAD_WAIT 중 input 송신이 멈추고, 최신 손 위치를 기준으로 같은 포인터가 lifeId 2의 서버 입력까지 전달되며 실제 위치가 움직이는지 확인했다. death vibration `[90,40,120]` 정확히 한 번과 대기 중 손을 뗐을 때 capture가 살아나지 않는 것도 확인했다. 증거는 `evidence/respawn-held-drag.png`, `respawn-held-trackpad.png`, `respawn-held-joystick.png`다.
+
+중간 실패: 첫 respawn fixture의 navigator.vibrate mock을 writable:false로 정의해 Phaser가 API alias를 지정하는 과정에서 TypeError가 나고 앱 로드가 멈췄다. 브라우저 14개 중 기존 11개는 통과하고 새 3개는 timeout이었다. mock을 실제 API처럼 writable:true로 고쳤고 3개 개별 실행 및 위 최종 20개에서 통과했다. 제품 코드를 이 로드 실패 때문에 바꾸지 않았다. 짧은 선 counter-cut/침범 테스트 초기 위치 두 사례는 실제로 상대가 먼저 절단하거나 새로 점령한 가까운 땅으로 돌아올 수 있는 불리한 배치여서 예상 ATTACK이 잘못됐다. 유리한 배치와 불리한 배치를 분리해 검증했다.
+
+전술 구현 중 무입력 seed 4가 WALL_HIT로 끝나는 회귀도 재현했다. 봇이 인간의 정면 진행 경로에 접근 선을 깔고 뒤늦게 ESCAPE하는 것이 원인이었다. 짧은 칸 진입 도달 시간 예상과 관찰된 본체의 1초 예상 경로를 피하는 공격 접근으로 수정한 뒤 기존 8개 무입력 회귀를 모두 통과했다. 초기 8봇 검사의 마지막 한 시점에 6명 이상이 19칸보다 큰 영토를 가진다는 기대는 새 전투/재등장에 의존했다. 경기 전체에서 실제로 19칸 이상 확장에 성공한 고유 참가자 수를 확인하도록 변경했고 벽 사망 0·점령 누계 2500 이상 검사는 유지했다.
+
+최종 audit: `scripts/idle-human-audit.ts`, 8시드 모두 첫 HUMAN 사망 TRAIL_CUT(73~240tick). `scripts/bot-audit.ts`, 3시드 8봇 3600tick씩: 점령 누계 3761/3804/3610, 벽 사망 모두 0, 전체 사망 21/14/9. `evidence/idle-human-ai-tactics.json`, `bot-tactics-simulation.json`에 보존한다. 이전 AI 비교 자료는 당시 변경의 기록으로 유지하며 전체 승률/모든 배치의 완벽 공격/실기기 편안함을 의미하지 않는다.
+
+운영 반영: 이전 프로젝트 서버 PID 27692의 실행 파일·절대 script 경로를 확인하고 새 hidden process PID 28772, 0.0.0.0:3003으로 재시작했다. localhost health/root HTTP 200 및 최종 JS 링크 제공을 확인했다. 기존 탭 새로고침이 필요하다. 테스트 Vite는 종료했다. git restore는 기존 index.lock과 실행 중인 다른 Git 때문에 중단됐으며 그 프로세스나 잠금은 변경하지 않았다. Git의 HEAD blob을 읽어 이번 검사에서 덮어쓴 과거 evidence·debug/cache·tracked test-results 21개의 파일 바이트를 복원했다. 새 증거는 별도 파일로 유지한다. 네트워크/방화벽은 변경하지 않았다.
+
+## 2026-10-02 애매한 사망 조사·중간 반경 공격 후속 검증
+
+사용자가 본 실제 플레이의 기록은 확보되지 않았다. 정상 스폰과 실제 movement/stepMatch로 8시드 각각 8봇 및 2인간+6봇을 3,600tick씩 실행한 16경기에서 사망 370회를 조사했다. 선/mask·소유권/count, 절단 위치/점령 교차/출발 연결, 벽 교차점, 중복 사망 및 대기 중 이동을 검사해 조건 위반은 0회였다. 직접 선 접촉 344회(막 생성되는 현재 칸 18회 포함), 출발 연결 상실 14회, 점령한 선 절단 1회, 인간 경로의 벽 충돌 11회다. 사용자 장면에 오류가 없다고 단정하거나 규칙 자체를 독립적으로 검증했다는 결과로 확대하지 않는다. death 원인 metadata와 UI 설명을 추가했으며 기존 판정 분기/동시 처리/kill 우선순위는 유지했다.
+
+봇은 정상 인간의 중간 루프에서 최단 즉시 귀환을 전제로 공격을 거절하는 실패를 실제로 재현했다. 관찰된 방향에 따른 최대 0.5초 예상, 귀환 중인 상대의 보수적 기준 유지, 4칸/1.25초의 기회와 안전 우회, home 인접 침범, 상대별 후보를 적용했다. `medium-attack-before.json`/`after.json` 및 `scripts/medium-attack-audit.ts` 참조. 새 movement 회귀는 네 성향과 두 역할의 짧은 루프, 방어형의 중간 반경 루프에서 실제 ATTACK와 직접 절단을 확인한다. 상대의 미래 입력을 읽거나 맵을 넓히지 않았다.
+
+- `npm run build`: Node 24.21.0, client/server/tests 타입 및 운영 빌드 성공, exit 0. JS `index-BZw5UUjH.js`, CSS `index-Dyjnoj8K.css`. 기존 Phaser chunk 경고 유지.
+- `node node_modules/vitest/vitest.mjs run --maxWorkers=4`: **43파일 201개 통과**, 9.88초, exit 0. 실제 이동의 사망 원인 대조 4개, snapshot/context 수명·범위 검증, 중간 루프 공격 5개를 추가했다. 기존 동시 점령, pruning, Classic/Hold, 직접 선 접촉, 역할 반전, 죽은 위치 정지/respawn, 불리한 공격 거절 및 8개 무입력 인간 회귀를 유지했다.
+- `playwright test --config .local/steering-check.config.ts tests/e2e/movement-capture-cuts.spec.ts tests/e2e/capture-cuts.spec.ts tests/e2e/combat.spec.ts tests/e2e/settings.spec.ts tests/e2e/respawn-touch.spec.ts --grep 'real room movement|captured trail|mutual confirmed|confirmed kills|held primary|respawn'`: 최종 **10개 통과**, 1.9분, exit 0. 두 실제 온라인 인간 역할의 HOME_CAPTURE 설명, 점령/출발 연결/pruning synthetic UI, 직접 상호 절단, 진동 중복 방지, held drag/trackpad/joystick을 확인했다. 전 브라우저 스위트 완주와 구분한다.
+
+중간 검사에서는 기존 joystick fixture가 lifeId 2의 아무 방향 패킷을 기다린 뒤 즉시 위쪽 입력을 검사해 초기 스폰 방향을 읽었다. 클라이언트의 held 방향은 이미 위쪽이었지만 서버에는 두 번째 패킷이 아직 도착하지 않았다. 같은 poll에서 새 생명과 실제 위쪽 방향 모두를 기다리게 수정하고 세 조작 방식 3개 개별 실행(13.7초), 위 최종 10개 실행에서 통과했다. 이 실패 때문에 제품 입력/이동을 바꾸지 않았다. 새 context 수명 검사의 첫 작성은 raw match.events가 다음 emit까지 보존된다는 점을 놓쳤고, 실제 배포 경로인 buildView의 이벤트 만료를 검사하도록 바로잡았다.
+
+자료: `evidence/death-cause-audit.json`, `death-cause-home-A.png`, `death-cause-home-B.png`, `death-cause-enclosed.png`, `death-cause-home.png`, `death-cause-pruned.png`, `death-cause-contact.png`. 이전 시점의 증거 파일은 보존했다. 최신 서버는 이전 PID 28772의 Node/script 절대 경로를 확인한 뒤 hidden PID 26544, 0.0.0.0:3003으로 갱신했다. localhost health/root HTTP 200, 최신 JS 제공, 오류 로그 비어 있음 확인. 탭 새로고침이 필요하며 실제 S24의 새 판단/설명 체감 인수는 OPEN이다.

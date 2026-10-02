@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type {MatchView,Vec} from '../shared/model.js';
 import {CombatEvents} from './combat-events.js';
+import {deathMessage} from './death-message.js';
 
 type Burst={position:Vec;color:number;born:number;local:boolean;label:Phaser.GameObjects.Text;seed:number};
 export class CombatEffects {
@@ -8,7 +9,7 @@ export class CombatEffects {
  private world:Phaser.GameObjects.Graphics;private flash:Phaser.GameObjects.Graphics;private message:Phaser.GameObjects.Text;
  private feedback:{at:number;kind:'KILL'|'DEATH';text:string}|null=null;
  private played=0;private kills=0;private deaths=0;private lastEventId='';private destroyed=false;
- constructor(private scene:Phaser.Scene,private colors:readonly number[],private onKill:()=>void=()=>{}){
+ constructor(private scene:Phaser.Scene,private colors:readonly number[],private onKill:()=>void=()=>{},private onDeath:()=>void=()=>{}){
   this.world=scene.add.graphics().setDepth(8);this.flash=scene.add.graphics().setScrollFactor(0).setDepth(10);
   this.message=scene.add.text(0,0,'',{fontFamily:'Malgun Gothic, sans-serif',fontSize:'28px',fontStyle:'bold',color:'#142330',stroke:'#f5f2e9',strokeThickness:7,align:'center'}).setOrigin(.5).setScrollFactor(0).setDepth(11).setVisible(false);
   scene.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>this.destroy());scene.events.once(Phaser.Scenes.Events.DESTROY,()=>this.destroy());
@@ -19,7 +20,8 @@ export class CombatEffects {
    this.cursor.accept(view,true);return;
   }
   const now=performance.now();
-  for(const event of this.cursor.accept(view)){
+  const events=this.cursor.accept(view),localDeath=events.some(event=>event.participantId===selfId);
+  for(const event of events){
    const victim=view.participants.find(p=>p.participantId===event.participantId),position=event.position??victim?.position;
    if(!position)continue;
    const killed=event.killerId===selfId&&event.participantId!==selfId,dead=event.participantId===selfId;
@@ -29,8 +31,8 @@ export class CombatEffects {
    }).setOrigin(.5).setDepth(9);
    this.bursts.push({position:{...position},color,born:now,local:killed||dead,label,seed:[...event.eventId].reduce((n,c)=>n+c.charCodeAt(0),0)});
    while(this.bursts.length>24)this.bursts.shift()!.label.destroy();this.played++;this.lastEventId=event.eventId;
-   if(dead){this.deaths++;this.feedback={at:now,kind:'DEATH',text:event.reason==='WALL_HIT'?'벽 충돌':event.reason==='TRAIL_CUT'?'선이 끊겼어요':'영토를 잃었어요'};}
-   else if(killed){this.kills++;this.onKill();if(this.feedback?.kind!=='DEATH'||this.feedback.at!==now)this.feedback={at:now,kind:'KILL',text:'처치!\n'+(victim?.nickname??'상대')};}
+   if(dead){this.deaths++;this.onDeath();this.feedback={at:now,kind:'DEATH',text:deathMessage(event.reason,event.deathContext)};}
+   else if(killed){this.kills++;if(!localDeath)this.onKill();if(this.feedback?.kind!=='DEATH'||this.feedback.at!==now)this.feedback={at:now,kind:'KILL',text:'처치!\n'+(victim?.nickname??'상대')};}
   }
  }
  update(now:number):void{

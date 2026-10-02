@@ -35,4 +35,4 @@ export function touchTrackpadCursor(direction:Vec,previous:Vec|null,dx:number,dy
  }
  return{x,y};
 }
-export function gameplayZoom(width:number):number{return width<600?.45:.5;}
+export function gameplayZoom(width:number):number{return width<600?.35:.38;}

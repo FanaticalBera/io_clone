@@ -40,9 +40,9 @@ test('mutual confirmed cuts show both statistics and prioritize my death feedbac
  await page.goto('http://127.0.0.1:5173/tests/fixtures/combat.html');
  await page.waitForFunction(()=>(window as any).fixture?.scene.combatState()!==null);
  await page.evaluate(()=>(window as any).fixture.mutual());
- await expect(page.getByTestId('death')).toContainText('선이 끊겼어요.');
+ await expect(page.getByTestId('death')).toContainText('상대가 선을 밟았어요.');
  expect(await page.evaluate(()=>(window as any).fixture.scene.combatState())).toMatchObject({played:2,kills:1,deaths:1,feedback:'DEATH'});
  await page.evaluate(()=>(window as any).fixture.freezeImpact());
- await page.screenshot({path:'evidence/reported-mutual-impact.png'});
+ await page.screenshot({path:'evidence/death-cause-contact.png'});
  await page.evaluate(()=>(window as any).fixture.resume());
 });

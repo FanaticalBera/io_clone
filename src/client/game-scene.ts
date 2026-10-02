@@ -20,9 +20,11 @@ export class GameScene extends Phaser.Scene {
  private combat?:CombatEffects;
  private killFeedback:()=>void=()=>{};
  setKillFeedback(callback:()=>void):void{this.killFeedback=callback;}
+ private deathFeedback:()=>void=()=>{};
+ setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
- create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback());if(this.view){this.drawView(this.view);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());if(this.view){this.drawView(this.view);this.combat.accept(this.view,this.selfId,true);}}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
   const fit=()=>{frame=0;const rect=parent.getBoundingClientRect(),width=Math.round(rect.width),height=Math.round(rect.height);if(width<1||height<1)return;
@@ -80,7 +82,7 @@ export class GameScene extends Phaser.Scene {
    if(!avatar){
     const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,COLORS[p.slot],0.9);
     const body=this.add.circle(0,0,21,COLORS[p.slot]).setStrokeStyle(5,0xffffff,1);
-    const label=this.add.text(0,-43,(p.kind==='BOT'?'BOT · ':'')+p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:9,y:5}}).setOrigin(0.5);
+    const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3}}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,body,label]).setDepth(5);
     avatar={container,body,shield,label};this.avatars.set(p.participantId,avatar);
    }
@@ -89,7 +91,7 @@ export class GameScene extends Phaser.Scene {
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
    avatar.shield.setVisible(p.protected);
    if(p.participantId===this.selfId){
-    avatar.label.setText('YOU · '+p.nickname);
+    avatar.label.setText('나');
     // startFollow recenters immediately; restarting it for every snapshot causes camera shake.
     if(this.followTarget!==avatar.container){this.followTarget=avatar.container;this.cameras.main.startFollow(avatar.container,false,1,1);}
    }

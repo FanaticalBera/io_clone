@@ -11,7 +11,9 @@ test('mode arrows, mouse drag and keyboard select the practice rules without ano
  await page.locator('#mode-slide').focus();await page.keyboard.press('ArrowRight');await expect(page.locator('#mode-name')).toHaveText('HOLD');
  await page.getByTestId('practice').click();await expect(page.locator('#timer-label')).toHaveText('HOLD');await expect(page.locator('#timer')).toHaveText('50%');await expect(page.locator('#hold-detail')).toHaveText('10초 유지하면 승리');
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().gameMode)).toEqual({id:'hold',targetPercent:50,holdSeconds:10});
- const board=(await page.locator('#leaderboard').boundingBox())!,mini=(await page.locator('#minimap').boundingBox())!;expect(board.y+board.height+4).toBeLessThanOrEqual(mini.y);
+ await expect(page.locator('#leaderboard')).toBeHidden();await expect(page.locator('#minimap')).toBeHidden();
+ await page.locator('#game-tools-toggle').click();await page.locator('#ranking-toggle').click();await expect(page.locator('#leaderboard')).toBeVisible();
+ await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();await expect(page.locator('#minimap')).toBeVisible();await expect(page.locator('#leaderboard')).toBeHidden();
  await page.getByTestId('leave').click();await expect(page.locator('#mode-name')).toHaveText('HOLD');await page.screenshot({path:'evidence/modes-menu-hold.png'});
 });
 test('touch swipe selects a mode while vertical gestures retain menu scrolling',async({browser})=>{

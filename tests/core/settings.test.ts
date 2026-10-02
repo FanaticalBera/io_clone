@@ -19,6 +19,10 @@ describe('kill vibration',()=>{
   enabled=false;expect(haptics.kill()).toBe(false);enabled=true;supported=false;expect(haptics.kill()).toBe(false);supported=true;visible=false;expect(haptics.kill()).toBe(false);visible=true;activated=false;expect(haptics.kill()).toBe(false);expect(vibrate).toHaveBeenCalledOnce();
   haptics.stop();expect(vibrate).toHaveBeenLastCalledWith(0);
  });
+ it('uses a distinct death pulse and respects the same saved preference',()=>{
+  let enabled=true;const vibrate=vi.fn(()=>true),device:HapticDevice={supported:()=>true,visible:()=>true,activated:()=>true,vibrate},haptics=new KillHaptics(()=>enabled,device);
+  expect(haptics.death()).toBe(true);expect(vibrate).toHaveBeenLastCalledWith([90,40,120]);enabled=false;expect(haptics.death()).toBe(false);expect(vibrate).toHaveBeenCalledOnce();
+ });
  it('tolerates browsers refusing or throwing on vibration',()=>{
   const device:HapticDevice={supported:()=>true,visible:()=>true,activated:()=>true,vibrate:()=>false},haptics=new KillHaptics(()=>true,device);expect(haptics.kill()).toBe(false);
   device.vibrate=()=>{throw new Error('unavailable');};expect(haptics.kill()).toBe(false);expect(()=>haptics.stop()).not.toThrow();device.supported=()=>false;expect(()=>haptics.stop()).not.toThrow();

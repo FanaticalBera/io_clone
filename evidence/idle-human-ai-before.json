@@ -1,0 +1,10 @@
+[
+  {"seed":4,"tick":248,"reason":"TRAIL_CUT","killer":"bot-5","attackTicks":8},
+  {"seed":19,"tick":283,"reason":"WALL_HIT","killer":null,"attackTicks":0},
+  {"seed":73,"tick":85,"reason":"TRAIL_CUT","killer":"bot-1","attackTicks":19},
+  {"seed":115,"tick":228,"reason":"TRAIL_CUT","killer":"bot-1","attackTicks":13},
+  {"seed":17,"tick":230,"reason":"TRAIL_CUT","killer":"bot-3","attackTicks":0},
+  {"seed":81,"tick":275,"reason":"TRAIL_CUT","killer":"bot-1","attackTicks":53},
+  {"seed":32,"tick":251,"reason":"WALL_HIT","killer":null,"attackTicks":0},
+  {"seed":123,"tick":283,"reason":"WALL_HIT","killer":null,"attackTicks":12}
+]

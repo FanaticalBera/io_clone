@@ -1,0 +1,6502 @@
+[
+  {
+    "reverse": false,
+    "seed": 115,
+    "contacts": 0,
+    "captureTick": 172,
+    "trace": [
+      {
+        "tick": 172,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              612,
+              570,
+              529,
+              490,
+              452,
+              415,
+              416,
+              380,
+              344,
+              379,
+              343,
+              309,
+              345,
+              417,
+              310
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 9,
+            "ownerCellsAfterTransfer": 9,
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 9,
+            "trailMaskCellsAfter": 15
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              656,
+              614,
+              613,
+              571,
+              530,
+              491,
+              531,
+              532,
+              573,
+              615,
+              658,
+              701,
+              657
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 33,
+            "ownerCellsAfterTransfer": 33,
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 33,
+            "trailMaskCellsAfter": 0
+          }
+        ]
+      }
+    ],
+    "journal": [
+      {
+        "tick": 1,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 2,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 3,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 4,
+        "victimCell": 573,
+        "capturerCell": 743,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 5,
+        "victimCell": 573,
+        "capturerCell": 743,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 6,
+        "victimCell": 573,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 7,
+        "victimCell": 573,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 8,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 9,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 10,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 11,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 12,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 13,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 14,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 15,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 16,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 17,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 18,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 19,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 20,
+        "victimCell": 613,
+        "capturerCell": 741,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 21,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 22,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 23,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 24,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 25,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 26,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 27,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 28,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 29,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 30,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 31,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 32,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 33,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 34,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 35,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 36,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 37,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 38,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 39,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 40,
+        "victimCell": 529,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 41,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 42,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 43,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 44,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 45,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 46,
+        "victimCell": 490,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 47,
+        "victimCell": 490,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 48,
+        "victimCell": 452,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 49,
+        "victimCell": 452,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 50,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 51,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 52,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 53,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 54,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 55,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 56,
+        "victimCell": 415,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 57,
+        "victimCell": 415,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 58,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 59,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 60,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 61,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 62,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 63,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 64,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 65,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 66,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 67,
+        "victimCell": 380,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 68,
+        "victimCell": 380,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 69,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 70,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 71,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 72,
+        "victimCell": 380,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 73,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 74,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 75,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 76,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 77,
+        "victimCell": 344,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 78,
+        "victimCell": 379,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 79,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 80,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 81,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 82,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 83,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 84,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 85,
+        "victimCell": 343,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 86,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 87,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 88,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 89,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 90,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 91,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 92,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 93,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 94,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 95,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 96,
+        "victimCell": 345,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 97,
+        "victimCell": 345,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 98,
+        "victimCell": 345,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 99,
+        "victimCell": 345,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 100,
+        "victimCell": 380,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 101,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 102,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 103,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 104,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 105,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 106,
+        "victimCell": 417,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 107,
+        "victimCell": 417,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 108,
+        "victimCell": 417,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 109,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 110,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 111,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 112,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 113,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 114,
+        "victimCell": 416,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 115,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 116,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 117,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 118,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 119,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 120,
+        "victimCell": 379,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 121,
+        "victimCell": 379,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 122,
+        "victimCell": 344,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 123,
+        "victimCell": 344,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 124,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 125,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 126,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 127,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 128,
+        "victimCell": 345,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 129,
+        "victimCell": 345,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 130,
+        "victimCell": 345,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 131,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 132,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 133,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 134,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 135,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 136,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 137,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 138,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 139,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 140,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 141,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 142,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 143,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 144,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 145,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 146,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 147,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 148,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 149,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 150,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 151,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 152,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 153,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 154,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 155,
+        "victimCell": 417,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 156,
+        "victimCell": 416,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 157,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 158,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 159,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 160,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 161,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 162,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 163,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 164,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 165,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 166,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 167,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 168,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 169,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 170,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 171,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 172,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 173,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 9,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 174,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 9,
+        "lifeState": "ALIVE"
+      }
+    ]
+  },
+  {
+    "reverse": true,
+    "seed": 17,
+    "contacts": 0,
+    "captureTick": 172,
+    "trace": [
+      {
+        "tick": 172,
+        "participants": [
+          {
+            "participantId": "A",
+            "trailCells": [
+              656,
+              614,
+              613,
+              571,
+              530,
+              491,
+              531,
+              532,
+              573,
+              615,
+              658,
+              701,
+              657
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": false,
+            "candidate": true,
+            "touchesHomeBefore": true,
+            "lostTerritory": false,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 33,
+            "ownerCellsAfterTransfer": 33,
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 33,
+            "trailMaskCellsAfter": 0
+          },
+          {
+            "participantId": "B",
+            "trailCells": [
+              612,
+              570,
+              529,
+              490,
+              452,
+              415,
+              416,
+              380,
+              344,
+              379,
+              343,
+              309,
+              345,
+              417,
+              310
+            ],
+            "territoryBefore": 19,
+            "connectedBefore": true,
+            "candidate": false,
+            "touchesHomeBefore": true,
+            "lostTerritory": true,
+            "touchesHomeAfter": true,
+            "anyTrailTouchesHomeAfter": true,
+            "territoryAfterTransfer": 9,
+            "ownerCellsAfterTransfer": 9,
+            "cut": false,
+            "markDeadCalled": false,
+            "markedDead": false,
+            "lifeStateAfter": "ALIVE",
+            "ownerCellsAfter": 9,
+            "trailMaskCellsAfter": 15
+          }
+        ]
+      }
+    ],
+    "journal": [
+      {
+        "tick": 1,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 2,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 3,
+        "victimCell": 532,
+        "capturerCell": 742,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 4,
+        "victimCell": 573,
+        "capturerCell": 743,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 5,
+        "victimCell": 573,
+        "capturerCell": 743,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 6,
+        "victimCell": 573,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 7,
+        "victimCell": 573,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 8,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 9,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 10,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 11,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 12,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 13,
+        "victimCell": 572,
+        "capturerCell": 787,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 14,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 15,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 16,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 17,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 18,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 19,
+        "victimCell": 613,
+        "capturerCell": 786,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 20,
+        "victimCell": 613,
+        "capturerCell": 741,
+        "trail": [],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 21,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 22,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 23,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 24,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 25,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 26,
+        "victimCell": 612,
+        "capturerCell": 741,
+        "trail": [
+          612
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 27,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 28,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 29,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 30,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 31,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 32,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 33,
+        "victimCell": 570,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 34,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 35,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 36,
+        "victimCell": 529,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 37,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 38,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 39,
+        "victimCell": 529,
+        "capturerCell": 653,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 40,
+        "victimCell": 529,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 41,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 42,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 43,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 44,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 45,
+        "victimCell": 490,
+        "capturerCell": 696,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 46,
+        "victimCell": 490,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 47,
+        "victimCell": 490,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 48,
+        "victimCell": 452,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 49,
+        "victimCell": 452,
+        "capturerCell": 697,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 50,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 51,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 52,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 53,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 54,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 55,
+        "victimCell": 452,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 56,
+        "victimCell": 415,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 57,
+        "victimCell": 415,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 58,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 59,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 60,
+        "victimCell": 415,
+        "capturerCell": 787,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 61,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 62,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 63,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 64,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 65,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 66,
+        "victimCell": 416,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 67,
+        "victimCell": 380,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 68,
+        "victimCell": 380,
+        "capturerCell": 786,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 69,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 70,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 71,
+        "victimCell": 380,
+        "capturerCell": 741,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 72,
+        "victimCell": 380,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 73,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 74,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 75,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 76,
+        "victimCell": 344,
+        "capturerCell": 742,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 77,
+        "victimCell": 344,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 78,
+        "victimCell": 379,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 79,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 80,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 81,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 82,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 83,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 84,
+        "victimCell": 343,
+        "capturerCell": 698,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 85,
+        "victimCell": 343,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 86,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 87,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 88,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 89,
+        "victimCell": 309,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 90,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 91,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 92,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 93,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 94,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 95,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 96,
+        "victimCell": 345,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 97,
+        "victimCell": 345,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 98,
+        "victimCell": 345,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 99,
+        "victimCell": 345,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 100,
+        "victimCell": 380,
+        "capturerCell": 614,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 101,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 102,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 103,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 104,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 105,
+        "victimCell": 380,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 106,
+        "victimCell": 417,
+        "capturerCell": 613,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 107,
+        "victimCell": 417,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 108,
+        "victimCell": 417,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 109,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 110,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 111,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 112,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 113,
+        "victimCell": 416,
+        "capturerCell": 571,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 114,
+        "victimCell": 416,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 115,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 116,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 117,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 118,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 119,
+        "victimCell": 379,
+        "capturerCell": 530,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 120,
+        "victimCell": 379,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 121,
+        "victimCell": 379,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 122,
+        "victimCell": 344,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 123,
+        "victimCell": 344,
+        "capturerCell": 491,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 124,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 125,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 126,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 127,
+        "victimCell": 344,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 128,
+        "victimCell": 345,
+        "capturerCell": 531,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 129,
+        "victimCell": 345,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 130,
+        "victimCell": 345,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 131,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 132,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 133,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 134,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 135,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 136,
+        "victimCell": 310,
+        "capturerCell": 532,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 137,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 138,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 139,
+        "victimCell": 309,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 140,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 141,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 142,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 143,
+        "victimCell": 344,
+        "capturerCell": 573,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 144,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 145,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 146,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 147,
+        "victimCell": 344,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 148,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 149,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 150,
+        "victimCell": 380,
+        "capturerCell": 615,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 151,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 152,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 153,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 154,
+        "victimCell": 380,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 155,
+        "victimCell": 417,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 156,
+        "victimCell": 416,
+        "capturerCell": 658,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 157,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 158,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 159,
+        "victimCell": 416,
+        "capturerCell": 701,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 160,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 161,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 162,
+        "victimCell": 416,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 163,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 164,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 165,
+        "victimCell": 379,
+        "capturerCell": 657,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 166,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 167,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 168,
+        "victimCell": 379,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 169,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 170,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 171,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 172,
+        "victimCell": 344,
+        "capturerCell": 656,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 19,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 173,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 9,
+        "lifeState": "ALIVE"
+      },
+      {
+        "tick": 174,
+        "victimCell": 344,
+        "capturerCell": 655,
+        "trail": [
+          612,
+          570,
+          529,
+          490,
+          452,
+          415,
+          416,
+          380,
+          344,
+          379,
+          343,
+          309,
+          345,
+          417,
+          310
+        ],
+        "territory": 9,
+        "lifeState": "ALIVE"
+      }
+    ]
+  }
+]

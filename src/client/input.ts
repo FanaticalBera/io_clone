@@ -9,9 +9,14 @@ export class InputAdapter {
  targetDirection:Vec={x:1,y:0};private active=true;private mobileControls:MobileControls='joystick';
  get direction():Vec{return this.targetDirection;}
  get enabled():boolean{return this.active;}
- set enabled(value:boolean){if(!value)this.reset();this.active=value;}
+ set enabled(value:boolean){if(!value)this.reset();this.active=value;if(value)this.respawnSuspended=false;}
+ private respawnSuspended=false;private joystickVector:Vec|null=null;
+ // Death pauses publication, but a physically held primary touch remains ours.
+ // Settings/blur/resize/leave still use the ordinary reset lifecycle.
+ suspendForRespawn():void{if(!this.respawnSuspended){if(this.drag)this.drag.anchor=this.drag.last;if(this.trackpad)this.trackpad.cursor=null;}this.active=false;this.respawnSuspended=true;this.keys.clear();}
+ resumeHeldTouch():void{if(this.active&&this.touchPointer!==null&&this.joystickVector)this.setJoystickDirection(this.joystickVector);}
  setMobileControls(mode:MobileControls):void{if(this.mobileControls!==mode){this.reset();this.mobileControls=mode;}}
- private drag:{id:number;anchor:Vec}|null=null;
+ private drag:{id:number;anchor:Vec;last:Vec}|null=null;
  private trackpad:{id:number;last:Vec;cursor:Vec|null}|null=null;
  private keys=new Set<string>();private abort=new AbortController();private frame=0;
  private lastSent=-Infinity;private changed=true;
@@ -28,18 +33,22 @@ export class InputAdapter {
   window.addEventListener('blur',()=>this.reset(),options);
   window.addEventListener('resize',()=>this.reset(),options);
   element.addEventListener('pointerdown',event=>{
-   if(!this.enabled||event.pointerType!=='touch'||!event.isPrimary||this.drag||this.trackpad)return;
+   if((!this.enabled&&!this.respawnSuspended)||event.pointerType!=='touch'||!event.isPrimary||this.drag||this.trackpad)return;
    if(this.mobileControls==='drag'){
-    event.preventDefault();this.drag={id:event.pointerId,anchor:{x:event.clientX,y:event.clientY}};element.setPointerCapture(event.pointerId);
+    event.preventDefault();const point={x:event.clientX,y:event.clientY};this.drag={id:event.pointerId,anchor:point,last:point};element.setPointerCapture(event.pointerId);
    }else if(this.mobileControls==='trackpad'){
     event.preventDefault();this.trackpad={id:event.pointerId,last:{x:event.clientX,y:event.clientY},cursor:null};element.setPointerCapture(event.pointerId);
    }
   },options);
   element.addEventListener('pointermove',event=>{
-   if(!this.enabled||event.pointerType!=='touch')return;
+   if(event.pointerType!=='touch')return;
+   if(!this.enabled){
+    if(this.respawnSuspended){const point={x:event.clientX,y:event.clientY};if(this.drag?.id===event.pointerId){this.drag.anchor=point;this.drag.last=point;}if(this.trackpad?.id===event.pointerId){this.trackpad.last=point;this.trackpad.cursor=null;}}
+    return;
+   }
    if(this.drag?.id===event.pointerId){
-    event.preventDefault();if(this.keys.size)return;
-    const point={x:event.clientX,y:event.clientY},direction=touchSwipeDirection(this.drag.anchor,point);
+    event.preventDefault();const point={x:event.clientX,y:event.clientY};this.drag.last=point;if(this.keys.size)return;
+    const direction=touchSwipeDirection(this.drag.anchor,point);
     if(direction){this.drag.anchor=point;this.setDirection(direction);}return;
    }
    if(this.trackpad?.id===event.pointerId){
@@ -102,14 +111,15 @@ export class InputAdapter {
 private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
  attachJoystick(element:HTMLElement):void {
   this.joystick=element;const options={signal:this.abort.signal};
-  const release=()=>{const pointer=this.touchPointer;this.touchPointer=null;if(pointer!==null&&element.hasPointerCapture(pointer))element.releasePointerCapture(pointer);element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate(0px,0px)';};
-  const move=(event:PointerEvent)=>{if(!this.enabled||this.touchPointer!==event.pointerId)return;event.preventDefault();
+  const release=()=>{const pointer=this.touchPointer;this.touchPointer=null;this.joystickVector=null;if(pointer!==null&&element.hasPointerCapture(pointer))element.releasePointerCapture(pointer);element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate(0px,0px)';};
+  const move=(event:PointerEvent)=>{if((!this.enabled&&!this.respawnSuspended)||this.touchPointer!==event.pointerId)return;event.preventDefault();
    const rect=element.getBoundingClientRect(),radius=Math.min(rect.width,rect.height)*0.44;
    const dx=event.clientX-(rect.left+rect.width/2),dy=event.clientY-(rect.top+rect.height/2),length=Math.hypot(dx,dy),scale=length>radius?radius/length:1;
    element.querySelector<HTMLElement>('#joystick-thumb')!.style.transform='translate('+dx*scale+'px,'+dy*scale+'px)';
-   if(length>=radius*JOYSTICK_DEAD_ZONE)this.setJoystickDirection({x:dx,y:dy});
+   this.joystickVector=length>=radius*JOYSTICK_DEAD_ZONE?{x:dx,y:dy}:null;
+   if(this.enabled&&this.joystickVector)this.setJoystickDirection(this.joystickVector);
   };
-  element.addEventListener('pointerdown',event=>{if(!this.enabled||this.mobileControls!=='joystick'||this.touchPointer!==null)return;this.touchPointer=event.pointerId;element.setPointerCapture(event.pointerId);move(event);},options);
+  element.addEventListener('pointerdown',event=>{if((!this.enabled&&!this.respawnSuspended)||!event.isPrimary||this.mobileControls!=='joystick'||this.touchPointer!==null)return;this.touchPointer=event.pointerId;element.setPointerCapture(event.pointerId);move(event);},options);
   element.addEventListener('pointermove',move,options);
   for(const type of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(type,event=>{if((event as PointerEvent).pointerId===this.touchPointer)release();},options);
   window.addEventListener('resize',release,options);window.addEventListener('blur',release,options);
@@ -117,6 +127,7 @@ private touchPointer:number|null=null;private joystick:HTMLElement|null=null;
  private releaseDrag():void{const pointer=this.drag?.id;this.drag=null;if(pointer!==undefined&&this.element.hasPointerCapture(pointer))this.element.releasePointerCapture(pointer);}
  private releaseTrackpad():void{const pointer=this.trackpad?.id;this.trackpad=null;if(pointer!==undefined&&this.element.hasPointerCapture(pointer))this.element.releasePointerCapture(pointer);}
  reset():void {
+  this.respawnSuspended=false;this.joystickVector=null;
   this.releaseDrag();this.releaseTrackpad();
   this.keys.clear();if(this.touchPointer!==null&&this.joystick?.hasPointerCapture(this.touchPointer))this.joystick.releasePointerCapture(this.touchPointer);
   this.touchPointer=null;const thumb=this.joystick?.querySelector<HTMLElement>('#joystick-thumb');if(thumb)thumb.style.transform='translate(0px,0px)';

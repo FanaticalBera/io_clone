@@ -18,6 +18,7 @@ const ui=new UI({practice:()=>void startPractice(),leave:()=>void leave(),restar
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const scene=createRenderer('field');
 scene.setKillFeedback(()=>{haptics.kill();});
+scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
@@ -28,8 +29,11 @@ function display(view:MatchView,selfId:string,init=false):void {
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);
  if(ui.mode!=='PRACTICE'&&(init||ui.mode!=='ONLINE'))ui.showGame('ONLINE');
  scene.setView(view,selfId,ui.mode==='ONLINE',init);ui.updateView(view,selfId);ui.clearMessage();const self=view.participants.find(p=>p.participantId===selfId)!;
- input.enabled=!document.hidden&&!ui.isSettingsOpen()&&self.lifeState==='ALIVE'&&view.phase==='RUNNING'&&(ui.mode==='PRACTICE'||!!online?.hasCurrentState);
+ const playable=!document.hidden&&!ui.isSettingsOpen()&&view.phase==='RUNNING'&&(ui.mode==='PRACTICE'||!!online?.hasCurrentState);
+ if(playable&&(self.lifeState==='DEAD_WAIT'||self.lifeState==='SPAWN_BLOCKED'))input.suspendForRespawn();
+ else input.enabled=playable&&self.lifeState==='ALIVE';
  if(self.lifeState==='ALIVE'&&(init||previous?.lifeId!==self.lifeId||previousMatchId!==view.matchId))input.setDirection(self.targetDirection??self.direction);
+ if(input.enabled)input.resumeHeldTouch();
 }
 async function stopOnline():Promise<void> {
  const old=online;online=null;if(!old)return;

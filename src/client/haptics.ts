@@ -7,6 +7,8 @@ export function browserHaptics():HapticDevice{return {
 export class KillHaptics {
  constructor(private enabled:()=>boolean,private device:HapticDevice=browserHaptics()){}
  supported():boolean{return this.device.supported();}
- kill():boolean{if(!this.enabled()||!this.supported()||!this.device.visible()||!this.device.activated())return false;try{return this.device.vibrate([35,20,55]);}catch{return false;}}
+ kill():boolean{return this.play([35,20,55]);}
+ death():boolean{return this.play([90,40,120]);}
+ private play(pattern:number[]):boolean{if(!this.enabled()||!this.supported()||!this.device.visible()||!this.device.activated())return false;try{return this.device.vibrate(pattern);}catch{return false;}}
  stop():void{if(this.supported())try{this.device.vibrate(0);}catch{}}
 }
