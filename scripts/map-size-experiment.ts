@@ -65,7 +65,7 @@ export function runMapExperiment(radius:number,seed:number,mode:GameModeId,minut
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const arg=(key:string,fallback:string)=>{const i=process.argv.indexOf(key);return i<0?fallback:process.argv[i+1];};
- const radius=Number(arg('--radius','22')),minutes=Number(arg('--minutes','20')),seeds=arg('--seeds','4,19,73,115').split(',').map(Number),output=resolve(arg('--output',`evidence/map-size/R${radius}.json`));
+ const radius=Number(arg('--radius','22')),minutes=Number(arg('--minutes','20')),seeds=arg('--seeds','4,19,73,115').split(',').map(Number),output=resolve(arg('--output',`.local/evidence/map-size-scaled/R${radius}.json`));
  if(!EXPERIMENT_MAP_RADII.some(r=>r===radius)||!Number.isFinite(minutes)||minutes<=0||minutes>120||seeds.some(s=>!Number.isSafeInteger(s)||s<0))throw new Error('Invalid experiment arguments');
  mkdirSync(dirname(output),{recursive:true});const runs:ReturnType<typeof runMapExperiment>[]=[];
  for(const seed of seeds)for(const mode of ['classic','hold'] as const){const result=runMapExperiment(radius,seed,mode,minutes);runs.push(result);writeFileSync(output+'.progress.json',JSON.stringify({schema:1,method:'normal movement; radius only; leader and global occupied bands separately',sampleIntervalSeconds:1,minutes,seeds,runs},null,2));console.log(JSON.stringify({radius,seed,mode,minutes:result.durationSeconds/60,peak:result.peakTerritoryPercent,deaths:result.deaths,failedSpawns:result.respawn.failedBlocked,wallSeconds:result.wallSeconds,violations:result.violations.length}));}

@@ -1,0 +1,264 @@
+{
+  "note": "Automated Chromium render and geometry inspection; not physical-device performance or human balance acceptance",
+  "records": [
+    {
+      "radius": 32,
+      "totalCells": 3169,
+      "participants": 8,
+      "render": {
+        "renderedAt": 2894.600000023842,
+        "camera": {
+          "x": 150.507917011877,
+          "y": -1186.612799999999
+        },
+        "zoom": 0.38,
+        "centerError": 1.1368683772161603e-13,
+        "tick": 32,
+        "lifeId": 1,
+        "lifeState": "ALIVE"
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "minimap": {
+        "width": 144,
+        "height": 122,
+        "canvasWidth": 240,
+        "canvasHeight": 204
+      },
+      "tick": 32,
+      "participantPositions": [
+        {
+          "slot": 0,
+          "x": 568.6669211410123,
+          "y": -984.9599999999991
+        },
+        {
+          "slot": 1,
+          "x": 1332.6151401337775,
+          "y": -190.0790523425303
+        },
+        {
+          "slot": 2,
+          "x": -1521.6870273610728,
+          "y": 50.27679043057335
+        },
+        {
+          "slot": 3,
+          "x": 943.3441518343114,
+          "y": 336
+        },
+        {
+          "slot": 4,
+          "x": -859.4195932549974,
+          "y": -1102.3914421471525
+        },
+        {
+          "slot": 5,
+          "x": 851.9282043612639,
+          "y": 1103.6968480208068
+        },
+        {
+          "slot": 6,
+          "x": -533.6266462329643,
+          "y": 1103.625854266342
+        },
+        {
+          "slot": 7,
+          "x": -1316.3242645117732,
+          "y": -459.1837677594946
+        }
+      ],
+      "canvasMaxTextureSize": 8192,
+      "bounds": {
+        "minX": -1801.3328398716324,
+        "maxX": 1801.3328398716324,
+        "minY": -1568,
+        "maxY": 1568
+      },
+      "groundTexture": {
+        "width": 3610,
+        "height": 3142
+      },
+      "worldView": {
+        "width": 2221.0526315789475,
+        "height": 1026.3157894736842
+      },
+      "minimapHexNeighborCssPixels": 1.9512082566898374
+    },
+    {
+      "radius": 36,
+      "totalCells": 3997,
+      "participants": 8,
+      "render": {
+        "renderedAt": 2613.800000011921,
+        "camera": {
+          "x": 242.74059246475963,
+          "y": -1346.3644800024024
+        },
+        "zoom": 0.38,
+        "centerError": 0,
+        "tick": 29,
+        "lifeId": 1,
+        "lifeState": "ALIVE"
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "minimap": {
+        "width": 144,
+        "height": 122,
+        "canvasWidth": 240,
+        "canvasHeight": 204
+      },
+      "tick": 29,
+      "participantPositions": [
+        {
+          "slot": 0,
+          "x": 663.4447413311814,
+          "y": -1149.1199999999992
+        },
+        {
+          "slot": 1,
+          "x": 1613.615626278704,
+          "y": -98.72696419631032
+        },
+        {
+          "slot": 2,
+          "x": -1594.4939677608693,
+          "y": -171.00655433896407
+        },
+        {
+          "slot": 3,
+          "x": 1158.7599300477193,
+          "y": 491.0992879771442
+        },
+        {
+          "slot": 4,
+          "x": -966.8346274454993,
+          "y": -1343.2680833349114
+        },
+        {
+          "slot": 5,
+          "x": 911.7891407888477,
+          "y": 1247.4923183478732
+        },
+        {
+          "slot": 6,
+          "x": -640.041913829549,
+          "y": 1247.3726616662777
+        },
+        {
+          "slot": 7,
+          "x": -1453.9450281722006,
+          "y": -470.86479438257464
+        }
+      ],
+      "canvasMaxTextureSize": 8192,
+      "bounds": {
+        "minX": -2023.0353432404486,
+        "maxX": 2023.0353432404486,
+        "minY": -1760,
+        "maxY": 1760
+      },
+      "groundTexture": {
+        "width": 4054,
+        "height": 3526
+      },
+      "worldView": {
+        "width": 2221.0526315789475,
+        "height": 1026.3157894736842
+      },
+      "minimapHexNeighborCssPixels": 1.7383491741418549
+    },
+    {
+      "radius": 40,
+      "totalCells": 4921,
+      "participants": 8,
+      "render": {
+        "renderedAt": 2882.699999988079,
+        "camera": {
+          "x": 295.05406941592366,
+          "y": -1436.9740800024024
+        },
+        "zoom": 0.38,
+        "centerError": 0,
+        "tick": 37,
+        "lifeId": 1,
+        "lifeState": "ALIVE"
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "minimap": {
+        "width": 144,
+        "height": 122,
+        "canvasWidth": 240,
+        "canvasHeight": 204
+      },
+      "tick": 37,
+      "participantPositions": [
+        {
+          "slot": 0,
+          "x": 715.5448296228528,
+          "y": -1239.359999999999
+        },
+        {
+          "slot": 1,
+          "x": 1860.7659024137242,
+          "y": 44.34367864390165
+        },
+        {
+          "slot": 2,
+          "x": -1697.8454244153986,
+          "y": -226.8444656467431
+        },
+        {
+          "slot": 3,
+          "x": 1420.4358403240085,
+          "y": 264.2185469123875
+        },
+        {
+          "slot": 4,
+          "x": -732.4765555664551,
+          "y": -1706.9759500084822
+        },
+        {
+          "slot": 5,
+          "x": 1057.0025649707272,
+          "y": 1391.884748089565
+        },
+        {
+          "slot": 6,
+          "x": -661.1062806397543,
+          "y": 1391.8580746388318
+        },
+        {
+          "slot": 7,
+          "x": -1629.09578714759,
+          "y": -568.0422846684552
+        }
+      ],
+      "canvasMaxTextureSize": 8192,
+      "bounds": {
+        "minX": -2244.7378466092646,
+        "maxX": 2244.7378466092646,
+        "minY": -1952,
+        "maxY": 1952
+      },
+      "groundTexture": {
+        "width": 4496,
+        "height": 3910
+      },
+      "worldView": {
+        "width": 2221.0526315789475,
+        "height": 1026.3157894736842
+      },
+      "minimapHexNeighborCssPixels": 1.5673640094721641
+    }
+  ],
+  "errors": []
+}

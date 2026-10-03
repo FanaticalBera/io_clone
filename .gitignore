@@ -11,3 +11,6 @@ evidence/death-diagnostic-v2.json
 evidence/contact-diagnostic-movement.json
 evidence/origin-capture-before.json
 evidence/origin-capture-after.json
+
+# Keep full map time series locally; commit the small summary instead.
+evidence/map-size/R*.json

@@ -1,5 +1,6 @@
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {OCCUPANCY_BANDS,runMapExperiment} from './map-size-experiment.js';
+import {START_ANCHORS} from '../src/shared/hex.js';
 type Run=ReturnType<typeof runMapExperiment>;
 const radii=[22,28,32,36],sets=radii.map(radius=>({radius,runs:(JSON.parse(readFileSync(`evidence/map-size/R${radius}.json`,'utf8')).runs as Run[])}));
 const mean=(values:number[])=>values.length?values.reduce((s,n)=>s+n,0)/values.length:null;
@@ -14,6 +15,7 @@ function aggregateBand(runs:Run[],key:'leaderBands'|'occupiedBands',index:number
 }
 const summary=sets.map(({radius,runs})=>{
  if(runs.length!==8||runs.some(r=>r.durationSeconds!==1200||r.violations.length))throw new Error(`R${radius} incomplete/invalid`);
+ if(runs.some(r=>JSON.stringify(r.initialAnchors)!==JSON.stringify(START_ANCHORS)))throw new Error('This historical report requires fixed-anchor results. Scaled results must be reported separately.');
  const classic=runs.filter(r=>r.mode==='classic'),hold=runs.filter(r=>r.mode==='hold'),samples=classic.flatMap(r=>r.samples),attempts=classic.flatMap(r=>r.spawnAttempts);
  const baseline=sets[0].runs[0].config;for(const r of runs)for(const key of Object.keys(baseline) as (keyof typeof baseline)[])if(key!=='mapRadius'&&r.config[key]!==baseline[key])throw new Error('Non-radius gameplay config differs');
  const identicalModeTrajectories=classic.every(c=>{const h=hold.find(h=>h.seed===c.seed)!;return JSON.stringify(c.samples)===JSON.stringify(h.samples)&&JSON.stringify(c.spawnAttempts)===JSON.stringify(h.spawnAttempts);});
@@ -125,7 +127,7 @@ const lines=[
 '전체 core/server 48파일 222검사, 타입 검사와 production build가 통과했다. 개발 반경 네 개의 실제 연습 렌더링, 선택 후 기본 R22 복귀, production URL/서버 환경변수 무시, R32/R36의 두 HUMAN+여섯 BOT 실제 Hold 방 snapshot 호환성을 브라우저에서 확인했다. 이 브라우저 검사는 네트워크/화면 호환성 검사이며 인간 수동 밸런스 평가가 아니다.',
 '',
 '- [집계 JSON](../evidence/map-size/summary.json)',
-'- [R22 원본](../evidence/map-size/R22.json), [R28 원본](../evidence/map-size/R28.json), [R32 원본](../evidence/map-size/R32.json), [R36 원본](../evidence/map-size/R36.json)',
+'- 기존 fixed-anchor 원본은 로컬 `evidence/map-size/R22.json`, `R28.json`, `R32.json`, `R36.json`에 보관하며 Git에서 제외한다. 이후 scaled-anchor 전체 실험의 기본 출력은 `.local/evidence/map-size-scaled/`로 분리한다.',
 '- [spawn 추출 전](../evidence/map-spawn-before.json), [추출 후](../evidence/map-spawn-after.json)',
 '- [R32 개발 화면](../evidence/map-size/dev-R32.png), [R36 개발 화면](../evidence/map-size/dev-R36.png)',
 ];

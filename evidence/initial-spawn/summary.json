@@ -1,0 +1,6446 @@
+{
+  "date": "2026-10-03",
+  "method": "24 normal Classic 8-BOT simulations; 4 paired seeds; fixed before source modification; scaled after; 300 seconds each",
+  "baselineRevision": "901091f",
+  "defaultRadius": 22,
+  "changedGameplay": "initial anchors only; dev/test R40 added",
+  "configuration": {
+    "simulationHz": 30,
+    "snapshotHz": 10,
+    "inputMaxHz": 30,
+    "roundSeconds": 240,
+    "maxSlots": 8,
+    "mapRadius": 22,
+    "hexSideWorldUnits": 32,
+    "spawnRadius": 2,
+    "moveCellsPerSecond": 4.2,
+    "turnRadiansPerSecond": 9,
+    "respawnSeconds": 3,
+    "protectSeconds": 2,
+    "retrySpawnSeconds": 1,
+    "spawnBufferHexes": 3,
+    "botDecisionMs": 200,
+    "botObservationRange": 12,
+    "interpolationMs": 100,
+    "maxExtrapolationMs": 100,
+    "publicRecruitSeconds": 2,
+    "countdownSeconds": 3,
+    "resultsSecondsIncludingCountdown": 10,
+    "reconnectGraceSeconds": 10,
+    "emptyRoomTtlSeconds": 60
+  },
+  "verifiedRadii": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64
+  ],
+  "historicalCrossChecks": [
+    32,
+    36
+  ],
+  "rawFiles": [
+    {
+      "path": ".local/evidence/initial-spawn/R32-fixed.json",
+      "bytes": 217924,
+      "sha256": "1967fa5e21ffd4b6c8393696ab8789eb6d23433f879f0e8de5319903c3a67986"
+    },
+    {
+      "path": ".local/evidence/initial-spawn/R32-scaled.json",
+      "bytes": 217687,
+      "sha256": "d63376d16011a8817838f92f543a71d85cd6d318f5f6da0beee4c875e8ebd332"
+    },
+    {
+      "path": ".local/evidence/initial-spawn/R36-fixed.json",
+      "bytes": 217119,
+      "sha256": "e5afafebf5c74116f6eb17510547f88ae73ce1381dc02045b3a0372967a3aae8"
+    },
+    {
+      "path": ".local/evidence/initial-spawn/R36-scaled.json",
+      "bytes": 217472,
+      "sha256": "ae2500a227cd8ce4097093639dab3d8a72b0c8ec8154373c33dd5e5fe8fd075e"
+    },
+    {
+      "path": ".local/evidence/initial-spawn/R40-fixed.json",
+      "bytes": 217454,
+      "sha256": "046d2e5306b54daf032c80f0b9df5f1c342e6930cb86166716c01f0c4714dba3"
+    },
+    {
+      "path": ".local/evidence/initial-spawn/R40-scaled.json",
+      "bytes": 216223,
+      "sha256": "31bd1d6a7ed5d13f57761f91cfb42209fc8c56eb05c59cbc17da366b67be6714"
+    }
+  ],
+  "comparison": [
+    {
+      "radius": 32,
+      "totalCells": 3169,
+      "anchors": [
+        {
+          "q": 25,
+          "r": 0
+        },
+        {
+          "q": 25,
+          "r": -25
+        },
+        {
+          "q": 0,
+          "r": -25
+        },
+        {
+          "q": -18,
+          "r": -7
+        },
+        {
+          "q": -25,
+          "r": 0
+        },
+        {
+          "q": -25,
+          "r": 25
+        },
+        {
+          "q": 0,
+          "r": 25
+        },
+        {
+          "q": 18,
+          "r": 7
+        }
+      ],
+      "fixed": {
+        "initialPairDistanceHex": {
+          "mean": 25.5,
+          "min": 5,
+          "max": 34
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "firstKillSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 7.25,
+            "min": 5,
+            "max": 10
+          },
+          "180": {
+            "mean": 18.25,
+            "min": 16,
+            "max": 21
+          },
+          "300": {
+            "mean": 28.25,
+            "min": 27,
+            "max": 30
+          }
+        },
+        "deathsPerMatchMinute": 5.65,
+        "meanPairDistanceHex": 32.13182051890522,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 19.30419690754181,
+          "min": 18.396970653202903,
+          "max": 19.911644051751342
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 11.912275165667403,
+          "min": 8.961817608078258,
+          "max": 16.69296307983591
+        },
+        "meanTrailCellsPerAliveParticipant": 3.768863419519852,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 28,
+          "diedBeforeThreshold": 4,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 12.352380952380955,
+            "min": 2.4,
+            "max": 23.9
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 4,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 632,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1601,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1567,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 1911,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 615,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2553,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 2536,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1257,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 7.414612,
+            "firstKillSeconds": 7.414612,
+            "deathsBySeconds": {
+              "60": 8,
+              "180": 16,
+              "300": 27
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 25,
+              "HOME_CAPTURE": 2
+            },
+            "meanPairDistanceHex": 32.75435848758108,
+            "peakLeaderPercent": 19.028084569264752,
+            "endLeaderPercent": 10.12937835279268,
+            "meanTrailCellsPerAliveParticipant": 3.7001724881414404,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 9.966666666666667,
+                "min": 2.4,
+                "max": 23.1
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.4,
+                  "deathSeconds": 27.482490666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 6.566666666666666,
+                  "deathSeconds": 7.414612,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 23.1,
+                  "deathSeconds": 39.87780266666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 10,
+                  "deathSeconds": 22.921918,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 2.4,
+                  "deathSeconds": 61.540379333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": null,
+                  "deathSeconds": 15.106993,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 82.021732,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 8.766666666666667,
+                  "deathSeconds": 19.090949666666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 19,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1601,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2553,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 632,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 1911,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1567,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2536,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 615,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1257,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 21.255333333333333,
+            "firstKillSeconds": 21.255333333333333,
+            "deathsBySeconds": {
+              "60": 5,
+              "180": 18,
+              "300": 30
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 27,
+              "HOME_CAPTURE": 2,
+              "TRAIL_CAPTURE": 1
+            },
+            "meanPairDistanceHex": 32.13958234456572,
+            "peakLeaderPercent": 18.396970653202903,
+            "endLeaderPercent": 16.69296307983591,
+            "meanTrailCellsPerAliveParticipant": 3.754992784992785,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 14.54761904761905,
+                "min": 10.633333333333333,
+                "max": 20.566666666666666
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 19.1,
+                  "deathSeconds": 21.255333333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 11.433333333333334,
+                  "deathSeconds": 46.404064999999996,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.6,
+                  "deathSeconds": 99.720888,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 20.566666666666666,
+                  "deathSeconds": 30.784156666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 10.633333333333333,
+                  "deathSeconds": 65.04658533333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 16.033333333333335,
+                  "deathSeconds": 90.717662,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": null,
+                  "deathSeconds": 25.345856333333334,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 12.466666666666667,
+                  "deathSeconds": 21.263863333333333,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 73,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1601,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2536,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1911,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 632,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1257,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 615,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1567,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2553,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 3.0561953333333336,
+            "firstKillSeconds": 3.0561953333333336,
+            "deathsBySeconds": {
+              "60": 10,
+              "180": 21,
+              "300": 29
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 26,
+              "HOME_CAPTURE": 2,
+              "PENDING_TRAIL_CONTACT": 1
+            },
+            "meanPairDistanceHex": 33.07121499762693,
+            "peakLeaderPercent": 19.88008835594825,
+            "endLeaderPercent": 11.864941621962764,
+            "meanTrailCellsPerAliveParticipant": 3.847024066868425,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 10.947619047619046,
+                "min": 4.866666666666666,
+                "max": 17
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 10.066666666666666,
+                  "deathSeconds": 11.898091666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 39.206766,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 14.366666666666667,
+                  "deathSeconds": 111.34282433333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 7.3,
+                  "deathSeconds": 15.783613666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 4.866666666666666,
+                  "deathSeconds": 5.954739333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 17,
+                  "deathSeconds": 48.55918933333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 13.866666666666667,
+                  "deathSeconds": 95.56999466666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": null,
+                  "deathSeconds": 3.0561953333333336,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 115,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1257,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1567,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1601,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 632,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 2536,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2553,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 615,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1911,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 10.085744666666667,
+            "firstKillSeconds": 10.085744666666667,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 18,
+              "300": 27
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 26,
+              "HOME_CAPTURE": 1
+            },
+            "meanPairDistanceHex": 30.562126245847168,
+            "peakLeaderPercent": 19.911644051751342,
+            "endLeaderPercent": 8.961817608078258,
+            "meanTrailCellsPerAliveParticipant": 3.7732643380767574,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.947619047619048,
+                "min": 6.133333333333334,
+                "max": 23.9
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": null,
+                  "deathSeconds": 10.085744666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 23.9,
+                  "deathSeconds": 36.19050666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 110.218245,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.133333333333334,
+                  "deathSeconds": 188.86171933333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 7.033333333333333,
+                  "deathSeconds": 19.084423666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 13.266666666666667,
+                  "deathSeconds": 60.706649,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 15.733333333333333,
+                  "deathSeconds": 69.73046500000001,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 15.033333333333333,
+                  "deathSeconds": 17.08879466666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "scaled": {
+        "initialPairDistanceHex": {
+          "mean": 37.5,
+          "min": 7,
+          "max": 50
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 9.182831333333334,
+          "min": 3.7651833333333333,
+          "max": 14.814773
+        },
+        "firstKillSeconds": {
+          "mean": 9.182831333333334,
+          "min": 3.7651833333333333,
+          "max": 14.814773
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 6,
+            "min": 5,
+            "max": 8
+          },
+          "180": {
+            "mean": 17.75,
+            "min": 14,
+            "max": 22
+          },
+          "300": {
+            "mean": 30,
+            "min": 26,
+            "max": 33
+          }
+        },
+        "deathsPerMatchMinute": 5.999999999999999,
+        "meanPairDistanceHex": 33.38238411643727,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 17.600189334174818,
+          "min": 15.77784790154623,
+          "max": 20.195645313979174
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 12.148942884190596,
+          "min": 10.823603660460714,
+          "max": 13.821394761754497
+        },
+        "meanTrailCellsPerAliveParticipant": 3.8208983655442714,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 29,
+          "diedBeforeThreshold": 3,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 12.751724137931035,
+            "min": 2.3,
+            "max": 24.133333333333333
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 4,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 25,
+                "r": 0
+              },
+              {
+                "q": 25,
+                "r": -25
+              },
+              {
+                "q": 0,
+                "r": -25
+              },
+              {
+                "q": -18,
+                "r": -7
+              },
+              {
+                "q": -25,
+                "r": 0
+              },
+              {
+                "q": -25,
+                "r": 25
+              },
+              {
+                "q": 0,
+                "r": 25
+              },
+              {
+                "q": 18,
+                "r": 7
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 284,
+                "q": 25,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1609,
+                "q": 25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1559,
+                "q": -25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2036,
+                "q": 18,
+                "r": 7,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 259,
+                "q": 0,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2909,
+                "q": 0,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 2884,
+                "q": -25,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1132,
+                "q": -18,
+                "r": -7,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 37.5,
+              "min": 7,
+              "max": 50
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 14.814773,
+            "firstKillSeconds": 14.814773,
+            "deathsBySeconds": {
+              "60": 5,
+              "180": 17,
+              "300": 28
+            },
+            "deathCauses": {
+              "PENDING_TRAIL_CONTACT": 3,
+              "EXISTING_TRAIL_CONTACT": 21,
+              "HOME_CAPTURE": 4
+            },
+            "meanPairDistanceHex": 33.457799398829295,
+            "peakLeaderPercent": 18.018302303565793,
+            "endLeaderPercent": 11.801830230356579,
+            "meanTrailCellsPerAliveParticipant": 3.6301381692573402,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 11.683333333333334,
+                "min": 4.066666666666666,
+                "max": 23.533333333333335
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 8.233333333333333,
+                  "deathSeconds": 31.972376666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 13.833333333333334,
+                  "deathSeconds": 274.404536,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 23.533333333333335,
+                  "deathSeconds": 249.64268933333332,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 8.7,
+                  "deathSeconds": 14.814773,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 8.366666666666667,
+                  "deathSeconds": 149.88678266666665,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 8.366666666666667,
+                  "deathSeconds": 199.74878333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 4.066666666666666,
+                  "deathSeconds": 154.58602666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 18.366666666666667,
+                  "deathSeconds": 20.293343666666665,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 19,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 25,
+                "r": 0
+              },
+              {
+                "q": 25,
+                "r": -25
+              },
+              {
+                "q": 0,
+                "r": -25
+              },
+              {
+                "q": -18,
+                "r": -7
+              },
+              {
+                "q": -25,
+                "r": 0
+              },
+              {
+                "q": -25,
+                "r": 25
+              },
+              {
+                "q": 0,
+                "r": 25
+              },
+              {
+                "q": 18,
+                "r": 7
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1609,
+                "q": 25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2909,
+                "q": 0,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 284,
+                "q": 25,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2036,
+                "q": 18,
+                "r": 7,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1559,
+                "q": -25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2884,
+                "q": -25,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 259,
+                "q": 0,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1132,
+                "q": -18,
+                "r": -7,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 37.5,
+              "min": 7,
+              "max": 50
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 3.7651833333333333,
+            "firstKillSeconds": 3.7651833333333333,
+            "deathsBySeconds": {
+              "60": 8,
+              "180": 22,
+              "300": 33
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 29,
+              "PENDING_TRAIL_CONTACT": 2,
+              "HOME_CAPTURE": 2
+            },
+            "meanPairDistanceHex": 33.69756367663343,
+            "peakLeaderPercent": 20.195645313979174,
+            "endLeaderPercent": 10.823603660460714,
+            "meanTrailCellsPerAliveParticipant": 3.9772852383021875,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.072222222222223,
+                "min": 7.833333333333333,
+                "max": 16.166666666666668
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 12.333333333333334,
+                  "deathSeconds": 28.55604333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 14.333333333333334,
+                  "deathSeconds": 39.230414,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 13.333333333333334,
+                  "deathSeconds": 42.600896,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": null,
+                  "deathSeconds": 3.7651833333333333,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": null,
+                  "deathSeconds": 5.018622,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 14.433333333333334,
+                  "deathSeconds": 118.76981966666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 16.166666666666668,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 7.833333333333333,
+                  "deathSeconds": 43.53284,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 73,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 25,
+                "r": 0
+              },
+              {
+                "q": 25,
+                "r": -25
+              },
+              {
+                "q": 0,
+                "r": -25
+              },
+              {
+                "q": -18,
+                "r": -7
+              },
+              {
+                "q": -25,
+                "r": 0
+              },
+              {
+                "q": -25,
+                "r": 25
+              },
+              {
+                "q": 0,
+                "r": 25
+              },
+              {
+                "q": 18,
+                "r": 7
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1609,
+                "q": 25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2884,
+                "q": -25,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2036,
+                "q": 18,
+                "r": 7,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 284,
+                "q": 25,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1132,
+                "q": -18,
+                "r": -7,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 259,
+                "q": 0,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1559,
+                "q": -25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2909,
+                "q": 0,
+                "r": 25,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 37.5,
+              "min": 7,
+              "max": 50
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 8.156742333333334,
+            "firstKillSeconds": 8.156742333333334,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 18,
+              "300": 33
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 25,
+              "PENDING_TRAIL_CONTACT": 4,
+              "HOME_CAPTURE": 3,
+              "TRAIL_CAPTURE": 1
+            },
+            "meanPairDistanceHex": 33.36874703369719,
+            "peakLeaderPercent": 15.77784790154623,
+            "endLeaderPercent": 12.148942884190596,
+            "meanTrailCellsPerAliveParticipant": 3.7970859317349848,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 12.729166666666668,
+                "min": 2.3,
+                "max": 20.133333333333333
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.3,
+                  "deathSeconds": 8.156742333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 141.410537,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.533333333333333,
+                  "deathSeconds": 117.95882733333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.1,
+                  "deathSeconds": 45.100945,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 16.666666666666668,
+                  "deathSeconds": 23.005112,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 18.5,
+                  "deathSeconds": 23.005112,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 20.133333333333333,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 17.433333333333334,
+                  "deathSeconds": 22.148213333333334,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 32,
+            "seed": 115,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 32,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3169,
+            "anchors": [
+              {
+                "q": 25,
+                "r": 0
+              },
+              {
+                "q": 25,
+                "r": -25
+              },
+              {
+                "q": 0,
+                "r": -25
+              },
+              {
+                "q": -18,
+                "r": -7
+              },
+              {
+                "q": -25,
+                "r": 0
+              },
+              {
+                "q": -25,
+                "r": 25
+              },
+              {
+                "q": 0,
+                "r": 25
+              },
+              {
+                "q": 18,
+                "r": 7
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1132,
+                "q": -18,
+                "r": -7,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1559,
+                "q": -25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1609,
+                "q": 25,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 284,
+                "q": 25,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 2884,
+                "q": -25,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 2909,
+                "q": 0,
+                "r": 25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 259,
+                "q": 0,
+                "r": -25,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2036,
+                "q": 18,
+                "r": 7,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 37.5,
+              "min": 7,
+              "max": 50
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 9.994626666666667,
+            "firstKillSeconds": 9.994626666666667,
+            "deathsBySeconds": {
+              "60": 5,
+              "180": 14,
+              "300": 26
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 24,
+              "PENDING_TRAIL_CONTACT": 2
+            },
+            "meanPairDistanceHex": 33.005426356589176,
+            "peakLeaderPercent": 16.408961817608077,
+            "endLeaderPercent": 13.821394761754497,
+            "meanTrailCellsPerAliveParticipant": 3.8790841228825723,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.723809523809525,
+                "min": 6.366666666666666,
+                "max": 24.133333333333333
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": null,
+                  "deathSeconds": 9.994626666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 6.666666666666667,
+                  "deathSeconds": 176.96089733333335,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 23.033333333333335,
+                  "deathSeconds": 47.89791266666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 14.633333333333333,
+                  "deathSeconds": 123.125507,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 7.966666666666667,
+                  "deathSeconds": 123.26872666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 13.266666666666667,
+                  "deathSeconds": 36.79099466666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 24.133333333333333,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 6.366666666666666,
+                  "deathSeconds": 18.896685666666666,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "radius": 36,
+      "totalCells": 3997,
+      "anchors": [
+        {
+          "q": 28,
+          "r": 0
+        },
+        {
+          "q": 28,
+          "r": -28
+        },
+        {
+          "q": 0,
+          "r": -28
+        },
+        {
+          "q": -20,
+          "r": -8
+        },
+        {
+          "q": -28,
+          "r": 0
+        },
+        {
+          "q": -28,
+          "r": 28
+        },
+        {
+          "q": 0,
+          "r": 28
+        },
+        {
+          "q": 20,
+          "r": 8
+        }
+      ],
+      "fixed": {
+        "initialPairDistanceHex": {
+          "mean": 25.5,
+          "min": 5,
+          "max": 34
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "firstKillSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 6,
+            "min": 5,
+            "max": 7
+          },
+          "180": {
+            "mean": 14,
+            "min": 12,
+            "max": 17
+          },
+          "300": {
+            "mean": 24.5,
+            "min": 22,
+            "max": 27
+          }
+        },
+        "deathsPerMatchMinute": 4.9,
+        "meanPairDistanceHex": 37.08198663186204,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 19.176882661996498,
+          "min": 16.262196647485613,
+          "max": 23.467600700525395
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 14.773580185138854,
+          "min": 13.0597948461346,
+          "max": 18.563922942206656
+        },
+        "meanTrailCellsPerAliveParticipant": 3.8842234051649975,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 28,
+          "diedBeforeThreshold": 4,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 12.33809523809524,
+            "min": 2.4,
+            "max": 23.9
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 4,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 910,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2015,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1981,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2365,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 893,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3103,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 3086,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1631,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 7.414612,
+            "firstKillSeconds": 7.414612,
+            "deathsBySeconds": {
+              "60": 5,
+              "180": 12,
+              "300": 24
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 20,
+              "HOME_CAPTURE": 2,
+              "PENDING_TRAIL_CONTACT": 2
+            },
+            "meanPairDistanceHex": 37.40261825660493,
+            "peakLeaderPercent": 18.914185639229423,
+            "endLeaderPercent": 18.563922942206656,
+            "meanTrailCellsPerAliveParticipant": 3.9185710194730814,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 9.909523809523808,
+                "min": 2.4,
+                "max": 22.7
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.4,
+                  "deathSeconds": 62.76469733333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 6.566666666666666,
+                  "deathSeconds": 7.414612,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 22.7,
+                  "deathSeconds": 25.122838,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 10,
+                  "deathSeconds": 49.49725566666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 2.4,
+                  "deathSeconds": 123.617026,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": null,
+                  "deathSeconds": 15.106993,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 92.600081,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 8.766666666666667,
+                  "deathSeconds": 19.090949666666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 19,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2015,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3103,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 910,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2365,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1981,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3086,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 893,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1631,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 21.255333333333333,
+            "firstKillSeconds": 21.255333333333333,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 13,
+              "300": 22
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 19,
+              "HOME_CAPTURE": 3
+            },
+            "meanPairDistanceHex": 37.56479987343771,
+            "peakLeaderPercent": 18.06354766074556,
+            "endLeaderPercent": 14.235676757568177,
+            "meanTrailCellsPerAliveParticipant": 3.8078977435018566,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 14.54761904761905,
+                "min": 10.633333333333333,
+                "max": 20.566666666666666
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 19.1,
+                  "deathSeconds": 21.255333333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 11.433333333333334,
+                  "deathSeconds": 56.550707333333335,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.6,
+                  "deathSeconds": 50.57774366666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 20.566666666666666,
+                  "deathSeconds": 30.784156666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 10.633333333333333,
+                  "deathSeconds": 83.66315333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 16.033333333333335,
+                  "deathSeconds": 114.09458366666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": null,
+                  "deathSeconds": 25.345856333333334,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 12.466666666666667,
+                  "deathSeconds": 21.263863333333333,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 73,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2015,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3086,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2365,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 910,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1631,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 893,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1981,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 3103,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 3.0561953333333336,
+            "firstKillSeconds": 3.0561953333333336,
+            "deathsBySeconds": {
+              "60": 7,
+              "180": 17,
+              "300": 27
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 23,
+              "PENDING_TRAIL_CONTACT": 2,
+              "HOME_CAPTURE": 2
+            },
+            "meanPairDistanceHex": 36.54500079101408,
+            "peakLeaderPercent": 16.262196647485613,
+            "endLeaderPercent": 13.234926194645984,
+            "meanTrailCellsPerAliveParticipant": 3.995285324133966,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 10.947619047619046,
+                "min": 4.866666666666666,
+                "max": 17
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 10.066666666666666,
+                  "deathSeconds": 11.898091666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 43.35185633333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 14.366666666666667,
+                  "deathSeconds": 131.16624133333332,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 7.3,
+                  "deathSeconds": 15.783613666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 4.866666666666666,
+                  "deathSeconds": 5.954739333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 17,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 13.866666666666667,
+                  "deathSeconds": 199.21343,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": null,
+                  "deathSeconds": 3.0561953333333336,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 115,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1631,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1981,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2015,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 910,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 3086,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3103,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 893,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2365,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 10.085744666666667,
+            "firstKillSeconds": 10.085744666666667,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 14,
+              "300": 25
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 20,
+              "HOME_CAPTURE": 3,
+              "TRAIL_CAPTURE": 1,
+              "PENDING_TRAIL_CONTACT": 1
+            },
+            "meanPairDistanceHex": 36.815527606391434,
+            "peakLeaderPercent": 23.467600700525395,
+            "endLeaderPercent": 13.0597948461346,
+            "meanTrailCellsPerAliveParticipant": 3.815139533551086,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.947619047619048,
+                "min": 6.133333333333334,
+                "max": 23.9
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": null,
+                  "deathSeconds": 10.085744666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 23.9,
+                  "deathSeconds": 78.97643766666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 132.50862,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.133333333333334,
+                  "deathSeconds": 66.79916266666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 7.033333333333333,
+                  "deathSeconds": 19.084423666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 13.266666666666667,
+                  "deathSeconds": 180.81075,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 15.733333333333333,
+                  "deathSeconds": 41.043173333333336,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 15.033333333333333,
+                  "deathSeconds": 17.08879466666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "scaled": {
+        "initialPairDistanceHex": {
+          "mean": 42,
+          "min": 8,
+          "max": 56
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 7.29354175,
+          "min": 1.4507493333333334,
+          "max": 10.017527
+        },
+        "firstKillSeconds": {
+          "mean": 7.29354175,
+          "min": 1.4507493333333334,
+          "max": 10.017527
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 5.25,
+            "min": 3,
+            "max": 7
+          },
+          "180": {
+            "mean": 14.75,
+            "min": 13,
+            "max": 16
+          },
+          "300": {
+            "mean": 23.75,
+            "min": 22,
+            "max": 26
+          }
+        },
+        "deathsPerMatchMinute": 4.75,
+        "meanPairDistanceHex": 38.80574078468597,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 16.499874906179635,
+          "min": 15.386539904928696,
+          "max": 18.563922942206656
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 12.690768076057044,
+          "min": 11.008256192144108,
+          "max": 14.98623967975982
+        },
+        "meanTrailCellsPerAliveParticipant": 3.863587547477571,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 29,
+          "diedBeforeThreshold": 3,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 13.240229885057472,
+            "min": 2.6,
+            "max": 30.266666666666666
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 4,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 28,
+                "r": 0
+              },
+              {
+                "q": 28,
+                "r": -28
+              },
+              {
+                "q": 0,
+                "r": -28
+              },
+              {
+                "q": -20,
+                "r": -8
+              },
+              {
+                "q": -28,
+                "r": 0
+              },
+              {
+                "q": -28,
+                "r": 28
+              },
+              {
+                "q": 0,
+                "r": 28
+              },
+              {
+                "q": 20,
+                "r": 8
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 360,
+                "q": 28,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2026,
+                "q": 28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1970,
+                "q": -28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2574,
+                "q": 20,
+                "r": 8,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 332,
+                "q": 0,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3664,
+                "q": 0,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 3636,
+                "q": -28,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1422,
+                "q": -20,
+                "r": -8,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 42,
+              "min": 8,
+              "max": 56
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 10.017527,
+            "firstKillSeconds": 10.017527,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 16,
+              "300": 26
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 18,
+              "PENDING_TRAIL_CONTACT": 5,
+              "HOME_CAPTURE": 3
+            },
+            "meanPairDistanceHex": 39.2358803986711,
+            "peakLeaderPercent": 15.386539904928696,
+            "endLeaderPercent": 11.858894170627972,
+            "meanTrailCellsPerAliveParticipant": 3.792865345966121,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 12.685714285714287,
+                "min": 2.6,
+                "max": 28.866666666666667
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.6,
+                  "deathSeconds": 48.964545333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 7.7,
+                  "deathSeconds": 82.12582900000001,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 28.866666666666667,
+                  "deathSeconds": 101.55577933333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 4.433333333333334,
+                  "deathSeconds": 10.017527,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 8.366666666666667,
+                  "deathSeconds": 28.5321,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 8.9,
+                  "deathSeconds": 67.523189,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 27.933333333333334,
+                  "deathSeconds": 101.55577933333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": null,
+                  "deathSeconds": 12.489053666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 19,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 28,
+                "r": 0
+              },
+              {
+                "q": 28,
+                "r": -28
+              },
+              {
+                "q": 0,
+                "r": -28
+              },
+              {
+                "q": -20,
+                "r": -8
+              },
+              {
+                "q": -28,
+                "r": 0
+              },
+              {
+                "q": -28,
+                "r": 28
+              },
+              {
+                "q": 0,
+                "r": 28
+              },
+              {
+                "q": 20,
+                "r": 8
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2026,
+                "q": 28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3664,
+                "q": 0,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 360,
+                "q": 28,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2574,
+                "q": 20,
+                "r": 8,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1970,
+                "q": -28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3636,
+                "q": -28,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 332,
+                "q": 0,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1422,
+                "q": -20,
+                "r": -8,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 42,
+              "min": 8,
+              "max": 56
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 9.739290333333335,
+            "firstKillSeconds": 9.739290333333335,
+            "deathsBySeconds": {
+              "60": 3,
+              "180": 13,
+              "300": 22
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 16,
+              "HOME_CAPTURE": 4,
+              "PENDING_TRAIL_CONTACT": 2
+            },
+            "meanPairDistanceHex": 37.94407530454044,
+            "peakLeaderPercent": 18.563922942206656,
+            "endLeaderPercent": 11.008256192144108,
+            "meanTrailCellsPerAliveParticipant": 3.8103684661525277,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.383333333333333,
+                "min": 3.466666666666667,
+                "max": 22.933333333333334
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 3.466666666666667,
+                  "deathSeconds": 9.739290333333335,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 11.433333333333334,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.6,
+                  "deathSeconds": 119.625779,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 15.4,
+                  "deathSeconds": 179.86654533333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 14.433333333333334,
+                  "deathSeconds": 36.26744466666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 13.533333333333333,
+                  "deathSeconds": 73.98968966666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 22.933333333333334,
+                  "deathSeconds": 212.73673133333332,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 14.266666666666667,
+                  "deathSeconds": 67.56500033333333,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 73,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 28,
+                "r": 0
+              },
+              {
+                "q": 28,
+                "r": -28
+              },
+              {
+                "q": 0,
+                "r": -28
+              },
+              {
+                "q": -20,
+                "r": -8
+              },
+              {
+                "q": -28,
+                "r": 0
+              },
+              {
+                "q": -28,
+                "r": 28
+              },
+              {
+                "q": 0,
+                "r": 28
+              },
+              {
+                "q": 20,
+                "r": 8
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2026,
+                "q": 28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3636,
+                "q": -28,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2574,
+                "q": 20,
+                "r": 8,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 360,
+                "q": 28,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1422,
+                "q": -20,
+                "r": -8,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 332,
+                "q": 0,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1970,
+                "q": -28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 3664,
+                "q": 0,
+                "r": 28,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 42,
+              "min": 8,
+              "max": 56
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 7.966600333333333,
+            "firstKillSeconds": 7.966600333333333,
+            "deathsBySeconds": {
+              "60": 5,
+              "180": 14,
+              "300": 23
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 19,
+              "HOME_CAPTURE": 3,
+              "PENDING_TRAIL_CONTACT": 1
+            },
+            "meanPairDistanceHex": 38.657285239677265,
+            "peakLeaderPercent": 15.811858894170628,
+            "endLeaderPercent": 14.98623967975982,
+            "meanTrailCellsPerAliveParticipant": 3.9225797225797225,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 12.991666666666667,
+                "min": 7.033333333333333,
+                "max": 19.666666666666668
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 7.033333333333333,
+                  "deathSeconds": 7.966600333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 39.590325666666665,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 13.666666666666666,
+                  "deathSeconds": 56.48354966666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 17.833333333333332,
+                  "deathSeconds": 195.14752533333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 11.9,
+                  "deathSeconds": 27.732725000000002,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 11.666666666666666,
+                  "deathSeconds": 41.47116566666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 13,
+                  "deathSeconds": 97.01416599999999,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 19.666666666666668,
+                  "deathSeconds": 109.96964266666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 36,
+            "seed": 115,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 36,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 3997,
+            "anchors": [
+              {
+                "q": 28,
+                "r": 0
+              },
+              {
+                "q": 28,
+                "r": -28
+              },
+              {
+                "q": 0,
+                "r": -28
+              },
+              {
+                "q": -20,
+                "r": -8
+              },
+              {
+                "q": -28,
+                "r": 0
+              },
+              {
+                "q": -28,
+                "r": 28
+              },
+              {
+                "q": 0,
+                "r": 28
+              },
+              {
+                "q": 20,
+                "r": 8
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1422,
+                "q": -20,
+                "r": -8,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 1970,
+                "q": -28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2026,
+                "q": 28,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 360,
+                "q": 28,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 3636,
+                "q": -28,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3664,
+                "q": 0,
+                "r": 28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 332,
+                "q": 0,
+                "r": -28,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2574,
+                "q": 20,
+                "r": 8,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 42,
+              "min": 8,
+              "max": 56
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 1.4507493333333334,
+            "firstKillSeconds": 1.4507493333333334,
+            "deathsBySeconds": {
+              "60": 7,
+              "180": 16,
+              "300": 24
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 20,
+              "PENDING_TRAIL_CONTACT": 4
+            },
+            "meanPairDistanceHex": 39.3857221958551,
+            "peakLeaderPercent": 16.23717788341256,
+            "endLeaderPercent": 12.909682261696272,
+            "meanTrailCellsPerAliveParticipant": 3.928536655211913,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 14.027777777777779,
+                "min": 6.133333333333334,
+                "max": 30.266666666666666
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 8.2,
+                  "deathSeconds": 34.69462566666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": null,
+                  "deathSeconds": 5.378208666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 18.366666666666667,
+                  "deathSeconds": 120.81513100000001,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.133333333333334,
+                  "deathSeconds": 40.74115533333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 7.966666666666667,
+                  "deathSeconds": 47.401075999999996,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 30.266666666666666,
+                  "deathSeconds": 258.4868396666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 13.233333333333333,
+                  "deathSeconds": 144.205992,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": null,
+                  "deathSeconds": 1.4507493333333334,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "radius": 40,
+      "totalCells": 4921,
+      "anchors": [
+        {
+          "q": 31,
+          "r": 0
+        },
+        {
+          "q": 31,
+          "r": -31
+        },
+        {
+          "q": 0,
+          "r": -31
+        },
+        {
+          "q": -22,
+          "r": -9
+        },
+        {
+          "q": -31,
+          "r": 0
+        },
+        {
+          "q": -31,
+          "r": 31
+        },
+        {
+          "q": 0,
+          "r": 31
+        },
+        {
+          "q": 22,
+          "r": 9
+        }
+      ],
+      "fixed": {
+        "initialPairDistanceHex": {
+          "mean": 25.5,
+          "min": 5,
+          "max": 34
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "firstKillSeconds": {
+          "mean": 10.452971333333334,
+          "min": 3.0561953333333336,
+          "max": 21.255333333333333
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 6.75,
+            "min": 6,
+            "max": 8
+          },
+          "180": {
+            "mean": 15.25,
+            "min": 11,
+            "max": 17
+          },
+          "300": {
+            "mean": 21.75,
+            "min": 14,
+            "max": 29
+          }
+        },
+        "deathsPerMatchMinute": 4.3500000000000005,
+        "meanPairDistanceHex": 41.71852554975477,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 20.168664905507008,
+          "min": 16.500711237553343,
+          "max": 23.81629750050803
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 13.09693151798415,
+          "min": 8.98191424507214,
+          "max": 23.81629750050803
+        },
+        "meanTrailCellsPerAliveParticipant": 3.9700756446286842,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 28,
+          "diedBeforeThreshold": 4,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 12.33809523809524,
+            "min": 2.4,
+            "max": 23.9
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 4,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1236,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2477,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2443,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2867,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1219,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3701,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 3684,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2053,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 7.414612,
+            "firstKillSeconds": 7.414612,
+            "deathsBySeconds": {
+              "60": 8,
+              "180": 16,
+              "300": 22
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 17,
+              "PENDING_TRAIL_CONTACT": 1,
+              "HOME_CAPTURE": 4
+            },
+            "meanPairDistanceHex": 41.406446764752395,
+            "peakLeaderPercent": 19.48790896159317,
+            "endLeaderPercent": 10.262141841089209,
+            "meanTrailCellsPerAliveParticipant": 3.8945729791488146,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 9.909523809523808,
+                "min": 2.4,
+                "max": 22.7
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.4,
+                  "deathSeconds": 40.121224999999995,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 6.566666666666666,
+                  "deathSeconds": 7.414612,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 22.7,
+                  "deathSeconds": 25.122838,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 10,
+                  "deathSeconds": 32.37045366666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 2.4,
+                  "deathSeconds": 148.19716166666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": null,
+                  "deathSeconds": 15.106993,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 34.849994333333335,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 8.766666666666667,
+                  "deathSeconds": 19.090949666666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 19,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2477,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3701,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 1236,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 2867,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 2443,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3684,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1219,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2053,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 21.255333333333333,
+            "firstKillSeconds": 21.255333333333333,
+            "deathsBySeconds": {
+              "60": 7,
+              "180": 17,
+              "300": 22
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 18,
+              "HOME_CAPTURE": 3,
+              "PENDING_TRAIL_CONTACT": 1
+            },
+            "meanPairDistanceHex": 41.675921531403255,
+            "peakLeaderPercent": 16.500711237553343,
+            "endLeaderPercent": 8.98191424507214,
+            "meanTrailCellsPerAliveParticipant": 4.090516995144244,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 14.54761904761905,
+                "min": 10.633333333333333,
+                "max": 20.566666666666666
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 19.1,
+                  "deathSeconds": 21.255333333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 11.433333333333334,
+                  "deathSeconds": 56.84482633333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.6,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 20.566666666666666,
+                  "deathSeconds": 30.784156666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 10.633333333333333,
+                  "deathSeconds": 82.002951,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 16.033333333333335,
+                  "deathSeconds": 141.09840266666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": null,
+                  "deathSeconds": 25.345856333333334,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 12.466666666666667,
+                  "deathSeconds": 21.263863333333333,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 73,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2477,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 3684,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2867,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 1236,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 2053,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 1219,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 2443,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 3701,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 3.0561953333333336,
+            "firstKillSeconds": 3.0561953333333336,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 11,
+              "300": 14
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 11,
+              "HOME_CAPTURE": 2,
+              "PENDING_TRAIL_CONTACT": 1
+            },
+            "meanPairDistanceHex": 42.95756209460528,
+            "peakLeaderPercent": 23.81629750050803,
+            "endLeaderPercent": 23.81629750050803,
+            "meanTrailCellsPerAliveParticipant": 3.7315945716709074,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 10.947619047619046,
+                "min": 4.866666666666666,
+                "max": 17
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 10.066666666666666,
+                  "deathSeconds": 11.898091666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 41.604932,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 14.366666666666667,
+                  "deathSeconds": 156.56130633333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 7.3,
+                  "deathSeconds": 15.783613666666668,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 4.866666666666666,
+                  "deathSeconds": 5.954739333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 17,
+                  "deathSeconds": 53.77333266666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 13.866666666666667,
+                  "deathSeconds": 87.74523033333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": null,
+                  "deathSeconds": 3.0561953333333336,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 115,
+            "placement": "fixed",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 17,
+                "r": 0
+              },
+              {
+                "q": 17,
+                "r": -17
+              },
+              {
+                "q": 0,
+                "r": -17
+              },
+              {
+                "q": -12,
+                "r": -5
+              },
+              {
+                "q": -17,
+                "r": 0
+              },
+              {
+                "q": -17,
+                "r": 17
+              },
+              {
+                "q": 0,
+                "r": 17
+              },
+              {
+                "q": 12,
+                "r": 5
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2053,
+                "q": -12,
+                "r": -5,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2443,
+                "q": -17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2477,
+                "q": 17,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 1236,
+                "q": 17,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 3684,
+                "q": -17,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 3701,
+                "q": 0,
+                "r": 17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 1219,
+                "q": 0,
+                "r": -17,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 2867,
+                "q": 12,
+                "r": 5,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 25.5,
+              "min": 5,
+              "max": 34
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 10.085744666666667,
+            "firstKillSeconds": 10.085744666666667,
+            "deathsBySeconds": {
+              "60": 6,
+              "180": 17,
+              "300": 29
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 24,
+              "HOME_CAPTURE": 3,
+              "PENDING_TRAIL_CONTACT": 2
+            },
+            "meanPairDistanceHex": 40.83417180825816,
+            "peakLeaderPercent": 20.8697419223735,
+            "endLeaderPercent": 9.327372485267222,
+            "meanTrailCellsPerAliveParticipant": 4.163618032550771,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.947619047619048,
+                "min": 6.133333333333334,
+                "max": 23.9
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": null,
+                  "deathSeconds": 10.085744666666667,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 23.9,
+                  "deathSeconds": 68.66345333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 298.32151400000004,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.133333333333334,
+                  "deathSeconds": 51.299630666666665,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 7.033333333333333,
+                  "deathSeconds": 19.084423666666666,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 13.266666666666667,
+                  "deathSeconds": 79.58768066666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 15.733333333333333,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 15.033333333333333,
+                  "deathSeconds": 17.08879466666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "scaled": {
+        "initialPairDistanceHex": {
+          "mean": 46.5,
+          "min": 9,
+          "max": 62
+        },
+        "firstDirectTrailContactSeconds": {
+          "mean": 19.25119433333333,
+          "min": 8.693961666666667,
+          "max": 41.82597
+        },
+        "firstKillSeconds": {
+          "mean": 15.713375,
+          "min": 8.693961666666667,
+          "max": 27.674692666666665
+        },
+        "deathsBySeconds": {
+          "60": {
+            "mean": 3.5,
+            "min": 2,
+            "max": 4
+          },
+          "180": {
+            "mean": 8.75,
+            "min": 7,
+            "max": 10
+          },
+          "300": {
+            "mean": 14.5,
+            "min": 13,
+            "max": 17
+          }
+        },
+        "deathsPerMatchMinute": 2.9000000000000004,
+        "meanPairDistanceHex": 43.373429837051106,
+        "fiveMinutePeakLeaderPercent": {
+          "mean": 20.087380613696403,
+          "min": 16.764885185937818,
+          "max": 24.446250762040236
+        },
+        "fiveMinuteEndLeaderPercent": {
+          "mean": 17.872383661857345,
+          "min": 12.842918106076,
+          "max": 24.446250762040236
+        },
+        "meanTrailCellsPerAliveParticipant": 3.9081743684652213,
+        "initialDeparture": {
+          "centerDistanceHex": 10,
+          "firstLifeOnly": true,
+          "total": 32,
+          "reached": 30,
+          "diedBeforeThreshold": 2,
+          "notReachedUnverified": 0,
+          "observedSeconds": {
+            "mean": 11.894444444444444,
+            "min": 2.1666666666666665,
+            "max": 29.2
+          }
+        },
+        "perSeed": [
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 4,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 31,
+                "r": 0
+              },
+              {
+                "q": 31,
+                "r": -31
+              },
+              {
+                "q": 0,
+                "r": -31
+              },
+              {
+                "q": -22,
+                "r": -9
+              },
+              {
+                "q": -31,
+                "r": 0
+              },
+              {
+                "q": -31,
+                "r": 31
+              },
+              {
+                "q": 0,
+                "r": 31
+              },
+              {
+                "q": 22,
+                "r": 9
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 445,
+                "q": 31,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2491,
+                "q": 31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2429,
+                "q": -31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 3175,
+                "q": 22,
+                "r": 9,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 414,
+                "q": 0,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 4506,
+                "q": 0,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 4475,
+                "q": -31,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1745,
+                "q": -22,
+                "r": -9,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 46.5,
+              "min": 9,
+              "max": 62
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 15.834533333333333,
+            "firstKillSeconds": 15.834533333333333,
+            "deathsBySeconds": {
+              "60": 4,
+              "180": 10,
+              "300": 14
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 13,
+              "TRAIL_CAPTURE": 1
+            },
+            "meanPairDistanceHex": 44.019102990033275,
+            "peakLeaderPercent": 24.446250762040236,
+            "endLeaderPercent": 24.446250762040236,
+            "meanTrailCellsPerAliveParticipant": 3.840811422109132,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 6.971428571428571,
+                "min": 2.2333333333333334,
+                "max": 16.533333333333335
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.6333333333333333,
+                  "deathSeconds": 50.54197633333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 5.466666666666667,
+                  "deathSeconds": 97.75635133333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": null,
+                  "deathSeconds": 16.65305933333333,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 2.2333333333333334,
+                  "deathSeconds": 15.834533333333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 5.566666666666666,
+                  "deathSeconds": 34.909395,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 8.666666666666666,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 16.533333333333335,
+                  "deathSeconds": 261.623315,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 7.7,
+                  "deathSeconds": 70.74150833333333,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 19,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 31,
+                "r": 0
+              },
+              {
+                "q": 31,
+                "r": -31
+              },
+              {
+                "q": 0,
+                "r": -31
+              },
+              {
+                "q": -22,
+                "r": -9
+              },
+              {
+                "q": -31,
+                "r": 0
+              },
+              {
+                "q": -31,
+                "r": 31
+              },
+              {
+                "q": 0,
+                "r": 31
+              },
+              {
+                "q": 22,
+                "r": 9
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2491,
+                "q": 31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 4506,
+                "q": 0,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 445,
+                "q": 31,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 3175,
+                "q": 22,
+                "r": 9,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 2429,
+                "q": -31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 4475,
+                "q": -31,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 414,
+                "q": 0,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 1745,
+                "q": -22,
+                "r": -9,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 46.5,
+              "min": 9,
+              "max": 62
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 10.650312333333334,
+            "firstKillSeconds": 10.650312333333334,
+            "deathsBySeconds": {
+              "60": 4,
+              "180": 9,
+              "300": 13
+            },
+            "deathCauses": {
+              "PENDING_TRAIL_CONTACT": 1,
+              "EXISTING_TRAIL_CONTACT": 8,
+              "HOME_CAPTURE": 4
+            },
+            "meanPairDistanceHex": 44.219545957918065,
+            "peakLeaderPercent": 21.9264377159114,
+            "endLeaderPercent": 20.76813655761024,
+            "meanTrailCellsPerAliveParticipant": 3.8312540574105958,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 14.657142857142858,
+                "min": 2.6333333333333333,
+                "max": 29.2
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 8.833333333333334,
+                  "deathSeconds": 10.650312333333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 11.433333333333334,
+                  "deathSeconds": 142.80723600000002,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 11.6,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": null,
+                  "deathSeconds": 10.650312333333334,
+                  "status": "DIED_BEFORE_THRESHOLD"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 2.6333333333333333,
+                  "deathSeconds": 30.983385666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 18.4,
+                  "deathSeconds": 116.72505500000001,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 20.5,
+                  "deathSeconds": 109.79564466666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 29.2,
+                  "deathSeconds": 194.78623566666664,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 73,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 31,
+                "r": 0
+              },
+              {
+                "q": 31,
+                "r": -31
+              },
+              {
+                "q": 0,
+                "r": -31
+              },
+              {
+                "q": -22,
+                "r": -9
+              },
+              {
+                "q": -31,
+                "r": 0
+              },
+              {
+                "q": -31,
+                "r": 31
+              },
+              {
+                "q": 0,
+                "r": 31
+              },
+              {
+                "q": 22,
+                "r": 9
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 2491,
+                "q": 31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 4475,
+                "q": -31,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 3175,
+                "q": 22,
+                "r": 9,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 445,
+                "q": 31,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 1745,
+                "q": -22,
+                "r": -9,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 414,
+                "q": 0,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 2429,
+                "q": -31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 4506,
+                "q": 0,
+                "r": 31,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 46.5,
+              "min": 9,
+              "max": 62
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 8.693961666666667,
+            "firstKillSeconds": 8.693961666666667,
+            "deathsBySeconds": {
+              "60": 4,
+              "180": 9,
+              "300": 17
+            },
+            "deathCauses": {
+              "EXISTING_TRAIL_CONTACT": 13,
+              "PENDING_TRAIL_CONTACT": 3,
+              "HOME_CAPTURE": 1
+            },
+            "meanPairDistanceHex": 42.730675526024335,
+            "peakLeaderPercent": 17.21194879089616,
+            "endLeaderPercent": 12.842918106076,
+            "meanTrailCellsPerAliveParticipant": 4.004101035901802,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 12.5,
+                "min": 2.3,
+                "max": 19
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.3,
+                  "deathSeconds": 8.693961666666667,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 9.166666666666666,
+                  "deathSeconds": 92.721804,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 16.633333333333333,
+                  "deathSeconds": 58.514115,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 17.2,
+                  "deathSeconds": 165.63696233333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 15.766666666666667,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 8.766666666666667,
+                  "deathSeconds": 73.32852,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 11.166666666666666,
+                  "deathSeconds": 25.330519,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 19,
+                  "deathSeconds": 31.58017166666667,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          },
+          {
+            "schema": 1,
+            "radius": 40,
+            "seed": 115,
+            "placement": "scaled",
+            "config": {
+              "simulationHz": 30,
+              "snapshotHz": 10,
+              "inputMaxHz": 30,
+              "roundSeconds": 240,
+              "maxSlots": 8,
+              "mapRadius": 40,
+              "hexSideWorldUnits": 32,
+              "spawnRadius": 2,
+              "moveCellsPerSecond": 4.2,
+              "turnRadiansPerSecond": 9,
+              "respawnSeconds": 3,
+              "protectSeconds": 2,
+              "retrySpawnSeconds": 1,
+              "spawnBufferHexes": 3,
+              "botDecisionMs": 200,
+              "botObservationRange": 12,
+              "interpolationMs": 100,
+              "maxExtrapolationMs": 100,
+              "publicRecruitSeconds": 2,
+              "countdownSeconds": 3,
+              "resultsSecondsIncludingCountdown": 10,
+              "reconnectGraceSeconds": 10,
+              "emptyRoomTtlSeconds": 60
+            },
+            "mode": {
+              "id": "classic"
+            },
+            "totalCells": 4921,
+            "anchors": [
+              {
+                "q": 31,
+                "r": 0
+              },
+              {
+                "q": 31,
+                "r": -31
+              },
+              {
+                "q": 0,
+                "r": -31
+              },
+              {
+                "q": -22,
+                "r": -9
+              },
+              {
+                "q": -31,
+                "r": 0
+              },
+              {
+                "q": -31,
+                "r": 31
+              },
+              {
+                "q": 0,
+                "r": 31
+              },
+              {
+                "q": 22,
+                "r": 9
+              }
+            ],
+            "starts": [
+              {
+                "participantId": "bot-0",
+                "slot": 0,
+                "cellId": 1745,
+                "q": -22,
+                "r": -9,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-1",
+                "slot": 1,
+                "cellId": 2429,
+                "q": -31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-2",
+                "slot": 2,
+                "cellId": 2491,
+                "q": 31,
+                "r": 0,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-3",
+                "slot": 3,
+                "cellId": 445,
+                "q": 31,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-4",
+                "slot": 4,
+                "cellId": 4475,
+                "q": -31,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-5",
+                "slot": 5,
+                "cellId": 4506,
+                "q": 0,
+                "r": 31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-6",
+                "slot": 6,
+                "cellId": 414,
+                "q": 0,
+                "r": -31,
+                "lifeId": 1
+              },
+              {
+                "participantId": "bot-7",
+                "slot": 7,
+                "cellId": 3175,
+                "q": 22,
+                "r": 9,
+                "lifeId": 1
+              }
+            ],
+            "initialPairDistanceHex": {
+              "mean": 46.5,
+              "min": 9,
+              "max": 62
+            },
+            "durationSeconds": 300,
+            "firstDirectTrailContactSeconds": 41.82597,
+            "firstKillSeconds": 27.674692666666665,
+            "deathsBySeconds": {
+              "60": 2,
+              "180": 7,
+              "300": 14
+            },
+            "deathCauses": {
+              "HOME_CAPTURE": 2,
+              "EXISTING_TRAIL_CONTACT": 10,
+              "PENDING_TRAIL_CONTACT": 2
+            },
+            "meanPairDistanceHex": 42.524394874228754,
+            "peakLeaderPercent": 16.764885185937818,
+            "endLeaderPercent": 13.432229221702906,
+            "meanTrailCellsPerAliveParticipant": 3.9565309584393553,
+            "initialDeparture": {
+              "centerDistanceThresholdHex": 10,
+              "distanceBeyondInitialZoneHex": 8,
+              "firstLifeOnly": true,
+              "observed": {
+                "mean": 13.179166666666667,
+                "min": 2.1666666666666665,
+                "max": 20.166666666666668
+              },
+              "participants": [
+                {
+                  "participantId": "bot-0",
+                  "seconds": 2.1666666666666665,
+                  "deathSeconds": 133.04494833333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-1",
+                  "seconds": 14.2,
+                  "deathSeconds": 274.7557703333333,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-2",
+                  "seconds": 20.166666666666668,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-3",
+                  "seconds": 6.133333333333334,
+                  "deathSeconds": 41.82597,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-4",
+                  "seconds": 8.333333333333334,
+                  "deathSeconds": 163.96006933333334,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-5",
+                  "seconds": 19.866666666666667,
+                  "deathSeconds": 250.424449,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-6",
+                  "seconds": 15.6,
+                  "deathSeconds": null,
+                  "status": "REACHED"
+                },
+                {
+                  "participantId": "bot-7",
+                  "seconds": 18.966666666666665,
+                  "deathSeconds": 27.674692666666665,
+                  "status": "REACHED"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "earlyContact": {
+    "radius": 36,
+    "seed": 115,
+    "event": {
+      "type": "DEATH",
+      "participantId": "bot-7",
+      "reason": "TRAIL_CUT",
+      "lifeId": 1,
+      "position": {
+        "x": 1309.945964363598,
+        "y": 207.2742966511691
+      },
+      "deathContext": {
+        "cause": "EXISTING_TRAIL_CONTACT",
+        "cellId": 2237,
+        "eventTick": 43.52248
+      },
+      "killerId": "bot-2",
+      "eventId": "match-115:1",
+      "tick": 43
+    },
+    "victimInitial": {
+      "participantId": "bot-7",
+      "slot": 7,
+      "q": 20,
+      "r": 8
+    },
+    "killerInitial": {
+      "participantId": "bot-2",
+      "slot": 2,
+      "q": 28,
+      "r": 0
+    },
+    "initialCenterDistance": 8,
+    "participants": [
+      {
+        "participantId": "bot-0",
+        "lifeState": "ALIVE",
+        "cellId": 1113,
+        "position": {
+          "x": -1127.5880314846397,
+          "y": -639.0021003687818
+        }
+      },
+      {
+        "participantId": "bot-1",
+        "lifeState": "ALIVE",
+        "cellId": 1548,
+        "position": {
+          "x": -1679.987663661209,
+          "y": -280.8706571428943
+        }
+      },
+      {
+        "participantId": "bot-2",
+        "lifeState": "ALIVE",
+        "cellId": 2237,
+        "position": {
+          "x": 1349.0187421114554,
+          "y": 121.37523495568303
+        }
+      },
+      {
+        "participantId": "bot-3",
+        "lifeState": "ALIVE",
+        "cellId": 267,
+        "position": {
+          "x": 515.354357431796,
+          "y": -1437.6598836504645
+        }
+      },
+      {
+        "participantId": "bot-4",
+        "lifeState": "ALIVE",
+        "cellId": 3727,
+        "position": {
+          "x": -599.4544484388816,
+          "y": 1457.309097034049
+        }
+      },
+      {
+        "participantId": "bot-5",
+        "lifeState": "ALIVE",
+        "cellId": 3712,
+        "position": {
+          "x": 991.5190939013589,
+          "y": 1389.3606246272036
+        }
+      },
+      {
+        "participantId": "bot-6",
+        "lifeState": "ALIVE",
+        "cellId": 283,
+        "position": {
+          "x": -998.4577020055777,
+          "y": -1392.461152159248
+        }
+      },
+      {
+        "participantId": "bot-7",
+        "lifeState": "DEAD_WAIT",
+        "cellId": 2306,
+        "position": {
+          "x": 1309.945964363598,
+          "y": 207.2742966511691
+        }
+      }
+    ]
+  },
+  "views": [
+    {
+      "device": "desktop",
+      "note": "Automated Chromium render and geometry inspection; not physical-device performance or human balance acceptance",
+      "records": [
+        {
+          "radius": 32,
+          "totalCells": 3169,
+          "participants": 8,
+          "render": {
+            "renderedAt": 4437.799999952316,
+            "camera": {
+              "x": -160.56833646493686,
+              "y": -1230.3999999999985
+            },
+            "zoom": 0.38,
+            "centerError": 0,
+            "tick": 55,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 55,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 479.43166353506314,
+              "y": -830.3999999999985
+            },
+            {
+              "slot": 1,
+              "x": 1230.0160798899296,
+              "y": -328.7148356622931
+            },
+            {
+              "slot": 2,
+              "x": -1525.4519138753628,
+              "y": 162.32354666171133
+            },
+            {
+              "slot": 3,
+              "x": 897.2625037687905,
+              "y": 470.72126950131957
+            },
+            {
+              "slot": 4,
+              "x": -873.8165252926639,
+              "y": -942.003620402531
+            },
+            {
+              "slot": 5,
+              "x": 1001.9044986735165,
+              "y": 1042.58066533256
+            },
+            {
+              "slot": 6,
+              "x": -434.21940687242574,
+              "y": 991.6251823003423
+            },
+            {
+              "slot": 7,
+              "x": -1346.4564162989539,
+              "y": -445.31003238613295
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -1801.3328398716324,
+            "maxX": 1801.3328398716324,
+            "minY": -1568,
+            "maxY": 1568
+          },
+          "groundTexture": {
+            "width": 3610,
+            "height": 3142
+          },
+          "worldView": {
+            "width": 3368.4210526315787,
+            "height": 2105.2631578947367
+          },
+          "minimapHexNeighborCssPixels": 1.9512082566898374
+        },
+        {
+          "radius": 36,
+          "totalCells": 3997,
+          "participants": 8,
+          "render": {
+            "renderedAt": 4482.400000035763,
+            "camera": {
+              "x": -111.83978899463477,
+              "y": -1314.8003199975951
+            },
+            "zoom": 0.38,
+            "centerError": 1.1368683772161603e-13,
+            "tick": 65,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 65,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 523.7721642088254,
+              "y": -907.1999999999982
+            },
+            {
+              "slot": 1,
+              "x": 1735.2156300758968,
+              "y": -159.84331782735447
+            },
+            {
+              "slot": 2,
+              "x": -1435.6023850049744,
+              "y": -95.8368221817273
+            },
+            {
+              "slot": 3,
+              "x": 1306.6374840397789,
+              "y": 670.7857451014374
+            },
+            {
+              "slot": 4,
+              "x": -1153.7305779526137,
+              "y": -1169.393278771144
+            },
+            {
+              "slot": 5,
+              "x": 1125.9398833341174,
+              "y": 1120.6572320119353
+            },
+            {
+              "slot": 6,
+              "x": -555.0830629894034,
+              "y": 1069.6733883238724
+            },
+            {
+              "slot": 7,
+              "x": -1322.1834001306222,
+              "y": -499.2574726521451
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -2023.0353432404486,
+            "maxX": 2023.0353432404486,
+            "minY": -1760,
+            "maxY": 1760
+          },
+          "groundTexture": {
+            "width": 4054,
+            "height": 3526
+          },
+          "worldView": {
+            "width": 3368.4210526315787,
+            "height": 2105.2631578947367
+          },
+          "minimapHexNeighborCssPixels": 1.7383491741418549
+        },
+        {
+          "radius": 40,
+          "totalCells": 4921,
+          "participants": 8,
+          "render": {
+            "renderedAt": 4436.800000011921,
+            "camera": {
+              "x": -44.72877845473147,
+              "y": -1431.0399999999981
+            },
+            "zoom": 0.38,
+            "centerError": 0,
+            "tick": 69,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 69,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 591.3914277363142,
+              "y": -1024.3199999999981
+            },
+            {
+              "slot": 1,
+              "x": 2002.8461665565162,
+              "y": 154.3942610698823
+            },
+            {
+              "slot": 2,
+              "x": -1710.1721805971142,
+              "y": -211.41735294951008
+            },
+            {
+              "slot": 3,
+              "x": 1238.3691602153658,
+              "y": 260.2626338395796
+            },
+            {
+              "slot": 4,
+              "x": -781.0906654702873,
+              "y": -1734.465162388785
+            },
+            {
+              "slot": 5,
+              "x": 1224.804502604398,
+              "y": 1237.8978141060456
+            },
+            {
+              "slot": 6,
+              "x": -668.3300492284751,
+              "y": 1206.1331914498128
+            },
+            {
+              "slot": 7,
+              "x": -1640.030198658404,
+              "y": -583.1758059323377
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -2244.7378466092646,
+            "maxX": 2244.7378466092646,
+            "minY": -1952,
+            "maxY": 1952
+          },
+          "groundTexture": {
+            "width": 4496,
+            "height": 3910
+          },
+          "worldView": {
+            "width": 3368.4210526315787,
+            "height": 2105.2631578947367
+          },
+          "minimapHexNeighborCssPixels": 1.5673640094721641
+        }
+      ],
+      "errors": []
+    },
+    {
+      "device": "landscape",
+      "note": "Automated Chromium render and geometry inspection; not physical-device performance or human balance acceptance",
+      "records": [
+        {
+          "radius": 32,
+          "totalCells": 3169,
+          "participants": 8,
+          "render": {
+            "renderedAt": 2894.600000023842,
+            "camera": {
+              "x": 150.507917011877,
+              "y": -1186.612799999999
+            },
+            "zoom": 0.38,
+            "centerError": 1.1368683772161603e-13,
+            "tick": 32,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 32,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 568.6669211410123,
+              "y": -984.9599999999991
+            },
+            {
+              "slot": 1,
+              "x": 1332.6151401337775,
+              "y": -190.0790523425303
+            },
+            {
+              "slot": 2,
+              "x": -1521.6870273610728,
+              "y": 50.27679043057335
+            },
+            {
+              "slot": 3,
+              "x": 943.3441518343114,
+              "y": 336
+            },
+            {
+              "slot": 4,
+              "x": -859.4195932549974,
+              "y": -1102.3914421471525
+            },
+            {
+              "slot": 5,
+              "x": 851.9282043612639,
+              "y": 1103.6968480208068
+            },
+            {
+              "slot": 6,
+              "x": -533.6266462329643,
+              "y": 1103.625854266342
+            },
+            {
+              "slot": 7,
+              "x": -1316.3242645117732,
+              "y": -459.1837677594946
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -1801.3328398716324,
+            "maxX": 1801.3328398716324,
+            "minY": -1568,
+            "maxY": 1568
+          },
+          "groundTexture": {
+            "width": 3610,
+            "height": 3142
+          },
+          "worldView": {
+            "width": 2221.0526315789475,
+            "height": 1026.3157894736842
+          },
+          "minimapHexNeighborCssPixels": 1.9512082566898374
+        },
+        {
+          "radius": 36,
+          "totalCells": 3997,
+          "participants": 8,
+          "render": {
+            "renderedAt": 2613.800000011921,
+            "camera": {
+              "x": 242.74059246475963,
+              "y": -1346.3644800024024
+            },
+            "zoom": 0.38,
+            "centerError": 0,
+            "tick": 29,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 29,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 663.4447413311814,
+              "y": -1149.1199999999992
+            },
+            {
+              "slot": 1,
+              "x": 1613.615626278704,
+              "y": -98.72696419631032
+            },
+            {
+              "slot": 2,
+              "x": -1594.4939677608693,
+              "y": -171.00655433896407
+            },
+            {
+              "slot": 3,
+              "x": 1158.7599300477193,
+              "y": 491.0992879771442
+            },
+            {
+              "slot": 4,
+              "x": -966.8346274454993,
+              "y": -1343.2680833349114
+            },
+            {
+              "slot": 5,
+              "x": 911.7891407888477,
+              "y": 1247.4923183478732
+            },
+            {
+              "slot": 6,
+              "x": -640.041913829549,
+              "y": 1247.3726616662777
+            },
+            {
+              "slot": 7,
+              "x": -1453.9450281722006,
+              "y": -470.86479438257464
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -2023.0353432404486,
+            "maxX": 2023.0353432404486,
+            "minY": -1760,
+            "maxY": 1760
+          },
+          "groundTexture": {
+            "width": 4054,
+            "height": 3526
+          },
+          "worldView": {
+            "width": 2221.0526315789475,
+            "height": 1026.3157894736842
+          },
+          "minimapHexNeighborCssPixels": 1.7383491741418549
+        },
+        {
+          "radius": 40,
+          "totalCells": 4921,
+          "participants": 8,
+          "render": {
+            "renderedAt": 2882.699999988079,
+            "camera": {
+              "x": 295.05406941592366,
+              "y": -1436.9740800024024
+            },
+            "zoom": 0.38,
+            "centerError": 0,
+            "tick": 37,
+            "lifeId": 1,
+            "lifeState": "ALIVE"
+          },
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "minimap": {
+            "width": 144,
+            "height": 122,
+            "canvasWidth": 240,
+            "canvasHeight": 204
+          },
+          "tick": 37,
+          "participantPositions": [
+            {
+              "slot": 0,
+              "x": 715.5448296228528,
+              "y": -1239.359999999999
+            },
+            {
+              "slot": 1,
+              "x": 1860.7659024137242,
+              "y": 44.34367864390165
+            },
+            {
+              "slot": 2,
+              "x": -1697.8454244153986,
+              "y": -226.8444656467431
+            },
+            {
+              "slot": 3,
+              "x": 1420.4358403240085,
+              "y": 264.2185469123875
+            },
+            {
+              "slot": 4,
+              "x": -732.4765555664551,
+              "y": -1706.9759500084822
+            },
+            {
+              "slot": 5,
+              "x": 1057.0025649707272,
+              "y": 1391.884748089565
+            },
+            {
+              "slot": 6,
+              "x": -661.1062806397543,
+              "y": 1391.8580746388318
+            },
+            {
+              "slot": 7,
+              "x": -1629.09578714759,
+              "y": -568.0422846684552
+            }
+          ],
+          "canvasMaxTextureSize": 8192,
+          "bounds": {
+            "minX": -2244.7378466092646,
+            "maxX": 2244.7378466092646,
+            "minY": -1952,
+            "maxY": 1952
+          },
+          "groundTexture": {
+            "width": 4496,
+            "height": 3910
+          },
+          "worldView": {
+            "width": 2221.0526315789475,
+            "height": 1026.3157894736842
+          },
+          "minimapHexNeighborCssPixels": 1.5673640094721641
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

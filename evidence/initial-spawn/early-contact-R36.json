@@ -1,0 +1,109 @@
+{
+  "radius": 36,
+  "seed": 115,
+  "event": {
+    "type": "DEATH",
+    "participantId": "bot-7",
+    "reason": "TRAIL_CUT",
+    "lifeId": 1,
+    "position": {
+      "x": 1309.945964363598,
+      "y": 207.2742966511691
+    },
+    "deathContext": {
+      "cause": "EXISTING_TRAIL_CONTACT",
+      "cellId": 2237,
+      "eventTick": 43.52248
+    },
+    "killerId": "bot-2",
+    "eventId": "match-115:1",
+    "tick": 43
+  },
+  "victimInitial": {
+    "participantId": "bot-7",
+    "slot": 7,
+    "q": 20,
+    "r": 8
+  },
+  "killerInitial": {
+    "participantId": "bot-2",
+    "slot": 2,
+    "q": 28,
+    "r": 0
+  },
+  "initialCenterDistance": 8,
+  "participants": [
+    {
+      "participantId": "bot-0",
+      "lifeState": "ALIVE",
+      "cellId": 1113,
+      "position": {
+        "x": -1127.5880314846397,
+        "y": -639.0021003687818
+      }
+    },
+    {
+      "participantId": "bot-1",
+      "lifeState": "ALIVE",
+      "cellId": 1548,
+      "position": {
+        "x": -1679.987663661209,
+        "y": -280.8706571428943
+      }
+    },
+    {
+      "participantId": "bot-2",
+      "lifeState": "ALIVE",
+      "cellId": 2237,
+      "position": {
+        "x": 1349.0187421114554,
+        "y": 121.37523495568303
+      }
+    },
+    {
+      "participantId": "bot-3",
+      "lifeState": "ALIVE",
+      "cellId": 267,
+      "position": {
+        "x": 515.354357431796,
+        "y": -1437.6598836504645
+      }
+    },
+    {
+      "participantId": "bot-4",
+      "lifeState": "ALIVE",
+      "cellId": 3727,
+      "position": {
+        "x": -599.4544484388816,
+        "y": 1457.309097034049
+      }
+    },
+    {
+      "participantId": "bot-5",
+      "lifeState": "ALIVE",
+      "cellId": 3712,
+      "position": {
+        "x": 991.5190939013589,
+        "y": 1389.3606246272036
+      }
+    },
+    {
+      "participantId": "bot-6",
+      "lifeState": "ALIVE",
+      "cellId": 283,
+      "position": {
+        "x": -998.4577020055777,
+        "y": -1392.461152159248
+      }
+    },
+    {
+      "participantId": "bot-7",
+      "lifeState": "DEAD_WAIT",
+      "cellId": 2306,
+      "position": {
+        "x": 1309.945964363598,
+        "y": 207.2742966511691
+      }
+    }
+  ]
+}

@@ -5,11 +5,21 @@ export function axialKey(q:number,r:number):string { return q+','+r; }
 export function hexDistance(a:Axial,b:Axial):number { return Math.max(Math.abs(a.q-b.q),Math.abs(a.r-b.r),Math.abs(a.q+a.r-b.q-b.r)); }
 export function axialToWorld(q:number,r:number,side=32):Vec { return {x:Math.sqrt(3)*side*(q+r/2), y:1.5*side*r}; }
 export function worldToAxial(x:number,y:number,side=32):Axial {
- const q=x/(Math.sqrt(3)*side)-y/(3*side), r=2*y/(3*side), s=-q-r;
+ return roundAxial(x/(Math.sqrt(3)*side)-y/(3*side),2*y/(3*side));
+}
+function roundAxial(q:number,r:number):Axial {
+ const s=-q-r;
  let rq=Math.round(q), rr=Math.round(r), rs=Math.round(s);
  const dq=Math.abs(rq-q), dr=Math.abs(rr-r), ds=Math.abs(rs-s);
  if(dq>dr && dq>ds) rq=-rr-rs; else if(dr>ds) rr=-rq-rs; else rs=-rq-rr;
  return {q:rq===0?0:rq,r:rr===0?0:rr};
+}
+export function scaledStartAnchors(radius:number):Axial[] {
+ // Preserve the original R22 shape and shuffle order. Cube rounding keeps
+ // fractional axial coordinates on the hex lattice instead of rounding q/r
+ // independently; respawn placement does not use these initial anchors.
+ const scale=radius/22;
+ return START_ANCHORS.map(p=>roundAxial(p.q*scale,p.r*scale));
 }
 export function worldCell(map:MapDefinition,position:Vec):number {
  const a=worldToAxial(position.x,position.y,map.side);
@@ -37,6 +47,6 @@ export function createMap(radius=22,side=32):MapDefinition {
  const points=[{q:-8,r:0},{q:0,r:8},{q:8,r:-8}];
  return {mapId:'hex-r'+radius+'-a'+side+'-v1',radius,side,cells,byKey,boundaryEdges,
   controlPoints:points.flatMap((p,i)=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[{pointId:i,cellId:id}];}),
-  anchors:START_ANCHORS.flatMap(p=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[id];})};
+  anchors:scaledStartAnchors(radius).flatMap(p=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[id];})};
 }
 

@@ -162,6 +162,6 @@ spawn 추출 전후 R22/R36 시드 4의 1,200 tick 정상 이동·capture·death
 전체 core/server 48파일 222검사, 타입 검사와 production build가 통과했다. 개발 반경 네 개의 실제 연습 렌더링, 선택 후 기본 R22 복귀, production URL/서버 환경변수 무시, R32/R36의 두 HUMAN+여섯 BOT 실제 Hold 방 snapshot 호환성을 브라우저에서 확인했다. 이 브라우저 검사는 네트워크/화면 호환성 검사이며 인간 수동 밸런스 평가가 아니다.
 
 - [집계 JSON](../evidence/map-size/summary.json)
-- [R22 원본](../evidence/map-size/R22.json), [R28 원본](../evidence/map-size/R28.json), [R32 원본](../evidence/map-size/R32.json), [R36 원본](../evidence/map-size/R36.json)
+- 기존 fixed-anchor 원본은 로컬 `evidence/map-size/R22.json`, `R28.json`, `R32.json`, `R36.json`에 보관하며 Git에서 제외한다. 이후 scaled-anchor 전체 실험의 기본 출력은 `.local/evidence/map-size-scaled/`로 분리한다.
 - [spawn 추출 전](../evidence/map-spawn-before.json), [추출 후](../evidence/map-spawn-after.json)
 - [R32 개발 화면](../evidence/map-size/dev-R32.png), [R36 개발 화면](../evidence/map-size/dev-R36.png)

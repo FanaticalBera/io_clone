@@ -27,7 +27,8 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const space=inspectSpawnSpace(m,p);expect(JSON.stringify(m,(_k,v)=>v instanceof Set?[...v]:v instanceof Map?[...v]:v)).toBe(before);
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
- it.each([[22,'bb37292c48f4722a8677229a8f15fe3715a4566c3d8c3ed5127ed81a4342b771'],[36,'245736e3787dae8fa07bdaf3ac6dd9a560fbc24b77362c01dc23ac578e66ca0b']] as const)('R%s: actual movement/capture/respawn matches the pre-refactor trajectory', (radius,expected)=>{
+ it('R22: actual movement/capture/respawn still matches the original fixed-anchor trajectory',()=>{
+  const radius=22,expected='bb37292c48f4722a8677229a8f15fe3715a4566c3d8c3ed5127ed81a4342b771';
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});
   for(let tick=0;tick<1200;tick++){
    const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
@@ -35,8 +36,18 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   }
   expect(hash.digest('hex')).toBe(expected);
  },20000);
+ it('R36: the measurement observer does not alter the new scaled-anchor movement/capture/respawn trajectory',()=>{
+  const trajectory=(watch:boolean)=>{
+   const seed=4,m=createMatch({mapRadius:36},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hash=createHash('sha256');if(watch)watchSpawnAttempts(m,()=>{});
+   for(let tick=0;tick<1200;tick++){
+    const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
+    const {map,...state}=m;hash.update(JSON.stringify({state,memories},(_k,v)=>v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));
+   }return hash.digest('hex');
+  };
+  expect(trajectory(true)).toBe(trajectory(false));
+ },20000);
  it('map experiment overrides are enabled only for explicit development/test calls',()=>{
-  for(const radius of [22,28,32,36])expect(experimentalMapConfig(String(radius),true)).toEqual({mapRadius:radius});expect(experimentalMapConfig('36',false)).toEqual({});expect(experimentalMapConfig(undefined,true)).toEqual({});expect(()=>experimentalMapConfig('30',true)).toThrow();
+  for(const radius of [22,28,32,36,40])expect(experimentalMapConfig(String(radius),true)).toEqual({mapRadius:radius});expect(experimentalMapConfig('36',false)).toEqual({});expect(experimentalMapConfig('40',false)).toEqual({});expect(experimentalMapConfig(undefined,true)).toEqual({});expect(()=>experimentalMapConfig('30',true)).toThrow();
   expect(createMatch({},4,botSpecs(8)).config.mapRadius).toBe(22);
   expect(experimentalSeed('4',true)).toBe(4);expect(experimentalSeed('4',false)).toBeUndefined();expect(()=>experimentalSeed('-1',true)).toThrow();
  });
