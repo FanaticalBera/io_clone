@@ -3,7 +3,9 @@ import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type B
 import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
-export function runShadowEscapeWitness(seed=19){
+// Attack look-ahead and target locking change emergent encounters. Seed 25
+// still supplies a real ESCAPE cut-and-return witness (tick 6873).
+export function runShadowEscapeWitness(seed=25){
  const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot)),traces:(BotDecisionTrace|undefined)[]=Array(8);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};

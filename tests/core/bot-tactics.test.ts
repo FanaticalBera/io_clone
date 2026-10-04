@@ -18,6 +18,21 @@ function duel(outside=false){
  return {m,bot,enemy,id,memory};
 }
 describe('local tactical opportunities',()=>{
+ it('keeps an existing viable cut instead of switching to a closer urgent target',()=>{
+  const f=duel(true);f.enemy.cellId=f.id(8);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};
+  f.memory.goal='ATTACK';f.memory.attackSlot=f.enemy.slot;f.memory.attackTarget=f.id(2);
+  f.memory.path=[f.id(1),f.id(2),f.id(1),f.id(0),f.id(-1),f.id(-2),f.id(-3)];
+  const path=[...f.memory.path];getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
+  expect(f.memory.goal).toBe('ATTACK');expect(f.memory.attackTarget).toBe(f.id(2));expect(f.memory.path).toEqual(path);
+ });
+ it('retargets a vanished cut cell to the same observed victim without leaving ATTACK',()=>{
+  const f=duel(true);f.enemy.cellId=f.id(8);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};
+  f.memory.goal='ATTACK';f.memory.attackSlot=f.enemy.slot;f.memory.attackTarget=f.id(2);
+  f.memory.path=[f.id(1),f.id(2),f.id(1),f.id(0),f.id(-1),f.id(-2),f.id(-3)];
+  f.enemy.trailCells.delete(f.id(2));f.m.trailMasks[f.id(2)]&=~(1<<f.enemy.slot);
+  getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
+  expect(f.memory.goal).toBe('ATTACK');expect(f.memory.attackSlot).toBe(f.enemy.slot);expect(f.memory.attackTarget).toBe(f.id(1));
+ });
  it.each(['EXPAND','RETURN'] as const)('a short, exposed two-cell line interrupts %s when a cheap cut beats the victim returning',goal=>{
   const f=duel();f.memory.goal=goal;getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
   expect(f.memory.goal).toBe('ATTACK');expect(f.memory.attackTarget).toBe(f.id(1));

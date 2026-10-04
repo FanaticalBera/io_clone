@@ -1,0 +1,2765 @@
+{
+  "before": {
+    "bot": [
+      {
+        "seed": 4,
+        "captures": 415,
+        "gained": 3707,
+        "walls": 0,
+        "territory": [
+          79,
+          238,
+          134,
+          77,
+          0,
+          179,
+          62,
+          94
+        ],
+        "deaths": 19
+      },
+      {
+        "seed": 19,
+        "captures": 384,
+        "gained": 3427,
+        "walls": 0,
+        "territory": [
+          19,
+          19,
+          71,
+          137,
+          95,
+          207,
+          199,
+          35
+        ],
+        "deaths": 31
+      },
+      {
+        "seed": 73,
+        "captures": 393,
+        "gained": 3736,
+        "walls": 0,
+        "territory": [
+          19,
+          147,
+          103,
+          19,
+          121,
+          98,
+          73,
+          58
+        ],
+        "deaths": 24
+      }
+    ],
+    "feel": [
+      {
+        "seed": 4,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 720,
+            "exposure": 3152,
+            "homeDistance": 1758,
+            "captures": 7,
+            "gained": 75,
+            "stolen": 3,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 203,
+              "TRAIL_BUDGET": 13,
+              "VICTIM_RETURNS_FIRST": 65
+            },
+            "meanCapture": 10.714285714285714,
+            "meanExposure": 4.377777777777778,
+            "meanHomeDistance": 2.441666666666667,
+            "kills": 0,
+            "deaths": 2
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 1863,
+            "homeDistance": 877,
+            "captures": 16,
+            "gained": 84,
+            "stolen": 13,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 12,
+            "escapes": 0,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 115,
+              "NO_APPROACH": 261,
+              "TRAIL_BUDGET": 30,
+              "SELECTABLE": 16
+            },
+            "meanCapture": 5.25,
+            "meanExposure": 2.07,
+            "meanHomeDistance": 0.9744444444444444,
+            "kills": 2,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 1911,
+            "homeDistance": 928,
+            "captures": 20,
+            "gained": 114,
+            "stolen": 33,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 3,
+            "escapes": 2,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 94,
+              "NO_APPROACH": 163,
+              "TRAIL_BUDGET": 22,
+              "SELECTABLE": 4,
+              "COUNTER_CUT_FIRST": 1
+            },
+            "meanCapture": 5.7,
+            "meanExposure": 2.1233333333333335,
+            "meanHomeDistance": 1.031111111111111,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 1878,
+            "homeDistance": 830,
+            "captures": 16,
+            "gained": 88,
+            "stolen": 21,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 2,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 141,
+              "NO_APPROACH": 200,
+              "COUNTER_CUT_FIRST": 2,
+              "TRAIL_BUDGET": 12
+            },
+            "meanCapture": 5.5,
+            "meanExposure": 2.3185185185185184,
+            "meanHomeDistance": 1.0246913580246915,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 3049,
+            "homeDistance": 1346,
+            "captures": 12,
+            "gained": 124,
+            "stolen": 7,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 143,
+              "VICTIM_RETURNS_FIRST": 86,
+              "SELECTABLE": 1,
+              "COUNTER_CUT_FIRST": 1,
+              "TRAIL_BUDGET": 28
+            },
+            "meanCapture": 10.333333333333334,
+            "meanExposure": 3.387777777777778,
+            "meanHomeDistance": 1.4955555555555555,
+            "kills": 0,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 3166,
+            "homeDistance": 1544,
+            "captures": 11,
+            "gained": 129,
+            "stolen": 0,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 1,
+            "attackFrames": 8,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 199,
+              "TRAIL_BUDGET": 10,
+              "VICTIM_RETURNS_FIRST": 63,
+              "COUNTER_CUT_FIRST": 1,
+              "SELECTABLE": 22
+            },
+            "meanCapture": 11.727272727272727,
+            "meanExposure": 3.517777777777778,
+            "meanHomeDistance": 1.7155555555555555,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 2247,
+            "homeDistance": 1185,
+            "captures": 16,
+            "gained": 120,
+            "stolen": 2,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 163,
+              "TRAIL_BUDGET": 35,
+              "VICTIM_RETURNS_FIRST": 55
+            },
+            "meanCapture": 7.5,
+            "meanExposure": 2.4966666666666666,
+            "meanHomeDistance": 1.3166666666666667,
+            "kills": 0,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 1843,
+            "homeDistance": 987,
+            "captures": 16,
+            "gained": 86,
+            "stolen": 42,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 117,
+              "VICTIM_RETURNS_FIRST": 134
+            },
+            "meanCapture": 5.375,
+            "meanExposure": 2.275308641975309,
+            "meanHomeDistance": 1.2185185185185186,
+            "kills": 0,
+            "deaths": 1
+          }
+        ]
+      },
+      {
+        "seed": 19,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 2779,
+            "homeDistance": 1261,
+            "captures": 15,
+            "gained": 129,
+            "stolen": 19,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 5,
+            "escapes": 1,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 80,
+              "NO_APPROACH": 145,
+              "SELECTABLE": 7,
+              "TRAIL_BUDGET": 3
+            },
+            "meanCapture": 8.6,
+            "meanExposure": 3.0877777777777777,
+            "meanHomeDistance": 1.4011111111111112,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 2983,
+            "homeDistance": 1616,
+            "captures": 10,
+            "gained": 122,
+            "stolen": 0,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 1,
+            "attackFrames": 9,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 176,
+              "TRAIL_BUDGET": 21,
+              "VICTIM_RETURNS_FIRST": 86,
+              "SELECTABLE": 30
+            },
+            "meanCapture": 12.2,
+            "meanExposure": 3.6827160493827162,
+            "meanHomeDistance": 1.9950617283950618,
+            "kills": 1,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 1680,
+            "homeDistance": 814,
+            "captures": 17,
+            "gained": 92,
+            "stolen": 26,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 2,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 193,
+              "TRAIL_BUDGET": 39,
+              "VICTIM_RETURNS_FIRST": 99,
+              "SELECTABLE": 1
+            },
+            "meanCapture": 5.411764705882353,
+            "meanExposure": 1.8666666666666667,
+            "meanHomeDistance": 0.9044444444444445,
+            "kills": 0,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 2272,
+            "homeDistance": 1133,
+            "captures": 13,
+            "gained": 108,
+            "stolen": 30,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 2,
+            "escapes": 2,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 99,
+              "NO_APPROACH": 161,
+              "SELECTABLE": 1,
+              "TRAIL_BUDGET": 1
+            },
+            "meanCapture": 8.307692307692308,
+            "meanExposure": 2.8049382716049385,
+            "meanHomeDistance": 1.3987654320987655,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 720,
+            "exposure": 3341,
+            "homeDistance": 1741,
+            "captures": 7,
+            "gained": 80,
+            "stolen": 16,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 124,
+              "VICTIM_RETURNS_FIRST": 38,
+              "TRAIL_BUDGET": 5
+            },
+            "meanCapture": 11.428571428571429,
+            "meanExposure": 4.6402777777777775,
+            "meanHomeDistance": 2.4180555555555556,
+            "kills": 0,
+            "deaths": 2
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 3947,
+            "homeDistance": 1865,
+            "captures": 10,
+            "gained": 143,
+            "stolen": 0,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 11,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 155,
+              "TRAIL_BUDGET": 15,
+              "SELECTABLE": 28,
+              "COUNTER_CUT_FIRST": 2,
+              "VICTIM_RETURNS_FIRST": 26
+            },
+            "meanCapture": 14.3,
+            "meanExposure": 4.385555555555555,
+            "meanHomeDistance": 2.0722222222222224,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 810,
+            "exposure": 1719,
+            "homeDistance": 868,
+            "captures": 18,
+            "gained": 81,
+            "stolen": 6,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 4,
+            "reasons": {
+              "NO_APPROACH": 223,
+              "TRAIL_BUDGET": 36,
+              "VICTIM_RETURNS_FIRST": 129
+            },
+            "meanCapture": 4.5,
+            "meanExposure": 2.1222222222222222,
+            "meanHomeDistance": 1.0716049382716049,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 900,
+            "exposure": 2722,
+            "homeDistance": 1260,
+            "captures": 13,
+            "gained": 134,
+            "stolen": 17,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 10,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 170,
+              "VICTIM_RETURNS_FIRST": 106,
+              "SELECTABLE": 11,
+              "TRAIL_BUDGET": 10
+            },
+            "meanCapture": 10.307692307692308,
+            "meanExposure": 3.0244444444444443,
+            "meanHomeDistance": 1.4,
+            "kills": 2,
+            "deaths": 0
+          }
+        ]
+      },
+      {
+        "seed": 73,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 810,
+            "exposure": 2619,
+            "homeDistance": 1256,
+            "captures": 9,
+            "gained": 95,
+            "stolen": 19,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 1,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 49,
+              "NO_APPROACH": 247,
+              "TRAIL_BUDGET": 36,
+              "COUNTER_CUT_FIRST": 4
+            },
+            "meanCapture": 10.555555555555555,
+            "meanExposure": 3.2333333333333334,
+            "meanHomeDistance": 1.5506172839506174,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 2756,
+            "homeDistance": 1417,
+            "captures": 11,
+            "gained": 112,
+            "stolen": 20,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 210,
+              "TRAIL_BUDGET": 23,
+              "VICTIM_RETURNS_FIRST": 60,
+              "COUNTER_CUT_FIRST": 3
+            },
+            "meanCapture": 10.181818181818182,
+            "meanExposure": 3.4024691358024692,
+            "meanHomeDistance": 1.7493827160493827,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 2716,
+            "homeDistance": 1358,
+            "captures": 13,
+            "gained": 150,
+            "stolen": 10,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 6,
+            "escapes": 0,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 8,
+              "TRAIL_BUDGET": 19,
+              "NO_APPROACH": 163,
+              "SELECTABLE": 9
+            },
+            "meanCapture": 11.538461538461538,
+            "meanExposure": 3.017777777777778,
+            "meanHomeDistance": 1.508888888888889,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 900,
+            "exposure": 2996,
+            "homeDistance": 1508,
+            "captures": 14,
+            "gained": 143,
+            "stolen": 7,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 1,
+            "attackFrames": 9,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 181,
+              "TRAIL_BUDGET": 35,
+              "VICTIM_RETURNS_FIRST": 148,
+              "COUNTER_CUT_FIRST": 3,
+              "SELECTABLE": 11
+            },
+            "meanCapture": 10.214285714285714,
+            "meanExposure": 3.328888888888889,
+            "meanHomeDistance": 1.6755555555555555,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 1707,
+            "homeDistance": 852,
+            "captures": 16,
+            "gained": 96,
+            "stolen": 23,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 6,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 273,
+              "VICTIM_RETURNS_FIRST": 147,
+              "TRAIL_BUDGET": 6,
+              "SELECTABLE": 11
+            },
+            "meanCapture": 6,
+            "meanExposure": 1.8966666666666667,
+            "meanHomeDistance": 0.9466666666666667,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 2089,
+            "homeDistance": 1068,
+            "captures": 13,
+            "gained": 101,
+            "stolen": 12,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 1,
+            "attackFrames": 8,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 178,
+              "TRAIL_BUDGET": 14,
+              "VICTIM_RETURNS_FIRST": 79,
+              "SELECTABLE": 13
+            },
+            "meanCapture": 7.769230769230769,
+            "meanExposure": 2.579012345679012,
+            "meanHomeDistance": 1.3185185185185184,
+            "kills": 1,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 881,
+            "exposure": 1936,
+            "homeDistance": 997,
+            "captures": 16,
+            "gained": 98,
+            "stolen": 14,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 5,
+            "escapes": 4,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 151,
+              "NO_APPROACH": 217,
+              "TRAIL_BUDGET": 67,
+              "SELECTABLE": 6,
+              "COUNTER_CUT_FIRST": 1
+            },
+            "meanCapture": 6.125,
+            "meanExposure": 2.1975028376844494,
+            "meanHomeDistance": 1.1316685584562998,
+            "kills": 1,
+            "deaths": 1
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 3607,
+            "homeDistance": 1913,
+            "captures": 9,
+            "gained": 106,
+            "stolen": 0,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 146,
+              "VICTIM_RETURNS_FIRST": 22,
+              "TRAIL_BUDGET": 9
+            },
+            "meanCapture": 11.777777777777779,
+            "meanExposure": 4.453086419753086,
+            "meanHomeDistance": 2.3617283950617285,
+            "kills": 0,
+            "deaths": 1
+          }
+        ]
+      }
+    ],
+    "death": {
+      "games": 16,
+      "deaths": 370,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 329,
+        "PENDING_TRAIL_CONTACT": 23,
+        "TRAIL_CAPTURE": 4,
+        "HOME_CAPTURE": 3,
+        "WALL_HIT": 11
+      },
+      "failureCount": 0,
+      "reports": [
+        {
+          "seed": 4,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 19,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 17,
+            "PENDING_TRAIL_CONTACT": 1,
+            "TRAIL_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 4,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 22,
+          "causes": {
+            "PENDING_TRAIL_CONTACT": 3,
+            "EXISTING_TRAIL_CONTACT": 19
+          },
+          "failures": []
+        },
+        {
+          "seed": 19,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 31,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 30,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 19,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 19,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 18,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 73,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 24,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 22,
+            "HOME_CAPTURE": 1,
+            "TRAIL_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 73,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 21,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 19,
+            "PENDING_TRAIL_CONTACT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 115,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 28,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 24,
+            "HOME_CAPTURE": 1,
+            "PENDING_TRAIL_CONTACT": 3
+          },
+          "failures": []
+        },
+        {
+          "seed": 115,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 20,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 16,
+            "PENDING_TRAIL_CONTACT": 2,
+            "WALL_HIT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 17,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 23,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 21,
+            "TRAIL_CAPTURE": 1,
+            "HOME_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 17,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 19,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 16,
+            "PENDING_TRAIL_CONTACT": 3
+          },
+          "failures": []
+        },
+        {
+          "seed": 81,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 23,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 23
+          },
+          "failures": []
+        },
+        {
+          "seed": 81,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 34,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 24,
+            "WALL_HIT": 9,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 32,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 20,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 20
+          },
+          "failures": []
+        },
+        {
+          "seed": 32,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 21,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 19,
+            "PENDING_TRAIL_CONTACT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 123,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 26,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 25,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 123,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 20,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 16,
+            "PENDING_TRAIL_CONTACT": 3,
+            "TRAIL_CAPTURE": 1
+          },
+          "failures": []
+        }
+      ]
+    },
+    "medium": [
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 53,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 53,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 24,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 39,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      }
+    ]
+  },
+  "after": {
+    "bot": [
+      {
+        "seed": 4,
+        "captures": 391,
+        "gained": 3981,
+        "walls": 0,
+        "territory": [
+          19,
+          146,
+          128,
+          0,
+          145,
+          148,
+          178,
+          187
+        ],
+        "deaths": 23
+      },
+      {
+        "seed": 19,
+        "captures": 396,
+        "gained": 3654,
+        "walls": 0,
+        "territory": [
+          19,
+          101,
+          28,
+          19,
+          19,
+          88,
+          174,
+          226
+        ],
+        "deaths": 25
+      },
+      {
+        "seed": 73,
+        "captures": 403,
+        "gained": 3694,
+        "walls": 0,
+        "territory": [
+          184,
+          19,
+          19,
+          59,
+          63,
+          52,
+          127,
+          51
+        ],
+        "deaths": 25
+      }
+    ],
+    "feel": [
+      {
+        "seed": 4,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 810,
+            "exposure": 4550,
+            "homeDistance": 2260,
+            "captures": 7,
+            "gained": 132,
+            "stolen": 0,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 215,
+              "TRAIL_BUDGET": 23,
+              "VICTIM_RETURNS_FIRST": 22
+            },
+            "meanCapture": 18.857142857142858,
+            "meanExposure": 5.617283950617284,
+            "meanHomeDistance": 2.7901234567901234,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 2258,
+            "homeDistance": 1049,
+            "captures": 12,
+            "gained": 89,
+            "stolen": 13,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 12,
+            "escapes": 1,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 136,
+              "NO_APPROACH": 147,
+              "TRAIL_BUDGET": 46,
+              "SELECTABLE": 8,
+              "COUNTER_CUT_FIRST": 4
+            },
+            "meanCapture": 7.416666666666667,
+            "meanExposure": 2.7876543209876545,
+            "meanHomeDistance": 1.2950617283950616,
+            "kills": 2,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 1707,
+            "homeDistance": 876,
+            "captures": 20,
+            "gained": 116,
+            "stolen": 33,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 3,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 99,
+              "TRAIL_BUDGET": 26,
+              "VICTIM_RETURNS_FIRST": 119,
+              "SELECTABLE": 3
+            },
+            "meanCapture": 5.8,
+            "meanExposure": 1.8966666666666667,
+            "meanHomeDistance": 0.9733333333333334,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 2125,
+            "homeDistance": 951,
+            "captures": 15,
+            "gained": 97,
+            "stolen": 27,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 2,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 134,
+              "NO_APPROACH": 131,
+              "COUNTER_CUT_FIRST": 2,
+              "TRAIL_BUDGET": 15
+            },
+            "meanCapture": 6.466666666666667,
+            "meanExposure": 2.623456790123457,
+            "meanHomeDistance": 1.174074074074074,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 3660,
+            "homeDistance": 1674,
+            "captures": 9,
+            "gained": 122,
+            "stolen": 7,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 15,
+            "escapes": 0,
+            "reasons": {
+              "NO_APPROACH": 137,
+              "VICTIM_RETURNS_FIRST": 50,
+              "SELECTABLE": 17,
+              "COUNTER_CUT_FIRST": 1,
+              "TRAIL_BUDGET": 28,
+              "LOW_PRIORITY": 3
+            },
+            "meanCapture": 13.555555555555555,
+            "meanExposure": 4.066666666666666,
+            "meanHomeDistance": 1.86,
+            "kills": 2,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 2703,
+            "homeDistance": 1406,
+            "captures": 8,
+            "gained": 98,
+            "stolen": 0,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 2,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 126,
+              "TRAIL_BUDGET": 19,
+              "VICTIM_RETURNS_FIRST": 47,
+              "SELECTABLE": 4,
+              "LOW_PRIORITY": 2
+            },
+            "meanCapture": 12.25,
+            "meanExposure": 3.337037037037037,
+            "meanHomeDistance": 1.7358024691358025,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 2856,
+            "homeDistance": 1457,
+            "captures": 14,
+            "gained": 163,
+            "stolen": 0,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 7,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 125,
+              "TRAIL_BUDGET": 9,
+              "VICTIM_RETURNS_FIRST": 25,
+              "SELECTABLE": 4
+            },
+            "meanCapture": 11.642857142857142,
+            "meanExposure": 3.1733333333333333,
+            "meanHomeDistance": 1.6188888888888888,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 794,
+            "exposure": 1653,
+            "homeDistance": 930,
+            "captures": 15,
+            "gained": 62,
+            "stolen": 22,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 4,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 146,
+              "NO_APPROACH": 190,
+              "COUNTER_CUT_FIRST": 2,
+              "TRAIL_BUDGET": 21
+            },
+            "meanCapture": 4.133333333333334,
+            "meanExposure": 2.0818639798488663,
+            "meanHomeDistance": 1.1712846347607053,
+            "kills": 0,
+            "deaths": 2
+          }
+        ]
+      },
+      {
+        "seed": 19,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 2554,
+            "homeDistance": 1147,
+            "captures": 16,
+            "gained": 131,
+            "stolen": 16,
+            "entered": 2,
+            "exited": 2,
+            "retargeted": 0,
+            "attackFrames": 5,
+            "escapes": 1,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 66,
+              "NO_APPROACH": 199,
+              "SELECTABLE": 5,
+              "TRAIL_BUDGET": 3
+            },
+            "meanCapture": 8.1875,
+            "meanExposure": 2.8377777777777777,
+            "meanHomeDistance": 1.2744444444444445,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 2683,
+            "homeDistance": 1363,
+            "captures": 14,
+            "gained": 131,
+            "stolen": 5,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 1,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 194,
+              "TRAIL_BUDGET": 73,
+              "VICTIM_RETURNS_FIRST": 237,
+              "SELECTABLE": 4
+            },
+            "meanCapture": 9.357142857142858,
+            "meanExposure": 2.9811111111111113,
+            "meanHomeDistance": 1.5144444444444445,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 810,
+            "exposure": 2361,
+            "homeDistance": 1159,
+            "captures": 15,
+            "gained": 102,
+            "stolen": 10,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 166,
+              "TRAIL_BUDGET": 26,
+              "VICTIM_RETURNS_FIRST": 28
+            },
+            "meanCapture": 6.8,
+            "meanExposure": 2.914814814814815,
+            "meanHomeDistance": 1.4308641975308642,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 3226,
+            "homeDistance": 1750,
+            "captures": 11,
+            "gained": 133,
+            "stolen": 13,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 2,
+            "escapes": 2,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 27,
+              "NO_APPROACH": 137,
+              "SELECTABLE": 1,
+              "TRAIL_BUDGET": 27
+            },
+            "meanCapture": 12.090909090909092,
+            "meanExposure": 3.982716049382716,
+            "meanHomeDistance": 2.1604938271604937,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 800,
+            "exposure": 2469,
+            "homeDistance": 1288,
+            "captures": 11,
+            "gained": 94,
+            "stolen": 47,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 194,
+              "VICTIM_RETURNS_FIRST": 101,
+              "TRAIL_BUDGET": 11,
+              "LOW_PRIORITY": 2
+            },
+            "meanCapture": 8.545454545454545,
+            "meanExposure": 3.08625,
+            "meanHomeDistance": 1.61,
+            "kills": 0,
+            "deaths": 2
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 3742,
+            "homeDistance": 1866,
+            "captures": 10,
+            "gained": 152,
+            "stolen": 7,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 9,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 240,
+              "TRAIL_BUDGET": 49,
+              "VICTIM_RETURNS_FIRST": 86,
+              "SELECTABLE": 2,
+              "COUNTER_CUT_FIRST": 1
+            },
+            "meanCapture": 15.2,
+            "meanExposure": 4.157777777777778,
+            "meanHomeDistance": 2.0733333333333333,
+            "kills": 0,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 1633,
+            "homeDistance": 846,
+            "captures": 18,
+            "gained": 89,
+            "stolen": 2,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 4,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 296,
+              "TRAIL_BUDGET": 28,
+              "VICTIM_RETURNS_FIRST": 129,
+              "COUNTER_CUT_FIRST": 1,
+              "SELECTABLE": 4
+            },
+            "meanCapture": 4.944444444444445,
+            "meanExposure": 1.8144444444444445,
+            "meanHomeDistance": 0.94,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 900,
+            "exposure": 2155,
+            "homeDistance": 1140,
+            "captures": 17,
+            "gained": 126,
+            "stolen": 44,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 5,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 250,
+              "VICTIM_RETURNS_FIRST": 143,
+              "SELECTABLE": 1,
+              "TRAIL_BUDGET": 5
+            },
+            "meanCapture": 7.411764705882353,
+            "meanExposure": 2.3944444444444444,
+            "meanHomeDistance": 1.2666666666666666,
+            "kills": 1,
+            "deaths": 0
+          }
+        ]
+      },
+      {
+        "seed": 73,
+        "bots": [
+          {
+            "personality": "EXPAND",
+            "frames": 900,
+            "exposure": 2575,
+            "homeDistance": 1247,
+            "captures": 16,
+            "gained": 122,
+            "stolen": 30,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 1,
+            "escapes": 1,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 99,
+              "NO_APPROACH": 229,
+              "TRAIL_BUDGET": 21,
+              "COUNTER_CUT_FIRST": 7,
+              "SELECTABLE": 1
+            },
+            "meanCapture": 7.625,
+            "meanExposure": 2.861111111111111,
+            "meanHomeDistance": 1.3855555555555557,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 810,
+            "exposure": 3234,
+            "homeDistance": 1790,
+            "captures": 8,
+            "gained": 102,
+            "stolen": 16,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 7,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 108,
+              "TRAIL_BUDGET": 48,
+              "VICTIM_RETURNS_FIRST": 62,
+              "SELECTABLE": 4
+            },
+            "meanCapture": 12.75,
+            "meanExposure": 3.9925925925925925,
+            "meanHomeDistance": 2.2098765432098766,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 2585,
+            "homeDistance": 1232,
+            "captures": 13,
+            "gained": 127,
+            "stolen": 22,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 6,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 186,
+              "TRAIL_BUDGET": 19,
+              "SELECTABLE": 1,
+              "VICTIM_RETURNS_FIRST": 15
+            },
+            "meanCapture": 9.76923076923077,
+            "meanExposure": 2.8722222222222222,
+            "meanHomeDistance": 1.3688888888888888,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 2006,
+            "homeDistance": 1038,
+            "captures": 13,
+            "gained": 94,
+            "stolen": 7,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 3,
+            "reasons": {
+              "NO_APPROACH": 151,
+              "TRAIL_BUDGET": 25,
+              "VICTIM_RETURNS_FIRST": 166,
+              "COUNTER_CUT_FIRST": 3
+            },
+            "meanCapture": 7.230769230769231,
+            "meanExposure": 2.476543209876543,
+            "meanHomeDistance": 1.2814814814814814,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "EXPAND",
+            "frames": 861,
+            "exposure": 2171,
+            "homeDistance": 1142,
+            "captures": 13,
+            "gained": 92,
+            "stolen": 46,
+            "entered": 0,
+            "exited": 0,
+            "retargeted": 0,
+            "attackFrames": 0,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 246,
+              "VICTIM_RETURNS_FIRST": 100,
+              "TRAIL_BUDGET": 14
+            },
+            "meanCapture": 7.076923076923077,
+            "meanExposure": 2.521486643437863,
+            "meanHomeDistance": 1.3263646922183507,
+            "kills": 0,
+            "deaths": 1
+          },
+          {
+            "personality": "ATTACK",
+            "frames": 900,
+            "exposure": 2165,
+            "homeDistance": 1071,
+            "captures": 17,
+            "gained": 115,
+            "stolen": 18,
+            "entered": 2,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 5,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 126,
+              "VICTIM_RETURNS_FIRST": 107,
+              "TRAIL_BUDGET": 39,
+              "SELECTABLE": 6
+            },
+            "meanCapture": 6.764705882352941,
+            "meanExposure": 2.4055555555555554,
+            "meanHomeDistance": 1.19,
+            "kills": 0,
+            "deaths": 0
+          },
+          {
+            "personality": "DEFEND",
+            "frames": 900,
+            "exposure": 1873,
+            "homeDistance": 999,
+            "captures": 18,
+            "gained": 99,
+            "stolen": 2,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 6,
+            "escapes": 2,
+            "reasons": {
+              "NO_APPROACH": 238,
+              "TRAIL_BUDGET": 66,
+              "VICTIM_RETURNS_FIRST": 116,
+              "SELECTABLE": 6
+            },
+            "meanCapture": 5.5,
+            "meanExposure": 2.081111111111111,
+            "meanHomeDistance": 1.11,
+            "kills": 1,
+            "deaths": 0
+          },
+          {
+            "personality": "SEEK_POINT",
+            "frames": 810,
+            "exposure": 3073,
+            "homeDistance": 1564,
+            "captures": 10,
+            "gained": 110,
+            "stolen": 0,
+            "entered": 1,
+            "exited": 1,
+            "retargeted": 0,
+            "attackFrames": 7,
+            "escapes": 1,
+            "reasons": {
+              "NO_APPROACH": 150,
+              "VICTIM_RETURNS_FIRST": 48,
+              "TRAIL_BUDGET": 31,
+              "SELECTABLE": 9,
+              "COUNTER_CUT_FIRST": 3
+            },
+            "meanCapture": 11,
+            "meanExposure": 3.793827160493827,
+            "meanHomeDistance": 1.9308641975308642,
+            "kills": 1,
+            "deaths": 1
+          }
+        ]
+      }
+    ],
+    "death": {
+      "games": 16,
+      "deaths": 348,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 309,
+        "HOME_CAPTURE": 2,
+        "PENDING_TRAIL_CONTACT": 22,
+        "TRAIL_CAPTURE": 3,
+        "WALL_HIT": 12
+      },
+      "failureCount": 0,
+      "reports": [
+        {
+          "seed": 4,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 23,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 22,
+            "HOME_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 4,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 21,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 19,
+            "PENDING_TRAIL_CONTACT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 19,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 25,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 24,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 19,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 18,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 18
+          },
+          "failures": []
+        },
+        {
+          "seed": 73,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 25,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 22,
+            "PENDING_TRAIL_CONTACT": 2,
+            "TRAIL_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 73,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 17,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 15,
+            "HOME_CAPTURE": 1,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 115,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 16,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 16
+          },
+          "failures": []
+        },
+        {
+          "seed": 115,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 30,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 19,
+            "PENDING_TRAIL_CONTACT": 3,
+            "WALL_HIT": 8
+          },
+          "failures": []
+        },
+        {
+          "seed": 17,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 30,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 29,
+            "TRAIL_CAPTURE": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 17,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 17,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 15,
+            "PENDING_TRAIL_CONTACT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 81,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 21,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 17,
+            "PENDING_TRAIL_CONTACT": 4
+          },
+          "failures": []
+        },
+        {
+          "seed": 81,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 23,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 23
+          },
+          "failures": []
+        },
+        {
+          "seed": 32,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 21,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 19,
+            "PENDING_TRAIL_CONTACT": 2
+          },
+          "failures": []
+        },
+        {
+          "seed": 32,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 18,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 17,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 123,
+          "mixed": false,
+          "ticks": 3600,
+          "deaths": 23,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 21,
+            "TRAIL_CAPTURE": 1,
+            "PENDING_TRAIL_CONTACT": 1
+          },
+          "failures": []
+        },
+        {
+          "seed": 123,
+          "mixed": true,
+          "ticks": 3600,
+          "deaths": 20,
+          "causes": {
+            "EXISTING_TRAIL_CONTACT": 13,
+            "PENDING_TRAIL_CONTACT": 3,
+            "WALL_HIT": 4
+          },
+          "failures": []
+        }
+      ]
+    },
+    "medium": [
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "DEFEND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 53,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 53,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 24,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "ATTACK",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 53,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "EXPAND",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 54,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      },
+      {
+        "personality": "SEEK_POINT",
+        "route": [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "tick": 41,
+        "humanState": "DEAD_WAIT",
+        "deaths": 1,
+        "killer": "bot"
+      }
+    ]
+  }
+}

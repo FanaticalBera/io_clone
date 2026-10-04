@@ -29,8 +29,10 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
  });
  it('R22: actual movement/capture/respawn matches the corrected home-component trajectory',()=>{
   // The home-component fix changes later deaths/respawns, so the pre-fix
-  // trajectory is obsolete. Initial R22 anchors are checked separately.
-  const radius=22,expected='6c6fa8961830488cb55d85ab3d0e6e382f1dbbbc347a22e8e0f768de7a818cec';
+  // trajectory is obsolete. Bot attack look-ahead/target locking also changes
+  // this gameplay hash; spawn safety and observer equivalence remain checked.
+  // Initial R22 anchors are checked separately.
+  const radius=22,expected='75670ec9688147d9d3b3e67a13dcce9bb47c95f45b42874abd1da0aaaf756092';
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});
   for(let tick=0;tick<1200;tick++){
    const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
