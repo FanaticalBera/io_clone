@@ -15,7 +15,13 @@ for(const scenario of ['enclosed','home','pruned'] as const)test(`${scenario}: c
  try{
   const a=await first.newPage(),b=await second.newPage();await a.goto('http://127.0.0.1:5174');await b.goto('http://127.0.0.1:5174');await a.getByTestId('nickname').fill('점령자');await b.getByTestId('nickname').fill('침입자');await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();const code=(await a.locator('#friend-code').textContent())!;await b.getByTestId('room-code').fill(code);await b.getByTestId('join').click();await expect(b.locator('#room-panel')).toBeVisible();await a.getByTestId('start').click();now=3000;server.loop.pump();await expect(a.locator('#hud')).toBeVisible();await expect(b.locator('#hud')).toBeVisible();
   const room=[...server.rooms.rooms.values()][0];if(scenario!=='enclosed')expect(room.match!.trailMasks[room.match!.map.byKey.get('0,0')!]&2).toBe(0);
-  now+=34;server.loop.pump();server.loop.publishSnapshot(room,false,true);await expect(a.locator('#kill-count')).toHaveText('1');await expect(b.getByTestId('death')).toContainText(scenario==='enclosed'?'점령으로 선이 끊겼어요':'선의 출발 영토를 잃었어요');
+  now+=34;server.loop.pump();server.loop.publishSnapshot(room,false,true);
+  if(scenario==='pruned'){
+   // A remote bridge is lost, but the exposed trail's home was not captured.
+   const victim=room.match!.participants.find(p=>p.nickname==='침입자')!;expect(victim.lifeState).toBe('ALIVE');expect(room.match!.owners[room.match!.map.byKey.get('1,0')!]).toBe(victim.slot+1);expect(victim.trailCells.size).toBeGreaterThan(0);
+   await expect(a.locator('#kill-count')).toHaveText('0');await expect(b.getByTestId('death')).toBeHidden();expect(await b.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState()?.deaths)).toBe(0);return;
+  }
+  await expect(a.locator('#kill-count')).toHaveText('1');await expect(b.getByTestId('death')).toContainText(scenario==='enclosed'?'점령으로 선이 끊겼어요':'선의 출발 영토를 잃었어요');
   await expect.poll(()=>a.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState()?.kills)).toBe(1);await expect.poll(()=>b.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState()?.deaths)).toBe(1);const death=room.match!.events.find(e=>e.type==='DEATH'&&e.participantId===room.match!.participants.find(p=>p.nickname==='침입자')!.participantId)!;expect(death.reason).toBe('TRAIL_CUT');
   for(let i=0;i<3;i++)server.loop.publishSnapshot(room,false,true);await a.waitForTimeout(100);expect(await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState().kills)).toBe(1);expect(await b.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState().deaths)).toBe(1);
   const firstView=await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView()),secondView=await b.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView());expect(firstView.owners).toEqual(secondView.owners);expect(firstView.participants).toEqual(secondView.participants);

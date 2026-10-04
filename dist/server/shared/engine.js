@@ -35,12 +35,18 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
         return;
     const audit = hasDeathObserver(match), ownersBefore = audit ? [...match.owners] : [], trailMasksBefore = audit ? [...match.trailMasks] : [], trailsBefore = audit ? new Map(match.participants.map(p => [p, [...p.trailCells]])) : null;
     const connectedBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && p.trailCells.size && trailTouchesHome(match, p)));
+    // A closed excursion has no trail yet. Losing the home under its head to
+    // capture or pruning must not create an already disconnected trail afterward.
+    const homeHeadsBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && !p.trailCells.size && match.owners[p.cellId] === p.slot + 1));
+    const strandedHomeHeads = new Set();
     const observer = captureObservers.get(match);
     const trace = observer ? match.participants.map(p => ({
         participantId: p.participantId, trailCells: [...p.trailCells], territoryBefore: p.territoryCount, connectedBefore: connectedBefore.has(p), candidate: candidates.has(p),
         touchesHomeBefore: trailTouchesHome(match, p), lostTerritory: false, touchesHomeAfter: false, anyTrailTouchesHomeAfter: false, territoryAfterTransfer: 0, ownerCellsAfterTransfer: 0,
         claimedTrailCells: [], cut: false, markDeadCalled: false, markedDead: false, lifeStateAfter: p.lifeState, ownerCellsAfter: 0, trailMaskCellsAfter: 0,
-        originCellId: p.trailOriginCellId, originOwnerBefore: p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId], originOwnerAfterTransfer: null, firstHomeNeighborsAfterTransfer: []
+        originCellId: p.trailOriginCellId, originOwnerBefore: p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId], originOwnerAfterTransfer: null, firstHomeNeighborsAfterTransfer: [],
+        headCellId: p.cellId, headOwnerBefore: match.owners[p.cellId], headOwnerAfterTransfer: match.owners[p.cellId], headHomeNeighborsAfterTransfer: [], strandedHomeHead: false,
+        originOwnerBeforePrune: null, headOwnerBeforePrune: match.owners[p.cellId], homeAnchorBeforePrune: null
     })) : null;
     const winners = new Map(), gained = new Map();
     for (const [p, cells] of candidates)
@@ -77,23 +83,44 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
         }
         setOwner(match, id, p.slot + 1);
     }
-    // Prune only after all simultaneous winners have been applied, never during transfer.
-    for (const p of lostTerritory)
-        pruneDisconnectedTerritory(match, p);
+    // Prune only after all simultaneous winners have been applied. A surviving
+    // excursion origin (or a head still at home) is the actual home component;
+    // choosing a larger distant component must not manufacture a home cut.
+    for (const p of lostTerritory) {
+        const owner = p.slot + 1, first = p.trailCells.values().next().value;
+        const home = p.trailCells.size && !candidates.has(p)
+            ? p.trailOriginCellId ?? (first === undefined ? null : match.map.cells[first].neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null)
+            : match.owners[p.cellId] === owner ? p.cellId : match.map.cells[p.cellId]?.neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null;
+        const anchor = home !== null && match.owners[home] === owner ? home : null;
+        const record = trace?.find(r => r.participantId === p.participantId);
+        if (record) {
+            record.originOwnerBeforePrune = p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId];
+            record.headOwnerBeforePrune = match.owners[p.cellId];
+            record.homeAnchorBeforePrune = anchor;
+        }
+        pruneDisconnectedTerritory(match, p, anchor ?? undefined);
+    }
     // A live excursion also needs a home attachment. Capturing its base (or the
     // bridge that causes that base to be pruned) cuts it even without painting its trail.
-    for (const victim of lostTerritory)
-        if (connectedBefore.has(victim) && !trailTouchesHome(match, victim)) {
-            const attackers = cuts.get(victim) ?? new Set();
-            for (const attacker of territoryAttackers.get(victim))
-                attackers.add(attacker);
-            cuts.set(victim, attackers);
-            const contexts = cutContexts.get(victim) ?? new Map();
-            for (const attacker of territoryAttackers.get(victim))
-                if (!contexts.has(attacker))
-                    contexts.set(attacker, { cause: 'HOME_CAPTURE', cellId: victim.trailOriginCellId ?? victim.trailCells.values().next().value, eventTick });
-            cutContexts.set(victim, contexts);
-        }
+    for (const victim of lostTerritory) {
+        // A captured head may start a trail only while still attached to its home.
+        // Zero-territory deaths continue through their existing resolution path.
+        const stranded = homeHeadsBefore.has(victim) && victim.territoryCount > 0 && match.owners[victim.cellId] !== victim.slot + 1 &&
+            !match.map.cells[victim.cellId].neighbors.some(id => id >= 0 && match.owners[id] === victim.slot + 1);
+        if (stranded)
+            strandedHomeHeads.add(victim);
+        if (!stranded && !(connectedBefore.has(victim) && !trailTouchesHome(match, victim)))
+            continue;
+        const attackers = cuts.get(victim) ?? new Set();
+        for (const attacker of territoryAttackers.get(victim))
+            attackers.add(attacker);
+        cuts.set(victim, attackers);
+        const contexts = cutContexts.get(victim) ?? new Map();
+        for (const attacker of territoryAttackers.get(victim))
+            if (!contexts.has(attacker))
+                contexts.set(attacker, { cause: 'HOME_CAPTURE', cellId: victim.trailOriginCellId ?? victim.trailCells.values().next().value ?? victim.cellId, eventTick });
+        cutContexts.set(victim, contexts);
+    }
     if (trace)
         for (const record of trace) {
             const p = match.participants.find(p => p.participantId === record.participantId);
@@ -106,6 +133,9 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
             record.claimedTrailCells = record.trailCells.filter(id => winners.has(id) && winners.get(id) !== p);
             record.originOwnerAfterTransfer = record.originCellId === null ? null : match.owners[record.originCellId];
             record.firstHomeNeighborsAfterTransfer = record.trailCells.length ? match.map.cells[record.trailCells[0]].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1) : [];
+            record.headOwnerAfterTransfer = match.owners[p.cellId];
+            record.headHomeNeighborsAfterTransfer = match.map.cells[p.cellId].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1);
+            record.strandedHomeHead = strandedHomeHeads.has(p);
         }
     for (const p of candidates.keys()) {
         clearTrail(match, p);

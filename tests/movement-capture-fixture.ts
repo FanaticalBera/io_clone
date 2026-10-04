@@ -60,6 +60,25 @@ export class MovementCaptureFixture {
   for(const [q,r]of [[-3,3],[-3,0],[0,-3],[3,-3],[3,0],[0,3],[-3,3]])this.drive(this.capturer,q,r);
   if(this.captureTick<0)throw new Error('Movement did not complete the enclosure');
  }
+ runPrunedHomeHead(direct=false,headRetained=false):void{
+  // First close a genuine extension, then stand on its distant owned section.
+  // The other player captures either the neck alone or the head's whole area.
+  // Neither route directly contacts an exposed victim trail.
+  for(const [q,r]of [[2,0],[7,0],[7,2],[0,2],[0,0]])this.drive(this.victim,q,r);
+  if(this.victim.trailCells.size||this.victim.territoryCount<=19)throw new Error('Victim extension did not close');
+  const headQ=headRetained?-1:6,headR=headRetained?0:1;this.drive(this.victim,headQ,headR);this.victimOrbit=this.target(headQ,headR);this.stableVictimOrbit=true;
+  const outerQ=direct?8:3;
+  for(const [q,r]of [[-3,3],[outerQ,3],[outerQ,-2],[2,-2],[2,3],[-3,3]])this.drive(this.capturer,q,r);
+  if(this.captureTick<0)throw new Error('Home capture did not close');
+ }
+ runDistantBridgeLoss(exposed=false):void{
+  // Leave the victim's original home untouched; only sever its connection to
+  // a much larger completed extension while its head/trail stays far away.
+  for(const [q,r]of [[2,0],[11,0],[11,4],[0,4],[0,0]])this.drive(this.victim,q,r);
+  const q=exposed?-4:-1;this.drive(this.victim,q,0);this.victimOrbit=this.target(q,0);this.stableVictimOrbit=true;
+  for(const [q,r]of [[-3,3],[3,3],[3,-2],[2,-2],[2,3],[-3,3]])this.drive(this.capturer,q,r);
+  if(this.captureTick<0)throw new Error('Distant bridge capture did not close');
+ }
  run(scenario:MovementCaptureScenario='detached-origin'):void{
   this.drive(this.victim,-2,2);this.drive(this.victim,-3,2);
   if(!this.victim.trailCells.size)throw new Error('Movement did not create a trail');

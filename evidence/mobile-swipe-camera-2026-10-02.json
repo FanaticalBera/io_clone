@@ -117,13 +117,55 @@
     ],
     "samples": [
       {
-        "renderedAt": 2928.0999999940395,
+        "renderedAt": 2719.699999988079,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 375.68376198711894
+          "x": -864.2386501888412,
+          "y": 381.6433223950137
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 12,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 2747.199999988079,
+        "camera": {
+          "x": -864.2386501888412,
+          "y": 375.24166261023925
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 13,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -141,13 +183,22 @@
         }
       },
       {
-        "renderedAt": 2956.5,
+        "renderedAt": 2773.199999988079,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 369.0725933352734
+          "x": -864.2386501888412,
+          "y": 369.18918426827054
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 14,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -165,13 +216,55 @@
         }
       },
       {
-        "renderedAt": 2985.0999999940395,
+        "renderedAt": 2798.699999988079,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 362.4148671604953
+          "x": -864.2386501888412,
+          "y": 363.2530997405705
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 14,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 2822.099999964237,
+        "camera": {
+          "x": -864.2386501888412,
+          "y": 357.8058692383488
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 15,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -189,14 +282,23 @@
         }
       },
       {
-        "renderedAt": 3011.9000000059605,
+        "renderedAt": 2849,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 356.17615871292173
+          "x": -864.2386501888412,
+          "y": 351.54388202237146
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 15,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 16,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -213,13 +315,22 @@
         }
       },
       {
-        "renderedAt": 3036.7999999821186,
+        "renderedAt": 2874.300000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 350.3797467678942
+          "x": -864.2386501888412,
+          "y": 345.65435501760385
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 17,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -237,13 +348,55 @@
         }
       },
       {
-        "renderedAt": 3073.2999999821186,
+        "renderedAt": 2901.800000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 341.8829983262842
+          "x": -864.2386501888412,
+          "y": 339.2526952328292
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 17,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 2926.199999988079,
+        "camera": {
+          "x": -864.2386501888412,
+          "y": 333.79770514576467
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 18,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -261,37 +414,22 @@
         }
       },
       {
-        "renderedAt": 3098.2999999821186,
+        "renderedAt": 2953.899999976158,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 336.0633076128529
+          "x": -864.2386501888412,
+          "y": 327.12445979436336
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 18,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 3121.699999988079,
-        "camera": {
-          "x": -860.3588563798869,
-          "y": 330.61607710369356
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 19,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -309,13 +447,22 @@
         }
       },
       {
-        "renderedAt": 3148.5,
+        "renderedAt": 2982.099999964237,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 324.3773686561201
+          "x": -864.2386501888412,
+          "y": 320.55984867238783
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 20,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -333,13 +480,22 @@
         }
       },
       {
-        "renderedAt": 3174.199999988079,
+        "renderedAt": 3010.800000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 318.39472660548756
+          "x": -864.2386501888412,
+          "y": 313.87884372226824
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 21,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -357,13 +513,22 @@
         }
       },
       {
-        "renderedAt": 3201,
+        "renderedAt": 3036.899999976158,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 312.1560181579141
+          "x": -864.2386501888412,
+          "y": 307.803086625771
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 21,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -381,13 +546,22 @@
         }
       },
       {
-        "renderedAt": 3225.699999988079,
+        "renderedAt": 3062.399999976158,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 306.40616373581884
+          "x": -864.2386501888412,
+          "y": 302.75935467413046
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 22,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -405,13 +579,22 @@
         }
       },
       {
-        "renderedAt": 3254.199999988079,
+        "renderedAt": 3088,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 299.77171632250713
+          "x": -864.2386501888412,
+          "y": 295.9076388019672
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 23,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -429,13 +612,22 @@
         }
       },
       {
-        "renderedAt": 3282.699999988079,
+        "renderedAt": 3113.099999964237,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 293.1372689091952
+          "x": -864.2386501888412,
+          "y": 290.06466933400714
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 24,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -453,14 +645,23 @@
         }
       },
       {
-        "renderedAt": 3309.5999999940395,
+        "renderedAt": 3140.300000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 286.8752817001556
+          "x": -864.2386501888412,
+          "y": 283.7328458266936
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 24,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 25,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -477,13 +678,22 @@
         }
       },
       {
-        "renderedAt": 3339,
+        "renderedAt": 3172.099999964237,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 280.52017943831333
+          "x": -864.2386501888412,
+          "y": 276.3301992503091
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 26,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -501,13 +711,22 @@
         }
       },
       {
-        "renderedAt": 3364.699999988079,
+        "renderedAt": 3201.300000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 274.04868336914024
+          "x": -864.2386501888412,
+          "y": 269.5328004859209
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 26,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -525,13 +744,22 @@
         }
       },
       {
-        "renderedAt": 3390.699999988079,
+        "renderedAt": 3227,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 267.9962050271715
+          "x": -864.2386501888412,
+          "y": 263.9614165845877
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 27,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -549,13 +777,22 @@
         }
       },
       {
-        "renderedAt": 3416.9000000059605,
+        "renderedAt": 3255,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 261.8971691553329
+          "x": -864.2386501888412,
+          "y": 257.03210483624525
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 28,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -573,37 +810,22 @@
         }
       },
       {
-        "renderedAt": 3444.2999999821186,
+        "renderedAt": 3283.599999964237,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 255.51878813896212
+          "x": -864.2386501888412,
+          "y": 250.37437866840492
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 28,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 3469.5,
-        "camera": {
-          "x": -860.3588563798869,
-          "y": 249.65253989566077
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 29,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -621,13 +843,22 @@
         }
       },
       {
-        "renderedAt": 3496.7999999821186,
+        "renderedAt": 3309.699999988079,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 243.29743764075613
+          "x": -864.2386501888412,
+          "y": 244.29862155803244
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 30,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -645,13 +876,55 @@
         }
       },
       {
-        "renderedAt": 3524.7999999821186,
+        "renderedAt": 3337.300000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 236.779384041713
+          "x": -864.2386501888412,
+          "y": 237.873683004854
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 30,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 3363.199999988079,
+        "camera": {
+          "x": -864.2386501888412,
+          "y": 232.9230661129535
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 31,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -669,37 +942,22 @@
         }
       },
       {
-        "renderedAt": 3553.0999999940395,
+        "renderedAt": 3390.300000011921,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 230.1914941513336
+          "x": -864.2386501888412,
+          "y": 225.53593869237943
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 32,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 3589.2999999821186,
-        "camera": {
-          "x": -860.3588563798869,
-          "y": 221.76458200105992
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 33,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -717,13 +975,22 @@
         }
       },
       {
-        "renderedAt": 3616.0999999940395,
+        "renderedAt": 3419,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 215.52587355348646
+          "x": -864.2386501888412,
+          "y": 218.8549337561352
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 33,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -736,18 +1003,27 @@
           "y": -1
         },
         "input": {
-          "x": 0,
-          "y": -1
+          "x": 0.9659258936278117,
+          "y": 0.25881879379077855
         }
       },
       {
-        "renderedAt": 3642.9000000059605,
+        "renderedAt": 3443.899999976158,
         "camera": {
-          "x": -860.3588563798869,
-          "y": 210.68389087713638
+          "x": -864.2386501888412,
+          "y": 213.05852181110765
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 34,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -765,13 +1041,55 @@
         }
       },
       {
-        "renderedAt": 3670.9000000059605,
+        "renderedAt": 3469.899999976158,
         "camera": {
-          "x": -853.6843486983345,
-          "y": 204.6261972850175
+          "x": -860.4558617190556,
+          "y": 207.8134239190366
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
+        "tick": 34,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.2955202066613396,
+          "y": -0.9553364891256061
+        },
+        "target": {
+          "x": 0.9659258936278117,
+          "y": 0.25881879379077855
+        },
+        "input": {
+          "x": 0.9659258936278117,
+          "y": 0.25881879379077855
+        }
+      },
+      {
+        "renderedAt": 3495.899999976158,
+        "camera": {
+          "x": -857.5641425072888,
+          "y": 203.58660966710897
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 35,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -789,13 +1107,22 @@
         }
       },
       {
-        "renderedAt": 3699.5,
+        "renderedAt": 3521.800000011921,
         "camera": {
-          "x": -848.3476067529252,
-          "y": 200.39121958849978
+          "x": -852.1119129722856,
+          "y": 199.2599866613075
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 36,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -813,13 +1140,22 @@
         }
       },
       {
-        "renderedAt": 3727.7999999821186,
+        "renderedAt": 3549.399999976158,
         "camera": {
-          "x": -842.348217197499,
-          "y": 197.75862039053175
+          "x": -846.2424754791821,
+          "y": 196.7246562641019
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 37,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -837,12 +1173,21 @@
         }
       },
       {
-        "renderedAt": 3754.199999988079,
+        "renderedAt": 3579.800000011921,
         "camera": {
-          "x": -836.3566782442066,
-          "y": 196.7061388315974
+          "x": -839.3231343705609,
+          "y": 195.60178201413157
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 38,
         "lifeId": 1,
@@ -861,36 +1206,21 @@
         }
       },
       {
-        "renderedAt": 3780.5,
+        "renderedAt": 3608.300000011921,
         "camera": {
-          "x": -830.3062161594748,
-          "y": 196.98512433737312
+          "x": -832.795585251605,
+          "y": 196.26992772084816
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 38,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.9974949866040544,
-          "y": -0.07073720166770288
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        }
-      },
-      {
-        "renderedAt": 3808.699999988079,
-        "camera": {
-          "x": -825.0770101934656,
-          "y": 198.20511657372276
-        },
-        "zoom": 0.5,
         "centerError": 5.684341886080802e-14,
         "tick": 39,
         "lifeId": 1,
@@ -909,71 +1239,98 @@
         }
       },
       {
-        "renderedAt": 3844.4000000059605,
+        "renderedAt": 3634.300000011921,
         "camera": {
-          "x": -817.581823589454,
-          "y": 200.21344368130372
+          "x": -826.9181132380872,
+          "y": 197.711793931231
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 39,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.9738476308781953,
+          "y": 0.22720209469308708
+        },
+        "target": {
+          "x": 0.9659258936278117,
+          "y": 0.25881879379077855
+        },
+        "input": {
+          "x": 0.9659258936278117,
+          "y": 0.25881879379077855
+        }
+      },
+      {
+        "renderedAt": 3659.699999988079,
+        "camera": {
+          "x": -821.4616173984082,
+          "y": 199.1738560633952
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 40,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.8632093666488738,
+          "y": 0.5048461045998576
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 3686,
+        "camera": {
+          "x": -817.7429719547683,
+          "y": 205.59860987255684
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 41,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
         },
         "target": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        },
-        "input": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        }
-      },
-      {
-        "renderedAt": 3881,
-        "camera": {
-          "x": -807.6656917136868,
-          "y": 202.87046044427416
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 42,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        },
-        "target": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        },
-        "input": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        }
-      },
-      {
-        "renderedAt": 3912.4000000059605,
-        "camera": {
-          "x": -800.6052259313677,
-          "y": 204.7623045799745
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 42,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
-        },
-        "target": {
-          "x": 0.9659258936278117,
-          "y": 0.25881879379077855
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
         },
         "input": {
           "x": 0.7071067811865475,
@@ -981,19 +1338,61 @@
         }
       },
       {
-        "renderedAt": 3938,
+        "renderedAt": 3713.099999964237,
         "camera": {
-          "x": -795.0962637774192,
-          "y": 206.23842500404658
+          "x": -813.2821572002779,
+          "y": 210.0594246270473
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
+        "tick": 42,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 3742.099999964237,
+        "camera": {
+          "x": -808.508591589542,
+          "y": 214.83299023778318
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 43,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.8462980685450177,
-          "y": 0.5327096574842365
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
         },
         "target": {
           "x": 0.7071067811865475,
@@ -1005,14 +1404,23 @@
         }
       },
       {
-        "renderedAt": 3967.5,
+        "renderedAt": 3772.5,
         "camera": {
-          "x": -790.9875916207902,
-          "y": 213.40063990551937
+          "x": -803.5045779779183,
+          "y": 219.83700384940687
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 45,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 44,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1029,12 +1437,21 @@
         }
       },
       {
-        "renderedAt": 3999.199999988079,
+        "renderedAt": 3805.899999976158,
         "camera": {
-          "x": -785.7695905930859,
-          "y": 218.61864093322356
+          "x": -798.006747243961,
+          "y": 225.33483458336423
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 45,
         "lifeId": 1,
@@ -1053,12 +1470,54 @@
         }
       },
       {
-        "renderedAt": 4024.7999999821186,
+        "renderedAt": 3834.199999988079,
         "camera": {
-          "x": -781.5556843997623,
-          "y": 222.83254712654718
+          "x": -793.3484056287632,
+          "y": 229.99317619856186
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 45,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 3860,
+        "camera": {
+          "x": -789.3375131463026,
+          "y": 234.00406868102255
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 46,
         "lifeId": 1,
@@ -1077,13 +1536,22 @@
         }
       },
       {
-        "renderedAt": 4052.2999999821186,
+        "renderedAt": 3887.800000011921,
         "camera": {
-          "x": -777.0290273550991,
-          "y": 227.35920417121042
+          "x": -784.5255395305131,
+          "y": 238.81604229681204
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 47,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -1101,86 +1569,56 @@
         }
       },
       {
-        "renderedAt": 4086.2999999821186,
+        "renderedAt": 3915.199999988079,
         "camera": {
-          "x": -771.432433190788,
-          "y": 232.95579833552154
+          "x": -780.0153430608459,
+          "y": 243.32623876647926
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 48,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 4114.4000000059605,
-        "camera": {
-          "x": -766.8070127157712,
-          "y": 237.5812188105383
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 48,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 4140.5,
-        "camera": {
-          "x": -763.1033842246829,
-          "y": 241.28484730162654
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 49,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": 0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 4170,
-        "camera": {
-          "x": -757.6549352009965,
-          "y": 246.73329632531295
-        },
-        "zoom": 0.5,
         "centerError": 5.684341886080802e-14,
-        "tick": 50,
+        "tick": 48,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 3940.399999976158,
+        "camera": {
+          "x": -775.8672791527895,
+          "y": 247.4743026745358
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 49,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1197,12 +1635,54 @@
         }
       },
       {
-        "renderedAt": 4196.299999982119,
+        "renderedAt": 3977.699999988079,
         "camera": {
-          "x": -757.9125548241118,
-          "y": 254.00935506769144
+          "x": -773.590701734285,
+          "y": 256.1432916891631
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 50,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "target": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "input": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 4006.899999976158,
+        "camera": {
+          "x": -771.8314071887623,
+          "y": 262.7090751515967
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 51,
         "lifeId": 1,
@@ -1221,13 +1701,55 @@
         }
       },
       {
-        "renderedAt": 4224.199999988079,
+        "renderedAt": 4032.800000011921,
         "camera": {
-          "x": -756.2315850347075,
-          "y": 260.2828262565894
+          "x": -770.2709370240173,
+          "y": 268.5328351509554
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 51,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "target": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "input": {
+          "x": 0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 4057.199999988079,
+        "camera": {
+          "x": -768.8008415827044,
+          "y": 274.01931173973094
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 52,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -1245,36 +1767,21 @@
         }
       },
       {
-        "renderedAt": 4251.0999999940395,
+        "renderedAt": 4083.300000011921,
         "camera": {
-          "x": -754.6108650585304,
-          "y": 266.33144184736716
+          "x": -767.2283214560321,
+          "y": 279.88804285603305
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 53,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.25881879379077855,
-          "y": 0.9659258936278117
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0.25881879379077855,
-          "y": 0.9659258936278117
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4279,
-        "camera": {
-          "x": -752.9298952691261,
-          "y": 272.6049130362652
-        },
-        "zoom": 0.5,
         "centerError": 0,
         "tick": 53,
         "lifeId": 1,
@@ -1293,12 +1800,21 @@
         }
       },
       {
-        "renderedAt": 4304.4000000059605,
+        "renderedAt": 4111.699999988079,
         "camera": {
-          "x": -751.4497581904798,
-          "y": 278.128865564762
+          "x": -765.5172267618095,
+          "y": 286.27394183728995
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
         "tick": 54,
         "lifeId": 1,
@@ -1317,12 +1833,21 @@
         }
       },
       {
-        "renderedAt": 4338.4000000059605,
+        "renderedAt": 4138.199999988079,
         "camera": {
-          "x": -749.4414310828988,
-          "y": 285.6240521687737
+          "x": -763.9206067112827,
+          "y": 292.2326151874794
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
         "tick": 55,
         "lifeId": 1,
@@ -1341,109 +1866,154 @@
         }
       },
       {
-        "renderedAt": 4364.9000000059605,
+        "renderedAt": 4179.899999976158,
         "camera": {
-          "x": -747.7544363125309,
-          "y": 291.9200089161435
+          "x": -761.4081895004172,
+          "y": 301.6090936264176
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 56,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": 0.9659258936278117
+          "x": -0.03819158192462341,
+          "y": 0.9992704354027966
         },
         "target": {
-          "x": 0.25881879379077855,
+          "x": -0.25881879379077855,
           "y": 0.9659258936278117
         },
         "input": {
-          "x": 0.25881879379077855,
+          "x": -0.25881879379077855,
           "y": 0.9659258936278117
         }
       },
       {
-        "renderedAt": 4392.4000000059605,
+        "renderedAt": 4208.199999988079,
         "camera": {
-          "x": -746.0975664487765,
-          "y": 298.1035378644532
+          "x": -763.9719417318049,
+          "y": 308.2312469493859
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 57,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "target": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "input": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 4234.599999964237,
+        "camera": {
+          "x": -765.5625367995726,
+          "y": 314.16743473440226
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 57,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
+          "x": -0.25881879379077855,
           "y": 0.9659258936278117
         },
         "target": {
-          "x": 0.25881879379077855,
+          "x": -0.25881879379077855,
           "y": 0.9659258936278117
         },
         "input": {
-          "x": 0.25881879379077855,
+          "x": -0.25881879379077855,
           "y": 0.9659258936278117
         }
       },
       {
-        "renderedAt": 4419,
+        "renderedAt": 4260.099999964237,
         "camera": {
-          "x": -744.4949214172862,
-          "y": 304.08469677311416
+          "x": -767.0065239906415,
+          "y": 319.55647390536706
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 58,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "target": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "input": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 4286.5,
+        "camera": {
+          "x": -768.689502108231,
+          "y": 325.8374402848899
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
-        "tick": 58,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.03819158192462341,
-          "y": 0.9992704354027966
-        },
-        "target": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "input": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4446,
-        "camera": {
-          "x": -746.2694010939581,
-          "y": 310.4145378158456
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 58,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.03819158192462341,
-          "y": 0.9992704354027966
-        },
-        "target": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "input": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4470.799999982119,
-        "camera": {
-          "x": -747.7294549015286,
-          "y": 315.8635384783024
-        },
-        "zoom": 0.5,
-        "centerError": 0,
         "tick": 59,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -1461,13 +2031,22 @@
         }
       },
       {
-        "renderedAt": 4498.199999988079,
+        "renderedAt": 4314.300000011921,
         "camera": {
-          "x": -749.4144413437117,
-          "y": 322.15200003504754
+          "x": -770.3644469166716,
+          "y": 332.08842591531607
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
         "tick": 60,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -1485,13 +2064,22 @@
         }
       },
       {
-        "renderedAt": 4523.9000000059605,
+        "renderedAt": 4341.800000011921,
         "camera": {
-          "x": -750.9628615447339,
-          "y": 327.9307889107612
+          "x": -772.0213167804259,
+          "y": 338.27195486362575
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 61,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -1509,36 +2097,21 @@
         }
       },
       {
-        "renderedAt": 4551.0999999940395,
+        "renderedAt": 4371.300000011921,
         "camera": {
-          "x": -752.6016564638018,
-          "y": 334.0468611769543
+          "x": -773.798686270635,
+          "y": 344.9051950081762
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 62,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4583.5999999940395,
-        "camera": {
-          "x": -754.5597753936931,
-          "y": 341.3546681158657
-        },
-        "zoom": 0.5,
         "centerError": 5.684341886080802e-14,
         "tick": 62,
         "lifeId": 1,
@@ -1557,62 +2130,56 @@
         }
       },
       {
-        "renderedAt": 4608.4000000059605,
+        "renderedAt": 4398.099999964237,
         "camera": {
-          "x": -755.7627633318524,
-          "y": 345.84428489434913
+          "x": -775.4133812622572,
+          "y": 350.93132502707965
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 62,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "target": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        },
+        "input": {
+          "x": -0.25881879379077855,
+          "y": 0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 4422.899999976158,
+        "camera": {
+          "x": -776.9075766310157,
+          "y": 356.5077438631448
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 63,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "target": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "input": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4635.9000000059605,
-        "camera": {
-          "x": -757.7108406262059,
-          "y": 353.1146159002403
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 64,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "target": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        },
-        "input": {
-          "x": -0.25881879379077855,
-          "y": 0.9659258936278117
-        }
-      },
-      {
-        "renderedAt": 4663.0999999940395,
-        "camera": {
-          "x": -759.3496355452737,
-          "y": 359.2306881664334
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 65,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1629,12 +2196,87 @@
         }
       },
       {
-        "renderedAt": 4690.699999988079,
+        "renderedAt": 4448.699999988079,
         "camera": {
-          "x": -765.2736279112793,
-          "y": 363.2753257217936
+          "x": -783.036187029862,
+          "y": 359.9668916818973
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 64,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 4478.899999976158,
+        "camera": {
+          "x": -788.0072794914936,
+          "y": 364.93798414352887
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 65,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 4507.399999976158,
+        "camera": {
+          "x": -792.6985422468721,
+          "y": 369.62924689890735
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 66,
         "lifeId": 1,
@@ -1653,14 +2295,23 @@
         }
       },
       {
-        "renderedAt": 4718.4000000059605,
+        "renderedAt": 4534.800000011921,
         "camera": {
-          "x": -769.833206101029,
-          "y": 367.83490391154317
+          "x": -797.2087387263506,
+          "y": 374.13944337838586
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 67,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 66,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1677,12 +2328,21 @@
         }
       },
       {
-        "renderedAt": 4745.699999988079,
+        "renderedAt": 4562.099999964237,
         "camera": {
-          "x": -774.3269420006059,
-          "y": 372.3286398111202
+          "x": -801.1208677784576,
+          "y": 378.0515724304929
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 67,
         "lifeId": 1,
@@ -1701,12 +2361,54 @@
         }
       },
       {
-        "renderedAt": 4770.0999999940395,
+        "renderedAt": 4591.199999988079,
         "camera": {
-          "x": -778.3433213430337,
-          "y": 376.34501915354804
+          "x": -806.4925008067537,
+          "y": 383.42320545878886
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 68,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": 0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 4617.5,
+        "camera": {
+          "x": -810.8216310005214,
+          "y": 387.75233565255667
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 69,
         "lifeId": 1,
@@ -1725,36 +2427,21 @@
         }
       },
       {
-        "renderedAt": 4798.4000000059605,
+        "renderedAt": 4644.5,
         "camera": {
-          "x": -783.0016629582312,
-          "y": 381.00336076874555
+          "x": -815.265985189827,
+          "y": 392.1966898418624
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 69,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 4822.699999988079,
-        "camera": {
-          "x": -787.0015817256631,
-          "y": 385.0032795361774
-        },
-        "zoom": 0.5,
         "centerError": 5.684341886080802e-14,
         "tick": 70,
         "lifeId": 1,
@@ -1773,14 +2460,23 @@
         }
       },
       {
-        "renderedAt": 4856.199999988079,
+        "renderedAt": 4671.699999988079,
         "camera": {
-          "x": -792.5158730346166,
-          "y": 390.517570845131
+          "x": -819.7432605193135,
+          "y": 396.67396517134875
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
-        "tick": 71,
+        "tick": 70,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1792,43 +2488,28 @@
           "y": 0.7071067811865475
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
+          "x": -0.9659258936278117,
+          "y": 0.25881879379077855
         }
       },
       {
-        "renderedAt": 4883.5,
+        "renderedAt": 4694.800000011921,
         "camera": {
-          "x": -797.0096089390993,
-          "y": 395.0113067496136
+          "x": -823.0682958737949,
+          "y": 399.9990005258302
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 71,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "target": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
-        },
-        "input": {
-          "x": -0.7071067811865475,
-          "y": 0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 4908.199999988079,
-        "camera": {
-          "x": -800.3126968684286,
-          "y": 398.3143946789429
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 72,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1845,14 +2526,23 @@
         }
       },
       {
-        "renderedAt": 4938,
+        "renderedAt": 4721.099999964237,
         "camera": {
-          "x": -809.1842982956947,
-          "y": 398.4561823665689
+          "x": -831.0104941594833,
+          "y": 399.89175565139794
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
-        "tick": 73,
+        "tick": 72,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1869,38 +2559,23 @@
         }
       },
       {
-        "renderedAt": 4964.799999982119,
+        "renderedAt": 4748.099999964237,
         "camera": {
-          "x": -815.4577694778915,
-          "y": 400.13715215417767
+          "x": -837.0815953087326,
+          "y": 401.5185006085385
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 74,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.9659258936278117,
-          "y": 0.25881879379077855
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": -0.9659258936278117,
-          "y": 0.25881879379077855
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": -0.9659258936278117,
-          "y": 0.25881879379077855
-        }
-      },
-      {
-        "renderedAt": 4991.5,
-        "camera": {
-          "x": -821.4614139517255,
-          "y": 401.74582216842737
-        },
-        "zoom": 0.5,
         "centerError": 5.684341886080802e-14,
-        "tick": 75,
+        "tick": 73,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1917,14 +2592,23 @@
         }
       },
       {
-        "renderedAt": 5018.4000000059605,
+        "renderedAt": 4773.5,
         "camera": {
-          "x": -825.4945745718251,
-          "y": 407.21900857926494
+          "x": -840.770143149771,
+          "y": 406.91295625655664
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 76,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 5.684341886080802e-14,
+        "tick": 74,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1941,14 +2625,23 @@
         }
       },
       {
-        "renderedAt": 5045.9000000059605,
+        "renderedAt": 4798.599999964237,
         "camera": {
-          "x": -829.1316612036301,
-          "y": 412.41004725471646
+          "x": -844.1791460870936,
+          "y": 411.5950751433404
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
-        "tick": 76,
+        "tick": 74,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1965,14 +2658,23 @@
         }
       },
       {
-        "renderedAt": 5071.5,
+        "renderedAt": 4823.399999976158,
         "camera": {
-          "x": -831.384372613122,
-          "y": 417.60733883644866
+          "x": -846.4750601822548,
+          "y": 416.89204081274795
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 5.684341886080802e-14,
-        "tick": 77,
+        "tick": 75,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -1989,14 +2691,23 @@
         }
       },
       {
-        "renderedAt": 5108.9000000059605,
+        "renderedAt": 4850.399999976158,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 425.3208786089631
+          "x": -847.2820802317597,
+          "y": 423.10734010400347
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 78,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 76,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -2013,13 +2724,121 @@
         }
       },
       {
-        "renderedAt": 5134.4000000059605,
+        "renderedAt": 4875.300000011921,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 432.4984971555284
+          "x": -847.4888846400171,
+          "y": 428.8924703407846
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 77,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 4904.099999964237,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 435.5967540315577
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 77,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 4930,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 440.5163325840865
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 78,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 4957.800000011921,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 448.09744969510837
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 79,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2037,13 +2856,22 @@
         }
       },
       {
-        "renderedAt": 5163.5,
+        "renderedAt": 4988.300000011921,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 439.2726171445752
+          "x": -847.4888846400171,
+          "y": 455.1974723654946
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 80,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2061,13 +2889,22 @@
         }
       },
       {
-        "renderedAt": 5197.199999988079,
+        "renderedAt": 5014.599999964237,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 447.11756022350573
+          "x": -847.4888846400171,
+          "y": 461.31978698492446
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 81,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2085,13 +2922,22 @@
         }
       },
       {
-        "renderedAt": 5224.199999988079,
+        "renderedAt": 5039.699999988079,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 453.4028261940115
+          "x": -847.4888846400171,
+          "y": 467.16275646675956
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 82,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2109,13 +2955,55 @@
         }
       },
       {
-        "renderedAt": 5252.699999988079,
+        "renderedAt": 5066.5,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 460.0372736073234
+          "x": -847.4888846400171,
+          "y": 473.401464914333
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 82,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 5093.199999988079,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 479.31427067362927
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 83,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2133,37 +3021,22 @@
         }
       },
       {
-        "renderedAt": 5281.799999982119,
+        "renderedAt": 5120.599999964237,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 466.81139359637007
+          "x": -847.4888846400171,
+          "y": 485.9952756098737
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 83,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": 1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 5304.9000000059605,
-        "camera": {
-          "x": -832.2284722386623,
-          "y": 471.8784043164144
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 84,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2181,13 +3054,22 @@
         }
       },
       {
-        "renderedAt": 5334.299999982119,
+        "renderedAt": 5149.899999976158,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 479.03274409457595
+          "x": -847.4888846400171,
+          "y": 492.8159531287903
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 85,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2205,13 +3087,22 @@
         }
       },
       {
-        "renderedAt": 5367.4000000059605,
+        "renderedAt": 5179.399999976158,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 486.7380146047093
+          "x": -847.4888846400171,
+          "y": 499.68318817063914
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 86,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2229,13 +3120,22 @@
         }
       },
       {
-        "renderedAt": 5392.199999988079,
+        "renderedAt": 5204.800000011921,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 492.5111477882707
+          "x": -847.4888846400171,
+          "y": 505.59599394381087
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 87,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2253,13 +3153,55 @@
         }
       },
       {
-        "renderedAt": 5419.199999988079,
+        "renderedAt": 5231,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 498.79641375877657
+          "x": -847.4888846400171,
+          "y": 511.69502980871187
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 87,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 5255.300000011921,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 517.3517691849422
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 88,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2277,37 +3219,22 @@
         }
       },
       {
-        "renderedAt": 5448.0999999940395,
+        "renderedAt": 5280,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 505.5239762248908
+          "x": -847.4888846400171,
+          "y": 523.1016236070373
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 88,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": 1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 5470.699999988079,
-        "camera": {
-          "x": -832.2284722386623,
-          "y": 510.67634240595714
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 89,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2325,13 +3252,22 @@
         }
       },
       {
-        "renderedAt": 5495.699999988079,
+        "renderedAt": 5306.199999988079,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 516.6046673418768
+          "x": -847.4888846400171,
+          "y": 529.2006594719386
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 90,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2349,13 +3285,55 @@
         }
       },
       {
-        "renderedAt": 5521.799999982119,
+        "renderedAt": 5330.599999964237,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 522.6804244453115
+          "x": -847.4888846400171,
+          "y": 534.8806776026975
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 90,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 5356,
+        "camera": {
+          "x": -847.4888846400171,
+          "y": 540.7934833758688
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 91,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2373,37 +3351,22 @@
         }
       },
       {
-        "renderedAt": 5546.9000000059605,
+        "renderedAt": 5387.399999976158,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 528.5233939271468
+          "x": -847.4888846400171,
+          "y": 548.1030149063885
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 91,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": 1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 5569.699999988079,
-        "camera": {
-          "x": -832.2284722386623,
-          "y": 533.8309518536337
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "centerError": 0,
         "tick": 92,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -2421,62 +3384,23 @@
         }
       },
       {
-        "renderedAt": 5605.799999982119,
+        "renderedAt": 5416.899999976158,
         "camera": {
-          "x": -832.2284722386623,
-          "y": 541.7146928775913
+          "x": -847.4888846400171,
+          "y": 554.9702499482379
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 93,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 5631,
-        "camera": {
-          "x": -832.2284722386623,
-          "y": 548.1008334857426
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 94,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 5655.0999999940395,
-        "camera": {
-          "x": -832.2284722386623,
-          "y": 553.711015332103
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 95,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -2612,12 +3536,21 @@
     ],
     "samples": [
       {
-        "renderedAt": 7882.5999999940395,
+        "renderedAt": 7699.699999988079,
         "camera": {
           "x": 12.479062570932683,
-          "y": -1033.2929377062055
+          "y": -1024.563401629121
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
         "tick": 18,
         "lifeId": 1,
@@ -2636,12 +3569,21 @@
         }
       },
       {
-        "renderedAt": 7909.299999982119,
+        "renderedAt": 7726.099999964237,
         "camera": {
           "x": 12.479062570932683,
-          "y": -1027.077508027036
+          "y": -1018.4178082412875
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 18,
         "lifeId": 1,
@@ -2660,84 +3602,21 @@
         }
       },
       {
-        "renderedAt": 7933.699999988079,
+        "renderedAt": 7751.899999976158,
         "camera": {
           "x": 12.479062570932683,
-          "y": -1021.3974898893393
+          "y": -1012.4113054532146
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 18,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": 1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 7965.4000000059605,
-        "camera": {
-          "x": 12.479062570932683,
-          "y": -1014.0181220605458
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 18,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 7991.4000000059605,
-        "camera": {
-          "x": 12.479062570932683,
-          "y": -1007.9656437185771
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 18,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 8020,
-        "camera": {
-          "x": 12.479062570932683,
-          "y": -1001.3079175437991
-        },
-        "zoom": 0.5,
         "centerError": 0,
         "tick": 21,
         "lifeId": 1,
@@ -2756,12 +3635,21 @@
         }
       },
       {
-        "renderedAt": 8044.9000000059605,
+        "renderedAt": 7777,
         "camera": {
           "x": 12.479062570932683,
-          "y": -995.511505591834
+          "y": -1006.5537285485455
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 21,
         "lifeId": 1,
@@ -2780,12 +3668,87 @@
         }
       },
       {
-        "renderedAt": 8073.9000000059605,
+        "renderedAt": 7803.5,
         "camera": {
           "x": 12.479062570932683,
-          "y": -988.7599369029576
+          "y": -1000.3694342128367
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 21,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 7829.5,
+        "camera": {
+          "x": 12.479062570932683,
+          "y": -994.301824675915
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 21,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 7858.599999964237,
+        "camera": {
+          "x": 12.479062570932683,
+          "y": -987.5268899371686
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 24,
         "lifeId": 1,
@@ -2804,12 +3767,21 @@
         }
       },
       {
-        "renderedAt": 8100,
+        "renderedAt": 7883.300000011921,
         "camera": {
           "x": 12.479062570932683,
-          "y": -982.676585103596
+          "y": -981.7770355011982
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 24,
         "lifeId": 1,
@@ -2828,12 +3800,21 @@
         }
       },
       {
-        "renderedAt": 8125,
+        "renderedAt": 7911,
         "camera": {
           "x": 12.479062570932683,
-          "y": -976.8496197772066
+          "y": -975.3288181934912
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 24,
         "lifeId": 1,
@@ -2852,12 +3833,21 @@
         }
       },
       {
-        "renderedAt": 8151.299999982119,
+        "renderedAt": 7936.300000011921,
         "camera": {
           "x": 12.479062570932683,
-          "y": -970.7196522580125
+          "y": -969.4392911887236
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 24,
         "lifeId": 1,
@@ -2876,12 +3866,21 @@
         }
       },
       {
-        "renderedAt": 8181.0999999940395,
+        "renderedAt": 7967,
         "camera": {
           "x": 12.479062570932683,
-          "y": -963.7825518263684
+          "y": -962.2927109954048
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 27,
         "lifeId": 1,
@@ -2900,12 +3899,21 @@
         }
       },
       {
-        "renderedAt": 8205.59999999404,
+        "renderedAt": 7992.099999964237,
         "camera": {
           "x": 12.479062570932683,
-          "y": -958.0792549272056
+          "y": -956.4497415274449
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 27,
         "lifeId": 1,
@@ -2924,12 +3932,21 @@
         }
       },
       {
-        "renderedAt": 8238.799999982119,
+        "renderedAt": 8018.099999964237,
         "camera": {
           "x": 12.479062570932683,
-          "y": -950.3507056625438
+          "y": -950.3972631854762
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 27,
         "lifeId": 1,
@@ -2948,12 +3965,21 @@
         }
       },
       {
-        "renderedAt": 8263.199999988079,
+        "renderedAt": 8042.300000011921,
         "camera": {
           "x": 12.479062570932683,
-          "y": -944.6706875248472
+          "y": -944.7638025637743
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 27,
         "lifeId": 1,
@@ -2972,12 +3998,21 @@
         }
       },
       {
-        "renderedAt": 8293.799999982119,
+        "renderedAt": 8073.5,
         "camera": {
           "x": 12.479062570932683,
-          "y": -937.5473860929947
+          "y": -937.500828556187
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 30,
         "lifeId": 1,
@@ -2996,12 +4031,21 @@
         }
       },
       {
-        "renderedAt": 8320.699999988079,
+        "renderedAt": 8098.099999964237,
         "camera": {
           "x": 12.479062570932683,
-          "y": -931.2853988839549
+          "y": -931.7742529024956
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 30,
         "lifeId": 1,
@@ -3020,12 +4064,21 @@
         }
       },
       {
-        "renderedAt": 8346.799999982119,
+        "renderedAt": 8124.199999988079,
         "camera": {
           "x": 12.479062570932683,
-          "y": -925.2096417805201
+          "y": -925.6984957921231
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 30,
         "lifeId": 1,
@@ -3044,12 +4097,54 @@
         }
       },
       {
-        "renderedAt": 8377.40000000596,
+        "renderedAt": 8151,
         "camera": {
           "x": 12.479062570932683,
-          "y": -918.08634034173
+          "y": -919.4597873445497
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 30,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": 1
+        },
+        "target": {
+          "x": 0,
+          "y": 1
+        },
+        "input": {
+          "x": 0,
+          "y": 1
+        }
+      },
+      {
+        "renderedAt": 8178.199999988079,
+        "camera": {
+          "x": 12.479062570932683,
+          "y": -913.1279638511113
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 33,
         "lifeId": 1,
@@ -3068,12 +4163,21 @@
         }
       },
       {
-        "renderedAt": 8403.299999982119,
+        "renderedAt": 8203.300000011921,
         "camera": {
           "x": 12.479062570932683,
-          "y": -912.057140768165
+          "y": -907.2849943692761
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 33,
         "lifeId": 1,
@@ -3092,12 +4196,21 @@
         }
       },
       {
-        "renderedAt": 8429.5,
+        "renderedAt": 8228.5,
         "camera": {
           "x": 12.479062570932683,
-          "y": -905.9581048963264
+          "y": -901.4187461329122
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 33,
         "lifeId": 1,
@@ -3116,12 +4229,21 @@
         }
       },
       {
-        "renderedAt": 8458.299999982119,
+        "renderedAt": 8253.699999988079,
         "camera": {
           "x": 12.479062570932683,
-          "y": -899.2538211986159
+          "y": -895.5524978965484
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 33,
         "lifeId": 1,
@@ -3140,12 +4262,21 @@
         }
       },
       {
-        "renderedAt": 8497,
+        "renderedAt": 8282.800000011921,
         "camera": {
           "x": 12.479062570932683,
-          "y": -890.2449399700615
+          "y": -888.7783779005641
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 36,
         "lifeId": 1,
@@ -3159,17 +4290,26 @@
           "y": 1
         },
         "input": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         }
       },
       {
-        "renderedAt": 8524.5,
+        "renderedAt": 8308.5,
         "camera": {
-          "x": 12.479062570932683,
-          "y": -883.843280185287
+          "x": 10.8096748955561,
+          "y": -883.0480391202736
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 36,
         "lifeId": 1,
@@ -3183,17 +4323,26 @@
           "y": 1
         },
         "input": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         }
       },
       {
-        "renderedAt": 8552,
+        "renderedAt": 8334.199999988079,
         "camera": {
-          "x": 12.479062570932683,
-          "y": -877.4416204005124
+          "x": 7.9996326531090745,
+          "y": -877.8359707020556
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 36,
         "lifeId": 1,
@@ -3207,76 +4356,37 @@
           "y": 1
         },
         "input": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         }
       },
       {
-        "renderedAt": 8584.09999999404,
+        "renderedAt": 8363,
         "camera": {
-          "x": 12.479062570932683,
-          "y": -869.9691375258541
+          "x": 3.598134239727301,
+          "y": -872.8765267921368
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 39,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0,
-          "y": 1
+          "x": -0.5646424733950354,
+          "y": 0.8253356149096783
         },
         "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 8614.299999982119,
-        "camera": {
-          "x": 12.479062570932683,
-          "y": -862.9389511468039
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 39,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
-          "x": 0,
-          "y": 1
-        }
-      },
-      {
-        "renderedAt": 8641.90000000596,
-        "camera": {
-          "x": 12.479062570932683,
-          "y": -856.5140125936256
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 39,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": 1
-        },
-        "target": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "input": {
           "x": -0.9659258936278117,
@@ -3284,23 +4394,32 @@
         }
       },
       {
-        "renderedAt": 8669.699999988079,
+        "renderedAt": 8390.099999964237,
         "camera": {
-          "x": 12.479062570932683,
-          "y": -850.0425165244524
+          "x": -1.546612952107921,
+          "y": -869.3091299922351
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 39,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0,
-          "y": 1
+          "x": -0.5646424733950354,
+          "y": 0.8253356149096783
         },
         "target": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "input": {
           "x": -0.9659258936278117,
@@ -3308,23 +4427,98 @@
         }
       },
       {
-        "renderedAt": 8700.40000000596,
+        "renderedAt": 8416.699999988079,
         "camera": {
-          "x": 10.484052576220222,
-          "y": -843.1974525947753
+          "x": -7.3179396400815335,
+          "y": -867.0653560878015
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 39,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.5646424733950354,
+          "y": 0.8253356149096783
+        },
+        "target": {
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
+        },
+        "input": {
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
+        }
+      },
+      {
+        "renderedAt": 8443.599999964237,
+        "camera": {
+          "x": -13.551034799840238,
+          "y": -866.5635664010567
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 39,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.5646424733950354,
+          "y": 0.8253356149096783
+        },
+        "target": {
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
+        },
+        "input": {
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
+        }
+      },
+      {
+        "renderedAt": 8470.599999964237,
+        "camera": {
+          "x": -19.712111301304788,
+          "y": -867.4852889440226
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 42,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0,
-          "y": 1
+          "x": -0.9974949866040544,
+          "y": 0.07073720166770288
         },
         "target": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "input": {
           "x": -0.9659258936278117,
@@ -3332,23 +4526,32 @@
         }
       },
       {
-        "renderedAt": 8728.699999988079,
+        "renderedAt": 8497.399999976158,
         "camera": {
-          "x": 7.0357262531040305,
-          "y": -837.6290945342629
+          "x": -25.76338232407329,
+          "y": -868.9996429274915
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 42,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0,
-          "y": 1
+          "x": -0.9974949866040544,
+          "y": 0.07073720166770288
         },
         "target": {
-          "x": 0,
-          "y": 1
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "input": {
           "x": -0.9659258936278117,
@@ -3356,115 +4559,160 @@
         }
       },
       {
-        "renderedAt": 8762.5,
+        "renderedAt": 8523.899999976158,
         "camera": {
-          "x": 1.3491655433353458,
-          "y": -832.2939170121108
+          "x": -31.72205567426255,
+          "y": -870.5962629780184
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 42,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0,
-          "y": 1
+          "x": -0.9974949866040544,
+          "y": 0.07073720166770288
         },
         "target": {
-          "x": 0,
-          "y": 1
-        },
-        "input": {
           "x": -0.9659258936278117,
           "y": -0.25881879379077855
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 8793.40000000596,
+        "renderedAt": 8550,
         "camera": {
-          "x": -5.047016606919385,
-          "y": -829.1503064771599
+          "x": -37.59078679056461,
+          "y": -872.1687831046908
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 42,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.9974949866040544,
+          "y": 0.07073720166770288
+        },
+        "target": {
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 8580,
+        "camera": {
+          "x": -43.526081492205606,
+          "y": -875.8316470779769
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 45,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7833269096274833,
-          "y": 0.6216099682706644
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "target": {
           "x": -0.9659258936278117,
           "y": -0.25881879379077855
         },
         "input": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 8821.199999988079,
+        "renderedAt": 8605.899999976158,
         "camera": {
-          "x": -11.329611821073286,
-          "y": -827.9231601761837
+          "x": -47.926537902746134,
+          "y": -879.9230722628063
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 45,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7833269096274833,
-          "y": 0.6216099682706644
+          "x": -0.9659258936278117,
+          "y": -0.25881879379077855
         },
         "target": {
           "x": -0.9659258936278117,
           "y": -0.25881879379077855
         },
         "input": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 8847.699999988079,
+        "renderedAt": 8632,
         "camera": {
-          "x": -17.43000118242935,
-          "y": -828.15492649682
+          "x": -52.22274695633291,
+          "y": -884.2192813163931
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 45,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7833269096274833,
-          "y": 0.6216099682706644
-        },
-        "target": {
           "x": -0.9659258936278117,
           "y": -0.25881879379077855
-        },
-        "input": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
-        }
-      },
-      {
-        "renderedAt": 8876.59999999404,
-        "camera": {
-          "x": -23.972032723034033,
-          "y": -829.7217146585187
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 48,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.9738476308781953,
-          "y": -0.22720209469308708
         },
         "target": {
           "x": -0.9659258936278117,
@@ -3476,71 +4724,32 @@
         }
       },
       {
-        "renderedAt": 8905.199999988079,
+        "renderedAt": 8660.5,
         "camera": {
-          "x": -30.38990715216994,
-          "y": -831.474613237488
+          "x": -56.91400971171123,
+          "y": -888.9105440717714
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 48,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.9738476308781953,
-          "y": -0.22720209469308708
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 8933.699999988079,
-        "camera": {
-          "x": -36.00462718391924,
-          "y": -835.0088474466306
-        },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
-        "tick": 48,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": -0.9738476308781953,
-          "y": -0.22720209469308708
-        },
-        "target": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
-        },
-        "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 8962.299999982119,
-        "camera": {
-          "x": -40.85383928564522,
-          "y": -839.5392950525934
-        },
-        "zoom": 0.5,
         "centerError": 0,
         "tick": 48,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.9738476308781953,
-          "y": -0.22720209469308708
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": -0.9659258936278117,
-          "y": -0.25881879379077855
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
           "x": -0.7071067811865475,
@@ -3548,13 +4757,121 @@
         }
       },
       {
-        "renderedAt": 8993.5,
+        "renderedAt": 8685.399999976158,
         "camera": {
-          "x": -45.949648983760824,
-          "y": -844.7443175355963
+          "x": -61.01269190459095,
+          "y": -893.0092262646511
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 48,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 8710.899999976158,
+        "camera": {
+          "x": -65.2101375278242,
+          "y": -897.2066718878845
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 48,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 8736.399999976158,
+        "camera": {
+          "x": -69.40758315105745,
+          "y": -901.4041175111176
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 48,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": -0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 8766.300000011921,
+        "camera": {
+          "x": -73.46695269330183,
+          "y": -906.9617319172041
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 51,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -3567,18 +4884,27 @@
           "y": -0.7071067811865475
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9028,
+        "renderedAt": 8796.300000011921,
         "camera": {
-          "x": -50.81904452358094,
-          "y": -851.8300901571695
+          "x": -76.1416979754037,
+          "y": -913.3674297222681
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 51,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -3591,18 +4917,27 @@
           "y": -0.7071067811865475
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9056.09999999404,
+        "renderedAt": 8823.099999964237,
         "camera": {
-          "x": -54.785131904448235,
-          "y": -857.6014006100384
+          "x": -77.75639296702587,
+          "y": -919.3935597411714
         },
-        "zoom": 0.5,
-        "centerError": 5.684341886080802e-14,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 51,
         "lifeId": 1,
         "lifeState": "ALIVE",
@@ -3615,76 +4950,103 @@
           "y": -0.7071067811865475
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9085.5,
+        "renderedAt": 8851.899999976158,
         "camera": {
-          "x": -59.25615796787241,
-          "y": -863.0810388519292
+          "x": -79.49188130654784,
+          "y": -925.8704971408125
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 54,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9112.699999988079,
+        "renderedAt": 8878.699999988079,
         "camera": {
-          "x": -63.73343329735894,
-          "y": -867.5583141814158
+          "x": -81.11263140823382,
+          "y": -931.9192251616374
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 54,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9138.90000000596,
+        "renderedAt": 8904.699999988079,
         "camera": {
-          "x": -68.0461029210361,
-          "y": -871.8709838050929
+          "x": -82.68500090917007,
+          "y": -937.7873941344545
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 54,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "input": {
           "x": -0.25881879379077855,
@@ -3692,23 +5054,32 @@
         }
       },
       {
-        "renderedAt": 9165.799999982119,
+        "renderedAt": 8930.300000011921,
         "camera": {
-          "x": -72.47399653534586,
-          "y": -876.2988774194027
+          "x": -84.23318011153378,
+          "y": -943.5652835899938
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 54,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "input": {
           "x": -0.25881879379077855,
@@ -3716,166 +5087,262 @@
         }
       },
       {
-        "renderedAt": 9195.299999982119,
+        "renderedAt": 8958.399999976158,
         "camera": {
-          "x": -75.79663450467592,
-          "y": -882.2365819283614
+          "x": -85.92626764210166,
+          "y": -949.8839788516519
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 57,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.46656056766778137,
-          "y": -0.8844892518835477
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
           "x": -0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9223.40000000596,
+        "renderedAt": 8985.300000011921,
         "camera": {
-          "x": -76.4671271289152,
-          "y": -889.182320065888
+          "x": -87.45249581739182,
+          "y": -955.9432027851337
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 57,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.46656056766778137,
-          "y": -0.8844892518835477
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
           "x": -0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9249.299999982119,
+        "renderedAt": 9011.599999964237,
         "camera": {
-          "x": -77.08512566760112,
-          "y": -895.5842637471588
+          "x": -87.21867493703559,
+          "y": -962.0610507805642
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 57,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.46656056766778137,
-          "y": -0.8844892518835477
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
           "x": -0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9282.199999988079,
+        "renderedAt": 9040.300000011921,
         "camera": {
-          "x": -78.20492840384128,
-          "y": -903.5110844942999
+          "x": -85.7805412453684,
+          "y": -968.5583922392321
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 57,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.46656056766778137,
-          "y": -0.8844892518835477
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
         },
         "target": {
           "x": -0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9311.90000000596,
+        "renderedAt": 9065.300000011921,
         "camera": {
-          "x": -79.99434785777328,
-          "y": -910.189295762495
+          "x": -84.27429591468268,
+          "y": -974.1797821922409
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 57,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
+        },
+        "target": {
+          "x": -0.25881879379077855,
+          "y": -0.9659258936278117
+        },
+        "input": {
+          "x": 0.25881879379077855,
+          "y": -0.9659258936278117
+        }
+      },
+      {
+        "renderedAt": 9095.599999964237,
+        "camera": {
+          "x": -82.44872657676456,
+          "y": -980.9929068045656
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 60,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9339.90000000596,
+        "renderedAt": 9123.899999976158,
         "camera": {
-          "x": -81.68134262814124,
-          "y": -916.4852525098648
+          "x": -80.74365686171012,
+          "y": -987.356320234052
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 60,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         }
       },
       {
-        "renderedAt": 9366.09999999404,
+        "renderedAt": 9149.800000011921,
         "camera": {
-          "x": -83.25988773398166,
-          "y": -922.3764691779376
+          "x": -79.18318669696492,
+          "y": -993.1800802334104
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 60,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
@@ -3884,398 +5351,320 @@
         }
       },
       {
-        "renderedAt": 9396.09999999404,
+        "renderedAt": 9178.800000011921,
         "camera": {
-          "x": -83.35961570858916,
-          "y": -929.3138633825257
+          "x": -77.43594211336949,
+          "y": -999.7008925789006
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 63,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9425.199999988079,
+        "renderedAt": 9205.5,
         "camera": {
-          "x": -82.04974797561727,
-          "y": -935.924174918992
+          "x": -74.45221583862582,
+          "y": -1005.1039511491331
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 63,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9453.199999988079,
+        "renderedAt": 9230.199999988079,
         "camera": {
-          "x": -80.36275320524925,
-          "y": -942.2201316663618
+          "x": -70.86415195034778,
+          "y": -1009.5509758481106
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 63,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "target": {
-          "x": -0.25881879379077855,
+          "x": 0.25881879379077855,
           "y": -0.9659258936278117
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9481.299999982119,
+        "renderedAt": 9260.099999964237,
         "camera": {
-          "x": -78.75006653792161,
-          "y": -948.5385739722034
+          "x": -65.94244120389288,
+          "y": -1014.4726865945655
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 66,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9509.199999988079,
+        "renderedAt": 9286.399999976158,
         "camera": {
-          "x": -78.46990490635415,
-          "y": -954.8120451611014
+          "x": -61.61331101012536,
+          "y": -1018.801816788333
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 66,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9543.699999988079,
+        "renderedAt": 9312.099999964237,
         "camera": {
-          "x": -78.12346848029648,
-          "y": -962.5695632962535
+          "x": -57.38294424671136,
+          "y": -1023.032183551747
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 66,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9574,
+        "renderedAt": 9337.399999976158,
         "camera": {
-          "x": -77.10122998181953,
-          "y": -969.3826879219806
+          "x": -53.21841976365886,
+          "y": -1027.1967080347995
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
+        "tick": 66,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        }
+      },
+      {
+        "renderedAt": 9365.300000011921,
+        "camera": {
+          "x": -48.62592042882278,
+          "y": -1031.7892073696357
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
         "tick": 69,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9602.5,
+        "renderedAt": 9392.399999976158,
         "camera": {
-          "x": -75.3841103048378,
-          "y": -975.7910724684106
+          "x": -44.16510567433221,
+          "y": -1036.2500221241262
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
         "tick": 69,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
         }
       },
       {
-        "renderedAt": 9630,
+        "renderedAt": 9418.899999976158,
         "camera": {
-          "x": -73.72724044108355,
-          "y": -981.9746014167202
+          "x": -39.80305434038394,
+          "y": -1040.6120734580745
         },
-        "zoom": 0.5,
-        "centerError": 0,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
         "tick": 69,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
-        },
-        "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9655.59999999404,
-        "camera": {
-          "x": -71.06694786227462,
-          "y": -987.242638605111
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 69,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
-        },
-        "target": {
-          "x": 0.25881879379077855,
-          "y": -0.9659258936278117
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9685,
-        "camera": {
-          "x": -66.86898035379153,
-          "y": -992.5939982547164
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 72,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.5327096574842365,
-          "y": -0.8462980685450177
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9711.90000000596,
-        "camera": {
-          "x": -62.44108673457612,
-          "y": -997.0218918739318
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 72,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.5327096574842365,
-          "y": -0.8462980685450177
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9737.799999982119,
-        "camera": {
-          "x": -58.177798830981374,
-          "y": -1001.2851797775267
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 72,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.5327096574842365,
-          "y": -0.8462980685450177
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9764.299999982119,
-        "camera": {
-          "x": -53.8157474970331,
-          "y": -1005.647231111475
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 72,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.5327096574842365,
-          "y": -0.8462980685450177
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9799.59999999404,
-        "camera": {
-          "x": -48.005165906830314,
-          "y": -1011.4578127016778
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 75,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9826.5,
-        "camera": {
-          "x": -43.577272287614846,
-          "y": -1015.8857063208932
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 75,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        },
-        "input": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
-        }
-      },
-      {
-        "renderedAt": 9853.40000000596,
-        "camera": {
-          "x": -39.149378668399436,
-          "y": -1020.3135999401086
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 75,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -4292,14 +5681,23 @@
         }
       },
       {
-        "renderedAt": 9879.299999982119,
+        "renderedAt": 9444.399999976158,
         "camera": {
-          "x": -34.559880452677874,
-          "y": -1024.1345180025091
+          "x": -35.60560871715069,
+          "y": -1044.8095190813078
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
-        "tick": 78,
+        "tick": 69,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -4316,14 +5714,23 @@
         }
       },
       {
-        "renderedAt": 9905.199999988079,
+        "renderedAt": 9475.399999976158,
         "camera": {
-          "x": -29.21827142000467,
-          "y": -1026.9249369152872
+          "x": -29.478779055991197,
+          "y": -1048.5235907843594
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
-        "tick": 78,
+        "tick": 72,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -4335,28 +5742,268 @@
           "y": -0.7071067811865475
         },
         "input": {
-          "x": 0.9659258936278117,
-          "y": -0.25881879379077855
+          "x": 0,
+          "y": -1
         }
       },
       {
-        "renderedAt": 9930.299999982119,
+        "renderedAt": 9500.699999988079,
         "camera": {
-          "x": -23.57439590852414,
-          "y": -1028.4372072269366
+          "x": -24.96189237867776,
+          "y": -1052.2102811765712
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 72,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9527.399999976158,
+        "camera": {
+          "x": -21.134347888882587,
+          "y": -1057.0236837574616
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 72,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9554.300000011921,
+        "camera": {
+          "x": -18.45583399043221,
+          "y": -1062.6470747965748
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 72,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "target": {
+          "x": 0.7071067811865475,
+          "y": -0.7071067811865475
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9584.5,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1069.559044995201
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 75,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.46656056766778137,
+          "y": -0.8844892518835477
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9611.199999988079,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1075.774474674371
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 75,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.46656056766778137,
+          "y": -0.8844892518835477
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9638.5,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1082.1295769362132
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 75,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.46656056766778137,
+          "y": -0.8844892518835477
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9666.899999976158,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1088.740745581121
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 75,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0.46656056766778137,
+          "y": -0.8844892518835477
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9697,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1095.7476532056426
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 78,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": 0,
+          "y": -1
         },
         "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": 0,
+          "y": -1
         },
         "input": {
           "x": 0,
@@ -4364,23 +6011,65 @@
         }
       },
       {
-        "renderedAt": 9955.199999988079,
+        "renderedAt": 9726.099999964237,
         "camera": {
-          "x": -18.45261848488792,
-          "y": -1031.0298215749697
+          "x": -17.18422084329228,
+          "y": -1102.5217731877515
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 78,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 9750.899999976158,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1108.2949063782505
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 78,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": 0,
+          "y": -1
         },
         "target": {
-          "x": 0.7071067811865475,
-          "y": -0.7071067811865475
+          "x": 0,
+          "y": -1
         },
         "input": {
           "x": 0,
@@ -4388,19 +6077,28 @@
         }
       },
       {
-        "renderedAt": 9983.90000000596,
+        "renderedAt": 9779.699999988079,
         "camera": {
-          "x": -13.366571788458884,
-          "y": -1035.24737142819
+          "x": -17.18422084329228,
+          "y": -1114.9991900828986
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 81,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.8462980685450177,
-          "y": -0.5327096574842365
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4412,19 +6110,28 @@
         }
       },
       {
-        "renderedAt": 10010.799999982119,
+        "renderedAt": 9807.099999964237,
         "camera": {
-          "x": -9.647400854267119,
-          "y": -1040.2241623991022
+          "x": -17.18422084329228,
+          "y": -1121.3775710992695
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
         "tick": 81,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.8462980685450177,
-          "y": -0.5327096574842365
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4436,19 +6143,28 @@
         }
       },
       {
-        "renderedAt": 10043,
+        "renderedAt": 9831.099999964237,
         "camera": {
-          "x": -6.998202966583733,
-          "y": -1047.189580691691
+          "x": -17.18422084329228,
+          "y": -1126.9644741841635
         },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 81,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.8462980685450177,
-          "y": -0.5327096574842365
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4460,19 +6176,28 @@
         }
       },
       {
-        "renderedAt": 10072.799999982119,
+        "renderedAt": 9859.699999988079,
         "camera": {
-          "x": -6.34621197496574,
-          "y": -1054.1253039831295
+          "x": -17.18422084329228,
+          "y": -1133.622200365879
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
         "tick": 84,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.10878150580995095,
-          "y": -0.9940656839433296
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4484,43 +6209,28 @@
         }
       },
       {
-        "renderedAt": 10100.90000000596,
+        "renderedAt": 9885.599999964237,
         "camera": {
-          "x": -6.321306815387004,
-          "y": -1060.8942243427264
+          "x": -17.18422084329228,
+          "y": -1139.651399939444
         },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 84,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0.10878150580995095,
-          "y": -0.9940656839433296
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10127.40000000596,
-        "camera": {
-          "x": -6.297819743206389,
-          "y": -1067.2777257440478
-        },
-        "zoom": 0.5,
         "centerError": 0,
         "tick": 84,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.10878150580995095,
-          "y": -0.9940656839433296
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4532,19 +6242,28 @@
         }
       },
       {
-        "renderedAt": 10154,
+        "renderedAt": 9910.399999976158,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1073.641580057722
+          "x": -17.18422084329228,
+          "y": -1145.424533129943
         },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
         "tick": 84,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
-          "x": 0.10878150580995095,
-          "y": -0.9940656839433296
+          "x": 0,
+          "y": -1
         },
         "target": {
           "x": 0,
@@ -4556,14 +6275,23 @@
         }
       },
       {
-        "renderedAt": 10180.5,
+        "renderedAt": 9936.199999988079,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1079.8104522139593
+          "x": -17.18422084329228,
+          "y": -1151.4304539489792
         },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 87,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 84,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {
@@ -4580,60 +6308,21 @@
         }
       },
       {
-        "renderedAt": 10207.699999988079,
+        "renderedAt": 9963.5,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1086.1422757073974
+          "x": -17.18422084329228,
+          "y": -1157.7855562108214
         },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 87,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10233.699999988079,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1092.194754049366
-        },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 87,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10262.09999999404,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1098.8059227012118
-        },
-        "zoom": 0.5,
         "centerError": 0,
         "tick": 87,
         "lifeId": 1,
@@ -4652,12 +6341,120 @@
         }
       },
       {
-        "renderedAt": 10297.09999999404,
+        "renderedAt": 9989.099999964237,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1106.9534897000158
+          "x": -17.18422084329228,
+          "y": -1163.74491949305
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 0,
+        "tick": 87,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 10014.599999964237,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1169.6810040207502
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 87,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 10039.5,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1175.477415979653
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
+        "centerError": 1.1368683772161603e-13,
+        "tick": 87,
+        "lifeId": 1,
+        "lifeState": "ALIVE",
+        "actual": {
+          "x": 0,
+          "y": -1
+        },
+        "target": {
+          "x": 0,
+          "y": -1
+        },
+        "input": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      {
+        "renderedAt": 10071.300000011921,
+        "camera": {
+          "x": -17.18422084329228,
+          "y": -1182.8800625699128
+        },
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 0,
         "tick": 90,
         "lifeId": 1,
@@ -4676,36 +6473,21 @@
         }
       },
       {
-        "renderedAt": 10324.40000000596,
+        "renderedAt": 10100.099999964237,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1113.308591961858
+          "x": -17.18422084329228,
+          "y": -1189.5843462606854
         },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 90,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
         },
-        "target": {
-          "x": 0,
-          "y": -1
+        "viewport": {
+          "width": 844,
+          "height": 700
         },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10350.199999988079,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1119.3145127739567
-        },
-        "zoom": 0.5,
         "centerError": 1.1368683772161603e-13,
         "tick": 90,
         "lifeId": 1,
@@ -4724,206 +6506,23 @@
         }
       },
       {
-        "renderedAt": 10377.5,
+        "renderedAt": 10125.699999988079,
         "camera": {
-          "x": -6.279030085472414,
-          "y": -1125.6696150357989
+          "x": -17.18422084329228,
+          "y": -1195.5437095567895
         },
-        "zoom": 0.5,
+        "zoom": 0.38,
+        "pixelRatio": 1,
+        "backing": {
+          "width": 844,
+          "height": 700
+        },
+        "viewport": {
+          "width": 844,
+          "height": 700
+        },
         "centerError": 1.1368683772161603e-13,
-        "tick": 93,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10404,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1131.8384871920362
-        },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 93,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10427.90000000596,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1137.402111515464
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 93,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10451.90000000596,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1142.9890146003581
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 93,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10478.299999982119,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1149.1346079881916
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 96,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10503.5,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1155.000856231493
-        },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 96,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10530.59999999404,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1161.3094009634651
-        },
-        "zoom": 0.5,
-        "centerError": 1.1368683772161603e-13,
-        "tick": 96,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10564.699999988079,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1169.247459095198
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 96,
-        "lifeId": 1,
-        "lifeState": "ALIVE",
-        "actual": {
-          "x": 0,
-          "y": -1
-        },
-        "target": {
-          "x": 0,
-          "y": -1
-        },
-        "input": {
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "renderedAt": 10593.199999988079,
-        "camera": {
-          "x": -6.279030085472414,
-          "y": -1175.88190650851
-        },
-        "zoom": 0.5,
-        "centerError": 0,
-        "tick": 99,
+        "tick": 90,
         "lifeId": 1,
         "lifeState": "ALIVE",
         "actual": {

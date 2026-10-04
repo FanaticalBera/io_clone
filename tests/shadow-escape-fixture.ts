@@ -3,16 +3,18 @@ import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type B
 import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
-export function runShadowEscapeWitness(){
- const seed=115,match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot));
- // Ordinary policy and movement create this state. No owners, trails, body
- // positions or memory goals are injected to create the opportunity.
- while(match.tick<3351){const inputs=new Map(match.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(match,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(match,inputs);}
- const bot=match.participants[4],memory=memories[4];let trace:BotDecisionTrace|undefined;
- const stop=watchBotDecisions(memory,t=>{trace=t;});const actualInput=getBotInput(observeBot(match,bot.participantId),memory);stop();
- if(!trace?.shadow)throw new Error('missing normal escape decision');
- const candidate=trace.shadow.candidates.find(c=>c.reason==='CLEAR_KILL_OPPORTUNITY')!;
- const branch=structuredClone(match),attacker=branch.participants[4],victim=branch.participants.find(p=>p.slot===candidate.slot)!;
+export function runShadowEscapeWitness(seed=19){
+ const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot)),traces:(BotDecisionTrace|undefined)[]=Array(8);
+ const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
+ const attempts={escape:0,clear:0,cut:0};
+ // Search normal decisions rather than relying on a tick from an old death
+ // timeline. Neither game state nor BOT policy/memory is injected.
+ try{while(match.tick<7200){const inputs=new Map();
+  for(const [i,bot] of match.participants.entries()){
+   traces[i]=undefined;const memory=memories[i],actualInput=getBotInput(observeBot(match,bot.participantId),memory);if(actualInput)inputs.set(bot.participantId,actualInput);
+   const trace=traces[i] as BotDecisionTrace|undefined;if(trace?.from==='ESCAPE')attempts.escape++;if(trace?.from!=='ESCAPE'||trace.to!=='ESCAPE'||trace.shadow?.missedReason!=='GOAL_ESCAPE_BLOCK')continue;
+   const candidate=trace.shadow.candidates.find(c=>c.reason==='CLEAR_KILL_OPPORTUNITY');if(!candidate)continue;attempts.clear++;
+   const branch=structuredClone(match),attacker=branch.participants[i],victim=branch.participants.find(p=>p.slot===candidate.slot)!;
  // This branch alone follows the shadow path, with every other head retaining
  // its observed steering intent. The production match and goal remain intact.
  let path=[...candidate.path],seq=memory.seq,cutTick:number|null=null;
@@ -22,7 +24,11 @@ export function runShadowEscapeWitness(){
   const target=branch.map.cells[path[0]??attacker.cellId].center,d=normalizeDirection(target.x-attacker.position.x,target.y-attacker.position.y)??attacker.direction;
   stepMatch(branch,new Map([[attacker.participantId,{matchId:branch.matchId,lifeId:attacker.lifeId,seq:++seq,dx:d.x,dy:d.y}]]));
  };
- while(branch.tick<match.tick+30&&victim.lifeState==='ALIVE'&&attacker.lifeState==='ALIVE')advance();
- if(victim.lifeState==='DEAD_WAIT'){cutTick=branch.tick;path=[...candidate.back];while(branch.tick<match.tick+90&&attacker.lifeState==='ALIVE'&&attacker.trailCells.size)advance();}
- return {match,bot,memory,actualInput,trace,candidate,branch,attacker,victim,cutTick};
+ const attackDeadline=match.tick+Math.ceil(((candidate.attackSeconds??2)+.35)*branch.config.simulationHz),returnDeadline=match.tick+Math.ceil(((candidate.returnSeconds??6)+.5)*branch.config.simulationHz);
+ while(branch.tick<attackDeadline&&victim.lifeState==='ALIVE'&&attacker.lifeState==='ALIVE')advance();
+ if(victim.lifeState==='DEAD_WAIT'){cutTick=branch.tick;path=[...candidate.back];while(branch.tick<returnDeadline&&attacker.lifeState==='ALIVE'&&attacker.trailCells.size)advance();}
+   if(cutTick!==null)attempts.cut++;if(cutTick!==null&&victim.deathContext?.cause==='EXISTING_TRAIL_CONTACT'&&attacker.lifeState==='ALIVE'&&attacker.trailCells.size===0&&branch.owners[attacker.cellId]===attacker.slot+1)return {match,bot,memory,actualInput,trace,candidate,branch,attacker,victim,cutTick};
+  }stepMatch(match,inputs);
+ }}finally{for(const stop of stops)stop();}
+ throw new Error('No normal ESCAPE shadow cut-and-return witness found '+JSON.stringify(attempts));
 }

@@ -2,7 +2,7 @@ import {describe,it,expect} from 'vitest';
 import {captureFixture} from './helpers.js';
 import {disk,hexDistance} from '../../src/shared/hex.js';
 import {setOwner,addTrail,assertOwnershipCounts} from '../../src/shared/territory.js';
-import {resolveAtTime} from '../../src/shared/engine.js';
+import {resolveAtTime,applySimultaneousCaptures} from '../../src/shared/engine.js';
 const ring:[number,number][]=[[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];
 describe('T11: atomic captures and derived events',()=>{
  it('resolves overlapping candidates against one base state with seeded priority',()=>{
@@ -22,10 +22,18 @@ describe('T11: atomic captures and derived events',()=>{
   for(const [q,r]of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));resolveAtTime(m);
   expect(b.lifeState).toBe('DEAD_WAIT');expect(b.deathReason).toBe('TERRITORY_LOST');expect(a.kills).toBe(0);assertOwnershipCounts(m);
  });
- it('a stolen current cell creates a trail without a body-only death',()=>{
+ it('a stolen current cell with no home attachment dies even with territory elsewhere',()=>{
   const {m,a,b,id}=captureFixture();setOwner(m,id(0,-1),1);setOwner(m,id(0,0),2);setOwner(m,id(3,0),2);
   a.cellId=id(0,-1);b.cellId=id(0,0);
   for(const [q,r]of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));resolveAtTime(m);
-  expect(b.lifeState).toBe('ALIVE');expect(b.trailCells.has(id(0,0))).toBe(true);expect(a.kills).toBe(0);
+  expect(b.lifeState).toBe('DEAD_WAIT');expect(b.deathContext?.cause).toBe('HOME_CAPTURE');expect(b.trailCells.size).toBe(0);expect(a.kills).toBe(1);
+ });
+ it('a stolen current cell still attached to adjacent home creates a trail without a body-only death',()=>{
+  // Synthetic capture-boundary check; actual movement coverage lives in
+  // direct-home-head.test.ts. Freeze the capture before contact resolution.
+  const {m,a,b,id}=captureFixture();setOwner(m,id(0,-1),1);setOwner(m,id(1,0),2);setOwner(m,id(2,0),2);
+  a.cellId=id(0,-1);b.cellId=id(1,0);
+  for(const [q,r]of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));applySimultaneousCaptures(m,[a]);resolveAtTime(m);
+  expect(b.lifeState).toBe('ALIVE');expect(b.trailCells.has(id(1,0))).toBe(true);expect(m.owners[id(2,0)]).toBe(2);expect(a.kills).toBe(0);assertOwnershipCounts(m);
  });
 });

@@ -48,7 +48,11 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false){
     check(!!trace.context&&!!trace.killerId&&trace.killerId!==trace.victimId,'missing cause/killer '+key);
     if(trace.context?.cause==='EXISTING_TRAIL_CONTACT')check(trace.killerCell===trace.context.cellId&&trace.diagnostic!.existingTrailContact&&(trace.diagnostic!.trailMasksBefore[trace.context.cellId]&(1<<p.slot))!==0,'contact without existing trail '+key);
     if(trace.context?.cause==='PENDING_TRAIL_CONTACT')check(trace.killerCell===trace.context.cellId&&trace.pendingContact&&trace.diagnostic!.pendingTrails.some(t=>t.participantId===p.participantId&&t.cellId===trace.context!.cellId)&&(trace.diagnostic!.trailMasksBefore[trace.context.cellId]&(1<<p.slot))===0,'contact without pending trail '+key);
-    if(trace.context?.cause==='HOME_CAPTURE')check(trace.originCellId!==null?trace.originCellId===trace.context.cellId&&trace.originOwner!==p.slot+1:trace.trailCells[0]===trace.context.cellId&&trace.rootHomeNeighbors.length===0,'connected home died '+key);
+    if(trace.context?.cause==='HOME_CAPTURE'){
+     const strandedHead=!trace.trailCells.length&&captures.some(c=>c.tick===trace.tick&&c.participants.some(v=>v.participantId===p.participantId&&v.strandedHomeHead&&v.headCellId===trace.context!.cellId&&v.headOwnerBefore===p.slot+1&&v.headOwnerAfterTransfer!==p.slot+1&&v.headHomeNeighborsAfterTransfer.length===0&&v.ownerCellsAfterTransfer>0));
+     const detachedTrail=trace.trailCells.length>0&&(trace.originCellId!==null?trace.originCellId===trace.context.cellId&&trace.originOwner!==p.slot+1:trace.trailCells[0]===trace.context.cellId&&trace.rootHomeNeighbors.length===0);
+     check(strandedHead||detachedTrail,'connected home died '+key);
+    }
     if(trace.context?.cause==='TRAIL_CAPTURE')check(captures.some(c=>c.tick===trace.tick&&c.participants.some(v=>v.participantId===p.participantId&&v.trailCells.includes(trace.context!.cellId)&&v.claimedTrailCells.includes(trace.context!.cellId))),'capture without trail '+key);
    }else if(trace.reason==='TERRITORY_LOST')check(trace.ownerCells===0,'territory death with land '+key);
    else if(trace.reason==='WALL_HIT')check(m.map.boundaryEdges.some(e=>distanceToSegment(trace.position,e.a,e.b)<.01),'wall death away from boundary '+key);

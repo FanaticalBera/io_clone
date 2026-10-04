@@ -1,0 +1,293 @@
+{
+  "condition": "Automated Chromium, not physical-device performance acceptance",
+  "samples": [
+    {
+      "density": 1,
+      "renderedAt": 1332,
+      "camera": {
+        "x": -222.71281292110203,
+        "y": -470
+      },
+      "zoom": 0.35,
+      "pixelRatio": 1,
+      "backing": {
+        "width": 390,
+        "height": 844
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "centerError": 7.105427357601002e-15,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 228.57143199203043,
+        "y": 0.000034059797599184094
+      },
+      "worldWidth": 1114.2857332618873,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 54.28571473824807,
+        "y": 0.000034059797599184094
+      },
+      "textResolutions": [
+        1,
+        1
+      ]
+    },
+    {
+      "density": 1,
+      "renderedAt": 1513.1000000238419,
+      "camera": {
+        "x": -449.71281292110206,
+        "y": -243
+      },
+      "zoom": 0.38,
+      "pixelRatio": 1,
+      "backing": {
+        "width": 844,
+        "height": 390
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "centerError": 2.1316282072803006e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 210.52627953496065,
+        "y": -0.000004617791489636147
+      },
+      "worldWidth": 2221.052659449486,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 49.99996173114713,
+        "y": -0.000004617791489636147
+      },
+      "textResolutions": [
+        1,
+        1
+      ]
+    },
+    {
+      "density": 2,
+      "renderedAt": 2171.800000011921,
+      "camera": {
+        "x": -417.71281292110206,
+        "y": -892
+      },
+      "zoom": 0.35,
+      "pixelRatio": 2,
+      "backing": {
+        "width": 780,
+        "height": 1688
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "centerError": 2.1316282072803006e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 228.57142109289524,
+        "y": -0.00001825605147587339
+      },
+      "worldWidth": 1114.2857332618871,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 54.28570383911288,
+        "y": -0.00001825605147587339
+      },
+      "textResolutions": [
+        2,
+        2
+      ]
+    },
+    {
+      "density": 2,
+      "renderedAt": 2841.800000011921,
+      "camera": {
+        "x": -871.712812921102,
+        "y": -438
+      },
+      "zoom": 0.38,
+      "pixelRatio": 2,
+      "backing": {
+        "width": 1688,
+        "height": 780
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "centerError": 3.552713678800501e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 210.52630121850328,
+        "y": -0.000008633262325474789
+      },
+      "worldWidth": 2221.0526594494854,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 49.99998341468976,
+        "y": -0.000008633262325474789
+      },
+      "textResolutions": [
+        2,
+        2
+      ]
+    },
+    {
+      "density": 2.625,
+      "renderedAt": 2736,
+      "camera": {
+        "x": -539.712812921102,
+        "y": -1156
+      },
+      "zoom": 0.35,
+      "pixelRatio": 2.625,
+      "backing": {
+        "width": 1024,
+        "height": 2216
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "centerError": 3.552713678800501e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 228.6272417337177,
+        "y": -0.000018891834365319937
+      },
+      "worldWidth": 1114.557837590819,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 54.29896457207681,
+        "y": -0.000018891834365319937
+      },
+      "textResolutions": [
+        2.625,
+        2.625
+      ]
+    },
+    {
+      "density": 2.625,
+      "renderedAt": 3868.099999964237,
+      "camera": {
+        "x": -1135.712812921102,
+        "y": -560
+      },
+      "zoom": 0.38,
+      "pixelRatio": 2.625,
+      "backing": {
+        "width": 2216,
+        "height": 1024
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "centerError": 7.815970093361102e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 210.57383014599694,
+        "y": 0.0000013384902430857437
+      },
+      "worldWidth": 2221.5538794019076,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 50.011286729508406,
+        "y": 0.0000013384902430857437
+      },
+      "textResolutions": [
+        2.625,
+        2.625
+      ]
+    },
+    {
+      "density": 3,
+      "renderedAt": 2408.599999964237,
+      "camera": {
+        "x": -612.712812921102,
+        "y": -1314
+      },
+      "zoom": 0.3499999999999999,
+      "pixelRatio": 3,
+      "backing": {
+        "width": 1170,
+        "height": 2532
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "centerError": 3.552713678800501e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 228.57141044519517,
+        "y": -0.00006103515885769184
+      },
+      "worldWidth": 1114.2857648888435,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 54.285688244632475,
+        "y": -0.00006103515885769184
+      },
+      "textResolutions": [
+        3,
+        3
+      ]
+    },
+    {
+      "density": 3,
+      "renderedAt": 3911.399999976158,
+      "camera": {
+        "x": -1293.712812921102,
+        "y": -633
+      },
+      "zoom": 0.38000000000000006,
+      "pixelRatio": 3,
+      "backing": {
+        "width": 2532,
+        "height": 1170
+      },
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "centerError": 7.815970093361102e-14,
+      "tick": 0,
+      "lifeId": 1,
+      "lifeState": "ALIVE",
+      "direction": {
+        "x": 210.52629613223993,
+        "y": -0.000005956281881935865
+      },
+      "worldWidth": 2221.0526594494854,
+      "deadZone": null,
+      "outsideDeadZone": {
+        "x": 49.999978328426444,
+        "y": -0.000005956281881935865
+      },
+      "textResolutions": [
+        3,
+        3
+      ]
+    }
+  ]
+}

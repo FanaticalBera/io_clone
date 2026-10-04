@@ -18,7 +18,7 @@ const serialize=(value:unknown)=>JSON.stringify(value,(_key,v)=>v instanceof Set
 describe('independent shadow opportunities',()=>{
  it('normal movement creates a favorable cut ignored in ESCAPE; a separate movement branch cuts and returns alive',()=>{
   const f=runShadowEscapeWitness();expect(f.trace).toMatchObject({from:'ESCAPE',to:'ESCAPE',shadow:{event:'MISSED_KILL_OPPORTUNITY',missedReason:'GOAL_ESCAPE_BLOCK',selectedGoal:'ESCAPE'}});
-  expect(f.memory.goal).toBe('ESCAPE');expect(f.bot.lifeState).toBe('ALIVE');expect(f.candidate.target).toBe(235);
+  expect(f.memory.goal).toBe('ESCAPE');expect(f.bot.lifeState).toBe('ALIVE');expect(f.match.trailMasks[f.candidate.target]&(1<<f.victim.slot)).not.toBe(0);
   expect(f.cutTick).not.toBeNull();expect(f.victim.deathContext?.cause).toBe('EXISTING_TRAIL_CONTACT');expect(f.attacker.kills).toBe(f.bot.kills+1);
   expect(f.attacker.lifeState).toBe('ALIVE');expect(f.attacker.trailCells.size).toBe(0);expect(f.branch.owners[f.attacker.cellId]).toBe(f.attacker.slot+1);
  },20000);

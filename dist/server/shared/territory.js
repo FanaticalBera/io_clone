@@ -44,7 +44,7 @@ export function neutralizeTerritory(match, p) {
         if (match.owners[i] === p.slot + 1)
             setOwner(match, i, 0);
 }
-export function pruneDisconnectedTerritory(match, p) {
+export function pruneDisconnectedTerritory(match, p, homeCellId) {
     const owner = p.slot + 1, visited = new Uint8Array(match.owners.length), components = [];
     for (let id = 0; id < match.owners.length; id++) {
         if (visited[id] || match.owners[id] !== owner)
@@ -60,11 +60,13 @@ export function pruneDisconnectedTerritory(match, p) {
             }
         components.push(cells);
     }
-    // Ascending roots give equal-size components a stable tie break on every client/server.
-    let main;
-    for (const cells of components)
-        if (!main || cells.length > main.length)
-            main = cells;
+    // Preserve a surviving gameplay home when supplied by capture resolution.
+    // Without one, retain the original largest-component / lowest-root tie break.
+    let main = homeCellId === undefined ? undefined : components.find(cells => cells.includes(homeCellId));
+    if (!main)
+        for (const cells of components)
+            if (!main || cells.length > main.length)
+                main = cells;
     for (const cells of components)
         if (cells !== main)
             for (const id of cells)

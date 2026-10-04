@@ -7,10 +7,11 @@ import {createMode} from '../../src/shared/modes.js';
 const ring:[number,number][]=[[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];
 function enclosedTrail(){const f=captureFixture(),{m,a,b,id}=f;setOwner(m,id(0,-1),1);setOwner(m,id(3,0),2);a.cellId=id(0,-1);b.cellId=id(2,0);for(const p of [a,b])p.position={...m.map.cells[p.cellId].center};for(const [q,r] of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));addTrail(m,b,id(0,0));addTrail(m,b,id(2,0));return f;}
 describe('capturing an exposed enemy trail cuts it',()=>{
- it.each(['classic','hold'] as const)('%s kills when the territory supporting an exposed trail is pruned away even though other territory remains',mode=>{
+ it.each(['classic','hold'] as const)('%s preserves the untouched home supporting an exposed trail when a remote bridge is captured',mode=>{
   for(const reverse of [false,true]){const {m,a,b,id}=captureFixture();m.gameMode=createMode(mode);for(const q of [-3,-2,-1,0,1])setOwner(m,id(q,0),2);setOwner(m,id(0,-1),1);setOwner(m,id(3,0),1);a.cellId=id(0,-1);b.cellId=id(3,0);b.position={...m.map.cells[b.cellId].center};addTrail(m,a,id(0,0));addTrail(m,b,id(2,0));addTrail(m,b,id(3,0));if(reverse)m.participants.reverse();if(mode==='hold')m.modeState.holds=[{participantId:'b',startedAtTick:0,endsAtTick:300}];
-   // The claimed bridge contains no enemy trail; the only home attachment is the right lobe.
-   expect(m.trailMasks[id(0,0)]&2).toBe(0);applySimultaneousCaptures(m,[a]);expect(b.lifeState).toBe('DEAD_WAIT');expect(b.trailCells.size).toBe(0);expect(b.territoryCount).toBe(0);expect(a.kills).toBe(1);expect(m.owners[id(2,0)]).toBe(0);expect(m.owners[id(0,0)]).toBe(1);expect(m.modeState.holds).toEqual([]);assertOwnershipCounts(m);
+   // The claimed bridge contains no enemy trail; the untouched right lobe
+   // still supports its first trail cell, regardless of the larger left lobe.
+   expect(m.trailMasks[id(0,0)]&2).toBe(0);applySimultaneousCaptures(m,[a]);expect(b.lifeState).toBe('ALIVE');expect(b.trailCells.size).toBe(2);expect(b.territoryCount).toBe(1);expect(a.kills).toBe(0);expect(m.owners[id(1,0)]).toBe(2);expect(m.owners[id(-3,0)]).toBe(0);expect(m.owners[id(0,0)]).toBe(1);if(mode==='hold')expect(m.modeState.holds).toHaveLength(1);assertOwnershipCounts(m);
   }
  });
  it('kills when the connected home cell is captured but the enemy trail itself lies entirely outside the claim',()=>{

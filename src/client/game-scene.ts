@@ -6,6 +6,7 @@ import {createMap} from '../shared/hex.js';
 import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
 import {GAME_MODES} from '../shared/modes.js';
 import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
+import {renderPixelRatio} from './render-viewport.js';
 export const COLORS=[0x16cdb1,0xffb43b,0xa180f4,0x359aff,0xff7084,0xb5ce50,0xf3945c,0x59bfd8];
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
@@ -17,6 +18,7 @@ export class GameScene extends Phaser.Scene {
  private avatars=new Map<string,{container:Phaser.GameObjects.Container;body:Phaser.GameObjects.Arc;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
  private followTarget:Phaser.GameObjects.Container|null=null;
  private renderedAt=0;
+ private viewportWidth=window.innerWidth;private viewportHeight=window.innerHeight;private pixelRatio=1;
  private combat?:CombatEffects;
  private killFeedback:()=>void=()=>{};
  setKillFeedback(callback:()=>void):void{this.killFeedback=callback;}
@@ -24,13 +26,23 @@ export class GameScene extends Phaser.Scene {
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
- create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());if(this.view){this.drawView(this.view);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);if(this.view){this.drawView(this.view);this.combat.accept(this.view,this.selfId,true);}}
+ private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
   const fit=()=>{frame=0;const rect=parent.getBoundingClientRect(),width=Math.round(rect.width),height=Math.round(rect.height);if(width<1||height<1)return;
-   if(this.scale.width!==width||this.scale.height!==height)this.scale.resize(width,height);
+   const ratio=renderPixelRatio(width,height,window.devicePixelRatio),backingWidth=Math.round(width*ratio),backingHeight=Math.round(height*ratio);
+   this.viewportWidth=width;this.viewportHeight=height;this.pixelRatio=ratio;
+   // Phaser 3 renders in backing pixels. Counter-scale the canvas in CSS and
+   // multiply the camera zoom, keeping world size and visible area unchanged.
+   if(this.scale.zoom!==1/ratio)this.scale.setZoom(1/ratio);
+   if(this.scale.width!==backingWidth||this.scale.height!==backingHeight)this.scale.resize(backingWidth,backingHeight);
    Object.assign(this.game.canvas.style,{width:width+'px',height:height+'px',marginLeft:'0px',marginTop:'0px'});
-   this.cameras.main.setZoom(this.selfId?gameplayZoom(width):Math.min(width/2200,height/2200));if(!this.selfId)this.cameras.main.centerOn(0,0);
+   this.scale.updateBounds();
+   this.cameras.main.setZoom(this.cssZoom()*ratio);if(!this.selfId)this.cameras.main.centerOn(0,0);
+   for(const avatar of this.avatars.values())avatar.label.setResolution(ratio).setScale(Math.max(1,.7/gameplayZoom(width)));
+   for(const point of this.points)point.setResolution(ratio);
+   this.combat?.setViewport(width,height,ratio);
   };
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(fit);};const observer=new ResizeObserver(schedule);observer.observe(parent);
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
@@ -58,7 +70,7 @@ export class GameScene extends Phaser.Scene {
    this.ground.lineStyle(3,0x9ba5a0,1);for(const e of this.map.boundaryEdges)this.ground.lineBetween(e.a.x-minX,e.a.y-minY,e.b.x-minX,e.b.y-minY);
    this.groundKey='ground-'+this.map.mapId;this.ground.generateTexture(this.groundKey,width,height);
    this.groundImage=this.add.image(minX,minY,this.groundKey).setOrigin(0).setDepth(0);
-   for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8}}).setOrigin(0.5).setDepth(4));}
+   for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8},resolution:this.pixelRatio}).setOrigin(0.5).setDepth(4));}
    this.lastOwners=new Uint8Array(this.map.cells.length).fill(255);this.lastTrails=new Uint8Array(this.map.cells.length).fill(255);
   }
   const dirty=new Set<string>();
@@ -82,12 +94,12 @@ export class GameScene extends Phaser.Scene {
    if(!avatar){
     const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,COLORS[p.slot],0.9);
     const body=this.add.circle(0,0,21,COLORS[p.slot]).setStrokeStyle(5,0xffffff,1);
-    const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3}}).setOrigin(0.5);
+    const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,body,label]).setDepth(5);
     avatar={container,body,shield,label};this.avatars.set(p.participantId,avatar);
    }
    avatar.container.setVisible(p.lifeState==='ALIVE');
-   avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.scale.width)));
+   avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
    avatar.shield.setVisible(p.protected);
    if(p.participantId===this.selfId){
@@ -98,7 +110,7 @@ export class GameScene extends Phaser.Scene {
   }
   for(const [i,cp]of this.map.controlPoints.entries()){const owner=view.owners[cp.cellId];this.points[i].setVisible(GAME_MODES[view.gameMode.id].usesControlPoints).setBackgroundColor(owner?cssColor(COLORS[owner-1]):'#ffce70');}
   if(!this.selfId){this.followTarget=null;this.cameras.main.stopFollow();this.cameras.main.centerOn(0,0);}
-  this.cameras.main.setZoom(this.selfId?gameplayZoom(this.scale.width):Math.min(this.scale.width/2200,this.scale.height/2200));
+  this.cameras.main.setZoom(this.cssZoom()*this.pixelRatio);
   document.querySelector('#field')?.setAttribute('data-chunks',String(this.chunks.size));
   document.querySelector('#field')?.setAttribute('data-avatars',String(this.avatars.size));
  }
@@ -118,26 +130,30 @@ export class GameScene extends Phaser.Scene {
    }
   }else this.predictedLine?.clear();
   if(time-this.lastMini<250)return;this.lastMini=time;
-  const canvas=document.querySelector<HTMLCanvasElement>('#minimap');if(!canvas)return;
+  const canvas=document.querySelector<HTMLCanvasElement>('#minimap');if(!canvas||canvas.hidden)return;
   const context=canvas.getContext('2d');if(!context)return;
-  const scale=Math.min((canvas.width-20)/(Math.sqrt(3)*this.map.side*(this.map.radius*2+1)),(canvas.height-20)/(this.map.side*(this.map.radius*3+2)));
-  context.clearRect(0,0,canvas.width,canvas.height);context.fillStyle='#f5f2e9';context.fillRect(0,0,canvas.width,canvas.height);
-  for(const c of this.map.cells){const owner=this.view.owners[c.id];context.fillStyle=owner?cssColor(COLORS[owner-1]):'#eeebe2';context.strokeStyle='#d8d7cc';context.lineWidth=.35;context.beginPath();c.vertices.forEach((v,i)=>{const x=canvas.width/2+v.x*scale,y=canvas.height/2+v.y*scale;if(i===0)context.moveTo(x,y);else context.lineTo(x,y);});context.closePath();context.fill();context.stroke();}
-  if(GAME_MODES[this.view!.gameMode.id].usesControlPoints)for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId],x=canvas.width/2+c.center.x*scale,y=canvas.height/2+c.center.y*scale;context.fillStyle='#ffb43b';context.beginPath();context.moveTo(x,y-3);context.lineTo(x+3,y);context.lineTo(x,y+3);context.lineTo(x-3,y);context.closePath();context.fill();}
-  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=canvas.width/2+position.x*scale,y=canvas.height/2+position.y*scale;context.fillStyle=cssColor(COLORS[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(COLORS[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
+  const width=240,height=204,backingWidth=Math.max(width,Math.round(canvas.clientWidth*this.pixelRatio)),backingHeight=Math.max(height,Math.round(canvas.clientHeight*this.pixelRatio));
+  if(backingWidth<1||backingHeight<1)return;
+  if(canvas.width!==backingWidth||canvas.height!==backingHeight){canvas.width=backingWidth;canvas.height=backingHeight;}
+  context.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
+  const scale=Math.min((width-20)/(Math.sqrt(3)*this.map.side*(this.map.radius*2+1)),(height-20)/(this.map.side*(this.map.radius*3+2)));
+  context.clearRect(0,0,width,height);context.fillStyle='#f5f2e9';context.fillRect(0,0,width,height);
+  for(const c of this.map.cells){const owner=this.view.owners[c.id];context.fillStyle=owner?cssColor(COLORS[owner-1]):'#eeebe2';context.strokeStyle='#d8d7cc';context.lineWidth=.35;context.beginPath();c.vertices.forEach((v,i)=>{const x=width/2+v.x*scale,y=height/2+v.y*scale;if(i===0)context.moveTo(x,y);else context.lineTo(x,y);});context.closePath();context.fill();context.stroke();}
+  if(GAME_MODES[this.view!.gameMode.id].usesControlPoints)for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId],x=width/2+c.center.x*scale,y=height/2+c.center.y*scale;context.fillStyle='#ffb43b';context.beginPath();context.moveTo(x,y-3);context.lineTo(x+3,y);context.lineTo(x,y+3);context.lineTo(x-3,y);context.closePath();context.fill();}
+  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(COLORS[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(COLORS[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
  }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;
   // The camera maps the last rendered frame. Use the avatar from that same
   // frame; a newer predicted position would shift the control centre between
   // frames, especially when rendering is slow.
-  const target=this.cameras.main.getWorldPoint(x,y),position=this.avatars.get(p.participantId)?.container??p.position;
-  const vector={x:target.x-position.x,y:target.y-position.y};return Math.hypot(vector.x,vector.y)*this.cameras.main.zoom<MOUSE_DEAD_ZONE?null:vector;
+  const target=this.cameras.main.getWorldPoint(x*this.scale.width/this.viewportWidth,y*this.scale.height/this.viewportHeight),position=this.avatars.get(p.participantId)?.container??p.position;
+  const vector={x:target.x-position.x,y:target.y-position.y};return Math.hypot(vector.x,vector.y)*this.cssZoom()<MOUSE_DEAD_ZONE?null:vector;
  }
  combatState():ReturnType<CombatEffects['state']>|null{return this.combat?.state()??null;}
- renderState():{renderedAt:number;camera:{x:number;y:number};zoom:number;centerError:number;tick:number;lifeId:number|null;lifeState:string|null} {
+ renderState():{renderedAt:number;camera:{x:number;y:number};zoom:number;pixelRatio:number;backing:{width:number;height:number};viewport:{width:number;height:number};centerError:number;tick:number;lifeId:number|null;lifeState:string|null} {
   const self=this.view?.participants.find(p=>p.participantId===this.selfId),avatar=self&&this.avatars.get(self.participantId)?.container,camera=this.cameras.main;
-  return {renderedAt:this.renderedAt,camera:{x:camera.scrollX,y:camera.scrollY},zoom:camera.zoom,centerError:avatar?Math.hypot(avatar.x-camera.midPoint.x,avatar.y-camera.midPoint.y):0,tick:this.view?.tick??0,lifeId:self?.lifeId??null,lifeState:self?.lifeState??null};
+  return {renderedAt:this.renderedAt,camera:{x:camera.scrollX,y:camera.scrollY},zoom:camera.zoom/this.pixelRatio,pixelRatio:this.pixelRatio,backing:{width:this.game.canvas.width,height:this.game.canvas.height},viewport:{width:this.viewportWidth,height:this.viewportHeight},centerError:avatar?Math.hypot(avatar.x-camera.midPoint.x,avatar.y-camera.midPoint.y):0,tick:this.view?.tick??0,lifeId:self?.lifeId??null,lifeState:self?.lifeState??null};
  }
  destroyGame():void {this.game.destroy(true);}
 }

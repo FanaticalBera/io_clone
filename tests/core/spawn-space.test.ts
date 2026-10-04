@@ -27,8 +27,10 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const space=inspectSpawnSpace(m,p);expect(JSON.stringify(m,(_k,v)=>v instanceof Set?[...v]:v instanceof Map?[...v]:v)).toBe(before);
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
- it('R22: actual movement/capture/respawn still matches the original fixed-anchor trajectory',()=>{
-  const radius=22,expected='bb37292c48f4722a8677229a8f15fe3715a4566c3d8c3ed5127ed81a4342b771';
+ it('R22: actual movement/capture/respawn matches the corrected home-component trajectory',()=>{
+  // The home-component fix changes later deaths/respawns, so the pre-fix
+  // trajectory is obsolete. Initial R22 anchors are checked separately.
+  const radius=22,expected='6c6fa8961830488cb55d85ab3d0e6e382f1dbbbc347a22e8e0f768de7a818cec';
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});
   for(let tick=0;tick<1200;tick++){
    const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
