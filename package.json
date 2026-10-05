@@ -14,6 +14,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:large-world": "playwright test --config playwright.large-world.config.ts",
+    "test:territory-effects": "playwright test --config playwright.territory-effects.config.ts",
     "build": "npm run typecheck && tsc -p tsconfig.server.json && vite build",
     "start": "node dist/server/server/index.js"
   },

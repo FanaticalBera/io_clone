@@ -12,6 +12,7 @@ import type {MatchView} from '../shared/model.js';
 import type {WireSnapshot,RoomView} from '../shared/protocol.js';
 import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js';
 import {experimentalMapConfig,experimentalSeed,experimentalSlotConfig} from '../shared/map-experiment.js';
+import {experimentalTerritoryEffect} from './territory-effect-model.js';
 import './style.css';
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
@@ -20,13 +21,14 @@ if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>pra
 const ui=new UI({practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>{if(ui.mode==='ONLINE')ui.message('다음 판 참가 상태입니다. 방에 남아 있으면 자동 시작합니다.');else void startPractice(practice?.match.gameMode);},
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const scene=createRenderer('field');
+scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setKillFeedback(()=>{haptics.kill();});
 scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
 input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();});
-if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
+if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getPractice:()=>practice,transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8))),null);
 function display(view:MatchView,selfId:string,init=false):void {
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);

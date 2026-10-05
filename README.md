@@ -121,3 +121,4 @@ PRD/TECH는 `docs/`에 유지하며 현재 규칙·환경설정·모바일 조�
 
 공개 배포/HTTPS 운영, APK/Capacitor, 계정·영구 랭킹, F01~F06은 이 작업에 포함하지 않았습니다. Phaser 번들은 약 1.3MB(압축 약 357KB)이며, 실기기/대역폭 결과는 VERIFICATION에 구분해 기록합니다.
 
+사망 영토 연출 V1은 [사양](docs/territory-death-effects-plan.md)과 [측정·검증 보고서](docs/territory-death-effects-results.md)에 기록했다. 운영 기본값은 NONE이며, development/test에서만 experimentTerritoryEffect=wave|power|edge로 비교한다. 같은 장면의 50/250/1,000칸 비교 화면은 /tests/fixtures/territory-effects.html이고, 화면 아래 링크로 실제 R56/16 봇 연습을 열 수 있다. 전용 검사는 npm run test:territory-effects를 사용한다.

@@ -1,0 +1,12 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>영토 붕괴 효과 비교</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e6e3d9;color:#142330;font-family:system-ui,sans-serif}header{padding:10px 12px;background:#f8f5ed;border-bottom:1px solid #c4cbc6}h1{font-size:16px;margin:0 0 7px}.controls{display:flex;gap:6px;flex-wrap:wrap}button,a{font:inherit;font-size:13px;padding:7px 10px;border:1px solid #aebbb2;border-radius:7px;background:#fff;color:#142330;touch-action:manipulation}button[aria-pressed=true]{background:#184c49;color:white}#status{font-size:12px;margin:8px 0 0}#field{position:relative;height:calc(100dvh - 165px);min-height:220px;width:100%;overflow:hidden}#field canvas{display:block}#minimap{position:absolute;z-index:2;bottom:10px;right:12px;width:120px;height:102px;border:1px solid #aebbb2;pointer-events:none}footer{font-size:12px;padding:7px 12px}footer a{font-size:12px;padding:3px 7px;display:inline-block;margin:2px}
+@media(max-width:600px){body{height:100dvh;display:flex;flex-direction:column;overflow:hidden}header,footer{flex-shrink:0}#field{height:auto;flex:1;min-height:120px}#minimap{width:96px;height:82px}}
+</style></head><body><header><h1>영토 붕괴 · 같은 장면으로 세 안 비교</h1><div class="controls">
+<button data-style="WAVE_COLLAPSE" aria-pressed="true">Wave</button><button data-style="POWER_DOWN" aria-pressed="false">Power Down</button><button data-style="EDGE_CRUMBLE" aria-pressed="false">Edge Crumble</button>
+<button data-size="50" aria-pressed="false">Small · 50</button><button data-size="250" aria-pressed="true">Medium · 250</button><button data-size="1000" aria-pressed="false">Large · 1,000</button><button id="replay">다시 재생</button></div><p id="status">준비 중</p></header>
+<div id="field"><canvas id="minimap" width="240" height="204"></canvas></div><footer>실제 R56/16 봇 연습:
+<a href="/?experimentMapRadius=56&amp;experimentSlots=16&amp;experimentSeed=4&amp;experimentTerritoryEffect=wave&amp;metrics=1">Wave</a>
+<a href="/?experimentMapRadius=56&amp;experimentSlots=16&amp;experimentSeed=4&amp;experimentTerritoryEffect=power&amp;metrics=1">Power</a>
+<a href="/?experimentMapRadius=56&amp;experimentSlots=16&amp;experimentSeed=4&amp;experimentTerritoryEffect=edge&amp;metrics=1">Edge</a></footer>
+<script type="module" src="./territory-effects.ts"></script></body></html>

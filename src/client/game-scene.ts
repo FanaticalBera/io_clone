@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import {Presentation} from './presentation.js';
 import {CombatEffects} from './combat-effects.js';
+import {TerritoryEffects} from './territory-effects.js';
+import type {TerritoryEffectStyle} from './territory-effect-model.js';
 import {worldCell} from '../shared/hex.js';
 import {createMap} from '../shared/hex.js';
 import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
@@ -25,14 +27,14 @@ export class GameScene extends Phaser.Scene {
  private followTarget:Phaser.GameObjects.Container|null=null;
  private renderedAt=0;
  private viewportWidth=window.innerWidth;private viewportHeight=window.innerHeight;private pixelRatio=1;
- private combat?:CombatEffects;
+ private combat?:CombatEffects;private territoryEffects?:TerritoryEffects;private territoryStyle:TerritoryEffectStyle='NONE';
  private killFeedback:()=>void=()=>{};
  setKillFeedback(callback:()=>void):void{this.killFeedback=callback;}
  private deathFeedback:()=>void=()=>{};
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
- create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);if(this.view){this.drawView(this.view);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -54,7 +56,7 @@ export class GameScene extends Phaser.Scene {
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
   const cleanup=()=>{observer.disconnect();abort.abort();cancelAnimationFrame(frame);};this.events.once(Phaser.Scenes.Events.SHUTDOWN,cleanup);this.events.once(Phaser.Scenes.Events.DESTROY,cleanup);fit();
  }
- setView(view:MatchView,selfId:string|null,online=false,reset=false):void {this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view);this.combat?.accept(view,selfId,reset);}}
+ setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||!selfId,previous??undefined);this.combat?.accept(view,selfId,reset);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {
@@ -63,7 +65,7 @@ export class GameScene extends Phaser.Scene {
   if(outline!==undefined){g.lineStyle(1,outline,0.8);g.strokePoints(vertices,true);}
  }
  private chunkKey(id:number):string {return this.cellChunkKeys[id];}
- private drawView(view:MatchView):void {
+ private drawView(view:MatchView,reset=false,previous?:MatchView):void {
   if(!this.map||this.map.mapId!==view.mapId){
    const initAt=performance.now();
    this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
@@ -71,7 +73,7 @@ export class GameScene extends Phaser.Scene {
    if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
    for(const text of this.points)text.destroy();this.points=[];
-   const index=indexRenderChunks(this.map);this.chunkIndex=index.chunks;this.cellChunkKeys=index.keys;
+   const index=indexRenderChunks(this.map);this.chunkIndex=index.chunks;this.cellChunkKeys=index.keys;this.territoryEffects?.setMap(this.map,this.chunkIndex);reset=true;
    const groundAt=performance.now();
    // All cells share one tiny hex texture. Prebuilt Blitter chunks batch fixed
    // quads instead of tessellating thousands of Graphics paths every frame.
@@ -109,6 +111,7 @@ export class GameScene extends Phaser.Scene {
     }
    }
   }
+  this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,COLORS,performance.now(),reset,previous);
   this.lastOwners.set(view.owners);this.lastTrails.set(view.trailMasks);
   this.metrics.territoryRedrawMs=performance.now()-redrawAt;
   const present=new Set(view.participants.map(p=>p.participantId));
@@ -138,11 +141,12 @@ export class GameScene extends Phaser.Scene {
   document.querySelector('#field')?.setAttribute('data-chunks',String(this.chunks.size));
   document.querySelector('#field')?.setAttribute('data-avatars',String(this.avatars.size));
   document.querySelector('#field')?.setAttribute('data-ground-chunks',String(this.groundChunks.size));
+  document.querySelector('#field')?.setAttribute('data-territory-effect',this.territoryStyle);
  }
  update(time:number):void {
   if(!this.map||!this.view)return;
   const now=performance.now();this.renderedAt=now;
-  this.combat?.update(now);
+  this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);
   for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);}
   const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
   // camera.worldView is the last completed frame; one whole chunk margin also
@@ -195,6 +199,8 @@ export class GameScene extends Phaser.Scene {
   const target=this.cameras.main.getWorldPoint(x*this.scale.width/this.viewportWidth,y*this.scale.height/this.viewportHeight),position=this.avatars.get(p.participantId)?.container??p.position;
   const vector={x:target.x-position.x,y:target.y-position.y};return Math.hypot(vector.x,vector.y)*this.cssZoom()<MOUSE_DEAD_ZONE?null:vector;
  }
+ setTerritoryEffect(style:TerritoryEffectStyle):void{this.territoryStyle=style;this.territoryEffects?.setStyle(style);if(this.view)this.drawView(this.view,true);}
+ territoryEffectState(){return this.territoryEffects?.state()??null;}
  combatState():ReturnType<CombatEffects['state']>|null{return this.combat?.state()??null;}
  resourceState(){const source=this.groundKey?this.textures.get(this.groundKey).source[0]:undefined;return {...this.metrics,groundChunks:this.groundChunks.size,territoryChunks:this.chunks.size,visibleGroundChunks:[...this.groundChunks.values()].filter(g=>g.visible).length,textures:this.textures.getTextureKeys().length,groundTextures:source?1:0,groundTextureSize:source?{width:source.width,height:source.height}:null,groundCells:[...this.groundChunks.values()].reduce((n,g)=>n+g.children.length,0),avatars:this.avatars.size,culling:this.cullChunks};}
  setChunkCulling(enabled:boolean):void{this.cullChunks=enabled;}
