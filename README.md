@@ -126,6 +126,6 @@ PRD/TECH는 `docs/`에 유지하며 현재 규칙·환경설정·모바일 조�
 
 ## Run 보상과 로컬 프로필 V1
 
-Coins와 Run 통계는 IndexedDB에 저장한다. 시작 영토 그대로 무처치 종료한 Run은 0 Coins이며, 진행한 Run은 기본 5 + 최고 점유율 × 2(내림) + 처치당 3(최대 10처치) + Classic 클리어 100으로 계산한다. 최근 상세 내역 256개와 현재 월드의 lifeId 지급 기록을 따로 관리해 중복 지급을 막는다. 저장 실패 시 결과창에서 저장 재시도를 제공한다. 서버·게임 상태·RunResult에는 보상 데이터를 넣지 않는다.
+Coins와 Run 통계는 IndexedDB에 저장한다. 최고 점유율 1.0% 미만·무처치·클리어가 아닌 Run은 0 Coins다. 최고 점유율 1.0% 이상 또는 1처치 이상 또는 Classic 클리어한 Run은 기본 5 + 최고 점유율 × 2(내림) + 처치당 3(최대 20처치) + Classic 클리어 100으로 계산한다. 최근 상세 내역 256개와 현재 월드의 lifeId 지급 기록을 따로 관리해 중복 지급을 막는다. 저장 실패 시 결과창에서 저장 재시도를 제공한다. 서버·게임 상태·RunResult에는 보상 데이터를 넣지 않는다.
 
 검증: npm test, npm run build, npm run test:run. [구현과 검증 결과](docs/reward-profile-v1-results.md).
