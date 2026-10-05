@@ -19,9 +19,9 @@ it('never shortcuts a corner, a gap or a reversed route',()=>{
  for(const path of [[id(1),id(1,1)],[id(1),id(3)],[id(1),id(0)]])
   expect(botSteeringTarget(m.map,obs.self,path,m.config,3)).toEqual(m.map.cells[id(1)].center);
 });
-it('crosses every planned cell in order under shared movement',()=>{
+it.each(['ATTACK','EXPAND','STEAL','SEEK_POINT','RETURN','ESCAPE'] as const)('%s crosses every planned cell in order under shared movement',goal=>{
  const {m,p,id}=fixture(),memory=createBotMemory(1),path=[id(1),id(2),id(3)];
- p.position.y+=8;memory.plannedLifeId=p.lifeId;memory.path=[...path];memory.goal='ATTACK';memory.nextDecisionTick=1000;
+ p.position.y+=8;memory.plannedLifeId=p.lifeId;memory.path=[...path];memory.goal=goal;memory.nextDecisionTick=1000;
  const visited:number[]=[];
  for(let tick=0;tick<30&&p.cellId!==path.at(-1);tick++){
   const input=getBotInput(observeBot(m,p.participantId),memory)!,before=p.cellId;
