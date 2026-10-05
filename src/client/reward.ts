@@ -1,5 +1,5 @@
 import type {RunResult} from '../shared/model.js';
-export const REWARD_RULES=Object.freeze({baseCoins:5,territoryCoinsPerPercent:2,killCoins:3,rewardedKillCap:20,minimumTerritoryPercent:1.0,classicClearBonus:100});
+export const REWARD_RULES=Object.freeze({baseCoins:5,territoryCoinsPerPercent:2,killCoins:3,rewardedKillCap:20,minimumTerritoryPercent:3.0,classicClearBonus:100});
 export interface RewardResult {runId:string;baseCoins:number;territoryCoins:number;killCoins:number;clearBonusCoins:number;totalCoins:number}
 const integer=(n:unknown)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=0;
 export function validateRewardRun(r:RunResult):void {

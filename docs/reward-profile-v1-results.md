@@ -5,14 +5,15 @@
 ## 보상과 통계
 
 - Run 종료 결과를 관측하면 지급을 처리한다. 결과창 표시나 다시 하기 클릭은 지급 조건이 아니다.
-- 최고 점유율 1.0% 이상 또는 1처치 이상 또는 FULL_CAPTURE_WIN일 때 기존 보상 공식을 적용한다. 최고 점유율 1.0% 미만·무처치·클리어가 아닌 Run은 0 Coins다. 시작 7칸에서 조금 확장해도 기준 미만이면 0 Coins이며 통계에는 한 번 기록한다.
+- 최고 점유율 3.0% 이상 또는 1처치 이상 또는 FULL_CAPTURE_WIN일 때 기존 보상 공식을 적용한다. 최고 점유율 3.0% 미만·무처치·클리어가 아닌 Run은 0 Coins다. 시작 7칸에서 조금 확장해도 기준 미만이면 0 Coins이며 통계에는 한 번 기록한다.
 - 총 보상 = 기본 5 + floor(최고 점유율 × 2) + 3 × min(처치, 20) + Classic 클리어 100. FULL_CAPTURE_LOSS에는 클리어 보너스가 없다.
 - 점유율은 서버/로컬 엔진의 RunResult 값을 사용한다. 누적 획득량·생존 시간은 Coins를 늘리지 않는다.
 - runsPlayed, classicClears, 실제 totalKills(보상 상한과 별개), bestTerritoryPercent, longestRunSeconds를 저장한다. 최장 시간은 durationTicks / simulationHz로 정규화한다.
 
 | 최고 점유율 | 처치 | 종료 | Coins |
 | --- | --- | --- | --- |
-| 2.1% | 0 | DEATH | 9 |
+| 2.1% | 0 | DEATH | 0 |
+| 3.0% | 0 | DEATH | 11 |
 | 18.7% | 3 | DEATH | 51 |
 | 46.2% | 8 | DEATH | 121 |
 | 100% | 12 | FULL_CAPTURE_WIN | 341 |
@@ -64,3 +65,9 @@
 보상 자격을 최고 점유율 1.0% / 1처치 / Classic 클리어의 OR 조건으로 변경하고, 사용자 요청에 따라 킬 보상 상한을 20킬(최대 60 Coins)로 올렸다. 나머지 계산식은 유지한다. 처치로 자격을 통과한 경우도 기존 점유율 항을 유지하므로 0.9%·1킬은 5 + floor(0.9 × 2) + 3 = 9 Coins이고, R56 시작 영토의 0.0%·1킬은 8 Coins다. R56에서 95칸은 표시 점유율 0.9%로 자격 미달이고 96칸은 1.0%로 통과한다. PlayerProfile·IndexedDB·runId dedup·same-world retry·게임 규칙·UI 구조에는 변경이 없다. 기존 지급 이력과 잔액은 소급 변경하지 않는다.
 
 이번 수정 검증: 보상 테스트 26개 포함 전체 68개 파일 / 352개 테스트 통과. 전체 타입 검사와 운영 build 통과. 보상 자격 0.9%/1.0% 경계, 실제 R56의 7/8/95/96칸, 처치로 자격 통과, 19/20/21/100킬 상한, Classic 클리어, 서로 다른 runId로 한 칸 확장을 반복해도 누적 0 Coins인 사례를 검증했다. 보호 대상 9개 소스 파일의 작업 전후 SHA-256이 동일하며 저장·중복 지급·게임·UI 연결부를 수정하지 않았다. 전체 테스트 원본은 .local/reward-eligibility-full.json에 있다.
+
+## 최소 점유율 3% 조정 — 2026-10-06
+
+사용자 요청으로 minimumTerritoryPercent만 1.0에서 3.0으로 변경했다. 1처치 또는 FULL_CAPTURE_WIN 조건, 킬 상한 20, 기존 계산식과 저장 구조는 유지한다. R56은 287칸이 2.9%로 미달, 288칸부터 3.0%로 보상 자격을 통과한다. 정상 유상 Run을 사용하는 dedup/저장 회귀 테스트의 입력만 3.0%로 갱신했다. 과거 지급 기록과 잔액은 소급 변경하지 않는다.
+
+3% 변경 검증: 전체 68개 파일 / 353개 테스트(보상 27개 포함), 타입 검사 및 운영 build 통과. 갱신한 IndexedDB/다중 탭 브라우저 회귀 2개 통과(24.8초). 런타임 변경은 minimumTerritoryPercent 값 하나이며 원본 로그는 .local/reward-three-percent-full.json 및 .local/reward-three-percent-browser.log에 있다.
