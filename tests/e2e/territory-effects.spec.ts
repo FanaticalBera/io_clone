@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const output='.local/territory-effects',styles=['WAVE_COLLAPSE','POWER_DOWN','EDGE_CRUMBLE'] as const;
 const fixture='/tests/fixtures/territory-effects.html';
-test.beforeAll(()=>mkdirSync(output,{recursive:true}));
+test.beforeAll(()=>{mkdirSync(output,{recursive:true});mkdirSync('.local/capture-effects',{recursive:true});});
 async function load(page:any){await page.goto(fixture);await page.waitForFunction(()=>!!(window as any).fixture&&(window as any).fixture.scene.territoryEffectState()!==null);}
 const stats=(a:number[])=>{const s=[...a].sort((a,b)=>a-b);return {mean:a.reduce((n,v)=>n+v,0)/a.length,p95:s[Math.floor(s.length*.95)],p99:s[Math.floor(s.length*.99)],max:s.at(-1),samples:a.length};};
 test('known state wins, slot 15 and simultaneous deaths, reset and layer order',async({page})=>{
@@ -77,11 +77,11 @@ for(const [query,style]of [['wave','WAVE_COLLAPSE'],['power','POWER_DOWN'],['edg
  expect(states.every(s=>s.graphics===51)).toBe(true);await page.waitForTimeout(700);expect(errors).toEqual([]);
  writeFileSync(output+'/'+style+'-practice.json',JSON.stringify({condition:'Real 1H15B PracticeSession; confirmed deaths deliberately injected with shared markDead under test-only hook while ordinary simulation resumes',data,states,errors},null,2));
 });
-test('production ignores wave/power/edge query and retains NONE',async({page})=>{
+test('production ignores alternative queries and uses the chosen Wave',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  expect((await page.request.get('http://127.0.0.1:3010/tests/fixtures/territory-effects.html')).status()).toBe(404);
  for(const query of ['wave','power','edge']){
-  await page.goto('http://127.0.0.1:3010/?experimentTerritoryEffect='+query);await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','NONE');await expect(page.locator('#population')).toHaveText('1 HUMAN · 7 BOT');
+  await page.goto('http://127.0.0.1:3010/?experimentTerritoryEffect='+query+'&experimentCaptureEffect=bloom');await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','WAVE_COLLAPSE');await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','NONE');await expect(page.locator('#population')).toHaveText('1 HUMAN · 7 BOT');
  }
 });
 test('phone-size comparison controls and field fit portrait and landscape',async({page})=>{
@@ -97,4 +97,70 @@ test('phone-size comparison controls and field fit portrait and landscape',async
   await page.evaluate(()=>(window as any).fixture.freezeAt(120));await page.waitForTimeout(80);const file=output+'/phone-'+viewport.width+'.png';await page.screenshot({path:file});rows.push({viewport,file,resources:await page.evaluate(()=>(window as any).fixture.resources())});
  }
  writeFileSync(output+'/phone-layout.json',JSON.stringify({condition:'AUTOMATED viewport layout; not a physical phone performance measurement',rows},null,2));
+});
+test('Capture Bloom uses real R56/16 practice captures, slot 15, then releases drawing without resource growth',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
+ await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4&experimentCaptureEffect=bloom');
+ await page.getByTestId('practice').click();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');
+ await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','WAVE_COLLAPSE');
+ await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','CAPTURE_PULSE');
+ const result=await page.evaluate(async()=>{
+  const hook=(window as any).__HEXHOLD_TEST__,p=hook.getPractice(),m=p.match;p.setPaused(true);
+  const game=await import('/src/shared/game.ts' as string),engine=await import('/src/shared/engine.ts' as string);
+  const territory=await import('/src/shared/territory.ts' as string),hex=await import('/src/shared/hex.ts' as string);
+  const capturers=[m.participants[0],m.participants[15]];m.events=[];
+  for(const capturer of capturers){territory.clearTrail(m,capturer);const home=m.map.cells.find((cell:any)=>m.owners[cell.id]===capturer.slot+1);if(!home||capturer.lifeState!=='ALIVE')throw Error('Capture fixture needs a living participant with home');capturer.cellId=home.id;capturer.position={...home.center};}
+  const targets=capturers.map(capturer=>m.map.cells.filter((cell:any)=>hex.hexDistance(cell,m.map.cells[capturer.cellId])<=4&&m.owners[cell.id]!==capturer.slot+1&&m.trailMasks[cell.id]===0).map((cell:any)=>cell.id));
+  for(let i=0;i<capturers.length;i++)for(const id of targets[i])territory.addTrail(m,capturers[i],id);
+  m.tick++;p.publish(game.buildView(m),p.selfId);
+  const before={capture:hook.getCaptureEffectState(),resources:hook.getResourceState()},old=m.owners.slice();
+  engine.applySimultaneousCaptures(m,capturers);m.tick++;p.publish(game.buildView(m),p.selfId);
+  const capture=hook.getCaptureEffectState(),expected=m.owners.reduce((sum:number,owner:number,id:number)=>sum+Number((owner===1||owner===16)&&old[id]!==owner&&m.trailMasks[id]===0),0);
+  return {before,capture,expected,confirmed:m.events.filter((e:any)=>e.type==='CAPTURE').map((e:any)=>e.participantId),slots:capturers.map(v=>v.slot)};
+ });
+ expect(result.slots).toEqual([0,15]);expect(result.confirmed).toHaveLength(2);expect(result.capture.active).toBe(2);
+ expect(result.capture.captures.map((c:any)=>c.slot).sort((a:number,b:number)=>a-b)).toEqual([0,15]);expect(result.capture.cells).toBe(result.expected);expect(result.expected).toBeGreaterThan(0);
+ expect(result.capture.graphics).toBe(51);expect(result.capture.depth).toBe(2);
+ await page.waitForTimeout(70);const during=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCaptureEffectState());expect(during.drawnCells).toBeGreaterThan(0);
+ await page.waitForTimeout(700);
+ const end=await page.evaluate(()=>{const hook=(window as any).__HEXHOLD_TEST__;return {capture:hook.getCaptureEffectState(),resources:hook.getResourceState()};});
+ expect(end.capture.active).toBe(0);expect(end.capture.visibleGraphics).toBe(0);expect(end.capture.drawnCells).toBe(0);
+ expect(end.capture.graphics).toBe(result.before.capture.graphics);expect(end.resources.textures).toBe(result.before.resources.textures);
+ expect(end.resources.avatars).toBe(result.before.resources.avatars);expect(errors).toEqual([]);
+ writeFileSync('.local/capture-effects/capture-practice.json',JSON.stringify({condition:'Real PracticeSession; forced closed capture paths resolved by unchanged shared capture engine under test-only hook',result,during,end,errors},null,2));
+});
+test('Capture Bloom replay works in the existing mobile fixture',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await page.setViewportSize({width:393,height:852});await load(page);
+ await page.getByRole('button',{name:'Capture Pulse 재생'}).click();
+ const state=await page.evaluate(()=>{const f=(window as any).fixture,c=(f.scene as any).captureEffects;const update=c.update.bind(c);c.update=(now:number,view:any,culling:boolean)=>update((c.model.effects[0]?.startedAt??now)+110,view,culling);
+  return {capture:f.scene.captureEffectState(),actualOwned:Array.from(f.m.owners).filter(o=>o===16).length};});
+ expect(state.capture.active).toBe(1);expect(state.capture.captures[0].slot).toBe(15);expect(state.capture.cells).toBeGreaterThan(0);
+ expect(state.actualOwned).toBeGreaterThanOrEqual(state.capture.cells);
+ await page.waitForTimeout(80);await page.screenshot({path:'.local/capture-effects/capture-bloom-phone.png'});expect(errors).toEqual([]);
+});
+
+test('enemy bridge theft has a pulse; surviving victim disconnected territory has a loss wave',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await page.setViewportSize({width:393,height:852});await load(page);
+ const result=await page.evaluate(()=>{
+  const f=(window as any).fixture;f.steal();f.freezeAt(240);
+  const c=(f.scene as any).captureEffects,update=c.update.bind(c),born=c.model.effects[0].startedAt;
+  c.update=(now:number,view:any,culling:boolean)=>update(born+60,view,culling);(window as any).__captureFixtureUpdate=update;
+  return {capture:f.scene.captureEffectState(),loss:f.scene.territoryEffectState(),victim:f.m.participants[15].lifeState,combat:f.scene.combatState(),before:f.resources()};
+ });
+ expect(result.victim).toBe('ALIVE');expect(result.combat.active).toBe(0);
+ expect(result.capture.captures[0].stolenCount).toBeGreaterThan(0);expect(result.capture.captures[0].neutralCount).toBeGreaterThan(0);
+ expect(result.loss.origins[0].kind).toBe('CAPTURE_LOSS');expect(result.loss.origins[0].slot).toBe(15);expect(result.loss.cells).toBeGreaterThan(30);
+ await page.waitForTimeout(80);
+ const during=await page.evaluate(()=>{const f=(window as any).fixture;return {capture:f.scene.captureEffectState(),loss:f.scene.territoryEffectState()};});
+ expect(during.capture.drawnEdges).toBeGreaterThan(0);expect(during.loss.drawnCells).toBeGreaterThan(0);
+ await page.screenshot({path:'.local/capture-revision/steal-phone.png'});
+ const end=await page.evaluate(()=>{
+  const f=(window as any).fixture,c=(f.scene as any).captureEffects;c.update=(window as any).__captureFixtureUpdate;c.update(c.model.effects[0].startedAt+1000,f.scene.view,true);f.end();
+  return {capture:f.scene.captureEffectState(),loss:f.scene.territoryEffectState(),resources:f.resources()};
+ });
+ expect(end.capture.active).toBe(0);expect(end.capture.visibleGraphics).toBe(0);expect(end.loss.active).toBe(0);
+ expect(end.resources.graphics).toBe(result.before.graphics);expect(end.resources.objects).toBe(result.before.objects);expect(end.resources.render.textures).toBe(result.before.render.textures);
+ expect(errors).toEqual([]);
+ writeFileSync('.local/capture-revision/steal-browser.json',JSON.stringify({condition:'Shared capture engine on a prepared connected bridge/island fixture; no forced DEATH',result,during,end,errors},null,2));
 });

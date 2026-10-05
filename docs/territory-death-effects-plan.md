@@ -1,5 +1,7 @@
 # Territory death effects V1 — 승인 반영 사양
 
+> 이후 사용자 최종 선택으로 사망 효과의 운영 기본값은 WAVE_COLLAPSE로 변경했다. 이 문서의 NONE은 최초 비교 단계의 기록이다. 현재 변경은 [Capture V1 결과](capture-effect-v1-results.md)를 참고한다.
+
 기준: 2026-10-05 HEAD 2634de2 (맵 관련 업데이트). Downloads/effect.md를 검토한 뒤 사용자가 승인한 네 보완사항을 우선 반영한다. 원본 첨부 파일은 수정하지 않는다.
 
 ## 현재 gameplay 우선

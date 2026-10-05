@@ -121,4 +121,6 @@ PRD/TECH는 `docs/`에 유지하며 현재 규칙·환경설정·모바일 조�
 
 공개 배포/HTTPS 운영, APK/Capacitor, 계정·영구 랭킹, F01~F06은 이 작업에 포함하지 않았습니다. Phaser 번들은 약 1.3MB(압축 약 357KB)이며, 실기기/대역폭 결과는 VERIFICATION에 구분해 기록합니다.
 
-사망 영토 연출 V1은 [사양](docs/territory-death-effects-plan.md)과 [측정·검증 보고서](docs/territory-death-effects-results.md)에 기록했다. 운영 기본값은 NONE이며, development/test에서만 experimentTerritoryEffect=wave|power|edge로 비교한다. 같은 장면의 50/250/1,000칸 비교 화면은 /tests/fixtures/territory-effects.html이고, 화면 아래 링크로 실제 R56/16 봇 연습을 열 수 있다. 전용 검사는 npm run test:territory-effects를 사용한다.
+사망 영토 연출 V1은 [사양](docs/territory-death-effects-plan.md)과 [측정·검증 보고서](docs/territory-death-effects-results.md)에 기록했다. 사용자 최종 선택에 따라 사망 연출의 운영 기본값은 WAVE_COLLAPSE다. development/test에서는 experimentTerritoryEffect=wave|power|edge로 비교한다. 같은 장면의 50/250/1,000칸 비교 화면은 /tests/fixtures/territory-effects.html이고, 화면 아래 링크로 실제 R56/16 봇 연습을 열 수 있다. 전용 검사는 npm run test:territory-effects를 사용한다.
+
+플레이 피드백을 반영해 Capture를 240ms 동시 강조·외곽선(Pulse)으로 바꿨다. 사망뿐 아니라 관측된 탈취로 중립화된 생존 상대의 고립 영토도 Wave로 연출한다. [현재 구현·검증 결과](docs/capture-effect-v1-results.md)를 참고한다. Capture 운영 기본값은 NONE이며 development/test의 experimentCaptureEffect=pulse로 R56/16에서 확인한다. 기존 bloom 링크도 새 효과를 사용한다. fixture의 상대 영토 탈취 재생 버튼으로 두 경우를 함께 확인할 수 있다.

@@ -1,5 +1,7 @@
 # Territory death effects V1 — 2026-10-05
 
+> 이후 사용자 최종 선택으로 사망 효과의 운영 기본값은 WAVE_COLLAPSE로 변경했다. 이 문서의 NONE은 최초 비교 단계의 기록이다. 현재 변경은 [Capture V1 결과](capture-effect-v1-results.md)를 참고한다.
+
 기준 HEAD `2634de2` (맵 관련 업데이트), 작업 시작 시 tracked 변경 없음. effect.md와 사용자가 승인한 보완사항을 [최종 사양](territory-death-effects-plan.md)에 반영했다. 원본 첨부 파일은 수정하지 않았다.
 
 **세 안을 개발 화면과 실제 R56/16 practice에서 비교할 수 있다. Production default는 NONE이다.** 사용자 시각 비교 전에는 운영 효과를 활성화하지 않는다. Android 실제 성능/미관 승인은 아직 하지 않았다.

@@ -5,6 +5,8 @@ import {botSpecs} from '../../src/shared/bot.js';
 import {hexDistance} from '../../src/shared/hex.js';
 import {setOwner,neutralizeTerritory,clearTrail,addTrail} from '../../src/shared/territory.js';
 import {markDead} from '../../src/shared/life.js';
+import {applySimultaneousCaptures} from '../../src/shared/engine.js';
+import {prepareTerritorySteal} from '../capture-feedback-fixture.js';
 import {packSnapshot,unpackSnapshot} from '../../src/shared/protocol.js';
 import {EFFECT_DURATION,type TerritoryEffectStyle} from '../../src/client/territory-effect-model.js';
 if(!import.meta.env.DEV&&import.meta.env.MODE!=='test')throw Error('Development fixture only');
@@ -57,6 +59,20 @@ function select(nextStyle:TerritoryEffectStyle,nextSize=size):void {
 for(const button of document.querySelectorAll<HTMLButtonElement>('[data-style]'))button.onclick=()=>select(button.dataset.style as TerritoryEffectStyle);
 for(const button of document.querySelectorAll<HTMLButtonElement>('[data-size]'))button.onclick=()=>select(style,Number(button.dataset.size));
 document.querySelector<HTMLButtonElement>('#replay')!.onclick=()=>replay();
+document.querySelector<HTMLButtonElement>('#capture-replay')!.onclick=()=>{
+ scene.setCaptureEffect(true);restore();const victim=m.participants[15];
+ neutralizeTerritory(m,victim);setOwner(m,victim.cellId,16);
+ for(const cell of painted)addTrail(m,victim,cell);m.tick++;show(true);
+ applySimultaneousCaptures(m,[victim]);m.tick++;show();
+ document.querySelector('#status')!.textContent='CAPTURE_PULSE · 240ms · 실제 점령은 이미 완료';
+};
+function steal(){
+ freezeElapsed=undefined;scene.setTerritoryEffect('WAVE_COLLAPSE');scene.setCaptureEffect(true);
+ const {capturer}=prepareTerritorySteal(m);painted=m.map.cells.filter(c=>m.owners[c.id]!==0||m.trailMasks[c.id]!==0).map(c=>c.id);
+ show(true);applySimultaneousCaptures(m,[capturer]);m.tick++;show();
+ document.querySelector('#status')!.textContent='탈취 외곽선 + 고립 영토 Wave · 상대는 생존';
+}
+document.querySelector<HTMLButtonElement>('#steal-replay')!.onclick=()=>steal();
 // Controlled screenshot time is a fixture-only wrapper, not a production clock.
 const initialize=()=>{
  if(!scene.territoryEffectState()){requestAnimationFrame(initialize);return;}
@@ -65,7 +81,7 @@ const initialize=()=>{
  effect.update=(now:number,view:unknown,culling:boolean)=>effectUpdate(freezeElapsed===undefined?now:(effect.model.effects[0]?.startedAt??now)+freezeElapsed,view,culling);
  combat.update=(now:number)=>combatUpdate(freezeElapsed===undefined?now:(combat.bursts[0]?.born??now)+freezeElapsed);
  restore();document.querySelector('#status')!.textContent='같은 모양 · slot 15 · 영토 밖 절단 원점. 재생 버튼으로 비교하세요.';
- Object.assign(window,{fixture:{m,scene,COLORS,id,show,replay,select,resources,
+ Object.assign(window,{fixture:{m,scene,COLORS,id,show,replay,select,resources,steal,
   freezeAt(elapsed:number){freezeElapsed=elapsed;effect.dirty=true;},
   resume(){freezeElapsed=undefined;effect.dirty=true;},
   camera(q:number,r:number){const c=m.map.cells[id(q,r)];scene.testCamera(c.center.x,c.center.y);},

@@ -5,13 +5,13 @@ export type TerritoryEffectStyle='NONE'|'WAVE_COLLAPSE'|'POWER_DOWN'|'EDGE_CRUMB
 export const MAX_TERRITORY_EFFECTS=4;
 export const EFFECT_DURATION={NONE:0,WAVE_COLLAPSE:600,POWER_DOWN:440,EDGE_CRUMBLE:640} as const;
 export function experimentalTerritoryEffect(value:string|null,enabled:boolean):TerritoryEffectStyle {
- if(!enabled)return 'NONE';
- return value==='wave'?'WAVE_COLLAPSE':value==='power'?'POWER_DOWN':value==='edge'?'EDGE_CRUMBLE':'NONE';
+ if(!enabled)return 'WAVE_COLLAPSE';
+ return value==='wave'?'WAVE_COLLAPSE':value==='power'?'POWER_DOWN':value==='edge'?'EDGE_CRUMBLE':value==='none'?'NONE':'WAVE_COLLAPSE';
 }
 export interface CollapseCell {id:number;delay:number;cancelled:boolean}
 export interface TerritoryCollapse {
  eventId:string;slot:number;color:number;originCellId:number;startedAt:number;
- style:TerritoryEffectStyle;chunks:Map<string,CollapseCell[]>;
+ kind:'DEATH'|'CAPTURE_LOSS';style:TerritoryEffectStyle;chunks:Map<string,CollapseCell[]>;
 }
 export function collapseOrigin(map:MapDefinition,event:GameEvent,previous?:MatchView):number {
  const valid=(id:number|undefined)=>Number.isInteger(id)&&id!>=0&&id!<map.cells.length;
@@ -48,42 +48,69 @@ export function collapseAppearance(style:TerritoryEffectStyle,elapsed:number,del
 /** V1 animates last-observed victim -> neutral cells, not an exact pre-death board. */
 export class TerritoryEffectModel {
  effects:TerritoryCollapse[]=[];played=0;dropped=0;cancelledCells=0;lastPrepareMs=0;
- private cursor=new CombatEvents();private matchId='';private tick=-1;
+ private cursor=new CombatEvents();private matchId='';private tick=-1;private captureSeen=new Set<string>();
  constructor(public style:TerritoryEffectStyle='NONE'){}
- setStyle(style:TerritoryEffectStyle):void {this.style=style;this.effects=[];this.matchId='';this.tick=-1;this.cursor=new CombatEvents();this.played=0;this.dropped=0;this.cancelledCells=0;}
- reset(view:MatchView):void {this.effects=[];this.cursor.accept(view,true);this.matchId=view.matchId;this.tick=view.tick;this.played=0;this.dropped=0;this.cancelledCells=0;this.lastPrepareMs=0;}
+ setStyle(style:TerritoryEffectStyle):void {this.style=style;this.effects=[];this.matchId='';this.tick=-1;this.cursor=new CombatEvents();this.captureSeen.clear();this.played=0;this.dropped=0;this.cancelledCells=0;}
+ reset(view:MatchView):void {this.effects=[];this.cursor.accept(view,true);this.captureSeen=new Set(view.events.map(e=>e.eventId));this.matchId=view.matchId;this.tick=view.tick;this.played=0;this.dropped=0;this.cancelledCells=0;this.lastPrepareMs=0;}
  accept(view:MatchView,previousOwners:Uint8Array,map:MapDefinition,keys:readonly string[],colorForSlot:(slot:number)=>number,now:number,reset=false,previous?:MatchView):void {
   if(this.style==='NONE')return;
   if(reset||this.matchId!==view.matchId){this.reset(view);return;}
   if(view.tick<this.tick)return;this.tick=view.tick;
-  // Once a cell contains new gameplay, never resurrect its old overlay.
   for(const effect of this.effects)for(const cells of effect.chunks.values())for(const cell of cells)
    if(!cell.cancelled&&(view.owners[cell.id]!==0||view.trailMasks[cell.id]!==0)){cell.cancelled=true;this.cancelledCells++;}
-  const events=this.cursor.accept(view);if(!events.length)return;
-  const at=performance.now(),byOwner=new Map<number,number[]>();
+  const events=this.cursor.accept(view),captures:GameEvent[]=[];
+  for(const event of view.events){
+   if(this.captureSeen.has(event.eventId))continue;this.captureSeen.add(event.eventId);
+   if(event.type==='CAPTURE'&&event.tick>=view.tick-view.config.simulationHz&&event.tick<=view.tick)captures.push(event);
+  }
+  if(this.captureSeen.size>2048)this.captureSeen=new Set([...this.captureSeen].slice(-1024));
+  if(!events.length&&!captures.length)return;
+  const at=performance.now(),byOwner=new Map<number,number[]>(),deathOwners=new Set<number>(),captureOwners=new Set<number>();
   for(const event of events){
    const victim=view.participants.find(p=>p.participantId===event.participantId);
-   if(victim)byOwner.set(victim.slot+1,[]);
+   if(victim){byOwner.set(victim.slot+1,[]);deathOwners.add(victim.slot+1);}
   }
-  // One board pass per batch of confirmed deaths; no board scans on render ticks.
+  for(const event of captures){
+   const p=view.participants.find(v=>v.participantId===event.participantId),prior=previous?.participants.find(v=>v.participantId===event.participantId);
+   if(p&&prior&&p.lifeId===prior.lifeId)captureOwners.add(p.slot+1);
+  }
+  // Surviving victims can lose a disconnected region without a DEATH event.
+  if(captureOwners.size)for(const victim of view.participants){
+   const prior=previous?.participants.find(p=>p.participantId===victim.participantId);
+   if(victim.lifeState==='ALIVE'&&prior?.lifeId===victim.lifeId&&!deathOwners.has(victim.slot+1))byOwner.set(victim.slot+1,[]);
+  }
+  const transferred=new Map<number,number[]>();
+  // One known-board pass per batch. Current gameplay always wins.
   if(byOwner.size)for(let id=0;id<previousOwners.length;id++){
-   const list=byOwner.get(previousOwners[id]);
-   if(list&&view.owners[id]===0&&view.trailMasks[id]===0)list.push(id);
+   const old=previousOwners[id],owner=view.owners[id],list=byOwner.get(old);
+   if(list&&owner===0&&view.trailMasks[id]===0)list.push(id);
+   if(list&&old!==owner&&captureOwners.has(owner)){
+    let cells=transferred.get(old);if(!cells){cells=[];transferred.set(old,cells);}cells.push(id);
+   }
   }
+  for(const victim of view.participants){
+   const owner=victim.slot+1,ids=byOwner.get(owner)??[],cuts=transferred.get(owner);
+   if(deathOwners.has(owner)||!ids.length||!cuts?.length)continue;
+   const lost=new Set(ids),origin=cuts.find(id=>map.cells[id].neighbors.some(n=>lost.has(n)))??cuts[0];
+   this.addCollapse('capture-loss:'+captures[0].eventId+':'+victim.participantId,victim.slot,ids,origin,colorForSlot(victim.slot),now,map,keys,'CAPTURE_LOSS');
+  }
+  // Confirmed deaths keep their established origin and appearance, and take budget priority.
   for(const event of events){
-   const victim=view.participants.find(p=>p.participantId===event.participantId);
-   if(!victim)continue;
-   const ids=byOwner.get(victim.slot+1)??[],origin=collapseOrigin(map,event,previous),color=colorForSlot(victim.slot);
-   if(!ids.length||origin<0||!Number.isFinite(color))continue;
-   const delays=collapseDelays(map,ids,origin,this.style),chunks=new Map<string,CollapseCell[]>();
-   for(let i=0;i<ids.length;i++){const key=keys[ids[i]];let cells=chunks.get(key);if(!cells){cells=[];chunks.set(key,cells);}cells.push({id:ids[i],delay:delays[i],cancelled:false});}
-   if(this.effects.length>=MAX_TERRITORY_EFFECTS){this.effects.shift();this.dropped++;}
-   this.effects.push({eventId:event.eventId,slot:victim.slot,color,originCellId:origin,startedAt:now,style:this.style,chunks});this.played++;
+   const victim=view.participants.find(p=>p.participantId===event.participantId);if(!victim)continue;
+   const ids=byOwner.get(victim.slot+1)??[],origin=collapseOrigin(map,event,previous);
+   this.addCollapse(event.eventId,victim.slot,ids,origin,colorForSlot(victim.slot),now,map,keys,'DEATH');
   }
   this.lastPrepareMs=performance.now()-at;
+ }
+ private addCollapse(eventId:string,slot:number,ids:number[],origin:number,color:number,now:number,map:MapDefinition,keys:readonly string[],kind:'DEATH'|'CAPTURE_LOSS'):void{
+  if(!ids.length||origin<0||!Number.isFinite(color))return;
+  const delays=collapseDelays(map,ids,origin,this.style),chunks=new Map<string,CollapseCell[]>();
+  for(let i=0;i<ids.length;i++){const key=keys[ids[i]];let cells=chunks.get(key);if(!cells){cells=[];chunks.set(key,cells);}cells.push({id:ids[i],delay:delays[i],cancelled:false});}
+  if(this.effects.length>=MAX_TERRITORY_EFFECTS){this.effects.shift();this.dropped++;}
+  this.effects.push({eventId,slot,color,originCellId:origin,startedAt:now,style:this.style,chunks,kind});this.played++;
  }
  expire(now:number):void {this.effects=this.effects.filter(e=>now-e.startedAt<EFFECT_DURATION[e.style]);}
  state(){return {style:this.style,active:this.effects.length,played:this.played,dropped:this.dropped,cancelledCells:this.cancelledCells,lastPrepareMs:this.lastPrepareMs,
   cells:this.effects.reduce((n,e)=>n+[...e.chunks.values()].reduce((s,cells)=>s+cells.filter(c=>!c.cancelled).length,0),0),
-  origins:this.effects.map(e=>({eventId:e.eventId,slot:e.slot,cellId:e.originCellId,color:e.color}))};}
+  origins:this.effects.map(e=>({eventId:e.eventId,slot:e.slot,kind:e.kind,cellId:e.originCellId,color:e.color}))};}
 }

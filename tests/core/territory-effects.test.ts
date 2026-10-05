@@ -3,7 +3,10 @@ import {TerritoryEffectModel,collapseOrigin,collapseDelays,collapseAppearance,ex
 import {indexRenderChunks} from '../../src/client/render-chunks.js';
 import {createMatch,buildView} from '../../src/shared/game.js';
 import {botSpecs} from '../../src/shared/bot.js';
-import {markDead} from '../../src/shared/life.js';
+import {markDead,emitEvent} from '../../src/shared/life.js';
+import {prepareTerritorySteal} from '../capture-feedback-fixture.js';
+import {applySimultaneousCaptures} from '../../src/shared/engine.js';
+import {TerritoryCaptureModel} from '../../src/client/territory-capture-model.js';
 import {hexDistance} from '../../src/shared/hex.js';
 import type {GameEvent} from '../../src/shared/model.js';
 const styles=['WAVE_COLLAPSE','POWER_DOWN','EDGE_CRUMBLE'] as const;
@@ -87,10 +90,37 @@ describe('last-observed territory death presentation',()=>{
    if(style!=='POWER_DOWN')expect(middle.scale).toBeLessThan(1);
   }
  });
- it('NONE performs no board access or color work; production ignores every override',()=>{
+ it('NONE performs no board access or color work; production defaults to the chosen Wave regardless of overrides',()=>{
   const model=new TerritoryEffectModel(),{m,keys}=setup(),view=buildView(m),blocked=new Proxy(view.owners,{get(){throw Error('Unexpected scan');}});
   model.accept(view,blocked,m.map,keys,()=>{throw Error('Unexpected color');},0);expect(model.played).toBe(0);
-  for(const value of ['wave','power','edge',null,'bad'])expect(experimentalTerritoryEffect(value,false)).toBe('NONE');
+  for(const value of ['wave','power','edge',null,'bad'])expect(experimentalTerritoryEffect(value,false)).toBe('WAVE_COLLAPSE');
   expect(['wave','power','edge'].map(v=>experimentalTerritoryEffect(v,true))).toEqual(styles);
+ });
+});
+describe('capture-induced territory loss feedback',()=>{
+ it('real bridge capture animates neutralized owner 16 while victim survives, and theft gets a capture pulse',()=>{
+  const m=createMatch({mapRadius:56,maxSlots:16},4,botSpecs(16)),{capturer,victim}=prepareTerritorySteal(m);
+  const previous=buildView(m),keys=indexRenderChunks(m.map).keys,death=new TerritoryEffectModel('WAVE_COLLAPSE'),capture=new TerritoryCaptureModel(true);
+  const color=(slot:number)=>0x102030+slot;death.accept(previous,previous.owners,m.map,keys,color,0,true,previous);
+  capture.accept(previous,previous.owners,m.map,keys,color,0,true,previous);
+  applySimultaneousCaptures(m,[capturer]);m.tick++;const next=buildView(m);
+  death.accept(next,previous.owners,m.map,keys,color,100,false,previous);capture.accept(next,previous.owners,m.map,keys,color,100,false,previous);
+  expect(victim.lifeState).toBe('ALIVE');expect(victim.territoryCount).toBeGreaterThan(0);expect(m.events.some(e=>e.type==='DEATH')).toBe(false);
+  const lost=Array.from(previous.owners.keys()).filter(id=>previous.owners[id]===16&&next.owners[id]===0);
+  expect(lost.length).toBeGreaterThan(30);expect(ids(death).sort((a,b)=>a-b)).toEqual(lost);
+  expect(death.effects[0]).toMatchObject({kind:'CAPTURE_LOSS',slot:15});expect(next.owners[death.effects[0].originCellId]).toBe(1);
+  expect(capture.effects[0].stolenCount).toBeGreaterThan(0);expect(capture.effects[0].neutralCount).toBeGreaterThan(0);
+  const repeat=buildView(m);death.accept(repeat,next.owners,m.map,keys,color,120,false,next);expect(death.played).toBe(1);
+  const old=next.owners.slice(),id=lost[0];m.owners[id]=1;m.trailMasks[lost[1]]=0x8000;m.tick++;
+  death.accept(buildView(m),old,m.map,keys,color,130,false,next);expect(ids(death)).not.toContain(id);expect(ids(death)).not.toContain(lost[1]);
+ });
+ it('unknown neutralization without a confirmed capture or observed transfer is not a loss wave',()=>{
+  const {m,model,accept}=setup(),victim=m.participants[15],home=Array.from(m.owners.keys()).filter(id=>m.owners[id]===16);
+  m.owners[home[0]]=0;m.tick++;accept();expect(model.played).toBe(0);
+  emitEvent(m,{type:'CAPTURE',participantId:m.participants[0].participantId});m.owners[home[1]]=0;m.tick++;accept();expect(model.played).toBe(0);
+ });
+ it('death and capture in one batch do not duplicate victim collapse; recovery ignores both histories',()=>{
+  const {m,model,accept}=setup();markDead(m,m.participants[15],'WALL_HIT');emitEvent(m,{type:'CAPTURE',participantId:m.participants[0].participantId});m.tick++;accept();
+  expect(model.effects).toHaveLength(1);expect(model.effects[0].kind).toBe('DEATH');accept(120,true);expect(model.effects).toHaveLength(0);accept(140);expect(model.played).toBe(0);
  });
 });
