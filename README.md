@@ -122,4 +122,10 @@ PRD/TECH는 `docs/`에 유지하며 현재 규칙·환경설정·모바일 조�
 
 사망 영토 연출 V1은 [사양](docs/territory-death-effects-plan.md)과 [측정·검증 보고서](docs/territory-death-effects-results.md)에 기록했다. 사용자 최종 선택에 따라 사망 연출의 운영 기본값은 WAVE_COLLAPSE다. development/test에서는 experimentTerritoryEffect=wave|power|edge로 비교한다. 같은 장면의 50/250/1,000칸 비교 화면은 /tests/fixtures/territory-effects.html이고, 화면 아래 링크로 실제 R56/16 봇 연습을 열 수 있다. 전용 검사는 npm run test:territory-effects를 사용한다.
 
-플레이 피드백을 반영해 Capture를 240ms 동시 강조·외곽선(Pulse)으로 바꿨다. 사망뿐 아니라 관측된 탈취로 중립화된 생존 상대의 고립 영토도 Wave로 연출한다. [현재 구현·검증 결과](docs/capture-effect-v1-results.md)를 참고한다. Capture 운영 기본값은 NONE이며 development/test의 experimentCaptureEffect=pulse로 R56/16에서 확인한다. 기존 bloom 링크도 새 효과를 사용한다. fixture의 상대 영토 탈취 재생 버튼으로 두 경우를 함께 확인할 수 있다.
+플레이 피드백을 반영해 Capture를 240ms 동시 강조·외곽선(Pulse)으로 바꿨다. 사망뿐 아니라 관측된 탈취로 중립화된 생존 상대의 고립 영토도 Wave로 연출한다. [현재 구현·검증 결과](docs/capture-effect-v1-results.md)를 참고한다. Capture 운영 기본값은 Pulse ON이다. 별도 URL 옵션 없이 동작하며 development/test에서 experimentCaptureEffect=none으로 끌 수 있다. 기존 bloom 링크도 새 효과를 사용한다. fixture의 상대 영토 탈취 재생 버튼으로 두 경우를 함께 확인할 수 있다.
+
+## Run 보상과 로컬 프로필 V1
+
+Coins와 Run 통계는 IndexedDB에 저장한다. 시작 영토 그대로 무처치 종료한 Run은 0 Coins이며, 진행한 Run은 기본 5 + 최고 점유율 × 2(내림) + 처치당 3(최대 10처치) + Classic 클리어 100으로 계산한다. 최근 상세 내역 256개와 현재 월드의 lifeId 지급 기록을 따로 관리해 중복 지급을 막는다. 저장 실패 시 결과창에서 저장 재시도를 제공한다. 서버·게임 상태·RunResult에는 보상 데이터를 넣지 않는다.
+
+검증: npm test, npm run build, npm run test:run. [구현과 검증 결과](docs/reward-profile-v1-results.md).

@@ -34,7 +34,7 @@ Ground 0 < collapse .5 < 현재 Territory/Trail 1 < Capture 2 < Predicted Trail 
 
 ## 실행
 
-Production: Wave(사망 및 위 조건의 고립 영토 소멸) ON, Capture NONE. Capture는 실제 플레이 승인 전까지 development/test에서만 제공한다. experimentCaptureEffect=pulse가 새 옵션이며 기존 bloom 링크도 같은 새 효과로 동작한다.
+Production: Wave(사망 및 위 조건의 고립 영토 소멸) ON, Capture Pulse ON. 사용자 적용 승인에 따라 Capture도 별도 URL 옵션 없이 기본 활성화한다. development/test의 experimentCaptureEffect=none으로만 비활성 비교가 가능하다. 기존 pulse/bloom 링크도 같은 Pulse 효과로 동작한다.
 
 [R56/16 Capture Pulse + Wave 봇 연습](http://192.168.137.1:3003/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4&experimentCaptureEffect=pulse&metrics=1). PC 핫스팟 연결 후 봇 연습을 누른다.
 

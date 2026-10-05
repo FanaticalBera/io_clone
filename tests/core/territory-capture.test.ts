@@ -59,7 +59,7 @@ describe('Capture Bloom presentation',()=>{
  it('disabled performs no board scan; production cannot enable the bloom query',()=>{
   const {m,keys}=setup(),model=new TerritoryCaptureModel(),view=buildView(m),blocked=new Proxy(view.owners,{get(){throw Error('Unexpected board access');}});
   model.accept(view,blocked,m.map,keys,()=>{throw Error('Unexpected color');},0);expect(model.state().active).toBe(0);
-  expect(experimentalCaptureEffect('bloom',false)).toBe(false);expect(experimentalCaptureEffect('bloom',true)).toBe(true);expect(experimentalCaptureEffect(null,true)).toBe(false);
+  expect(experimentalCaptureEffect('bloom',false)).toBe(true);expect(experimentalCaptureEffect('pulse',true)).toBe(true);expect(experimentalCaptureEffect(null,true)).toBe(true);expect(experimentalCaptureEffect(null,false)).toBe(true);expect(experimentalCaptureEffect('none',true)).toBe(false);expect(experimentalCaptureEffect('none',false)).toBe(true);
  });
  it('all cells pulse together without scaling; outline survives the short fill pulse',()=>{
   const start=captureAppearance(0,0x102030),mid=captureAppearance(120,0x102030),end=captureAppearance(CAPTURE_DURATION,0x102030);

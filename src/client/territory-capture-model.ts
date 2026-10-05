@@ -1,6 +1,6 @@
 import type {MapDefinition,MatchView} from '../shared/model.js';
 export const CAPTURE_DURATION=240,MAX_CAPTURE_EFFECTS=4;
-export function experimentalCaptureEffect(value:string|null,enabled:boolean):boolean{return enabled&&(value==='pulse'||value==='bloom');}
+export function experimentalCaptureEffect(value:string|null,enabled:boolean):boolean{return !(enabled&&value==='none');}
 export interface BloomCell {id:number;edges:number;cancelled:boolean}
 export interface CaptureBloom {
  participantId:string;lifeId:number;slot:number;color:number;startedAt:number;

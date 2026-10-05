@@ -16,7 +16,8 @@
     "test:large-world": "playwright test --config playwright.large-world.config.ts",
     "test:territory-effects": "playwright test --config playwright.territory-effects.config.ts",
     "build": "npm run typecheck && tsc -p tsconfig.server.json && vite build",
-    "start": "node dist/server/server/index.js"
+    "start": "node dist/server/server/index.js",
+    "test:run": "playwright test --config playwright.run.config.ts"
   },
   "dependencies": {
     "express": "5.2.1",

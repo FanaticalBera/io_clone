@@ -100,3 +100,8 @@ dialog{max-width:760px;width:90vw;max-height:calc(100dvh - 32px);overflow:auto;b
 .run-actions{display:flex;gap:12px;margin-top:22px}.run-actions button{flex:1;min-height:44px}
 @media(orientation:landscape) and (max-height:420px){.run-panel{padding:16px 24px;border-radius:16px}.run-panel h2{font-size:28px;margin:5px 0}.run-panel>p{margin-bottom:12px}.run-stats strong{font-size:28px}.run-actions{margin-top:16px}.run-actions button{padding:10px 16px}.run-panel .eyebrow{font-size:9px}}
 @media(max-width:500px){.run-panel{width:94vw;padding:20px 18px}.run-stats{gap:8px}.run-stats>div{padding-left:10px}.run-stats strong{font-size:25px}}
+
+#menu-coins{letter-spacing:0;font-size:11px;font-weight:700;color:var(--muted)}
+.run-reward{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}.run-reward strong{font-size:24px;color:#147d69}.run-reward span,.run-reward button{font-size:11px}.run-reward span{color:var(--muted)}
+@media(orientation:landscape) and (max-height:420px){.run-reward{margin-top:10px}.run-reward strong{font-size:22px}.run-actions{margin-top:12px}}
+@media(max-width:400px){#menu-coins{font-size:9px}.brand{gap:5px}}

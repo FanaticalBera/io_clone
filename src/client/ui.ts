@@ -4,9 +4,10 @@ import {normalizeNickname} from '../shared/names.js';
 import {COLORS} from './game-scene.js';
 import {SettingsStore} from './settings.js';
 import {browserHaptics} from './haptics.js';
+import type {RewardReceipt} from './profile.js';
 import {deathMessage} from './death-message.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
-export interface UIActions { practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
+export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
  members:{memberId:string;nickname:string;connected:boolean;waitingForNextRound:boolean}[];
@@ -24,7 +25,7 @@ export class UI {
  private noticeUntil=0;
  constructor(private actions:UIActions,private settings=new SettingsStore()){
   get('app').innerHTML=`<div id="field"></div><div class="menu-art" aria-hidden="true"><i></i><i></i><i></i></div>
-<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD</header>
+<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD <small id="menu-coins">Coins · …</small></header>
 <div class="header-line" aria-hidden="true"></div><button id="rules" class="rules-button">게임 방법 ↗</button><button id="settings" class="quiet" aria-label="환경설정" title="환경설정">⚙</button>
 <canvas id="minimap" width="240" height="204" aria-label="전체 영토 지도" hidden></canvas>
 <section id="menu" class="panel menu-panel">
@@ -46,7 +47,7 @@ export class UI {
 <div id="death" data-testid="death" role="status" hidden></div>
 <section id="room-panel" class="panel room-panel" hidden><div class="eyebrow">LOBBY</div><h2 id="room-title"></h2><p id="room-game-mode"></p><p id="room-status"></p><div id="invite"><strong id="friend-code"></strong><button id="copy-link" class="quiet">초대 링크 복사</button></div><ul id="members"></ul><button id="start" data-testid="start" class="primary">라운드 시작 →</button><button id="room-leave" class="quiet">나가기</button></section>
 <section id="results" class="panel results-panel" hidden><div class="eyebrow" id="result-mode">ROUND COMPLETE</div><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="primary">다시 연습 →</button><button id="result-leave" class="quiet">나가기</button></div><small id="next-round"></small></section>
-<div id="run-results" hidden><section class="run-panel" role="dialog" aria-modal="true" aria-labelledby="run-title"><div class="eyebrow">YOUR RUN</div><h2 id="run-title">RUN OVER</h2><p id="run-reason"></p><div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong></div><div><small>플레이 시간</small><strong id="run-time"></strong></div><div><small>처치</small><strong id="run-kills"></strong></div></div><div class="run-actions"><button id="run-retry" class="primary">다시 하기 →</button><button id="run-menu" class="quiet">메인 메뉴</button></div></section></div>\n<dialog id="tutorial"><div class="eyebrow">HOW TO PLAY</div><h2>세 가지만 기억하세요.</h2><div class="rule-grid">
+<div id="run-results" hidden><section class="run-panel" role="dialog" aria-modal="true" aria-labelledby="run-title"><div class="eyebrow">YOUR RUN</div><h2 id="run-title">RUN OVER</h2><p id="run-reason"></p><div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong></div><div><small>플레이 시간</small><strong id="run-time"></strong></div><div><small>처치</small><strong id="run-kills"></strong></div></div><div class="run-reward"><strong id="run-coins">…</strong><span id="run-balance">보상 저장 중</span><button id="reward-retry" class="text-button" hidden>저장 재시도</button></div><div class="run-actions"><button id="run-retry" class="primary">다시 하기 →</button><button id="run-menu" class="quiet">메인 메뉴</button></div></section></div>\n<dialog id="tutorial"><div class="eyebrow">HOW TO PLAY</div><h2>세 가지만 기억하세요.</h2><div class="rule-grid">
  <article><div class="rule-picture">⬢ <span>⬡ ⬡</span> ⬢</div><h3>01. 돌아와야 내 땅</h3><p>내 땅 밖에 선을 그린 뒤<br>내 영토로 돌아오면 점령합니다.</p></article>
  <article><div class="rule-picture danger">⬡ ⬡ <b>✕</b> ⬡</div><h3>02. 선과 벽을 조심하세요</h3><p>상대가 내 선을 끊거나<br>외곽 벽에 부딪치면 탈락합니다.</p></article>
  <article><div class="rule-picture point">⬢ <span>100%</span></div><h3 id="tutorial-mode-title">03. 완전 점령</h3><p id="tutorial-mode-description">맵 전체를 자신의 영토로 만들면 승리</p></article></div>
@@ -73,7 +74,7 @@ export class UI {
   bind('create',()=>this.requestPlay(()=>this.actions.create?this.actions.create():this.message('온라인 연결을 준비하고 있어요.')));
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',this.actions.leave);bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
-  bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
+  bind('reward-retry',()=>this.actions.rewardRetry?.());bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
   bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());bind('tutorial-skip',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
@@ -138,11 +139,13 @@ export class UI {
   else if(self.lifeState==='ALIVE')this.clearRunResult();
   else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],selfId,view.gameMode,view.outcome,view.owners.length);
  }
+ setProfileBalance(coins:number|null):void {get('menu-coins').textContent=coins===null?'Coins · 저장 불가':'Coins · '+coins.toLocaleString();}
+ showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString()+' Coins':receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString()+' Coins':'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';}
  setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}
  get hasRunResult():boolean{return !!this.runKey;}
  clearRunResult():void {if(this.runTimer!==null)clearTimeout(this.runTimer);this.runTimer=null;this.runKey='';this.currentRunResult=null;get('run-results').hidden=true;}
  showRunResult(result:RunResult,restored=false):void {
-  if(this.runKey===result.runId)return;this.clearRunResult();this.runKey=result.runId;this.currentRunResult=result;this.controlsActive=false;this.refreshControls();
+  if(this.runKey===result.runId)return;this.clearRunResult();this.runKey=result.runId;this.currentRunResult=result;get('run-coins').textContent='…';get('run-balance').textContent='보상 저장 중';get('reward-retry').hidden=true;this.controlsActive=false;this.refreshControls();
   const show=()=>{if(this.runKey!==result.runId)return;this.runTimer=null;get('run-title').textContent=result.endReason==='FULL_CAPTURE_WIN'?'CLASSIC CLEAR!':'RUN OVER';
    get('run-reason').textContent=result.endReason==='DEATH'?'이번 생존의 기록':result.endReason==='FULL_CAPTURE_LOSS'?'다른 참가자가 100%를 달성했습니다.':'월드 전체를 점령했습니다.';
    get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
