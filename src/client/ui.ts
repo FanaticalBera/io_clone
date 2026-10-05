@@ -25,7 +25,7 @@ export class UI {
  private noticeUntil=0;
  constructor(private actions:UIActions,private settings=new SettingsStore()){
   get('app').innerHTML=`<div id="field"></div><div class="menu-art" aria-hidden="true"><i></i><i></i><i></i></div>
-<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD <small id="menu-coins">Coins · …</small></header>
+<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD <small id="menu-coins">Coins · …</small><button id="shop-open" class="quiet" aria-haspopup="dialog">상점</button></header>
 <div class="header-line" aria-hidden="true"></div><button id="rules" class="rules-button">게임 방법 ↗</button><button id="settings" class="quiet" aria-label="환경설정" title="환경설정">⚙</button>
 <canvas id="minimap" width="240" height="204" aria-label="전체 영토 지도" hidden></canvas>
 <section id="menu" class="panel menu-panel">

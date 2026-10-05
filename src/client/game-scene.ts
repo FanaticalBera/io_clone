@@ -1,3 +1,5 @@
+import {PlayerMarker} from './player-marker.js';
+import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
 import Phaser from 'phaser';
 import {Presentation} from './presentation.js';
 import {CombatEffects} from './combat-effects.js';
@@ -24,7 +26,10 @@ export class GameScene extends Phaser.Scene {
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
- private avatars=new Map<string,{container:Phaser.GameObjects.Container;body:Phaser.GameObjects.Arc;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
+ private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
+ private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
+ setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};for(const [id,avatar] of this.avatars){const p=this.view?.participants.find(p=>p.participantId===id);if(p)avatar.marker.set(this.markerAppearance,COLORS[p.slot],id===this.selfId);}}
+ markerState(){return [...this.avatars].map(([participantId,a])=>({participantId,...a.marker.state()}));}
  private followTarget:Phaser.GameObjects.Container|null=null;
  private renderedAt=0;
  private viewportWidth=window.innerWidth;private viewportHeight=window.innerHeight;private pixelRatio=1;
@@ -123,11 +128,12 @@ export class GameScene extends Phaser.Scene {
    let avatar=this.avatars.get(p.participantId);
    if(!avatar){
     const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,COLORS[p.slot],0.9);
-    const body=this.add.circle(0,0,21,COLORS[p.slot]).setStrokeStyle(5,0xffffff,1);
+    const marker=new PlayerMarker(this);
     const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
-    const container=this.add.container(p.position.x,p.position.y,[shield,body,label]).setDepth(5);
-    avatar={container,body,shield,label};this.avatars.set(p.participantId,avatar);
+    const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
+    avatar={container,marker,shield,label};this.avatars.set(p.participantId,avatar);
    }
+   avatar.marker.set(this.markerAppearance,COLORS[p.slot],p.participantId===this.selfId);
    avatar.container.setVisible(p.lifeState==='ALIVE');
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.

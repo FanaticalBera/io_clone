@@ -129,3 +129,11 @@ PRD/TECH는 `docs/`에 유지하며 현재 규칙·환경설정·모바일 조�
 Coins와 Run 통계는 IndexedDB에 저장한다. 최고 점유율 3.0% 미만·무처치·클리어가 아닌 Run은 0 Coins다. 최고 점유율 3.0% 이상 또는 1처치 이상 또는 Classic 클리어한 Run은 기본 5 + 최고 점유율 × 2(내림) + 처치당 3(최대 20처치) + Classic 클리어 100으로 계산한다. 최근 상세 내역 256개와 현재 월드의 lifeId 지급 기록을 따로 관리해 중복 지급을 막는다. 저장 실패 시 결과창에서 저장 재시도를 제공한다. 서버·게임 상태·RunResult에는 보상 데이터를 넣지 않는다.
 
 검증: npm test, npm run build, npm run test:run. [구현과 검증 결과](docs/reward-profile-v1-results.md).
+
+## Shop / Inventory V1
+
+메뉴의 상점에서 Basic 마커와 Marker Color를 구매·보유·장착한다. Default와 슬롯 기본 색상은 무료로 처음부터 보유한다. 장착 색상은 내 화면의 내 마커 본체에만 적용하고 슬롯 색상의 얇은 식별 링을 유지한다. 영토·트레일과 상대 화면의 외형은 그대로다. CUTE/FANTASY/TECH/SPECIAL은 임시 디자인 상품으로 구매 흐름만 검증한다. 테스트 가격은 src/client/catalog.ts의 SHOP_PRICES에서 관리한다.
+
+기존 IndexedDB 프로필에는 inventory만 추가하며 Coins·통계·processedRuns/world ledger를 보존한다. 잘못된 장착 필드는 해당 항목만 기본값으로 복구한다. 구매/장착은 기존 ProfileStore의 원자적 transaction으로 저장하며 저장 실패 시 부분 적용되지 않는다.
+
+검증: npm test, npm run build, npm run test:run. [구현·검증 결과 및 화면](docs/shop-inventory-v1-results.md).

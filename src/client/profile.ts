@@ -1,16 +1,17 @@
+import {defaultInventory,normalizeInventory,validInventory,type PlayerInventory} from './inventory.js';
 import type {RunResult} from '../shared/model.js';
 import {calculateReward,validateRewardRun,type RewardResult} from './reward.js';
 export const PROFILE_HISTORY_LIMIT=256,PROFILE_WORLD_LIMIT=32;
 export interface RunAdmission {matchId:string;participantId:string;lifeId:number;initialTerritoryCells:number;ownerId:string}
 export interface ParticipantLedger {participantId:string;observedLifeId:number;paidLifeId:number;initialTerritoryCells:number;ownerId:string;closed:boolean}
 export interface WorldLedger {matchId:string;participants:ParticipantLedger[]}
-export interface PlayerProfileV1 {version:1;coins:number;stats:{runsPlayed:number;classicClears:number;totalKills:number;bestTerritoryPercent:number;longestRunSeconds:number};processedRuns:RewardResult[];worlds:WorldLedger[]}
+export interface PlayerProfileV1 {version:1;inventory:PlayerInventory;coins:number;stats:{runsPlayed:number;classicClears:number;totalKills:number;bestTerritoryPercent:number;longestRunSeconds:number};processedRuns:RewardResult[];worlds:WorldLedger[]}
 export interface RewardReceipt {status:'granted'|'duplicate'|'ignored'|'failed';reward:RewardResult|null;balance:number}
-export function emptyProfile():PlayerProfileV1{return{version:1,coins:0,stats:{runsPlayed:0,classicClears:0,totalKills:0,bestTerritoryPercent:0,longestRunSeconds:0},processedRuns:[],worlds:[]};}
+export function emptyProfile():PlayerProfileV1{return{version:1,inventory:defaultInventory(),coins:0,stats:{runsPlayed:0,classicClears:0,totalKills:0,bestTerritoryPercent:0,longestRunSeconds:0},processedRuns:[],worlds:[]};}
 const safe=(v:unknown):v is number=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=0;
 const text=(v:unknown,max=128):v is string=>typeof v==='string'&&v.length>0&&v.length<=max;
 const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
-export function validProfile(value:unknown):value is PlayerProfileV1 {
+function validProfileBase(value:unknown):value is Omit<PlayerProfileV1,'inventory'> {
  if(!object(value)||value.version!==1||!safe(value.coins)||!object(value.stats)||!['runsPlayed','classicClears','totalKills'].every(k=>safe((value.stats as Record<string,unknown>)[k]))||typeof value.stats.bestTerritoryPercent!=='number'||!Number.isFinite(value.stats.bestTerritoryPercent)||value.stats.bestTerritoryPercent<0||value.stats.bestTerritoryPercent>100||typeof value.stats.longestRunSeconds!=='number'||!Number.isFinite(value.stats.longestRunSeconds)||value.stats.longestRunSeconds<0||
  !Array.isArray(value.processedRuns)||value.processedRuns.length>PROFILE_HISTORY_LIMIT||!Array.isArray(value.worlds)||value.worlds.length>PROFILE_WORLD_LIMIT)return false;
  const runs=new Set<string>(),worlds=new Set<string>();
@@ -18,6 +19,12 @@ export function validProfile(value:unknown):value is PlayerProfileV1 {
  for(const w of value.worlds){if(!object(w)||!text(w.matchId)||worlds.has(w.matchId)||!Array.isArray(w.participants)||!w.participants.length||w.participants.length>16)return false;worlds.add(w.matchId);const people=new Set<string>();
   for(const p of w.participants){if(!object(p)||!text(p.participantId)||people.has(p.participantId)||!safe(p.observedLifeId)||p.observedLifeId<1||!safe(p.paidLifeId)||p.paidLifeId>p.observedLifeId||!safe(p.initialTerritoryCells)||p.initialTerritoryCells<1||!text(p.ownerId)||typeof p.closed!=='boolean')return false;people.add(p.participantId);}
  }return true;
+}
+export function validProfile(value:unknown):value is PlayerProfileV1 {return validProfileBase(value)&&validInventory((value as Record<string,unknown>).inventory);}
+export function migrateProfile(value:unknown):PlayerProfileV1|null {
+ // Add only Inventory to a valid legacy wallet. Version 1 stays readable by older reward clients.
+ if(!validProfileBase(value))return null;
+ return{...structuredClone(value),inventory:normalizeInventory((value as Record<string,unknown>).inventory)};
 }
 export function admitRun(profile:PlayerProfileV1,a:RunAdmission):boolean {
  if(!text(a.matchId)||!text(a.participantId)||!text(a.ownerId)||!safe(a.lifeId)||a.lifeId<1||!safe(a.initialTerritoryCells)||a.initialTerritoryCells<1)throw new Error('Invalid Run admission');

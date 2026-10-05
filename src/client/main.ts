@@ -14,6 +14,8 @@ import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js
 import {experimentalMapConfig,experimentalSeed,experimentalSlotConfig} from '../shared/map-experiment.js';
 import {experimentalTerritoryEffect} from './territory-effect-model.js';
 import {experimentalCaptureEffect} from './territory-capture-model.js';
+import {ShopUI} from './shop-ui.js';
+import type {PlayerProfileV1} from './profile.js';
 import {ProfileStore} from './profile-store.js';
 import {RewardService} from './reward-service.js';
 import './style.css';
@@ -24,7 +26,9 @@ if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>pra
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
-profileStore.subscribe(p=>ui.setProfileBalance(p.coins));void profileStore.read().then(p=>ui.setProfileBalance(p.coins)).catch(()=>ui.setProfileBalance(null));
+const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
+function applyProfile(p:PlayerProfileV1):void {ui.setProfileBalance(p.coins);shop.setProfile(p);scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});}
+profileStore.subscribe(applyProfile);void profileStore.read().then(applyProfile).catch(()=>ui.setProfileBalance(null));
 const scene=createRenderer('field');
 scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
@@ -34,7 +38,7 @@ const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
 input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();});
-if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
+if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8))),null);
 function display(view:MatchView,selfId:string,init=false):void {
  if(view.participants.find(p=>p.participantId===selfId)?.lifeState==='ALIVE'&&ui.hasRunResult){ui.clearRunResult();ui.showGame(ui.mode==='PRACTICE'?'PRACTICE':'ONLINE');}

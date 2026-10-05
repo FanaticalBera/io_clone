@@ -1,4 +1,6 @@
-import {emptyProfile,validProfile,admitRun,grantProfileReward,closeProfileWorld,type PlayerProfileV1,type RunAdmission,type RewardReceipt} from './profile.js';
+import {purchaseItem,equipItem,type ShopReceipt} from './inventory.js';
+import type {ProductKind} from './catalog.js';
+import {emptyProfile,validProfile,migrateProfile,admitRun,grantProfileReward,closeProfileWorld,type PlayerProfileV1,type RunAdmission,type RewardReceipt} from './profile.js';
 import type {RunResult} from '../shared/model.js';
 export const PROFILE_DATABASE='hexhold.player-profile',PROFILE_STORE='meta',PROFILE_KEY='profile';
 function browserDatabase():IDBFactory|null{try{return typeof indexedDB==='undefined'?null:indexedDB;}catch{return null;}}
@@ -16,12 +18,14 @@ export class ProfileStore {
  private async transaction<T>(change:(p:PlayerProfileV1)=>T,announce=true):Promise<T>{
   const db=await this.open();return new Promise<T>((resolve,reject)=>{const tx=db.transaction(PROFILE_STORE,'readwrite'),store=tx.objectStore(PROFILE_STORE),get=store.get(PROFILE_KEY);let result:T,profile:PlayerProfileV1;let error:unknown;
    tx.oncomplete=()=>{if(announce)this.publish(profile);resolve(result);};tx.onabort=()=>reject(error??tx.error??new Error('Profile transaction aborted'));tx.onerror=()=>{};
-   get.onsuccess=()=>{try{const saved=get.result;profile=validProfile(saved)?saved:emptyProfile();if(saved!==undefined&&!validProfile(saved))store.put(saved,'corrupt-backup');result=change(profile);if(!validProfile(profile))throw new Error('Invalid profile update');store.put(profile,PROFILE_KEY);}catch(e){error=e;tx.abort();}};
+   get.onsuccess=()=>{try{const saved=get.result;const migrated=migrateProfile(saved);profile=migrated??emptyProfile();if(saved!==undefined&&!migrated)store.put(saved,'corrupt-backup');result=change(profile);if(!validProfile(profile))throw new Error('Invalid profile update');store.put(profile,PROFILE_KEY);}catch(e){error=e;tx.abort();}};
   });
  }
  read():Promise<PlayerProfileV1>{return this.transaction(p=>structuredClone(p),false);}
  admit(a:RunAdmission):Promise<boolean>{return this.transaction(p=>{for(const w of p.worlds)if(w.matchId!==a.matchId)for(const person of w.participants)if(person.ownerId===a.ownerId)person.closed=true;return admitRun(p,a);});}
  grant(r:RunResult,a?:RunAdmission,ownerId?:string):Promise<RewardReceipt>{return this.transaction(p=>{const ledger=p.worlds.find(w=>w.matchId===r.matchId)?.participants.find(p=>p.participantId===r.participantId);if(ownerId&&ledger&&!ledger.closed&&ledger.observedLifeId===r.lifeId)ledger.ownerId=ownerId;return grantProfileReward(p,r,a);});}
+ purchase(kind:ProductKind,id:string):Promise<ShopReceipt>{return this.transaction(p=>purchaseItem(p,kind,id));}
+ equip(kind:ProductKind,id:string):Promise<ShopReceipt>{return this.transaction(p=>equipItem(p,kind,id));}
  closeWorld(matchId:string,participantId:string,ownerId:string):Promise<void>{return this.transaction(p=>closeProfileWorld(p,matchId,participantId,ownerId));}
  subscribe(listener:(p:PlayerProfileV1)=>void):()=>void{this.listeners.add(listener);return()=>this.listeners.delete(listener);}
  private publish(p:PlayerProfileV1,announce=true):void{for(const listener of this.listeners)listener(structuredClone(p));if(announce)this.channel?.postMessage('changed');}
