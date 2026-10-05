@@ -11,6 +11,6 @@ it('T32 background keeps time and vulnerability; foreground sends full state bef
  markDead(room.match!,p,'TRAIL_CUT');const before=a.snapshots.length;
  expect(await a.request('control:foreground')).toMatchObject({ok:true});await until(()=>a.snapshots.length>before);
  expect(s.background).toBe(false);expect(s.highestReceivedSeq).toBe(p.lastAppliedInputSeq);
- expect(a.snapshots.at(-1)!.participants.find(x=>x.participantId===p.participantId)).toMatchObject({lifeState:'DEAD_WAIT',deaths:1,territoryCount:0});
+ expect(a.snapshots.at(-1)!.participants.find(x=>x.participantId===p.participantId)).toMatchObject({lifeState:'ELIMINATED',deaths:1,territoryCount:0});
  }finally{await f.close();}
 });

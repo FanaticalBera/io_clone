@@ -1,3 +1,4 @@
+import { beginRunResolution, endRunResolution, recordBestTerritories } from './run.js';
 import { slotBit } from './slots.js';
 import { moveSpeed } from './config.js';
 import { tryRespawns } from './spawn.js';
@@ -27,205 +28,218 @@ function trailTouchesHome(match, p) {
     return first !== undefined && match.map.cells[first].neighbors.some(id => id >= 0 && match.owners[id] === p.slot + 1);
 }
 export function applySimultaneousCaptures(match, returners, eventTick = match.tick, iteration = 0) {
-    const ordered = [...returners].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
-    const candidates = new Map();
-    for (const p of ordered)
-        if (p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1)
-            candidates.set(p, captureCandidates(match, p));
-    if (!candidates.size)
-        return;
-    const audit = hasDeathObserver(match), ownersBefore = audit ? [...match.owners] : [], trailMasksBefore = audit ? [...match.trailMasks] : [], trailsBefore = audit ? new Map(match.participants.map(p => [p, [...p.trailCells]])) : null;
-    const connectedBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && p.trailCells.size && trailTouchesHome(match, p)));
-    // A closed excursion has no trail yet. Losing the home under its head to
-    // capture or pruning must not create an already disconnected trail afterward.
-    const homeHeadsBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && !p.trailCells.size && match.owners[p.cellId] === p.slot + 1));
-    const strandedHomeHeads = new Set();
-    const observer = captureObservers.get(match);
-    const trace = observer ? match.participants.map(p => ({
-        participantId: p.participantId, trailCells: [...p.trailCells], territoryBefore: p.territoryCount, connectedBefore: connectedBefore.has(p), candidate: candidates.has(p),
-        touchesHomeBefore: trailTouchesHome(match, p), lostTerritory: false, touchesHomeAfter: false, anyTrailTouchesHomeAfter: false, territoryAfterTransfer: 0, ownerCellsAfterTransfer: 0,
-        claimedTrailCells: [], cut: false, markDeadCalled: false, markedDead: false, lifeStateAfter: p.lifeState, ownerCellsAfter: 0, trailMaskCellsAfter: 0,
-        originCellId: p.trailOriginCellId, originOwnerBefore: p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId], originOwnerAfterTransfer: null, firstHomeNeighborsAfterTransfer: [],
-        headCellId: p.cellId, headOwnerBefore: match.owners[p.cellId], headOwnerAfterTransfer: match.owners[p.cellId], headHomeNeighborsAfterTransfer: [], strandedHomeHead: false,
-        originOwnerBeforePrune: null, headOwnerBeforePrune: match.owners[p.cellId], homeAnchorBeforePrune: null
-    })) : null;
-    const winners = new Map(), gained = new Map();
-    for (const [p, cells] of candidates)
-        for (const id of cells)
-            if (!winners.has(id))
-                winners.set(id, p);
-    // Freeze capture contacts before transferring ownership or closing anyone's trail.
-    // The winning captured cell cuts exposed enemy trails just like direct head contact.
-    const cuts = new Map();
-    const cutContexts = new Map();
-    for (const [id, attacker] of winners)
-        for (const victim of match.participants) {
-            if (victim !== attacker && victim.lifeState === 'ALIVE' && (match.trailMasks[id] & (slotBit(victim.slot)))) {
-                const attackers = cuts.get(victim) ?? new Set();
+    beginRunResolution(match);
+    try {
+        const ordered = [...returners].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+        const candidates = new Map();
+        for (const p of ordered)
+            if (p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1)
+                candidates.set(p, captureCandidates(match, p));
+        if (!candidates.size)
+            return;
+        const audit = hasDeathObserver(match), ownersBefore = audit ? [...match.owners] : [], trailMasksBefore = audit ? [...match.trailMasks] : [], trailsBefore = audit ? new Map(match.participants.map(p => [p, [...p.trailCells]])) : null;
+        const connectedBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && p.trailCells.size && trailTouchesHome(match, p)));
+        // A closed excursion has no trail yet. Losing the home under its head to
+        // capture or pruning must not create an already disconnected trail afterward.
+        const homeHeadsBefore = new Set(match.participants.filter(p => p.lifeState === 'ALIVE' && !candidates.has(p) && !p.trailCells.size && match.owners[p.cellId] === p.slot + 1));
+        const strandedHomeHeads = new Set();
+        const observer = captureObservers.get(match);
+        const trace = observer ? match.participants.map(p => ({
+            participantId: p.participantId, trailCells: [...p.trailCells], territoryBefore: p.territoryCount, connectedBefore: connectedBefore.has(p), candidate: candidates.has(p),
+            touchesHomeBefore: trailTouchesHome(match, p), lostTerritory: false, touchesHomeAfter: false, anyTrailTouchesHomeAfter: false, territoryAfterTransfer: 0, ownerCellsAfterTransfer: 0,
+            claimedTrailCells: [], cut: false, markDeadCalled: false, markedDead: false, lifeStateAfter: p.lifeState, ownerCellsAfter: 0, trailMaskCellsAfter: 0,
+            originCellId: p.trailOriginCellId, originOwnerBefore: p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId], originOwnerAfterTransfer: null, firstHomeNeighborsAfterTransfer: [],
+            headCellId: p.cellId, headOwnerBefore: match.owners[p.cellId], headOwnerAfterTransfer: match.owners[p.cellId], headHomeNeighborsAfterTransfer: [], strandedHomeHead: false,
+            originOwnerBeforePrune: null, headOwnerBeforePrune: match.owners[p.cellId], homeAnchorBeforePrune: null
+        })) : null;
+        const winners = new Map(), gained = new Map();
+        for (const [p, cells] of candidates)
+            for (const id of cells)
+                if (!winners.has(id))
+                    winners.set(id, p);
+        // Freeze capture contacts before transferring ownership or closing anyone's trail.
+        // The winning captured cell cuts exposed enemy trails just like direct head contact.
+        const cuts = new Map();
+        const cutContexts = new Map();
+        for (const [id, attacker] of winners)
+            for (const victim of match.participants) {
+                if (victim !== attacker && victim.lifeState === 'ALIVE' && (match.trailMasks[id] & (slotBit(victim.slot)))) {
+                    const attackers = cuts.get(victim) ?? new Set();
+                    attackers.add(attacker);
+                    cuts.set(victim, attackers);
+                    const contexts = cutContexts.get(victim) ?? new Map();
+                    if (!contexts.has(attacker))
+                        contexts.set(attacker, { cause: 'TRAIL_CAPTURE', cellId: id, eventTick });
+                    cutContexts.set(victim, contexts);
+                }
+            }
+        const lostTerritory = new Set(), territoryAttackers = new Map();
+        for (const [id, p] of winners) {
+            if (match.owners[id] !== p.slot + 1) {
+                gained.set(p, (gained.get(p) ?? 0) + 1);
+                const previous = participantForOwner(match, match.owners[id]);
+                if (previous) {
+                    lostTerritory.add(previous);
+                    const attackers = territoryAttackers.get(previous) ?? new Set();
+                    attackers.add(p);
+                    territoryAttackers.set(previous, attackers);
+                }
+            }
+            setOwner(match, id, p.slot + 1);
+        }
+        // Prune only after all simultaneous winners have been applied. A surviving
+        // excursion origin (or a head still at home) is the actual home component;
+        // choosing a larger distant component must not manufacture a home cut.
+        for (const p of lostTerritory) {
+            const owner = p.slot + 1, first = p.trailCells.values().next().value;
+            const home = p.trailCells.size && !candidates.has(p)
+                ? p.trailOriginCellId ?? (first === undefined ? null : match.map.cells[first].neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null)
+                : match.owners[p.cellId] === owner ? p.cellId : match.map.cells[p.cellId]?.neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null;
+            const anchor = home !== null && match.owners[home] === owner ? home : null;
+            const record = trace?.find(r => r.participantId === p.participantId);
+            if (record) {
+                record.originOwnerBeforePrune = p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId];
+                record.headOwnerBeforePrune = match.owners[p.cellId];
+                record.homeAnchorBeforePrune = anchor;
+            }
+            pruneDisconnectedTerritory(match, p, anchor ?? undefined);
+        }
+        // Capturing the actual home attachment cuts an excursion even without
+        // painting its trail. An intact attachment was preserved during pruning above.
+        for (const victim of lostTerritory) {
+            // A captured head may start a trail only while still attached to its home.
+            // Zero-territory deaths continue through their existing resolution path.
+            const stranded = homeHeadsBefore.has(victim) && victim.territoryCount > 0 && match.owners[victim.cellId] !== victim.slot + 1 &&
+                !match.map.cells[victim.cellId].neighbors.some(id => id >= 0 && match.owners[id] === victim.slot + 1);
+            if (stranded)
+                strandedHomeHeads.add(victim);
+            if (!stranded && !(connectedBefore.has(victim) && !trailTouchesHome(match, victim)))
+                continue;
+            const attackers = cuts.get(victim) ?? new Set();
+            for (const attacker of territoryAttackers.get(victim))
                 attackers.add(attacker);
-                cuts.set(victim, attackers);
-                const contexts = cutContexts.get(victim) ?? new Map();
+            cuts.set(victim, attackers);
+            const contexts = cutContexts.get(victim) ?? new Map();
+            for (const attacker of territoryAttackers.get(victim))
                 if (!contexts.has(attacker))
-                    contexts.set(attacker, { cause: 'TRAIL_CAPTURE', cellId: id, eventTick });
-                cutContexts.set(victim, contexts);
+                    contexts.set(attacker, { cause: 'HOME_CAPTURE', cellId: victim.trailOriginCellId ?? victim.trailCells.values().next().value ?? victim.cellId, eventTick });
+            cutContexts.set(victim, contexts);
+        }
+        if (trace)
+            for (const record of trace) {
+                const p = match.participants.find(p => p.participantId === record.participantId);
+                record.lostTerritory = lostTerritory.has(p);
+                record.touchesHomeAfter = trailTouchesHome(match, p);
+                record.anyTrailTouchesHomeAfter = [...p.trailCells].some(id => match.map.cells[id].neighbors.some(n => n >= 0 && match.owners[n] === p.slot + 1));
+                record.territoryAfterTransfer = p.territoryCount;
+                record.ownerCellsAfterTransfer = match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0);
+                record.cut = cuts.has(p);
+                record.claimedTrailCells = record.trailCells.filter(id => winners.has(id) && winners.get(id) !== p);
+                record.originOwnerAfterTransfer = record.originCellId === null ? null : match.owners[record.originCellId];
+                record.firstHomeNeighborsAfterTransfer = record.trailCells.length ? match.map.cells[record.trailCells[0]].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1) : [];
+                record.headOwnerAfterTransfer = match.owners[p.cellId];
+                record.headHomeNeighborsAfterTransfer = match.map.cells[p.cellId].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1);
+                record.strandedHomeHead = strandedHomeHeads.has(p);
             }
+        for (const p of candidates.keys()) {
+            clearTrail(match, p);
+            emitEvent(match, { type: 'CAPTURE', participantId: p.participantId, amount: gained.get(p) ?? 0 });
         }
-    const lostTerritory = new Set(), territoryAttackers = new Map();
-    for (const [id, p] of winners) {
-        if (match.owners[id] !== p.slot + 1) {
-            gained.set(p, (gained.get(p) ?? 0) + 1);
-            const previous = participantForOwner(match, match.owners[id]);
-            if (previous) {
-                lostTerritory.add(previous);
-                const attackers = territoryAttackers.get(previous) ?? new Set();
-                attackers.add(p);
-                territoryAttackers.set(previous, attackers);
+        recordBestTerritories(match);
+        // All simultaneous claims remain resolved against the same base state. One death
+        // and one credited killer per victim, including attackers killed in this batch.
+        for (const victim of [...cuts.keys()].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))) {
+            const killer = [...cuts.get(victim)].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))[0];
+            const record = trace?.find(p => p.participantId === victim.participantId);
+            if (record)
+                record.markDeadCalled = true;
+            const diagnostic = audit ? { eventTick, iteration, ownersBefore, trailMasksBefore, pendingTrails: [], victimTrailBefore: trailsBefore.get(victim), existingTrailContact: false, pendingTrailContact: false, captureOverlapCells: trailsBefore.get(victim).filter(id => winners.has(id) && winners.get(id) !== victim), wallIntersection: false } : undefined;
+            const marked = markDead(match, victim, 'TRAIL_CUT', killer, cutContexts.get(victim)?.get(killer), diagnostic);
+            if (record)
+                record.markedDead = marked;
+        }
+        if (trace && observer) {
+            for (const record of trace) {
+                const p = match.participants.find(p => p.participantId === record.participantId);
+                record.lifeStateAfter = p.lifeState;
+                record.ownerCellsAfter = match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0);
+                record.trailMaskCellsAfter = match.trailMasks.reduce((sum, mask) => sum + Number((mask & (slotBit(p.slot))) !== 0), 0);
             }
+            observer({ tick: match.tick, participants: trace });
         }
-        setOwner(match, id, p.slot + 1);
     }
-    // Prune only after all simultaneous winners have been applied. A surviving
-    // excursion origin (or a head still at home) is the actual home component;
-    // choosing a larger distant component must not manufacture a home cut.
-    for (const p of lostTerritory) {
-        const owner = p.slot + 1, first = p.trailCells.values().next().value;
-        const home = p.trailCells.size && !candidates.has(p)
-            ? p.trailOriginCellId ?? (first === undefined ? null : match.map.cells[first].neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null)
-            : match.owners[p.cellId] === owner ? p.cellId : match.map.cells[p.cellId]?.neighbors.find(id => id >= 0 && match.owners[id] === owner) ?? null;
-        const anchor = home !== null && match.owners[home] === owner ? home : null;
-        const record = trace?.find(r => r.participantId === p.participantId);
-        if (record) {
-            record.originOwnerBeforePrune = p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId];
-            record.headOwnerBeforePrune = match.owners[p.cellId];
-            record.homeAnchorBeforePrune = anchor;
-        }
-        pruneDisconnectedTerritory(match, p, anchor ?? undefined);
-    }
-    // Capturing the actual home attachment cuts an excursion even without
-    // painting its trail. An intact attachment was preserved during pruning above.
-    for (const victim of lostTerritory) {
-        // A captured head may start a trail only while still attached to its home.
-        // Zero-territory deaths continue through their existing resolution path.
-        const stranded = homeHeadsBefore.has(victim) && victim.territoryCount > 0 && match.owners[victim.cellId] !== victim.slot + 1 &&
-            !match.map.cells[victim.cellId].neighbors.some(id => id >= 0 && match.owners[id] === victim.slot + 1);
-        if (stranded)
-            strandedHomeHeads.add(victim);
-        if (!stranded && !(connectedBefore.has(victim) && !trailTouchesHome(match, victim)))
-            continue;
-        const attackers = cuts.get(victim) ?? new Set();
-        for (const attacker of territoryAttackers.get(victim))
-            attackers.add(attacker);
-        cuts.set(victim, attackers);
-        const contexts = cutContexts.get(victim) ?? new Map();
-        for (const attacker of territoryAttackers.get(victim))
-            if (!contexts.has(attacker))
-                contexts.set(attacker, { cause: 'HOME_CAPTURE', cellId: victim.trailOriginCellId ?? victim.trailCells.values().next().value ?? victim.cellId, eventTick });
-        cutContexts.set(victim, contexts);
-    }
-    if (trace)
-        for (const record of trace) {
-            const p = match.participants.find(p => p.participantId === record.participantId);
-            record.lostTerritory = lostTerritory.has(p);
-            record.touchesHomeAfter = trailTouchesHome(match, p);
-            record.anyTrailTouchesHomeAfter = [...p.trailCells].some(id => match.map.cells[id].neighbors.some(n => n >= 0 && match.owners[n] === p.slot + 1));
-            record.territoryAfterTransfer = p.territoryCount;
-            record.ownerCellsAfterTransfer = match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0);
-            record.cut = cuts.has(p);
-            record.claimedTrailCells = record.trailCells.filter(id => winners.has(id) && winners.get(id) !== p);
-            record.originOwnerAfterTransfer = record.originCellId === null ? null : match.owners[record.originCellId];
-            record.firstHomeNeighborsAfterTransfer = record.trailCells.length ? match.map.cells[record.trailCells[0]].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1) : [];
-            record.headOwnerAfterTransfer = match.owners[p.cellId];
-            record.headHomeNeighborsAfterTransfer = match.map.cells[p.cellId].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1);
-            record.strandedHomeHead = strandedHomeHeads.has(p);
-        }
-    for (const p of candidates.keys()) {
-        clearTrail(match, p);
-        emitEvent(match, { type: 'CAPTURE', participantId: p.participantId, amount: gained.get(p) ?? 0 });
-    }
-    // All simultaneous claims remain resolved against the same base state. One death
-    // and one credited killer per victim, including attackers killed in this batch.
-    for (const victim of [...cuts.keys()].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))) {
-        const killer = [...cuts.get(victim)].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot))[0];
-        const record = trace?.find(p => p.participantId === victim.participantId);
-        if (record)
-            record.markDeadCalled = true;
-        const diagnostic = audit ? { eventTick, iteration, ownersBefore, trailMasksBefore, pendingTrails: [], victimTrailBefore: trailsBefore.get(victim), existingTrailContact: false, pendingTrailContact: false, captureOverlapCells: trailsBefore.get(victim).filter(id => winners.has(id) && winners.get(id) !== victim), wallIntersection: false } : undefined;
-        const marked = markDead(match, victim, 'TRAIL_CUT', killer, cutContexts.get(victim)?.get(killer), diagnostic);
-        if (record)
-            record.markedDead = marked;
-    }
-    if (trace && observer) {
-        for (const record of trace) {
-            const p = match.participants.find(p => p.participantId === record.participantId);
-            record.lifeStateAfter = p.lifeState;
-            record.ownerCellsAfter = match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0);
-            record.trailMaskCellsAfter = match.trailMasks.reduce((sum, mask) => sum + Number((mask & (slotBit(p.slot))) !== 0), 0);
-        }
-        observer({ tick: match.tick, participants: trace });
+    finally {
+        endRunResolution(match);
     }
 }
 export function resolveAtTime(match, eventTick = match.tick, wallVictims = new Set()) {
-    for (let iteration = 0; iteration < 32; iteration++) {
-        const ordered = [...match.participants].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
-        const alive = ordered.filter(p => p.lifeState === 'ALIVE');
-        const existingMasks = match.trailMasks.slice(), masks = existingMasks.slice(), pending = new Map();
-        for (const p of alive) {
-            if (!isProtected(match, p, eventTick))
-                p.protectedUntilTick = 0;
-            if (match.owners[p.cellId] !== p.slot + 1) {
-                p.protectedUntilTick = 0;
-                if (!p.trailCells.has(p.cellId))
-                    pending.set(p, p.cellId);
-                masks[p.cellId] |= slotBit(p.slot);
-            }
-        }
-        const deaths = new Map();
-        for (const attacker of alive) {
-            if (isProtected(match, attacker, eventTick))
-                continue;
-            for (const victim of alive)
-                if (victim !== attacker && (masks[attacker.cellId] & (slotBit(victim.slot)))) {
-                    const attackers = deaths.get(victim) ?? [];
-                    attackers.push(attacker);
-                    deaths.set(victim, attackers);
+    beginRunResolution(match);
+    try {
+        for (let iteration = 0; iteration < 32; iteration++) {
+            const ordered = [...match.participants].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+            const alive = ordered.filter(p => p.lifeState === 'ALIVE');
+            const existingMasks = match.trailMasks.slice(), masks = existingMasks.slice(), pending = new Map();
+            for (const p of alive) {
+                if (!isProtected(match, p, eventTick))
+                    p.protectedUntilTick = 0;
+                if (match.owners[p.cellId] !== p.slot + 1) {
+                    p.protectedUntilTick = 0;
+                    if (!p.trailCells.has(p.cellId))
+                        pending.set(p, p.cellId);
+                    masks[p.cellId] |= slotBit(p.slot);
                 }
-        }
-        const audit = hasDeathObserver(match) && (deaths.size > 0 || wallVictims.size > 0 || alive.some(p => p.territoryCount === 0 || (p.trailCells.size && match.owners[p.cellId] === p.slot + 1)));
-        const ownersBefore = audit ? [...match.owners] : [], trailMasksBefore = audit ? [...existingMasks] : [], pendingTrails = audit ? [...pending].map(([p, cellId]) => ({ participantId: p.participantId, cellId })) : [];
-        const diagnostics = audit ? new Map(alive.map(p => [p, { eventTick, iteration, ownersBefore, trailMasksBefore, pendingTrails, victimTrailBefore: [...p.trailCells], existingTrailContact: false, pendingTrailContact: false, captureOverlapCells: [], wallIntersection: wallVictims.has(p.participantId) }])) : null;
-        for (const [victim, attackers] of deaths) {
-            attackers.sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
-            const attacker = attackers[0], existing = (existingMasks[attacker.cellId] & (slotBit(victim.slot))) !== 0, provisional = pending.get(victim) === attacker.cellId;
-            const diagnostic = diagnostics?.get(victim);
-            if (diagnostic) {
-                diagnostic.existingTrailContact = existing;
-                diagnostic.pendingTrailContact = provisional;
             }
-            markDead(match, victim, 'TRAIL_CUT', attacker, { cause: existing ? 'EXISTING_TRAIL_CONTACT' : 'PENDING_TRAIL_CONTACT', cellId: attacker.cellId, eventTick }, diagnostic);
-        }
-        let wallDeaths = 0;
-        for (const p of alive)
-            if (wallVictims.has(p.participantId) && markDead(match, p, 'WALL_HIT', undefined, { cause: 'WALL_HIT', cellId: p.cellId, eventTick }, diagnostics?.get(p)))
-                wallDeaths++;
-        for (const [p, id] of pending)
-            if (p.lifeState === 'ALIVE')
-                addTrail(match, p, id);
-        const returners = ordered.filter(p => p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1);
-        applySimultaneousCaptures(match, returners, eventTick, iteration);
-        let territoryDeaths = 0;
-        for (const p of ordered)
-            if (p.lifeState === 'ALIVE' && p.territoryCount === 0) {
-                markDead(match, p, 'TERRITORY_LOST', undefined, { cause: 'TERRITORY_LOST', cellId: p.cellId, eventTick }, diagnostics?.get(p));
-                territoryDeaths++;
+            const deaths = new Map();
+            for (const attacker of alive) {
+                if (isProtected(match, attacker, eventTick))
+                    continue;
+                for (const victim of alive)
+                    if (victim !== attacker && (masks[attacker.cellId] & (slotBit(victim.slot)))) {
+                        const attackers = deaths.get(victim) ?? [];
+                        attackers.push(attacker);
+                        deaths.set(victim, attackers);
+                    }
             }
-        if (!deaths.size && !pending.size && !returners.length && !territoryDeaths && !wallDeaths) {
-            const outcome = evaluateMode(match, eventTick);
-            if (outcome)
-                finishMatch(match, outcome);
-            return;
+            const audit = hasDeathObserver(match) && (deaths.size > 0 || wallVictims.size > 0 || alive.some(p => p.territoryCount === 0 || (p.trailCells.size && match.owners[p.cellId] === p.slot + 1)));
+            const ownersBefore = audit ? [...match.owners] : [], trailMasksBefore = audit ? [...existingMasks] : [], pendingTrails = audit ? [...pending].map(([p, cellId]) => ({ participantId: p.participantId, cellId })) : [];
+            const diagnostics = audit ? new Map(alive.map(p => [p, { eventTick, iteration, ownersBefore, trailMasksBefore, pendingTrails, victimTrailBefore: [...p.trailCells], existingTrailContact: false, pendingTrailContact: false, captureOverlapCells: [], wallIntersection: wallVictims.has(p.participantId) }])) : null;
+            for (const [victim, attackers] of deaths) {
+                attackers.sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
+                const attacker = attackers[0], existing = (existingMasks[attacker.cellId] & (slotBit(victim.slot))) !== 0, provisional = pending.get(victim) === attacker.cellId;
+                const diagnostic = diagnostics?.get(victim);
+                if (diagnostic) {
+                    diagnostic.existingTrailContact = existing;
+                    diagnostic.pendingTrailContact = provisional;
+                }
+                markDead(match, victim, 'TRAIL_CUT', attacker, { cause: existing ? 'EXISTING_TRAIL_CONTACT' : 'PENDING_TRAIL_CONTACT', cellId: attacker.cellId, eventTick }, diagnostic);
+            }
+            let wallDeaths = 0;
+            for (const p of alive)
+                if (wallVictims.has(p.participantId) && markDead(match, p, 'WALL_HIT', undefined, { cause: 'WALL_HIT', cellId: p.cellId, eventTick }, diagnostics?.get(p)))
+                    wallDeaths++;
+            for (const [p, id] of pending)
+                if (p.lifeState === 'ALIVE')
+                    addTrail(match, p, id);
+            const returners = ordered.filter(p => p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1);
+            applySimultaneousCaptures(match, returners, eventTick, iteration);
+            let territoryDeaths = 0;
+            for (const p of ordered)
+                if (p.lifeState === 'ALIVE' && p.territoryCount === 0) {
+                    markDead(match, p, 'TERRITORY_LOST', undefined, { cause: 'TERRITORY_LOST', cellId: p.cellId, eventTick }, diagnostics?.get(p));
+                    territoryDeaths++;
+                }
+            if (!deaths.size && !pending.size && !returners.length && !territoryDeaths && !wallDeaths) {
+                const outcome = evaluateMode(match, eventTick);
+                if (outcome)
+                    finishMatch(match, outcome);
+                return;
+            }
         }
+        throw new Error('Derived event limit');
     }
-    throw new Error('Derived event limit');
+    finally {
+        endRunResolution(match);
+    }
 }
 export function advanceMovement(match, inputs = new Map()) {
     if (match.phase !== 'RUNNING')
@@ -263,22 +277,13 @@ export function advanceMovement(match, inputs = new Map()) {
     for (const e of wallEntries)
         if (!groups.has(e.time))
             groups.set(e.time, []);
-    const modeDeadlines = new Map();
-    for (const hold of match.modeState.holds) {
-        const fraction = hold.endsAtTick - match.tick;
-        if (fraction >= 0 && fraction <= 1) {
-            const time = quantizedEventTime(fraction, match.config.simulationHz);
-            groups.set(time, groups.get(time) ?? []);
-            modeDeadlines.set(time, Math.min(modeDeadlines.get(time) ?? fraction, fraction));
-        }
-    }
     const deadline = roundDeadlineTicks(match), finalTick = deadline !== null && match.tick + 1 >= deadline;
     for (const [time, group] of [...groups].sort((a, b) => a[0] - b[0])) {
         if (match.phase !== 'RUNNING')
             break;
         if (finalTick && time >= quantizedEventTime(1, match.config.simulationHz))
             continue;
-        const fraction = modeDeadlines.get(time) ?? Math.min(1, time * match.config.simulationHz / 1e6);
+        const fraction = Math.min(1, time * match.config.simulationHz / 1e6);
         for (const p of match.participants) {
             const motion = motions.get(p.participantId);
             if (motion && p.lifeState === 'ALIVE' && p.lifeId === motion.lifeId) {

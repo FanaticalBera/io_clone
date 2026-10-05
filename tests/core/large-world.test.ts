@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch,stepMatch,buildView} from '../../src/shared/game.js';
+import {stepMatch,buildView} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {createState} from '../../src/shared/state.js';
 import {createMap,hexDistance,region,worldCell} from '../../src/shared/hex.js';
 import {botSpecs,observeBot,createBotMemory,getBotInput} from '../../src/shared/bot.js';
@@ -31,7 +32,7 @@ describe('16-slot rules and little-endian protocol',()=>{
   const {m,low,high,id}=fixture();setOwner(m,id(-2,0),1);setOwner(m,id(3,0),16);
   low.cellId=id(1,0);high.cellId=id(0,0);addTrail(m,low,id(0,0));addTrail(m,high,id(1,0));
   if(reverse)m.participants.reverse();resolveAtTime(m);
-  expect(low.lifeState).toBe('DEAD_WAIT');expect(high.lifeState).toBe('DEAD_WAIT');expect(low.kills).toBe(1);expect(high.kills).toBe(1);expect(m.trailMasks.every(v=>v===0)).toBe(true);
+  expect(low.lifeState).toBe('ELIMINATED');expect(high.lifeState).toBe('ELIMINATED');expect(low.kills).toBe(1);expect(high.kills).toBe(1);expect(m.trailMasks.every(v=>v===0)).toBe(true);
  });
  it('resolves simultaneous provisional contact at slots 0 and 15',()=>{
   const {m,low,high,id}=fixture();setOwner(m,id(-2,0),1);setOwner(m,id(3,0),16);low.cellId=high.cellId=id(0,0);resolveAtTime(m);
@@ -62,10 +63,9 @@ describe('16-slot rules and little-endian protocol',()=>{
   for(const length of [-1,1.5,Infinity])expect(()=>decodeTrailMasks('',length)).toThrow();
   expect(()=>encodeTrailMasks([65536] as unknown as Uint16Array)).toThrow();
  });
- it('round trips 16 participants, high-slot events and all 16 Hold rows; rejects malformed capacities',()=>{
-  const m=createMatch({maxSlots:16,mapRadius:56},19,botSpecs(16),'wire16',{id:'hold',targetPercent:50,holdSeconds:10}),v=buildView(m);
+ it('round trips 16 participants, high-slot events and Classic mode; rejects malformed capacities',()=>{
+  const m=createMatch({maxSlots:16,mapRadius:56},19,botSpecs(16),'wire16',{id:'classic'}),v=buildView(m);
   v.trailMasks[0]=0x8001;v.events=[{eventId:'high',tick:0,type:'CAPTURE',participantId:m.participants[15].participantId,amount:3}];
-  v.modeState.holds=m.participants.map(p=>({participantId:p.participantId,startedAtTick:0,endsAtTick:300}));
   const wire=packSnapshot(v,1,100,null);expect(unpackSnapshot(wire)).toEqual(v);
   for(const bad of [{...wire,protocolVersion:3},{...wire,trailMasks:encodeBytes(new Uint8Array(v.owners.length))},{...wire,participants:[...wire.participants,wire.participants[0]]},{...wire,participants:[wire.participants[0],wire.participants[0]]},{...wire,participants:[{...wire.participants[15],slot:16}]},{...wire,config:{...wire.config,maxSlots:14}}])expect(()=>unpackSnapshot(bad)).toThrow();
   const small=buildView(createMatch({},4,botSpecs(8)));small.trailMasks[0]=0x100;expect(()=>unpackSnapshot(packSnapshot(small,1,0,null))).toThrow('Invalid board');

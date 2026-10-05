@@ -1,4 +1,5 @@
-import {createMatch,stepMatch} from '../src/shared/game.js';
+import {stepMatch} from '../src/shared/game.js';
+import {createMatch} from './baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
 import {summarizeOpportunities,type ShadowOpportunity} from '../src/shared/bot-opportunity.js';
 import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
@@ -57,7 +58,7 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false){
    }else if(trace.reason==='TERRITORY_LOST')check(trace.ownerCells===0,'territory death with land '+key);
    else if(trace.reason==='WALL_HIT')check(m.map.boundaryEdges.some(e=>distanceToSegment(trace.position,e.a,e.b)<.01),'wall death away from boundary '+key);
    else check(false,'unknown death reason '+trace.reason);
-   check(p.lifeState==='DEAD_WAIT'&&p.trailCells.size===0&&p.territoryCount===0&&!m.trailMasks.some(mask=>(mask&(1<<p.slot))!==0),'death cleanup '+key);
+   check((p.lifeState===(p.kind==='HUMAN'?'ELIMINATED':'DEAD_WAIT'))&&p.trailCells.size===0&&p.territoryCount===0&&!m.trailMasks.some(mask=>(mask&(1<<p.slot))!==0),'death cleanup '+key);
    check(m.events.filter(e=>e.type==='DEATH'&&e.participantId===p.participantId&&Number(e.eventId.split(':').at(-1))>eventCounter).length===1,'death event count '+key);
    frozen.set(p.participantId,{lifeId:p.lifeId,position:{...p.position}});
   }

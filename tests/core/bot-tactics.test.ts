@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {createBotMemory,getBotInput,observeBot,botSpecs} from '../../src/shared/bot.js';
 import {neutralizeTerritory,setOwner,addTrail} from '../../src/shared/territory.js';
 import {hexDistance} from '../../src/shared/hex.js';

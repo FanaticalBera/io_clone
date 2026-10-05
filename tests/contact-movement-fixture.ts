@@ -1,4 +1,5 @@
-import {createMatch,stepMatch} from '../src/shared/game.js';
+import {stepMatch} from '../src/shared/game.js';
+import {createMatch} from './baseline.js';
 import {normalizeDirection} from '../src/shared/movement.js';
 import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
 import type {Vec,Participant} from '../src/shared/model.js';

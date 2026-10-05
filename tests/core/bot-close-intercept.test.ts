@@ -1,5 +1,6 @@
 import {it,expect} from 'vitest';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 
 // Production practice/room seeding, normal spawn and movement throughout.
@@ -11,7 +12,7 @@ it('seed 78: thief intercepts a clear three-cell cut instead of turning into ano
   trace=undefined;const inputs=new Map();m.participants.slice(1).forEach((bot,i)=>{const input=getBotInput(observeBot(m,bot.participantId),mem[i]);if(input)inputs.set(bot.participantId,input);});
   if(m.tick===78){const t=trace as BotDecisionTrace|undefined;expect(human.trailCells.size).toBeGreaterThan(0);expect(t?.from).toBe('EXPAND');expect(t?.to).toBe('ATTACK');expect(t?.attackSlot).toBe(0);intercepted=true;}
   stepMatch(m,inputs);
-  if(intercepted&&human.lifeState==='DEAD_WAIT'&&p.trailCells.size===0&&m.owners[p.cellId]===p.slot+1)break;
+  if(intercepted&&human.lifeState==='ELIMINATED'&&p.trailCells.size===0&&m.owners[p.cellId]===p.slot+1)break;
  }
  expect(intercepted).toBe(true);expect(human.deathReason).toBe('TRAIL_CUT');expect(p.kills).toBeGreaterThan(0);expect(p.lifeState).toBe('ALIVE');
  expect(p.trailCells.size).toBe(0);expect(m.owners[p.cellId]).toBe(p.slot+1);expect([...m.trailMasks].every(mask=>(mask&(1<<p.slot))===0)).toBe(true);

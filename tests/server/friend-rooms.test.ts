@@ -21,7 +21,7 @@ describe('T23: friend room authority and waiting membership',()=>{
   f.manager.joinFriend(c,'C',room.code);expect(f.manager.member(c)!.member.waitingForNextRound).toBe(true);
   f.at(3000);f.manager.advance();expect(room.match!.participants.filter(p=>p.kind==='HUMAN')).toHaveLength(2);
   expect(room.match!.participants.some(p=>p.participantId===c.memberId)).toBe(false);
-  completeClassic(room.match!);stepMatch(room.match!);f.manager.advance();f.at(10000);f.manager.advance();f.at(13000);f.manager.advance();
+  completeClassic(room.match!);stepMatch(room.match!);f.manager.advance();for(const person of [a,b]){const m=room.match!,p=m.participants.find(p=>p.participantId===person.memberId)!;f.manager.retryRun(person,m.matchId,p.run!.result!.runId);}f.at(10000);f.manager.advance();f.at(13000);f.manager.advance();
   expect(room.match!.participants.filter(p=>p.kind==='HUMAN')).toHaveLength(3);expect(f.manager.member(c)!.member.waitingForNextRound).toBe(false);
  });
  it('counts waiting and grace members toward eight and transfers host without stopping the game',()=>{

@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {CombatEvents} from '../../src/client/combat-events.js';
-import {createMatch,buildView} from '../../src/shared/game.js';
+import {buildView} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {markDead} from '../../src/shared/life.js';
 import {packSnapshot,unpackSnapshot} from '../../src/shared/protocol.js';
 

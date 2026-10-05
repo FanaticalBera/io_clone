@@ -13,7 +13,7 @@ function crossing(returnOffset:number,cutOffset:number) {
 describe('T09: strict chronological cut/return',()=>{
  it('kills when the cut crosses first',()=>{
   const {m,a,b}=crossing(4,1);stepMatch(m);
-  expect(a.lifeState).toBe('DEAD_WAIT');expect(b.kills).toBe(1);
+  expect(a.lifeState).toBe('ELIMINATED');expect(b.kills).toBe(1);
  });
  it('does not cut an already closed trail when return crosses first',()=>{
   const {m,a,b,id}=crossing(1,4);stepMatch(m);

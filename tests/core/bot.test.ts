@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {createBotMemory,observeBot,getBotInput,returnPath,botSpecs,plannedCapture} from '../../src/shared/bot.js';
 import {setOwner,addTrail} from '../../src/shared/territory.js';
 describe('T14: shared bot navigation',()=>{

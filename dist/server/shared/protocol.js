@@ -4,9 +4,30 @@ export function record(value) { return !!value && typeof value === 'object' && !
 function validDeathContext(value, count) {
     return value === undefined || (record(value) && ['TRAIL_CONTACT', 'EXISTING_TRAIL_CONTACT', 'PENDING_TRAIL_CONTACT', 'TRAIL_CAPTURE', 'HOME_CAPTURE', 'TERRITORY_LOST', 'WALL_HIT'].includes(String(value.cause)) && Number.isInteger(value.cellId) && Number(value.cellId) >= 0 && Number(value.cellId) < count && (value.eventTick === undefined || (typeof value.eventTick === 'number' && Number.isFinite(value.eventTick) && value.eventTick >= 0)));
 }
+function validRun(value, p, snapshot, count, hz) {
+    if (value === null)
+        return p.kind === 'BOT' || p.lifeId === 0 || p.lifeState === 'FINISHED';
+    if (!record(value) || p.kind !== 'HUMAN' || value.lifeId !== p.lifeId || value.runId !== snapshot.matchId + ':' + p.participantId + ':life:' + p.lifeId ||
+        typeof value.startedAtTick !== 'number' || !Number.isFinite(value.startedAtTick) || value.startedAtTick < 0 || value.startedAtTick > Number(snapshot.tick) ||
+        !Number.isSafeInteger(value.initialKills) || Number(value.initialKills) < 0 || Number(value.initialKills) > Number(p.kills) ||
+        !Number.isSafeInteger(value.bestTerritoryCells) || Number(value.bestTerritoryCells) < 0 || Number(value.bestTerritoryCells) > count ||
+        (value.pendingDeathAtTick !== null && (typeof value.pendingDeathAtTick !== 'number' || !Number.isFinite(value.pendingDeathAtTick) || value.pendingDeathAtTick < Number(value.startedAtTick) || value.pendingDeathAtTick > Number(snapshot.tick))))
+        return false;
+    const result = value.result;
+    if (result === null)
+        return p.lifeState !== 'ELIMINATED' && value.pendingDeathAtTick === null;
+    return record(result) && result.runId === value.runId && result.matchId === snapshot.matchId && result.participantId === p.participantId && result.lifeId === value.lifeId &&
+        ['DEATH', 'FULL_CAPTURE_WIN', 'FULL_CAPTURE_LOSS'].includes(String(result.endReason)) && result.startedAtTick === value.startedAtTick &&
+        typeof result.endedAtTick === 'number' && Number.isFinite(result.endedAtTick) && result.endedAtTick >= Number(result.startedAtTick) && result.endedAtTick <= Number(snapshot.tick) &&
+        result.durationTicks === result.endedAtTick - Number(result.startedAtTick) && result.simulationHz === hz && result.mapCellCount === count &&
+        Number.isSafeInteger(result.kills) && Number(result.kills) >= 0 && Number(result.kills) <= Number(p.kills) &&
+        result.bestTerritoryCells === value.bestTerritoryCells && result.bestTerritoryPercent === Math.floor(Number(result.bestTerritoryCells) * 1000 / count) / 10 &&
+        (result.endReason === 'DEATH' ? value.pendingDeathAtTick === result.endedAtTick : snapshot.phase === 'FINISHED' && record(snapshot.outcome) && snapshot.outcome.atTick === result.endedAtTick &&
+            (result.endReason === 'FULL_CAPTURE_WIN' ? snapshot.outcome.winnerId === p.participantId : snapshot.outcome.winnerId !== p.participantId));
+}
 export function validRequest(value) {
     return record(value) && typeof value.requestId === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(value.requestId) &&
-        (value.gameMode === undefined || isGameModeId(value.gameMode)) && Object.keys(value).every(key => ['requestId', 'nickname', 'code', 'gameMode'].includes(key));
+        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && Object.keys(value).every(key => ['requestId', 'nickname', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
 }
 export function validDirection(value) {
     return record(value) && Object.keys(value).every(k => ['matchId', 'lifeId', 'seq', 'dx', 'dy'].includes(k)) &&
@@ -76,11 +97,13 @@ export function unpackSnapshot(raw) {
         if (!record(p) || typeof p.participantId !== 'string' || p.participantId.length > 128 || ids.has(p.participantId) ||
             !Number.isInteger(p.slot) || Number(p.slot) < 0 || Number(p.slot) >= config.maxSlots || slots.has(p.slot) ||
             typeof p.nickname !== 'string' || Array.from(p.nickname).length > 16 || !['HUMAN', 'BOT'].includes(String(p.kind)) ||
-            !Number.isSafeInteger(p.lifeId) || Number(p.lifeId) < 0 || !['ALIVE', 'DEAD_WAIT', 'SPAWN_BLOCKED', 'FINISHED'].includes(String(p.lifeState)) ||
+            !Number.isSafeInteger(p.lifeId) || Number(p.lifeId) < 0 || !['ALIVE', 'DEAD_WAIT', 'SPAWN_BLOCKED', 'ELIMINATED', 'FINISHED'].includes(String(p.lifeState)) ||
             !record(p.position) || !record(p.direction) || ![p.position.x, p.position.y, p.direction.x, p.direction.y].every(n => typeof n === 'number' && Number.isFinite(n)) ||
             (p.targetDirection !== null && (!record(p.targetDirection) || ![p.targetDirection.x, p.targetDirection.y].every(n => typeof n === 'number' && Number.isFinite(n)) || Math.abs(Math.hypot(Number(p.targetDirection.x), Number(p.targetDirection.y)) - 1) > 1e-6)) ||
             ![p.territoryCount, p.controlScore, p.kills, p.deaths].every(n => Number.isSafeInteger(n) && Number(n) >= 0) || typeof p.protected !== 'boolean' || !validDeathContext(p.deathContext, count))
             throw new Error('Invalid participant');
+        if (!validRun(p.run, p, raw, count, config.simulationHz))
+            throw new Error('Invalid run');
         ids.add(p.participantId);
         slots.add(p.slot);
     }
@@ -92,20 +115,12 @@ export function unpackSnapshot(raw) {
             (e.lifeId !== undefined && (!Number.isSafeInteger(e.lifeId) || Number(e.lifeId) < 1)) || !validDeathContext(e.deathContext, count))
             throw new Error('Invalid combat event');
     }
-    if (!record(raw.modeState) || !Array.isArray(raw.modeState.holds) || raw.modeState.holds.length > config.maxSlots)
+    if (!record(raw.modeState) || !Array.isArray(raw.modeState.holds) || raw.modeState.holds.length !== 0)
         throw new Error('Invalid mode state');
-    const heldIds = new Set();
-    for (const h of raw.modeState.holds) {
-        if (gameMode.id !== 'hold' || !record(h) || typeof h.participantId !== 'string' || !ids.has(h.participantId) || heldIds.has(h.participantId) ||
-            typeof h.startedAtTick !== 'number' || !Number.isFinite(h.startedAtTick) || h.startedAtTick < 0 || h.startedAtTick > Number(raw.tick) ||
-            typeof h.endsAtTick !== 'number' || !Number.isFinite(h.endsAtTick) || h.endsAtTick !== h.startedAtTick + Math.max(1, Math.ceil(gameMode.holdSeconds * config.simulationHz)))
-            throw new Error('Invalid hold progress');
-        heldIds.add(h.participantId);
-    }
     if (raw.phase === 'FINISHED' && raw.outcome === null)
         throw new Error('Missing outcome');
     if (raw.outcome !== null && (!record(raw.outcome) || typeof raw.outcome.winnerId !== 'string' || !ids.has(raw.outcome.winnerId) ||
-        raw.phase !== 'FINISHED' || raw.outcome.reason !== (gameMode.id === 'classic' ? 'FULL_CAPTURE' : 'HELD_TERRITORY') ||
+        raw.phase !== 'FINISHED' || raw.outcome.reason !== 'FULL_CAPTURE' ||
         typeof raw.outcome.atTick !== 'number' || !Number.isFinite(raw.outcome.atTick) || raw.outcome.atTick < 0 || raw.outcome.atTick > Number(raw.tick)))
         throw new Error('Invalid outcome');
     const wire = raw;

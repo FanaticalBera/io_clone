@@ -3,7 +3,7 @@ import {io,type Socket} from 'socket.io-client';
 import {createGameServer,type ServerOptions} from '../../src/server/app.js';
 import type {SessionReady,Ack,RoomView,WireSnapshot} from '../../src/shared/protocol.js';
 export async function serverFixture(options:ServerOptions={}){
- const server=createGameServer(options);await new Promise<void>(r=>server.http.listen(0,'127.0.0.1',r));
+ const server=createGameServer({...options,config:{mapRadius:22,maxSlots:8,spawnRadius:2,...options.config}});await new Promise<void>(r=>server.http.listen(0,'127.0.0.1',r));
  const address=server.http.address() as {port:number},url='http://127.0.0.1:'+address.port,clients:Socket[]=[];
  async function client(auth:Record<string,unknown>={protocolVersion:PROTOCOL_VERSION},transports?:string[]){
   const socket=io(url,{auth,autoConnect:false,reconnection:false,transports});clients.push(socket);

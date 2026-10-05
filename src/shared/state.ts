@@ -5,7 +5,7 @@ import {validateMode,type GameModeConfig} from './modes.js';
 export function makeParticipant(spec: ParticipantSpec): Participant {
  return { ...spec, position: { x: 0, y: 0 }, cellId: -1, direction: { x: 1, y: 0 }, targetDirection: null,
  lifeId: 0, lifeState: 'DEAD_WAIT', trailCells: new Set(),trailOriginCellId:null, spawnCells: new Set(),
- territoryCount: 0, controlScore: 0, kills: 0, deaths: 0, respawnAtTick: 0,
+ territoryCount: 0, controlScore: 0, run:null, kills: 0, deaths: 0, respawnAtTick: 0,
  protectedUntilTick: 0, deathReason: null, lastAppliedInputSeq: 0 };
 }
 export function createState(config: Partial<GameConfig>, seed: number, specs: ParticipantSpec[], map: MapDefinition, matchId: string,gameMode:GameModeConfig={id:'classic'}): MatchState {

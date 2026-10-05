@@ -1,6 +1,6 @@
 import { describe,it,expect } from 'vitest';
 import { createMap,axialToWorld,worldToAxial,hexDistance,region } from '../../src/shared/hex.js';
-import { createMatch } from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import { createState } from '../../src/shared/state.js';
 describe('T03: fixed pointy hex map',()=>{
  it('has 1519 unique cells in stable r/q order, symmetric adjacency and one component',()=>{

@@ -45,17 +45,17 @@ test('R56/16 normal practice starts 1 HUMAN + 15 BOT with camera follow, minimap
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();await expect(page.locator('#minimap')).toBeVisible();expect(errors).toEqual([]);
  await page.screenshot({path:`${output}/practice-R56-16.png`});
 });
-test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 BOT Hold room',async({browser})=>{
+test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 BOT Classic room',async({browser})=>{
  process.env.NODE_ENV='test';const errors:string[]=[],server=createGameServer({config:{mapRadius:56,maxSlots:16},seed:()=>4});await new Promise<void>(r=>server.http.listen(3002,'127.0.0.1',r));
  const contexts=await Promise.all([browser.newContext(),browser.newContext()]);for(const c of contexts)await c.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  try{const a=await contexts[0].newPage(),b=await contexts[1].newPage();for(const p of [a,b])p.on('pageerror',e=>errors.push(e.message));
-  await a.goto('/');await b.goto('/');await a.getByTestId('nickname').fill('A');await b.getByTestId('nickname').fill('B');await a.locator('#mode-next').click();await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();
+  await a.goto('/');await b.goto('/');await a.getByTestId('nickname').fill('A');await b.getByTestId('nickname').fill('B');await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();
   await b.getByTestId('room-code').fill((await a.locator('#friend-code').textContent())!);await b.getByTestId('join').click();await expect(a.locator('#members')).toContainText('B');await a.getByTestId('start').click();
   for(const p of [a,b]){await expect(p.locator('#hud')).toBeVisible({timeout:15000});await expect(p.locator('#population')).toHaveText('2 HUMAN · 14 BOT');}
   await expect.poll(()=>a.evaluate(()=>(window as any).__HEXHOLD_TEST__.history.length)).toBeGreaterThan(15);
   const ha=await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.history),hb=await b.evaluate(()=>(window as any).__HEXHOLD_TEST__.history),peers=new Map(hb.map((s:any)=>[s.snapshotSeq,s])),common=ha.filter((s:any)=>peers.has(s.snapshotSeq));expect(common.length).toBeGreaterThan(5);
   for(const s of common){const peer:any=peers.get(s.snapshotSeq);expect(s.tick).toBe(peer.tick);expect(s.matchId).toBe(peer.matchId);expect(s.owners).toBe(peer.owners);expect(Array.from(decodeTrailMasks(s.trailMasks,9577)).join(',')).toBe(Array.from(decodeTrailMasks(peer.trailMasks,9577)).join(','));expect(s.participants).toEqual(peer.participants);}
-  const last=common.at(-1);expect(last.participants.find((p:any)=>p.slot===15)).toBeTruthy();expect(last.gameMode.id).toBe('hold');expect(errors).toEqual([]);
+  const last=common.at(-1);expect(last.participants.find((p:any)=>p.slot===15)).toBeTruthy();expect(last.gameMode.id).toBe('classic');expect(errors).toEqual([]);
   const sizes=ha.map((s:any)=>Buffer.byteLength(JSON.stringify(s))).sort((a:number,b:number)=>a-b),meanBytes=sizes.reduce((s:number,n:number)=>s+n,0)/sizes.length;
   writeFileSync(`${output}/online.json`,JSON.stringify({commonSnapshots:common.length,matchId:last.matchId,tick:last.tick,participants:last.participants.length,bytes:{mean:meanBytes,p95:sizes[Math.floor(sizes.length*.95)],payloadBytesPerSecondAt10Hz:meanBytes*10},errors},null,2));
  }finally{await Promise.all(contexts.map(c=>c.close()));await server.close();}

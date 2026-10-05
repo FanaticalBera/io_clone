@@ -1,3 +1,4 @@
+import { retryHumanRun } from '../shared/retry.js';
 import { randomUUID, randomBytes, randomInt } from 'node:crypto';
 import { leaveParticipant } from '../shared/life.js';
 import { makeParticipant } from '../shared/state.js';
@@ -14,27 +15,25 @@ export class RoomManager {
     seed;
     codeGenerator;
     initializeMatch;
-    modeSettings;
+    onClosed = null;
     rooms = new Map();
     config;
     accepting = true;
     joinCounter = 0;
-    constructor(sessions, config = {}, maxRooms = 10, seed = () => randomBytes(4).readUInt32LE(0), codeGenerator = () => Array.from({ length: 8 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[randomInt(32)]).join(''), initializeMatch, modeSettings = {}) {
+    constructor(sessions, config = {}, maxRooms = 10, seed = () => randomBytes(4).readUInt32LE(0), codeGenerator = () => Array.from({ length: 8 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[randomInt(32)]).join(''), initializeMatch) {
         this.sessions = sessions;
         this.maxRooms = maxRooms;
         this.seed = seed;
         this.codeGenerator = codeGenerator;
         this.initializeMatch = initializeMatch;
-        this.modeSettings = modeSettings;
         this.config = validateConfig(config);
-        createMode('hold', modeSettings);
         if (!Number.isSafeInteger(maxRooms) || maxRooms < 1 || maxRooms > 1000)
             throw new Error('Invalid room limit');
     }
     createRoom(mode, gameMode, code = null) {
         if (!this.accepting || this.rooms.size >= this.maxRooms)
             return null;
-        const now = this.sessions.now(), room = { roomId: randomUUID(), mode, gameMode: createMode(gameMode, this.modeSettings), code, createdAt: now, phase: 'WAITING',
+        const now = this.sessions.now(), room = { roomId: randomUUID(), mode, gameMode: createMode(gameMode), code, createdAt: now, phase: 'WAITING',
             phaseDeadline: mode === 'PUBLIC' ? now + this.config.publicRecruitSeconds * 1000 : null, members: new Map(), hostId: null, match: null,
             roundNumber: 0, revision: 1, snapshotSeq: 0, accumulator: 0, lastStepAt: now, emptyDeadline: null, inputs: new Map(), bots: new Map() };
         this.rooms.set(room.roomId, room);
@@ -156,8 +155,7 @@ export class RoomManager {
             room.revision++;
             return;
         }
-        for (const member of room.members.values())
-            member.waitingForNextRound = false;
+        // Only members who explicitly opted in may enter the next round.
         room.phase = 'COUNTDOWN';
         room.phaseDeadline = at + this.config.countdownSeconds * 1000;
         room.revision++;
@@ -228,6 +226,30 @@ export class RoomManager {
         }
         return { ok: true, roomId: current.room.roomId };
     }
+    retryRun(session, matchId, runId) {
+        const current = this.member(session);
+        if (!current || !current.room.match)
+            return { ok: false, code: 'ROOM_NOT_FOUND', message: '새 월드에 참가해 주세요.' };
+        const { room, member } = current, p = room.match.participants.find(p => p.participantId === member.memberId);
+        if (!p?.run?.result || room.match.matchId !== matchId || p.run.result.runId !== runId)
+            return { ok: false, code: 'BAD_PHASE', message: '종료된 Run을 확인해 주세요.' };
+        if (room.phase === 'RUNNING') {
+            if (!retryHumanRun(room.match, p))
+                return { ok: false, code: 'BAD_PHASE', message: '이미 진행 중인 Run입니다.' };
+            room.inputs.delete(p.participantId);
+            room.emptyDeadline = null;
+            session.highestReceivedSeq = 0;
+            session.inputLifeId = p.lifeId;
+        }
+        else {
+            member.waitingForNextRound = false;
+            room.emptyDeadline = null;
+            if (room.phase !== 'COUNTDOWN')
+                this.beginCountdown(room, this.sessions.now());
+        }
+        room.revision++;
+        return { ok: true, roomId: room.roomId };
+    }
     replaceWithBot(room, participantId) {
         if (room.phase !== 'RUNNING' || !room.match)
             return;
@@ -245,6 +267,7 @@ export class RoomManager {
         trySpawn(match, p);
     }
     closeRoom(room) {
+        this.onClosed?.(room);
         for (const member of room.members.values()) {
             member.session.roomId = null;
             member.session.memberId = null;
@@ -267,7 +290,7 @@ export class RoomManager {
                     this.leave(session);
                     this.sessions.sessions.delete(session.token);
                 }
-            if (room.emptyDeadline !== null && room.emptyDeadline <= now && !room.members.size)
+            if (room.emptyDeadline !== null && room.emptyDeadline <= now && (!room.members.size || room.match?.participants.filter(p => p.kind === 'HUMAN').every(p => p.lifeState === 'ELIMINATED') || room.match?.phase === 'FINISHED' && [...room.members.values()].every(m => m.waitingForNextRound)))
                 this.closeRoom(room);
         }
     }
@@ -281,7 +304,17 @@ export class RoomManager {
                 this.beginCountdown(room, room.phaseDeadline);
             if (room.phase === 'COUNTDOWN' && room.phaseDeadline !== null && room.phaseDeadline <= now)
                 this.startMatch(room, room.phaseDeadline);
+            if (room.phase === 'RUNNING' && room.match?.phase === 'RUNNING' && room.members.size) {
+                const humans = room.match.participants.filter(p => p.kind === 'HUMAN');
+                if (humans.length && humans.every(p => p.lifeState === 'ELIMINATED'))
+                    room.emptyDeadline ??= now + this.config.emptyRoomTtlSeconds * 1000;
+                else
+                    room.emptyDeadline = null;
+            }
             if (room.phase === 'RUNNING' && room.match?.phase === 'FINISHED') {
+                for (const member of room.members.values())
+                    member.waitingForNextRound = room.match.participants.some(p => p.participantId === member.memberId);
+                room.emptyDeadline ??= now + this.config.emptyRoomTtlSeconds * 1000;
                 room.phase = 'RESULTS';
                 room.phaseDeadline = now + (this.config.resultsSecondsIncludingCountdown - this.config.countdownSeconds) * 1000;
                 room.revision++;
@@ -294,7 +327,7 @@ export class RoomManager {
         return { roomId: room.roomId, mode: room.mode, gameMode: { ...room.gameMode }, outcome: room.match?.outcome ? { ...room.match.outcome } : null, code: room.code, phase: room.phase, phaseDeadline: room.phaseDeadline, serverTime: this.sessions.now(),
             members: [...room.members.values()].sort((a, b) => a.joinOrder - b.joinOrder).map(m => ({ memberId: m.memberId, nickname: m.nickname, connected: m.session.connected, waitingForNextRound: m.waitingForNextRound })),
             hostId: room.hostId, selfMemberId: member.memberId, selfParticipantId: room.match?.participants.some(p => p.participantId === member.memberId) ? member.memberId : null,
-            waitingForNextRound: member.waitingForNextRound, remainingSeconds, results: room.phase === 'RESULTS' ? room.match?.results ?? null : null, matchId: room.match?.matchId ?? null, mapCellCount: room.match?.map.cells.length ?? 1 + 3 * this.config.mapRadius * (this.config.mapRadius + 1) };
+            waitingForNextRound: member.waitingForNextRound, remainingSeconds, results: room.phase === 'RESULTS' ? room.match?.results ?? null : null, matchId: room.match?.matchId ?? null, selfRunResult: room.match?.participants.find(p => p.participantId === member.memberId)?.run?.result ?? null, mapCellCount: room.match?.map.cells.length ?? 1 + 3 * this.config.mapRadius * (this.config.mapRadius + 1) };
     }
     member(session) {
         const room = session.roomId ? this.rooms.get(session.roomId) : undefined, member = room && session.memberId ? room.members.get(session.memberId) : undefined;

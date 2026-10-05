@@ -26,10 +26,10 @@ for(const radius of [32,36,40])test(`R${radius} development server: two HUMAN cl
  const contexts=await Promise.all([browser.newContext(),browser.newContext()]);for(const c of contexts)await c.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  try{
   const a=await contexts[0].newPage(),b=await contexts[1].newPage();await a.goto('http://127.0.0.1:5174');await b.goto('http://127.0.0.1:5174');
-  await a.getByTestId('nickname').fill('A');await b.getByTestId('nickname').fill('B');await a.locator('#mode-next').click();await expect(a.locator('#mode-name')).toHaveText('HOLD');await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();
+  await a.getByTestId('nickname').fill('A');await b.getByTestId('nickname').fill('B');await expect(a.locator('#mode-name')).toHaveText('CLASSIC');await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();
   await b.getByTestId('room-code').fill((await a.locator('#friend-code').textContent())!);await b.getByTestId('join').click();await expect(a.locator('#members')).toContainText('B');await a.getByTestId('start').click();
   for(const page of [a,b]){await expect(page.locator('#hud')).toBeVisible({timeout:12000});await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView()?.owners.length)).toBe(1+3*radius*(radius+1));
-   const view=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView());expect(view.participants.filter((p:any)=>p.kind==='HUMAN')).toHaveLength(2);expect(view.participants.filter((p:any)=>p.kind==='BOT')).toHaveLength(6);expect(view.gameMode).toEqual({id:'hold',targetPercent:50,holdSeconds:10});expect(view.config).toMatchObject({spawnRadius:2,spawnBufferHexes:3,respawnSeconds:3,moveCellsPerSecond:4.2,turnRadiansPerSecond:9});
+   const view=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView());expect(view.participants.filter((p:any)=>p.kind==='HUMAN')).toHaveLength(2);expect(view.participants.filter((p:any)=>p.kind==='BOT')).toHaveLength(6);expect(view.gameMode).toEqual({id:'classic'});expect(view.config).toMatchObject({spawnRadius:2,spawnBufferHexes:3,respawnSeconds:3,moveCellsPerSecond:4.2,turnRadiansPerSecond:9});
   }
  }finally{await Promise.all(contexts.map(c=>c.close()));await server.close();}
 });

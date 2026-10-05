@@ -22,8 +22,8 @@ function finishBands(bands:ReturnType<typeof emptyBand>[]){return bands.map((b,i
 // ownership/trails/positions nor bot goals are injected by this experiment.
 export function runMapExperiment(radius:number,seed:number,mode:GameModeId,minutes=20){
  const m=createMatch({mapRadius:radius},seed,botSpecs(8),`map-${radius}-${seed}-${mode}`,createMode(mode)),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hz=m.config.simulationHz,total=m.map.cells.length;
- const leaderBands=OCCUPANCY_BANDS.map(emptyBand),occupiedBands=OCCUPANCY_BANDS.map(emptyBand),samples:Sample[]=[],attempts:SpawnAttemptTrace[]=[],violations:string[]=[],survival:number[]=[],births=new Map(m.participants.map(p=>[p.participantId,0])),holdStarts=new Set<string>(),holdLengths:number[]=[];
- let deaths=0,kills=0,captures=0,capturedCells=0,firstContact:number|null=null,firstBlocked:number|null=null,firstZeroCenters:number|null=null,peakCells=19,holdCancelled=0,blockedTransitions=0,blockedSeconds=0,aliveSeconds=0,trailCellSeconds=0,lastSampleTick=-1;
+ const leaderBands=OCCUPANCY_BANDS.map(emptyBand),occupiedBands=OCCUPANCY_BANDS.map(emptyBand),samples:Sample[]=[],attempts:SpawnAttemptTrace[]=[],violations:string[]=[],survival:number[]=[],births=new Map(m.participants.map(p=>[p.participantId,0]));
+ let deaths=0,kills=0,captures=0,capturedCells=0,firstContact:number|null=null,firstBlocked:number|null=null,firstZeroCenters:number|null=null,peakCells=19,blockedTransitions=0,blockedSeconds=0,aliveSeconds=0,trailCellSeconds=0,lastSampleTick=-1;
  const firstThresholds:Record<string,number|null>=Object.fromEntries([25,50,70,80,90,95,100].map(p=>[String(p),null])),deathCauses:Record<string,number>={};
  const recordReached=(bands:typeof leaderBands,percent:number,time:number)=>{const b=bands[bandIndex(percent)];if(b.reachedAtSeconds===null)b.reachedAtSeconds=time;return b;};
  watchSpawnAttempts(m,a=>{attempts.push(a);recordReached(leaderBands,a.leaderCells*100/total,a.tick/hz).attempts.push(a);recordReached(occupiedBands,100-a.neutralCells*100/total,a.tick/hz).attempts.push(a);
@@ -40,7 +40,7 @@ export function runMapExperiment(radius:number,seed:number,mode:GameModeId,minut
  };
  sample();const wallStart=performance.now();
  while(m.tick<Math.round(minutes*60*hz)&&m.phase==='RUNNING'){
-  const leader=Math.max(...m.participants.map(p=>p.territoryCount)),owned=m.participants.reduce((n,p)=>n+p.territoryCount,0),before=m.eventCounter,oldHolds=[...m.modeState.holds];
+  const leader=Math.max(...m.participants.map(p=>p.territoryCount)),owned=m.participants.reduce((n,p)=>n+p.territoryCount,0),before=m.eventCounter;
   recordReached(leaderBands,leader*100/total,m.tick/hz).secondsInBand+=1/hz;recordReached(occupiedBands,owned*100/total,m.tick/hz).secondsInBand+=1/hz;
   const alive=m.participants.filter(p=>p.lifeState==='ALIVE');aliveSeconds+=alive.length/hz;trailCellSeconds+=alive.reduce((n,p)=>n+p.trailCells.size,0)/hz;blockedSeconds+=m.participants.filter(p=>p.lifeState==='SPAWN_BLOCKED').length/hz;
   const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
@@ -50,16 +50,14 @@ export function runMapExperiment(radius:number,seed:number,mode:GameModeId,minut
    if(e.type==='DEATH'){deaths++;if(e.killerId)kills++;const time=e.deathContext?.eventTick??e.tick;survival.push((time-births.get(e.participantId)!)/hz);const cause=e.deathContext?.cause??e.reason??'UNKNOWN';deathCauses[cause]=(deathCauses[cause]??0)+1;if(cause==='EXISTING_TRAIL_CONTACT'||cause==='PENDING_TRAIL_CONTACT')firstContact??=time/hz;}
   }
   const peak=Math.max(...m.participants.map(p=>p.territoryCount));peakCells=Math.max(peakCells,peak);for(const key of Object.keys(firstThresholds))if(firstThresholds[key]===null&&peak*100>=Number(key)*total)firstThresholds[key]=m.tick/hz;
-  const liveHolds=new Set(m.modeState.holds.map(h=>h.participantId+':'+h.startedAtTick));for(const h of m.modeState.holds)holdStarts.add(h.participantId+':'+h.startedAtTick);
-  for(const h of oldHolds)if(!liveHolds.has(h.participantId+':'+h.startedAtTick)){holdLengths.push((m.tick-h.startedAtTick)/hz);if(m.outcome?.winnerId!==h.participantId)holdCancelled++;}
   if(m.tick%hz===0)sample();
  }
- sample();for(const h of m.modeState.holds)holdLengths.push(Math.max(0,(m.tick-h.startedAtTick)/hz));
+ sample();
  const duration=m.tick/hz,late=samples.filter(s=>s.seconds>=duration*.8),successful=attempts.filter(a=>a.success).length;
- return {radius,seed,mode,config:m.config,modeConfig:m.gameMode,totalCells:total,cellsPerParticipant:total/8,initialOwnedPercent:152*100/total,initialAnchors:m.map.anchors.map(id=>({q:m.map.cells[id].q,r:m.map.cells[id].r})),durationSeconds:duration,wallSeconds:(performance.now()-wallStart)/1000,
+ return {radius,seed,mode,config:m.config,modeConfig:m.gameMode,totalCells:total,cellsPerParticipant:total/8,initialOwnedPercent:(1+3*m.config.spawnRadius*(m.config.spawnRadius+1))*m.participants.length*100/total,initialAnchors:m.map.anchors.map(id=>({q:m.map.cells[id].q,r:m.map.cells[id].r})),durationSeconds:duration,wallSeconds:(performance.now()-wallStart)/1000,
  deaths,kills,deathsPerMatchMinute:deaths/(duration/60),killsPerMatchMinute:kills/(duration/60),deathsPerParticipantMinute:deaths/(8*duration/60),killsPerParticipantMinute:kills/(8*duration/60),deathCauses,completedLifeSeconds:statistics(survival),completedLives:survival.length,censoredAliveLives:m.participants.filter(p=>p.lifeState==='ALIVE').map(p=>({participantId:p.participantId,seconds:(m.tick-births.get(p.participantId)!)/hz})),
  pairDistanceHex:statistics(samples.flatMap(s=>s.pairDistanceHex===null?[]:[s.pairDistanceHex])),firstDirectTrailContactSeconds:firstContact,peakTerritoryCells:peakCells,peakTerritoryPercent:peakCells*100/total,firstThresholdSeconds:firstThresholds,captures,capturedCells,capturedCellsPerMatchMinute:capturedCells/(duration/60),capturedPercentEquivalentPerMatchMinute:capturedCells*100/total/(duration/60),meanExposedTrailCells:aliveSeconds?trailCellSeconds/aliveSeconds:null,
- hold:{started:holdStarts.size,cancelled:holdCancelled,won:m.outcome?.reason==='HELD_TERRITORY',longestObservedSeconds:holdLengths.length?Math.max(...holdLengths):null},classicWon:m.outcome?.reason==='FULL_CAPTURE',outcome:m.outcome,
+ classicWon:m.outcome?.reason==='FULL_CAPTURE',outcome:m.outcome,
  respawn:{attempts:attempts.length,successful,failedBlocked:attempts.length-successful,retries:attempts.filter(a=>a.stateBefore==='SPAWN_BLOCKED').length,firstBlockedSeconds:firstBlocked,blockedTransitions,blockedParticipantSeconds:blockedSeconds,firstZeroValidCentersSeconds:firstZeroCenters},lateAliveCount:statistics(late.map(s=>s.alive)),leaderBands:finishBands(leaderBands),occupiedBands:finishBands(occupiedBands),violations,samples,spawnAttempts:attempts};
 }
 
@@ -68,7 +66,7 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const radius=Number(arg('--radius','22')),minutes=Number(arg('--minutes','20')),seeds=arg('--seeds','4,19,73,115').split(',').map(Number),output=resolve(arg('--output',`.local/evidence/map-size-scaled/R${radius}.json`));
  if(!EXPERIMENT_MAP_RADII.some(r=>r===radius)||!Number.isFinite(minutes)||minutes<=0||minutes>120||seeds.some(s=>!Number.isSafeInteger(s)||s<0))throw new Error('Invalid experiment arguments');
  mkdirSync(dirname(output),{recursive:true});const runs:ReturnType<typeof runMapExperiment>[]=[];
- for(const seed of seeds)for(const mode of ['classic','hold'] as const){const result=runMapExperiment(radius,seed,mode,minutes);runs.push(result);writeFileSync(output+'.progress.json',JSON.stringify({schema:1,method:'normal movement; radius only; leader and global occupied bands separately',sampleIntervalSeconds:1,minutes,seeds,runs},null,2));console.log(JSON.stringify({radius,seed,mode,minutes:result.durationSeconds/60,peak:result.peakTerritoryPercent,deaths:result.deaths,failedSpawns:result.respawn.failedBlocked,wallSeconds:result.wallSeconds,violations:result.violations.length}));}
+ for(const seed of seeds)for(const mode of ['classic'] as const){const result=runMapExperiment(radius,seed,mode,minutes);runs.push(result);writeFileSync(output+'.progress.json',JSON.stringify({schema:1,method:'normal movement; radius only; leader and global occupied bands separately',sampleIntervalSeconds:1,minutes,seeds,runs},null,2));console.log(JSON.stringify({radius,seed,mode,minutes:result.durationSeconds/60,peak:result.peakTerritoryPercent,deaths:result.deaths,failedSpawns:result.respawn.failedBlocked,wallSeconds:result.wallSeconds,violations:result.violations.length}));}
  // Interrupted reruns never replace a completed baseline with partial data.
  renameSync(output+'.progress.json',output);
 }

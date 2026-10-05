@@ -15,7 +15,8 @@ export function createGameServer(options = {}) {
     const app = express();
     app.disable('x-powered-by');
     const http = createServer(app), io = new Server(http, { maxHttpBufferSize: 4096, pingInterval: 2000, pingTimeout: 5000, allowRequest: (req, callback) => callback(null, allowedOrigin(req.headers.origin, req.headers.host, origins)) });
-    const sessions = new SessionStore(options.now), rooms = new RoomManager(sessions, options.config, options.maxRooms, options.seed, undefined, options.initializeMatch, options.modeSettings);
+    const sessions = new SessionStore(options.now), rooms = new RoomManager(sessions, options.config, options.maxRooms, options.seed, undefined, options.initializeMatch);
+    rooms.onClosed = room => { io.in('lobby:' + room.roomId).socketsLeave('arena:' + room.roomId); io.in('lobby:' + room.roomId).socketsLeave('lobby:' + room.roomId); };
     const loop = new GameLoop(io, rooms, options.log), limits = new Limits(options.rateNow ?? (() => performance.now()), options.log);
     app.get('/healthz', (_req, res) => res.json({ ok: true, rooms: rooms.rooms.size, connections: io.engine.clientsCount }));
     const root = fileURLToPath(new URL(import.meta.url.endsWith('.ts') ? '../../dist/client/' : '../../client/', import.meta.url));
@@ -27,6 +28,8 @@ export function createGameServer(options = {}) {
         return sessions.request(session, raw, request => {
             if (request.gameMode !== undefined && !['room:create', 'room:quickJoin'].includes(event))
                 return { ok: false, code: 'INVALID_INPUT', message: '이 요청에서는 방의 모드를 변경할 수 없습니다.' };
+            if (event !== 'run:retry' && (request.matchId !== undefined || request.runId !== undefined))
+                return { ok: false, code: 'INVALID_INPUT', message: '이 요청에는 Run 정보를 지정할 수 없습니다.' };
             const creates = event === 'room:create' && !session.roomId || event === 'room:quickJoin' && !session.roomId && ![...rooms.rooms.values()].some(r => r.mode === 'PUBLIC' && r.gameMode.id === (request.gameMode ?? 'classic') && r.members.size < Math.min(MAX_HUMAN_ROOM_MEMBERS, rooms.config.maxSlots) && (r.phase === 'WAITING' || r.phase === 'COUNTDOWN' && r.roundNumber === 0));
             try {
                 return limits.request(session, event, socket.handshake.address, creates, () => action(request));
@@ -52,6 +55,11 @@ export function createGameServer(options = {}) {
             socket.on('room:start', (raw, ack) => { const response = command(session, raw, () => rooms.start(session), 'room:start', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (current)
                 loop.publishRoom(current.room); });
+            socket.on('run:retry', (raw, ack) => { const response = command(session, raw, r => rooms.retryRun(session, r.matchId, r.runId), 'run:retry', socket.id); if (typeof ack === 'function')
+                ack(response); const current = rooms.member(session); if (response.ok && current) {
+                loop.publishRoom(current.room);
+                loop.publishSnapshot(current.room, false, true);
+            } });
             socket.on('room:leave', (raw, ack) => {
                 const previous = rooms.member(session), response = command(session, raw, () => rooms.leave(session), 'room:leave', socket.id);
                 if (typeof ack === 'function')

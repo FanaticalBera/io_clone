@@ -1,3 +1,4 @@
+import {beginRunResolution,endRunResolution,recordBestTerritories} from './run.js';
 import {slotBit} from './slots.js';
 import {moveSpeed} from './config.js';
 import {tryRespawns} from './spawn.js';
@@ -38,6 +39,7 @@ function trailTouchesHome(match:MatchState,p:Participant):boolean{
  return first!==undefined&&match.map.cells[first].neighbors.some(id=>id>=0&&match.owners[id]===p.slot+1);
 }
 export function applySimultaneousCaptures(match:MatchState,returners:Participant[],eventTick=match.tick,iteration=0):void {
+ beginRunResolution(match);try{
  const ordered=[...returners].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
  const candidates=new Map<Participant,Set<number>>();
  for(const p of ordered)if(p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[p.cellId]===p.slot+1)candidates.set(p,captureCandidates(match,p));
@@ -104,6 +106,7 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
   record.headOwnerAfterTransfer=match.owners[p.cellId];record.headHomeNeighborsAfterTransfer=match.map.cells[p.cellId].neighbors.filter(id=>id>=0&&match.owners[id]===p.slot+1);record.strandedHomeHead=strandedHomeHeads.has(p);
  }
  for(const p of candidates.keys()){clearTrail(match,p);emitEvent(match,{type:'CAPTURE',participantId:p.participantId,amount:gained.get(p)??0});}
+ recordBestTerritories(match);
  // All simultaneous claims remain resolved against the same base state. One death
  // and one credited killer per victim, including attackers killed in this batch.
  for(const victim of [...cuts.keys()].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot))){
@@ -115,8 +118,10 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
  if(trace&&observer){for(const record of trace){const p=match.participants.find(p=>p.participantId===record.participantId)!;record.lifeStateAfter=p.lifeState;
   record.ownerCellsAfter=match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0);record.trailMaskCellsAfter=match.trailMasks.reduce((sum,mask)=>sum+Number((mask&(slotBit(p.slot)))!==0),0);
  }observer({tick:match.tick,participants:trace});}
+ }finally{endRunResolution(match);}
 }
 export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set()):void {
+ beginRunResolution(match);try{
  for(let iteration=0;iteration<32;iteration++){
   const ordered=[...match.participants].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
   const alive=ordered.filter(p=>p.lifeState==='ALIVE');
@@ -155,6 +160,7 @@ export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:
   if(!deaths.size&&!pending.size&&!returners.length&&!territoryDeaths&&!wallDeaths){const outcome=evaluateMode(match,eventTick);if(outcome)finishMatch(match,outcome);return;}
  }
  throw new Error('Derived event limit');
+ }finally{endRunResolution(match);}
 }
 export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):void {
  if(match.phase!=='RUNNING')return;
@@ -179,13 +185,11 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
  const groups=new Map<number,Entry[]>([[0,[]]]);
  for(const e of entries){const group=groups.get(e.time)??[];group.push(e);groups.set(e.time,group);}
  for(const e of wallEntries)if(!groups.has(e.time))groups.set(e.time,[]);
- const modeDeadlines=new Map<number,number>();
- for(const hold of match.modeState.holds){const fraction=hold.endsAtTick-match.tick;if(fraction>=0&&fraction<=1){const time=quantizedEventTime(fraction,match.config.simulationHz);groups.set(time,groups.get(time)??[]);modeDeadlines.set(time,Math.min(modeDeadlines.get(time)??fraction,fraction));}}
  const deadline=roundDeadlineTicks(match),finalTick=deadline!==null&&match.tick+1>=deadline;
  for(const [time,group] of [...groups].sort((a,b)=>a[0]-b[0])){
   if(match.phase!=='RUNNING')break;
   if(finalTick&&time>=quantizedEventTime(1,match.config.simulationHz))continue;
-  const fraction=modeDeadlines.get(time)??Math.min(1,time*match.config.simulationHz/1e6);
+  const fraction=Math.min(1,time*match.config.simulationHz/1e6);
   for(const p of match.participants){const motion=motions.get(p.participantId);
    if(motion&&p.lifeState==='ALIVE'&&p.lifeId===motion.lifeId){const t=Math.min(fraction,motion.stopT);p.position={x:motion.start.x+motion.delta.x*t,y:motion.start.y+motion.delta.y*t};}
   }

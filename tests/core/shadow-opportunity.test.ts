@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,shortestPath,watchBotDecisions,type BotObservation,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {evaluateShadowOpportunities} from '../../src/shared/bot-opportunity.js';
 import {runShadowEscapeWitness} from '../shadow-escape-fixture.js';

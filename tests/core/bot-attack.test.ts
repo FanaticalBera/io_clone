@@ -1,5 +1,6 @@
 import {it,expect} from 'vitest';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
 import type {DirectionInput} from '../../src/shared/model.js';
 
@@ -12,7 +13,7 @@ it.each([4,19,73,115,17,81,32,123])('seed %s: bots cut a normally spawned idle h
   const inputs=new Map<string,DirectionInput>();bots.forEach((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);if(input)inputs.set(p.participantId,input);if(memories[i].goal==='ATTACK')attackTicks++;});
   stepMatch(m,inputs);longestTrail=Math.max(longestTrail,human.trailCells.size);
  }
- expect(longestTrail).toBeGreaterThanOrEqual(5);expect(attackTicks).toBeGreaterThan(0);expect(human).toMatchObject({lifeState:'DEAD_WAIT',deathReason:'TRAIL_CUT',deaths:1});
+ expect(longestTrail).toBeGreaterThanOrEqual(5);expect(attackTicks).toBeGreaterThan(0);expect(human).toMatchObject({lifeState:'ELIMINATED',deathReason:'TRAIL_CUT',deaths:1});
  const death=m.events.find(e=>e.type==='DEATH'&&e.participantId===human.participantId)!;expect(death.killerId).toBeTruthy();expect(bots.find(p=>p.participantId===death.killerId)?.kills).toBeGreaterThanOrEqual(1);
  expect(human.trailCells.size).toBe(0);expect([...m.trailMasks].every(mask=>(mask&1)===0)).toBe(true);
 });

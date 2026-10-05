@@ -1,6 +1,6 @@
 import {it,expect} from 'vitest';
 import {BotOutcomeTracker} from '../bot-outcome-tracker.js';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory} from '../../src/shared/bot.js';
 import {addTrail} from '../../src/shared/territory.js';
 function fixture(){

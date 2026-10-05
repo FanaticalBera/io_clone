@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch,buildView} from '../../src/shared/game.js';
+import {buildView} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {packSnapshot,unpackSnapshot,decodeBytes,validDirection,SnapshotGate} from '../../src/shared/protocol.js';
 import {botSpecs} from '../../src/shared/bot.js';
 describe('T20: strict complete snapshot and input contract',()=>{

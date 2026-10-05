@@ -1,5 +1,6 @@
 import { validateConfig } from './config.js';
 import { createMap, region } from './hex.js';
+import { startRun } from './run.js';
 import { createState } from './state.js';
 import { seededRandom, shuffled } from './random.js';
 import { generateStartingAnchors } from './starting-anchors.js';
@@ -25,6 +26,7 @@ export function createMatch(overrides, seed, specs, matchId = 'match-' + seed, g
         for (const cell of zone)
             match.owners[cell] = p.slot + 1;
         p.territoryCount = zone.length;
+        startRun(match, p);
         p.protectedUntilTick = Math.round(config.protectSeconds * config.simulationHz);
     }
     return match;

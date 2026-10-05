@@ -1,3 +1,4 @@
+import {retryHumanRun} from '../../src/shared/retry.js';
 import {describe,it,expect} from 'vitest';
 import {auditDeaths} from '../death-audit.js';
 import {MovementCaptureFixture} from '../movement-capture-fixture.js';
@@ -17,7 +18,7 @@ describe('death causes in normal movement',()=>{
    expect(view.events.find(e=>e.type==='DEATH'&&e.participantId===p.participantId)?.deathContext).toEqual(victim.deathContext);
    // The event expires, while the reason persists for the full waiting period.
    for(let i=0;i<35;i++)f.tick();expect(buildView(m).events.some(e=>e.type==='DEATH'&&e.participantId===p.participantId)).toBe(false);expect(p.deathContext?.cause).toBe('HOME_CAPTURE');
-   const respawnAt=p.respawnAtTick;while(m.tick<=respawnAt)f.tick();expect(p.lifeId).toBe(2);expect(p.deathContext).toBeUndefined();
+   expect(retryHumanRun(m,p)).toBe(true);expect(p.lifeId).toBe(2);expect(p.deathContext).toBeUndefined();
   }
  });
  it('rejects corrupt cause/cell metadata in both participant and event snapshots',()=>{

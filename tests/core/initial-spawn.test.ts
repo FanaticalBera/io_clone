@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createMap,region,hexDistance,START_ANCHORS,scaledStartAnchors} from '../../src/shared/hex.js';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs} from '../../src/shared/bot.js';
 import {DEFAULT_CONFIG} from '../../src/shared/config.js';
 import {createMode} from '../../src/shared/modes.js';
@@ -8,7 +8,7 @@ import {createMode} from '../../src/shared/modes.js';
 describe('radius-scaled initial placement, with unchanged R22 and respawn settings',()=>{
  it('keeps every original R22 coordinate and participant assignment',()=>{
   const map=createMap();expect(map.anchors.map(id=>({q:map.cells[id].q,r:map.cells[id].r}))).toEqual(START_ANCHORS);
-  expect(scaledStartAnchors(22)).toEqual(START_ANCHORS);expect(DEFAULT_CONFIG.mapRadius).toBe(22);
+  expect(scaledStartAnchors(22)).toEqual(START_ANCHORS);expect(DEFAULT_CONFIG.mapRadius).toBe(56);
  });
  it('all R22–R64 maps fit eight disjoint complete spawn zones without control points',()=>{
   for(let radius=22;radius<=64;radius++){
@@ -19,12 +19,12 @@ describe('radius-scaled initial placement, with unchanged R22 and respawn settin
    expect(owned.size).toBe(152);
   }
  });
- it.each([32,36,40])('R%s: normal eight-participant initialization is deterministic across seed and spec order in Classic/Hold',radius=>{
-  for(const mode of ['classic','hold'] as const)for(const seed of [4,19,73,115]){
+ it.each([32,36,40])('R%s: normal eight-participant initialization is deterministic across seed and spec order in Classic',radius=>{
+  for(const mode of ['classic'] as const)for(const seed of [4,19,73,115]){
    const specs=botSpecs(8),a=createMatch({mapRadius:radius},seed,specs,'same',createMode(mode)),b=createMatch({mapRadius:radius},seed,[...specs].reverse(),'same',createMode(mode));
    expect(a.owners).toEqual(b.owners);const assignment=(m:typeof a)=>[...m.participants].sort((x,y)=>x.slot-y.slot).map(p=>[p.participantId,p.cellId,p.spawnCells]);expect(assignment(a)).toEqual(assignment(b));
    expect(a.participants.every(p=>p.lifeState==='ALIVE'&&p.spawnCells.size===19&&p.territoryCount===19)).toBe(true);
-   expect({...a.config,mapRadius:22}).toEqual(DEFAULT_CONFIG);
+   expect({...a.config,mapRadius:22}).toEqual({...DEFAULT_CONFIG,mapRadius:22,maxSlots:8,spawnRadius:2});
   }
  });
  it('initial spacing increases with radius and cube rounding preserves opposite anchors',()=>{

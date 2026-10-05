@@ -12,20 +12,20 @@ test('landscape phone keeps start actions and compact HUD in view; optional pane
    }
    expect(await page.locator('#menu').evaluate(e=>e.scrollHeight-e.clientHeight)).toBeLessThanOrEqual(1);
   }
-  await page.setViewportSize({width:844,height:390});await page.screenshot({path:'evidence/landscape-menu.png'});
+  await page.setViewportSize({width:844,height:390});await page.screenshot({path:'.local/classic-landscape-menu.png'});
   await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();
   await expect(page.locator('#leaderboard')).toBeHidden();await expect(page.locator('#minimap')).toBeHidden();await expect(page.locator('#rotate-hint')).toBeHidden();
   for(const viewport of [{width:844,height:390},{width:667,height:375},{width:640,height:320}]){
    await page.setViewportSize(viewport);
    const boxes=[];
-   for(const id of ['.score-block','.time-block','#game-tools-toggle','#settings','#leave']){
+   for(const id of ['.score-block','#game-tools-toggle','#settings','#leave']){
     const b=(await page.locator(id).boundingBox())!;expect(b.x,id).toBeGreaterThanOrEqual(0);expect(b.y,id).toBeGreaterThanOrEqual(0);expect(b.x+b.width,id).toBeLessThanOrEqual(viewport.width);expect(b.y+b.height,id).toBeLessThanOrEqual(viewport.height);boxes.push(b);
    }
    for(let i=0;i<boxes.length;i++)for(let j=i+1;j<boxes.length;j++){
     const a=boxes[i],b=boxes[j];expect(a.x+a.width<=b.x||b.x+b.width<=a.x||a.y+a.height<=b.y||b.y+b.height<=a.y).toBe(true);
    }
   }
-  await page.setViewportSize({width:844,height:390});await page.screenshot({path:'evidence/landscape-game.png'});
+  await page.setViewportSize({width:844,height:390});await page.screenshot({path:'.local/landscape-game.png'});
   await page.locator('#game-tools-toggle').click();await page.locator('#ranking-toggle').click();await expect(page.locator('#leaderboard')).toBeVisible();await expect(page.locator('#game-tools')).toBeHidden();
   await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();await expect(page.locator('#minimap')).toBeVisible();await expect(page.locator('#leaderboard')).toBeHidden();
   await page.keyboard.press('Escape');await expect(page.locator('#minimap')).toBeHidden();

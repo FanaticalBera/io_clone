@@ -1,5 +1,5 @@
-import type {MatchView,ResultRow,MatchOutcome} from '../shared/model.js';
-import {createMode,GAME_MODES,GAME_MODE_IDS,territoryPercent,type GameModeConfig,type GameModeId} from '../shared/modes.js';
+import type {MatchView,ResultRow,MatchOutcome,RunResult} from '../shared/model.js';
+import {createMode,GAME_MODES,territoryPercent,type GameModeConfig,type GameModeId} from '../shared/modes.js';
 import {normalizeNickname} from '../shared/names.js';
 import {COLORS} from './game-scene.js';
 import {SettingsStore} from './settings.js';
@@ -18,7 +18,8 @@ function save(key:string,value:string):void{try{localStorage.setItem(key,value);
 const peopleIcon='<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="9" r="5" fill="currentColor"/><circle cx="24" cy="12" r="4" fill="currentColor"/><path d="M1 29v-5a10 10 0 0 1 20 0v5ZM23 29v-5a13 13 0 0 0-2-7 8 8 0 0 1 10 8v4Z" fill="currentColor"/></svg>';
 export class UI {
  mode:'MENU'|'PRACTICE'|'ONLINE'='MENU';private pending:(()=>void)|null=null;private resultId='';private boardKey='';
- private selected:GameModeId='classic';private activeMode:GameModeConfig=createMode();private totalCells=1;
+ private activeMode:GameModeConfig=createMode();private totalCells=1;
+ currentRunResult:RunResult|null=null;private runKey='';private runTimer:ReturnType<typeof setTimeout>|null=null;
  private controlsActive=false;
  private noticeUntil=0;
  constructor(private actions:UIActions,private settings=new SettingsStore()){
@@ -29,15 +30,15 @@ export class UI {
 <section id="menu" class="panel menu-panel">
  <div class="hero"><div><h1 aria-label="HEXHOLD">HEXH<span class="hero-hex" aria-hidden="true"></span>LD</h1><p class="tagline">선을 그려, 내 세상을 넓혀.</p></div>
  <p class="landscape-copy">가로 화면으로 더 넓게 플레이</p></div>
- <div class="mode-selector" aria-label="게임 모드 선택"><button id="mode-prev" class="quiet" aria-label="이전 게임 모드">←</button><div id="mode-slide" tabindex="0" aria-live="polite"><strong id="mode-name">CLASSIC</strong><span id="mode-subtitle">완전 점령</span><p id="mode-description">맵 전체를 자신의 영토로 만들면 승리</p><small id="mode-rule">100% 점령</small></div><button id="mode-next" class="quiet" aria-label="다음 게임 모드">→</button></div>
+ <div class="mode-selector" aria-label="게임 모드"><div id="mode-slide"><strong id="mode-name">CLASSIC</strong><span id="mode-subtitle">완전 점령</span><p id="mode-description">맵 전체를 자신의 영토로 만들면 승리</p><small id="mode-rule">100% 점령</small></div></div>
  <div class="nickname-row"><label class="field-label" for="nickname">닉네임</label><div class="nickname-input">
  <input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">
  <small id="nickname-hint">1–16자 · 다음 판에도 이 이름으로</small></div></div>
- <div class="play-actions"><button id="quick" data-testid="quick" class="mode-card play-card"><span class="mode-label"><i class="small-hex" aria-hidden="true"></i> PLAY</span><strong>공개 대전</strong><span class="mode-description">사람과 봇이 함께하는 영역 전쟁</span><span class="mode-arrow" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M12 52 52 12M16 12h36v36"/></svg></span></button><button id="practice" data-testid="practice" class="mode-card practice-card"><span class="mode-label"><i class="practice-icon" aria-hidden="true"></i> PRACTICE</span><strong>봇 연습</strong><span class="mode-description">혼자서 가볍게 한 판</span><span class="mode-arrow practice-icon" aria-hidden="true"></span></button></div>
+ <div class="play-actions"><button id="quick" data-testid="quick" class="mode-card play-card"><span class="mode-label"><i class="small-hex" aria-hidden="true"></i> PLAY</span><strong>공개 대전</strong><span class="mode-description">사람과 봇이 함께하는 영역 전쟁</span><span class="mode-arrow" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M12 52 52 12M16 12h36v36"/></svg></span></button><button id="practice" data-testid="practice" class="mode-card practice-card"><span class="mode-label"><i class="practice-icon" aria-hidden="true"></i> SOLO</span><strong>싱글 플레이</strong><span class="mode-description">한 번의 생존, 하나의 Run</span><span class="mode-arrow practice-icon" aria-hidden="true"></span></button></div>
  <div class="friend-actions"><div class="friend-copy">${peopleIcon}<div><h2>친구와 함께</h2><p>방을 만들거나 코드로 참여하세요</p></div></div><button id="create" data-testid="create" class="dark-button">방 만들기</button><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드" aria-label="친구 방 코드"><button id="join" data-testid="join" class="quiet">입장</button></div>
  <p class="menu-footer"><span aria-hidden="true">◆</span> 내 땅으로 돌아오면 점령. 상대의 선을 끊으면 탈락.</p>
 </section>
-<div id="hud" hidden><div class="time-block"><small id="timer-label">CLASSIC</small><strong id="timer" data-testid="timer"></strong><small id="hold-detail"></small></div><div class="score-block"><small>내 점유율</small><strong id="score" data-testid="score"></strong><span class="personal-stats"><b id="self-rank">1위</b><span>처치 <b id="kill-count">0</b></span></span></div><button id="game-tools-toggle" class="quiet" aria-label="경기 메뉴" aria-controls="game-tools" aria-expanded="false">☰</button><button id="leave" data-testid="leave" class="quiet" aria-label="나가기" title="나가기">↪</button></div>
+<div id="hud" hidden><div class="score-block"><small>내 점유율</small><strong id="score" data-testid="score"></strong><span class="personal-stats"><b id="self-rank">1위</b><span>처치 <b id="kill-count">0</b></span></span></div><button id="game-tools-toggle" class="quiet" aria-label="경기 메뉴" aria-controls="game-tools" aria-expanded="false">☰</button><button id="leave" data-testid="leave" class="quiet" aria-label="나가기" title="나가기">↪</button></div>
 <section id="game-tools" aria-label="경기 메뉴" hidden><button id="ranking-toggle" class="quiet" aria-controls="leaderboard" aria-pressed="false">전체 순위</button><button id="map-toggle" class="quiet" aria-controls="minimap" aria-pressed="false">미니맵</button><button id="fullscreen-toggle" class="quiet">가로 전체 화면</button><p id="score-detail"></p><p class="tools-hint">PC: WASD / 마우스<br>모바일: 설정에서 조작 선택</p></section>
 <aside id="leaderboard" hidden><div class="board-title">전체 순위 <button id="ranking-close" class="text-button" aria-label="순위 닫기">✕</button><small id="population"></small></div><ol id="ranking"></ol></aside>
 <div id="rotate-hint" role="status" hidden><span aria-hidden="true">↻</span> 가로로 돌리면 전장이 넓어져요</div>
@@ -45,7 +46,7 @@ export class UI {
 <div id="death" data-testid="death" role="status" hidden></div>
 <section id="room-panel" class="panel room-panel" hidden><div class="eyebrow">LOBBY</div><h2 id="room-title"></h2><p id="room-game-mode"></p><p id="room-status"></p><div id="invite"><strong id="friend-code"></strong><button id="copy-link" class="quiet">초대 링크 복사</button></div><ul id="members"></ul><button id="start" data-testid="start" class="primary">라운드 시작 →</button><button id="room-leave" class="quiet">나가기</button></section>
 <section id="results" class="panel results-panel" hidden><div class="eyebrow" id="result-mode">ROUND COMPLETE</div><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="primary">다시 연습 →</button><button id="result-leave" class="quiet">나가기</button></div><small id="next-round"></small></section>
-<dialog id="tutorial"><div class="eyebrow">HOW TO HOLD</div><h2>세 가지만 기억하세요.</h2><div class="rule-grid">
+<div id="run-results" hidden><section class="run-panel" role="dialog" aria-modal="true" aria-labelledby="run-title"><div class="eyebrow">YOUR RUN</div><h2 id="run-title">RUN OVER</h2><p id="run-reason"></p><div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong></div><div><small>플레이 시간</small><strong id="run-time"></strong></div><div><small>처치</small><strong id="run-kills"></strong></div></div><div class="run-actions"><button id="run-retry" class="primary">다시 하기 →</button><button id="run-menu" class="quiet">메인 메뉴</button></div></section></div>\n<dialog id="tutorial"><div class="eyebrow">HOW TO PLAY</div><h2>세 가지만 기억하세요.</h2><div class="rule-grid">
  <article><div class="rule-picture">⬢ <span>⬡ ⬡</span> ⬢</div><h3>01. 돌아와야 내 땅</h3><p>내 땅 밖에 선을 그린 뒤<br>내 영토로 돌아오면 점령합니다.</p></article>
  <article><div class="rule-picture danger">⬡ ⬡ <b>✕</b> ⬡</div><h3>02. 선과 벽을 조심하세요</h3><p>상대가 내 선을 끊거나<br>외곽 벽에 부딪치면 탈락합니다.</p></article>
  <article><div class="rule-picture point">⬢ <span>100%</span></div><h3 id="tutorial-mode-title">03. 완전 점령</h3><p id="tutorial-mode-description">맵 전체를 자신의 영토로 만들면 승리</p></article></div>
@@ -68,23 +69,17 @@ export class UI {
   get('kill-vibration').addEventListener('change',()=>this.settings.update({killVibration:get<HTMLInputElement>('kill-vibration').checked}));
   bind('vibration-test',()=>{get('vibration-status').textContent=this.actions.testVibration?.()?'진동을 요청했어요. 무음 설정이나 기기에 따라 느껴지지 않을 수 있어요.':'이 환경에서는 진동을 실행할 수 없어요.';});
   this.settings.subscribe(()=>this.refreshSettings());this.refreshSettings();
-  const change=(offset=1)=>{this.selected=GAME_MODE_IDS[(GAME_MODE_IDS.indexOf(this.selected)+offset+GAME_MODE_IDS.length)%GAME_MODE_IDS.length];this.updateSelection();};
-  bind('mode-prev',()=>change(-1));bind('mode-next',()=>change(1));
-  const slide=get('mode-slide');let drag:{x:number;y:number;id:number}|null=null;
-  slide.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,id:e.pointerId};slide.setPointerCapture(e.pointerId);});
-  slide.addEventListener('pointerup',e=>{if(drag?.id===e.pointerId&&Math.abs(e.clientX-drag.x)>=40&&Math.abs(e.clientX-drag.x)>Math.abs(e.clientY-drag.y))change(e.clientX<drag.x?1:-1);drag=null;});
-  slide.addEventListener('pointercancel',()=>drag=null);
-  slide.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();change(e.key==='ArrowLeft'?-1:1);}});
   bind('practice',()=>this.requestPlay(this.actions.practice));bind('quick',()=>this.requestPlay(()=>this.actions.quick?this.actions.quick():this.message('온라인 연결을 준비하고 있어요.')));
   bind('create',()=>this.requestPlay(()=>this.actions.create?this.actions.create():this.message('온라인 연결을 준비하고 있어요.')));
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',this.actions.leave);bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
+  bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
   bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());bind('tutorial-skip',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';(navigator.clipboard?.writeText(location.origin+'/?room='+encodeURIComponent(code))??Promise.reject(new Error('Clipboard unavailable'))).then(()=>this.message('초대 링크를 복사했어요.')).catch(()=>this.message('복사가 막혔어요. 이 링크를 직접 공유하세요: '+location.origin+'/?room='+encodeURIComponent(code)));});
  }
- selectedGameMode():GameModeId{return this.selected;}
+ selectedGameMode():GameModeId{return 'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
  private closeGamePanels():void{for(const id of ['game-tools','leaderboard','minimap'])get(id).hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');for(const id of ['ranking-toggle','map-toggle'])get(id).setAttribute('aria-pressed','false');}
  private async landscapeFullscreen():Promise<void>{
@@ -103,14 +98,13 @@ export class UI {
   get<HTMLButtonElement>('vibration-test').disabled=!supported||!settings.killVibration;this.refreshControls();
  }
  private refreshControls():void{get('joystick').hidden=!this.controlsActive||this.isSettingsOpen()||!matchMedia('(pointer:coarse)').matches||this.settings.get().mobileControls!=='joystick';}
- private updateSelection():void{const mode=createMode(this.selected),definition=GAME_MODES[mode.id];get('mode-name').textContent=definition.name;get('mode-subtitle').textContent=definition.subtitle;get('mode-description').textContent=definition.description;get('mode-rule').textContent=definition.rules(mode);get('mode-slide').dataset.mode=mode.id;}
  nickname():string {const name=normalizeNickname(get<HTMLInputElement>('nickname').value);if(!name)throw new Error('닉네임은 공백 정리 후 1–16자로 입력하세요.');save('hexhold.nickname',name);return name;}
  private requestPlay(action:()=>void):void {try{this.nickname();if(stored('hexhold.tutorialSeen')!=='1')this.tutorial(action);else action();}catch(error){this.message((error as Error).message);}}
- private tutorial(action:(()=>void)|null):void {this.pending=action;const mode=this.mode==='MENU'?createMode(this.selected):this.activeMode;get('tutorial-mode-title').textContent='03. '+GAME_MODES[mode.id].subtitle;get('tutorial-mode-description').textContent=GAME_MODES[mode.id].description+' · '+GAME_MODES[mode.id].rules(mode);get<HTMLDialogElement>('tutorial').showModal();}
+ private tutorial(action:(()=>void)|null):void {this.pending=action;const mode=this.mode==='MENU'?createMode():this.activeMode;get('tutorial-mode-title').textContent='03. '+GAME_MODES[mode.id].subtitle;get('tutorial-mode-description').textContent=GAME_MODES[mode.id].description+' · '+GAME_MODES[mode.id].rules(mode);get<HTMLDialogElement>('tutorial').showModal();}
  private closeTutorial():void {get<HTMLDialogElement>('tutorial').close();save('hexhold.tutorialSeen','1');const action=this.pending;this.pending=null;action?.();}
  showMenu():void {
   this.controlsActive=false;
-  this.mode='MENU';get('app').dataset.screen='menu';this.resultId='';get('menu').hidden=false;
+  this.clearRunResult();this.mode='MENU';get('app').dataset.screen='menu';this.resultId='';get('menu').hidden=false;
   this.closeGamePanels();for(const id of ['hud','rotate-hint','control-hint','death','results','room-panel','joystick'])get(id).hidden=true;
   screen.orientation?.unlock?.();
  }
@@ -119,21 +113,16 @@ export class UI {
   this.closeGamePanels();get('hud').hidden=false;get('rotate-hint').hidden=false;get('control-hint').hidden=true;
   this.controlsActive=true;this.refreshControls();
  }
- updateView(view:MatchView,selfId:string):void {
+ updateView(view:MatchView,selfId:string,init=false):void {
   const self=view.participants.find(p=>p.participantId===selfId);if(!self)return;
-  this.controlsActive=view.phase==='RUNNING';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
+  this.controlsActive=view.phase==='RUNNING'&&self.lifeState==='ALIVE';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
   this.activeMode=view.gameMode;this.totalCells=view.owners.length;
   get('hud').dataset.matchId=view.matchId;get('hud').dataset.selfId=selfId;get('hud').dataset.lifeId=String(self.lifeId);get('hud').dataset.tick=String(view.tick);
-  const hold=[...view.modeState.holds].sort((a,b)=>a.endsAtTick-b.endsAtTick)[0],holder=view.participants.find(p=>p.participantId===hold?.participantId),mode=view.gameMode;
-  get('timer-label').textContent=hold&&holder?holder.nickname+' DOMINATING':GAME_MODES[mode.id].name;
-  get('timer-label').title=get('timer-label').textContent??'';
-  get('timer').textContent=hold?Math.max(0,(hold.endsAtTick-view.tick)/view.config.simulationHz).toFixed(1):mode.id==='hold'?mode.targetPercent+'%':'100%';
-  get('hold-detail').textContent=mode.id==='hold'?(hold?'연속 유지 중':mode.holdSeconds+'초 유지하면 승리'):'완전 점령하면 승리';
   get('score').textContent=territoryPercent(self.territoryCount,this.totalCells).toFixed(1)+'%';get('score-detail').textContent='영토 '+self.territoryCount+' / '+this.totalCells+'칸';
-  get('kill-count').textContent=String(self.kills);
+  get('kill-count').textContent=String(self.run?Math.max(0,self.kills-self.run.initialKills):self.kills);
   get('population').textContent=view.participants.filter(p=>p.kind==='HUMAN').length+' HUMAN · '+view.participants.filter(p=>p.kind==='BOT').length+' BOT';
   const ordered=[...view.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills);
-  const key=JSON.stringify([selfId,this.totalCells,mode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);
+  const key=JSON.stringify([selfId,this.totalCells,view.gameMode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);
   if(key!==this.boardKey){this.boardKey=key;const list=get('ranking');list.replaceChildren();let rank=0;
    ordered.forEach((p,i)=>{const previous=ordered[i-1];if(!previous||p.territoryCount!==previous.territoryCount||p.kills!==previous.kills)rank=i+1;
     const row=document.createElement('li');if(p.participantId===selfId){row.className='self';get('self-rank').textContent=rank+'위';}
@@ -143,10 +132,23 @@ export class UI {
     const score=document.createElement('b'),percent=document.createElement('span'),kills=document.createElement('small');percent.className='rank-percent';percent.textContent=territoryPercent(p.territoryCount,this.totalCells).toFixed(1)+'%';kills.className='rank-kills';kills.textContent='처치 '+p.kills;score.append(percent,kills);row.append(number,name,score);list.append(row);
    });
   }
-  const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING';
-  death.textContent=self.lifeState==='SPAWN_BLOCKED'?'안전한 19칸을 찾고 있어요. 공간이 생기면 다시 등장합니다.':deathMessage(self.deathReason,self.deathContext)+'. '+Math.max(0,Math.ceil((self.respawnAtTick-view.tick)/view.config.simulationHz))+'초 후 재등장';
-  if(showDeathDiagnostic&&self.lifeState==='DEAD_WAIT'&&self.deathContext)death.textContent+=` [${self.deathContext.cause} · cell ${self.deathContext.cellId} · t ${(self.deathContext.eventTick??view.tick).toFixed(3)}]`;
-  if(view.phase==='FINISHED')this.showResults(view.matchId,view.results??[],selfId,view.gameMode,view.outcome,view.owners.length);
+  const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING'||this.hasRunResult;
+  death.textContent=self.lifeState==='SPAWN_BLOCKED'?'안전한 '+(1+3*view.config.spawnRadius*(view.config.spawnRadius+1))+'칸을 찾고 있어요.':self.lifeState==='ELIMINATED'?deathMessage(self.deathReason,self.deathContext):'시작 위치를 준비하고 있어요.';
+  if(self.run?.result&&self.lifeState!=='SPAWN_BLOCKED'&&self.lifeState!=='DEAD_WAIT')this.showRunResult(self.run.result,init);
+  else if(self.lifeState==='ALIVE')this.clearRunResult();
+  else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],selfId,view.gameMode,view.outcome,view.owners.length);
+ }
+ setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}
+ get hasRunResult():boolean{return !!this.runKey;}
+ clearRunResult():void {if(this.runTimer!==null)clearTimeout(this.runTimer);this.runTimer=null;this.runKey='';this.currentRunResult=null;get('run-results').hidden=true;}
+ showRunResult(result:RunResult,restored=false):void {
+  if(this.runKey===result.runId)return;this.clearRunResult();this.runKey=result.runId;this.currentRunResult=result;this.controlsActive=false;this.refreshControls();
+  const show=()=>{if(this.runKey!==result.runId)return;this.runTimer=null;get('run-title').textContent=result.endReason==='FULL_CAPTURE_WIN'?'CLASSIC CLEAR!':'RUN OVER';
+   get('run-reason').textContent=result.endReason==='DEATH'?'이번 생존의 기록':result.endReason==='FULL_CAPTURE_LOSS'?'다른 참가자가 100%를 달성했습니다.':'월드 전체를 점령했습니다.';
+   get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
+   this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();
+  };
+  if(result.endReason==='DEATH'&&!restored)this.runTimer=setTimeout(show,700);else show();
  }
  showResults(matchId:string,rows:ResultRow[],selfId:string,mode=this.activeMode,outcome:MatchOutcome|null=null,totalCells=this.totalCells):void {
   this.controlsActive=false;

@@ -20,13 +20,13 @@ describe('T11: atomic captures and derived events',()=>{
   const {m,a,b,id}=captureFixture();setOwner(m,id(0,-1),1);setOwner(m,id(0,0),2);
   a.cellId=id(0,-1);b.cellId=id(3,0);
   for(const [q,r]of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));resolveAtTime(m);
-  expect(b.lifeState).toBe('DEAD_WAIT');expect(b.deathReason).toBe('TERRITORY_LOST');expect(a.kills).toBe(0);assertOwnershipCounts(m);
+  expect(b.lifeState).toBe('ELIMINATED');expect(b.deathReason).toBe('TERRITORY_LOST');expect(a.kills).toBe(0);assertOwnershipCounts(m);
  });
  it('a stolen current cell with no home attachment dies even with territory elsewhere',()=>{
   const {m,a,b,id}=captureFixture();setOwner(m,id(0,-1),1);setOwner(m,id(0,0),2);setOwner(m,id(3,0),2);
   a.cellId=id(0,-1);b.cellId=id(0,0);
   for(const [q,r]of ring)if(q!==0||r!==-1)addTrail(m,a,id(q,r));resolveAtTime(m);
-  expect(b.lifeState).toBe('DEAD_WAIT');expect(b.deathContext?.cause).toBe('HOME_CAPTURE');expect(b.trailCells.size).toBe(0);expect(a.kills).toBe(1);
+  expect(b.lifeState).toBe('ELIMINATED');expect(b.deathContext?.cause).toBe('HOME_CAPTURE');expect(b.trailCells.size).toBe(0);expect(a.kills).toBe(1);
  });
  it('a stolen current cell still attached to adjacent home creates a trail without a body-only death',()=>{
   // Synthetic capture-boundary check; actual movement coverage lives in

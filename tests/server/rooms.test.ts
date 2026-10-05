@@ -3,7 +3,7 @@ import {describe,it,expect} from 'vitest';
 import {SessionStore} from '../../src/server/sessions.js';
 import {RoomManager} from '../../src/server/rooms.js';
 import {stepMatch} from '../../src/shared/game.js';
-function fixture(){let now=0;const store=new SessionStore(()=>now),manager=new RoomManager(store,{},10,()=>13);return{store,manager,at:(value:number)=>now=value};}
+function fixture(){let now=0;const store=new SessionStore(()=>now),manager=new RoomManager(store,{mapRadius:22,maxSlots:8,spawnRadius:2},10,()=>13);return{store,manager,at:(value:number)=>now=value};}
 describe('T22: public room lifecycle with controlled time',()=>{
  it('includes the countdown in the first five seconds and fills exactly seven bots',()=>{
   const {store,manager,at}=fixture(),s=store.create();s.connected=true;
@@ -21,7 +21,7 @@ describe('T22: public room lifecycle with controlled time',()=>{
   const {store,manager,at}=fixture(),s=store.create();manager.quickJoin(s,'P');at(5000);manager.advance();
   const room=manager.rooms.get(s.roomId!)!,previous=room.match!;previous.participants[0].controlScore=77;
   completeClassic(previous);stepMatch(previous);manager.advance();expect(room.phase).toBe('RESULTS');
-  at(12000);manager.advance();expect(room.phase).toBe('COUNTDOWN');at(15000);manager.advance();
+  manager.retryRun(s,previous.matchId,previous.participants[0].run!.result!.runId);expect(room.phase).toBe('COUNTDOWN');at(8000);manager.advance();
   expect(room.match!.matchId).not.toBe(previous.matchId);expect(room.match!.tick).toBe(0);expect(room.match!.participants.every(p=>p.controlScore===0&&p.deaths===0)).toBe(true);
  });
  it('enforces eight humans, max rooms and no duplicate session membership',()=>{

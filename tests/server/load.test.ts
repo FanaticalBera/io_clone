@@ -21,6 +21,7 @@ it('T35 ten real connections in an 8-human and mixed room run three rounds and r
    seen.add(room.match.matchId);rounds[i].push(room.match.matchId);expect(room.inputs.size).toBe(0);expect(room.match.participants.every(p=>p.controlScore===0&&p.kills===0&&p.deaths===0)).toBe(true);oldMatches.push(room.match);
   }
   for(const room of [first,second])if(room.match?.phase==='RUNNING'&&room.match.tick>=30)completeClassic(room.match);
+  for(const [i,c] of clients.entries()){const room=i<8?first:second;if(room.phase==='RESULTS'&&rounds[i<8?0:1].length<3){const member=f.sessions.sessions.get(c.ready.sessionToken)!.memberId,p=room.match!.participants.find(p=>p.participantId===member)!;await c.request('run:retry',{matchId:room.match!.matchId,runId:p.run!.result!.runId});}}
   now+=1000/30;f.loop.pump();if(roomTick()%3===0)await new Promise(r=>setTimeout(r,3));if(now>15000)throw new Error('round boundary failed');
  }
  f.loop.publishSnapshot(first,false,true);f.loop.publishSnapshot(second,false,true);

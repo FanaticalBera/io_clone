@@ -1,5 +1,5 @@
 import {it,expect} from 'vitest';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,botLookAhead,type BotGoal} from '../../src/shared/bot.js';
 import {seededRandom} from '../../src/shared/random.js';
 

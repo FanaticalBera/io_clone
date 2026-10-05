@@ -3,7 +3,7 @@ import {MovementCaptureFixture} from '../movement-capture-fixture.js';
 import {assertOwnershipCounts} from '../../src/shared/territory.js';
 
 describe('a distant bridge capture must not manufacture a home cut',()=>{
- for(const mode of ['classic','hold'] as const)for(const exposed of [false,true])for(const reverse of [false,true])
+ for(const mode of ['classic'] as const)for(const exposed of [false,true])for(const reverse of [false,true])
  it(`${mode} / exposed ${exposed} / reversed ${reverse}: an untouched home stays alive`,()=>{
   const f=new MovementCaptureFixture(reverse,mode),{match:m,victim:v,capturer:c}=f;f.runDistantBridgeLoss(exposed);
   const record=f.traces.flatMap(t=>t.participants).find(p=>p.participantId===v.participantId&&p.lostTerritory)!;

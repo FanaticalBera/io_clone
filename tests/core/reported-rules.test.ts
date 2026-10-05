@@ -42,7 +42,7 @@ describe('user reports: disconnected territory and lethal outer walls',()=>{
   a.position.x+=Math.sqrt(3)*16-1;a.direction={x:1,y:0};addTrail(m,a,id(4,0));
   a.controlScore=7;a.kills=2;a.spawnCells.add(a.cellId);a.protectedUntilTick=60;
   const start={...a.position};stepMatch(m);
-  expect(a).toMatchObject({lifeState:'DEAD_WAIT',deathReason:'WALL_HIT',deaths:1,territoryCount:0,controlScore:7,kills:2,respawnAtTick:90});
+  expect(a).toMatchObject({lifeState:'ELIMINATED',deathReason:'WALL_HIT',deaths:1,territoryCount:0,controlScore:7,kills:2,respawnAtTick:0});
   expect(a.position.x-start.x).toBeCloseTo(1,5);expect(worldCell(m.map,a.position)).toBe(id(5,0));
   expect(a.trailCells.size).toBe(0);expect(m.trailMasks.every(v=>v===0)).toBe(true);expect(b.kills).toBe(0);
   stepMatch(m);expect(a.deaths).toBe(1);expect(m.events.filter(e=>e.type==='DEATH')).toHaveLength(1);assertOwnershipCounts(m);

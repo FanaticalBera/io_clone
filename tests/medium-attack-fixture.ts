@@ -1,4 +1,5 @@
-import {createMatch,stepMatch} from '../src/shared/game.js';
+import {stepMatch} from '../src/shared/game.js';
+import {createMatch} from './baseline.js';
 import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../src/shared/bot.js';
 import {axialToWorld} from '../src/shared/hex.js';
 import {normalizeDirection} from '../src/shared/movement.js';

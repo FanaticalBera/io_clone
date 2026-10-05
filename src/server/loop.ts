@@ -78,7 +78,7 @@ export class GameLoop {
     }
     if(room.phase==='RESULTS'&&room.match&&cache.resultId!==room.match.matchId){
      cache.resultId=room.match.matchId;
-     for(const member of room.members.values())if(!member.waitingForNextRound&&member.session.socketId)this.io.to(member.session.socketId).emit('match:result',{matchId:room.match.matchId,results:room.match.results??[],gameMode:room.match.gameMode,modeState:room.match.modeState,outcome:room.match.outcome});
+     for(const member of room.members.values())if(room.match.participants.some(p=>p.participantId===member.memberId)&&member.session.socketId)this.io.to(member.session.socketId).emit('match:result',{matchId:room.match.matchId,results:room.match.results??[],gameMode:room.match.gameMode,modeState:room.match.modeState,outcome:room.match.outcome});
      this.publishRoom(room);
     }
     if(room.revision!==cache.revision||now-cache.viewAt>=1000){this.publishRoom(room);cache.revision=room.revision;cache.viewAt=now;}

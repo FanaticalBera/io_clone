@@ -2,12 +2,13 @@ import {describe,it,expect} from 'vitest';
 import {runContactMovement} from '../contact-movement-fixture.js';
 import {MovementCaptureFixture} from '../movement-capture-fixture.js';
 import {watchDeaths,type DeathTrace} from '../../src/shared/life.js';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 describe('unchanged contact rules, classified from frozen event-time masks',()=>{
  it('complete movement enclosure of an inside player emits TERRITORY_LOST in the capture resolution',()=>{
   for(const reverse of [false,true]){const f=new MovementCaptureFixture(reverse),deaths:DeathTrace[]=[];watchDeaths(f.match,t=>deaths.push(t));f.runInsideTerritoryLoss();
    const d=deaths.find(t=>t.victimId===f.victim.participantId)!;expect(d.context?.cause).toBe('TERRITORY_LOST');expect(d.reason).toBe('TERRITORY_LOST');expect(d.ownerCells).toBe(0);expect(d.tick).toBe(f.captureTick);expect(f.directContacts).toBe(0);expect(f.expectedOriginCellId).toBeNull();
-   expect(f.victim.lifeState).toBe('DEAD_WAIT');expect(f.victim.trailCells.size).toBe(0);expect(f.match.events.filter(e=>e.type==='DEATH'&&e.participantId===f.victim.participantId)).toHaveLength(1);
+   expect(f.victim.lifeState).toBe('ELIMINATED');expect(f.victim.trailCells.size).toBe(0);expect(f.match.events.filter(e=>e.type==='DEATH'&&e.participantId===f.victim.participantId)).toHaveLength(1);
   }
  });
  it('unchanged straight-ahead movement into the perimeter reports WALL_HIT',()=>{

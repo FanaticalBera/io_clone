@@ -23,7 +23,7 @@ describe('T28: real transport loss, grace and replacement',()=>{
    const room=f.rooms.rooms.values().next().value!,p=room.match!.participants.find(p=>p.kind==='HUMAN')!;p.controlScore=9;
    a.socket.io.engine.close();await until(()=>room.members.get(p.participantId)!.graceUntil!==null);
    markDead(room.match!,p,'TRAIL_CUT');const restored=await f.client({protocolVersion:PROTOCOL_VERSION,sessionToken:a.ready.sessionToken});await until(()=>restored.snapshots.length>0);
-   expect(restored.snapshots.at(-1)!.participants.find(x=>x.participantId===p.participantId)).toMatchObject({lifeState:'DEAD_WAIT',lifeId:1,controlScore:9,deaths:1,territoryCount:0});
+   expect(restored.snapshots.at(-1)!.participants.find(x=>x.participantId===p.participantId)).toMatchObject({lifeState:'ELIMINATED',lifeId:1,controlScore:9,deaths:1,territoryCount:0});
   }finally{await f.close();}
  });
  it('expires at detection +10 seconds, replaces with a fresh bot and closes the empty room within 60 seconds',async()=>{

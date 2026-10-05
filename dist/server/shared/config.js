@@ -1,10 +1,10 @@
 import { MAX_MATCH_SLOTS } from './slots.js';
-export const PROTOCOL_VERSION = 4;
+export const PROTOCOL_VERSION = 5;
 export const HEX_EPS = 1e-7;
 export const MAX_ENTRY_EVENTS = 64;
 export const DEFAULT_CONFIG = Object.freeze({
-    simulationHz: 30, snapshotHz: 10, inputMaxHz: 30, roundSeconds: 240, maxSlots: 8,
-    mapRadius: 22, hexSideWorldUnits: 32, spawnRadius: 2, moveCellsPerSecond: 4.2, turnRadiansPerSecond: 9,
+    simulationHz: 30, snapshotHz: 10, inputMaxHz: 30, roundSeconds: 240, maxSlots: 16,
+    mapRadius: 56, hexSideWorldUnits: 32, spawnRadius: 1, moveCellsPerSecond: 4.2, turnRadiansPerSecond: 9,
     respawnSeconds: 3, protectSeconds: 2, retrySpawnSeconds: 1, spawnBufferHexes: 3,
     botDecisionMs: 200, botObservationRange: 12, interpolationMs: 100, maxExtrapolationMs: 100,
     publicRecruitSeconds: 2, countdownSeconds: 3, resultsSecondsIncludingCountdown: 10,

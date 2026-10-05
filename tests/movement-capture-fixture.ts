@@ -1,4 +1,5 @@
-import {createMatch,stepMatch} from '../src/shared/game.js';
+import {stepMatch} from '../src/shared/game.js';
+import {createMatch} from './baseline.js';
 import {axialToWorld} from '../src/shared/hex.js';
 import {normalizeDirection,stepSteering} from '../src/shared/movement.js';
 import {watchCaptureResolution,type CaptureResolutionTrace} from '../src/shared/engine.js';

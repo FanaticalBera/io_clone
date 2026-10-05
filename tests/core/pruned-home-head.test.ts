@@ -3,7 +3,7 @@ import {MovementCaptureFixture} from '../movement-capture-fixture.js';
 import {assertOwnershipCounts} from '../../src/shared/territory.js';
 
 describe('capture must not prune away an untouched home under a head',()=>{
- it.each([['classic',false],['classic',true],['hold',false],['hold',true]] as const)('%s / reversed roles %s: the home component remains attached without an orphan trail', (mode,reverse)=>{
+ it.each([['classic',false],['classic',true]] as const)('%s / reversed roles %s: the home component remains attached without an orphan trail', (mode,reverse)=>{
   const f=new MovementCaptureFixture(reverse,mode),{match:m,victim:v,capturer:c}=f;f.runPrunedHomeHead();
   const record=f.traces.flatMap(t=>t.participants).find(p=>p.participantId===v.participantId&&p.lostTerritory)!;
   expect(record).toMatchObject({trailCells:[],connectedBefore:false,candidate:false,lostTerritory:true,territoryBefore:40,headOwnerBefore:v.slot+1,headOwnerBeforePrune:v.slot+1,headOwnerAfterTransfer:v.slot+1,homeAnchorBeforePrune:record.headCellId,strandedHomeHead:false,cut:false,markDeadCalled:false,markedDead:false});

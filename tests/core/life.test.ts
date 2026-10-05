@@ -7,7 +7,7 @@ describe('T08: one death per life',()=>{
   const {m,a,b,id}=captureFixture();a.controlScore=7;a.kills=2;
   setOwner(m,id(0,0),1);addTrail(m,a,id(1,0));addTrail(m,b,id(1,0));
   expect(markDead(m,a,'TRAIL_CUT',b)).toBe(true);expect(markDead(m,a,'TRAIL_CUT',b)).toBe(false);
-  expect(a).toMatchObject({lifeState:'DEAD_WAIT',deaths:1,kills:2,controlScore:7,territoryCount:0,respawnAtTick:90});
+  expect(a).toMatchObject({lifeState:'ELIMINATED',deaths:1,kills:2,controlScore:7,territoryCount:0,respawnAtTick:0});
   expect(b.kills).toBe(1);expect(m.owners[id(0,0)]).toBe(0);expect(m.trailMasks[id(1,0)]).toBe(2);
   addTrail(m,a,id(2,0));expect(a.trailCells.size).toBe(0);assertOwnershipCounts(m);
  });

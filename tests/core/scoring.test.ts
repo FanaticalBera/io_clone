@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {stepMatch} from '../../src/shared/engine.js';
 import {buildView} from '../../src/shared/scoring.js';
 import {legacyScoreTick as scoreTick,computeLegacyResults as computeResults} from '../../src/shared/legacy-scoring.js';

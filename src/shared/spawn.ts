@@ -1,4 +1,5 @@
 import type {MatchState,Participant,MapDefinition} from './model.js';
+import {startRun} from './run.js';
 import {region} from './hex.js';
 import {setOwner} from './territory.js';
 import {emitEvent} from './life.js';
@@ -28,7 +29,7 @@ export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:Reado
  for(const center of match.spawnOrder){
   const zone=zones[center];let safety=count,valid=true;
   for(const id of zone){
-   if(id<0||match.owners[id]!==0||match.trailMasks[id]!==0||pointCells.has(id)||reserved.has(id)||distances[id]<match.config.spawnBufferHexes){valid=false;break;}
+   if(id<0||(p?.kind==='HUMAN'&&p.run?.result&&p.spawnCells.has(id))||match.owners[id]!==0||match.trailMasks[id]!==0||pointCells.has(id)||reserved.has(id)||distances[id]<match.config.spawnBufferHexes){valid=false;break;}
    safety=Math.min(safety,distances[id]);
   }
   if(valid){validCenterCount++;if(safety>bestSafety){best=center;bestSafety=safety;}}
@@ -36,7 +37,7 @@ export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:Reado
  return {validCenterCount,bestCenter:best,bestSafety};
 }
 export function trySpawn(match:MatchState,p:Participant,reserved:ReadonlySet<number>=new Set()):boolean {
- if(match.phase!=='RUNNING'||p.lifeState==='FINISHED'||p.lifeState==='ALIVE'||
+ if(match.phase!=='RUNNING'||p.lifeState==='FINISHED'||p.lifeState==='ELIMINATED'||p.lifeState==='ALIVE'||
     (roundDeadlineTicks(match)!==null&&roundDeadlineTicks(match)!-match.tick<=match.config.respawnSeconds*match.config.simulationHz))return false;
  const {bestCenter:best,validCenterCount}=inspectSpawnSpace(match,p,reserved),observer=spawnObservers.get(match);
  const trace:SpawnAttemptTrace|undefined=observer?{tick:match.tick,participantId:p.participantId,kind:p.kind,stateBefore:p.lifeState,leaderCells:Math.max(...match.participants.map(p=>p.territoryCount)),neutralCells:match.owners.reduce((sum,owner)=>sum+Number(owner===0),0),validCenterCount,alive:match.participants.filter(p=>p.lifeState==='ALIVE').length,deadWait:match.participants.filter(p=>p.lifeState==='DEAD_WAIT').length,spawnBlocked:match.participants.filter(p=>p.lifeState==='SPAWN_BLOCKED').length,reservedCells:reserved.size,success:best>=0,center:best<0?null:best}:undefined;
@@ -47,6 +48,7 @@ export function trySpawn(match:MatchState,p:Participant,reserved:ReadonlySet<num
  p.spawnCells=new Set(spawnRegions(match)[best]);p.lastAppliedInputSeq=0;p.targetDirection=null;p.deathReason=null;p.deathContext=undefined;
  p.protectedUntilTick=match.tick+Math.ceil(match.config.protectSeconds*match.config.simulationHz);
  for(const id of p.spawnCells)setOwner(match,id,p.slot+1);
+ startRun(match,p);
  emitEvent(match,{type:'SPAWN',participantId:p.participantId});if(trace&&observer)observer(trace);return true;
 }
 export function tryRespawns(match:MatchState):void {

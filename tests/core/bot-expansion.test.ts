@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,plannedCapture,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {expansionSides,EXPANSION_SHAPES} from '../../src/shared/bot-expansion.js';
 import {hexDistance} from '../../src/shared/hex.js';
@@ -28,7 +29,7 @@ describe('bounded expansion geometry and real closure',()=>{
  it('preserves the defender policy in an isolated match',()=>{
   const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73),shapes=new Set<string>(),hash=createHash('sha256');
   watchBotDecisions(memory,t=>{if(t.expansionPlan)shapes.add(t.expansionPlan.shape);});
-  for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
+  for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
   // Independently reproduced from the committed Phase 2 source, including
   // every movement/capture tick; mixed-match outcomes may still change.
   expect(hash.digest('hex')).toBe('ff9a620501417eaf7ce7c9d188cd37aa6860a94273dc85d85d811baf9b48c9de');
@@ -58,7 +59,7 @@ describe('bounded expansion geometry and real closure',()=>{
   const run=(watched:boolean)=>{const m=createMatch({},19,botSpecs(8),'fb3-observer-equivalence'),memories=m.participants.map(p=>createBotMemory(19+p.slot));
    if(watched)memories.forEach(memory=>watchBotDecisions(memory,()=>{}));
    for(let tick=0;tick<600;tick++){const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);}
-   return JSON.stringify(m,(_k,v)=>v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v);
+   return JSON.stringify(m,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v);
   };
   expect(run(true)).toBe(run(false));
  },10000);

@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,type BotObservation,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import type {Personality} from '../../src/shared/model.js';
 

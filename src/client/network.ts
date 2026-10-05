@@ -59,10 +59,10 @@ export class NetworkSession {
    const view=this.gate.accept(raw,init);if(!view||!raw.selfParticipantId)return;
    this.view=view;this.selfId=raw.selfParticipantId;const self=view.participants.find(p=>p.participantId===this.selfId);if(!self)return;
    if(this.lifeId!==self.lifeId){this.lifeId=self.lifeId;this.seq=raw.lastAppliedInputSeq;}else this.seq=Math.max(this.seq,raw.lastAppliedInputSeq);
-   this.lastReceived=performance.now();this.unstable=false;this.synchronized=!this.background;this.callbacks.snapshot?.(raw);this.callbacks.view(view,this.selfId,init);
+   const wasUnstable=this.unstable;this.lastReceived=performance.now();this.unstable=false;this.synchronized=!this.background;if(wasUnstable)this.callbacks.connected?.(true);this.callbacks.snapshot?.(raw);this.callbacks.view(view,this.selfId,init);
   }catch{this.callbacks.error({code:'PROTOCOL_MISMATCH',message:'경기 상태를 읽을 수 없어요. 새로고침하거나 다시 입장하세요.'});}
  }
- async command(event:'room:quickJoin'|'room:create'|'room:join'|'room:start'|'room:leave'|'control:background'|'control:foreground',payload:{nickname?:string;code?:string;gameMode?:GameModeId}={}):Promise<Ack> {
+ async command(event:'room:quickJoin'|'room:create'|'room:join'|'room:start'|'room:leave'|'run:retry'|'control:background'|'control:foreground',payload:{nickname?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}={}):Promise<Ack> {
   if(!this.ready)throw new Error('서버 연결을 기다리고 있어요.');
   const request={requestId:Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join(''),...payload};
   for(let attempt=0;attempt<2;attempt++){

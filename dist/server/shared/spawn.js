@@ -1,3 +1,4 @@
+import { startRun } from './run.js';
 import { region } from './hex.js';
 import { setOwner } from './territory.js';
 import { emitEvent } from './life.js';
@@ -52,7 +53,7 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
         const zone = zones[center];
         let safety = count, valid = true;
         for (const id of zone) {
-            if (id < 0 || match.owners[id] !== 0 || match.trailMasks[id] !== 0 || pointCells.has(id) || reserved.has(id) || distances[id] < match.config.spawnBufferHexes) {
+            if (id < 0 || (p?.kind === 'HUMAN' && p.run?.result && p.spawnCells.has(id)) || match.owners[id] !== 0 || match.trailMasks[id] !== 0 || pointCells.has(id) || reserved.has(id) || distances[id] < match.config.spawnBufferHexes) {
                 valid = false;
                 break;
             }
@@ -69,7 +70,7 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
     return { validCenterCount, bestCenter: best, bestSafety };
 }
 export function trySpawn(match, p, reserved = new Set()) {
-    if (match.phase !== 'RUNNING' || p.lifeState === 'FINISHED' || p.lifeState === 'ALIVE' ||
+    if (match.phase !== 'RUNNING' || p.lifeState === 'FINISHED' || p.lifeState === 'ELIMINATED' || p.lifeState === 'ALIVE' ||
         (roundDeadlineTicks(match) !== null && roundDeadlineTicks(match) - match.tick <= match.config.respawnSeconds * match.config.simulationHz))
         return false;
     const { bestCenter: best, validCenterCount } = inspectSpawnSpace(match, p, reserved), observer = spawnObservers.get(match);
@@ -95,6 +96,7 @@ export function trySpawn(match, p, reserved = new Set()) {
     p.protectedUntilTick = match.tick + Math.ceil(match.config.protectSeconds * match.config.simulationHz);
     for (const id of p.spawnCells)
         setOwner(match, id, p.slot + 1);
+    startRun(match, p);
     emitEvent(match, { type: 'SPAWN', participantId: p.participantId });
     if (trace && observer)
         observer(trace);

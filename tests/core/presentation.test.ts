@@ -1,6 +1,7 @@
 import {it,expect} from 'vitest';
 import {Presentation} from '../../src/client/presentation.js';
-import {createMatch,buildView} from '../../src/shared/game.js';
+import {buildView} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {moveSpeed} from '../../src/shared/config.js';
 import {stepMatch} from '../../src/shared/engine.js';
 it('T34 predicts only display movement, interpolates at 100ms and caps extrapolation',()=>{

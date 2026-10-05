@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {rotateDirectionTowards} from '../../src/shared/movement.js';
-import {createMatch,stepMatch} from '../../src/shared/game.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {moveSpeed} from '../../src/shared/config.js';
 describe('limited steering shared by authority and prediction',()=>{
  it('normalizes, takes shortest turns, avoids overshoot and handles invalid vectors safely',()=>{

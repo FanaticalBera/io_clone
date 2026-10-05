@@ -1,3 +1,4 @@
+import {retryHumanRun} from '../shared/retry.js';
 import {createMatch,stepMatch,buildView} from '../shared/game.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotMemory} from '../shared/bot.js';
 import {watchDeaths,type DeathTrace} from '../shared/life.js';
@@ -13,7 +14,7 @@ export class PracticeSession {
  private diagnosticData:{deathCauses:Record<string,number>;decisionCount:number;escapeDecisionCount:number;clearDecisionCount:number;missedReasons:Record<string,number>;candidateReasons:Record<string,number>;deaths:DeathTrace[];missed:ShadowOpportunity[]}|null=null;
  private visibility=()=>{this.lastTime=null;this.accumulated=0;};
  constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean}={}){
-  const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed;
+  const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
   this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
   if(options.diagnostics){
@@ -30,11 +31,16 @@ export class PracticeSession {
    document.addEventListener('visibilitychange',this.visibility);const loop=(time:number)=>{if(this.disposed)return;this.advance(time);this.frame=requestAnimationFrame(loop);};this.frame=requestAnimationFrame(loop);
   }
  }
+ retryRun():boolean {
+  const human=this.match.participants.find(p=>p.participantId===this.selfId)!;
+  if(!retryHumanRun(this.match,human))return false;
+  this.direction=null;this.seq=0;this.lastTime=null;this.accumulated=0;this.publish(buildView(this.match),this.selfId);return true;
+ }
  setDirection(direction:Vec):void {this.direction={...direction};}
  diagnostics(){return this.diagnosticData?structuredClone({matchId:this.match.matchId,seed:this.match.seed,tick:this.match.tick,...this.diagnosticData}):null;}
  setPaused(paused:boolean):void {this.paused=paused;this.lastTime=null;this.accumulated=0;}
  advance(now:number):void {
-  if(this.disposed||this.paused||(typeof document!=='undefined'&&document.hidden)||this.match.phase!=='RUNNING'){this.lastTime=now;return;}
+  if(this.disposed||this.paused||(typeof document!=='undefined'&&document.hidden)||this.match.phase!=='RUNNING'||this.match.participants.find(p=>p.participantId===this.selfId)?.lifeState==='ELIMINATED'){this.lastTime=now;return;}
   if(this.lastTime===null){this.lastTime=now;return;}
   const delta=(now-this.lastTime)/1000;this.lastTime=now;
   if(delta<0||delta>1){this.accumulated=0;return;}this.accumulated+=delta;
@@ -48,7 +54,7 @@ export class PracticeSession {
    }
    const lifeId=human.lifeId;stepMatch(this.match,inputs);
    if(human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}
-   this.accumulated-=step;count++;
+   this.accumulated-=step;count++;if(human.lifeState==='ELIMINATED'){this.accumulated=0;break;}
   }
   if(count)this.publish(buildView(this.match),this.selfId);
  }

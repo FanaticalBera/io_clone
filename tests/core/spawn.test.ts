@@ -1,12 +1,12 @@
 import {describe,it,expect} from 'vitest';
-import {createMatch} from '../../src/shared/game.js';
+import {createMatch} from '../baseline.js';
 import {trySpawn,tryRespawns} from '../../src/shared/spawn.js';
 import {markDead} from '../../src/shared/life.js';
 import {setOwner,assertOwnershipCounts} from '../../src/shared/territory.js';
 import {hexDistance,region} from '../../src/shared/hex.js';
 import {isProtected,stepMatch} from '../../src/shared/engine.js';
 function match(){
- return createMatch({},111,Array.from({length:2},(_,slot)=>({participantId:'p'+slot,slot,nickname:'P',kind:'HUMAN' as const})));
+ return createMatch({},111,Array.from({length:2},(_,slot)=>({participantId:'p'+slot,slot,nickname:'P',kind:'BOT' as const})));
 }
 describe('T12: safe respawn and limited protection',()=>{
  it('reserves 19 neutral cells, keeps stats and increments the life identity',()=>{

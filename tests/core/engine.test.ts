@@ -12,7 +12,7 @@ describe('T09: fixed tick authoritative events',()=>{
   const {m,a,b,id}=captureFixture();setOwner(m,id(-2,0),1);setOwner(m,id(0,0),2);
   place(m,0,-1,0,1,0);place(m,1,0,0,1,0);addTrail(m,a,id(1,0));addTrail(m,a,id(2,0));
   b.position.x=Math.sqrt(3)*16-1;const old={...a.position};stepMatch(m);
-  expect(a.lifeState).toBe('DEAD_WAIT');expect(b.kills).toBe(1);expect(a.position.x-old.x).toBeLessThan(2);expect(a.trailCells.size).toBe(0);assertOwnershipCounts(m);
+  expect(a.lifeState).toBe('ELIMINATED');expect(b.kills).toBe(1);expect(a.position.x-old.x).toBeLessThan(2);expect(a.trailCells.size).toBe(0);assertOwnershipCounts(m);
  });
  it('does not kill touching bodies with no exposed trails',()=>{
   const {m,a,b,id}=captureFixture();setOwner(m,id(0,0),1);setOwner(m,id(0,1),2);
