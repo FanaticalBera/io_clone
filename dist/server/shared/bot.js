@@ -2,10 +2,15 @@ import { hexDistance } from './hex.js';
 import { seededRandom } from './random.js';
 import { normalizeDirection, stepSteering } from './movement.js';
 import { moveSpeed } from './config.js';
+import { botSteeringTarget } from './bot-steering.js';
 import { GAME_MODES } from './modes.js';
 import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
+import { expansionSides, EXPANSION_SHAPES } from './bot-expansion.js';
 export function createBotMemory(seed) {
-    return { path: [], nextDecisionTick: 0, seq: 0, random: seededRandom(seed), goal: 'EXPAND', lastCell: -1, lastProgressTick: 0, plannedLifeId: 0, attackTarget: null, attackSlot: null, knownHome: new Set(), grievances: new Map() };
+    // Independent stream: traits neither consume decision RNG nor change on respawn.
+    const random = seededRandom(seed), traitRandom = seededRandom(seed ^ 0x51f15e), scale = () => .9 + traitRandom() * .2;
+    const traits = Object.freeze({ expansionScale: scale(), riskScale: scale(), stealScale: scale() });
+    return { traits, path: [], nextDecisionTick: 0, seq: 0, random, goal: 'EXPAND', lastCell: -1, lastProgressTick: 0, plannedLifeId: 0, attackTarget: null, attackSlot: null, knownHome: new Set(), grievances: new Map() };
 }
 const botObservers = new WeakMap();
 const decisionTraces = new WeakMap();
@@ -69,11 +74,27 @@ export function returnPath(obs) {
         ?? shortestPath(obs.map, obs.self.cellId, id => obs.owners[id] === obs.self.slot + 1, () => true, 24);
 }
 const behavior = {
-    EXPAND: { length: 4, width: 3, attack: 0.08, pointWeight: 4, risk: 0.7, trailLimit: 20, steal: 0.3 },
-    ATTACK: { length: 3, width: 2, attack: 0.85, pointWeight: 3, risk: 0.4, trailLimit: 18, steal: 0.5 },
-    DEFEND: { length: 2, width: 2, attack: 0.02, pointWeight: 1, risk: 1.3, trailLimit: 12, steal: 0.1 },
-    SEEK_POINT: { length: 3, width: 3, attack: 0.2, pointWeight: 30, risk: 0.8, trailLimit: 18, steal: 1.4 }
+    EXPAND: { length: 5, width: 4, attack: 0.08, pointWeight: 4, risk: 0.7, trailLimit: 20, steal: 0.3, attackRange: 6 },
+    ATTACK: { length: 3, width: 2, attack: 0.85, pointWeight: 3, risk: 0.4, trailLimit: 18, steal: 0.5, attackRange: 9 },
+    DEFEND: { length: 2, width: 2, attack: 0.02, pointWeight: 1, risk: 1.3, trailLimit: 12, steal: 0.1, attackRange: 5 },
+    SEEK_POINT: { length: 3, width: 3, attack: 0.2, pointWeight: 30, risk: 0.8, trailLimit: 18, steal: 3, attackRange: 7 }
 };
+const individualSettings = new WeakMap();
+function settingsFor(obs, memory) {
+    const personality = obs.self.personality ?? 'EXPAND';
+    let cache = individualSettings.get(memory);
+    if (!cache) {
+        cache = new Map();
+        individualSettings.set(memory, cache);
+    }
+    let settings = cache.get(personality);
+    if (!settings) {
+        const base = behavior[personality], t = memory.traits;
+        settings = { ...base, length: base.length * t.expansionScale, width: base.width * t.expansionScale, risk: base.risk * t.riskScale, steal: base.steal * t.stealScale };
+        cache.set(personality, settings);
+    }
+    return settings;
+}
 // Remember only territory changes currently observable around the bot. Repeated
 // small captures accumulate, then cool down; a new life gets a fresh baseline.
 function rememberIncursions(obs, memory) {
@@ -148,10 +169,10 @@ function observedReturnSeconds(obs, victim, home) {
     const back = shortestPath(obs.map, cellId, id => obs.owners[id] === victim.slot + 1, () => true, 24);
     return back ? Math.min(earliest + .5, ticks / obs.config.simulationHz + travelSeconds(obs, { ...victim, position, direction: heading, cellId }, back)) : earliest;
 }
-function planAttack(obs, memory, interrupt = false) {
+function planAttack(obs, memory, interrupt = false, locked = false) {
     if (!obs.trails.length)
         return null;
-    const settings = behavior[obs.self.personality ?? 'EXPAND'], owner = obs.self.slot + 1, counts = new Map();
+    const settings = settingsFor(obs, memory), owner = obs.self.slot + 1, counts = new Map();
     for (const trail of obs.trails)
         counts.set(trail.slot, (counts.get(trail.slot) ?? 0) + 1);
     const threshold = obs.self.personality === 'DEFEND' ? 1.5 : obs.self.personality === 'ATTACK' ? 2.5 : 4.5;
@@ -180,13 +201,14 @@ function planAttack(obs, memory, interrupt = false) {
     // Reserve candidates for each observed opponent; one long nearby trail must
     // not consume every evaluation and hide another opponent entering our home.
     const perSlot = new Map();
-    const considered = targets.filter(t => { const count = perSlot.get(t.slot) ?? 0; perSlot.set(t.slot, count + 1); return count < 3; }).slice(0, 12);
+    const lockedTarget = locked && obs.trails.some(t => t.slot === memory.attackSlot && t.cellId === memory.attackTarget) ? memory.attackTarget : null;
+    const considered = targets.filter(t => !locked || (t.slot === memory.attackSlot && (lockedTarget !== null ? t.cellId === lockedTarget : obs.others.some(p => p.slot === t.slot)))).filter(t => { const count = perSlot.get(t.slot) ?? 0; perSlot.set(t.slot, count + 1); return count < 3; }).slice(0, 12);
     for (const target of considered) {
         const trace = decisionTraces.get(memory);
         const record = trace ? { target: target.cellId, slot: target.slot, distance: hexDistance(obs.map.cells[target.cellId], obs.map.cells[obs.self.cellId]), interrupt, reason: 'SELECTABLE' } : undefined;
         if (record)
             trace.attacks.push(record);
-        const reward = valuable(target.cellId, target.slot), range = reward ? 8 : 6;
+        const reward = valuable(target.cellId, target.slot), range = obs.self.personality === 'DEFEND' ? settings.attackRange : reward ? Math.max(8, settings.attackRange) : settings.attackRange;
         const outward = shortestPath(obs.map, obs.self.cellId, id => id === target.cellId, id => id === target.cellId || !headPaths.has(id), range);
         if (!outward) {
             if (record)
@@ -207,14 +229,18 @@ function planAttack(obs, memory, interrupt = false) {
         if (record) {
             record.seconds = seconds;
             record.returnTime = returnTime;
+            record.returnSeconds = back.length / obs.config.moveCellsPerSecond;
         }
-        if (returnTime !== null && returnTime !== undefined && seconds + .1 >= returnTime) {
+        const margin = !locked && obs.self.personality === 'ATTACK' ? (outward.length >= 6 ? .4 : outward.length >= 4 ? .25 : .1) : .1;
+        if (record)
+            record.etaMargin = margin;
+        if (returnTime !== null && returnTime !== undefined && seconds + margin >= returnTime) {
             if (record)
                 record.reason = 'VICTIM_RETURNS_FIRST';
             continue;
         }
         const opportunity = outward.length <= 4 && seconds <= 1.25 && returnTime !== null && returnTime !== undefined && seconds + .2 < returnTime;
-        if (!reward && !ordinary && !opportunity) {
+        if (!locked && !reward && !ordinary && !opportunity && !(obs.self.personality === 'ATTACK' && returnTime !== null && returnTime !== undefined)) {
             if (record)
                 record.reason = 'LOW_PRIORITY';
             continue;
@@ -236,8 +262,41 @@ function planAttack(obs, memory, interrupt = false) {
                 record.reason = 'COUNTER_CUT_FIRST';
             continue;
         }
+        if (!locked && obs.self.personality === 'ATTACK') {
+            const exposed = [...obs.ownTrail, ...outward, ...back].filter(id => obs.owners[id] !== owner);
+            const total = seconds + back.length / obs.config.moveCellsPerSecond;
+            if (obs.others.some(p => p.slot !== target.slot && exposed.some(id => hexDistance(obs.map.cells[p.cellId], obs.map.cells[id]) / obs.config.moveCellsPerSecond <= total + .15))) {
+                if (record)
+                    record.reason = 'UNSAFE_RETURN';
+                continue;
+            }
+        }
+        // A thief keeps its territory route unless a short interception lies on it,
+        // a very close cut is clear, or its own exposed line needs a counterstrike.
+        if (!locked && obs.self.personality === 'SEEK_POINT') {
+            const onRoute = memory.path.slice(0, 6).some(id => hexDistance(obs.map.cells[id], obs.map.cells[target.cellId]) <= 1);
+            const defending = incursions.has(target.slot) && outward.length <= 4;
+            if (outward.length > 4 || (!onRoute && !defending && outward.length > 2) || (!opportunity && !defending)) {
+                // A short, demonstrably safe interception is not a long kill diversion.
+                // Reassess this candidate independently of the optional diagnostic trace:
+                // conservative opponent bounds and shared steering must permit cut+home.
+                const close = opportunity && outward.length <= 3 && back.length <= 3 && evaluateShadowOpportunities({ ...obs, trails: [target] }, { path: (_map, start) => start === obs.self.cellId ? outward : back, seconds: shadowTravelSeconds }).candidates[0];
+                if (!close || close.reason !== 'CLEAR_KILL_OPPORTUNITY' || close.returnSeconds === null || close.returnSeconds > 2) {
+                    if (record)
+                        record.reason = 'STEAL_DIVERSION_LIMIT';
+                    continue;
+                }
+            }
+        }
         const urgent = outward.length <= 2 && seconds <= .75 && opportunity;
-        const score = (reward ? 60 : opportunity ? 50 + settings.attack * 15 : 50 * settings.attack) - seconds * 8 - back.length * .3 + (obs.owners[target.cellId] === owner ? 15 : 0) + Math.min(12, memory.grievances.get(target.slot)?.amount ?? 0);
+        const defenseBonus = obs.self.personality === 'DEFEND' && incursions.has(target.slot) ? 12 : 0;
+        const advantage = returnTime === null || returnTime === undefined ? 0 : Math.max(0, returnTime - seconds);
+        const qualityBonus = obs.self.personality === 'ATTACK' ? Math.min(12, advantage * 6) + (opportunity ? 12 : 0) - Math.max(0, outward.length - 4) * 3 : 0;
+        const score = qualityBonus + defenseBonus + (reward ? 60 : opportunity ? 50 + settings.attack * 15 : 50 * settings.attack) - seconds * 8 - back.length * .3 + (obs.owners[target.cellId] === owner ? 15 : 0) + Math.min(12, memory.grievances.get(target.slot)?.amount ?? 0);
+        if (record) {
+            record.qualityBonus = qualityBonus;
+            record.score = score;
+        }
         if (!best || score > best.score)
             best = { path: [...outward, ...back], score, goal: 'ATTACK', target: target.cellId, slot: target.slot, urgent, seconds, totalSeconds: seconds + back.length / obs.config.moveCellsPerSecond };
     }
@@ -261,10 +320,30 @@ export function plannedCapture(obs, path) {
         }
     return obs.map.cells.filter(c => obs.owners[c.id] !== owner && !visited[c.id]).map(c => c.id);
 }
+// A shortened enclosure avoids retracing the existing trail. Emergency escape
+// still uses returnPath; this is only a pre-emptive, area-preserving closure.
+export function earlyClosurePath(obs, remaining, trailLimit) {
+    if (!obs.ownTrail.length || remaining.length < 5)
+        return null;
+    const owner = obs.self.slot + 1, used = new Set(obs.ownTrail), forbidden = new Set(obs.trails.map(t => t.cellId));
+    const safe = (id) => !used.has(id) && !forbidden.has(id) && obs.others.every(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[id]) > 2);
+    const back = shortestPath(obs.map, obs.self.cellId, id => obs.owners[id] === owner, safe, Math.min(10, remaining.length - 3));
+    if (!back || !back.length)
+        return null;
+    const external = new Set([...obs.ownTrail, ...back].filter(id => obs.owners[id] !== owner));
+    if (external.size > trailLimit || plannedCapture(obs, [...obs.ownTrail, ...back]).length <= external.size)
+        return null;
+    return back;
+}
 function planExpansion(obs, memory) {
-    const settings = behavior[obs.self.personality ?? 'EXPAND'], forbidden = new Set(obs.trails.map(t => t.cellId));
+    const settings = settingsFor(obs, memory), forbidden = new Set(obs.trails.map(t => t.cellId));
     const owner = obs.self.slot + 1, own = obs.map.cells.filter(c => obs.owners[c.id] === owner);
     const boundary = own.filter(c => c.neighbors.some(n => n >= 0 && obs.owners[n] !== owner)).sort((a, b) => hexDistance(a, obs.map.cells[obs.self.cellId]) - hexDistance(b, obs.map.cells[obs.self.cellId]));
+    // Only nearby, visible borders influence the thief's choice of launch point.
+    if (obs.self.personality === 'SEEK_POINT') {
+        const rank = (cell) => hexDistance(cell, obs.map.cells[obs.self.cellId]) - (hexDistance(cell, obs.map.cells[obs.self.cellId]) < obs.config.botObservationRange && cell.neighbors.some(id => id >= 0 && obs.owners[id] !== 0 && obs.owners[id] !== owner) ? 3 : 0);
+        boundary.sort((a, b) => rank(a) - rank(b));
+    }
     const candidates = [];
     memory.attackTarget = null;
     memory.attackSlot = null;
@@ -280,7 +359,12 @@ function planExpansion(obs, memory) {
                 candidates.push({ path: [...outward, ...back], score: settings.pointWeight - outward.length * 0.3, goal: 'SEEK_POINT' });
         }
     const crowded = obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6);
-    for (const anchor of boundary.slice(0, 6))
+    // The explorer's extra reach is for quiet space. Visible opponents keep its
+    // footprint at the Phase 1 size even before they enter the crowded radius.
+    const cautiousExplorer = obs.self.personality === 'EXPAND' && obs.others.length > 0;
+    const loopLength = cautiousExplorer ? Math.min(settings.length, 4) : settings.length;
+    const loopWidth = cautiousExplorer ? Math.min(settings.width, 3) : settings.width;
+    for (const [anchorIndex, anchor] of boundary.slice(0, 6).entries())
         for (let d = 0; d < 6; d++) {
             const prefix = shortestPath(obs.map, obs.self.cellId, id => id === anchor.id, id => obs.owners[id] === owner, 10);
             if (!prefix)
@@ -288,12 +372,23 @@ function planExpansion(obs, memory) {
             let current = anchor.id;
             const path = [...prefix];
             let valid = true, leftHome = false, closed = false;
-            const length = crowded ? 1 + Math.floor(memory.random() * 2) : Math.max(2, settings.length - 1 + Math.floor(memory.random() * 3));
-            const width = crowded ? 1 : Math.max(1, settings.width - 1 + Math.floor(memory.random() * 3));
+            let length = crowded ? 1 + Math.floor(memory.random() * 2) : Math.max(2, Math.floor(loopLength - 1 + memory.random() * 3));
+            let width = crowded ? 1 : Math.max(1, Math.floor(loopWidth - 1 + memory.random() * 3));
             const bevel = crowded ? 0 : Math.floor(memory.random() * 3);
             const naturalClosure = !crowded && memory.random() < .35;
-            const sides = naturalClosure ? [[d, length], [(d + 1) % 6, width], [(d + 2) % 6, 1 + bevel]] : bevel ? [[d, length], [(d + 1) % 6, width], [(d + 2) % 6, bevel], [(d + 3) % 6, length], [(d + 4) % 6, width], [(d + 5) % 6, bevel]] :
-                [[d, length], [(d + 1) % 6, width], [(d + 3) % 6, length], [(d + 4) % 6, width]];
+            const shape = obs.self.personality === 'DEFEND' || crowded ? (naturalClosure ? 'NATURAL' : bevel ? 'BEVEL' : 'RHOMBUS') : EXPANSION_SHAPES[(anchorIndex * 6 + d + memory.seq) % EXPANSION_SHAPES.length];
+            // Only an explorer near observed pressure scales down. Quiet-space reach
+            // and all hard path/trail/proximity limits remain intact.
+            const nearestHead = Math.min(...obs.others.map(p => hexDistance(anchor, obs.map.cells[p.cellId])));
+            const downScaled = obs.self.personality === 'EXPAND' && !crowded && nearestHead < 2 * (length + width) * .65;
+            if (downScaled) {
+                length = Math.max(2, length - 1);
+                width = Math.max(1, width - 1);
+            }
+            const trace = decisionTraces.get(memory);
+            if (trace)
+                (trace.expansionCandidates ??= []).push(shape);
+            const sides = expansionSides(shape, d, length, width, bevel);
             for (const [direction, length] of sides) {
                 if (!valid || closed)
                     break;
@@ -313,7 +408,7 @@ function planExpansion(obs, memory) {
                     }
                 }
             }
-            if (valid && naturalClosure && leftHome && !closed) {
+            if (valid && ['NATURAL', 'HOOK', 'ASYMMETRIC'].includes(shape) && leftHome && !closed) {
                 const used = new Set(path), back = shortestPath(obs.map, current, id => obs.owners[id] === owner, id => !used.has(id) && !forbidden.has(id), 24 - path.length);
                 if (back) {
                     path.push(...back);
@@ -336,14 +431,38 @@ function planExpansion(obs, memory) {
                 continue;
             const first = obs.map.cells[path[0] ?? anchor.id].center, heading = normalizeDirection(first.x - obs.self.position.x, first.y - obs.self.position.y);
             const turn = heading ? 1 - (heading.x * obs.self.direction.x + heading.y * obs.self.direction.y) : 0;
-            candidates.push({ path, score: gain.length + stolen * settings.steal - path.length * 0.35 - risk * settings.risk - turn * 2 + memory.random() * 0.5, goal: stolen > gain.length / 2 ? 'STEAL' : 'EXPAND' });
+            const threatDistance = Math.min(...obs.others.flatMap(enemy => external.map(id => hexDistance(obs.map.cells[id], obs.map.cells[enemy.cellId]))));
+            const excursionRisk = obs.self.personality === 'EXPAND' ? Math.max(0, (external.length - threatDistance) / obs.config.moveCellsPerSecond) * settings.risk * 2 : 0;
+            const repeatPenalty = obs.self.personality !== 'DEFEND' && memory.lastExpansionShape === shape ? 1.5 : 0;
+            if (trace)
+                (trace.expansionAccepted ??= []).push(shape);
+            candidates.push({ path, score: gain.length * (obs.self.personality === 'EXPAND' ? 1.25 : 1) + stolen * settings.steal - path.length * 0.35 - risk * settings.risk - turn * 2 - excursionRisk - repeatPenalty + memory.random() * 0.5, goal: stolen > gain.length / 2 ? 'STEAL' : 'EXPAND', expansion: { shape, pathLength: path.length, externalLength: external.length, captureSize: gain.length, stolenCells: stolen, earlyClosed: false, downScaled, threatDistance } });
         }
     candidates.sort((a, b) => b.score - a.score);
     const selected = candidates[0];
     memory.goal = selected?.goal ?? 'RETURN';
     memory.attackTarget = selected?.target ?? null;
     memory.attackSlot = selected?.slot ?? null;
+    const trace = decisionTraces.get(memory);
+    if (trace) {
+        trace.expansionPlan = selected?.expansion;
+        if (selected?.expansion)
+            trace.expansionPath = [...selected.path];
+    }
+    memory.expansion = selected?.expansion;
+    if (selected?.expansion)
+        memory.lastExpansionShape = selected.expansion.shape;
     return selected?.path ?? returnPath(obs) ?? [];
+}
+export function botLookAhead(obs, goal) {
+    if (goal === 'ATTACK')
+        return 3;
+    if ((goal === 'EXPAND' && obs.self.personality === 'DEFEND') || hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) >= obs.map.radius - 2)
+        return 1;
+    // Preserve precise local steering around observed heads and trails.
+    if (obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 3) || obs.trails.some(t => hexDistance(obs.map.cells[t.cellId], obs.map.cells[obs.self.cellId]) <= 2))
+        return 1;
+    return 2;
 }
 export function getBotInput(obs, memory, returnOnly = false) {
     if (obs.self.lifeState !== 'ALIVE')
@@ -360,6 +479,8 @@ export function getBotInput(obs, memory, returnOnly = false) {
         memory.goal = 'EXPAND';
         memory.knownHome.clear();
         memory.grievances.clear();
+        memory.expansion = undefined;
+        memory.lastExpansionShape = undefined;
     }
     if (memory.lastCell !== obs.self.cellId) {
         memory.lastCell = obs.self.cellId;
@@ -376,22 +497,43 @@ export function getBotInput(obs, memory, returnOnly = false) {
         }
         memory.nextDecisionTick = obs.tick + Math.max(1, Math.round(obs.config.botDecisionMs * obs.config.simulationHz / 1000));
         rememberIncursions(obs, memory);
-        const settings = behavior[obs.self.personality ?? 'EXPAND'], home = returnPath(obs), atHome = obs.owners[obs.self.cellId] === obs.self.slot + 1;
+        const settings = settingsFor(obs, memory), home = returnPath(obs), atHome = obs.owners[obs.self.cellId] === obs.self.slot + 1;
         const danger = obs.ownTrail.length && (obs.ownTrail.length >= settings.trailLimit || obs.others.some(p => obs.ownTrail.some(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]) <= Math.max(2, Math.min(5, (home?.length ?? 4) * settings.risk)))));
         const stuck = obs.tick - memory.lastProgressTick >= 2 * obs.config.simulationHz;
-        const attackFinished = memory.goal === 'ATTACK' && !obs.trails.some(t => t.cellId === memory.attackTarget && t.slot === memory.attackSlot);
+        const attacking = memory.goal === 'ATTACK';
+        const targetPresent = obs.trails.some(t => t.cellId === memory.attackTarget && t.slot === memory.attackSlot);
+        // Preserve a viable cut instead of switching to each new urgent candidate.
+        // A vanished cell may retarget only the same still-observed victim.
         const homeLost = memory.path.length > 0 && obs.owners[memory.path.at(-1)] !== obs.self.slot + 1;
-        const attack = !returnOnly && !stuck && !homeLost && memory.goal !== 'ESCAPE' ? planAttack(obs, memory, true) : null;
+        const attack = !returnOnly && !stuck && !homeLost && memory.goal !== 'ESCAPE' ? planAttack(obs, memory, true, attacking) : null;
+        const attackFinished = attacking && !targetPresent && !attack;
         const counterStrike = !!attack && attack.seconds <= 1.25 && obs.ownTrail.length < settings.trailLimit;
         const pressuredExpansion = (memory.goal === 'EXPAND' || memory.goal === 'STEAL') && obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6) && obs.ownTrail.length + memory.path.filter(id => obs.owners[id] !== obs.self.slot + 1).length > 6;
+        const expanding = memory.goal === 'EXPAND' || memory.goal === 'STEAL';
+        const lineDistance = Math.min(...obs.others.flatMap(p => obs.ownTrail.map(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]))));
+        const riskGrew = memory.expansion && !memory.expansion.earlyClosed && lineDistance <= 5 && lineDistance + 2 < (memory.expansion.threatDistance ?? Infinity);
+        const nearingBudget = obs.ownTrail.length >= settings.trailLimit - 4;
+        const early = obs.self.personality === 'EXPAND' && expanding && !returnOnly && !danger && !counterStrike && !stuck && !homeLost && (riskGrew || nearingBudget || pressuredExpansion) ? earlyClosurePath(obs, memory.path, settings.trailLimit) : null;
+        if (early) {
+            memory.path = early;
+            memory.goal = 'RETURN';
+            memory.attackTarget = null;
+            memory.attackSlot = null;
+            if (memory.expansion)
+                memory.expansion.earlyClosed = true;
+            if (trace)
+                trace.earlyClosure = true;
+        }
         if ((memory.goal === 'ESCAPE' || memory.goal === 'RETURN') && atHome && !obs.ownTrail.length) {
             memory.path = [];
             memory.goal = 'EXPAND';
         }
         // Escape is committed until home. Other opportunities cannot replace it.
-        if (returnOnly || (danger && !counterStrike) || (pressuredExpansion && !counterStrike) || stuck || attackFinished || homeLost || (!atHome && !memory.path.length)) {
+        if (returnOnly || (danger && !counterStrike) || (pressuredExpansion && !counterStrike && !early) || stuck || attackFinished || homeLost || (!atHome && !memory.path.length)) {
             if (memory.goal !== 'ESCAPE' || !memory.path.length || homeLost || stuck)
                 memory.path = home ?? [];
+            if (trace && attacking)
+                trace.exitReason = returnOnly ? 'RETURN_ONLY' : stuck ? 'STUCK' : homeLost ? 'HOME_ROUTE_LOST' : danger && !counterStrike ? 'DANGER' : !targetPresent ? 'TARGET_GONE' : trace.attacks.find(a => a.target === memory.attackTarget)?.reason ?? 'NO_PLAN';
             memory.goal = danger || memory.goal === 'ESCAPE' ? 'ESCAPE' : 'RETURN';
             memory.attackTarget = null;
             memory.attackSlot = null;
@@ -399,7 +541,7 @@ export function getBotInput(obs, memory, returnOnly = false) {
                 memory.lastProgressTick = obs.tick;
         }
         const shortDetour = attack && attack.seconds <= 1.25 && home && attack.totalSeconds <= travelSeconds(obs, obs.self, home) + .85;
-        if (attack && (!danger || counterStrike) && (memory.goal === 'EXPAND' || memory.goal === 'STEAL' || memory.goal === 'SEEK_POINT' || (memory.goal === 'RETURN' && shortDetour) || (memory.goal === 'ATTACK' && attack.urgent))) {
+        if (attack && !early && (!danger || counterStrike) && (memory.goal === 'EXPAND' || memory.goal === 'STEAL' || memory.goal === 'SEEK_POINT' || (memory.goal === 'RETURN' && shortDetour) || (memory.goal === 'ATTACK' && !targetPresent))) {
             memory.path = attack.path;
             memory.goal = 'ATTACK';
             memory.attackTarget = attack.target;
@@ -424,6 +566,11 @@ export function getBotInput(obs, memory, returnOnly = false) {
             finishTrace = () => {
                 trace.to = memory.goal;
                 trace.attackTarget = memory.attackTarget;
+                trace.attackSlot = memory.attackSlot;
+                trace.personality = obs.self.personality;
+                trace.pathLength = memory.path.length;
+                trace.traits = memory.traits;
+                trace.lookAheadUsed = perimeterReturn || !target ? 1 : Math.max(1, memory.path.findIndex(id => obs.map.cells[id].center === target) + 1);
                 const shadow = trace.shadow, clear = shadow.candidates.filter(c => c.reason === 'CLEAR_KILL_OPPORTUNITY');
                 shadow.selectedGoal = memory.goal;
                 shadow.selectedTarget = memory.attackTarget;
@@ -440,7 +587,8 @@ export function getBotInput(obs, memory, returnOnly = false) {
     const reach = Math.max(Math.sqrt(3) * obs.map.side * 0.18, moveSpeed(obs.config) / obs.config.turnRadiansPerSecond + moveSpeed(obs.config) / obs.config.simulationHz);
     while (memory.path.length && obs.self.cellId === memory.path[0] && Math.hypot(obs.map.cells[memory.path[0]].center.x - obs.self.position.x, obs.map.cells[memory.path[0]].center.y - obs.self.position.y) < reach)
         memory.path.shift();
-    const target = memory.path.length ? obs.map.cells[memory.path[0]].center : null;
+    const lookAhead = botLookAhead(obs, memory.goal);
+    const target = botSteeringTarget(obs.map, obs.self, memory.path, obs.config, lookAhead);
     let direction = target ? normalizeDirection(target.x - obs.self.position.x, target.y - obs.self.position.y) ?? obs.self.direction : obs.self.direction;
     // Predict bot steering near the perimeter. Shared movement and player input
     // stay unchanged; bots start turning while there is still room to survive.
@@ -469,6 +617,10 @@ export function getBotInput(obs, memory, returnOnly = false) {
                 perimeterReturn = true;
             }
         }
+    }
+    if (perimeterReturn) {
+        memory.attackTarget = null;
+        memory.attackSlot = null;
     }
     finishTrace?.();
     if (!direction)

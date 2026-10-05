@@ -100,8 +100,8 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
         }
         pruneDisconnectedTerritory(match, p, anchor ?? undefined);
     }
-    // A live excursion also needs a home attachment. Capturing its base (or the
-    // bridge that causes that base to be pruned) cuts it even without painting its trail.
+    // Capturing the actual home attachment cuts an excursion even without
+    // painting its trail. An intact attachment was preserved during pruning above.
     for (const victim of lostTerritory) {
         // A captured head may start a trail only while still attached to its home.
         // Zero-territory deaths continue through their existing resolution path.

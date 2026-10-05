@@ -2,7 +2,8 @@ import {createMatch,stepMatch} from '../src/shared/game.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot} from '../src/shared/bot.js';
 import type {DirectionInput} from '../src/shared/model.js';
 const reports=[];
-for(const seed of [4,19,73,115,17,81,32,123]){
+const seeds=process.argv.includes('--sweep')?Array.from({length:128},(_,i)=>i+1):[4,19,73,115,17,81,32,123];
+for(const seed of seeds){
  const match=createMatch({},seed,[{participantId:'idle-human',slot:0,nickname:'IDLE',kind:'HUMAN'},...botSpecs(7,1)]),human=match.participants[0];
  const memories=match.participants.slice(1).map(p=>createBotMemory(seed^(p.slot*2654435761)));let attacks=0,interrupts=0;
  while(human.lifeState==='ALIVE'&&match.tick<1200){const inputs=new Map<string,DirectionInput>();

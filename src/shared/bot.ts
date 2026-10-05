@@ -6,21 +6,24 @@ import {moveSpeed} from './config.js';
 import {botSteeringTarget} from './bot-steering.js';
 import {GAME_MODES,type GameModeConfig} from './modes.js';
 import {evaluateShadowOpportunities,shadowTravelSeconds,type ShadowOpportunity} from './bot-opportunity.js';
+import {expansionSides,EXPANSION_SHAPES,type ExpansionShape} from './bot-expansion.js';
+export type {ExpansionShape} from './bot-expansion.js';
 export interface BotObservation {
  matchId:string; tick:number; config:MatchState['config']; map:MapDefinition; owners:Uint8Array;gameMode:GameModeConfig;
  self:PublicParticipant; ownTrail:number[]; others:PublicParticipant[]; trails:{cellId:number;slot:number}[];
 }
 export type BotGoal='EXPAND'|'STEAL'|'SEEK_POINT'|'ATTACK'|'RETURN'|'ESCAPE';
 export interface BotTraits {readonly expansionScale:number;readonly riskScale:number;readonly stealScale:number}
-export interface BotMemory { traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; knownHome:Set<number>; grievances:Map<number,{amount:number;tick:number}> }
+export interface BotMemory { traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; knownHome:Set<number>; grievances:Map<number,{amount:number;tick:number}>;expansion?:ExpansionPlan;lastExpansionShape?:ExpansionShape }
 export function createBotMemory(seed:number):BotMemory {
  // Independent stream: traits neither consume decision RNG nor change on respawn.
  const random=seededRandom(seed),traitRandom=seededRandom(seed^0x51f15e),scale=()=>.9+traitRandom()*.2;
  const traits=Object.freeze({expansionScale:scale(),riskScale:scale(),stealScale:scale()});
  return {traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,knownHome:new Set(),grievances:new Map()};
 }
-export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number}
-export interface BotDecisionTrace {tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity}
+export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number}
+export interface ExpansionPlan {shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
+export interface BotDecisionTrace {tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const decisionTraces=new WeakMap<BotMemory,BotDecisionTrace>();
 // Optional tactical audit: production decisions do not allocate trace records.
@@ -156,7 +159,9 @@ function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,locked=f
   }
   const seconds=travelSeconds(obs,obs.self,outward),returnTime=returnTimes.get(target.slot);
   if(record){record.seconds=seconds;record.returnTime=returnTime;record.returnSeconds=back.length/obs.config.moveCellsPerSecond;}
-  if(returnTime!==null&&returnTime!==undefined&&seconds+.1>=returnTime){if(record)record.reason='VICTIM_RETURNS_FIRST';continue;}
+  const margin=!locked&&obs.self.personality==='ATTACK'?(outward.length>=6?.4:outward.length>=4?.25:.1):.1;
+  if(record)record.etaMargin=margin;
+  if(returnTime!==null&&returnTime!==undefined&&seconds+margin>=returnTime){if(record)record.reason='VICTIM_RETURNS_FIRST';continue;}
   const opportunity=outward.length<=4&&seconds<=1.25&&returnTime!==null&&returnTime!==undefined&&seconds+.2<returnTime;
   if(!locked&&!reward&&!ordinary&&!opportunity&&!(obs.self.personality==='ATTACK'&&returnTime!==null&&returnTime!==undefined)){if(record)record.reason='LOW_PRIORITY';continue;}
   // Compare the cut with a counter-cut of our already exposed line. A cheap
@@ -168,9 +173,35 @@ function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,locked=f
   }
   if(record)record.counterTime=counterTime;
   if(counterTime<=seconds+.05){if(record)record.reason='COUNTER_CUT_FIRST';continue;}
+  if(!locked&&obs.self.personality==='ATTACK'){
+   const exposed=[...obs.ownTrail,...outward,...back].filter(id=>obs.owners[id]!==owner);
+   const total=seconds+back.length/obs.config.moveCellsPerSecond;
+   if(obs.others.some(p=>p.slot!==target.slot&&exposed.some(id=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[id])/obs.config.moveCellsPerSecond<=total+.15))){
+    if(record)record.reason='UNSAFE_RETURN';continue;
+   }
+  }
+  // A thief keeps its territory route unless a short interception lies on it,
+  // a very close cut is clear, or its own exposed line needs a counterstrike.
+  if(!locked&&obs.self.personality==='SEEK_POINT'){
+   const onRoute=memory.path.slice(0,6).some(id=>hexDistance(obs.map.cells[id],obs.map.cells[target.cellId])<=1);
+   const defending=incursions.has(target.slot)&&outward.length<=4;
+   if(outward.length>4||(!onRoute&&!defending&&outward.length>2)||(!opportunity&&!defending)){
+    // A short, demonstrably safe interception is not a long kill diversion.
+    // Reassess this candidate independently of the optional diagnostic trace:
+    // conservative opponent bounds and shared steering must permit cut+home.
+    const close=opportunity&&outward.length<=3&&back.length<=3&&evaluateShadowOpportunities({...obs,trails:[target]},
+     {path:(_map,start)=>start===obs.self.cellId?outward:back,seconds:shadowTravelSeconds}).candidates[0];
+    if(!close||close.reason!=='CLEAR_KILL_OPPORTUNITY'||close.returnSeconds===null||close.returnSeconds>2){
+     if(record)record.reason='STEAL_DIVERSION_LIMIT';continue;
+    }
+   }
+  }
   const urgent=outward.length<=2&&seconds<=.75&&opportunity;
   const defenseBonus=obs.self.personality==='DEFEND'&&incursions.has(target.slot)?12:0;
-  const score=defenseBonus+(reward?60:opportunity?50+settings.attack*15:50*settings.attack)-seconds*8-back.length*.3+(obs.owners[target.cellId]===owner?15:0)+Math.min(12,memory.grievances.get(target.slot)?.amount??0);
+  const advantage=returnTime===null||returnTime===undefined?0:Math.max(0,returnTime-seconds);
+  const qualityBonus=obs.self.personality==='ATTACK'?Math.min(12,advantage*6)+(opportunity?12:0)-Math.max(0,outward.length-4)*3:0;
+  const score=qualityBonus+defenseBonus+(reward?60:opportunity?50+settings.attack*15:50*settings.attack)-seconds*8-back.length*.3+(obs.owners[target.cellId]===owner?15:0)+Math.min(12,memory.grievances.get(target.slot)?.amount??0);
+  if(record){record.qualityBonus=qualityBonus;record.score=score;}
   if(!best||score>best.score)best={path:[...outward,...back],score,goal:'ATTACK',target:target.cellId,slot:target.slot,urgent,seconds,totalSeconds:seconds+back.length/obs.config.moveCellsPerSecond};
  }
  return best;
@@ -185,6 +216,18 @@ export function plannedCapture(obs:BotObservation,path:number[]):number[] {
  }
  return obs.map.cells.filter(c=>obs.owners[c.id]!==owner&&!visited[c.id]).map(c=>c.id);
 }
+// A shortened enclosure avoids retracing the existing trail. Emergency escape
+// still uses returnPath; this is only a pre-emptive, area-preserving closure.
+export function earlyClosurePath(obs:BotObservation,remaining:number[],trailLimit:number):number[]|null {
+ if(!obs.ownTrail.length||remaining.length<5)return null;
+ const owner=obs.self.slot+1,used=new Set(obs.ownTrail),forbidden=new Set(obs.trails.map(t=>t.cellId));
+ const safe=(id:number)=>!used.has(id)&&!forbidden.has(id)&&obs.others.every(p=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[id])>2);
+ const back=shortestPath(obs.map,obs.self.cellId,id=>obs.owners[id]===owner,safe,Math.min(10,remaining.length-3));
+ if(!back||!back.length)return null;
+ const external=new Set([...obs.ownTrail,...back].filter(id=>obs.owners[id]!==owner));
+ if(external.size>trailLimit||plannedCapture(obs,[...obs.ownTrail,...back]).length<=external.size)return null;
+ return back;
+}
 function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  const settings=settingsFor(obs,memory),forbidden=new Set(obs.trails.map(t=>t.cellId));
  const owner=obs.self.slot+1,own=obs.map.cells.filter(c=>obs.owners[c.id]===owner);
@@ -194,7 +237,7 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const rank=(cell:typeof own[number])=>hexDistance(cell,obs.map.cells[obs.self.cellId])-(hexDistance(cell,obs.map.cells[obs.self.cellId])<obs.config.botObservationRange&&cell.neighbors.some(id=>id>=0&&obs.owners[id]!==0&&obs.owners[id]!==owner)?3:0);
   boundary.sort((a,b)=>rank(a)-rank(b));
  }
- const candidates:{path:number[];score:number;goal:BotGoal;target?:number;slot?:number}[]=[];
+ const candidates:{path:number[];score:number;goal:BotGoal;target?:number;slot?:number;expansion?:ExpansionPlan}[]=[];
  memory.attackTarget=null;memory.attackSlot=null;
  const attack=planAttack(obs,memory);if(attack)candidates.push(attack);
  for(const cp of GAME_MODES[obs.gameMode.id].usesControlPoints?obs.map.controlPoints:[])if(obs.owners[cp.cellId]!==owner){
@@ -209,22 +252,28 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  const cautiousExplorer=obs.self.personality==='EXPAND'&&obs.others.length>0;
  const loopLength=cautiousExplorer?Math.min(settings.length,4):settings.length;
  const loopWidth=cautiousExplorer?Math.min(settings.width,3):settings.width;
- for(const anchor of boundary.slice(0,6))for(let d=0;d<6;d++){
+ for(const [anchorIndex,anchor] of boundary.slice(0,6).entries())for(let d=0;d<6;d++){
   const prefix=shortestPath(obs.map,obs.self.cellId,id=>id===anchor.id,id=>obs.owners[id]===owner,10);if(!prefix)continue;
   let current=anchor.id;const path=[...prefix];let valid=true,leftHome=false,closed=false;
-  const length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*3));
-  const width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*3));
+  let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*3));
+  let width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*3));
   const bevel=crowded?0:Math.floor(memory.random()*3);
   const naturalClosure=!crowded&&memory.random()<.35;
-  const sides=naturalClosure?[[d,length],[(d+1)%6,width],[(d+2)%6,1+bevel]]:bevel?[[d,length],[(d+1)%6,width],[(d+2)%6,bevel],[(d+3)%6,length],[(d+4)%6,width],[(d+5)%6,bevel]]:
-   [[d,length],[(d+1)%6,width],[(d+3)%6,length],[(d+4)%6,width]];
+  const shape:ExpansionShape=obs.self.personality==='DEFEND'||crowded?(naturalClosure?'NATURAL':bevel?'BEVEL':'RHOMBUS'):EXPANSION_SHAPES[(anchorIndex*6+d+memory.seq)%EXPANSION_SHAPES.length];
+  // Only an explorer near observed pressure scales down. Quiet-space reach
+  // and all hard path/trail/proximity limits remain intact.
+  const nearestHead=Math.min(...obs.others.map(p=>hexDistance(anchor,obs.map.cells[p.cellId])));
+  const downScaled=obs.self.personality==='EXPAND'&&!crowded&&nearestHead<2*(length+width)*.65;
+  if(downScaled){length=Math.max(2,length-1);width=Math.max(1,width-1);}
+  const trace=decisionTraces.get(memory);if(trace)(trace.expansionCandidates??=[]).push(shape);
+  const sides=expansionSides(shape,d,length,width,bevel);
   for(const [direction,length]of sides){if(!valid||closed)break;for(let step=0;step<length;step++){
    const next=obs.map.cells[current].neighbors[direction];if(next<0||forbidden.has(next)){valid=false;break;}
    path.push(next);current=next;
    if(obs.owners[next]!==owner)leftHome=true;else if(leftHome){closed=true;break;}
   }
   }
-  if(valid&&naturalClosure&&leftHome&&!closed){
+  if(valid&&['NATURAL','HOOK','ASYMMETRIC'].includes(shape)&&leftHome&&!closed){
    const used=new Set(path),back=shortestPath(obs.map,current,id=>obs.owners[id]===owner,id=>!used.has(id)&&!forbidden.has(id),24-path.length);
    if(back){path.push(...back);current=back.at(-1)??current;}else valid=false;
   }
@@ -237,10 +286,16 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   if(obs.others.some(enemy=>external.some(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId])<=2)))continue;
   const first=obs.map.cells[path[0]??anchor.id].center,heading=normalizeDirection(first.x-obs.self.position.x,first.y-obs.self.position.y);
   const turn=heading?1-(heading.x*obs.self.direction.x+heading.y*obs.self.direction.y):0;
-  candidates.push({path,score:gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk-turn*2+memory.random()*0.5,goal:stolen>gain.length/2?'STEAL':'EXPAND'});
+  const threatDistance=Math.min(...obs.others.flatMap(enemy=>external.map(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId]))));
+  const excursionRisk=obs.self.personality==='EXPAND'?Math.max(0,(external.length-threatDistance)/obs.config.moveCellsPerSecond)*settings.risk*2:0;
+  const repeatPenalty=obs.self.personality!=='DEFEND'&&memory.lastExpansionShape===shape?1.5:0;
+  if(trace)(trace.expansionAccepted??=[]).push(shape);
+  candidates.push({path,score:gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk-turn*2-excursionRisk-repeatPenalty+memory.random()*0.5,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
  }
  candidates.sort((a,b)=>b.score-a.score);
  const selected=candidates[0];memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
+ const trace=decisionTraces.get(memory);if(trace){trace.expansionPlan=selected?.expansion;if(selected?.expansion)trace.expansionPath=[...selected.path];}
+ memory.expansion=selected?.expansion;if(selected?.expansion)memory.lastExpansionShape=selected.expansion.shape;
  return selected?.path??returnPath(obs)??[];
 }
 export function botLookAhead(obs:BotObservation,goal:BotGoal):number {
@@ -253,7 +308,7 @@ export function botLookAhead(obs:BotObservation,goal:BotGoal):number {
 export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false):DirectionInput|null {
  if(obs.self.lifeState!=='ALIVE')return null;
  let finishTrace:(()=>void)|undefined,perimeterReturn=false;
- if(memory.plannedLifeId!==obs.self.lifeId){memory.path=[];memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.knownHome.clear();memory.grievances.clear();}
+ if(memory.plannedLifeId!==obs.self.lifeId){memory.path=[];memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.knownHome.clear();memory.grievances.clear();memory.expansion=undefined;memory.lastExpansionShape=undefined;}
  if(memory.lastCell!==obs.self.cellId){memory.lastCell=obs.self.cellId;memory.lastProgressTick=obs.tick;}
  const due=obs.tick>=memory.nextDecisionTick;
  if(due){
@@ -274,16 +329,22 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   const attackFinished=attacking&&!targetPresent&&!attack;
   const counterStrike=!!attack&&attack.seconds<=1.25&&obs.ownTrail.length<settings.trailLimit;
   const pressuredExpansion=(memory.goal==='EXPAND'||memory.goal==='STEAL')&&obs.others.some(p=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=6)&&obs.ownTrail.length+memory.path.filter(id=>obs.owners[id]!==obs.self.slot+1).length>6;
+  const expanding=memory.goal==='EXPAND'||memory.goal==='STEAL';
+  const lineDistance=Math.min(...obs.others.flatMap(p=>obs.ownTrail.map(id=>hexDistance(obs.map.cells[id],obs.map.cells[p.cellId]))));
+  const riskGrew=memory.expansion&&!memory.expansion.earlyClosed&&lineDistance<=5&&lineDistance+2<(memory.expansion.threatDistance??Infinity);
+  const nearingBudget=obs.ownTrail.length>=settings.trailLimit-4;
+  const early=obs.self.personality==='EXPAND'&&expanding&&!returnOnly&&!danger&&!counterStrike&&!stuck&&!homeLost&&(riskGrew||nearingBudget||pressuredExpansion)?earlyClosurePath(obs,memory.path,settings.trailLimit):null;
+  if(early){memory.path=early;memory.goal='RETURN';memory.attackTarget=null;memory.attackSlot=null;if(memory.expansion)memory.expansion.earlyClosed=true;if(trace)trace.earlyClosure=true;}
   if((memory.goal==='ESCAPE'||memory.goal==='RETURN')&&atHome&&!obs.ownTrail.length){memory.path=[];memory.goal='EXPAND';}
   // Escape is committed until home. Other opportunities cannot replace it.
-  if(returnOnly||(danger&&!counterStrike)||(pressuredExpansion&&!counterStrike)||stuck||attackFinished||homeLost||(!atHome&&!memory.path.length)){
+  if(returnOnly||(danger&&!counterStrike)||(pressuredExpansion&&!counterStrike&&!early)||stuck||attackFinished||homeLost||(!atHome&&!memory.path.length)){
    if(memory.goal!=='ESCAPE'||!memory.path.length||homeLost||stuck)memory.path=home??[];
    if(trace&&attacking)trace.exitReason=returnOnly?'RETURN_ONLY':stuck?'STUCK':homeLost?'HOME_ROUTE_LOST':danger&&!counterStrike?'DANGER':!targetPresent?'TARGET_GONE':trace.attacks.find(a=>a.target===memory.attackTarget)?.reason??'NO_PLAN';
    memory.goal=danger||memory.goal==='ESCAPE'?'ESCAPE':'RETURN';memory.attackTarget=null;memory.attackSlot=null;
    if(stuck)memory.lastProgressTick=obs.tick;
   }
   const shortDetour=attack&&attack.seconds<=1.25&&home&&attack.totalSeconds<=travelSeconds(obs,obs.self,home)+.85;
-  if(attack&&(!danger||counterStrike)&&(memory.goal==='EXPAND'||memory.goal==='STEAL'||memory.goal==='SEEK_POINT'||(memory.goal==='RETURN'&&shortDetour)||(memory.goal==='ATTACK'&&!targetPresent))){
+  if(attack&&!early&&(!danger||counterStrike)&&(memory.goal==='EXPAND'||memory.goal==='STEAL'||memory.goal==='SEEK_POINT'||(memory.goal==='RETURN'&&shortDetour)||(memory.goal==='ATTACK'&&!targetPresent))){
    memory.path=attack.path;memory.goal='ATTACK';memory.attackTarget=attack.target;memory.attackSlot=attack.slot;
   }
   if(!memory.path.length&&returnOnly){const safe=obs.map.cells[obs.self.cellId].neighbors.filter(id=>obs.owners[id]===obs.self.slot+1);if(safe.length)memory.path=[safe[Math.floor(memory.random()*safe.length)]];}

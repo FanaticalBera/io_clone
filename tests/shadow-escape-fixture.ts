@@ -3,9 +3,10 @@ import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type B
 import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
-// Phase 2 traits and corridor steering change emergent encounters. Seed 19
-// still supplies a real ESCAPE cut-and-return witness (tick 4538).
-export function runShadowEscapeWitness(seed=19){
+// Phase 3 expansion changes emergent encounters. Seed 5 supplies a real
+// ESCAPE cut-and-return witness at tick 229 (cut tick 240). All conditions
+// remain verified through normal movement and the independent branch.
+export function runShadowEscapeWitness(seed=5){
  const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot)),traces:(BotDecisionTrace|undefined)[]=Array(8);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};
