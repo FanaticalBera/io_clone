@@ -208,13 +208,21 @@ function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,locked=f
 }
 // Evaluate the same enclosure rule as capture: home plus the planned trail
 // blocks flood-fill from the outer edge. Retracing a line has no area bonus.
+const plannedCaptureWork=new WeakMap<MapDefinition,{blocked:Uint8Array;visited:Uint8Array;queue:Int32Array;boundary:number[]}>();
 export function plannedCapture(obs:BotObservation,path:number[]):number[] {
- const owner=obs.self.slot+1,blocked=new Set(path),visited=new Uint8Array(obs.map.cells.length),queue:number[]=[];
- for(const cell of obs.map.cells)if(obs.owners[cell.id]!==owner&&!blocked.has(cell.id)&&cell.neighbors.includes(-1)){visited[cell.id]=1;queue.push(cell.id);}
- for(let head=0;head<queue.length;head++)for(const id of obs.map.cells[queue[head]].neighbors){
-  if(id<0||visited[id]||obs.owners[id]===owner||blocked.has(id))continue;visited[id]=1;queue.push(id);
+ // Profiling R56/16 identified candidate flood fills as the main hotspot.
+ // Reuse storage and index exterior seeds, retaining the same full-map flood,
+ // neighbor order and ascending result order (no local approximation).
+ let work=plannedCaptureWork.get(obs.map);if(!work){const count=obs.map.cells.length;
+  work={blocked:new Uint8Array(count),visited:new Uint8Array(count),queue:new Int32Array(count),boundary:obs.map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id)};plannedCaptureWork.set(obs.map,work);
  }
- return obs.map.cells.filter(c=>obs.owners[c.id]!==owner&&!visited[c.id]).map(c=>c.id);
+ const owner=obs.self.slot+1,{blocked,visited,queue,boundary}=work;blocked.fill(0);visited.fill(0);for(const id of path)blocked[id]=1;
+ let tail=0;
+ for(const id of boundary)if(obs.owners[id]!==owner&&!blocked[id]){visited[id]=1;queue[tail++]=id;}
+ for(let head=0;head<tail;head++)for(const id of obs.map.cells[queue[head]].neighbors){
+  if(id<0||visited[id]||obs.owners[id]===owner||blocked[id])continue;visited[id]=1;queue[tail++]=id;
+ }
+ const result:number[]=[];for(let id=0;id<obs.map.cells.length;id++)if(obs.owners[id]!==owner&&!visited[id])result.push(id);return result;
 }
 // A shortened enclosure avoids retracing the existing trail. Emergency escape
 // still uses returnPath; this is only a pre-emptive, area-preserving closure.

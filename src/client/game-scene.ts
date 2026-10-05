@@ -7,14 +7,20 @@ import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
 import {GAME_MODES} from '../shared/modes.js';
 import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
 import {renderPixelRatio} from './render-viewport.js';
-export const COLORS=[0x16cdb1,0xffb43b,0xa180f4,0x359aff,0xff7084,0xb5ce50,0xf3945c,0x59bfd8];
+import {slotBit} from '../shared/slots.js';
+import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
+export const COLORS=[0x16cdb1,0xffb43b,0xa180f4,0x359aff,0xff7084,0xb5ce50,0xf3945c,0x59bfd8,
+ 0xdc57bd,0x8575d6,0x269779,0xbd8432,0xd65649,0x557ab5,0x859535,0x9b644d];
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
  private presentation=new Presentation();private online=false;private predictedLine?:Phaser.GameObjects.Graphics;
- private ground?:Phaser.GameObjects.Graphics;private groundImage?:Phaser.GameObjects.Image;private groundKey='';
+ private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
+ private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
  private chunks=new Map<string,Phaser.GameObjects.Graphics>();
- private lastOwners=new Uint8Array();private lastTrails=new Uint8Array();
+ private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
+ private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
+ private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
  private avatars=new Map<string,{container:Phaser.GameObjects.Container;body:Phaser.GameObjects.Arc;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
  private followTarget:Phaser.GameObjects.Container|null=null;
  private renderedAt=0;
@@ -56,37 +62,55 @@ export class GameScene extends Phaser.Scene {
   if(alpha){g.fillStyle(fill,alpha);g.fillPoints(vertices,true);}
   if(outline!==undefined){g.lineStyle(1,outline,0.8);g.strokePoints(vertices,true);}
  }
- private chunkKey(id:number):string {const c=this.map!.cells[id];return Math.floor((c.q+this.map!.radius)/16)+':'+Math.floor((c.r+this.map!.radius)/16);}
+ private chunkKey(id:number):string {return this.cellChunkKeys[id];}
  private drawView(view:MatchView):void {
   if(!this.map||this.map.mapId!==view.mapId){
+   const initAt=performance.now();
    this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
-   this.ground?.destroy();this.groundImage?.destroy();if(this.groundKey)this.textures.remove(this.groundKey);
-   const all=this.map.cells.flatMap(c=>c.vertices),minX=Math.floor(Math.min(...all.map(v=>v.x)))-3,minY=Math.floor(Math.min(...all.map(v=>v.y)))-3;
-   const width=Math.ceil(Math.max(...all.map(v=>v.x)))-minX+3,height=Math.ceil(Math.max(...all.map(v=>v.y)))-minY+3;
-   this.ground=this.add.graphics().setVisible(false).setData('origin',{x:minX,y:minY});
+   for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();this.boundary?.destroy();
+   if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
    for(const text of this.points)text.destroy();this.points=[];
-   for(const c of this.map.cells){this.hex(this.ground,c.id,0xf5f2e9,1,0xd3d2c8);const key=this.chunkKey(c.id);if(!this.chunks.has(key))this.chunks.set(key,this.add.graphics().setDepth(1));}
-   this.ground.lineStyle(3,0x9ba5a0,1);for(const e of this.map.boundaryEdges)this.ground.lineBetween(e.a.x-minX,e.a.y-minY,e.b.x-minX,e.b.y-minY);
-   this.groundKey='ground-'+this.map.mapId;this.ground.generateTexture(this.groundKey,width,height);
-   this.groundImage=this.add.image(minX,minY,this.groundKey).setOrigin(0).setDepth(0);
+   const index=indexRenderChunks(this.map);this.chunkIndex=index.chunks;this.cellChunkKeys=index.keys;
+   const groundAt=performance.now();
+   // All cells share one tiny hex texture. Prebuilt Blitter chunks batch fixed
+   // quads instead of tessellating thousands of Graphics paths every frame.
+   const side=this.map.side,minX=Math.floor(-Math.sqrt(3)*side/2)-2,minY=-Math.ceil(side)-2;
+   const width=Math.ceil(Math.sqrt(3)*side/2)-minX+2,height=Math.ceil(side)-minY+2;
+   const prototype=this.add.graphics().setVisible(false),center=this.map.cells[0].center;
+   const vertices=this.map.cells[0].vertices.map(v=>({x:v.x-center.x-minX,y:v.y-center.y-minY}));
+   prototype.fillStyle(0xf5f2e9,1).fillPoints(vertices,true);prototype.lineStyle(1,0xd3d2c8,.8).strokePoints(vertices,true);
+   this.groundKey='ground-hex-'+this.map.mapId;prototype.generateTexture(this.groundKey,width,height);prototype.destroy();
+   for(const [key,chunk]of this.chunkIndex){
+    const ground=this.add.blitter(0,0,this.groundKey).setDepth(0);for(const id of chunk.cells){const c=this.map.cells[id];ground.create(c.center.x+minX,c.center.y+minY);}
+    ground.getRenderList();
+    this.groundChunks.set(key,ground);this.chunks.set(key,this.add.graphics().setDepth(1));
+   }
+   this.boundary=this.add.graphics().setDepth(0).lineStyle(3,0x9ba5a0,1);
+   for(const e of this.map.boundaryEdges)this.boundary.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+   this.metrics.groundPreparationMs=performance.now()-groundAt;
    for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8},resolution:this.pixelRatio}).setOrigin(0.5).setDepth(4));}
-   this.lastOwners=new Uint8Array(this.map.cells.length).fill(255);this.lastTrails=new Uint8Array(this.map.cells.length).fill(255);
+   this.lastOwners=new Uint8Array(this.map.cells.length).fill(255);this.lastTrails=new Uint16Array(this.map.cells.length);
+   this.miniLayer=undefined;this.miniPaths=[];this.miniOwners=new Uint8Array();this.lastMini=-Infinity;
+   this.metrics.minimapPreparationMs=0;
+   this.metrics.mapInitMs=performance.now()-initAt;
   }
+  const redrawAt=performance.now();
   const dirty=new Set<string>();
   for(let id=0;id<view.owners.length;id++)if(this.lastOwners[id]!==view.owners[id]||this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
   for(const key of dirty){
    const g=this.chunks.get(key)!;g.clear();
-   for(const c of this.map.cells)if(this.chunkKey(c.id)===key){
+   for(const id of this.chunkIndex.get(key)!.cells){const c=this.map.cells[id];
     const owner=view.owners[c.id],mask=view.trailMasks[c.id];
     if(owner)this.hex(g,c.id,COLORS[owner-1],0.92,0xf5f2e9);
-    for(let slot=0;slot<8;slot++)if(mask&(1<<slot)){
+    for(let slot=0;slot<view.config.maxSlots;slot++)if(mask&slotBit(slot)){
      // The entire traversed hex is vulnerable; keep it visibly lighter than captured land.
      this.hex(g,c.id,COLORS[slot],0.28,COLORS[slot]);
     }
    }
   }
   this.lastOwners.set(view.owners);this.lastTrails.set(view.trailMasks);
+  this.metrics.territoryRedrawMs=performance.now()-redrawAt;
   const present=new Set(view.participants.map(p=>p.participantId));
   for(const [id,avatar]of this.avatars)if(!present.has(id)){avatar.container.destroy();this.avatars.delete(id);}
   for(const p of view.participants){
@@ -113,34 +137,55 @@ export class GameScene extends Phaser.Scene {
   this.cameras.main.setZoom(this.cssZoom()*this.pixelRatio);
   document.querySelector('#field')?.setAttribute('data-chunks',String(this.chunks.size));
   document.querySelector('#field')?.setAttribute('data-avatars',String(this.avatars.size));
+  document.querySelector('#field')?.setAttribute('data-ground-chunks',String(this.groundChunks.size));
  }
  update(time:number):void {
   if(!this.map||!this.view)return;
   const now=performance.now();this.renderedAt=now;
   this.combat?.update(now);
   for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);}
+  const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
+  // camera.worldView is the last completed frame; one whole chunk margin also
+  // covers normal movement before the next camera pre-render.
+  const rect=camera.worldView;
+  for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
+   this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);
+  }
   if(this.online){
    this.predictedLine??=this.add.graphics().setDepth(3);this.predictedLine.clear();
    const self=this.view.participants.find(p=>p.participantId===this.selfId),position=self&&this.presentation.position(self.participantId,now);
    if(self?.lifeState==='ALIVE'&&position&&this.view.phase==='RUNNING'){
     const cell=worldCell(this.map,position);if(cell>=0&&this.view.owners[cell]!==self.slot+1){
      // The unconfirmed head cell is a quieter preview, replaced by the next snapshot.
-     if(!(this.view.trailMasks[cell]&(1<<self.slot)))this.hex(this.predictedLine,cell,COLORS[self.slot],0.13);
+     if(!(this.view.trailMasks[cell]&slotBit(self.slot)))this.hex(this.predictedLine,cell,COLORS[self.slot],0.13);
     }
    }
   }else this.predictedLine?.clear();
   if(time-this.lastMini<250)return;this.lastMini=time;
   const canvas=document.querySelector<HTMLCanvasElement>('#minimap');if(!canvas||canvas.hidden)return;
   const context=canvas.getContext('2d');if(!context)return;
+  const miniAt=performance.now();
   const width=240,height=204,backingWidth=Math.max(width,Math.round(canvas.clientWidth*this.pixelRatio)),backingHeight=Math.max(height,Math.round(canvas.clientHeight*this.pixelRatio));
   if(backingWidth<1||backingHeight<1)return;
   if(canvas.width!==backingWidth||canvas.height!==backingHeight){canvas.width=backingWidth;canvas.height=backingHeight;}
   context.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
   const scale=Math.min((width-20)/(Math.sqrt(3)*this.map.side*(this.map.radius*2+1)),(height-20)/(this.map.side*(this.map.radius*3+2)));
   context.clearRect(0,0,width,height);context.fillStyle='#f5f2e9';context.fillRect(0,0,width,height);
-  for(const c of this.map.cells){const owner=this.view.owners[c.id];context.fillStyle=owner?cssColor(COLORS[owner-1]):'#eeebe2';context.strokeStyle='#d8d7cc';context.lineWidth=.35;context.beginPath();c.vertices.forEach((v,i)=>{const x=width/2+v.x*scale,y=height/2+v.y*scale;if(i===0)context.moveTo(x,y);else context.lineTo(x,y);});context.closePath();context.fill();context.stroke();}
+  const prepareMini=!this.miniLayer||this.miniLayer.width!==backingWidth||this.miniLayer.height!==backingHeight;
+  if(prepareMini){
+   this.miniLayer=document.createElement('canvas');this.miniLayer.width=backingWidth;this.miniLayer.height=backingHeight;
+   this.miniOwners=new Uint8Array(this.map.cells.length).fill(255);
+   this.miniPaths=this.map.cells.map(c=>{const path=new Path2D();c.vertices.forEach((v,i)=>{const x=width/2+v.x*scale,y=height/2+v.y*scale;if(i===0)path.moveTo(x,y);else path.lineTo(x,y);});path.closePath();return path;});
+  }
+  const layer=this.miniLayer!.getContext('2d')!;layer.setTransform(backingWidth/width,0,0,backingHeight/height,0,0);
+  const miniDirty=new Set<number>();
+  for(const c of this.map.cells)if(this.miniOwners[c.id]!==this.view.owners[c.id]){miniDirty.add(c.id);for(const id of c.neighbors)if(id>=0)miniDirty.add(id);}
+  for(const id of miniDirty){const owner=this.view.owners[id];layer.fillStyle=owner?cssColor(COLORS[owner-1]):'#eeebe2';layer.strokeStyle='#d8d7cc';layer.lineWidth=.35;layer.fill(this.miniPaths[id]);layer.stroke(this.miniPaths[id]);}
+  this.miniOwners.set(this.view.owners);context.drawImage(this.miniLayer!,0,0,width,height);
+  if(prepareMini)this.metrics.minimapPreparationMs=performance.now()-miniAt;
   if(GAME_MODES[this.view!.gameMode.id].usesControlPoints)for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId],x=width/2+c.center.x*scale,y=height/2+c.center.y*scale;context.fillStyle='#ffb43b';context.beginPath();context.moveTo(x,y-3);context.lineTo(x+3,y);context.lineTo(x,y+3);context.lineTo(x-3,y);context.closePath();context.fill();}
   const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(COLORS[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(COLORS[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
+  this.metrics.minimapUpdateMs=performance.now()-miniAt;
  }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;
@@ -151,6 +196,9 @@ export class GameScene extends Phaser.Scene {
   const vector={x:target.x-position.x,y:target.y-position.y};return Math.hypot(vector.x,vector.y)*this.cssZoom()<MOUSE_DEAD_ZONE?null:vector;
  }
  combatState():ReturnType<CombatEffects['state']>|null{return this.combat?.state()??null;}
+ resourceState(){const source=this.groundKey?this.textures.get(this.groundKey).source[0]:undefined;return {...this.metrics,groundChunks:this.groundChunks.size,territoryChunks:this.chunks.size,visibleGroundChunks:[...this.groundChunks.values()].filter(g=>g.visible).length,textures:this.textures.getTextureKeys().length,groundTextures:source?1:0,groundTextureSize:source?{width:source.width,height:source.height}:null,groundCells:[...this.groundChunks.values()].reduce((n,g)=>n+g.children.length,0),avatars:this.avatars.size,culling:this.cullChunks};}
+ setChunkCulling(enabled:boolean):void{this.cullChunks=enabled;}
+ testCamera(x:number,y:number):void{this.cameras.main.stopFollow();this.followTarget=null;this.cameras.main.centerOn(x,y);}
  renderState():{renderedAt:number;camera:{x:number;y:number};zoom:number;pixelRatio:number;backing:{width:number;height:number};viewport:{width:number;height:number};centerError:number;tick:number;lifeId:number|null;lifeState:string|null} {
   const self=this.view?.participants.find(p=>p.participantId===this.selfId),avatar=self&&this.avatars.get(self.participantId)?.container,camera=this.cameras.main;
   return {renderedAt:this.renderedAt,camera:{x:camera.scrollX,y:camera.scrollY},zoom:camera.zoom/this.pixelRatio,pixelRatio:this.pixelRatio,backing:{width:this.game.canvas.width,height:this.game.canvas.height},viewport:{width:this.viewportWidth,height:this.viewportHeight},centerError:avatar?Math.hypot(avatar.x-camera.midPoint.x,avatar.y-camera.midPoint.y):0,tick:this.view?.tick??0,lifeId:self?.lifeId??null,lifeState:self?.lifeState??null};

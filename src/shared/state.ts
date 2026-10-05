@@ -21,7 +21,7 @@ export function createState(config: Partial<GameConfig>, seed: number, specs: Pa
  }
  const random = seededRandom(seed);
  return { matchId, seed, tick: 0, config: checked, map, participants: specs.map(makeParticipant),
- owners: new Uint8Array(map.cells.length), trailMasks: new Uint8Array(map.cells.length),
+ owners: new Uint8Array(map.cells.length), trailMasks: new Uint16Array(map.cells.length),
  priority: shuffled([...slots].sort((a,b) => a-b), random),
  spawnOrder: shuffled(map.cells.map(c => c.id), random), phase: 'RUNNING',
  events: [], eventCounter: 0, results: null, departed: [],gameMode:validateMode(gameMode),modeState:{holds:[]},outcome:null };

@@ -11,6 +11,7 @@ import {normalizeNickname} from '../shared/names.js';
 import type {Session,SessionStore} from './sessions.js';
 import {createMode,roundDeadlineTicks,isGameModeId,type GameModeConfig,type GameModeId,type ModeSettings} from '../shared/modes.js';
 export interface Member {memberId:string;session:Session;nickname:string;joinOrder:number;waitingForNextRound:boolean;graceUntil:number|null}
+export const MAX_HUMAN_ROOM_MEMBERS=8;
 export interface Room {
  roomId:string;mode:'PUBLIC'|'FRIEND';readonly gameMode:GameModeConfig;code:string|null;createdAt:number;phase:RoomPhase;phaseDeadline:number|null;
  members:Map<string,Member>;hostId:string|null;match:MatchState|null;roundNumber:number;revision:number;snapshotSeq:number;
@@ -38,7 +39,7 @@ export class RoomManager {
   if(session.roomId)return {ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
   this.advance();
-  let room:Room|undefined=[...this.rooms.values()].filter(r=>r.mode==='PUBLIC'&&r.gameMode.id===gameMode&&r.members.size<8&&(r.phase==='WAITING'||r.phase==='COUNTDOWN'&&r.roundNumber===0)).sort((a,b)=>a.createdAt-b.createdAt)[0];
+  let room:Room|undefined=[...this.rooms.values()].filter(r=>r.mode==='PUBLIC'&&r.gameMode.id===gameMode&&r.members.size<Math.min(MAX_HUMAN_ROOM_MEMBERS,this.config.maxSlots)&&(r.phase==='WAITING'||r.phase==='COUNTDOWN'&&r.roundNumber===0)).sort((a,b)=>a.createdAt-b.createdAt)[0];
   if(!room)room=this.createRoom('PUBLIC',gameMode)??undefined;
   if(!room)return{ok:false,code:'SERVER_BUSY',message:'대전 서버가 가득 찼습니다. 잠시 후 다시 시도하세요.'};
   this.addMember(room,session,name);return{ok:true,roomId:room.roomId};
@@ -58,7 +59,7 @@ createFriend(session:Session,nickname:unknown,gameMode:GameModeId='classic'):Ack
   this.advance();const code=typeof rawCode==='string'?rawCode.trim().toUpperCase():'';
   const room=[...this.rooms.values()].find(r=>r.code===code&&r.mode==='FRIEND'&&r.phase!=='CLOSED');
   if(!/^[A-HJ-NP-Z2-9]{8}$/.test(code)||!room)return{ok:false,code:'ROOM_NOT_FOUND',message:'존재하지 않는 방 코드입니다.'};
-  if(room.members.size>=8)return{ok:false,code:'ROOM_FULL',message:'친구 방의 사람 정원 8명이 모두 찼습니다.'};
+  if(room.members.size>=Math.min(MAX_HUMAN_ROOM_MEMBERS,this.config.maxSlots))return{ok:false,code:'ROOM_FULL',message:'친구 방의 사람 정원이 모두 찼습니다.'};
   this.addMember(room,session,name,room.phase!=='WAITING');return{ok:true,roomId:room.roomId};
  }
  start(session:Session):Ack {
@@ -91,7 +92,7 @@ createFriend(session:Session,nickname:unknown,gameMode:GameModeId='classic'):Ack
   if(!members.length){room.phase='WAITING';room.phaseDeadline=null;room.revision++;return;}
   const matchId=room.roomId+':round:'+ (++room.roundNumber);
   const humans=members.map((m,slot)=>({participantId:m.memberId,slot,nickname:m.nickname,kind:'HUMAN' as const}));
-  const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(8-humans.length,humans.length,matchId)],matchId,room.gameMode);
+  const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(this.config.maxSlots-humans.length,humans.length,matchId)],matchId,room.gameMode);
   this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
   room.snapshotSeq=0;room.accumulator=0;room.lastStepAt=at;room.phase='RUNNING';room.phaseDeadline=null;room.revision++;
   for(const member of members){member.session.highestReceivedSeq=0;}

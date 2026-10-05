@@ -1,3 +1,4 @@
+import {slotBit} from './slots.js';
 import {moveSpeed} from './config.js';
 import {tryRespawns} from './spawn.js';
 import {finishMatch} from './scoring.js';
@@ -62,7 +63,7 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
  const cuts=new Map<Participant,Set<Participant>>();
  const cutContexts=new Map<Participant,Map<Participant,DeathContext>>();
  for(const [id,attacker]of winners)for(const victim of match.participants){
-  if(victim!==attacker&&victim.lifeState==='ALIVE'&&(match.trailMasks[id]&(1<<victim.slot))){
+  if(victim!==attacker&&victim.lifeState==='ALIVE'&&(match.trailMasks[id]&(slotBit(victim.slot)))){
    const attackers=cuts.get(victim)??new Set<Participant>();attackers.add(attacker);cuts.set(victim,attackers);
    const contexts=cutContexts.get(victim)??new Map<Participant,DeathContext>();if(!contexts.has(attacker))contexts.set(attacker,{cause:'TRAIL_CAPTURE',cellId:id,eventTick});cutContexts.set(victim,contexts);
   }
@@ -112,7 +113,7 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
   const marked=markDead(match,victim,'TRAIL_CUT',killer,cutContexts.get(victim)?.get(killer),diagnostic);if(record)record.markedDead=marked;
  }
  if(trace&&observer){for(const record of trace){const p=match.participants.find(p=>p.participantId===record.participantId)!;record.lifeStateAfter=p.lifeState;
-  record.ownerCellsAfter=match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0);record.trailMaskCellsAfter=match.trailMasks.reduce((sum,mask)=>sum+Number((mask&(1<<p.slot))!==0),0);
+  record.ownerCellsAfter=match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0);record.trailMaskCellsAfter=match.trailMasks.reduce((sum,mask)=>sum+Number((mask&(slotBit(p.slot)))!==0),0);
  }observer({tick:match.tick,participants:trace});}
 }
 export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set()):void {
@@ -125,13 +126,13 @@ export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:
    if(match.owners[p.cellId]!==p.slot+1){
     p.protectedUntilTick=0;
     if(!p.trailCells.has(p.cellId))pending.set(p,p.cellId);
-    masks[p.cellId]|=1<<p.slot;
+    masks[p.cellId]|=slotBit(p.slot);
    }
   }
   const deaths=new Map<Participant,Participant[]>();
   for(const attacker of alive){
    if(isProtected(match,attacker,eventTick))continue;
-   for(const victim of alive)if(victim!==attacker&&(masks[attacker.cellId]&(1<<victim.slot))){
+   for(const victim of alive)if(victim!==attacker&&(masks[attacker.cellId]&(slotBit(victim.slot)))){
     const attackers=deaths.get(victim)??[];attackers.push(attacker);deaths.set(victim,attackers);
    }
   }
@@ -140,7 +141,7 @@ export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:
   const diagnostics=audit?new Map<Participant,ResolutionDeathDiagnostic>(alive.map(p=>[p,{eventTick,iteration,ownersBefore,trailMasksBefore,pendingTrails,victimTrailBefore:[...p.trailCells],existingTrailContact:false,pendingTrailContact:false,captureOverlapCells:[],wallIntersection:wallVictims.has(p.participantId)}])):null;
   for(const [victim,attackers]of deaths){
    attackers.sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
-   const attacker=attackers[0],existing=(existingMasks[attacker.cellId]&(1<<victim.slot))!==0,provisional=pending.get(victim)===attacker.cellId;
+   const attacker=attackers[0],existing=(existingMasks[attacker.cellId]&(slotBit(victim.slot)))!==0,provisional=pending.get(victim)===attacker.cellId;
    const diagnostic=diagnostics?.get(victim);if(diagnostic){diagnostic.existingTrailContact=existing;diagnostic.pendingTrailContact=provisional;}
    markDead(match,victim,'TRAIL_CUT',attacker,{cause:existing?'EXISTING_TRAIL_CONTACT':'PENDING_TRAIL_CONTACT',cellId:attacker.cellId,eventTick},diagnostic);
   }

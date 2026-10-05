@@ -1,7 +1,8 @@
 import type { MatchState,Participant } from './model.js';
+import {slotBit} from './slots.js';
 export function participantForOwner(match:MatchState,owner:number):Participant|undefined { return match.participants.find(p=>p.slot+1===owner); }
 export function setOwner(match:MatchState,cellId:number,owner:number):void {
- if(!Number.isInteger(cellId)||cellId<0||cellId>=match.owners.length||!Number.isInteger(owner)||owner<0||owner>8||
+ if(!Number.isInteger(cellId)||cellId<0||cellId>=match.owners.length||!Number.isInteger(owner)||owner<0||owner>match.config.maxSlots||
      (owner>0&&!participantForOwner(match,owner)))throw new Error('Invalid ownership');
  const previous=match.owners[cellId];if(previous===owner)return;
  const old=participantForOwner(match,previous),next=participantForOwner(match,owner);
@@ -10,10 +11,10 @@ export function setOwner(match:MatchState,cellId:number,owner:number):void {
 export function addTrail(match:MatchState,p:Participant,cellId:number):void {
  if(p.lifeState!=='ALIVE')return;
  if(!match.map.cells[cellId])throw new Error('Invalid trail cell');
- p.trailCells.add(cellId);match.trailMasks[cellId]|=1<<p.slot;
+ p.trailCells.add(cellId);match.trailMasks[cellId]|=slotBit(p.slot);
 }
 export function clearTrail(match:MatchState,p:Participant):void {
- for(const cell of p.trailCells)match.trailMasks[cell]&=~(1<<p.slot);
+ for(const cell of p.trailCells)match.trailMasks[cell]&=~slotBit(p.slot);
  p.trailCells.clear();
  p.trailOriginCellId=null;
 }

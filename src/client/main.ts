@@ -11,7 +11,7 @@ import {KillHaptics} from './haptics.js';
 import type {MatchView} from '../shared/model.js';
 import type {WireSnapshot,RoomView} from '../shared/protocol.js';
 import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js';
-import {experimentalMapConfig,experimentalSeed} from '../shared/map-experiment.js';
+import {experimentalMapConfig,experimentalSeed,experimentalSlotConfig} from '../shared/map-experiment.js';
 import './style.css';
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
@@ -26,7 +26,7 @@ const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
 input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();});
-if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getCombatState:()=>scene.combatState(),transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
+if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8))),null);
 function display(view:MatchView,selfId:string,init=false):void {
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);
@@ -44,7 +44,7 @@ async function stopOnline():Promise<void> {
 }
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.showGame('PRACTICE');
- const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment=experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
+ const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment={...experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),...experimentalSlotConfig(experimentParams.get('experimentSlots'),experimentEnabled)},seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
  practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,diagnostics:diagnosticsEnabled});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }

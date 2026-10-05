@@ -1,4 +1,5 @@
-export const PROTOCOL_VERSION = 3;
+import {MAX_MATCH_SLOTS} from './slots.js';
+export const PROTOCOL_VERSION = 4;
 export const HEX_EPS = 1e-7;
 export const MAX_ENTRY_EVENTS = 64;
 export interface GameConfig {
@@ -25,7 +26,7 @@ export function validateConfig(overrides: Partial<GameConfig> = {}): GameConfig 
  }
  for (const key of ['simulationHz','snapshotHz','inputMaxHz','maxSlots','mapRadius','spawnRadius','spawnBufferHexes'] as const)
   if (!Number.isInteger(config[key])) throw new Error('Expected integer: ' + key);
- if (config.maxSlots > 8 || config.mapRadius < config.spawnRadius + 1 || config.mapRadius > 64 ||
+ if (config.maxSlots > MAX_MATCH_SLOTS || config.mapRadius < config.spawnRadius + 1 || config.mapRadius > 64 ||
      config.snapshotHz > config.simulationHz || config.simulationHz % config.snapshotHz !== 0 ||
      config.resultsSecondsIncludingCountdown <= config.countdownSeconds ||
      !Number.isInteger(config.roundSeconds * config.simulationHz))

@@ -7,7 +7,7 @@ import type {ModeSettings} from '../shared/modes.js';
 import type {MatchState} from '../shared/model.js';
 import type {Ack,ClientEvents,ServerEvents,CommandRequest} from '../shared/protocol.js';
 import {SessionStore,attachSessions,type Session} from './sessions.js';
-import {RoomManager} from './rooms.js';
+import {RoomManager,MAX_HUMAN_ROOM_MEMBERS} from './rooms.js';
 import {GameLoop} from './loop.js';
 import {attachDirection} from './transport.js';
 import {Limits,allowedOrigin,validateOrigins} from './limits.js';
@@ -27,7 +27,7 @@ export function createGameServer(options:ServerOptions={}){
    if(!socket||socket.id!==sourceSocketId||socket.data.generation!==session.generation)return{ok:false,code:'SESSION_EXPIRED',message:'연결을 다시 확인하세요.'};
    return sessions.request(session,raw,request=>{
     if(request.gameMode!==undefined&&!['room:create','room:quickJoin'].includes(event))return{ok:false,code:'INVALID_INPUT',message:'이 요청에서는 방의 모드를 변경할 수 없습니다.'};
-    const creates=event==='room:create'&&!session.roomId||event==='room:quickJoin'&&!session.roomId&&![...rooms.rooms.values()].some(r=>r.mode==='PUBLIC'&&r.gameMode.id===(request.gameMode??'classic')&&r.members.size<8&&(r.phase==='WAITING'||r.phase==='COUNTDOWN'&&r.roundNumber===0));
+    const creates=event==='room:create'&&!session.roomId||event==='room:quickJoin'&&!session.roomId&&![...rooms.rooms.values()].some(r=>r.mode==='PUBLIC'&&r.gameMode.id===(request.gameMode??'classic')&&r.members.size<Math.min(MAX_HUMAN_ROOM_MEMBERS,rooms.config.maxSlots)&&(r.phase==='WAITING'||r.phase==='COUNTDOWN'&&r.roundNumber===0));
     try{return limits.request(session,event,socket.handshake.address,creates,()=>action(request));}
     catch{options.log?.('command_error',{event});return{ok:false,code:'INTERNAL_ERROR',message:'요청을 처리하지 못했습니다. 다시 시도하세요.'};}
    });

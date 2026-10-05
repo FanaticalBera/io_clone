@@ -1,3 +1,4 @@
+import { slotBit } from './slots.js';
 import { clearTrail, neutralizeTerritory } from './territory.js';
 export function emitEvent(match, event) {
     match.events.push({ ...event, eventId: match.matchId + ':' + (++match.eventCounter), tick: match.tick });
@@ -16,7 +17,7 @@ export function markDead(match, p, reason, killer, context, diagnostic) {
     if (observer) {
         const first = p.trailCells.values().next().value;
         observer({ tick: match.tick, victimId: p.participantId, victimKind: p.kind, lifeId: p.lifeId, reason, context, killerId: killer?.participantId, killerCell: killer?.cellId, victimCell: p.cellId, position: { ...p.position }, trailCells: [...p.trailCells], territoryCount: p.territoryCount,
-            ownerCells: match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0), trailMaskCells: match.map.cells.filter(c => (match.trailMasks[c.id] & (1 << p.slot)) !== 0).map(c => c.id),
+            ownerCells: match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0), trailMaskCells: match.map.cells.filter(c => (match.trailMasks[c.id] & (slotBit(p.slot))) !== 0).map(c => c.id),
             rootHomeNeighbors: first === undefined ? [] : match.map.cells[first].neighbors.filter(id => id >= 0 && match.owners[id] === p.slot + 1), pendingContact: diagnostic?.pendingTrailContact ?? (context?.cause === 'PENDING_TRAIL_CONTACT'), originCellId: p.trailOriginCellId, originOwner: p.trailOriginCellId === null ? null : match.owners[p.trailOriginCellId], diagnostic });
     }
     clearTrail(match, p);

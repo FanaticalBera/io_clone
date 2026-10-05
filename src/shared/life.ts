@@ -1,3 +1,4 @@
+import {slotBit} from './slots.js';
 import type {MatchState,Participant,GameEvent,ResultRow,DeathContext,Vec} from './model.js';
 import {clearTrail,neutralizeTerritory} from './territory.js';
 export function emitEvent(match:MatchState,event:Omit<GameEvent,'eventId'|'tick'>):void {
@@ -15,7 +16,7 @@ export function markDead(match:MatchState,p:Participant,reason:string,killer?:Pa
  if(p.lifeState!=='ALIVE'||match.phase!=='RUNNING')return false;
  const observer=deathObservers.get(match);
  if(observer){const first=p.trailCells.values().next().value;observer({tick:match.tick,victimId:p.participantId,victimKind:p.kind,lifeId:p.lifeId,reason,context,killerId:killer?.participantId,killerCell:killer?.cellId,victimCell:p.cellId,position:{...p.position},trailCells:[...p.trailCells],territoryCount:p.territoryCount,
-  ownerCells:match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0),trailMaskCells:match.map.cells.filter(c=>(match.trailMasks[c.id]&(1<<p.slot))!==0).map(c=>c.id),
+  ownerCells:match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0),trailMaskCells:match.map.cells.filter(c=>(match.trailMasks[c.id]&(slotBit(p.slot)))!==0).map(c=>c.id),
   rootHomeNeighbors:first===undefined?[]:match.map.cells[first].neighbors.filter(id=>id>=0&&match.owners[id]===p.slot+1),pendingContact:diagnostic?.pendingTrailContact??(context?.cause==='PENDING_TRAIL_CONTACT'),originCellId:p.trailOriginCellId,originOwner:p.trailOriginCellId===null?null:match.owners[p.trailOriginCellId],diagnostic});}
  clearTrail(match,p);neutralizeTerritory(match,p);p.lifeState='DEAD_WAIT';p.deaths++;
  match.modeState.holds=match.modeState.holds.filter(h=>h.participantId!==p.participantId);

@@ -33,7 +33,8 @@ test('T27 same authoritative capture, old-trail cut, respawn and result in two b
    await direction(a,target.x-pa.position.x,target.y-pa.position.y);
    await until(()=>room.inputs.has(pa.participantId));
    while(Math.hypot(target.x-pa.position.x,target.y-pa.position.y)>Math.sqrt(3)*32*0.35){
-    if(m.tick-start>150)throw new Error('Waypoint did not complete');await tick();
+    if(m.tick-start>150)throw new Error('Waypoint did not complete');
+    await direction(a,target.x-pa.position.x,target.y-pa.position.y);await tick();
    }
   }
   for(const [q,r]of [[3,0],[3,-3],[0,-3],[0,0]])await draw(q,r);

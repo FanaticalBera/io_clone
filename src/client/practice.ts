@@ -3,7 +3,7 @@ import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type B
 import {watchDeaths,type DeathTrace} from '../shared/life.js';
 import type {ShadowOpportunity} from '../shared/bot-opportunity.js';
 import type {MatchState,MatchView,Vec,DirectionInput} from '../shared/model.js';
-import type {GameConfig} from '../shared/config.js';
+import {validateConfig,type GameConfig} from '../shared/config.js';
 import type {GameModeConfig} from '../shared/modes.js';
 export class PracticeSession {
  readonly selfId='local-human';readonly match:MatchState;
@@ -14,7 +14,7 @@ export class PracticeSession {
  private visibility=()=>{this.lastTime=null;this.accumulated=0;};
  constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean}={}){
   const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed;
-  this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(7,1,matchId)],matchId,options.gameMode);
+  this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
   if(options.diagnostics){
    const data:NonNullable<PracticeSession['diagnosticData']>={deathCauses:{},decisionCount:0,escapeDecisionCount:0,clearDecisionCount:0,missedReasons:{},candidateReasons:{},deaths:[],missed:[]};this.diagnosticData=data;

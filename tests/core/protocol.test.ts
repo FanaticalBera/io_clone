@@ -7,9 +7,9 @@ describe('T20: strict complete snapshot and input contract',()=>{
  it('round trips all 1519 board bytes and contains no private state',()=>{
   const v=view(),wire=packSnapshot(v,1,100,'bot-0'),decoded=unpackSnapshot(wire);
   expect(decoded.owners).toEqual(v.owners);expect(decoded.trailMasks).toEqual(v.trailMasks);
-  expect(wire.owners.length+wire.trailMasks.length).toBe(4056);
+  expect(wire.owners.length+wire.trailMasks.length).toBe(4*Math.ceil(1519/3)+4*Math.ceil(3038/3));
   expect(JSON.stringify(wire)).not.toMatch(/sessionToken|trailCells|spawnCells|botMemory|socket/);
-  expect(JSON.stringify(wire).length).toBeLessThan(12000);
+  expect(JSON.stringify(wire).length).toBeLessThan(14000);
  });
  it('rejects invalid encoding, protocol, lengths, ownership and nonfinite positions',()=>{
   const raw=packSnapshot(view(),1,100,null);

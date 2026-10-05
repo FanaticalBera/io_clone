@@ -7,6 +7,7 @@ import { createMatch } from '../shared/game.js';
 import { botSpecs, createBotMemory } from '../shared/bot.js';
 import { normalizeNickname } from '../shared/names.js';
 import { createMode, roundDeadlineTicks, isGameModeId } from '../shared/modes.js';
+export const MAX_HUMAN_ROOM_MEMBERS = 8;
 export class RoomManager {
     sessions;
     maxRooms;
@@ -60,7 +61,7 @@ export class RoomManager {
         if (!name)
             return { ok: false, code: 'INVALID_NICKNAME', message: '닉네임은 1–16자로 입력하세요.' };
         this.advance();
-        let room = [...this.rooms.values()].filter(r => r.mode === 'PUBLIC' && r.gameMode.id === gameMode && r.members.size < 8 && (r.phase === 'WAITING' || r.phase === 'COUNTDOWN' && r.roundNumber === 0)).sort((a, b) => a.createdAt - b.createdAt)[0];
+        let room = [...this.rooms.values()].filter(r => r.mode === 'PUBLIC' && r.gameMode.id === gameMode && r.members.size < Math.min(MAX_HUMAN_ROOM_MEMBERS, this.config.maxSlots) && (r.phase === 'WAITING' || r.phase === 'COUNTDOWN' && r.roundNumber === 0)).sort((a, b) => a.createdAt - b.createdAt)[0];
         if (!room)
             room = this.createRoom('PUBLIC', gameMode) ?? undefined;
         if (!room)
@@ -105,8 +106,8 @@ export class RoomManager {
         const room = [...this.rooms.values()].find(r => r.code === code && r.mode === 'FRIEND' && r.phase !== 'CLOSED');
         if (!/^[A-HJ-NP-Z2-9]{8}$/.test(code) || !room)
             return { ok: false, code: 'ROOM_NOT_FOUND', message: '존재하지 않는 방 코드입니다.' };
-        if (room.members.size >= 8)
-            return { ok: false, code: 'ROOM_FULL', message: '친구 방의 사람 정원 8명이 모두 찼습니다.' };
+        if (room.members.size >= Math.min(MAX_HUMAN_ROOM_MEMBERS, this.config.maxSlots))
+            return { ok: false, code: 'ROOM_FULL', message: '친구 방의 사람 정원이 모두 찼습니다.' };
         this.addMember(room, session, name, room.phase !== 'WAITING');
         return { ok: true, roomId: room.roomId };
     }
@@ -172,7 +173,7 @@ export class RoomManager {
         const matchId = room.roomId + ':round:' + (++room.roundNumber);
         const humans = members.map((m, slot) => ({ participantId: m.memberId, slot, nickname: m.nickname, kind: 'HUMAN' }));
         const seed = this.seed();
-        room.match = createMatch(this.config, seed, [...humans, ...botSpecs(8 - humans.length, humans.length, matchId)], matchId, room.gameMode);
+        room.match = createMatch(this.config, seed, [...humans, ...botSpecs(this.config.maxSlots - humans.length, humans.length, matchId)], matchId, room.gameMode);
         this.initializeMatch?.(room.match);
         room.inputs.clear();
         room.bots.clear();

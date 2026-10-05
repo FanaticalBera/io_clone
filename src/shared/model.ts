@@ -29,7 +29,7 @@ export interface ResultRow {
 export interface MatchOutcome {winnerId:string;reason:'FULL_CAPTURE'|'HELD_TERRITORY';atTick:number}
 export interface MatchState {
  matchId: string; seed: number; tick: number; config: GameConfig; map: MapDefinition;
- participants: Participant[]; owners: Uint8Array; trailMasks: Uint8Array;
+ participants: Participant[]; owners: Uint8Array; trailMasks: Uint16Array;
  priority: number[]; spawnOrder: number[]; phase: 'RUNNING'|'FINISHED'|'ABORTED';
  events: GameEvent[]; eventCounter: number; results: ResultRow[] | null; departed: ResultRow[];
  gameMode:GameModeConfig;modeState:ModeState;outcome:MatchOutcome|null;
@@ -37,7 +37,7 @@ export interface MatchState {
 export interface PublicParticipant extends Omit<Participant,'trailCells'|'trailOriginCellId'|'spawnCells'> { protected: boolean }
 export interface MatchView {
  matchId: string; seed: number; tick: number; remainingTicks: number|null; phase: MatchState['phase'];
- config: GameConfig; mapId: string; owners: Uint8Array; trailMasks: Uint8Array;
+ config: GameConfig; mapId: string; owners: Uint8Array; trailMasks: Uint16Array;
  participants: PublicParticipant[]; events: GameEvent[]; results: ResultRow[] | null;
  gameMode:GameModeConfig;modeState:ModeState;outcome:MatchOutcome|null;
 }

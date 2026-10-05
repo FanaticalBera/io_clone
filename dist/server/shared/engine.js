@@ -1,3 +1,4 @@
+import { slotBit } from './slots.js';
 import { moveSpeed } from './config.js';
 import { tryRespawns } from './spawn.js';
 import { finishMatch } from './scoring.js';
@@ -59,7 +60,7 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
     const cutContexts = new Map();
     for (const [id, attacker] of winners)
         for (const victim of match.participants) {
-            if (victim !== attacker && victim.lifeState === 'ALIVE' && (match.trailMasks[id] & (1 << victim.slot))) {
+            if (victim !== attacker && victim.lifeState === 'ALIVE' && (match.trailMasks[id] & (slotBit(victim.slot)))) {
                 const attackers = cuts.get(victim) ?? new Set();
                 attackers.add(attacker);
                 cuts.set(victim, attackers);
@@ -158,7 +159,7 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
             const p = match.participants.find(p => p.participantId === record.participantId);
             record.lifeStateAfter = p.lifeState;
             record.ownerCellsAfter = match.owners.reduce((sum, owner) => sum + Number(owner === p.slot + 1), 0);
-            record.trailMaskCellsAfter = match.trailMasks.reduce((sum, mask) => sum + Number((mask & (1 << p.slot)) !== 0), 0);
+            record.trailMaskCellsAfter = match.trailMasks.reduce((sum, mask) => sum + Number((mask & (slotBit(p.slot))) !== 0), 0);
         }
         observer({ tick: match.tick, participants: trace });
     }
@@ -175,7 +176,7 @@ export function resolveAtTime(match, eventTick = match.tick, wallVictims = new S
                 p.protectedUntilTick = 0;
                 if (!p.trailCells.has(p.cellId))
                     pending.set(p, p.cellId);
-                masks[p.cellId] |= 1 << p.slot;
+                masks[p.cellId] |= slotBit(p.slot);
             }
         }
         const deaths = new Map();
@@ -183,7 +184,7 @@ export function resolveAtTime(match, eventTick = match.tick, wallVictims = new S
             if (isProtected(match, attacker, eventTick))
                 continue;
             for (const victim of alive)
-                if (victim !== attacker && (masks[attacker.cellId] & (1 << victim.slot))) {
+                if (victim !== attacker && (masks[attacker.cellId] & (slotBit(victim.slot)))) {
                     const attackers = deaths.get(victim) ?? [];
                     attackers.push(attacker);
                     deaths.set(victim, attackers);
@@ -194,7 +195,7 @@ export function resolveAtTime(match, eventTick = match.tick, wallVictims = new S
         const diagnostics = audit ? new Map(alive.map(p => [p, { eventTick, iteration, ownersBefore, trailMasksBefore, pendingTrails, victimTrailBefore: [...p.trailCells], existingTrailContact: false, pendingTrailContact: false, captureOverlapCells: [], wallIntersection: wallVictims.has(p.participantId) }])) : null;
         for (const [victim, attackers] of deaths) {
             attackers.sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
-            const attacker = attackers[0], existing = (existingMasks[attacker.cellId] & (1 << victim.slot)) !== 0, provisional = pending.get(victim) === attacker.cellId;
+            const attacker = attackers[0], existing = (existingMasks[attacker.cellId] & (slotBit(victim.slot))) !== 0, provisional = pending.get(victim) === attacker.cellId;
             const diagnostic = diagnostics?.get(victim);
             if (diagnostic) {
                 diagnostic.existingTrailContact = existing;

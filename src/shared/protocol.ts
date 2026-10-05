@@ -55,20 +55,35 @@ export function decodeBytes(value:unknown,length:number):Uint8Array {
  const binary=atob(value);if(binary.length!==length)throw new Error('Invalid byte length');
  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));if(encodeBytes(bytes)!==value)throw new Error('Noncanonical base64');return bytes;
 }
+// Protocol v4: each trail cell is exactly two bytes, low byte first.
+// Explicit shifts make this independent of the host's native byte order.
+export function encodeTrailMasks(masks:Uint16Array):string {
+ if(!(masks instanceof Uint16Array))throw new Error('Expected Uint16 trail masks');
+ const bytes=new Uint8Array(masks.length*2);
+ for(let i=0;i<masks.length;i++){bytes[i*2]=masks[i]&0xff;bytes[i*2+1]=masks[i]>>>8;}
+ return encodeBytes(bytes);
+}
+export function decodeTrailMasks(value:unknown,length:number):Uint16Array {
+ if(!Number.isSafeInteger(length)||length<0)throw new Error('Invalid mask length');
+ const bytes=decodeBytes(value,length*2),masks=new Uint16Array(length);
+ for(let i=0;i<length;i++)masks[i]=bytes[i*2]|(bytes[i*2+1]<<8);
+ return masks;
+}
 export function packSnapshot(view:MatchView,snapshotSeq:number,serverTime:number,selfParticipantId:string|null):WireSnapshot {
- return {...view,protocolVersion:PROTOCOL_VERSION,snapshotSeq,serverTime,owners:encodeBytes(view.owners),trailMasks:encodeBytes(view.trailMasks),
+ return {...view,protocolVersion:PROTOCOL_VERSION,snapshotSeq,serverTime,owners:encodeBytes(view.owners),trailMasks:encodeTrailMasks(view.trailMasks),
   lastAppliedInputSeq:view.participants.find(p=>p.participantId===selfParticipantId)?.lastAppliedInputSeq??0,selfParticipantId};
 }
 export function unpackSnapshot(raw:unknown):MatchView {
  if(!record(raw)||raw.protocolVersion!==PROTOCOL_VERSION||typeof raw.matchId!=='string'||raw.matchId.length>128||
     !Number.isSafeInteger(raw.snapshotSeq)||Number(raw.snapshotSeq)<0||!Number.isSafeInteger(raw.tick)||Number(raw.tick)<0||
-    !Number.isFinite(raw.serverTime)||!record(raw.config)||!Array.isArray(raw.participants)||raw.participants.length>8||
+    !Number.isFinite(raw.serverTime)||!record(raw.config)||!Array.isArray(raw.participants)||
     !['RUNNING','FINISHED','ABORTED'].includes(String(raw.phase)))throw new Error('Invalid snapshot');
  const config=validateConfig(raw.config),count=1+3*config.mapRadius*(config.mapRadius+1);
+ if(raw.participants.length>config.maxSlots)throw new Error('Too many participants');
  const gameMode=validateMode(raw.gameMode),timeLimit=GAME_MODES[gameMode.id].timeLimitSeconds;
  if(raw.mapId!=='hex-r'+config.mapRadius+'-a'+config.hexSideWorldUnits+'-v1'||
     raw.remainingTicks!==(timeLimit===null?null:Math.max(0,timeLimit*config.simulationHz-Number(raw.tick))))throw new Error('Invalid map/time');
- const owners=decodeBytes(raw.owners,count),trailMasks=decodeBytes(raw.trailMasks,count);
+ const owners=decodeBytes(raw.owners,count),trailMasks=decodeTrailMasks(raw.trailMasks,count);
  if(owners.some(o=>o>config.maxSlots)||trailMasks.some(mask=>mask>=(1<<config.maxSlots)))throw new Error('Invalid board');
  const ids=new Set(),slots=new Set();
  for(const p of raw.participants){
@@ -87,7 +102,7 @@ export function unpackSnapshot(raw:unknown):MatchView {
      (e.killerId!==undefined&&(typeof e.killerId!=='string'||e.killerId.length>128))||
      (e.lifeId!==undefined&&(!Number.isSafeInteger(e.lifeId)||Number(e.lifeId)<1))||!validDeathContext(e.deathContext,count))throw new Error('Invalid combat event');
  }
- if(!record(raw.modeState)||!Array.isArray(raw.modeState.holds)||raw.modeState.holds.length>8)throw new Error('Invalid mode state');
+ if(!record(raw.modeState)||!Array.isArray(raw.modeState.holds)||raw.modeState.holds.length>config.maxSlots)throw new Error('Invalid mode state');
  const heldIds=new Set<string>();
  for(const h of raw.modeState.holds){
   if(gameMode.id!=='hold'||!record(h)||typeof h.participantId!=='string'||!ids.has(h.participantId)||heldIds.has(h.participantId)||

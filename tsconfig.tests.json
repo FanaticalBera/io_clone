@@ -1,1 +1,1 @@
-{"extends":"./tsconfig.json","compilerOptions":{"module":"NodeNext","moduleResolution":"NodeNext","lib":["ES2022","DOM"],"types":["node"],"noEmit":true},"include":["tests","vitest.config.ts","playwright.config.ts"]}
+{"extends":"./tsconfig.json","compilerOptions":{"module":"NodeNext","moduleResolution":"NodeNext","lib":["ES2022","DOM"],"types":["node"],"noEmit":true},"include":["tests","vitest.config.ts","playwright.config.ts","playwright.large-world.config.ts"]}

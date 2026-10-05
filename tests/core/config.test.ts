@@ -7,7 +7,7 @@ describe('T02: shared config and identities', () => {
   expect(DEFAULT_CONFIG).toMatchObject({ simulationHz:30, snapshotHz:10, maxSlots:8, roundSeconds:240, mapRadius:22, spawnRadius:2, moveCellsPerSecond:4.2 });
   expect(validateConfig()).toEqual(DEFAULT_CONFIG);
  });
- it.each([{maxSlots:9},{maxSlots:1.2},{roundSeconds:0},{mapRadius:1},{simulationHz:Infinity},{snapshotHz:7},{protectSeconds:NaN}])('rejects invalid config %j', c => expect(() => validateConfig(c)).toThrow());
+ it.each([{maxSlots:17},{maxSlots:0},{maxSlots:1.2},{roundSeconds:0},{mapRadius:1},{simulationHz:Infinity},{snapshotHz:7},{protectSeconds:NaN}])('rejects invalid config %j', c => expect(() => validateConfig(c)).toThrow());
  it('reproduces the seeded sequence and shuffling', () => {
   const a=seededRandom(71), b=seededRandom(71);
   expect(Array.from({length:32},a)).toEqual(Array.from({length:32},b));

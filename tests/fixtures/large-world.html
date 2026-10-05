@@ -1,0 +1,17 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/src/client/style.css"></head><body><div id="app"></div><script type="module">
+import {UI} from '/src/client/ui.ts';
+import {createRenderer,COLORS} from '/src/client/game-scene.ts';
+import {createMatch,buildView} from '/src/shared/game.ts';
+import {botSpecs} from '/src/shared/bot.ts';
+import {hexDistance} from '/src/shared/hex.ts';
+import {addTrail,setOwner} from '/src/shared/territory.ts';
+import {markDead} from '/src/shared/life.ts';
+import {computeResults} from '/src/shared/scoring.ts';
+import {packSnapshot,unpackSnapshot} from '/src/shared/protocol.ts';
+const radius=Number(new URLSearchParams(location.search).get('radius')??56),m=createMatch({mapRadius:radius,maxSlots:16},4,botSpecs(16)),ui=new UI({practice(){},leave(){},restart(){}}),scene=createRenderer('field');let seq=0;
+// Controlled visual fixture: adjacent external cells show each trail color.
+for(const p of m.participants){const external=m.map.cells.find(c=>hexDistance(c,m.map.cells[p.cellId])===3&&m.owners[c.id]===0);if(external)addTrail(m,p,external.id);}
+const show=(reset=false)=>{const v=unpackSnapshot(packSnapshot(buildView(m),++seq,performance.now(),m.participants[0].participantId));scene.setView(v,m.participants[0].participantId,true,reset);scene.freezePresentation();ui.updateView(v,m.participants[0].participantId);};
+ui.showGame('PRACTICE');show(true);
+window.fixture={m,scene,COLORS,show,ui,paint(){const cells=m.map.cells.filter(c=>m.owners[c.id]===0).sort((a,b)=>hexDistance(a,{q:0,r:0})-hexDistance(b,{q:0,r:0})).slice(0,500);for(const c of cells)setOwner(m,c.id,16);m.tick++;show();return {cells:cells.length,...scene.resourceState()};},kill(slot){markDead(m,m.participants[slot],'TRAIL_CUT',m.participants[0],{cause:'EXISTING_TRAIL_CONTACT',cellId:m.participants[slot].cellId});m.tick++;show();},results(){ui.showResults(m.matchId,computeResults(m),m.participants[0].participantId,m.gameMode,null,m.map.cells.length);}};
+</script></body></html>
