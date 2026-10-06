@@ -1,3 +1,4 @@
+import {contrastBasicPrimitives} from './basic-marker-art.js';
 import {imageMarkerPreview} from './marker-preview-image.js';
 import {markerDefinition,markerColorDefinition,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,type MarkerDefinition} from './catalog.js';
 export interface MarkerAppearance {markerId:string;markerColorId:string}
@@ -14,12 +15,9 @@ export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boo
   const circle=(radius:number,fill?:number,stroke?:number,width=0)=>primitives.push({kind:'circle',x:0,y:0,radius,fill,stroke,width});
   switch(definition.shape){
     case 'DEFAULT':circle(21,bodyColor,0xffffff,5);break;
-    case 'RING':circle(18,undefined,bodyColor,7);break;
+    case 'RING':primitives.push(...contrastBasicPrimitives('RING',bodyColor));break;
     case 'HEX':primitives.push({kind:'polygon',points:Array.from({length:6},(_,i)=>({x:21*Math.cos(i*Math.PI/3-Math.PI/2),y:21*Math.sin(i*Math.PI/3-Math.PI/2)})),fill:bodyColor,stroke:0xffffff,width:3});break;
-    case 'TARGET':
-      circle(16,undefined,bodyColor,4);circle(8,undefined,bodyColor,2);circle(3,bodyColor);
-      for(const [x1,y1,x2,y2] of [[-21,0,-11,0],[11,0,21,0],[0,-21,0,-11],[0,11,0,21]])primitives.push({kind:'line',x1,y1,x2,y2,stroke:bodyColor,width:3});
-      break;
+    case 'TARGET':primitives.push(...contrastBasicPrimitives('TARGET',bodyColor));break;
     case 'PLACEHOLDER':circle(19,bodyColor,0xffffff,3);break;
   }
   if(local||allowRemoteAppearance)primitives.push({kind:'circle',x:0,y:0,radius:25.5,stroke:slotColor,width:2,tag:'IDENTIFICATION'});
