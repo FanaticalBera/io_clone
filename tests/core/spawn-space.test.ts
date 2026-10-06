@@ -29,15 +29,16 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
  it('R22: actual movement/capture/respawn matches the corrected home-component trajectory',()=>{
+  // Frozen original AI timing hash; combined scheduler tested separately.
   // The home-component fix changes later deaths/respawns, so the pre-fix
   // trajectory is obsolete. Bot attack look-ahead/target locking also changes
   // this gameplay hash; Phase 3 expansion/attack policy and plan memory update it again.
   // Spawn safety and observer equivalence remain checked.
   // Initial R22 anchors are checked separately.
   const radius=22,expected='f65590c51b0d1d416af62ce12501b98aae2c7f93e7211aff79f7d7f205eb7315';
-  const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot)),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});
+  const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});
   for(let tick=0;tick<1200;tick++){
-   const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
+   const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId,'baseline'),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
    const {map,...state}=m;hash.update(JSON.stringify({state,memories},(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));
   }
   expect(hash.digest('hex')).toBe(expected);

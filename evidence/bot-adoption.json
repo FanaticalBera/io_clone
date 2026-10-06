@@ -1,0 +1,112 @@
+{
+  "tests": {
+    "files": 75,
+    "total": 430,
+    "passed": 430,
+    "failed": 0
+  },
+  "liveBrowser": {
+    "records": [
+      {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "contract": {
+          "hidden": null,
+          "counts": [
+            2,
+            3,
+            3,
+            3,
+            2,
+            2
+          ],
+          "nickname": "적용 브로",
+          "avatars": "16",
+          "geometry": {
+            "w": 844,
+            "h": 390
+          }
+        },
+        "pageErrors": []
+      },
+      {
+        "viewport": {
+          "width": 640,
+          "height": 320
+        },
+        "contract": {
+          "hidden": null,
+          "counts": [
+            2,
+            3,
+            3,
+            3,
+            2,
+            2
+          ],
+          "nickname": "적용 브로",
+          "avatars": "16",
+          "geometry": {
+            "w": 640,
+            "h": 320
+          }
+        },
+        "pageErrors": []
+      },
+      {
+        "viewport": {
+          "width": 568,
+          "height": 320
+        },
+        "contract": {
+          "hidden": null,
+          "counts": [
+            2,
+            3,
+            3,
+            3,
+            2,
+            2
+          ],
+          "nickname": "적용 브로",
+          "avatars": "16",
+          "geometry": {
+            "w": 568,
+            "h": 320
+          }
+        },
+        "pageErrors": []
+      }
+    ]
+  },
+  "sourceCommit": "f2dd37d",
+  "originalCommit": "3047e4a",
+  "adoptedVariant": "combined",
+  "territoryDefenseChanged": false,
+  "backendPid": 13020,
+  "webPid": 9884,
+  "comparisonPid": 17876,
+  "browserRegression": {
+    "cases": 12,
+    "initialPassed": 11,
+    "initialFailed": 1,
+    "repairedPassed": 1,
+    "rendererReadinessRace": "run.spec.ts forced death before Phaser.create; wait for WAVE_COLLAPSE renderer, keep active=0 assertion",
+    "coverage": [
+      "approved Basic Ring/Target (dev and production)",
+      "48px IMAGE marker and nickname",
+      "all Player Color purchase/equip/persistence",
+      "Player Color marker/territory/trail/slot15/materials",
+      "offline Practice repeated cleanup",
+      "same-world single-player retry and full Clear",
+      "online reward/reconnect/retry"
+    ]
+  },
+  "build": "passed",
+  "backendHealth": {
+    "healthz": 200,
+    "socketHandshake": 200
+  }
+}

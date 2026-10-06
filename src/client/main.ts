@@ -6,6 +6,7 @@ import {createMatch,buildView} from '../shared/game.js';
 import {botSpecs} from '../shared/bot.js';
 import {createRenderer} from './game-scene.js';
 import {InputAdapter} from './input.js';
+import {botVariant} from '../shared/bot-experiment.js';
 import {PracticeSession} from './practice.js';
 import {NetworkSession,clearSessionToken} from './network.js';
 import {UI} from './ui.js';
@@ -83,7 +84,7 @@ async function stopOnline():Promise<void> {
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.setRunRetryAvailable(true);ui.showGame('PRACTICE');
  const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment={...experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),...experimentalSlotConfig(experimentParams.get('experimentSlots'),experimentEnabled)},seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,diagnostics:diagnosticsEnabled});input.setDirection(practice.match.participants[0].direction);}
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {

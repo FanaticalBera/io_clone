@@ -1,5 +1,5 @@
 import { buildView, stepMatch } from '../shared/game.js';
-import { getBotInput, observeBot, createBotMemory } from '../shared/bot.js';
+import { getBotInput, observeBotForTick, createBotMemory } from '../shared/bot.js';
 import { packSnapshot } from '../shared/protocol.js';
 export class GameLoop {
     io;
@@ -132,7 +132,7 @@ export class GameLoop {
                                     room.bots.set(p.participantId, memory);
                                 }
                                 memory.seq = Math.max(memory.seq, p.lastAppliedInputSeq);
-                                const input = getBotInput(observeBot(room.match, p.participantId), memory, p.kind === 'HUMAN');
+                                const input = getBotInput(observeBotForTick(room.match, p.participantId, memory), memory, p.kind === 'HUMAN');
                                 if (input)
                                     inputs.set(p.participantId, input);
                             }

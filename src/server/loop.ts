@@ -1,5 +1,5 @@
 import {buildView,stepMatch} from '../shared/game.js';
-import {getBotInput,observeBot,createBotMemory} from '../shared/bot.js';
+import {getBotInput,observeBotForTick,createBotMemory} from '../shared/bot.js';
 import {packSnapshot,type ErrorCode} from '../shared/protocol.js';
 import type {GameIO,Session} from './sessions.js';
 import type {Room,RoomManager} from './rooms.js';
@@ -63,7 +63,7 @@ export class GameLoop {
      while(room.accumulator+1e-9>=dt&&count<5&&room.match.phase==='RUNNING'){
       const before=performance.now();const inputs=new Map(room.inputs);room.inputs.clear();
       for(const p of room.match.participants)if(p.lifeState==='ALIVE'&&(p.kind==='BOT'||room.members.get(p.participantId)?.session.background||room.members.get(p.participantId)?.session.connected===false)){
-       let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(room.match.seed^p.slot);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);const input=getBotInput(observeBot(room.match,p.participantId),memory,p.kind==='HUMAN');if(input)inputs.set(p.participantId,input);
+       let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(room.match.seed^p.slot);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);const input=getBotInput(observeBotForTick(room.match,p.participantId,memory),memory,p.kind==='HUMAN');if(input)inputs.set(p.participantId,input);
       }
       stepMatch(room.match,inputs);const duration=performance.now()-before;
       this.metrics.steps++;this.metrics.stepMs.push(duration);if(this.metrics.stepMs.length>30000)this.metrics.stepMs.splice(0,1000);

@@ -31,6 +31,20 @@ export function stepSteering(map, start, cellId, current, target, config) {
     const direction = rotateDirectionTowards(current, target ?? current, config.turnRadiansPerSecond / config.simulationHz);
     return { ...traceMovement(map, start, cellId, direction, moveSpeed(config) / config.simulationHz), direction };
 }
+const normalCache = new WeakMap();
+const normalCaching = new WeakMap();
+// Per-map experiment control avoids cross-match/global switches. Weak keys are
+// released with a match; changing side invalidates the six exact normals.
+export function setMovementNormalCaching(map, enabled) { normalCaching.set(map, enabled); }
+function movementNormals(map) {
+    const enabled = normalCaching.get(map) !== false, cached = normalCache.get(map);
+    if (enabled && cached?.side === map.side)
+        return cached.values;
+    const values = HEX_DIRECTIONS.map(a => { const p = axialToWorld(a.q, a.r, map.side), l = Math.hypot(p.x, p.y); return { x: p.x / l, y: p.y / l }; });
+    if (enabled)
+        normalCache.set(map, { side: map.side, values });
+    return values;
+}
 export function traceMovement(map, start, startCell, direction, distance) {
     const normalized = normalizeDirection(direction.x, direction.y);
     if (!normalized || !Number.isFinite(distance) || distance < 0 || !map.cells[startCell])
@@ -48,7 +62,7 @@ export function traceMovement(map, start, startCell, direction, distance) {
         cellId = startProbe;
         entries.push({ t: 0, cellId, position: { ...start } });
     }
-    const normals = HEX_DIRECTIONS.map(a => { const p = axialToWorld(a.q, a.r, map.side), l = Math.hypot(p.x, p.y); return { x: p.x / l, y: p.y / l }; });
+    const normals = movementNormals(map);
     for (let count = 0; count <= MAX_ENTRY_EVENTS; count++) {
         const center = map.cells[cellId].center;
         let crossing = Infinity;

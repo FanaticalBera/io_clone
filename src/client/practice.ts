@@ -1,6 +1,7 @@
+import type {BotVariant} from '../shared/bot-experiment.js';
 import {retryHumanRun} from '../shared/retry.js';
 import {createMatch,stepMatch,buildView} from '../shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotMemory} from '../shared/bot.js';
+import {botSpecs,createBotMemory,getBotInput,observeBotForTick,watchBotDecisions,type BotMemory} from '../shared/bot.js';
 import {watchDeaths,type DeathTrace} from '../shared/life.js';
 import type {ShadowOpportunity} from '../shared/bot-opportunity.js';
 import type {MatchState,MatchView,Vec,DirectionInput} from '../shared/model.js';
@@ -13,10 +14,10 @@ export class PracticeSession {
  private diagnosticStops:(()=>void)[]=[];
  private diagnosticData:{deathCauses:Record<string,number>;decisionCount:number;escapeDecisionCount:number;clearDecisionCount:number;missedReasons:Record<string,number>;candidateReasons:Record<string,number>;deaths:DeathTrace[];missed:ShadowOpportunity[]}|null=null;
  private visibility=()=>{this.lastTime=null;this.accumulated=0;};
- constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean}={}){
+ constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;botVariant?:BotVariant}={}){
   const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
   this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
-  for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
+  for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761),options.botVariant));
   if(options.diagnostics){
    const data:NonNullable<PracticeSession['diagnosticData']>={deathCauses:{},decisionCount:0,escapeDecisionCount:0,clearDecisionCount:0,missedReasons:{},candidateReasons:{},deaths:[],missed:[]};this.diagnosticData=data;
    this.diagnosticStops.push(watchDeaths(this.match,trace=>{const cause=trace.context?.cause??trace.reason;data.deathCauses[cause]=(data.deathCauses[cause]??0)+1;data.deaths.push(trace);if(data.deaths.length>16)data.deaths.shift();}));
@@ -50,7 +51,7 @@ export class PracticeSession {
    const human=this.match.participants.find(p=>p.participantId===this.selfId)!;
    if(this.direction&&human.lifeState==='ALIVE')inputs.set(this.selfId,{matchId:this.match.matchId,lifeId:human.lifeId,seq:++this.seq,dx:this.direction.x,dy:this.direction.y});
    for(const p of this.match.participants)if(p.kind==='BOT'&&p.lifeState==='ALIVE'){
-    const input=getBotInput(observeBot(this.match,p.participantId),this.memories.get(p.participantId)!);if(input)inputs.set(p.participantId,input);
+    const input=getBotInput(observeBotForTick(this.match,p.participantId,this.memories.get(p.participantId)!),this.memories.get(p.participantId)!);if(input)inputs.set(p.participantId,input);
    }
    const lifeId=human.lifeId;stepMatch(this.match,inputs);
    if(human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}

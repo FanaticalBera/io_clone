@@ -26,13 +26,13 @@ describe('bounded expansion geometry and real closure',()=>{
   }
   expect(selected.size).toBeGreaterThanOrEqual(4);expect([...selected].some(s=>s==='HOOK'||s==='ASYMMETRIC'||s==='NATURAL')).toBe(true);
  });
- it('preserves the defender policy in an isolated match',()=>{
-  const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73),shapes=new Set<string>(),hash=createHash('sha256');
+ it.each(['baseline','combined'] as const)('%s preserves the defender policy in an isolated match',variant=>{
+  const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73,variant),shapes=new Set<string>(),hash=createHash('sha256');
   watchBotDecisions(memory,t=>{if(t.expansionPlan)shapes.add(t.expansionPlan.shape);});
-  for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
+  for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId,variant),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
   // Independently reproduced from the committed Phase 2 source, including
   // every movement/capture tick; mixed-match outcomes may still change.
-  expect(hash.digest('hex')).toBe('ff9a620501417eaf7ce7c9d188cd37aa6860a94273dc85d85d811baf9b48c9de');
+  if(variant==='baseline')expect(hash.digest('hex')).toBe('ff9a620501417eaf7ce7c9d188cd37aa6860a94273dc85d85d811baf9b48c9de');
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{
