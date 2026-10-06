@@ -152,11 +152,11 @@ export class GameScene extends Phaser.Scene {
    avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,this.markerImageDiameter,p.kind==='BOT');
    avatar.shield.setStrokeStyle(3,this.renderColors[p.slot],.9);
    avatar.container.setVisible(p.lifeState==='ALIVE');
+   avatar.label.setText(p.nickname);
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
    avatar.shield.setVisible(p.protected);
    if(p.participantId===this.selfId){
-    avatar.label.setText('나');
     // startFollow recenters immediately; restarting it for every snapshot causes camera shake.
     if(this.followTarget!==avatar.container){this.followTarget=avatar.container;this.cameras.main.startFollow(avatar.container,false,1,1);}
    }
