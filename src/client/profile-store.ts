@@ -1,5 +1,6 @@
+import {readProfileSnapshot} from './profile-snapshot.js';
 import {profileTrace} from './profile-diagnostics.js';
-import {claimTestMarker} from './test-marker-gift.js';
+import {claimTestMarker,hasTestMarkerGift,type TestMarkerGift} from './test-marker-gift.js';
 import {purchaseItem,equipItem,type ShopReceipt} from './inventory.js';
 import type {ProductKind} from './catalog.js';
 import {emptyProfile,validProfile,migrateProfile,admitRun,grantProfileReward,closeProfileWorld,type PlayerProfileV1,type RunAdmission,type RewardReceipt} from './profile.js';
@@ -43,6 +44,10 @@ export class ProfileStore {
    };
   });
  }
+ readForDisplay():Promise<PlayerProfileV1>{
+  const factory=this.factory===undefined?browserDatabase():this.factory;
+  return factory?readProfileSnapshot(factory,this.name,PROFILE_STORE,PROFILE_KEY,PROFILE_TRANSACTION_TIMEOUT_MS):Promise.reject(new Error('Profile storage unavailable'));
+ }
  async read():Promise<PlayerProfileV1>{
   const read=await this.transaction((p,saved)=>({profile:structuredClone(p),needsMigration:!validProfile(saved)}),false,'read','readonly');
   // Persist initialization/repair only when needed, re-reading atomically so a
@@ -53,10 +58,10 @@ export class ProfileStore {
  grant(r:RunResult,a?:RunAdmission,ownerId?:string):Promise<RewardReceipt>{return this.transaction(p=>{const ledger=p.worlds.find(w=>w.matchId===r.matchId)?.participants.find(p=>p.participantId===r.participantId);if(ownerId&&ledger&&!ledger.closed&&ledger.observedLifeId===r.lifeId)ledger.ownerId=ownerId;return grantProfileReward(p,r,a);},true,'reward');}
  purchase(kind:ProductKind,id:string):Promise<ShopReceipt>{return this.transaction(p=>purchaseItem(p,kind,id),true,'purchase');}
  equip(kind:ProductKind,id:string):Promise<ShopReceipt>{return this.transaction(p=>equipItem(p,kind,id),true,'equip');}
- async claimTestMarker():Promise<PlayerProfileV1>{
+ async claimTestMarker(gift:TestMarkerGift='cat'):Promise<PlayerProfileV1>{
   const current=await this.read();
-  if(current.inventory.ownedMarkerIds.includes('cat')&&current.inventory.equippedMarkerId==='cat'){profileTrace('GIFT_ALREADY_GRANTED');return current;}
-  return this.transaction(p=>{claimTestMarker(p);return structuredClone(p);},true,'marker-gift');
+  if(hasTestMarkerGift(current,gift)){profileTrace('GIFT_ALREADY_GRANTED');return current;}
+  return this.transaction(p=>{claimTestMarker(p,gift);return structuredClone(p);},true,'marker-gift');
  }
  closeWorld(matchId:string,participantId:string,ownerId:string):Promise<void>{return this.transaction(p=>closeProfileWorld(p,matchId,participantId,ownerId),true,'close-world');}
  subscribe(listener:(p:PlayerProfileV1)=>void):()=>void{this.listeners.add(listener);return()=>this.listeners.delete(listener);}

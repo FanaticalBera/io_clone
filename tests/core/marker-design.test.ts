@@ -30,7 +30,14 @@ describe('approved marker catalog and local test gift',()=>{
  it('accepts only the explicit development claim link; production and arbitrary items cannot claim',()=>{
   expect(testMarkerGift('?testMarkerGift=cat',true)).toBe(true);
   for(const query of ['','?testMarkerGift=crown','?testMarkerGift=default','?testMarkerGift=CAT'])expect(testMarkerGift(query,true)).toBe(false);
-  expect(testMarkerGift('?testMarkerGift=cat',false)).toBe(false);
+  expect(testMarkerGift('?testMarkerGift=cat',false)).toBe(false);expect(testMarkerGift('?testMarkerGift=all',true)).toBe(true);expect(testMarkerGift('?testMarkerGift=all',false)).toBe(false);
+ });
+ it('grants every catalog marker once without changing Coins, ledgers, selected marker or color',()=>{
+  const p=emptyProfile();claimTestMarker(p);p.coins=321;p.stats.totalKills=12;p.inventory.ownedMarkerIds.push('future-marker');
+  p.worlds.push({matchId:'paid',participants:[{participantId:'h',ownerId:'saved',initialTerritoryCells:7,observedLifeId:2,paidLifeId:2,closed:true}]});
+  const before=structuredClone(p);claimTestMarker(p,'all');const {inventory,...core}=p,{inventory:oldInventory,...oldCore}=before;expect(core).toEqual(oldCore);
+  expect(inventory).toEqual({...oldInventory,ownedMarkerIds:[...oldInventory.ownedMarkerIds,...MARKERS.map(m=>m.id).filter(id=>!oldInventory.ownedMarkerIds.includes(id))]});
+  const all=structuredClone(p);claimTestMarker(p,'all');expect(p).toEqual(all);
  });
  it('keeps slot 15 identity separate from image body and ignores equipment for other players',()=>{
   const self=markerArt({markerId:'cat',markerColorId:'violet'},0x9b644d,true);

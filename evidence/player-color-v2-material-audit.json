@@ -1,0 +1,68 @@
+[
+  {
+    "id": "cat",
+    "exposedBasePercent": 69.2,
+    "meanExposedBrightness": 249,
+    "frame": 256
+  },
+  {
+    "id": "chick",
+    "exposedBasePercent": 51.3,
+    "meanExposedBrightness": 244,
+    "frame": 256
+  },
+  {
+    "id": "slime",
+    "exposedBasePercent": 60.9,
+    "meanExposedBrightness": 247,
+    "frame": 256
+  },
+  {
+    "id": "crystal",
+    "exposedBasePercent": 47.4,
+    "meanExposedBrightness": 243,
+    "frame": 256
+  },
+  {
+    "id": "ghost",
+    "exposedBasePercent": 51.2,
+    "meanExposedBrightness": 239,
+    "frame": 256
+  },
+  {
+    "id": "core",
+    "exposedBasePercent": 36.6,
+    "meanExposedBrightness": 237,
+    "frame": 256
+  },
+  {
+    "id": "radar",
+    "exposedBasePercent": 42.7,
+    "meanExposedBrightness": 236,
+    "frame": 256
+  },
+  {
+    "id": "drone",
+    "exposedBasePercent": 39.2,
+    "meanExposedBrightness": 235,
+    "frame": 256
+  },
+  {
+    "id": "orbit",
+    "exposedBasePercent": 34.2,
+    "meanExposedBrightness": 244,
+    "frame": 256
+  },
+  {
+    "id": "crown",
+    "exposedBasePercent": 40.8,
+    "meanExposedBrightness": 246,
+    "frame": 256
+  },
+  {
+    "id": "ember",
+    "exposedBasePercent": 44.5,
+    "meanExposedBrightness": 249,
+    "frame": 256
+  }
+]

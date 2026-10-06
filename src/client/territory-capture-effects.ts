@@ -27,7 +27,7 @@ export class TerritoryCaptureEffects {
  }
  accept(view:MatchView,oldOwners:Uint8Array,keys:readonly string[],colors:readonly number[],now:number,reset=false,previous?:MatchView):void{
   if(!this.map||!this.model.enabled)return;
-  this.model.accept(view,oldOwners,this.map,keys,slot=>colors[slot],now,reset,previous);this.dirty=true;
+  this.model.accept(view,oldOwners,this.map,keys,slot=>colors[slot],now,reset,previous);for(const effect of this.model.effects)effect.color=colors[effect.slot];this.dirty=true;
  }
  update(now:number,view:MatchView,culling=true):void{
   if(!this.map||!this.model.enabled)return;

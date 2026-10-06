@@ -20,7 +20,7 @@ async function corruptWrites(page:Page,on:boolean){
     else IDBObjectStore.prototype.put=(window as any).__SHOP_PUT__;
   },on);
 }
-test('legacy wallet migrates intact; marker and Marker Color purchase/equip persist and affect self only',async({browser})=>{
+test('legacy wallet migrates intact; marker and Player Color purchase/equip persist and reserve self color',async({browser})=>{
   const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true});await context.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
   try{
     const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await startFunded(page);
@@ -35,15 +35,15 @@ test('legacy wallet migrates intact; marker and Marker Color purchase/equip pers
       expect(await page.locator('#shop-dialog').evaluate(e=>e.scrollHeight-e.clientHeight)).toBeLessThanOrEqual(1);expect(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight)).toBe(false);
     }
     await page.screenshot({path:'evidence/shop-v1-basic-landscape.png'});
-    await page.locator('#shop-colors').click();await page.locator('[data-product-id="coral"]').click();await expect(page.locator('#shop-item-note')).toContainText('마커 본체만');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('430 Coins');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await page.screenshot({path:'evidence/shop-v1-color-landscape.png'});
-    await page.locator('#shop-markers').click();await page.locator('[data-category="CUTE"]').click();await expect(page.locator('.shop-test-label')).toHaveCount(0);await expect(page.locator('#shop-items canvas')).toHaveCount(3);await page.locator('[data-product-id="cat"]').click();await expect(page.locator('#shop-item-note')).toContainText('슬롯 식별 링');await page.screenshot({path:'evidence/shop-v1-placeholder-landscape.png'});
+    await page.locator('#shop-colors').click();await page.locator('[data-product-id="coral"]').click();await expect(page.locator('#shop-item-note')).toContainText('영토 · 트레일');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('430 Coins');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await page.screenshot({path:'evidence/shop-v1-color-landscape.png'});
+    await page.locator('#shop-markers').click();await page.locator('[data-category="CUTE"]').click();await expect(page.locator('.shop-test-label')).toHaveCount(0);await expect(page.locator('#shop-items canvas')).toHaveCount(3);await page.locator('[data-product-id="cat"]').click();await expect(page.locator('#shop-item-note')).toContainText('고정 Detail');await page.screenshot({path:'evidence/shop-v1-placeholder-landscape.png'});
     await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('Coins · 430');
     const saved=await profile(page);expect(saved.inventory).toMatchObject({ownedMarkerIds:['default','ring'],ownedMarkerColorIds:['slot','coral'],equippedMarkerId:'ring',equippedMarkerColorId:'coral'});expect(saved.stats).toEqual(legacy().stats);expect(saved.processedRuns).toEqual(legacy().processedRuns);expect(saved.worlds).toEqual(legacy().worlds);
     await page.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),store=new ProfileStore();try{const r=await store.purchase('marker','ring');if(r.status!=='owned'||r.balance!==430)throw new Error('Duplicate purchase charged');}finally{store.dispose();}});
     await page.getByTestId('practice').click();await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
     await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().some((m:any)=>m.local)),{timeout:15000}).toBe(true);
-    const markers=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState());expect(markers.find((m:any)=>m.local)).toMatchObject({markerId:'ring',markerColorId:'coral',bodyColor:0xff7084,slotColor:0x16cdb1,identificationRing:true});
-    expect(markers.filter((m:any)=>!m.local).every((m:any)=>m.markerId==='default'&&m.markerColorId==='slot'&&m.bodyColor===m.slotColor&&!m.identificationRing)).toBe(true);
+    const markers=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState());expect(markers.find((m:any)=>m.local)).toMatchObject({markerId:'ring',markerColorId:'coral',bodyColor:0xff7084,slotColor:0xff7084,identificationRing:true});
+    expect(markers.filter((m:any)=>!m.local).every((m:any)=>m.markerColorId==='slot'&&m.bodyColor===m.slotColor&&m.identificationRing)).toBe(true);
     await page.screenshot({path:'evidence/shop-v1-equipped-gameplay.png'});await page.getByTestId('leave').click();expect(errors).toEqual([]);
   }finally{await context.close();}
 });
@@ -102,7 +102,7 @@ test('online equipment remains local and never changes the other client or match
     await pb.getByTestId('room-code').fill(code!);await pb.getByTestId('join').click();await expect(pb.locator('#room-panel')).toBeVisible({timeout:15000});await pa.getByTestId('start').click();await until(()=>[...server.rooms.rooms.values()][0]?.phase==='COUNTDOWN');now=3000;server.loop.pump();await Promise.all([expect(pa.locator('#hud')).toBeVisible(),expect(pb.locator('#hud')).toBeVisible()]);
     const av=await pa.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState()),bv=await pb.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState());
     const self=av.find((m:any)=>m.local);expect(self).toMatchObject({markerId:'ring',markerColorId:'coral',bodyColor:0xff7084,identificationRing:true});
-    const seen=bv.find((m:any)=>m.participantId===self.participantId);expect(seen).toMatchObject({markerId:'default',markerColorId:'slot',local:false,bodyColor:self.slotColor,identificationRing:false});
+    const observed=await pb.evaluate(id=>{const t=(window as any).__HEXHOLD_TEST__,slot=t.getView().participants.find((p:any)=>p.participantId===id).slot;return t.getPlayerColors()[slot];},self.participantId);const seen=bv.find((m:any)=>m.participantId===self.participantId);expect(seen).toMatchObject({markerId:'default',markerColorId:'slot',local:false,bodyColor:observed,identificationRing:false});expect(observed).not.toBe(self.bodyColor);
     expect(bv.find((m:any)=>m.local).markerId).toBe('default');
     const room=[...server.rooms.rooms.values()][0];expect(room.match!.participants.every(p=>!('inventory'in p)&&!('equippedMarkerId'in p))).toBe(true);
     await pa.screenshot({path:'evidence/shop-v1-local-only-online.png'});

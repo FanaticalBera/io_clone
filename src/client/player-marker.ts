@@ -1,3 +1,4 @@
+import {DEFAULT_IMAGE_MARKER_DIAMETER,type ImageMarkerDiameter} from './marker-size-experiment.js';
 import Phaser from 'phaser';
 import {markerArt,type MarkerAppearance,type MarkerArt} from './marker-art.js';
 export class PlayerMarker {
@@ -10,17 +11,18 @@ export class PlayerMarker {
   constructor(private scene:Phaser.Scene){
     this.graphics=scene.add.graphics();this.container=scene.add.container(0,0,[this.graphics]);
   }
-  set(appearance:MarkerAppearance,slotColor:number,local:boolean):void {
-    const art=markerArt(appearance,slotColor,local),asset=art.definition.assetKey,detailAsset=art.definition.detailAssetKey;
+  set(appearance:MarkerAppearance,slotColor:number,local:boolean,imageDiameter:ImageMarkerDiameter=DEFAULT_IMAGE_MARKER_DIAMETER,allowRemoteAppearance=false):void {
+    const art=markerArt(appearance,slotColor,local,allowRemoteAppearance),asset=art.definition.assetKey,detailAsset=art.definition.detailAssetKey;
     const imageVisible=art.definition.renderType==='IMAGE'&&!!asset&&this.scene.textures.exists(asset)&&(!detailAsset||this.scene.textures.exists(detailAsset));
-    const signature=[art.markerId,art.markerColorId,slotColor,local,art.definition.renderType,asset,detailAsset,imageVisible].join(':');
+    const diameter=local?imageDiameter:DEFAULT_IMAGE_MARKER_DIAMETER;
+    const signature=[diameter,art.markerId,art.markerColorId,slotColor,local,allowRemoteAppearance,art.definition.renderType,asset,detailAsset,imageVisible].join(':');
     if(signature===this.signature)return;this.signature=signature;this.art=art;this.imageVisible=imageVisible;this.graphics.clear();
     if(imageVisible){
       if(!this.image){this.image=this.scene.add.image(0,0,asset!);this.container.addAt(this.image,0);}
-      this.image.setTexture(asset!).setDisplaySize(42,42).setTint(art.bodyColor).setVisible(true);
+      this.image.setTexture(asset!).setDisplaySize(diameter,diameter).setTint(art.bodyColor).setVisible(true);
       if(detailAsset){
         if(!this.detail){this.detail=this.scene.add.image(0,0,detailAsset);this.container.addAt(this.detail,1);}
-        this.detail.setTexture(detailAsset).setDisplaySize(42,42).clearTint().setVisible(true);
+        this.detail.setTexture(detailAsset).setDisplaySize(diameter,diameter).clearTint().setVisible(true);
       }else this.detail?.setVisible(false);
     }else{this.image?.setVisible(false);this.detail?.setVisible(false);}
     for(const p of art.primitives){
@@ -38,5 +40,5 @@ export class PlayerMarker {
       this.label.setText(art.label).setVisible(true);
     }else this.label?.setVisible(false);
   }
-  state(){return this.art?{markerId:this.art.markerId,markerColorId:this.art.markerColorId,bodyColor:this.art.bodyColor,slotColor:this.art.slotColor,local:this.art.local,identificationRing:this.art.local,imageVisible:this.imageVisible,detailVisible:!!this.detail?.visible,imageTint:this.image?.tintTopLeft??null,detailTint:this.detail?.tintTopLeft??null,placeholder:!!this.art.definition.placeholder}:null;}
+  state(){const ring=this.art?.primitives.find(p=>p.kind==='circle'&&p.tag==='IDENTIFICATION');return this.art?{markerId:this.art.markerId,markerColorId:this.art.markerColorId,bodyColor:this.art.bodyColor,slotColor:this.art.slotColor,local:this.art.local,identificationRing:!!ring,imageVisible:this.imageVisible,detailVisible:!!this.detail?.visible,imageDiameter:this.imageVisible?this.image?.displayWidth:null,detailDiameter:this.detail?.visible?this.detail.displayWidth:null,identificationRadius:ring?.kind==='circle'?ring.radius:null,imageTint:this.image?.tintTopLeft??null,detailTint:this.detail?.tintTopLeft??null,placeholder:!!this.art.definition.placeholder}:null;}
 }

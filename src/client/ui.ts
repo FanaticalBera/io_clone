@@ -1,7 +1,7 @@
 import type {MatchView,ResultRow,MatchOutcome,RunResult} from '../shared/model.js';
 import {createMode,GAME_MODES,territoryPercent,type GameModeConfig,type GameModeId} from '../shared/modes.js';
 import {normalizeNickname} from '../shared/names.js';
-import {COLORS} from './game-scene.js';
+import {SLOT_COLORS} from './player-colors.js';
 import {SettingsStore} from './settings.js';
 import {browserHaptics} from './haptics.js';
 import type {RewardReceipt} from './profile.js';
@@ -25,7 +25,7 @@ export class UI {
  private noticeUntil=0;
  constructor(private actions:UIActions,private settings=new SettingsStore()){
   get('app').innerHTML=`<div id="field"></div><div class="menu-art" aria-hidden="true"><i></i><i></i><i></i></div>
-<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD <small id="menu-coins">Coins · …</small><button id="shop-open" class="quiet" aria-haspopup="dialog">상점</button></header>
+<header class="brand"><span class="brand-mark" aria-hidden="true"></span> HEXHOLD <small id="menu-coins">Coins · …</small><button id="shop-open" class="quiet" aria-haspopup="dialog">상점</button><button id="profile-open" class="quiet" aria-haspopup="dialog">프로필</button></header>
 <div class="header-line" aria-hidden="true"></div><button id="rules" class="rules-button">게임 방법 ↗</button><button id="settings" class="quiet" aria-label="환경설정" title="환경설정">⚙</button>
 <canvas id="minimap" width="240" height="204" aria-label="전체 영토 지도" hidden></canvas>
 <section id="menu" class="panel menu-panel">
@@ -114,7 +114,7 @@ export class UI {
   this.closeGamePanels();get('hud').hidden=false;get('rotate-hint').hidden=false;get('control-hint').hidden=true;
   this.controlsActive=true;this.refreshControls();
  }
- updateView(view:MatchView,selfId:string,init=false):void {
+ updateView(view:MatchView,selfId:string,init=false,colors:readonly number[]=SLOT_COLORS):void {
   const self=view.participants.find(p=>p.participantId===selfId);if(!self)return;
   this.controlsActive=view.phase==='RUNNING'&&self.lifeState==='ALIVE';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
   this.activeMode=view.gameMode;this.totalCells=view.owners.length;
@@ -123,12 +123,12 @@ export class UI {
   get('kill-count').textContent=String(self.run?Math.max(0,self.kills-self.run.initialKills):self.kills);
   get('population').textContent=view.participants.filter(p=>p.kind==='HUMAN').length+' HUMAN · '+view.participants.filter(p=>p.kind==='BOT').length+' BOT';
   const ordered=[...view.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills);
-  const key=JSON.stringify([selfId,this.totalCells,view.gameMode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);
+  const key=JSON.stringify([colors,selfId,this.totalCells,view.gameMode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);
   if(key!==this.boardKey){this.boardKey=key;const list=get('ranking');list.replaceChildren();let rank=0;
    ordered.forEach((p,i)=>{const previous=ordered[i-1];if(!previous||p.territoryCount!==previous.territoryCount||p.kills!==previous.kills)rank=i+1;
     const row=document.createElement('li');if(p.participantId===selfId){row.className='self';get('self-rank').textContent=rank+'위';}
     const number=document.createElement('span');number.className='rank-number';number.textContent=String(rank);
-    const name=document.createElement('span');name.className='rank-name';name.textContent=p.nickname;name.style.borderColor='#'+COLORS[p.slot].toString(16).padStart(6,'0');
+    const name=document.createElement('span');name.className='rank-name';name.textContent=p.nickname;name.style.borderColor='#'+colors[p.slot].toString(16).padStart(6,'0');
     if(p.kind==='BOT'){const bot=document.createElement('small');bot.textContent='BOT';name.append(bot);}
     const score=document.createElement('b'),percent=document.createElement('span'),kills=document.createElement('small');percent.className='rank-percent';percent.textContent=territoryPercent(p.territoryCount,this.totalCells).toFixed(1)+'%';kills.className='rank-kills';kills.textContent='처치 '+p.kills;score.append(percent,kills);row.append(number,name,score);list.append(row);
    });

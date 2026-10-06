@@ -33,7 +33,19 @@ export const MARKER_COLORS:readonly Readonly<MarkerColorDefinition>[]=Object.fre
   {id:'coral',name:'Coral',value:0xff7084,price:SHOP_PRICES.markerColor},
   {id:'violet',name:'Violet',value:0xa180f4,price:SHOP_PRICES.markerColor},
   {id:'cyan',name:'Cyan',value:0x59bfd8,price:SHOP_PRICES.markerColor},
-  {id:'gold',name:'Gold',value:0xffb43b,price:SHOP_PRICES.markerColor}
+  {id:'gold',name:'Gold',value:0xffb43b,price:SHOP_PRICES.markerColor},
+  {id:'red',name:'Red',value:0xc83f4b,price:SHOP_PRICES.markerColor},
+  {id:'orange',name:'Orange',value:0xe87325,price:SHOP_PRICES.markerColor},
+  {id:'lime',name:'Lime',value:0xb5ce50,price:SHOP_PRICES.markerColor},
+  {id:'green',name:'Green',value:0x36843f,price:SHOP_PRICES.markerColor},
+  {id:'mint',name:'Mint',value:0x16cdb1,price:SHOP_PRICES.markerColor},
+  {id:'teal',name:'Teal',value:0x147f84,price:SHOP_PRICES.markerColor},
+  {id:'sky',name:'Sky',value:0x359aff,price:SHOP_PRICES.markerColor},
+  {id:'blue',name:'Blue',value:0x254bc8,price:SHOP_PRICES.markerColor},
+  {id:'pink',name:'Pink',value:0xdc57bd,price:SHOP_PRICES.markerColor},
+  {id:'plum',name:'Plum',value:0x763782,price:SHOP_PRICES.markerColor},
+  {id:'brown',name:'Brown',value:0x9b644d,price:SHOP_PRICES.markerColor},
+  {id:'slate',name:'Slate',value:0x52687c,price:SHOP_PRICES.markerColor}
 ].map(d=>Object.freeze(d)));
 const markers=new Map(MARKERS.map(d=>[d.id,d])),colors=new Map(MARKER_COLORS.map(d=>[d.id,d]));
 export const markerDefinition=(id:string)=>markers.get(id);

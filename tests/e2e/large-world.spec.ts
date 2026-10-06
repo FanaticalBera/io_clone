@@ -60,8 +60,8 @@ test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 
   writeFileSync(`${output}/online.json`,JSON.stringify({commonSnapshots:common.length,matchId:last.matchId,tick:last.tick,participants:last.participants.length,bytes:{mean:meanBytes,p95:sizes[Math.floor(sizes.length*.95)],payloadBytesPerSecondAt10Hz:meanBytes*10},errors},null,2));
  }finally{await Promise.all(contexts.map(c=>c.close()));await server.close();}
 });
-test('production client and server keep R22/8 despite experiment URL and environment variables',async({page})=>{
- await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));await page.goto('http://127.0.0.1:3010/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4');await page.getByTestId('practice').click();
- await expect(page.locator('#population')).toHaveText('1 HUMAN · 7 BOT');await expect(page.locator('#score-detail')).toContainText('/ 1519칸');await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();
- await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('1 HUMAN · 7 BOT');await expect(page.locator('#score-detail')).toContainText('/ 1519칸');
+test('production client and server keep current R56/16 defaults despite experiment overrides',async({page})=>{
+ await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));await page.goto('http://127.0.0.1:3010/?experimentMapRadius=48&experimentSlots=8&experimentSeed=4');await page.getByTestId('practice').click();
+ await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();
+ await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');
 });

@@ -12,7 +12,7 @@ export class ShopUI {
   constructor(private store:ProfileStore,private canOpen:()=>boolean,private loaded:(p:PlayerProfileV1)=>void,private slotColor=0x16cdb1){
     this.dialog=document.createElement('dialog');this.dialog.id='shop-dialog';this.dialog.setAttribute('aria-labelledby','shop-title');
     this.dialog.innerHTML='<header class="shop-header"><div><small class="eyebrow">SHOP / INVENTORY</small><h2 id="shop-title">마커 상점</h2></div><strong id="shop-coins">… Coins</strong><button id="shop-close" class="quiet" aria-label="상점 닫기">닫기 ✕</button></header>'+
-      '<nav class="shop-tabs" aria-label="상품 종류"><button id="shop-markers" class="quiet" aria-pressed="true">마커</button><button id="shop-colors" class="quiet" aria-pressed="false">Marker Color</button><button id="shop-owned" class="text-button" aria-pressed="false">보유만 보기</button></nav>'+
+      '<nav class="shop-tabs" aria-label="상품 종류"><button id="shop-markers" class="quiet" aria-pressed="true">마커</button><button id="shop-colors" class="quiet" aria-pressed="false">Player Color</button><button id="shop-owned" class="text-button" aria-pressed="false">보유만 보기</button></nav>'+
       '<nav id="shop-categories" class="shop-categories" aria-label="마커 카테고리"></nav>'+
       '<div class="shop-content"><aside class="shop-detail"><div id="shop-preview"></div><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="primary" disabled>불러오는 중</button></aside><div id="shop-items" class="shop-items" aria-label="상품 목록"></div></div>'+
       '<footer class="shop-footer"><span id="shop-status" role="status" aria-live="polite">가격은 V1 테스트 값입니다.</span><button id="shop-reload" class="text-button" hidden>저장 다시 읽기</button></footer>';
@@ -57,7 +57,10 @@ export class ShopUI {
     const list=get('shop-items'),focusId=(document.activeElement as HTMLElement|null)?.dataset.productId;list.replaceChildren();
     for(const product of products){
       const card=document.createElement('button');card.className='shop-card';card.dataset.productId=product.id;card.dataset.productKind=this.kind;
-      card.setAttribute('aria-pressed',String(product.id===this.selected));card.append(markerPreview(this.appearance(product.id),this.slotColor));
+      card.setAttribute('aria-pressed',String(product.id===this.selected));
+      if(this.kind==='marker-color'){
+       const swatch=document.createElement('i');swatch.className='shop-color-swatch';swatch.setAttribute('aria-hidden','true');const value='value'in product?product.value:null;swatch.style.backgroundColor='#'+(value??this.slotColor).toString(16).padStart(6,'0');card.append(swatch);
+      }else card.append(markerPreview(this.appearance(product.id),this.slotColor));
       const name=document.createElement('strong');name.textContent=product.name;card.append(name);
       const state=document.createElement('small'),owned=!!this.profile&&ownedItem(this.profile,this.kind,product.id),equipped=owned&&equippedItem(this.profile!,this.kind)===product.id;
       state.textContent=equipped?'장착 중':owned?'보유 중':product.price+' Coins';card.append(state);
@@ -68,7 +71,7 @@ export class ShopUI {
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;get('shop-preview').replaceChildren();
     if(!product){get('shop-item-name').textContent='상품 없음';get('shop-item-note').textContent='다른 카테고리나 보유 필터를 선택하세요.';action.textContent='선택할 상품 없음';return;}
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 본체만 변경 · 영토/트레일 유지':('placeholder'in product&&product.placeholder)?'임시 디자인 · 최종 외형은 추후 변경':('renderType'in product&&product.renderType==='IMAGE')?'본체 색상 변경 · 슬롯 식별 링 유지':'Basic 마커 · 슬롯 식별 링 유지';
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 트레일에 적용':('placeholder'in product&&product.placeholder)?'임시 디자인 · 최종 외형은 추후 변경':('renderType'in product&&product.renderType==='IMAGE')?'Player Color 본체 · 고정 Detail':'Basic 마커 · Player Color';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;

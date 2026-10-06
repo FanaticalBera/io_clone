@@ -1,3 +1,5 @@
+import {ProfileUI} from './profile-ui.js';
+import {experimentalMarkerDiameter} from './marker-size-experiment.js';
 import {profileTrace} from './profile-diagnostics.js';
 import {startFrameMeter} from './frame-meter.js';
 import {createMatch,buildView} from '../shared/game.js';
@@ -15,7 +17,7 @@ import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js
 import {experimentalMapConfig,experimentalSeed,experimentalSlotConfig} from '../shared/map-experiment.js';
 import {experimentalTerritoryEffect} from './territory-effect-model.js';
 import {experimentalCaptureEffect} from './territory-capture-model.js';
-import {testMarkerGift} from './test-marker-gift.js';
+import {testMarkerGiftKind} from './test-marker-gift.js';
 import {ShopUI} from './shop-ui.js';
 import type {PlayerProfileV1} from './profile.js';
 import {ProfileStore} from './profile-store.js';
@@ -29,19 +31,21 @@ const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
-function applyProfile(p:PlayerProfileV1):void {profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});profileTrace('UI_PROFILE_OK');}
+const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU');
+function applyProfile(p:PlayerProfileV1):void {profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
-const markerGift=testMarkerGift(location.search,import.meta.env.DEV);
+const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);
 void (async()=>{
  let p:PlayerProfileV1;
- try{p=await(markerGift?profileStore.claimTestMarker():profileStore.read());profileTrace('INITIAL_PROFILE_READ_OK');}
+ try{p=await(markerGift?profileStore.claimTestMarker(markerGift):profileStore.read());profileTrace('INITIAL_PROFILE_READ_OK');}
  catch(error){profileTrace('INITIAL_STORAGE_ERROR',error);ui.setProfileBalance(null);if(markerGift)ui.message('마커 지급을 저장하지 못했어요. 이 주소에서 새로고침해 다시 시도하세요.',true);return;}
  // A committed/read wallet must not be labelled unavailable because rendering failed.
  try{applyProfile(p);
-  if(markerGift){const url=new URL(location.href);url.searchParams.delete('testMarkerGift');history.replaceState(null,'',url);ui.message('말랑냥을 무료로 지급하고 장착했어요. 상점에서 색상을 바꿔보세요.');}
+  if(markerGift){const url=new URL(location.href);url.searchParams.delete('testMarkerGift');history.replaceState(null,'',url);ui.message(markerGift==='all'?'전체 마커를 무료로 지급했어요. 상점에서 골라 장착해 보세요.':'말랑냥을 무료로 지급하고 장착했어요. 상점에서 색상을 바꿔보세요.');}
  }catch(error){profileTrace('INITIAL_PRESENTATION_ERROR',error);console.warn('Profile presentation failed',error);}
 })();
 const scene=createRenderer('field');
+scene.setMarkerImageDiameter(experimentalMarkerDiameter(new URLSearchParams(location.search).get('experimentMarkerSize'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setKillFeedback(()=>{haptics.kill();});
@@ -50,13 +54,13 @@ const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
 input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();});
-if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),getMarkerAssets:()=>scene.markerAssetsState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
+if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),getPlayerColors:()=>[...scene.playerColors()],getScene:()=>scene,getMarkerAssets:()=>scene.markerAssetsState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8))),null);
 function display(view:MatchView,selfId:string,init=false):void {
  if(view.participants.find(p=>p.participantId===selfId)?.lifeState==='ALIVE'&&ui.hasRunResult){ui.clearRunResult();ui.showGame(ui.mode==='PRACTICE'?'PRACTICE':'ONLINE');}
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);
  if(ui.mode!=='PRACTICE'&&(init||ui.mode!=='ONLINE'))ui.showGame('ONLINE');
- scene.setView(view,selfId,ui.mode==='ONLINE',init);ui.updateView(view,selfId,init);rewards.observe(view,selfId);ui.clearMessage();const self=view.participants.find(p=>p.participantId===selfId)!;
+ scene.setView(view,selfId,ui.mode==='ONLINE',init);ui.updateView(view,selfId,init,scene.playerColors());rewards.observe(view,selfId);ui.clearMessage();const self=view.participants.find(p=>p.participantId===selfId)!;
  if(self.lifeState==='ALIVE'){runRetryPending=false;}
  const playable=!document.hidden&&!ui.isSettingsOpen()&&view.phase==='RUNNING'&&(ui.mode==='PRACTICE'||!!online?.hasCurrentState);
  if(playable&&(self.lifeState==='DEAD_WAIT'||self.lifeState==='SPAWN_BLOCKED'))input.suspendForRespawn();

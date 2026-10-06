@@ -7,9 +7,9 @@ export type MarkerPrimitive=
   |{kind:'line';x1:number;y1:number;x2:number;y2:number;stroke:number;width:number};
 export interface MarkerArt {definition:Readonly<MarkerDefinition>;markerId:string;markerColorId:string;bodyColor:number;slotColor:number;local:boolean;primitives:MarkerPrimitive[];label:string}
 export const DEFAULT_MARKER_APPEARANCE:Readonly<MarkerAppearance>=Object.freeze({markerId:DEFAULT_MARKER_ID,markerColorId:DEFAULT_MARKER_COLOR_ID});
-export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boolean):MarkerArt {
-  const definition=markerDefinition(local?appearance.markerId:DEFAULT_MARKER_ID)??markerDefinition(DEFAULT_MARKER_ID)!;
-  const color=markerColorDefinition(local?appearance.markerColorId:DEFAULT_MARKER_COLOR_ID)??markerColorDefinition(DEFAULT_MARKER_COLOR_ID)!;
+export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boolean,allowRemoteAppearance=false):MarkerArt {
+  const definition=markerDefinition(local||allowRemoteAppearance?appearance.markerId:DEFAULT_MARKER_ID)??markerDefinition(DEFAULT_MARKER_ID)!;
+  const color=markerColorDefinition(local||allowRemoteAppearance?appearance.markerColorId:DEFAULT_MARKER_COLOR_ID)??markerColorDefinition(DEFAULT_MARKER_COLOR_ID)!;
   const bodyColor=color.value??slotColor,primitives:MarkerPrimitive[]=[];
   const circle=(radius:number,fill?:number,stroke?:number,width=0)=>primitives.push({kind:'circle',x:0,y:0,radius,fill,stroke,width});
   switch(definition.shape){
@@ -22,13 +22,14 @@ export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boo
       break;
     case 'PLACEHOLDER':circle(19,bodyColor,0xffffff,3);break;
   }
-  if(local)primitives.push({kind:'circle',x:0,y:0,radius:25.5,stroke:slotColor,width:2,tag:'IDENTIFICATION'});
+  if(local||allowRemoteAppearance)primitives.push({kind:'circle',x:0,y:0,radius:25.5,stroke:slotColor,width:2,tag:'IDENTIFICATION'});
   return{definition,markerId:definition.id,markerColorId:color.id,bodyColor,slotColor,local,primitives,label:definition.placeholder?(definition.shortLabel??'?'):''};
 }
 export const markerCssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export function markerPreview(appearance:MarkerAppearance,slotColor:number):SVGSVGElement|HTMLCanvasElement {
-  const art=markerArt(appearance,slotColor,true);
-  if(art.definition.renderType==='IMAGE'&&art.definition.assetKey)return imageMarkerPreview(art.definition,art.bodyColor,slotColor);
+  const renderColor=markerColorDefinition(appearance.markerColorId)?.value??slotColor;
+  const art=markerArt(appearance,renderColor,true);
+  if(art.definition.renderType==='IMAGE'&&art.definition.assetKey)return imageMarkerPreview(art.definition,art.bodyColor,art.slotColor);
   const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
   svg.setAttribute('viewBox','-32 -32 64 64');svg.setAttribute('aria-hidden','true');
   for(const p of art.primitives){

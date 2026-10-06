@@ -1,0 +1,98 @@
+[
+  {
+    "radius": 48,
+    "culled": {
+      "fps": 24.530928860306304,
+      "p95Ms": 50
+    },
+    "allVisible": {
+      "fps": 25.57377049180328,
+      "p95Ms": 50
+    },
+    "resources": {
+      "mapInitMs": 31.400000005960464,
+      "groundPreparationMs": 6.799999997019768,
+      "territoryRedrawMs": 0,
+      "minimapUpdateMs": 0.09999999403953552,
+      "minimapPreparationMs": 35.6000000089407,
+      "groundChunks": 40,
+      "territoryChunks": 40,
+      "visibleGroundChunks": 30,
+      "textures": 43,
+      "groundTextures": 1,
+      "groundTextureSize": {
+        "width": 60,
+        "height": 68
+      },
+      "groundCells": 7057,
+      "avatars": 16,
+      "culling": true
+    },
+    "stablePanResources": true,
+    "pageErrors": []
+  },
+  {
+    "radius": 56,
+    "culled": {
+      "fps": 22.088883027825393,
+      "p95Ms": 50.100000000000364
+    },
+    "allVisible": {
+      "fps": 21.547437512431213,
+      "p95Ms": 50.100000000000364
+    },
+    "resources": {
+      "mapInitMs": 35.5,
+      "groundPreparationMs": 4.100000008940697,
+      "territoryRedrawMs": 0.10000000894069672,
+      "minimapUpdateMs": 0.29999999701976776,
+      "minimapPreparationMs": 29.200000002980232,
+      "groundChunks": 51,
+      "territoryChunks": 51,
+      "visibleGroundChunks": 25,
+      "textures": 43,
+      "groundTextures": 1,
+      "groundTextureSize": {
+        "width": 60,
+        "height": 68
+      },
+      "groundCells": 9577,
+      "avatars": 16,
+      "culling": true
+    },
+    "stablePanResources": true,
+    "pageErrors": []
+  },
+  {
+    "radius": 64,
+    "culled": {
+      "fps": 21.43021990702582,
+      "p95Ms": 50.100000000000364
+    },
+    "allVisible": {
+      "fps": 20.984294567034986,
+      "p95Ms": 50.100000000000364
+    },
+    "resources": {
+      "mapInitMs": 42.79999999701977,
+      "groundPreparationMs": 8.099999994039536,
+      "territoryRedrawMs": 0,
+      "minimapUpdateMs": 0.29999999701976776,
+      "minimapPreparationMs": 51,
+      "groundChunks": 65,
+      "territoryChunks": 65,
+      "visibleGroundChunks": 30,
+      "textures": 43,
+      "groundTextures": 1,
+      "groundTextureSize": {
+        "width": 60,
+        "height": 68
+      },
+      "groundCells": 12481,
+      "avatars": 16,
+      "culling": true
+    },
+    "stablePanResources": true,
+    "pageErrors": []
+  }
+]

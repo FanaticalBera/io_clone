@@ -1,3 +1,6 @@
+import {SLOT_COLORS,participantRenderColors} from './player-colors.js';
+import {shuffledBotMarkers} from './bot-cosmetics.js';
+import {DEFAULT_IMAGE_MARKER_DIAMETER,type ImageMarkerDiameter} from './marker-size-experiment.js';
 import {MARKERS,markerAssetUrl} from './catalog.js';
 import {PlayerMarker} from './player-marker.js';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
@@ -15,8 +18,7 @@ import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
 import {renderPixelRatio} from './render-viewport.js';
 import {slotBit} from '../shared/slots.js';
 import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
-export const COLORS=[0x16cdb1,0xffb43b,0xa180f4,0x359aff,0xff7084,0xb5ce50,0xf3945c,0x59bfd8,
- 0xdc57bd,0x8575d6,0x269779,0xbd8432,0xd65649,0x557ab5,0x859535,0x9b644d];
+export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
@@ -28,8 +30,17 @@ export class GameScene extends Phaser.Scene {
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
  private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
+ private markerImageDiameter:ImageMarkerDiameter=DEFAULT_IMAGE_MARKER_DIAMETER;
+ setMarkerImageDiameter(value:ImageMarkerDiameter):void {if(this.markerImageDiameter===value)return;this.markerImageDiameter=value;this.setMarkerAppearance(this.markerAppearance);}
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
- setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};for(const [id,avatar] of this.avatars){const p=this.view?.participants.find(p=>p.participantId===id);if(p)avatar.marker.set(this.markerAppearance,COLORS[p.slot],id===this.selfId);}}
+ setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
+ private renderColors=[...SLOT_COLORS];private colorKey='';private cosmeticMatch='';private botMarkerIds:readonly string[]=[];
+ playerColors():readonly number[]{return this.renderColors;}
+ private syncCosmetics(view:MatchView):boolean {
+  if(this.cosmeticMatch!==view.matchId){this.cosmeticMatch=view.matchId;this.botMarkerIds=shuffledBotMarkers(view.matchId);}
+  const next=participantRenderColors(view,this.selfId,this.markerAppearance.markerColorId,this.online),key=next.join(':');
+  if(this.colorKey===key)return false;this.colorKey=key;this.renderColors.splice(0,this.renderColors.length,...next);this.miniOwners.fill(255);return true;
+ }
  markerState(){return [...this.avatars].map(([participantId,a])=>({participantId,...a.marker.state()}));}
  private followTarget:Phaser.GameObjects.Container|null=null;
  private renderedAt=0;
@@ -44,7 +55,7 @@ export class GameScene extends Phaser.Scene {
  constructor(){super('game');}
  preload():void {for(const marker of MARKERS)if(marker.renderType==='IMAGE')for(const key of [marker.assetKey,marker.detailAssetKey])if(key&&!this.textures.exists(key))this.load.image(key,markerAssetUrl(key));}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('marker-')).sort(),avatars:this.avatars.size,imageObjects:[...this.avatars.values()].reduce((count,a)=>count+a.marker.container.list.filter(child=>child.type==='Image').length,0)};}
- create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -76,6 +87,7 @@ export class GameScene extends Phaser.Scene {
  }
  private chunkKey(id:number):string {return this.cellChunkKeys[id];}
  private drawView(view:MatchView,reset=false,previous?:MatchView):void {
+  const colorsChanged=this.syncCosmetics(view);
   if(!this.map||this.map.mapId!==view.mapId){
    const initAt=performance.now();
    this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
@@ -108,21 +120,21 @@ export class GameScene extends Phaser.Scene {
    this.metrics.mapInitMs=performance.now()-initAt;
   }
   const redrawAt=performance.now();
-  const dirty=new Set<string>();
+  const dirty=new Set<string>();if(colorsChanged||reset)for(const key of this.chunkIndex.keys())dirty.add(key);
   for(let id=0;id<view.owners.length;id++)if(this.lastOwners[id]!==view.owners[id]||this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
   for(const key of dirty){
    const g=this.chunks.get(key)!;g.clear();
    for(const id of this.chunkIndex.get(key)!.cells){const c=this.map.cells[id];
     const owner=view.owners[c.id],mask=view.trailMasks[c.id];
-    if(owner)this.hex(g,c.id,COLORS[owner-1],0.92,0xf5f2e9);
+    if(owner)this.hex(g,c.id,this.renderColors[owner-1],0.92,0xf5f2e9);
     for(let slot=0;slot<view.config.maxSlots;slot++)if(mask&slotBit(slot)){
      // The entire traversed hex is vulnerable; keep it visibly lighter than captured land.
-     this.hex(g,c.id,COLORS[slot],0.28,COLORS[slot]);
+     this.hex(g,c.id,this.renderColors[slot],0.28,this.renderColors[slot]);
     }
    }
   }
-  this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,COLORS,performance.now(),reset,previous);
-  this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,COLORS,performance.now(),reset,previous);
+  this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
+  this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
   this.lastOwners.set(view.owners);this.lastTrails.set(view.trailMasks);
   this.metrics.territoryRedrawMs=performance.now()-redrawAt;
   const present=new Set(view.participants.map(p=>p.participantId));
@@ -130,13 +142,15 @@ export class GameScene extends Phaser.Scene {
   for(const p of view.participants){
    let avatar=this.avatars.get(p.participantId);
    if(!avatar){
-    const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,COLORS[p.slot],0.9);
+    const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,this.renderColors[p.slot],0.9);
     const marker=new PlayerMarker(this);
     const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
     avatar={container,marker,shield,label};this.avatars.set(p.participantId,avatar);
    }
-   avatar.marker.set(this.markerAppearance,COLORS[p.slot],p.participantId===this.selfId);
+   const appearance=p.kind==='BOT'?{markerId:this.botMarkerIds[p.slot%this.botMarkerIds.length]??'default',markerColorId:'slot'}:this.markerAppearance;
+   avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,this.markerImageDiameter,p.kind==='BOT');
+   avatar.shield.setStrokeStyle(3,this.renderColors[p.slot],.9);
    avatar.container.setVisible(p.lifeState==='ALIVE');
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
@@ -147,7 +161,7 @@ export class GameScene extends Phaser.Scene {
     if(this.followTarget!==avatar.container){this.followTarget=avatar.container;this.cameras.main.startFollow(avatar.container,false,1,1);}
    }
   }
-  for(const [i,cp]of this.map.controlPoints.entries()){const owner=view.owners[cp.cellId];this.points[i].setVisible(GAME_MODES[view.gameMode.id].usesControlPoints).setBackgroundColor(owner?cssColor(COLORS[owner-1]):'#ffce70');}
+  for(const [i,cp]of this.map.controlPoints.entries()){const owner=view.owners[cp.cellId];this.points[i].setVisible(GAME_MODES[view.gameMode.id].usesControlPoints).setBackgroundColor(owner?cssColor(this.renderColors[owner-1]):'#ffce70');}
   if(!this.selfId){this.followTarget=null;this.cameras.main.stopFollow();this.cameras.main.centerOn(0,0);}
   this.cameras.main.setZoom(this.cssZoom()*this.pixelRatio);
   document.querySelector('#field')?.setAttribute('data-chunks',String(this.chunks.size));
@@ -174,7 +188,7 @@ export class GameScene extends Phaser.Scene {
    if(self?.lifeState==='ALIVE'&&position&&this.view.phase==='RUNNING'){
     const cell=worldCell(this.map,position);if(cell>=0&&this.view.owners[cell]!==self.slot+1){
      // The unconfirmed head cell is a quieter preview, replaced by the next snapshot.
-     if(!(this.view.trailMasks[cell]&slotBit(self.slot)))this.hex(this.predictedLine,cell,COLORS[self.slot],0.13);
+     if(!(this.view.trailMasks[cell]&slotBit(self.slot)))this.hex(this.predictedLine,cell,this.renderColors[self.slot],0.13);
     }
    }
   }else this.predictedLine?.clear();
@@ -197,11 +211,11 @@ export class GameScene extends Phaser.Scene {
   const layer=this.miniLayer!.getContext('2d')!;layer.setTransform(backingWidth/width,0,0,backingHeight/height,0,0);
   const miniDirty=new Set<number>();
   for(const c of this.map.cells)if(this.miniOwners[c.id]!==this.view.owners[c.id]){miniDirty.add(c.id);for(const id of c.neighbors)if(id>=0)miniDirty.add(id);}
-  for(const id of miniDirty){const owner=this.view.owners[id];layer.fillStyle=owner?cssColor(COLORS[owner-1]):'#eeebe2';layer.strokeStyle='#d8d7cc';layer.lineWidth=.35;layer.fill(this.miniPaths[id]);layer.stroke(this.miniPaths[id]);}
+  for(const id of miniDirty){const owner=this.view.owners[id];layer.fillStyle=owner?cssColor(this.renderColors[owner-1]):'#eeebe2';layer.strokeStyle='#d8d7cc';layer.lineWidth=.35;layer.fill(this.miniPaths[id]);layer.stroke(this.miniPaths[id]);}
   this.miniOwners.set(this.view.owners);context.drawImage(this.miniLayer!,0,0,width,height);
   if(prepareMini)this.metrics.minimapPreparationMs=performance.now()-miniAt;
   if(GAME_MODES[this.view!.gameMode.id].usesControlPoints)for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId],x=width/2+c.center.x*scale,y=height/2+c.center.y*scale;context.fillStyle='#ffb43b';context.beginPath();context.moveTo(x,y-3);context.lineTo(x+3,y);context.lineTo(x,y+3);context.lineTo(x-3,y);context.closePath();context.fill();}
-  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(COLORS[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(COLORS[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
+  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(this.renderColors[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(this.renderColors[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
   this.metrics.minimapUpdateMs=performance.now()-miniAt;
  }
  pointerDirection(x:number,y:number):Vec|null {
