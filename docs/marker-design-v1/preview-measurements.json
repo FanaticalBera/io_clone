@@ -1,0 +1,118 @@
+{
+  "ready": true,
+  "count": 11,
+  "colorVariations": 1,
+  "zoom": 0.38,
+  "bodyLimitPx": 15.96,
+  "ringDiameterPx": 20.14,
+  "assets": [
+    {
+      "id": "chick",
+      "radius": 541.0418190861035,
+      "width": 961,
+      "height": 1040,
+      "transparentFraction": 0.5510627554822971,
+      "bodyWidthPx": 14.174098432822916,
+      "bodyHeightPx": 15.339294870068507
+    },
+    {
+      "id": "core",
+      "radius": 509.08864650471236,
+      "width": 999,
+      "height": 810,
+      "transparentFraction": 0.5907221293773799,
+      "bodyWidthPx": 15.659394596076908,
+      "bodyHeightPx": 12.696806429251547
+    },
+    {
+      "id": "cat",
+      "radius": 582.7840509142301,
+      "width": 1027,
+      "height": 892,
+      "transparentFraction": 0.5065868964131367,
+      "bodyWidthPx": 14.06260172553375,
+      "bodyHeightPx": 12.214061089752779
+    },
+    {
+      "id": "slime",
+      "radius": 612.2558697146152,
+      "width": 1100,
+      "height": 747,
+      "transparentFraction": 0.5927513615123788,
+      "bodyWidthPx": 14.33714307074198,
+      "bodyHeightPx": 9.7362235216766
+    },
+    {
+      "id": "ghost",
+      "radius": 441.6947475349917,
+      "width": 635,
+      "height": 798,
+      "transparentFraction": 0.7616863675790898,
+      "bodyWidthPx": 11.472402667859575,
+      "bodyHeightPx": 14.417287132207782
+    },
+    {
+      "id": "crystal",
+      "radius": 477.5261772929312,
+      "width": 773,
+      "height": 956,
+      "transparentFraction": 0.733928939355784,
+      "bodyWidthPx": 12.917700208539568,
+      "bodyHeightPx": 15.975836221686711
+    },
+    {
+      "id": "drone",
+      "radius": 591.2837728197858,
+      "width": 1016,
+      "height": 822,
+      "transparentFraction": 0.6004212357775692,
+      "bodyWidthPx": 13.71199476916999,
+      "bodyHeightPx": 11.093759547497768
+    },
+    {
+      "id": "orbit",
+      "radius": 564.8946804493736,
+      "width": 1043,
+      "height": 805,
+      "transparentFraction": 0.6119587972395829,
+      "bodyWidthPx": 14.733967743117963,
+      "bodyHeightPx": 11.371854298379635
+    },
+    {
+      "id": "crown",
+      "radius": 482.114353654815,
+      "width": 842,
+      "height": 965,
+      "transparentFraction": 0.6267173116203587,
+      "bodyWidthPx": 13.936859479630419,
+      "bodyHeightPx": 15.9727665057522
+    },
+    {
+      "id": "radar",
+      "radius": 470.06621873944533,
+      "width": 926,
+      "height": 583,
+      "transparentFraction": 0.7737848136362364,
+      "bodyWidthPx": 15.720083055140664,
+      "bodyHeightPx": 9.89720131873327
+    },
+    {
+      "id": "ember",
+      "radius": 547.7485737087774,
+      "width": 928,
+      "height": 1086,
+      "transparentFraction": 0.558895426183263,
+      "bodyWidthPx": 13.519779613223177,
+      "bodyHeightPx": 15.821638642198673
+    },
+    {
+      "id": "cat-violet",
+      "radius": 584.8215539803573,
+      "width": 1031,
+      "height": 894,
+      "transparentFraction": 0.5029048989008696,
+      "bodyWidthPx": 14.068188738947091,
+      "bodyHeightPx": 12.198797994780502
+    }
+  ]
+}

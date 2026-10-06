@@ -1,3 +1,4 @@
+import {imageMarkerPreview} from './marker-preview-image.js';
 import {markerDefinition,markerColorDefinition,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,type MarkerDefinition} from './catalog.js';
 export interface MarkerAppearance {markerId:string;markerColorId:string}
 export type MarkerPrimitive=
@@ -25,8 +26,10 @@ export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boo
   return{definition,markerId:definition.id,markerColorId:color.id,bodyColor,slotColor,local,primitives,label:definition.placeholder?(definition.shortLabel??'?'):''};
 }
 export const markerCssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
-export function markerPreview(appearance:MarkerAppearance,slotColor:number):SVGSVGElement {
-  const art=markerArt(appearance,slotColor,true),ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
+export function markerPreview(appearance:MarkerAppearance,slotColor:number):SVGSVGElement|HTMLCanvasElement {
+  const art=markerArt(appearance,slotColor,true);
+  if(art.definition.renderType==='IMAGE'&&art.definition.assetKey)return imageMarkerPreview(art.definition,art.bodyColor,slotColor);
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');
   svg.setAttribute('viewBox','-32 -32 64 64');svg.setAttribute('aria-hidden','true');
   for(const p of art.primitives){
     const el=document.createElementNS(ns,p.kind==='polygon'?'polygon':p.kind==='line'?'line':'circle');

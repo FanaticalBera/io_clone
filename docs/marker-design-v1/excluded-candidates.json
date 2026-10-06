@@ -1,0 +1,15 @@
+[
+  {
+    "id": "moon",
+    "category": "FANTASY",
+    "code": "F3",
+    "name": "초승달 정령",
+    "identity": "한쪽이 크게 열린 두꺼운 C자와 졸린 눈.",
+    "finalCleanup": "내부 발처럼 보이는 장식과 얇은 눈선은 최종 제작에서 삭제.",
+    "file": "concepts/moon-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-db05195f-a75e-49d3-8215-42567f2fab90.png",
+    "status": "EXCLUDED",
+    "userReference": "5번, 달 같이 생긴 후보",
+    "reason": "사용자가 제외 대상으로 초승달 정령을 명확히 지정함. 꼬마 유령 제외는 오인이어서 복구."
+  }
+]

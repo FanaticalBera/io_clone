@@ -34,7 +34,7 @@ export class ShopUI {
   open():void {
     if(!this.canOpen()||this.dialog.open)return;
     this.kind='marker';this.category='ALL';this.ownedOnly=false;this.selected=this.profile?.inventory.equippedMarkerId??DEFAULT_MARKER_ID;
-    this.status('가격은 V1 테스트 값입니다. 임시 상품은 최종 디자인이 아닙니다.');this.dialog.showModal();this.render();void this.refresh();
+    this.status('가격은 V1 테스트 값입니다.');this.dialog.showModal();this.render();void this.refresh();
   }
   private async refresh():Promise<void>{
     try{const p=await this.store.read();this.loaded(p);}
@@ -68,7 +68,7 @@ export class ShopUI {
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;get('shop-preview').replaceChildren();
     if(!product){get('shop-item-name').textContent='상품 없음';get('shop-item-note').textContent='다른 카테고리나 보유 필터를 선택하세요.';action.textContent='선택할 상품 없음';return;}
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 본체만 변경 · 영토/트레일 유지':('placeholder'in product&&product.placeholder)?'임시 디자인 · 최종 외형은 추후 변경':'Basic 마커 · 슬롯 식별 링 유지';
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 본체만 변경 · 영토/트레일 유지':('placeholder'in product&&product.placeholder)?'임시 디자인 · 최종 외형은 추후 변경':('renderType'in product&&product.renderType==='IMAGE')?'본체 색상 변경 · 슬롯 식별 링 유지':'Basic 마커 · 슬롯 식별 링 유지';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;

@@ -1,3 +1,4 @@
+import {MARKERS,markerAssetUrl} from './catalog.js';
 import {PlayerMarker} from './player-marker.js';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
 import Phaser from 'phaser';
@@ -41,6 +42,8 @@ export class GameScene extends Phaser.Scene {
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
+ preload():void {for(const marker of MARKERS)if(marker.renderType==='IMAGE')for(const key of [marker.assetKey,marker.detailAssetKey])if(key&&!this.textures.exists(key))this.load.image(key,markerAssetUrl(key));}
+ markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('marker-')).sort(),avatars:this.avatars.size,imageObjects:[...this.avatars.values()].reduce((count,a)=>count+a.marker.container.list.filter(child=>child.type==='Image').length,0)};}
  create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,COLORS,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {

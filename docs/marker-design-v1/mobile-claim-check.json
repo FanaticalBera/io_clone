@@ -1,0 +1,22 @@
+{
+  "url": "http://192.168.137.1:3003",
+  "viewport": {
+    "width": 844,
+    "height": 390
+  },
+  "coins": 0,
+  "inventory": {
+    "version": 1,
+    "ownedMarkerIds": [
+      "default",
+      "cat"
+    ],
+    "ownedMarkerColorIds": [
+      "slot"
+    ],
+    "equippedMarkerId": "cat",
+    "equippedMarkerColorId": "slot"
+  },
+  "reloadRestored": true,
+  "errors": []
+}

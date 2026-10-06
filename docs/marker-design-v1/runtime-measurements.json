@@ -1,0 +1,59 @@
+{
+  "state": {
+    "renderedAt": 3258.5,
+    "camera": {
+      "x": -2054.139206973182,
+      "y": -2214.3095015109657
+    },
+    "zoom": 0.38000000000000006,
+    "pixelRatio": 3,
+    "backing": {
+      "width": 2532,
+      "height": 1170
+    },
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "centerError": 2.5421149729252077e-13,
+    "tick": 20,
+    "lifeId": 1,
+    "lifeState": "ALIVE"
+  },
+  "marker": {
+    "participantId": "local-human",
+    "markerId": "default",
+    "markerColorId": "slot",
+    "bodyColor": 1494449,
+    "slotColor": 1494449,
+    "local": true,
+    "identificationRing": true,
+    "imageVisible": false,
+    "placeholder": false
+  },
+  "config": {
+    "simulationHz": 30,
+    "snapshotHz": 10,
+    "inputMaxHz": 30,
+    "roundSeconds": 240,
+    "maxSlots": 16,
+    "mapRadius": 56,
+    "hexSideWorldUnits": 32,
+    "spawnRadius": 1,
+    "moveCellsPerSecond": 4.2,
+    "turnRadiansPerSecond": 9,
+    "respawnSeconds": 3,
+    "protectSeconds": 2,
+    "retrySpawnSeconds": 1,
+    "spawnBufferHexes": 3,
+    "botDecisionMs": 200,
+    "botObservationRange": 12,
+    "interpolationMs": 100,
+    "maxExtrapolationMs": 100,
+    "publicRecruitSeconds": 2,
+    "countdownSeconds": 3,
+    "resultsSecondsIncludingCountdown": 10,
+    "reconnectGraceSeconds": 10,
+    "emptyRoomTtlSeconds": 60
+  }
+}

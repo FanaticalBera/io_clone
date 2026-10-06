@@ -1,0 +1,6 @@
+{
+  "id": "cat-violet",
+  "file": "concepts/cat-violet-draft01.png",
+  "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-7b3e1981-92b1-4a70-b751-ce8c332ed4ad.png",
+  "prompt": "Use case: precise-object-edit. EDIT TARGET: the attached cat marker approval concept. Change ONLY the CORAL/red jelly head material (including the coral ears and their darker coral shading) to a soft VIOLET material based on #a180f4. Preserve the exact same compact cat silhouette, head size, centered square layout, fixed dark navy eyes and outline, fixed ivory muzzle, eye glints and forehead highlight, facial expression, transparent background. Do NOT apply a global image tint. Ivory remains ivory and navy remains navy. Maintain original shading in violet shades, no extra decorations. This is a COLOR DIRECTION DRAFT only, not an implemented renderer or final asset."
+}

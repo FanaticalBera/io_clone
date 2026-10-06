@@ -1,0 +1,149 @@
+{
+  "frame": 256,
+  "worldDiameter": 42,
+  "markers": [
+    {
+      "id": "cat",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 626,
+        "cy": 631.5,
+        "radius": 582.7840509142301
+      },
+      "basePixels": 530963,
+      "detailPixels": 244937,
+      "file": "concepts/cat-draft01.png"
+    },
+    {
+      "id": "chick",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 627,
+        "cy": 621.5,
+        "radius": 541.0418190861035
+      },
+      "basePixels": 356981,
+      "detailPixels": 348980,
+      "file": "concepts/chick-draft01.png"
+    },
+    {
+      "id": "slime",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 626.5,
+        "cy": 623,
+        "radius": 612.2558697146152
+      },
+      "basePixels": 384297,
+      "detailPixels": 256108,
+      "file": "concepts/slime-draft01.png"
+    },
+    {
+      "id": "crystal",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 627,
+        "cy": 596.5,
+        "radius": 477.5261772929312
+      },
+      "basePixels": 195410,
+      "detailPixels": 222991,
+      "file": "concepts/crystal-draft01.png"
+    },
+    {
+      "id": "ghost",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 628,
+        "cy": 609.5,
+        "radius": 441.6947475349917
+      },
+      "basePixels": 188656,
+      "detailPixels": 186096,
+      "file": "concepts/ghost-draft01.png"
+    },
+    {
+      "id": "core",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 627,
+        "cy": 589.5,
+        "radius": 509.08864650471236
+      },
+      "basePixels": 233207,
+      "detailPixels": 410389,
+      "file": "concepts/core-draft01.png"
+    },
+    {
+      "id": "radar",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 626.5,
+        "cy": 622,
+        "radius": 470.06621873944533
+      },
+      "basePixels": 149979,
+      "detailPixels": 205748,
+      "file": "concepts/radar-draft01.png"
+    },
+    {
+      "id": "drone",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 626.5,
+        "cy": 613.5,
+        "radius": 591.2837728197858
+      },
+      "basePixels": 242636,
+      "detailPixels": 385708,
+      "file": "concepts/drone-draft01.png"
+    },
+    {
+      "id": "orbit",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 653,
+        "cy": 638,
+        "radius": 564.8946804493736
+      },
+      "basePixels": 206118,
+      "detailPixels": 404083,
+      "file": "concepts/orbit-draft02.png"
+    },
+    {
+      "id": "crown",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 626.5,
+        "cy": 614,
+        "radius": 482.114353654815
+      },
+      "basePixels": 236720,
+      "detailPixels": 350273,
+      "file": "concepts/crown-draft02.png"
+    },
+    {
+      "id": "ember",
+      "source": {
+        "width": 1254,
+        "height": 1254,
+        "cx": 634.5,
+        "cy": 634.5,
+        "radius": 547.7485737087774
+      },
+      "basePixels": 305521,
+      "detailPixels": 388123,
+      "file": "concepts/ember-draft02.png"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "cat",
+    "category": "CUTE",
+    "code": "C1",
+    "name": "말랑냥",
+    "identity": "짧은 삼각 귀와 넓은 고양이 얼굴. 친숙한 기본 수집 후보.",
+    "finalCleanup": "콧수염은 제외하고 입·코를 한 덩어리로 정리.",
+    "file": "concepts/cat-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-ef6155d9-88d8-4370-a043-c6ee3158f6f7.png"
+  },
+  {
+    "id": "chick",
+    "category": "CUTE",
+    "code": "C2",
+    "name": "콩병아리",
+    "identity": "물방울 머리와 짧은 볏, 큰 부리로 구분.",
+    "finalCleanup": "볼 반짝임과 눈썹을 줄이고 부리 대비를 확보.",
+    "file": "concepts/chick-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-55ed6f5e-4b40-479d-a6c4-f0da9a794043.png"
+  },
+  {
+    "id": "slime",
+    "category": "CUTE",
+    "code": "C3",
+    "name": "젤리팡",
+    "identity": "낮고 넓은 젤리와 한쪽 방울 돌기로 구분.",
+    "finalCleanup": "눈의 다중 반짝임을 하나로 합치고 작은 입은 생략 가능.",
+    "file": "concepts/slime-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-31201ac7-df2f-444e-bf95-28da9c40d279.png"
+  },
+  {
+    "id": "crystal",
+    "category": "FANTASY",
+    "code": "F1",
+    "name": "루미 크리스탈",
+    "identity": "위아래 꼭짓점과 큰 보석 면, 굵은 눈창.",
+    "finalCleanup": "작은 굴절선을 빼고 3개 이하의 큰 면으로 정리.",
+    "file": "concepts/crystal-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-cb3bddbc-e34b-4629-9a47-247cd7db08b5.png"
+  },
+  {
+    "id": "ghost",
+    "category": "FANTASY",
+    "code": "F2",
+    "name": "꼬마 유령",
+    "identity": "세 갈래 밑단과 짧게 말린 후드가 있는 정령.",
+    "finalCleanup": "후드 말림을 단순화하고 얼굴 면을 크게 유지.",
+    "file": "concepts/ghost-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-ef2a9ee8-3eee-4723-af4b-de3e759e637f.png"
+  },
+  {
+    "id": "core",
+    "category": "TECH",
+    "code": "T1",
+    "name": "캡슐 코어",
+    "identity": "각진 하우징과 넓은 검은 바이저의 로봇.",
+    "finalCleanup": "환기 홈과 측면 장식은 통합하고 두 눈창을 유지.",
+    "file": "concepts/core-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-5dc53c6e-3203-4aa5-9c00-5a4cb891fcdb.png"
+  },
+  {
+    "id": "radar",
+    "category": "TECH",
+    "code": "T2",
+    "name": "접시 레이더",
+    "identity": "납작한 접시와 위쪽 돔, 하나의 굵은 렌즈.",
+    "finalCleanup": "하단 작은 램프를 합치고 수평 실루엣을 보존.",
+    "file": "concepts/radar-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-0ba52256-b6ce-493c-b6dc-52d5c496c43e.png"
+  },
+  {
+    "id": "drone",
+    "category": "TECH",
+    "code": "T3",
+    "name": "포켓 드론",
+    "identity": "짧은 네 방향 포드와 작은 중심 코어.",
+    "finalCleanup": "날개를 늘리지 않고 네 포드를 붙여 중심을 크게 확보.",
+    "file": "concepts/drone-draft01.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-4372c472-fb89-4afe-92b4-f7d542ef3db6.png"
+  },
+  {
+    "id": "orbit",
+    "category": "SPECIAL",
+    "code": "S1",
+    "name": "궤도 정령",
+    "identity": "둥근 코어를 감싼 굵은 대각선 띠.",
+    "finalCleanup": "팔·발·리벳 없이 코어와 단일 띠만 유지.",
+    "file": "concepts/orbit-draft02.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-cbec93c3-87dd-4263-9840-24ce55280774.png"
+  },
+  {
+    "id": "crown",
+    "category": "SPECIAL",
+    "code": "S2",
+    "name": "왕관 수호자",
+    "identity": "세 개의 짧은 왕관 끝과 방패형 얼굴.",
+    "finalCleanup": "측면 갑옷 없이 왕관과 얼굴만 크게 유지.",
+    "file": "concepts/crown-draft02.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-8135a6b1-347c-445f-aeb9-97d7fb35f8e2.png"
+  },
+  {
+    "id": "ember",
+    "category": "SPECIAL",
+    "code": "S3",
+    "name": "불씨 정령",
+    "identity": "한쪽으로 휜 굵은 불꽃 끝과 큰 얼굴 면.",
+    "finalCleanup": "팔·발·날개·잔불 없이 하나의 불꽃 덩어리로 유지.",
+    "file": "concepts/ember-draft02.png",
+    "fromPath": "C:\\Users\\Home Bsw\\.codex\\generated_images\\01a10ab7-38e5-73f1-9812-20f7e313d1ee\\exec-fd89c423-c40f-4b0b-94bb-1871638c670e.png"
+  }
+]
