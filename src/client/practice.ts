@@ -1,4 +1,4 @@
-import {setWallGrace} from '../shared/wall-grace.js';
+import {setWallMargin} from '../shared/wall-margin.js';
 import type {BotVariant} from '../shared/bot-experiment.js';
 import {retryHumanRun} from '../shared/retry.js';
 import {createMatch,stepMatch,buildView} from '../shared/game.js';
@@ -15,10 +15,10 @@ export class PracticeSession {
  private diagnosticStops:(()=>void)[]=[];
  private diagnosticData:{deathCauses:Record<string,number>;decisionCount:number;escapeDecisionCount:number;clearDecisionCount:number;missedReasons:Record<string,number>;candidateReasons:Record<string,number>;deaths:DeathTrace[];missed:ShadowOpportunity[]}|null=null;
  private visibility=()=>{this.lastTime=null;this.accumulated=0;};
- constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;botVariant?:BotVariant;wallGrace?:boolean}={}){
+ constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;botVariant?:BotVariant;wallMargin?:boolean}={}){
   const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
   this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
-  if(options.wallGrace)setWallGrace(this.match,true);
+  if(options.wallMargin)setWallMargin(this.match.map,true);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761),options.botVariant));
   if(options.diagnostics){
    const data:NonNullable<PracticeSession['diagnosticData']>={deathCauses:{},decisionCount:0,escapeDecisionCount:0,clearDecisionCount:0,missedReasons:{},candidateReasons:{},deaths:[],missed:[]};this.diagnosticData=data;

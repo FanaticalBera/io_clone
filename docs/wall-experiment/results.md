@@ -1,39 +1,34 @@
-# Wall escape experiment — 2026-10-07
+# Spatial wall tolerance experiment — 2026-10-07
 
-Branch: codex/experiment-wall-grace, based on master bca0375. Master and the discarded territory-awareness experiment are unchanged.
+Branch: codex/experiment-wall-margin, based on master bca0375 with the earlier experiment replaced. Master is unchanged.
 
-## Rule
+## Current rule
 
-Opt-in only: development/test practice uses ?experimentWall=grace. Missing/strict parameters retain immediate lethal walls; production ignores the opt-in. Online rooms retain their existing rule.
+The previous .2-second grace, budgets, recharge and clamp-while-turning experiment have been removed. No nonlethal wall or sliding mode is retained. Boundary emphasis remains in both comparison variants.
 
-- The existing point collision and exact inside-boundary clamp are unchanged. No collision-radius change, invisible outside margin, automatic bounce, or indefinite wall sliding.
-- First contact opens a 0.2-second window (6 ticks at 30 Hz), measured from the exact contact subtick. Actual rotation continues at 9 rad/s. Holding outward dies at the deadline; movement that genuinely escapes remains alive.
-- Escape does not refill or restart the window. Returning to a wall after its deadline is immediately lethal unless recharged.
-- Recharge requires continuous unblocked movement, with both endpoints at least one hex centre spacing (sqrt(3) * side = 55.43 world units) from every actual boundary segment, for one second (30 ticks).
-- Budgets are per match and life ID. A new life receives a fresh budget. WeakMap storage is released with the match; no persistent profile, schema or public participant fields are added.
-- HUMAN/BOT use the same rule. AI code, AI/cosmetic RNG, decision interval, movement speed, input thresholds and turning rate are unchanged.
-- Existing subtick trail-cut priority, capture cuts, territory loss, kill credit and RunResult resolution remain active during grace.
+- Opt-in development/test practice: ?experimentWall=margin. Use ?experimentWall=strict for original lethal geometry plus boundary emphasis. No parameter and production retain the original rules. Online remains original.
+- Only hex faces without an existing neighbour are offset outward by a quarter of hex centre spacing: sqrt(3) * 32 * .25 = 13.856 world units. Corners use intersections of those offset planes, not an invented larger hex map. Shared cell faces keep their exact original positions.
+- Movement does not pause at the old wall. It keeps its speed/heading until it crosses the new lethal outline, where WALL_HIT resolves immediately at the exact subtick. There is no timer, recharge, reflection, auto steering or sliding.
+- Outside positions in the narrow permitted strip identify an existing boundary cell. Ownership/trail arrays and R56's 9577-cell count remain unchanged; no extra territory is created. Trail cuts, capture, territory loss and kill credit remain active.
+- The faint outside ribbon and brown outline show the permitted margin and final death line. Nearby original boundary segments remain darker. The renderer fills padded boundary polygons underneath the original ground, so interior gameplay information is not covered by the ribbon.
+- Geometry is per map in a WeakMap. HUMAN/BOT and slot 15 use the same rule. Prediction uses the same padded geometry; authoritative life/death is unchanged. No inventory/profile/reward schema, network payload, AI code or RNG changes.
 
-## Presentation
+## Screens
 
-A single reusable Graphics object emphasizes actual boundary segments within three hex centre spacings. A steady dark line replaces blinking/haptics. Geometry is taken from map.boundaryEdges, including jagged corners. Terrain/trail ownership rendering is unchanged.
+- /docs/wall-experiment/: identical-input original/spatial comparison; shallow graze, jagged edge, direct outward approach; slow replay.
+- /docs/wall-experiment/?play=1&variant=margin: actual Phaser R56/16 fixture, 48 IMAGE marker and existing touch joystick, keyboard and mouse. No reward/profile writes.
+- /?experimentWall=margin&experimentSeed=4: complete normal-menu practice. Use strict for the baseline. Old grace URLs no longer enable an experimental rule.
 
-Self position prediction can continue rotation and input replay while clamped in opt-in mode. It predicts movement only; life/death remains authoritative. Online does not enable this mode, so no cosmetic/timer protocol extension or reconnect change is introduced by this experiment. Snapshot-serialized/offline save-and-resume would need an explicit policy-state restoration design before shipping this rule there.
+## Checks
 
-## Compare and play
+New tests cover exact face offset, full-speed crossing, immediate new-line death, shallow escape, repeated approaches without history, unchanged interior cell crossings, union-outline classification, 360 approach angles, prediction through outside snapshots, protocol/board-array stability, HUMAN/BOT slot 15 and cut/capture/territory-loss resolution. The old strict wall tests stay unchanged.
 
-- /docs/wall-experiment/: paired deterministic simulation with identical spawn, inputs and 48-world-unit marker reference at the existing gameplay zoom. Timely reverse input, late input, constant outward input and a jagged-edge example; slow replay available.
-- /docs/wall-experiment/?play=1&variant=grace: actual Phaser renderer, 48 IMAGE marker, existing joystick/keyboard/mouse input, R56 and 1 HUMAN + 15 BOT. Starts near the boundary. Switch to strict to compare. This fixture never calls reward/profile storage.
-- /?experimentWall=grace&experimentSeed=4: complete practice using the normal menu and game. Use ?experimentWall=strict&experimentSeed=4 for the original rule.
+An exact 210-degree ray on an interior shared edge produces trace cell 28 and rounded world cell 37 in master itself; direct comparison with the untouched master implementation confirmed identical outputs. That legacy tie is pinned separately. Nondegenerate angles retain strict point/cell consistency assertions; the outside-strip and lethal-outline checks are not relaxed.
 
-## Validation
+Browser checks use 844x390, 640x320 and 568x320, including real joystick touch events in browser emulation, no document overflow and bounded Graphics resources. Physical-phone comfort remains for the user's evaluation. Final validation: 76 Core/Server files, 442 tests passed; browser test passed at all three viewports with zero page errors; typecheck and production build passed (existing bundle-size warning only). No merge is performed.
 
-Core/Server: 76 files, 440 tests passed in final run (10 new wall tests). Checks include exact .2-second contact-to-death duration, escape/rotation, repeated contact without refill, distance/time refill, new life/match isolation, HUMAN/BOT and slot 15, prediction/authority agreement, every R5 boundary segment, capture-cut and territory-loss deaths during grace. The original strict wall tests remain unchanged.
+## R56/16 smoke simulation
 
-Browser: comparison plus actual drill and complete R56/16 practice, at 844x390, 640x320 and 568x320. Timely input survives; holding outward differs by exactly .2 seconds. Page errors zero; no document overflow; controls remain accessible; repeated variant switches reuse one boundary-highlight Graphics object. Real touch events on the joystick are included, in addition to deterministic input timing.
+Seed 4, one HUMAN and 15 BOT, 3600 ticks / 120 seconds per variant. Both retained 9577 cells and 16 participants, valid permitted positions/cell IDs, ownership invariants and zero BOT wall deaths. This run had no live head outside the original boundary; outside-strip gameplay is covered by targeted geometry/engine/prediction tests and the direct fixture.
 
-Type checking includes the experiment page. Production build checked; the existing large-bundle warning remains. Full original online E2E suite is not part of this isolated practice experiment; existing server/unit regressions are run.
-
-Screenshots are local: .local/wall-compare-{width}.png and .local/wall-drill-{width}.png. These are emulated browser viewport checks, not a physical-phone usability verdict. Final adoption requires the user's wall-side expansion feedback; no merge is performed.
-
-Server verification: 3006 listens on 0.0.0.0; HTTP 200 confirmed through the current PC Ethernet address 211.195.177.137. The previous 192.168.137.1 hotspot address is not currently assigned to this PC.
+Single-run CPU observations: strict mean 2.903 ms / p95 15.044 ms / max 245.769 ms; margin mean 2.721 ms / p95 14.089 ms / max 208.887 ms. Kills were 12 vs 15; both HUMAN deaths were TRAIL_CUT. This is a stability smoke test, not evidence of balance or performance improvement. Raw report: .local/wall-margin-r56.json.

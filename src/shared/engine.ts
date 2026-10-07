@@ -1,7 +1,6 @@
 import {beginRunResolution,endRunResolution,recordBestTerritories} from './run.js';
 import {slotBit} from './slots.js';
 import {moveSpeed} from './config.js';
-import {wallDeathTime,clearWallGraceLife} from './wall-grace.js';
 import {tryRespawns} from './spawn.js';
 import {finishMatch} from './scoring.js';
 import {evaluateMode,roundDeadlineTicks} from './modes.js';
@@ -168,7 +167,7 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
  const motions=new Map<string,Motion>(),entries:Entry[]=[],wallEntries:Entry[]=[];
  const distance=moveSpeed(match.config)/match.config.simulationHz;
  for(const p of match.participants){
-  if(p.lifeState!=='ALIVE'){clearWallGraceLife(match,p);continue;}
+  if(p.lifeState!=='ALIVE')continue;
   const input=inputs.get(p.participantId);
   if(input&&input.matchId===match.matchId&&input.lifeId===p.lifeId&&Number.isSafeInteger(input.seq)&&input.seq>p.lastAppliedInputSeq){
    const direction=normalizeDirection(input.dx,input.dy);if(direction)p.targetDirection=direction;
@@ -180,8 +179,7 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
   const stopT=movement.blocked?Math.min(1,Math.hypot(movement.position.x-start.x,movement.position.y-start.y)/distance):1;
   motions.set(p.participantId,{start,delta,movement,lifeId:p.lifeId,stopT});
   for(const e of movement.entries)entries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:e.cellId,t:e.t,time:quantizedEventTime(e.t,match.config.simulationHz)});
-  const deathT=wallDeathTime(match,p,start,movement);
-  if(deathT!==null)wallEntries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:movement.cellId,t:deathT,time:quantizedEventTime(deathT,match.config.simulationHz)});
+  if(movement.boundaryT!==null)wallEntries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:movement.cellId,t:movement.boundaryT,time:quantizedEventTime(movement.boundaryT,match.config.simulationHz)});
  }
  entries.sort((a,b)=>a.time-b.time);
  const groups=new Map<number,Entry[]>([[0,[]]]);

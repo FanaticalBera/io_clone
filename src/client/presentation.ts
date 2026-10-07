@@ -1,16 +1,18 @@
 import type {MatchView,Vec,PublicParticipant,MapDefinition} from '../shared/model.js';
-import {createMap,worldCell} from '../shared/hex.js';
+import {setWallMargin,movementCell} from '../shared/wall-margin.js';
+import {createMap} from '../shared/hex.js';
 import {stepSteering,normalizeDirection} from '../shared/movement.js';
 import {moveSpeed} from '../shared/config.js';
 type Frame={view:MatchView;at:number};
 type PendingTarget={direction:Vec;seq:number;at:number};
 export class Presentation {
  private map:MapDefinition|null=null;private frames:Frame[]=[];private pending:PendingTarget[]=[];
- private clockOffset=Infinity;private local=false;private wallGrace=false;
- setWallGrace(enabled:boolean):void {this.wallGrace=enabled;}
+ private clockOffset=Infinity;private local=false;private wallMargin=false;
+ setWallMargin(enabled:boolean):void{this.wallMargin=enabled;if(this.map)setWallMargin(this.map,enabled);}
  private correction:Vec={x:0,y:0};private correctedAt=0;private frozen=false;selfId:string|null=null;
  accept(view:MatchView,selfId:string|null,at:number,reset=false,local=false):void{
   if(this.map?.mapId!==view.mapId)this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
+  setWallMargin(this.map!,this.wallMargin);
   const previous=this.frames.at(-1),oldSelf=previous?.view.participants.find(p=>p.participantId===selfId),self=view.participants.find(p=>p.participantId===selfId);
   if(previous?.view.matchId===view.matchId&&view.tick<previous.view.tick)return;
   const oldPosition=self&&this.position(self.participantId,at);
@@ -44,7 +46,7 @@ export class Presentation {
  private predict(p:PublicParticipant,frameAt:number,now:number,replay=false,cap=3000):Vec{
   const view=this.frames.at(-1)!.view,map=this.map!,stepMs=1000/view.config.simulationHz;
   let remaining=Math.max(0,Math.min(cap,now-frameAt)),position={...p.position},direction={...p.direction};
-  let cellId=worldCell(map,position),target=p.targetDirection,elapsed=0,index=0;
+  let cellId=movementCell(map,position),target=p.targetDirection,elapsed=0,index=0;
   if(cellId<0)return position;
   const inputs=replay?this.pending:[];
   while(remaining>1e-7){
@@ -53,12 +55,7 @@ export class Presentation {
    while(index<inputs.length&&inputs[index].at<=frameAt+elapsed+1e-7)target=inputs[index++].direction;
    const next=stepSteering(map,position,cellId,direction,target,view.config);
    const fraction=Math.min(1,remaining/stepMs);
-   if(next.blocked&&fraction>=(next.boundaryT??1)){
-    if(!this.wallGrace||p.participantId!==this.selfId||fraction<1)return next.position;
-    // Position clamps, but heading/input replay continue. Life/death remains
-    // authoritative; no client timer or cosmetic state enters snapshots.
-    position=next.position;cellId=next.cellId;direction=next.direction;remaining-=stepMs;elapsed+=stepMs;continue;
-   }
+   if(next.blocked&&fraction>=(next.boundaryT??1))return next.position;
    if(fraction<1){const distance=moveSpeed(view.config)/view.config.simulationHz*fraction;
     return{x:position.x+next.direction.x*distance,y:position.y+next.direction.y*distance};
    }

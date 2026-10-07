@@ -1,5 +1,6 @@
 import { HEX_EPS,MAX_ENTRY_EVENTS,moveSpeed,type GameConfig } from './config.js';
-import { HEX_DIRECTIONS,axialToWorld,worldCell } from './hex.js';
+import {wallMargin,movementCell} from './wall-margin.js';
+import { HEX_DIRECTIONS,axialToWorld } from './hex.js';
 import type { MapDefinition,Vec } from './model.js';
 export interface CellEntry { t:number; cellId:number; position:Vec }
 export interface Movement { position:Vec; cellId:number; entries:CellEntry[]; blocked:boolean; boundaryT:number|null }
@@ -46,22 +47,23 @@ export function traceMovement(map:MapDefinition,start:Vec,startCell:number,direc
  const at=(t:number)=>({x:start.x+delta.x*t,y:start.y+delta.y*t});
  const epsilon=HEX_EPS*4/distance, half=Math.sqrt(3)*map.side/2;
  let cellId=startCell, t=0;
- const startProbe=worldCell(map,at(epsilon));
+ const startProbe=movementCell(map,at(epsilon));
  if(startProbe<0)return {position:{...start},cellId,entries,blocked:true,boundaryT:0};
  if(startProbe!==cellId){cellId=startProbe;entries.push({t:0,cellId,position:{...start}});}
- const normals=movementNormals(map);
+ const normals=movementNormals(map),margin=wallMargin(map);
  for(let count=0;count<=MAX_ENTRY_EVENTS;count++){
   const center=map.cells[cellId].center;
   let crossing=Infinity;
-  for(const n of normals){
+  for(let k=0;k<normals.length;k++){const n=normals[k];
    const denominator=delta.x*n.x+delta.y*n.y;if(denominator<=1e-12)continue;
-   const candidate=(half-(start.x-center.x)*n.x-(start.y-center.y)*n.y)/denominator;
+   const extent=half+(map.cells[cellId].neighbors[k]<0?margin:0);
+   const candidate=(extent-(start.x-center.x)*n.x-(start.y-center.y)*n.y)/denominator;
    if(candidate>=t-epsilon && candidate<crossing)crossing=Math.max(t,candidate);
   }
   if(crossing>1+epsilon || !Number.isFinite(crossing))return {position:at(1),cellId,entries,blocked:false,boundaryT:null};
   // A step ending on an edge can round just past t=1 when speed changes.
   crossing=Math.min(1,crossing);
-  const next=worldCell(map,at(crossing+epsilon));
+  const next=movementCell(map,at(crossing+epsilon));
   if(next<0)return {position:at(Math.max(t,crossing-epsilon)),cellId,entries,blocked:true,boundaryT:crossing};
   if(next===cellId)throw new Error('Geometry made no progress');
   if(entries.length>=MAX_ENTRY_EVENTS)throw new Error('Movement event limit');
