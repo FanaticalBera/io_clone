@@ -6,7 +6,8 @@ type Frame={view:MatchView;at:number};
 type PendingTarget={direction:Vec;seq:number;at:number};
 export class Presentation {
  private map:MapDefinition|null=null;private frames:Frame[]=[];private pending:PendingTarget[]=[];
- private clockOffset=Infinity;private local=false;
+ private clockOffset=Infinity;private local=false;private wallGrace=false;
+ setWallGrace(enabled:boolean):void {this.wallGrace=enabled;}
  private correction:Vec={x:0,y:0};private correctedAt=0;private frozen=false;selfId:string|null=null;
  accept(view:MatchView,selfId:string|null,at:number,reset=false,local=false):void{
   if(this.map?.mapId!==view.mapId)this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
@@ -52,7 +53,12 @@ export class Presentation {
    while(index<inputs.length&&inputs[index].at<=frameAt+elapsed+1e-7)target=inputs[index++].direction;
    const next=stepSteering(map,position,cellId,direction,target,view.config);
    const fraction=Math.min(1,remaining/stepMs);
-   if(next.blocked&&fraction>=(next.boundaryT??1))return next.position;
+   if(next.blocked&&fraction>=(next.boundaryT??1)){
+    if(!this.wallGrace||p.participantId!==this.selfId||fraction<1)return next.position;
+    // Position clamps, but heading/input replay continue. Life/death remains
+    // authoritative; no client timer or cosmetic state enters snapshots.
+    position=next.position;cellId=next.cellId;direction=next.direction;remaining-=stepMs;elapsed+=stepMs;continue;
+   }
    if(fraction<1){const distance=moveSpeed(view.config)/view.config.simulationHz*fraction;
     return{x:position.x+next.direction.x*distance,y:position.y+next.direction.y*distance};
    }
