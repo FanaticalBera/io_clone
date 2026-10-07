@@ -1,5 +1,5 @@
 import type {RunResult} from '../shared/model.js';
-export const REWARD_RULES=Object.freeze({baseCoins:5,territoryCoinsPerPercent:2,killCoins:3,rewardedKillCap:20,minimumTerritoryPercent:3.0,classicClearBonus:100});
+export const REWARD_RULES=Object.freeze({baseCoins:5,territoryCoinsPerPercent:2,killCoins:3,minimumTerritoryPercent:3.0,classicClearBonus:100});
 export interface RewardResult {runId:string;baseCoins:number;territoryCoins:number;killCoins:number;clearBonusCoins:number;totalCoins:number}
 const integer=(n:unknown)=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=0;
 export function validateRewardRun(r:RunResult):void {
@@ -12,7 +12,7 @@ export function calculateReward(result:RunResult,initialTerritoryCells=7):Reward
  const eligible=result.bestTerritoryPercent>=REWARD_RULES.minimumTerritoryPercent||result.kills>0||result.endReason==='FULL_CAPTURE_WIN';
  const baseCoins=eligible?REWARD_RULES.baseCoins:0;
  const territoryCoins=eligible?Math.floor(Math.round(result.bestTerritoryPercent*10)*REWARD_RULES.territoryCoinsPerPercent/10):0;
- const killCoins=Math.min(result.kills,REWARD_RULES.rewardedKillCap)*REWARD_RULES.killCoins;
+ const killCoins=result.kills*REWARD_RULES.killCoins;
  const clearBonusCoins=result.endReason==='FULL_CAPTURE_WIN'?REWARD_RULES.classicClearBonus:0;
  return{runId:result.runId,baseCoins,territoryCoins,killCoins,clearBonusCoins,totalCoins:baseCoins+territoryCoins+killCoins+clearBonusCoins};
 }
