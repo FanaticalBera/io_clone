@@ -5,10 +5,10 @@ import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
 // Frozen original AI counterfactual witness; new timing is measured separately.
-// Phase 3 expansion changes emergent encounters. Seed 5 supplies a real
-// ESCAPE cut-and-return witness at tick 229 (cut tick 240). All conditions
+// Spatial padding changes emergent encounters. Seed 4 supplies a real
+// ESCAPE cut-and-return witness at tick 4358 (cut tick 4374). All conditions
 // remain verified through normal movement and the independent branch.
-export function runShadowEscapeWitness(seed=5){
+export function runShadowEscapeWitness(seed=4){
  const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),traces:(BotDecisionTrace|undefined)[]=Array(8);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};

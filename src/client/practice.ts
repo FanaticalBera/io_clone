@@ -18,7 +18,7 @@ export class PracticeSession {
  constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;botVariant?:BotVariant;wallMargin?:boolean}={}){
   const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
   this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
-  if(options.wallMargin)setWallMargin(this.match.map,true);
+  if(options.wallMargin!==undefined)setWallMargin(this.match.map,options.wallMargin);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761),options.botVariant));
   if(options.diagnostics){
    const data:NonNullable<PracticeSession['diagnosticData']>={deathCauses:{},decisionCount:0,escapeDecisionCount:0,clearDecisionCount:0,missedReasons:{},candidateReasons:{},deaths:[],missed:[]};this.diagnosticData=data;

@@ -10,8 +10,7 @@ import {CombatEffects} from './combat-effects.js';
 import {TerritoryEffects} from './territory-effects.js';
 import {TerritoryCaptureEffects} from './territory-capture-effects.js';
 import type {TerritoryEffectStyle} from './territory-effect-model.js';
-import {nearbyBoundaryEdges,boundaryGeometry,setWallMargin} from '../shared/wall-margin.js';
-import {worldCell} from '../shared/hex.js';
+import {nearbyBoundaryEdges,boundaryGeometry,setWallMargin,movementCell} from '../shared/wall-margin.js';
 import {createMap} from '../shared/hex.js';
 import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
 import {GAME_MODES} from '../shared/modes.js';
@@ -23,11 +22,11 @@ export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
- private boundaryHighlight=false;
+ private boundaryHighlight=true;
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
- private wallMargin=false;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private wallBand?:Phaser.GameObjects.Graphics;private wallBandKey='';
+ private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private wallBand?:Phaser.GameObjects.Graphics;private wallBandKey='';
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.wallBand?.setVisible(false);this.highlightedEdges=0;}}
- wallVisualState(){return {enabled:this.wallMargin&&!this.online,highlight:this.boundaryHighlight&&!this.online,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.wallBand?1:0)};}
+ wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.wallBand?1:0)};}
  private presentation=new Presentation();private online=false;private predictedLine?:Phaser.GameObjects.Graphics;
  private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
  private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
@@ -181,13 +180,13 @@ export class GameScene extends Phaser.Scene {
   const now=performance.now();this.renderedAt=now;
   this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);this.captureEffects?.update(now,this.view,this.cullChunks);
   for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);}
-  setWallMargin(this.map,this.wallMargin&&!this.online);
-  const bandKey=this.map.mapId+':'+(this.wallMargin&&!this.online);
-  if(this.wallBandKey!==bandKey){this.wallBandKey=bandKey;this.wallBand?.clear();if(this.wallMargin&&!this.online){this.wallBand??=this.add.graphics().setDepth(-.1);this.wallBand.fillStyle(0xcaa781,.35);for(const poly of boundaryGeometry(this.map).polygons)this.wallBand.fillPoints(poly,true);}}
-  this.wallBand?.setVisible(this.wallMargin&&!this.online&&!!this.selfId);
+  setWallMargin(this.map,this.wallMargin);
+  const bandKey=this.map.mapId+':'+this.wallMargin;
+  if(this.wallBandKey!==bandKey){this.wallBandKey=bandKey;this.wallBand?.clear();if(this.wallMargin){this.wallBand??=this.add.graphics().setDepth(-.1);this.wallBand.fillStyle(0xcaa781,.35);for(const poly of boundaryGeometry(this.map).polygons)this.wallBand.fillPoints(poly,true);}}
+  this.wallBand?.setVisible(this.wallMargin&&!!this.selfId);
   this.highlightedEdges=0;this.wallHighlight?.clear();
   const wallSelf=this.view.participants.find(p=>p.participantId===this.selfId);
-  if(this.boundaryHighlight&&!this.online&&wallSelf&&this.view.phase==='RUNNING'){
+  if(this.boundaryHighlight&&wallSelf&&this.view.phase==='RUNNING'){
    const position=this.presentation.position(wallSelf.participantId,now)??wallSelf.position;
    const edges=nearbyBoundaryEdges(this.map,position,Math.sqrt(3)*this.map.side*3);
    if(edges.length){this.wallHighlight??=this.add.graphics().setDepth(3);this.wallHighlight.lineStyle(4,0x485d5c,.95);for(const edge of edges)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);this.highlightedEdges=edges.length;if(this.wallMargin)this.wallHighlight.lineStyle(2,0xa8754b,.9);const radius=Math.sqrt(3)*this.map.side*3;if(this.wallMargin)for(const edge of boundaryGeometry(this.map).edges){if(Math.min(Math.hypot(edge.a.x-position.x,edge.a.y-position.y),Math.hypot(edge.b.x-position.x,edge.b.y-position.y))<=radius)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}
@@ -203,7 +202,7 @@ export class GameScene extends Phaser.Scene {
    this.predictedLine??=this.add.graphics().setDepth(3);this.predictedLine.clear();
    const self=this.view.participants.find(p=>p.participantId===this.selfId),position=self&&this.presentation.position(self.participantId,now);
    if(self?.lifeState==='ALIVE'&&position&&this.view.phase==='RUNNING'){
-    const cell=worldCell(this.map,position);if(cell>=0&&this.view.owners[cell]!==self.slot+1){
+    const cell=movementCell(this.map,position);if(cell>=0&&this.view.owners[cell]!==self.slot+1){
      // The unconfirmed head cell is a quieter preview, replaced by the next snapshot.
      if(!(this.view.trailMasks[cell]&slotBit(self.slot)))this.hex(this.predictedLine,cell,this.renderColors[self.slot],0.13);
     }

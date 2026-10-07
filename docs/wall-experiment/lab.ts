@@ -8,7 +8,7 @@ import {PracticeSession} from '../../src/client/practice.js';
 const params=new URLSearchParams(location.search),play=params.get('play')==='1';
 const scenario=document.querySelector<HTMLSelectElement>('#scenario')!,replay=document.querySelector<HTMLButtonElement>('#replay')!,slow=document.querySelector<HTMLButtonElement>('#slow')!;
 if(play){
- document.querySelector('#panels')!.remove();scenario.innerHTML='<option value="margin">실험 · ¼칸 여유</option><option value="strict">원본 · 즉사</option>';scenario.value=params.get('variant')==='strict'?'strict':'margin';slow.hidden=true;
+ document.querySelector('#panels')!.remove();scenario.innerHTML='<option value="margin">채택본 · ¼칸 여유</option><option value="strict">원본 · 즉사</option>';scenario.value=params.get('variant')==='strict'?'strict':'margin';slow.hidden=true;
  document.querySelector<HTMLAnchorElement>('#drill')!.href='./';document.querySelector('#drill')!.textContent='나란히 비교';replay.textContent='시작';
  const field=document.createElement('div');field.id='field';field.innerHTML='<div id="joystick"><div id="joystick-thumb"></div></div><div id="play-status">시작을 누르고 벽에서 안쪽으로 돌려보세요.</div>';document.body.insertBefore(field,document.querySelector('footer'));
  document.querySelector('#note')!.textContent='갈색 선=최종 사망선 · R56 / 16·48 마커. 기존 조이스틱·키보드·마우스 사용. 이 화면은 보상·프로필을 저장하지 않습니다.';

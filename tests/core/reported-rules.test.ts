@@ -2,7 +2,8 @@ import {describe,it,expect} from 'vitest';
 import {captureFixture} from './helpers.js';
 import {setOwner,addTrail,assertOwnershipCounts,pruneDisconnectedTerritory} from '../../src/shared/territory.js';
 import {applySimultaneousCaptures,stepMatch} from '../../src/shared/engine.js';
-import {axialToWorld,worldCell} from '../../src/shared/hex.js';
+import {axialToWorld} from '../../src/shared/hex.js';
+import {wallMargin,movementCell} from '../../src/shared/wall-margin.js';
 import {moveSpeed} from '../../src/shared/config.js';
 import {legacyScoreTick as scoreTick} from '../../src/shared/legacy-scoring.js';
 
@@ -39,30 +40,30 @@ describe('user reports: disconnected territory and lethal outer walls',()=>{
  it('kills at the wall during the tick, clears territory/trail and never credits a kill',()=>{
   const {m,a,b,id}=captureFixture();b.lifeState='FINISHED';
   a.cellId=id(5,0);setOwner(m,a.cellId,1);a.position=axialToWorld(5,0);
-  a.position.x+=Math.sqrt(3)*16-1;a.direction={x:1,y:0};addTrail(m,a,id(4,0));
+  a.position.x+=Math.sqrt(3)*16+wallMargin(m.map)-1;a.direction={x:1,y:0};addTrail(m,a,id(4,0));
   a.controlScore=7;a.kills=2;a.spawnCells.add(a.cellId);a.protectedUntilTick=60;
   const start={...a.position};stepMatch(m);
   expect(a).toMatchObject({lifeState:'ELIMINATED',deathReason:'WALL_HIT',deaths:1,territoryCount:0,controlScore:7,kills:2,respawnAtTick:0});
-  expect(a.position.x-start.x).toBeCloseTo(1,5);expect(worldCell(m.map,a.position)).toBe(id(5,0));
+  expect(a.position.x-start.x).toBeCloseTo(1,5);expect(movementCell(m.map,a.position)).toBe(id(5,0));
   expect(a.trailCells.size).toBe(0);expect(m.trailMasks.every(v=>v===0)).toBe(true);expect(b.kills).toBe(0);
   stepMatch(m);expect(a.deaths).toBe(1);expect(m.events.filter(e=>e.type==='DEATH')).toHaveLength(1);assertOwnershipCounts(m);
  });
  it('does not die merely for being in an edge hex while heading inward',()=>{
   const {m,a,b,id}=captureFixture();b.lifeState='FINISHED';a.cellId=id(5,0);setOwner(m,a.cellId,1);
-  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16-1;a.direction={x:-1,y:0};
+  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16+wallMargin(m.map)-1;a.direction={x:-1,y:0};
   stepMatch(m,new Map([['a',{matchId:m.matchId,lifeId:a.lifeId,seq:1,dx:-1,dy:0}]]));
   expect(a.lifeState).toBe('ALIVE');expect(a.deaths).toBe(0);
  });
  it('cannot escape an imminent wall impact through an instantaneous reverse input',()=>{
   const {m,a,b,id}=captureFixture();b.lifeState='FINISHED';a.cellId=id(5,0);setOwner(m,a.cellId,1);
-  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16-1;a.direction={x:1,y:0};
+  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16+wallMargin(m.map)-1;a.direction={x:1,y:0};
   stepMatch(m,new Map([['a',{matchId:m.matchId,lifeId:a.lifeId,seq:1,dx:-1,dy:0}]]));
   expect(a.deathReason).toBe('WALL_HIT');expect(a.direction.x).toBeGreaterThan(0);
  });
  it('a wall death clears its trail before a later cutter, but an earlier cutter still earns a kill',()=>{
   for(const wallFirst of [true,false]){
    const {m,a,b,id}=captureFixture();setOwner(m,id(4,0),1);setOwner(m,id(1,0),2);
-   a.cellId=id(5,0);a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16-(wallFirst?1:4);a.direction={x:1,y:0};
+   a.cellId=id(5,0);a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16+wallMargin(m.map)-(wallFirst?1:4);a.direction={x:1,y:0};
    addTrail(m,a,id(0,0));b.cellId=id(1,0);b.position={x:Math.sqrt(3)*16+(wallFirst?4:1),y:0};b.direction={x:-1,y:0};
    stepMatch(m);expect(a.deaths).toBe(1);expect(a.deathReason).toBe(wallFirst?'WALL_HIT':'TRAIL_CUT');expect(b.kills).toBe(wallFirst?0:1);
    expect(m.events.filter(e=>e.type==='DEATH'&&e.participantId==='a')).toHaveLength(1);assertOwnershipCounts(m);
@@ -70,7 +71,7 @@ describe('user reports: disconnected territory and lethal outer walls',()=>{
  });
  it('Classic still kills at a wall at the former timed endpoint',()=>{
   const {m,a,b,id}=captureFixture();b.lifeState='FINISHED';a.cellId=id(5,0);setOwner(m,a.cellId,1);
-  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16-moveSpeed(m.config)/m.config.simulationHz;
+  a.position=axialToWorld(5,0);a.position.x+=Math.sqrt(3)*16+wallMargin(m.map)-moveSpeed(m.config)/m.config.simulationHz;
   a.direction={x:1,y:0};m.tick=m.config.roundSeconds*m.config.simulationHz-1;stepMatch(m);
   expect(m.phase).toBe('RUNNING');expect(a.deaths).toBe(1);expect(a.territoryCount).toBe(0);
  });

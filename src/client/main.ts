@@ -49,7 +49,8 @@ const scene=createRenderer('field');
 scene.setMarkerImageDiameter(experimentalMarkerDiameter(new URLSearchParams(location.search).get('experimentMarkerSize'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
-const wallParam=new URLSearchParams(location.search).get('experimentWall'),wallExperimentEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&(wallParam==='margin'||wallParam==='strict'),wallExperiment=wallExperimentEnabled&&wallParam==='margin';
+// Legacy strict geometry is available only for local development comparison.
+const strictWallExperiment=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('experimentWall')==='strict';
 scene.setKillFeedback(()=>{haptics.kill();});
 scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
@@ -62,7 +63,7 @@ function display(view:MatchView,selfId:string,init=false):void {
  if(view.participants.find(p=>p.participantId===selfId)?.lifeState==='ALIVE'&&ui.hasRunResult){ui.clearRunResult();ui.showGame(ui.mode==='PRACTICE'?'PRACTICE':'ONLINE');}
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);
  if(ui.mode!=='PRACTICE'&&(init||ui.mode!=='ONLINE'))ui.showGame('ONLINE');
- scene.setBoundaryHighlight(wallExperimentEnabled&&ui.mode==='PRACTICE');scene.setWallMargin(wallExperiment&&ui.mode==='PRACTICE');scene.setView(view,selfId,ui.mode==='ONLINE',init);ui.updateView(view,selfId,init,scene.playerColors());rewards.observe(view,selfId);ui.clearMessage();const self=view.participants.find(p=>p.participantId===selfId)!;
+ scene.setBoundaryHighlight(true);scene.setWallMargin(ui.mode!=='PRACTICE'||!strictWallExperiment);scene.setView(view,selfId,ui.mode==='ONLINE',init);ui.updateView(view,selfId,init,scene.playerColors());rewards.observe(view,selfId);ui.clearMessage();const self=view.participants.find(p=>p.participantId===selfId)!;
  if(self.lifeState==='ALIVE'){runRetryPending=false;}
  const playable=!document.hidden&&!ui.isSettingsOpen()&&view.phase==='RUNNING'&&(ui.mode==='PRACTICE'||!!online?.hasCurrentState);
  if(playable&&(self.lifeState==='DEAD_WAIT'||self.lifeState==='SPAWN_BLOCKED'))input.suspendForRespawn();
@@ -85,7 +86,7 @@ async function stopOnline():Promise<void> {
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.setRunRetryAvailable(true);ui.showGame('PRACTICE');
  const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment={...experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),...experimentalSlotConfig(experimentParams.get('experimentSlots'),experimentEnabled)},seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,wallMargin:wallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {

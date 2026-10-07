@@ -2,9 +2,10 @@ import {HEX_EPS} from './config.js';
 import {HEX_DIRECTIONS,axialToWorld,axialKey,worldCell,worldToAxial} from './hex.js';
 import type {MapDefinition,Vec} from './model.js';
 export const WALL_MARGIN_FRACTION=.25;
-const margins=new WeakMap<MapDefinition,number>();
-export function setWallMargin(map:MapDefinition,enabled:boolean):void {if(enabled)margins.set(map,Math.sqrt(3)*map.side*WALL_MARGIN_FRACTION);else margins.delete(map);}
-export function wallMargin(map:MapDefinition):number{return margins.get(map)??0;}
+// The shared production rule is padded; only comparison fixtures opt out.
+const overrides=new WeakMap<MapDefinition,boolean>();
+export function setWallMargin(map:MapDefinition,enabled:boolean):void {overrides.set(map,enabled);}
+export function wallMargin(map:MapDefinition):number{return overrides.get(map)===false?0:Math.sqrt(3)*map.side*WALL_MARGIN_FRACTION;}
 const normals=HEX_DIRECTIONS.map(a=>{const p=axialToWorld(a.q,a.r,1),l=Math.hypot(p.x,p.y);return{x:p.x/l,y:p.y/l};});
 function limit(map:MapDefinition,id:number,k:number,margin:number):number{return Math.sqrt(3)*map.side/2+(map.cells[id].neighbors[k]<0?margin:0);}
 function contains(map:MapDefinition,id:number,p:Vec,margin:number):boolean {

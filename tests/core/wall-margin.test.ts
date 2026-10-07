@@ -10,7 +10,19 @@ import {setOwner,addTrail,assertOwnershipCounts} from '../../src/shared/territor
 import {applySimultaneousCaptures} from '../../src/shared/engine.js';
 import {packSnapshot,unpackSnapshot} from '../../src/shared/protocol.js';
 describe('spatial wall tolerance (no timers, stops or sliding)',()=>{
- it('retains strict geometry by default and adds exactly a quarter spacing to a flat outer face',()=>{
+ it('uses the quarter-cell rule without any experiment option and predicts a reset snapshot in its strip',()=>{
+  const m=wallFixture(true,'push'),p=m.participants[0];
+  // Replace the opt-in fixture map with an ordinary shared map of the same shape.
+  m.map=createMap(m.config.mapRadius,m.config.hexSideWorldUnits);
+  expect(wallMargin(m.map)).toBeCloseTo(Math.sqrt(3)*m.map.side*.25,12);
+  stepMatch(m);expect(p.lifeState).toBe('ALIVE');expect(worldCell(m.map,p.position)).toBe(-1);
+  const display=new Presentation(),view=unpackSnapshot(packSnapshot(buildView(m),1,0,p.participantId));
+  display.accept(view,p.participantId,1000,true);
+  const predicted=display.position(p.participantId,1000+1000/m.config.simulationHz)!;
+  stepMatch(m);expect(p.deathReason).toBe('WALL_HIT');expect(predicted.x).toBeCloseTo(p.position.x,7);
+  display.accept(buildView(m),p.participantId,1100,true);expect(display.position(p.participantId,1300)).toEqual(p.position);
+ });
+ it('supports explicit strict comparison and adds exactly a quarter spacing to a flat outer face',()=>{
   const strict=wallFixture(false,'push'),soft=wallFixture(true,'push'),a=strict.participants[0],b=soft.participants[0],before=soft.map.cells.length;
   const old=traceMovement(strict.map,a.position,a.cellId,a.direction,100),next=traceMovement(soft.map,b.position,b.cellId,b.direction,100);
   expect(next.boundaryT!-old.boundaryT!).toBeCloseTo(Math.sqrt(3)*32*.25/100,12);
@@ -37,7 +49,7 @@ describe('spatial wall tolerance (no timers, stops or sliding)',()=>{
   p.lifeId++;expect(traceMovement(m.map,back.position,back.cellId,{x:1,y:0},100)).toEqual(again);
  });
  it('keeps all original interior crossings exactly unchanged',()=>{
-  const strict=createMap(5),soft=createMap(5);setWallMargin(soft,true);
+  const strict=createMap(5),soft=createMap(5);setWallMargin(strict,false);setWallMargin(soft,true);
   for(let i=0;i<100;i++){const direction={x:Math.cos(i),y:Math.sin(i)},start=axialToWorld(0,0),id=strict.byKey.get('0,0')!;
    expect(traceMovement(soft,start,id,direction,100)).toEqual(traceMovement(strict,start,id,direction,100));}
  });
@@ -65,7 +77,7 @@ describe('spatial wall tolerance (no timers, stops or sliding)',()=>{
   }
  });
  it('preserves the original exact-210-degree internal seam rounding independently of padding',()=>{
-  const strict=createMap(5),soft=createMap(5);setWallMargin(soft,true);const id=strict.byKey.get('5,0')!,start=strict.cells[id].center,dir={x:Math.cos(210*Math.PI/180),y:Math.sin(210*Math.PI/180)};
+  const strict=createMap(5),soft=createMap(5);setWallMargin(strict,false);setWallMargin(soft,true);const id=strict.byKey.get('5,0')!,start=strict.cells[id].center,dir={x:Math.cos(210*Math.PI/180),y:Math.sin(210*Math.PI/180)};
   const original=traceMovement(strict,start,id,dir,150),relaxed=traceMovement(soft,start,id,dir,150);
   expect(original.cellId).toBe(28);expect(worldCell(strict,original.position)).toBe(37);expect(relaxed).toEqual(original);
   expect(movementCell(soft,relaxed.position)).toBe(worldCell(strict,original.position));

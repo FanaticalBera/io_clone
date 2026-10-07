@@ -27,13 +27,12 @@ test('T29/T30 two browsers preserve current dead/life state on transport recover
   await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.reconnect());
   await expect.poll(async()=>{const s=await latest(a);return s.participants.find((p:any)=>p.participantId===id)?.deaths;}).toBe(1);
   const restored=await latest(a),self=restored.participants.find((p:any)=>p.participantId===id);
-  expect(restored.selfParticipantId).toBe(id);expect(self).toMatchObject({lifeId:1,lifeState:'DEAD_WAIT',controlScore:7,territoryCount:0,deaths:1});
+  expect(restored.selfParticipantId).toBe(id);expect(self).toMatchObject({lifeId:1,lifeState:'ELIMINATED',controlScore:7,territoryCount:0,deaths:1});
   expect(await a.evaluate(()=>sessionStorage.getItem('hexhold.session'))).toBe(originalToken);
-  const deadline=pa.respawnAtTick;
-  while(m.tick<=deadline){now+=1000/30;server.loop.pump();}
-  server.loop.publishSnapshot(room,false,true);
+  // Classic HUMAN waits for explicit same-world Retry, not automatic respawn.
+  await expect(a.locator('#run-results')).toBeVisible();await a.locator('#run-retry').click();
   await expect.poll(async()=>{const s=await latest(a);return s.participants.find((p:any)=>p.participantId===id).lifeId;}).toBe(2);
-  expect(pa.territoryCount).toBe(19);expect(pa.controlScore).toBe(7);
+  expect(pa.territoryCount).toBe(7);expect(pa.controlScore).toBe(7);
   await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.transportClose(false));
   await until(()=>room.members.get(id)!.graceUntil!==null);
   const expires=room.members.get(id)!.graceUntil!;

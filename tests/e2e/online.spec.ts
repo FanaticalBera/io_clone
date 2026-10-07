@@ -12,7 +12,7 @@ test('T26 two independent browsers create, join and play one real friend match',
   expect(await pa.locator('#hud').getAttribute('data-self-id')).not.toBe(await pb.locator('#hud').getAttribute('data-self-id'));
   expect(await pa.evaluate(()=>sessionStorage.getItem('hexhold.session'))).not.toBe(await pb.evaluate(()=>sessionStorage.getItem('hexhold.session')));
   await pa.keyboard.down('d');await pb.keyboard.down('a');await pa.waitForTimeout(400);await pa.keyboard.up('d');await pb.keyboard.up('a');
-  await expect(pa.locator('#population')).toContainText('2 HUMAN · 6 BOT');
+  await expect(pa.locator('#population')).toContainText('2 HUMAN · 14 BOT');
   await pa.screenshot({path:'evidence/T26-online.png'});
   await pa.getByTestId('leave').click();await expect(pa.locator('#menu')).toBeVisible();await expect(pb.locator('#hud')).toBeVisible();
  }finally{await a.close();await b.close();}
@@ -20,5 +20,5 @@ test('T26 two independent browsers create, join and play one real friend match',
 test('T26 public admission and invalid friend code show actual server outcomes',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));await page.goto('/');
  await page.getByTestId('room-code').fill('00000000');await page.getByTestId('join').click();await expect(page.locator('#notice')).toContainText('존재하지 않는');
- await page.getByTestId('quick').click();await expect(page.locator('#hud')).toBeVisible({timeout:10000});await expect(page.locator('#population')).toContainText('1 HUMAN · 7 BOT');
+ await page.getByTestId('quick').click();await expect(page.locator('#hud')).toBeVisible({timeout:10000});await expect(page.locator('#population')).toContainText('1 HUMAN · 15 BOT');
 });

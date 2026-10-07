@@ -7,7 +7,7 @@ type Frame={view:MatchView;at:number};
 type PendingTarget={direction:Vec;seq:number;at:number};
 export class Presentation {
  private map:MapDefinition|null=null;private frames:Frame[]=[];private pending:PendingTarget[]=[];
- private clockOffset=Infinity;private local=false;private wallMargin=false;
+ private clockOffset=Infinity;private local=false;private wallMargin=true;
  setWallMargin(enabled:boolean):void{this.wallMargin=enabled;if(this.map)setWallMargin(this.map,enabled);}
  private correction:Vec={x:0,y:0};private correctedAt=0;private frozen=false;selfId:string|null=null;
  accept(view:MatchView,selfId:string|null,at:number,reset=false,local=false):void{

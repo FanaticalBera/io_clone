@@ -1,5 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createMap,axialToWorld,axialKey,worldCell} from '../../src/shared/hex.js';
+import {wallMargin,movementCell} from '../../src/shared/wall-margin.js';
 import {normalizeDirection,traceMovement,quantizedEventTime} from '../../src/shared/movement.js';
 describe('T04: continuous crossing geometry',()=>{
  const map=createMap(4),id=(q:number,r:number)=>map.byKey.get(axialKey(q,r))!;
@@ -15,7 +16,7 @@ describe('T04: continuous crossing geometry',()=>{
  });
  it('reports the boundary impact time and leaves the geometry result inside the map',()=>{
   const p=traceMovement(map,axialToWorld(4,0),id(4,0),{x:1,y:0},100);
-  expect(p.blocked).toBe(true);expect(p.boundaryT).toBeCloseTo(Math.sqrt(3)*16/100,12);expect(worldCell(map,p.position)).toBe(id(4,0));
+  expect(p.blocked).toBe(true);expect(p.boundaryT).toBeCloseTo((Math.sqrt(3)*16+wallMargin(map))/100,12);expect(movementCell(map,p.position)).toBe(id(4,0));
   const back=traceMovement(map,p.position,p.cellId,{x:-1,y:0},80);expect(back.blocked).toBe(false);expect(back.cellId).toBe(id(3,0));
  });
  it('handles a shared edge start and vertex sides without infinite iteration',()=>{
