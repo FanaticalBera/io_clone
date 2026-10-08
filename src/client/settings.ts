@@ -1,7 +1,8 @@
 export type MobileControls='joystick'|'drag'|'trackpad';
-export interface Settings {mobileControls:MobileControls;killVibration:boolean}
+export type ColorStyle='pastel'|'vivid';
+export interface Settings {mobileControls:MobileControls;killVibration:boolean;colorStyle:ColorStyle}
 export const SETTINGS_KEY='hexhold.settings';
-const defaults:Settings={mobileControls:'joystick',killVibration:true};
+const defaults:Settings={mobileControls:'joystick',killVibration:true,colorStyle:'pastel'};
 type StorageAccess=Pick<Storage,'getItem'|'setItem'>;
 export class SettingsStore {
  private value:Settings={...defaults};private listeners=new Set<(settings:Settings)=>void>();
@@ -10,7 +11,7 @@ export class SettingsStore {
    const saved=JSON.parse(storage?.getItem(SETTINGS_KEY)??'null');
    if(saved&&typeof saved==='object'){
     const mobileControls:MobileControls=saved.mobileControls==='drag'?'drag':saved.mobileControls==='trackpad'?'trackpad':'joystick';
-    this.value={mobileControls,killVibration:typeof saved.killVibration==='boolean'?saved.killVibration:defaults.killVibration};
+    this.value={mobileControls,killVibration:typeof saved.killVibration==='boolean'?saved.killVibration:defaults.killVibration,colorStyle:saved.colorStyle==='vivid'?'vivid':'pastel'};
    }
   }catch{}
  }

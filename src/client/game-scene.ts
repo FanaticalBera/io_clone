@@ -40,6 +40,9 @@ export class GameScene extends Phaser.Scene {
  setMarkerImageDiameter(value:ImageMarkerDiameter):void {if(this.markerImageDiameter===value)return;this.markerImageDiameter=value;this.setMarkerAppearance(this.markerAppearance);}
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
  setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
+ // Canvas text keeps its fallback face until it is redrawn after web fonts load.
+ refreshLabels():void {for(const avatar of this.avatars.values())avatar.label.updateText();}
+ refreshColors():void {this.colorKey='';if(this.created&&this.view)this.drawView(this.view,false,this.view);}
  private renderColors=[...SLOT_COLORS];private colorKey='';private cosmeticMatch='';private botMarkerIds:readonly string[]=[];
  playerColors():readonly number[]{return this.renderColors;}
  private syncCosmetics(view:MatchView):boolean {
@@ -163,7 +166,7 @@ export class GameScene extends Phaser.Scene {
    if(!avatar){
     const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,this.renderColors[p.slot],0.9);
     const marker=new PlayerMarker(this);
-    const label=this.add.text(0,-43,p.nickname,{fontFamily:'Malgun Gothic, sans-serif',fontSize:'13px',fontStyle:'bold',color:'#ffffff',backgroundColor:'#142330',padding:{x:6,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
+    const self=p.participantId===this.selfId,label=this.add.text(0,-43,p.nickname,{fontFamily:'Jua, Gothic A1, sans-serif',fontSize:self?'14px':'12px',color:'#ffffff',backgroundColor:self?'#1f1b2d':'#1f1b2d8c',padding:{x:7,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
     avatar={container,marker,shield,label};this.avatars.set(p.participantId,avatar);
    }
@@ -232,7 +235,7 @@ export class GameScene extends Phaser.Scene {
   if(canvas.width!==backingWidth||canvas.height!==backingHeight){canvas.width=backingWidth;canvas.height=backingHeight;}
   context.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
   const scale=Math.min((width-20)/(Math.sqrt(3)*this.map.side*(this.map.radius*2+1)),(height-20)/(this.map.side*(this.map.radius*3+2)));
-  context.clearRect(0,0,width,height);context.fillStyle='#f5f2e9';context.fillRect(0,0,width,height);
+  context.clearRect(0,0,width,height);
   const prepareMini=!this.miniLayer||this.miniLayer.width!==backingWidth||this.miniLayer.height!==backingHeight;
   if(prepareMini){
    this.miniLayer=document.createElement('canvas');this.miniLayer.width=backingWidth;this.miniLayer.height=backingHeight;
@@ -242,11 +245,11 @@ export class GameScene extends Phaser.Scene {
   const layer=this.miniLayer!.getContext('2d')!;layer.setTransform(backingWidth/width,0,0,backingHeight/height,0,0);
   const miniDirty=new Set<number>();
   for(const c of this.map.cells)if(this.miniOwners[c.id]!==this.view.owners[c.id]){miniDirty.add(c.id);for(const id of c.neighbors)if(id>=0)miniDirty.add(id);}
-  for(const id of miniDirty){const owner=this.view.owners[id];layer.fillStyle=owner?cssColor(this.renderColors[owner-1]):'#eeebe2';layer.strokeStyle='#d8d7cc';layer.lineWidth=.35;layer.fill(this.miniPaths[id]);layer.stroke(this.miniPaths[id]);}
+  for(const id of miniDirty){const owner=this.view.owners[id];layer.fillStyle=owner?cssColor(this.renderColors[owner-1]):'#eef1f6';layer.strokeStyle='#dde3ec';layer.lineWidth=.35;layer.fill(this.miniPaths[id]);layer.stroke(this.miniPaths[id]);}
   this.miniOwners.set(this.view.owners);context.drawImage(this.miniLayer!,0,0,width,height);
   if(prepareMini)this.metrics.minimapPreparationMs=performance.now()-miniAt;
   if(GAME_MODES[this.view!.gameMode.id].usesControlPoints)for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId],x=width/2+c.center.x*scale,y=height/2+c.center.y*scale;context.fillStyle='#ffb43b';context.beginPath();context.moveTo(x,y-3);context.lineTo(x+3,y);context.lineTo(x,y+3);context.lineTo(x-3,y);context.closePath();context.fill();}
-  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(this.renderColors[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(this.renderColors[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
+  const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle='#ffffff';context.strokeStyle='#1f1b2d';context.lineWidth=3;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.fill();context.stroke();}
   this.metrics.minimapUpdateMs=performance.now()-miniAt;
  }
  // The playable map is a board on an indigo table: a thick side below the

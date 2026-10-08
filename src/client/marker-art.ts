@@ -1,5 +1,6 @@
 import {contrastBasicPrimitives} from './basic-marker-art.js';
 import {imageMarkerPreview} from './marker-preview-image.js';
+import {styledColor} from './player-colors.js';
 import {markerDefinition,markerColorDefinition,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,type MarkerDefinition} from './catalog.js';
 export interface MarkerAppearance {markerId:string;markerColorId:string}
 export type MarkerPrimitive=
@@ -11,7 +12,7 @@ export const DEFAULT_MARKER_APPEARANCE:Readonly<MarkerAppearance>=Object.freeze(
 export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boolean,allowRemoteAppearance=false):MarkerArt {
   const definition=markerDefinition(local||allowRemoteAppearance?appearance.markerId:DEFAULT_MARKER_ID)??markerDefinition(DEFAULT_MARKER_ID)!;
   const color=markerColorDefinition(local||allowRemoteAppearance?appearance.markerColorId:DEFAULT_MARKER_COLOR_ID)??markerColorDefinition(DEFAULT_MARKER_COLOR_ID)!;
-  const bodyColor=color.value??slotColor,primitives:MarkerPrimitive[]=[];
+  const bodyColor=styledColor(color.value??slotColor),primitives:MarkerPrimitive[]=[];
   const circle=(radius:number,fill?:number,stroke?:number,width=0)=>primitives.push({kind:'circle',x:0,y:0,radius,fill,stroke,width});
   switch(definition.shape){
     case 'DEFAULT':circle(21,bodyColor,0xffffff,5);break;
@@ -25,7 +26,7 @@ export function markerArt(appearance:MarkerAppearance,slotColor:number,local:boo
 }
 export const markerCssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export function markerPreview(appearance:MarkerAppearance,slotColor:number):SVGSVGElement|HTMLCanvasElement {
-  const renderColor=markerColorDefinition(appearance.markerColorId)?.value??slotColor;
+  const renderColor=styledColor(markerColorDefinition(appearance.markerColorId)?.value??slotColor);
   const art=markerArt(appearance,renderColor,true);
   if(art.definition.renderType==='IMAGE'&&art.definition.assetKey)return imageMarkerPreview(art.definition,art.bodyColor,art.slotColor);
   const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');

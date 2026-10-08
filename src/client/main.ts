@@ -23,9 +23,11 @@ import {ShopUI} from './shop-ui.js';
 import type {PlayerProfileV1} from './profile.js';
 import {ProfileStore} from './profile-store.js';
 import {RewardService} from './reward-service.js';
+import {setColorStyle} from './player-colors.js';
 import './style.css';
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false,runRetryPending=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
+setColorStyle(settings.get().colorStyle);
 const diagnosticsEnabled=new URLSearchParams(location.search).get('debug')==='1';
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
@@ -51,12 +53,13 @@ scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(locatio
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 // Legacy strict geometry is available only for local development comparison.
 const strictWallExperiment=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('experimentWall')==='strict';
+void document.fonts?.load('14px Jua').then(()=>scene.refreshLabels()).catch(()=>{});
 scene.setKillFeedback(()=>{haptics.kill();});
 scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
-input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();});
+input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();setColorStyle(value.colorStyle);scene.refreshColors();});
 if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),getPlayerColors:()=>[...scene.playerColors()],getScene:()=>scene,getMarkerAssets:()=>scene.markerAssetsState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8))),null);
 function display(view:MatchView,selfId:string,init=false):void {

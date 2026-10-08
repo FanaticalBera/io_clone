@@ -1,0 +1,25 @@
+// Inline stroke icons (24px grid). currentColor lets each button set the ink.
+const icon=(body:string,width=2.4)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${body}</svg>`;
+export const ICONS={
+ bag:icon('<path d="M5 8h14l-1.2 11.2a1.5 1.5 0 0 1-1.5 1.3H7.7a1.5 1.5 0 0 1-1.5-1.3Z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/>'),
+ user:icon('<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>'),
+ help:icon('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.6v.4"/><circle cx="12" cy="17" r=".6" fill="currentColor"/>'),
+ gear:icon('<circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/>'),
+ menu:icon('<path d="M5 7h14M5 12h14M5 17h14"/>',2.6),
+ close:icon('<path d="M6 6l12 12M18 6 6 18"/>',3),
+ back:icon('<path d="M15 5l-7 7 7 7"/>',3),
+ play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></svg>',
+ plus:icon('<path d="M12 5v14M5 12h14"/>'),
+ pencil:icon('<path d="M4 20h4L19 9l-4-4L4 16Z"/>',2.2),
+ trophy:icon('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>'),
+ expand:icon('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'),
+ exit:icon('<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>'),
+ copy:icon('<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/>'),
+ retry:icon('<path d="M4 12a8 8 0 1 0 2.5-5.8M4 4v5h5"/>',3),
+ swords:icon('<path d="M4 20 16 8M14 4l6 6M4 4l4 4"/>',2.8),
+ people:icon('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/>'),
+ joystick:icon('<circle cx="12" cy="12" r="9"/><circle cx="14.5" cy="9.5" r="3.5" fill="currentColor"/>',2.2),
+ drag:icon('<path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10M12 10V8.5a1.5 1.5 0 0 1 3 0V11M15 11a1.5 1.5 0 0 1 3 0v3.5a6 6 0 0 1-6 6h-.5a5 5 0 0 1-4-2L5 15.5a1.5 1.5 0 0 1 2.3-2L9 15V11"/>',2.2),
+ trackpad:icon('<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M11 9l5 3-2.2.6L15 15l-1.3.6-1.2-2.4-1.5 1.4Z" fill="currentColor"/>',2.2),
+ coin:'<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="#ffc93c" stroke="currentColor" stroke-width="2"/><polygon points="13,7 18,10 18,16 13,19 8,16 8,10" fill="none" stroke="#9a6400" stroke-width="2" stroke-linejoin="round"/></svg>',
+};
