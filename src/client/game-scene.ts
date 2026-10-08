@@ -18,15 +18,16 @@ import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
 import {renderPixelRatio} from './render-viewport.js';
 import {slotBit} from '../shared/slots.js';
 import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
+import {FIELD,INK,mixColor} from './theme.js';
 export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
  private boundaryHighlight=true;
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
- private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private wallBand?:Phaser.GameObjects.Graphics;private wallBandKey='';
- setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.wallBand?.setVisible(false);this.highlightedEdges=0;}}
- wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.wallBand?1:0)};}
+ private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
+ setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
+ wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.board?1:0)};}
  private presentation=new Presentation();private online=false;private predictedLine?:Phaser.GameObjects.Graphics;
  private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
  private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
@@ -60,7 +61,7 @@ export class GameScene extends Phaser.Scene {
  constructor(){super('game');}
  preload():void {for(const marker of MARKERS)if(marker.renderType==='IMAGE')for(const key of [marker.assetKey,marker.detailAssetKey])if(key&&!this.textures.exists(key))this.load.image(key,markerAssetUrl(key));}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('marker-')).sort(),avatars:this.avatars.size,imageObjects:[...this.avatars.values()].reduce((count,a)=>count+a.marker.container.list.filter(child=>child.type==='Image').length,0)};}
- create():void {this.created=true;this.cameras.main.setBackgroundColor('#e6e3d9');this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -90,6 +91,16 @@ export class GameScene extends Phaser.Scene {
   if(alpha){g.fillStyle(fill,alpha);g.fillPoints(vertices,true);}
   if(outline!==undefined){g.lineStyle(1,outline,0.8);g.strokePoints(vertices,true);}
  }
+ // Raised-tile side: only the lower faces whose neighbour is not land show it.
+ // Owned neighbours draw their own top over this area, so they are skipped.
+ private lip(g:Phaser.GameObjects.Graphics,id:number,fill:number,owners:ArrayLike<number>):void {
+  const c=this.map!.cells[id],origin=g.getData('origin') as Vec|undefined,ox=origin?.x??0,oy=origin?.y??0,d=this.map!.side*FIELD.lipDepth;
+  // Vertex 1-2 is the SE face (neighbour 5), vertex 2-3 the SW face (neighbour 4).
+  for(const [n,a,b]of [[5,1,2],[4,2,3]] as const){const next=c.neighbors[n];if(next>=0&&owners[next])continue;
+   const va=c.vertices[a],vb=c.vertices[b];g.fillStyle(fill,1);
+   g.fillPoints([{x:va.x-ox,y:va.y-oy},{x:vb.x-ox,y:vb.y-oy},{x:vb.x-ox,y:vb.y-oy+d},{x:va.x-ox,y:va.y-oy+d}],true);}
+ }
+ private strokeHex(g:Phaser.GameObjects.Graphics,id:number):void {const origin=g.getData('origin') as Vec|undefined;g.strokePoints(origin?this.map!.cells[id].vertices.map(v=>({x:v.x-origin.x,y:v.y-origin.y})):this.map!.cells[id].vertices,true);}
  private chunkKey(id:number):string {return this.cellChunkKeys[id];}
  private drawView(view:MatchView,reset=false,previous?:MatchView):void {
   const colorsChanged=this.syncCosmetics(view);
@@ -108,14 +119,14 @@ export class GameScene extends Phaser.Scene {
    const width=Math.ceil(Math.sqrt(3)*side/2)-minX+2,height=Math.ceil(side)-minY+2;
    const prototype=this.add.graphics().setVisible(false),center=this.map.cells[0].center;
    const vertices=this.map.cells[0].vertices.map(v=>({x:v.x-center.x-minX,y:v.y-center.y-minY}));
-   prototype.fillStyle(0xf5f2e9,1).fillPoints(vertices,true);prototype.lineStyle(1,0xd3d2c8,.8).strokePoints(vertices,true);
+   prototype.fillStyle(FIELD.ground,1).fillPoints(vertices,true);prototype.lineStyle(1,FIELD.groundLine,1).strokePoints(vertices,true);
    this.groundKey='ground-hex-'+this.map.mapId;prototype.generateTexture(this.groundKey,width,height);prototype.destroy();
    for(const [key,chunk]of this.chunkIndex){
     const ground=this.add.blitter(0,0,this.groundKey).setDepth(0);for(const id of chunk.cells){const c=this.map.cells[id];ground.create(c.center.x+minX,c.center.y+minY);}
     ground.getRenderList();
     this.groundChunks.set(key,ground);this.chunks.set(key,this.add.graphics().setDepth(1));
    }
-   this.boundary=this.add.graphics().setDepth(0).lineStyle(3,0x9ba5a0,1);
+   this.boundary=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);
    for(const e of this.map.boundaryEdges)this.boundary.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
    this.metrics.groundPreparationMs=performance.now()-groundAt;
    for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8},resolution:this.pixelRatio}).setOrigin(0.5).setDepth(4));}
@@ -129,13 +140,16 @@ export class GameScene extends Phaser.Scene {
   for(let id=0;id<view.owners.length;id++)if(this.lastOwners[id]!==view.owners[id]||this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
   for(const key of dirty){
    const g=this.chunks.get(key)!;g.clear();
-   for(const id of this.chunkIndex.get(key)!.cells){const c=this.map.cells[id];
-    const owner=view.owners[c.id],mask=view.trailMasks[c.id];
-    if(owner)this.hex(g,c.id,this.renderColors[owner-1],0.92,0xf5f2e9);
+   const cells=this.chunkIndex.get(key)!.cells;
+   // Flat trails first, then raised land: land always sits above a trail.
+   for(const id of cells){const mask=view.trailMasks[id];if(!mask)continue;
     for(let slot=0;slot<view.config.maxSlots;slot++)if(mask&slotBit(slot)){
      // The entire traversed hex is vulnerable; keep it visibly lighter than captured land.
-     this.hex(g,c.id,this.renderColors[slot],0.28,this.renderColors[slot]);
+     const color=this.renderColors[slot];this.hex(g,id,color,FIELD.trailAlpha);g.lineStyle(1.5,color,FIELD.trailLineAlpha);this.strokeHex(g,id);
     }
+   }
+   for(const id of cells){const owner=view.owners[id];if(!owner)continue;const color=this.renderColors[owner-1];
+    this.lip(g,id,mixColor(color,INK,FIELD.lipShade),view.owners);this.hex(g,id,color,1);g.lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1);this.strokeHex(g,id);
    }
   }
   this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
@@ -181,15 +195,16 @@ export class GameScene extends Phaser.Scene {
   this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);this.captureEffects?.update(now,this.view,this.cullChunks);
   for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);}
   setWallMargin(this.map,this.wallMargin);
-  const bandKey=this.map.mapId+':'+this.wallMargin;
-  if(this.wallBandKey!==bandKey){this.wallBandKey=bandKey;this.wallBand?.clear();if(this.wallMargin){this.wallBand??=this.add.graphics().setDepth(-.1);this.wallBand.fillStyle(0xcaa781,.35);for(const poly of boundaryGeometry(this.map).polygons)this.wallBand.fillPoints(poly,true);}}
-  this.wallBand?.setVisible(this.wallMargin&&!!this.selfId);
+  const boardKey=this.map.mapId+':'+this.wallMargin;
+  if(this.boardKey!==boardKey){this.boardKey=boardKey;this.drawBoard();}
   this.highlightedEdges=0;this.wallHighlight?.clear();
   const wallSelf=this.view.participants.find(p=>p.participantId===this.selfId);
   if(this.boundaryHighlight&&wallSelf&&this.view.phase==='RUNNING'){
    const position=this.presentation.position(wallSelf.participantId,now)??wallSelf.position;
    const edges=nearbyBoundaryEdges(this.map,position,Math.sqrt(3)*this.map.side*3);
-   if(edges.length){this.wallHighlight??=this.add.graphics().setDepth(3);this.wallHighlight.lineStyle(4,0x485d5c,.95);for(const edge of edges)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);this.highlightedEdges=edges.length;if(this.wallMargin)this.wallHighlight.lineStyle(2,0xa8754b,.9);const radius=Math.sqrt(3)*this.map.side*3;if(this.wallMargin)for(const edge of boundaryGeometry(this.map).edges){if(Math.min(Math.hypot(edge.a.x-position.x,edge.a.y-position.y),Math.hypot(edge.b.x-position.x,edge.b.y-position.y))<=radius)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}
+   if(edges.length){this.wallHighlight??=this.add.graphics().setDepth(3);this.wallHighlight.lineStyle(5,FIELD.nearEdge,.95);for(const edge of edges)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);this.highlightedEdges=edges.length;const radius=Math.sqrt(3)*this.map.side*3;if(this.wallMargin){const near=boundaryGeometry(this.map).edges.filter(edge=>Math.min(Math.hypot(edge.a.x-position.x,edge.a.y-position.y),Math.hypot(edge.b.x-position.x,edge.b.y-position.y))<=radius);
+    // The lethal board edge glows: a soft wide pass under a solid one.
+    for(const [width,alpha]of [[18,.3],[7,1]] as const){this.wallHighlight.lineStyle(width,FIELD.nearDeath,alpha);for(const edge of near)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}}
   }
   const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
   // camera.worldView is the last completed frame; one whole chunk margin also
@@ -234,6 +249,15 @@ export class GameScene extends Phaser.Scene {
   const self=this.view.participants.find(p=>p.participantId===this.selfId);if(self?.lifeState==='ALIVE'){const position=this.presentation.position(self.participantId,now)??self.position,x=width/2+position.x*scale,y=height/2+position.y*scale;context.fillStyle=cssColor(this.renderColors[self.slot]);context.strokeStyle='#ffffff';context.lineWidth=2;context.beginPath();context.arc(x,y,5,0,Math.PI*2);context.fill();context.stroke();context.strokeStyle=cssColor(this.renderColors[self.slot]);context.lineWidth=1.5;context.beginPath();context.arc(x,y,7,0,Math.PI*2);context.stroke();}
   this.metrics.minimapUpdateMs=performance.now()-miniAt;
  }
+ // The playable map is a board on an indigo table: a thick side below the
+ // lethal edge, the edge line itself, then the survivable rim up to the cells.
+ private drawBoard():void {
+  const map=this.map!,geometry=this.wallMargin?boundaryGeometry(map):null,edges=geometry?.edges??map.boundaryEdges,t=map.side*FIELD.boardThickness;
+  this.board??=this.add.graphics().setDepth(-.1);const g=this.board.clear();
+  g.fillStyle(FIELD.boardSide,1);for(const e of edges)g.fillPoints([e.a,e.b,{x:e.b.x,y:e.b.y+t},{x:e.a.x,y:e.a.y+t}],true);
+  g.lineStyle(12,FIELD.boardEdge,1);for(const e of edges)g.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+  if(geometry){g.fillStyle(FIELD.rim,1);for(const poly of geometry.polygons)g.fillPoints(poly,true);}
+ }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;
   // The camera maps the last rendered frame. Use the avatar from that same
@@ -258,7 +282,7 @@ export class GameScene extends Phaser.Scene {
 }
 export function createRenderer(parent:string):GameScene {
  const scene=new GameScene();
- new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:'#e6e3d9',width:window.innerWidth,height:window.innerHeight,
+ new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
   scale:{mode:Phaser.Scale.NONE,autoCenter:Phaser.Scale.NO_CENTER},
   scene:[scene],render:{antialias:true,powerPreference:'high-performance'},banner:false,audio:{noAudio:true}});
  return scene;

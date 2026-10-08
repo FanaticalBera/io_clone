@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type {MapDefinition,MatchView,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryEffectModel,collapseAppearance,type TerritoryEffectStyle} from './territory-effect-model.js';
+import {FIELD} from './theme.js';
 /** Pooled chunk Graphics, below current territory/trails. No particles/tweens/timers. */
 export class TerritoryEffects {
  readonly model=new TerritoryEffectModel();
@@ -52,7 +53,7 @@ export class TerritoryEffects {
     const c=this.map.cells[cell.id];
     for(let i=0;i<6;i++){this.points[i].x=c.center.x+(c.vertices[i].x-c.center.x)*a.scale;this.points[i].y=c.center.y+(c.vertices[i].y-c.center.y)*a.scale;}
     g.fillStyle(a.color,a.alpha).fillPoints(this.points,true);
-    g.lineStyle(1,0xf5f2e9,a.alpha*.8).strokePoints(this.points,true);drawnCells++;
+    g.lineStyle(1,FIELD.ground,a.alpha*.8).strokePoints(this.points,true);drawnCells++;
    }
    if(drawnCells>before){g.setVisible(true);this.drawn.add(key);}
   }

@@ -13,7 +13,7 @@ export class CombatEffects {
  constructor(private scene:Phaser.Scene,private colors:readonly number[],private onKill:()=>void=()=>{},private onDeath:()=>void=()=>{}){
   this.viewportWidth=scene.scale.width;this.viewportHeight=scene.scale.height;
   this.world=scene.add.graphics().setDepth(8);this.flash=scene.add.graphics().setScrollFactor(0).setDepth(10);
-  this.message=scene.add.text(0,0,'',{fontFamily:'Malgun Gothic, sans-serif',fontSize:'28px',fontStyle:'bold',color:'#142330',stroke:'#f5f2e9',strokeThickness:7,align:'center'}).setOrigin(.5).setScrollFactor(0).setDepth(11).setVisible(false);
+  this.message=scene.add.text(0,0,'',{fontFamily:'Malgun Gothic, sans-serif',fontSize:'28px',fontStyle:'bold',color:'#1f1b2d',stroke:'#ffffff',strokeThickness:7,align:'center'}).setOrigin(.5).setScrollFactor(0).setDepth(11).setVisible(false);
   scene.events.once(Phaser.Scenes.Events.SHUTDOWN,()=>this.destroy());scene.events.once(Phaser.Scenes.Events.DESTROY,()=>this.destroy());
  }
  setViewport(width:number,height:number,ratio:number):void{
@@ -33,7 +33,7 @@ export class CombatEffects {
    const killed=event.killerId===selfId&&event.participantId!==selfId,dead=event.participantId===selfId;
    const color=dead?0xff7084:this.colors[victim?.slot??0];
    const label=this.scene.add.text(position.x,position.y-35,killed?'선 절단!':dead?'탈락':event.reason==='WALL_HIT'?'벽 충돌':'선 절단',{
-    fontFamily:'Malgun Gothic, sans-serif',fontSize:killed||dead?'24px':'16px',fontStyle:'bold',color:'#142330',stroke:'#f5f2e9',strokeThickness:6,resolution:this.pixelRatio
+    fontFamily:'Malgun Gothic, sans-serif',fontSize:killed||dead?'24px':'16px',fontStyle:'bold',color:'#1f1b2d',stroke:'#ffffff',strokeThickness:6,resolution:this.pixelRatio
    }).setOrigin(.5).setDepth(9);
    this.bursts.push({position:{...position},color,born:now,local:killed||dead,label,seed:[...event.eventId].reduce((n,c)=>n+c.charCodeAt(0),0)});
    while(this.bursts.length>24)this.bursts.shift()!.label.destroy();this.played++;this.lastEventId=event.eventId;
