@@ -34,7 +34,7 @@ test('T31 real emulated touch controls both practice and online, retains directi
   // This phone viewport uses its full DPR 3; CSS size and controls stay fixed.
   expect(await page.locator('#field canvas').evaluate((c:HTMLCanvasElement)=>c.width/c.clientWidth)).toBe(3);
   await page.screenshot({path:'evidence/T31-mobile-landscape.png'});
-  await page.getByTestId('leave').click();await page.setViewportSize({width:390,height:844});await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();await expect(page.locator('#hud')).toBeVisible();
+  await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.setViewportSize({width:390,height:844});await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();await expect(page.locator('#hud')).toBeVisible();
   const onlineBox=(await page.locator('#joystick').boundingBox())!,ox=onlineBox.x+onlineBox.width/2,oy=onlineBox.y+onlineBox.height/2;
   const startPosition=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().participants.find((p:any)=>p.kind==='HUMAN').position);
   const inward=Math.abs(startPosition.x)>Math.abs(startPosition.y)?{x:startPosition.x>0?-1:1,y:0}:{x:0,y:startPosition.y>0?-1:1};

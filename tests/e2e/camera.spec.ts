@@ -41,7 +41,7 @@ test('PC constant movement keeps camera continuous in practice and online',async
    expect(Math.hypot(last.camera.x-first.camera.x,last.camera.y-first.camera.y)).toBeGreaterThan(50);
    evidence.push({mode,frames:samples.length,sampleMs:last.at-first.at,maxCenterError:Math.max(...samples.map(s=>s.centerError)),maxExcessMovement:Math.max(...jumps),condition:'Actual Phaser camera sampled in automated headless Chromium; continuity proof, not physical GPU FPS acceptance'});
    await page.screenshot({path:'evidence/T38-PC-'+mode+'-camera.png'});
-   await page.getByTestId('leave').click();
+   await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();
   }
   await writeFile('evidence/T38-PC-camera.json',JSON.stringify(evidence,null,2));
  }finally{await context.close();await server.close();}
@@ -92,7 +92,7 @@ test('screen drag steers through intermediate headings at constant speed in prac
    const excess=samples.slice(1).flatMap((s,i)=>s.lifeId===samples[i].lifeId&&s.lifeState==='ALIVE'&&samples[i].lifeState==='ALIVE'?
     [Math.hypot(s.camera.x-samples[i].camera.x,s.camera.y-samples[i].camera.y)-(speed*(s.renderedAt-samples[i].renderedAt)/1000+12)]:[]);
    expect(excess.length).toBeGreaterThan(10);expect(Math.max(...excess),mode).toBeLessThanOrEqual(0);
-   evidence.push({mode,initial,target,moveCellsPerSecond:config.moveCellsPerSecond,turnRadiansPerSecond:config.turnRadiansPerSecond,samples});await page.getByTestId('leave').click();
+   evidence.push({mode,initial,target,moveCellsPerSecond:config.moveCellsPerSecond,turnRadiansPerSecond:config.turnRadiansPerSecond,samples});await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();
   }
   await writeFile('evidence/mobile-swipe-turn-2026-10-02.json',JSON.stringify(evidence,null,2));
  }finally{await context.close();await server.close();}
@@ -146,7 +146,7 @@ test('continuous swipe U-turns publish the final reverse goal in practice and on
    const excess=samples.slice(1).map((s,i)=>Math.hypot(s.camera.x-samples[i].camera.x,s.camera.y-samples[i].camera.y)-speed*(s.renderedAt-samples[i].renderedAt)/1000-tolerance);
    expect(excess.length).toBeGreaterThan(10);expect(Math.max(...excess),mode).toBeLessThanOrEqual(0);
    evidence.push({mode,initial,intended,target,config:{moveCellsPerSecond:config.moveCellsPerSecond,turnRadiansPerSecond:config.turnRadiansPerSecond},fingerPoints,samples});
-   await page.getByTestId('leave').click();
+   await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();
   }
   await writeFile('evidence/mobile-swipe-camera-2026-10-02.json',JSON.stringify(evidence,null,2));
  }finally{await context.close();await server.close();}

@@ -8,6 +8,7 @@ import type {RewardReceipt} from './profile.js';
 import {deathMessage} from './death-message.js';
 import {ICONS} from './icons.js';
 import {cssHex} from './theme.js';
+import {markerPreview,type MarkerAppearance} from './marker-art.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
 export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
@@ -38,13 +39,13 @@ export class UI {
 ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <canvas id="minimap" width="240" height="208" aria-label="전체 영토 지도" hidden></canvas>
 <section id="menu" class="menu-panel">
- <img class="home-art" src="/assets/ui/home-art.svg" alt="">
+ <div class="home-stage"><img class="home-art" src="/assets/ui/home-art.svg" alt=""><span id="home-marker" class="home-marker" aria-hidden="true"></span></div>
  <div class="play-column">
   <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
-  <button id="quick" data-testid="quick" class="btn play-main"><span class="play-text"><strong>공개 대전</strong><span class="mode-line">사람 + 봇 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
-  <button id="practice" data-testid="practice" class="btn play-sub"><strong>싱글 플레이</strong><span>봇과 연습 · 한 번의 생존</span></button>
-  <div class="friend-actions" role="group" aria-label="친구와 함께"><button id="create" data-testid="create" class="btn dark">${ICONS.plus}친구 방 만들기</button><label class="code-field"><span class="sr-only">친구 방 코드</span><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드"><button id="join" data-testid="join" class="btn mini">입장</button></label></div>
+  <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
+  <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span>방을 만들거나 코드로 들어가요</span></div>
+   <div class="friend-actions"><button id="create" data-testid="create" class="btn dark">${ICONS.plus}방 만들기</button><label class="code-field"><span class="sr-only">친구 방 코드</span><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드"><button id="join" data-testid="join" class="btn mini sun">입장</button></label></div></section>
  </div>
  <p class="menu-footer">내 땅에서 나가 선을 긋고, 돌아오면 점령!</p>
 </section>
@@ -114,7 +115,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('kill-vibration').addEventListener('change',()=>this.settings.update({killVibration:get<HTMLInputElement>('kill-vibration').checked}));
   bind('vibration-test',()=>{get('vibration-status').textContent=this.actions.testVibration?.()?'진동을 요청했어요. 무음 설정이나 기기에 따라 느껴지지 않을 수 있어요.':'이 환경에서는 진동을 실행할 수 없어요.';});
   this.settings.subscribe(()=>this.refreshSettings());this.refreshSettings();
-  bind('practice',()=>this.requestPlay(this.actions.practice));bind('quick',()=>this.requestPlay(()=>this.actions.quick?this.actions.quick():this.message('온라인 연결을 준비하고 있어요.')));
+  bind('practice',()=>this.requestPlay(this.actions.practice));
   bind('create',()=>this.requestPlay(()=>this.actions.create?this.actions.create():this.message('온라인 연결을 준비하고 있어요.')));
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',()=>{get('leave-confirm').hidden=true;this.actions.leave();});bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
@@ -124,6 +125,9 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';(navigator.clipboard?.writeText(location.origin+'/?room='+encodeURIComponent(code))??Promise.reject(new Error('Clipboard unavailable'))).then(()=>this.message('초대 링크를 복사했어요.')).catch(()=>this.message('복사가 막혔어요. 이 링크를 직접 공유하세요: '+location.origin+'/?room='+encodeURIComponent(code)));});
  }
+ private homeAppearance:MarkerAppearance|null=null;
+ // The equipped marker stands on the home art's trail head, in the current color style.
+ setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
  selectedGameMode():GameModeId{return 'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
  private closeGamePanels():void{for(const id of ['game-tools','leaderboard','leave-confirm'])get(id).hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');get('ranking-toggle').setAttribute('aria-pressed','false');}
@@ -141,6 +145,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const settings=this.settings.get();get<HTMLInputElement>('controls-'+settings.mobileControls).checked=true;get<HTMLInputElement>('look-'+settings.colorStyle).checked=true;get<HTMLInputElement>('kill-vibration').checked=settings.killVibration;
   const supported=browserHaptics().supported();get('vibration-support').textContent=supported?'지원되는 모바일 브라우저에서 동작해요.':'현재 환경에서는 진동을 지원하지 않아요.';
   get<HTMLButtonElement>('vibration-test').disabled=!supported||!settings.killVibration;this.refreshControls();
+  if(this.homeAppearance)this.setHomeMarker(this.homeAppearance);
  }
  private refreshControls():void{get('joystick').hidden=!this.controlsActive||this.isSettingsOpen()||!matchMedia('(pointer:coarse)').matches||this.settings.get().mobileControls!=='joystick';}
  nickname():string {const name=normalizeNickname(get<HTMLInputElement>('nickname').value);if(!name)throw new Error('닉네임은 공백 정리 후 1–16자로 입력하세요.');save('hexhold.nickname',name);return name;}
@@ -171,6 +176,9 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('hud').dataset.matchId=view.matchId;get('hud').dataset.selfId=selfId;get('hud').dataset.lifeId=String(self.lifeId);get('hud').dataset.tick=String(view.tick);
   get('score').textContent=territoryPercent(self.territoryCount,this.totalCells).toFixed(1)+'%';get('score-detail').textContent='영토 '+self.territoryCount+' / '+this.totalCells+'칸';
   get('kill-count').textContent=String(self.run?Math.max(0,self.kills-self.run.initialKills):self.kills);
+  // The capture bubble wears my own colour; dark colours get white text.
+  const mine=colors[self.slot],toast=get('capture-toast'),luma=(0.299*(mine>>16&255)+0.587*(mine>>8&255)+0.114*(mine&255))/255;
+  toast.style.setProperty('--player',cssHex(mine));toast.style.color=luma<.55?'#ffffff':'#1f1b2d';
   const life=view.matchId+':'+self.lifeId;
   if(init||life!==this.toastLife||self.lifeState!=='ALIVE'){this.toastLife=life;this.toastCells=self.territoryCount;}
   else if(self.territoryCount>this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((self.territoryCount-this.toastCells)*100/this.totalCells);this.toastCells=self.territoryCount;}

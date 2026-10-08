@@ -4,11 +4,11 @@ import {KillHaptics,type HapticDevice} from '../../src/client/haptics.js';
 describe('local settings',()=>{
  it('persists controls and vibration, isolates returned values and notifies changes',()=>{
   const values=new Map<string,string>(),storage={getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>{values.set(k,v);}},store=new SettingsStore(storage),listener=vi.fn(),off=store.subscribe(listener);
-  expect(store.get()).toEqual({mobileControls:'joystick',killVibration:true});store.update({mobileControls:'drag',killVibration:false});
-  expect(new SettingsStore(storage).get()).toEqual({mobileControls:'drag',killVibration:false});expect(listener).toHaveBeenCalledOnce();off();store.update({killVibration:true});expect(listener).toHaveBeenCalledOnce();const copy=store.get();copy.mobileControls='joystick';expect(store.get().mobileControls).toBe('drag');
+  expect(store.get()).toEqual({mobileControls:'joystick',killVibration:true,colorStyle:'pastel'});store.update({mobileControls:'drag',killVibration:false});
+  expect(new SettingsStore(storage).get()).toEqual({mobileControls:'drag',killVibration:false,colorStyle:'pastel'});expect(listener).toHaveBeenCalledOnce();off();store.update({killVibration:true});expect(listener).toHaveBeenCalledOnce();const copy=store.get();copy.mobileControls='joystick';expect(store.get().mobileControls).toBe('drag');
  });
  it('falls back safely for malformed data and denied storage',()=>{
-  for(const data of ['{','null','{"mobileControls":"invalid","killVibration":"yes"}'])expect(new SettingsStore({getItem:()=>data,setItem(){}}).get()).toEqual({mobileControls:'joystick',killVibration:true});
+  for(const data of ['{','null','{"mobileControls":"invalid","killVibration":"yes"}'])expect(new SettingsStore({getItem:()=>data,setItem(){}}).get()).toEqual({mobileControls:'joystick',killVibration:true,colorStyle:'pastel'});
   const store=new SettingsStore({getItem(){throw new Error('denied');},setItem(){throw new Error('denied');}});store.update({mobileControls:'drag'});expect(store.get().mobileControls).toBe('drag');expect(SETTINGS_KEY).toBe('hexhold.settings');
  });
 });
@@ -36,4 +36,10 @@ it('persists experimental trackpad controls',()=>{
  const first=new SettingsStore(storage);first.update({mobileControls:'trackpad'});
  expect(first.get().mobileControls).toBe('trackpad');
  const second=new SettingsStore(storage);expect(second.get().mobileControls).toBe('trackpad');
+});
+
+it('persists the color style and falls back to pastel',()=>{
+ const data=new Map<string,string>(),storage={getItem:(key:string)=>data.get(key)??null,setItem:(key:string,value:string)=>{data.set(key,value);}};
+ new SettingsStore(storage).update({colorStyle:'vivid'});expect(new SettingsStore(storage).get().colorStyle).toBe('vivid');
+ expect(new SettingsStore({getItem:()=>'{"colorStyle":"neon"}',setItem(){}}).get().colorStyle).toBe('pastel');
 });

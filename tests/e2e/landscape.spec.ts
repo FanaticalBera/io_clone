@@ -27,13 +27,13 @@ test('landscape phone keeps start actions and compact HUD in view; optional pane
   }
   await page.setViewportSize({width:844,height:390});await page.screenshot({path:'.local/landscape-game.png'});
   await page.locator('#game-tools-toggle').click();await page.locator('#ranking-toggle').click();await expect(page.locator('#leaderboard')).toBeVisible();await expect(page.locator('#game-tools')).toBeHidden();
-  await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();await expect(page.locator('#minimap')).toBeVisible();await expect(page.locator('#leaderboard')).toBeHidden();
+  await expect(page.locator('#minimap')).toBeVisible();await expect(page.locator('#leaderboard')).toBeHidden();
   await page.keyboard.press('Escape');await expect(page.locator('#minimap')).toBeHidden();
   await page.setViewportSize({width:390,height:844});await expect(page.locator('#rotate-hint')).toBeVisible();
   await page.setViewportSize({width:844,height:390});await expect(page.locator('#rotate-hint')).toBeHidden();
   // An unsupported fullscreen/orientation API must leave the game usable.
   await page.evaluate(()=>Object.defineProperty(document.querySelector('#app'),'requestFullscreen',{value:()=>Promise.reject(new Error('unsupported'))}));
   await page.locator('#game-tools-toggle').click();await page.locator('#fullscreen-toggle').click();await expect(page.locator('#notice')).toContainText('가로로');await expect(page.locator('#hud')).toBeVisible();
-  await page.locator('#notice-close').click();await page.getByTestId('leave').click();await page.getByTestId('practice').click();await expect(page.locator('#minimap')).toBeHidden();await expect(page.locator('#leaderboard')).toBeHidden();
+  await page.locator('#notice-close').click();await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.getByTestId('practice').click();await expect(page.locator('#minimap')).toBeHidden();await expect(page.locator('#leaderboard')).toBeHidden();
  }finally{await context.close();}
 });

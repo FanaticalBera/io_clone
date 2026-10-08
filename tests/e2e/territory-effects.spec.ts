@@ -62,7 +62,7 @@ for(const style of styles)test(style+' captures the same medium scene at 0/200/4
 for(const [query,style]of [['wave','WAVE_COLLAPSE'],['power','POWER_DOWN'],['edge','EDGE_CRUMBLE']])test(style+' works during real R56/16 practice, deaths and camera movement',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>{errors.push(e.message);console.error('Browser error: '+e.message);});await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  await page.goto('/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4&experimentTerritoryEffect='+query);
- await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');
+ await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#population')).toHaveText('사람 1 · 봇 15');
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().tick)).toBeGreaterThan(90);
  const data=await page.evaluate(async()=>{const hook=(window as any).__HEXHOLD_TEST__,p=hook.getPractice(),m=p.match;
   // Deliberate confirmed deaths amid the ordinary practice loop: fixture stress,
@@ -81,7 +81,7 @@ test('production ignores alternative queries and uses the chosen Wave',async({pa
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  expect((await page.request.get('http://127.0.0.1:3010/tests/fixtures/territory-effects.html')).status()).toBe(404);
  for(const query of ['wave','power','edge']){
-  await page.goto('http://127.0.0.1:3010/?experimentTerritoryEffect='+query+'&experimentCaptureEffect=bloom');await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','WAVE_COLLAPSE');await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','NONE');await expect(page.locator('#population')).toHaveText('1 HUMAN · 7 BOT');
+  await page.goto('http://127.0.0.1:3010/?experimentTerritoryEffect='+query+'&experimentCaptureEffect=bloom');await expect(page.getByTestId('practice')).toBeVisible({timeout:10000});await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','WAVE_COLLAPSE');await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','NONE');await expect(page.locator('#population')).toHaveText('사람 1 · 봇 7');
  }
 });
 test('phone-size comparison controls and field fit portrait and landscape',async({page})=>{
@@ -102,7 +102,7 @@ test('Capture Bloom uses real R56/16 practice captures, slot 15, then releases d
  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  await page.goto('/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4&experimentCaptureEffect=bloom');
- await page.getByTestId('practice').click();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');
+ await page.getByTestId('practice').click();await expect(page.locator('#population')).toHaveText('사람 1 · 봇 15');
  await expect(page.locator('#field')).toHaveAttribute('data-territory-effect','WAVE_COLLAPSE');
  await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','CAPTURE_PULSE');
  const result=await page.evaluate(async()=>{

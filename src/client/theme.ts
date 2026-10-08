@@ -6,7 +6,7 @@ export const FIELD={
  rim:0xd4daee,edgeLine:0xb4bbd3,boardEdge:0xa8754b,boardSide:0x6b4329,
  nearEdge:INK,nearDeath:0xff7a1a,
  territoryEdge:.2,lipShade:.38,lipDepth:.3,
- trailAlpha:.38,trailLineAlpha:.55,
+ trailAlpha:.38,trailLineAlpha:.55,trailLandWash:.55,trailLandAlpha:.5,
  boardThickness:.5,
 } as const;
 export function mixColor(a:number,b:number,amount:number):number {

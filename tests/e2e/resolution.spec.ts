@@ -60,7 +60,7 @@ test('high-density mobile touch and minimap remain usable after rotation',async(
    await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:width*.6,y:height*.6-50,id:1}]});
    await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.inputDirection())).toEqual({x:0,y:-1});
    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
-   await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();
+   
    await expect(page.locator('#minimap')).toBeVisible();
    await expect.poll(()=>page.locator('#minimap').evaluate((canvas:HTMLCanvasElement)=>({width:canvas.width,height:canvas.height}))).toEqual({width:426,height:360});
    await page.keyboard.press('Escape');

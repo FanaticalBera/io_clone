@@ -8,7 +8,7 @@ test.beforeAll(()=>mkdirSync(output,{recursive:true}));
 for(const radius of [48,56,64])test(`R${radius}/16: static chunk resources, high-slot visuals, culling and frame measurements`,async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(`/tests/fixtures/large-world.html?radius=${radius}`);
  await page.waitForFunction(()=>(window as any).fixture?.scene.resourceState().avatars===16);
- await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();
+ 
  await expect.poll(()=>page.evaluate(()=>(window as any).fixture.scene.resourceState().minimapUpdateMs)).toBeGreaterThan(0);
  const initial=await page.evaluate(()=>{const {scene,m,COLORS}=(window as any).fixture;return {resources:scene.resourceState(),colors:[0,7,8,15].map(slot=>COLORS[slot]),trailSlots:[0,7,8,15].map(slot=>m.participants[slot].trailCells.size),render:scene.renderState()};});
  expect(initial.colors.every(c=>Number.isFinite(c))).toBe(true);expect(initial.trailSlots.every(n=>n>0)).toBe(true);expect(new Set(initial.colors).size).toBe(4);expect(initial.resources.groundTextures).toBe(1);expect(initial.resources.groundTextureSize.width).toBeLessThan(128);expect(initial.resources.groundTextureSize.height).toBeLessThan(128);
@@ -39,10 +39,10 @@ for(const radius of [48,56,64])test(`R${radius}/16: static chunk resources, high
 test('R56/16 normal practice starts 1 HUMAN + 15 BOT with camera follow, minimap and all ranking rows',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  await page.goto('/?experimentMapRadius=56&experimentSlots=16&experimentSeed=4');await page.getByTestId('nickname').fill('큰 맵');await page.getByTestId('practice').click();
- await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');await expect(page.locator('#ranking li')).toHaveCount(16);
+ await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('사람 1 · 봇 15');await expect(page.locator('#ranking li')).toHaveCount(16);
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getResourceState().avatars)).toBe(16);
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().tick)).toBeGreaterThan(90);
- expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);await page.locator('#game-tools-toggle').click();await page.locator('#map-toggle').click();await expect(page.locator('#minimap')).toBeVisible();expect(errors).toEqual([]);
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);await expect(page.locator('#minimap')).toBeVisible();expect(errors).toEqual([]);
  await page.screenshot({path:`${output}/practice-R56-16.png`});
 });
 test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 BOT Classic room',async({browser})=>{
@@ -51,7 +51,7 @@ test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 
  try{const a=await contexts[0].newPage(),b=await contexts[1].newPage();for(const p of [a,b])p.on('pageerror',e=>errors.push(e.message));
   await a.goto('/');await b.goto('/');await a.getByTestId('nickname').fill('A');await b.getByTestId('nickname').fill('B');await a.getByTestId('create').click();await expect(a.locator('#room-panel')).toBeVisible();
   await b.getByTestId('room-code').fill((await a.locator('#friend-code').textContent())!);await b.getByTestId('join').click();await expect(a.locator('#members')).toContainText('B');await a.getByTestId('start').click();
-  for(const p of [a,b]){await expect(p.locator('#hud')).toBeVisible({timeout:15000});await expect(p.locator('#population')).toHaveText('2 HUMAN · 14 BOT');}
+  for(const p of [a,b]){await expect(p.locator('#hud')).toBeVisible({timeout:15000});await expect(p.locator('#population')).toHaveText('사람 2 · 봇 14');}
   await expect.poll(()=>a.evaluate(()=>(window as any).__HEXHOLD_TEST__.history.length)).toBeGreaterThan(15);
   const ha=await a.evaluate(()=>(window as any).__HEXHOLD_TEST__.history),hb=await b.evaluate(()=>(window as any).__HEXHOLD_TEST__.history),peers=new Map(hb.map((s:any)=>[s.snapshotSeq,s])),common=ha.filter((s:any)=>peers.has(s.snapshotSeq));expect(common.length).toBeGreaterThan(5);
   for(const s of common){const peer:any=peers.get(s.snapshotSeq);expect(s.tick).toBe(peer.tick);expect(s.matchId).toBe(peer.matchId);expect(s.owners).toBe(peer.owners);expect(Array.from(decodeTrailMasks(s.trailMasks,9577)).join(',')).toBe(Array.from(decodeTrailMasks(peer.trailMasks,9577)).join(','));expect(s.participants).toEqual(peer.participants);}
@@ -62,6 +62,6 @@ test('R56/16 two browsers share decoded board and states in a real 2 HUMAN + 14 
 });
 test('production client and server keep current R56/16 defaults despite experiment overrides',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));await page.goto('http://127.0.0.1:3010/?experimentMapRadius=48&experimentSlots=8&experimentSeed=4');await page.getByTestId('practice').click();
- await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();
- await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('1 HUMAN · 15 BOT');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');
+ await expect(page.locator('#population')).toHaveText('사람 1 · 봇 15');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();
+ await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#population')).toHaveText('사람 1 · 봇 15');await expect(page.locator('#score-detail')).toContainText('/ 9577칸');
 });

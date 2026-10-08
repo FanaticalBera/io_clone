@@ -15,7 +15,7 @@ for(const width of [844,568])test('fixed 48 image markers and chosen nickname at
    expect(state.markers.filter((m:any)=>!m.local).every((m:any)=>m.bodyColor===m.slotColor&&(!m.imageVisible||m.imageDiameter===48))).toBe(true);
    expect(state.render.zoom).toBeCloseTo(width<600?.35:.38,6);expect(state.assets.textureKeys).toHaveLength(22);expect(state.assets.imageObjects).toBe(24);expect(state.assets.avatars).toBe(16);
    await page.screenshot({path:'.local/marker-size-fixed-'+width+'x'+(width===844?390:320)+'.png'});
-   await page.getByTestId('leave').click();await expect(page.locator('#menu-coins')).toHaveText('Coins · 0');
+   await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await expect(page.locator('#menu-coins')).toHaveText('0');
    const saved=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.profile());expect(saved.inventory.ownedMarkerIds).toHaveLength(15);expect(saved.inventory.equippedMarkerId).toBe('cat');
   }
   await page.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),s=new ProfileStore();try{await s.equip('marker','hex');}finally{s.dispose();}});

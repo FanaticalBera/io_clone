@@ -103,6 +103,14 @@ export class GameScene extends Phaser.Scene {
    const va=c.vertices[a],vb=c.vertices[b];g.fillStyle(fill,1);
    g.fillPoints([{x:va.x-ox,y:va.y-oy},{x:vb.x-ox,y:vb.y-oy},{x:vb.x-ox,y:vb.y-oy+d},{x:va.x-ox,y:va.y-oy+d}],true);}
  }
+ // The entire traversed hex is vulnerable; keep it visibly lighter than captured land.
+ // Over land it is washed toward white first so the trail reads against any colour.
+ private trail(g:Phaser.GameObjects.Graphics,id:number,mask:number,slots:number,onLand:boolean):void {
+  for(let slot=0;slot<slots;slot++)if(mask&slotBit(slot)){const color=this.renderColors[slot];
+   if(onLand){this.hex(g,id,0xffffff,FIELD.trailLandWash);this.hex(g,id,color,FIELD.trailLandAlpha);g.lineStyle(2,color,1);}
+   else{this.hex(g,id,color,FIELD.trailAlpha);g.lineStyle(1.5,color,FIELD.trailLineAlpha);}
+   this.strokeHex(g,id);}
+ }
  private strokeHex(g:Phaser.GameObjects.Graphics,id:number):void {const origin=g.getData('origin') as Vec|undefined;g.strokePoints(origin?this.map!.cells[id].vertices.map(v=>({x:v.x-origin.x,y:v.y-origin.y})):this.map!.cells[id].vertices,true);}
  private chunkKey(id:number):string {return this.cellChunkKeys[id];}
  private drawView(view:MatchView,reset=false,previous?:MatchView):void {
@@ -140,20 +148,23 @@ export class GameScene extends Phaser.Scene {
   }
   const redrawAt=performance.now();
   const dirty=new Set<string>();if(colorsChanged||reset)for(const key of this.chunkIndex.keys())dirty.add(key);
-  for(let id=0;id<view.owners.length;id++)if(this.lastOwners[id]!==view.owners[id]||this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
+  for(let id=0;id<view.owners.length;id++){
+   if(this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
+   if(this.lastOwners[id]===view.owners[id])continue;dirty.add(this.chunkKey(id));
+   // The two cells above draw their tile side over this cell only while it is
+   // empty, so they must be redrawn too even when they sit in another chunk.
+   for(const n of [1,2]){const above=this.map.cells[id].neighbors[n];if(above>=0)dirty.add(this.chunkKey(above));}
+  }
   for(const key of dirty){
    const g=this.chunks.get(key)!;g.clear();
    const cells=this.chunkIndex.get(key)!.cells;
-   // Flat trails first, then raised land: land always sits above a trail.
-   for(const id of cells){const mask=view.trailMasks[id];if(!mask)continue;
-    for(let slot=0;slot<view.config.maxSlots;slot++)if(mask&slotBit(slot)){
-     // The entire traversed hex is vulnerable; keep it visibly lighter than captured land.
-     const color=this.renderColors[slot];this.hex(g,id,color,FIELD.trailAlpha);g.lineStyle(1.5,color,FIELD.trailLineAlpha);this.strokeHex(g,id);
-    }
-   }
+   // Trails on open ground go under raised land so neighbouring tile sides overlap them.
+   for(const id of cells)if(view.trailMasks[id]&&!view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,false);
    for(const id of cells){const owner=view.owners[id];if(!owner)continue;const color=this.renderColors[owner-1];
     this.lip(g,id,mixColor(color,INK,FIELD.lipShade),view.owners);this.hex(g,id,color,1);g.lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1);this.strokeHex(g,id);
    }
+   // A trail crossing someone's land must stay visible on top of that land.
+   for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,true);
   }
   this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
   this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);

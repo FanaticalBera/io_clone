@@ -17,7 +17,7 @@ test('T29/T32 browser visibility, missing result event and server restart recove
  expect(resumed.tick).toBe(tick);await page.waitForTimeout(100);
  const afterResume=await page.evaluate(()=>({tick:(window as any).__HEXHOLD_TEST__.getView().tick,at:performance.now()}));
  expect(afterResume.tick-tick).toBeLessThanOrEqual(Math.ceil((afterResume.at-resumed.at)*30/1000)+2);
- await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();now=3000;server.loop.pump();await expect(page.locator('#hud')).toBeVisible();
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.getByTestId('create').click();await expect(page.locator('#room-panel')).toBeVisible();await page.getByTestId('start').click();now=3000;server.loop.pump();await expect(page.locator('#hud')).toBeVisible();
  const room=server.rooms.rooms.values().next().value!,s=[...server.sessions.sessions.values()][0];await visibility(true);await until(()=>s.background);
  for(let i=0;i<3;i++){now+=100;server.loop.pump();}expect(room.match!.tick).toBeGreaterThan(0);
  await visibility(false);await until(()=>!s.background);await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.enabled())).toBe(true);

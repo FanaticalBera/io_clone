@@ -32,7 +32,7 @@ test('same-input comparison, actual mobile drill and complete practice',async({p
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__?.getMarkerState().length)).toBe(16);
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().wallVisualState().enabled)).toBe(true);
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getView().owners.length)).toBe(9577);
- await page.getByTestId('leave').click();await page.goto('/?experimentWall=strict&experimentSeed=4');await page.getByTestId('practice').click();
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.goto('/?experimentWall=strict&experimentSeed=4');await page.getByTestId('practice').click();
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().wallVisualState().enabled)).toBe(false);expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().wallVisualState().highlight)).toBe(true);
  expect(errors).toEqual([]);
 });

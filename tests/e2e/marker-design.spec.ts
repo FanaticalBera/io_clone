@@ -7,7 +7,7 @@ async function store(page:Page,method:string,...args:unknown[]){
  },{method,args});
 }
 test('explicit claim gives one free cat, equips it, preserves wallet data and survives reload',async({page})=>{
- await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('Coins · 0');
+ await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');
  await page.evaluate(async()=>{
   const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=321;p.stats.totalKills=12;p.inventory.ownedMarkerColorIds.push('violet');p.inventory.equippedMarkerColorId='violet';
   p.processedRuns.push({runId:'saved:h:life:1',baseCoins:5,territoryCoins:6,killCoins:3,clearBonusCoins:0,totalCoins:14});
@@ -23,7 +23,7 @@ test('explicit claim gives one free cat, equips it, preserves wallet data and su
  await page.locator('[data-product-id="cat"]').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-preview canvas[data-ready="true"]')).toBeVisible();
 });
 test('free claim rolls back ownership and equipment if the IndexedDB write fails; concurrent claims stay singular',async({page})=>{
- await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('Coins · 0');const before=await profile(page);
+ await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');const before=await profile(page);
  const aborted=await page.evaluate(async()=>{
   const {ProfileStore}=await import('/src/client/profile-store.ts' as string),s=new ProfileStore(),put=IDBObjectStore.prototype.put;let rejected=false,published=0;s.subscribe(()=>published++);
   IDBObjectStore.prototype.put=function(){throw new DOMException('Quota','QuotaExceededError');};
@@ -39,10 +39,10 @@ test('all eleven images purchase/equip and restore at mobile size; switching kee
  const context=await browser.newContext({viewport:{width:844,height:390},deviceScaleFactor:3,isMobile:true,hasTouch:true});
  await context.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  try{
-  await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('Coins · 0');
+  await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');
   await page.evaluate(async()=>{const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=1000;
    await new Promise<void>(resolve=>{const r=indexedDB.open('hexhold.player-profile',1);r.onsuccess=()=>{const db=r.result,tx=db.transaction('meta','readwrite');tx.objectStore('meta').put(p,'profile');tx.oncomplete=()=>{db.close();resolve();};};});});
-  await page.reload();await expect(page.locator('#menu-coins')).toHaveText('Coins · 1,000');
+  await page.reload();await expect(page.locator('#menu-coins')).toHaveText('1,000');
   await page.locator('#shop-open').click();await expect(page.locator('#shop-items canvas[data-ready="true"]')).toHaveCount(11);
   await expect(page.locator('[data-product-id="moon"]')).toHaveCount(0);await expect(page.locator('[data-product-id="ghost"]')).toHaveCount(1);
   const ids=await page.locator('#shop-items canvas').evaluateAll(es=>es.map(e=>(e as HTMLElement).dataset.markerId!));
@@ -55,10 +55,10 @@ test('all eleven images purchase/equip and restore at mobile size; switching kee
   }
   await page.setViewportSize({width:844,height:390});await page.screenshot({path:'evidence/marker-v1-shop-landscape.png'});
   for(const id of ids){
-   await page.locator('[data-product-id="'+id+'"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 50 Coins');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
+   await page.locator('[data-product-id="'+id+'"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 50 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
   }
   await page.locator('#shop-colors').click();await page.locator('[data-product-id="violet"]').click();await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
-  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('Coins · 420');
+  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('420');
   const saved=await profile(page);expect(saved.inventory.ownedMarkerIds).toEqual(['default',...ids]);expect(saved.inventory.equippedMarkerId).toBe(ids.at(-1));expect(saved.inventory.equippedMarkerColorId).toBe('violet');
   await page.getByTestId('practice').click();await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
   const assets=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerAssets());expect(assets.textureKeys).toHaveLength(22);expect(assets.imageObjects).toBe(24);expect(assets.avatars).toBe(16);
@@ -73,7 +73,7 @@ test('all eleven images purchase/equip and restore at mobile size; switching kee
   await page.screenshot({path:'evidence/marker-v1-cat-gameplay-844x390.png'});
   const measured=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState());expect(measured.zoom).toBeCloseTo(.38,6);
   await page.setViewportSize({width:568,height:320});await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().zoom)).toBeCloseTo(.35,6);
-  await page.screenshot({path:'evidence/marker-v1-cat-gameplay-568x320.png'});await page.getByTestId('leave').click();expect(errors).toEqual([]);
+  await page.screenshot({path:'evidence/marker-v1-cat-gameplay-568x320.png'});await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();expect(errors).toEqual([]);
  }finally{await context.close();}
 });
 test('exported materials retain grayscale shading, fixed detail colors, transparency and slot-15 ring',async({page})=>{
@@ -102,7 +102,7 @@ test('exported materials retain grayscale shading, fixed detail colors, transpar
 test('all-marker gift preserves the real wallet, equips a chosen design in mobile play and survives reload',async({browser})=>{
  const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true});await context.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  try{
-  const page=await context.newPage();await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('Coins · 0');
+  const page=await context.newPage();await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');
   const before=await page.evaluate(async()=>{const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=321;p.stats.totalKills=12;
    p.inventory.ownedMarkerIds.push('cat');p.inventory.equippedMarkerId='cat';p.inventory.ownedMarkerColorIds.push('violet');p.inventory.equippedMarkerColorId='violet';
    p.processedRuns.push({runId:'paid:h:life:1',baseCoins:5,territoryCoins:6,killCoins:3,clearBonusCoins:0,totalCoins:14});p.worlds.push({matchId:'paid',participants:[{participantId:'h',ownerId:'saved',initialTerritoryCells:7,observedLifeId:1,paidLifeId:1,closed:true}]});
@@ -111,11 +111,11 @@ test('all-marker gift preserves the real wallet, equips a chosen design in mobil
   await page.goto('/?testMarkerGift=all&experimentSeed=4');await expect(page).not.toHaveURL(/testMarkerGift/);await expect(page).toHaveURL(/experimentSeed=4/);
   const after=await profile(page),{inventory,...core}=after,{inventory:oldInventory,...oldCore}=before;expect(core).toEqual(oldCore);expect(inventory.equippedMarkerId).toBe('cat');expect(inventory.equippedMarkerColorId).toBe('violet');expect(inventory.ownedMarkerColorIds).toEqual(oldInventory.ownedMarkerColorIds);expect(new Set(inventory.ownedMarkerIds).size).toBe(15);
   await page.locator('#shop-open').click();await page.locator('#shop-owned').click();await expect(page.locator('#shop-items [data-product-id]')).toHaveCount(15);
-  await page.locator('[data-product-id="crown"]').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-coins')).toHaveText('321 Coins');await page.locator('#shop-close').click();
+  await page.locator('[data-product-id="crown"]').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-coins')).toHaveText('321');await page.locator('#shop-close').click();
   await page.goto('/?testMarkerGift=all&experimentSeed=4');await expect(page).not.toHaveURL(/testMarkerGift/);expect((await profile(page)).inventory.equippedMarkerId).toBe('crown');
   await page.getByTestId('practice').click();await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().find((m:any)=>m.local)?.markerId)).toBe('crown');
   expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().find((m:any)=>m.local))).toMatchObject({imageVisible:true,detailVisible:true,markerColorId:'violet',identificationRing:true});
-  await page.getByTestId('leave').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('Coins · 321');expect((await profile(page)).inventory.ownedMarkerIds).toEqual(after.inventory.ownedMarkerIds);
+  await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('321');expect((await profile(page)).inventory.ownedMarkerIds).toEqual(after.inventory.ownedMarkerIds);
  }finally{await context.close();}
 });
 
