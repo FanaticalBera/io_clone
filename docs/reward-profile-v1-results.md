@@ -6,9 +6,9 @@
 
 - Run 종료 결과를 관측하면 지급을 처리한다. 결과창 표시나 다시 하기 클릭은 지급 조건이 아니다.
 - 최고 점유율 3.0% 이상 또는 1처치 이상 또는 FULL_CAPTURE_WIN일 때 기존 보상 공식을 적용한다. 최고 점유율 3.0% 미만·무처치·클리어가 아닌 Run은 0 Coins다. 시작 7칸에서 조금 확장해도 기준 미만이면 0 Coins이며 통계에는 한 번 기록한다.
-- 총 보상 = 기본 5 + floor(최고 점유율 × 2) + 3 × min(처치, 20) + Classic 클리어 100. FULL_CAPTURE_LOSS에는 클리어 보너스가 없다.
+- 총 보상 = 기본 5 + floor(최고 점유율 × 2) + 3 × 처치 + Classic 클리어 100. FULL_CAPTURE_LOSS에는 클리어 보너스가 없다.
 - 점유율은 서버/로컬 엔진의 RunResult 값을 사용한다. 누적 획득량·생존 시간은 Coins를 늘리지 않는다.
-- runsPlayed, classicClears, 실제 totalKills(보상 상한과 별개), bestTerritoryPercent, longestRunSeconds를 저장한다. 최장 시간은 durationTicks / simulationHz로 정규화한다.
+- runsPlayed, classicClears, 실제 totalKills, bestTerritoryPercent, longestRunSeconds를 저장한다. 최장 시간은 durationTicks / simulationHz로 정규화한다.
 
 | 최고 점유율 | 처치 | 종료 | Coins |
 | --- | --- | --- | --- |
@@ -71,3 +71,9 @@
 사용자 요청으로 minimumTerritoryPercent만 1.0에서 3.0으로 변경했다. 1처치 또는 FULL_CAPTURE_WIN 조건, 킬 상한 20, 기존 계산식과 저장 구조는 유지한다. R56은 287칸이 2.9%로 미달, 288칸부터 3.0%로 보상 자격을 통과한다. 정상 유상 Run을 사용하는 dedup/저장 회귀 테스트의 입력만 3.0%로 갱신했다. 과거 지급 기록과 잔액은 소급 변경하지 않는다.
 
 3% 변경 검증: 전체 68개 파일 / 353개 테스트(보상 27개 포함), 타입 검사 및 운영 build 통과. 갱신한 IndexedDB/다중 탭 브라우저 회귀 2개 통과(24.8초). 런타임 변경은 minimumTerritoryPercent 값 하나이며 원본 로그는 .local/reward-three-percent-full.json 및 .local/reward-three-percent-browser.log에 있다.
+
+
+## 2026-10-07 킬 보상 상한 해제
+
+사용자 요청으로 20킬 상한을 제거했다. 이제 모든 처치에 기존 3 Coins를 지급한다. 예: 21킬은 킬 보상 63 Coins, 100킬은 300 Coins다. 100% Classic 클리어 + 30킬은 총 395 Coins다. 3% / 1킬 / FULL_CAPTURE_WIN 보상 자격, 기본 5, 점유율 항, 완주 100, RunResult, 프로필/IndexedDB schema와 runId/world 중복 지급 방지는 유지한다. 과거 지급 영수증과 잔액은 재계산하거나 소급 지급하지 않는다. 20킬 초과 지급·저장·중복 방지와 과거 영수증 보존을 검증한다.
+이번 수정 검증: 전체 77개 파일 / 449개 테스트, typecheck 및 production build 통과. 실행 중인 3003 클라이언트가 상한 없는 새 계산식을 제공하는 것도 확인했다.
