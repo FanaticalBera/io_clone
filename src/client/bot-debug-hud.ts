@@ -1,6 +1,11 @@
+import type {BotGrudgeTrace} from '../shared/bot-emotion.js';
+import {BOT_PHASE02} from '../shared/bot-phase02-config.js';
 import type {BotDebugSnapshot} from './bot-debug-model.js';
 import {BOT_PERSONALITY_LABELS,SECONDARY_TRAIT_LABELS} from '../shared/bot-identity.js';
 const COLORS:Record<string,string>={EXPAND:'#86efac',STEAL:'#fbbf24',SEEK_POINT:'#c4b5fd',ATTACK:'#fca5a5',RETURN:'#93c5fd',ESCAPE:'#f9a8d4'};
+function grudgeCause(event:BotGrudgeTrace):string {
+ switch(event.reason){case 'DEATH':return '나를 처치';case 'CAPTURE':return '영토 '+event.cells+'칸 탈취';case 'REPEAT_APPROACH':return '내 선에 반복 접근';case 'REPEAT_INTRUSION':return '내 영토에 반복 침입'+(event.upgrade?' (접근 적립 보정)':'');}
+}
 export class BotDebugHud {
  private root=document.createElement('aside');private rows=document.createElement('div');private detail=document.createElement('pre');
  private buttons=new Map<string,HTMLButtonElement>();private followButton:HTMLButtonElement|null=null;private collapseButton:HTMLButtonElement|null=null;private spectating=false;private following=false;private selected:string|null=null;private timer:number|null=null;private source:(()=>BotDebugSnapshot|null)|null=null;
@@ -23,9 +28,22 @@ export class BotDebugHud {
    b.textContent='#'+bot.slot+' '+bot.nickname+' · '+BOT_PERSONALITY_LABELS[bot.personality]+' / '+trait+' · '+bot.goal+' · 대상 '+(bot.attackSlot??'-')+' · 선 '+bot.trailLength+' · 위험 '+risk+' · '+bot.lifeState;
    b.onclick=()=>{this.selected=bot.participantId;if(this.following)this.follow(this.selected);this.render();};});
   const bot=snapshot.bots.find(b=>b.participantId===this.selected);if(!bot)return;
-  const trace=bot.trace,lines=['seed '+snapshot.seed+' / tick '+snapshot.tick,'#'+bot.slot+' '+bot.nickname];
+  const trace=bot.trace,lines=['seed '+snapshot.seed+' / tick '+snapshot.tick,'#'+bot.slot+' '+bot.nickname+' · life '+bot.lifeId];
   if(bot.identity){const i=bot.identity.individual;lines.push('개인차: 확장 '+i.expansionScale.toFixed(2)+' / 위험 가중 '+i.riskScale.toFixed(2)+' / 탈취 '+i.stealScale.toFixed(2)+' / 공격 '+i.attackChance.toFixed(2)+' / 방어 '+i.defenseBonus);}
-  lines.push('pressure '+bot.emotion.pressure.toFixed(2)+' · 선 위협 '+Number(bot.emotion.lineThreat)+' · 최근 피해 '+bot.emotion.recentDamage.toFixed(2),'1위 점유율 격차 '+(bot.shareGap*100).toFixed(1)+'%p (표시 전용)', '원한: '+(bot.emotion.grudges.map(g=>'#'+g.slot+' '+g.amount.toFixed(2)+' / 점수 +'+g.bonus.toFixed(2)+(g.valuable?' · 가치 기준 충족':'')).join(', ')||'없음'),'계획 추격 예약: '+snapshot.director.reservations.map(r=>'#'+snapshot.bots.find(b=>b.participantId===r.attackerId)?.slot+' → '+r.targetId).join(', '),'생존 역공 '+(bot.attackSurvival?'예':'아니오')+' · 예외 '+snapshot.director.stats.survival+' / 상한 중 예외 '+snapshot.director.stats.survivalOverCap);
+  lines.push('pressure '+bot.emotion.pressure.toFixed(2)+' · 선 위협 '+Number(bot.emotion.lineThreat)+' · 최근 피해 '+bot.emotion.recentDamage.toFixed(2),'1위 점유율 격차 '+(bot.shareGap*100).toFixed(1)+'%p (표시 전용)', '계획 추격 예약: '+snapshot.director.reservations.map(r=>'#'+snapshot.bots.find(b=>b.participantId===r.attackerId)?.slot+' → '+r.targetId).join(', '),'생존 역공 '+(bot.attackSurvival?'예':'아니오')+' · 예외 '+snapshot.director.stats.survival+' / 상한 중 예외 '+snapshot.director.stats.survivalOverCap);
+  const age=(event:BotGrudgeTrace)=>Math.max(0,(snapshot.tick-event.tick)/snapshot.simulationHz).toFixed(1)+'초 전';
+  lines.push('원한:');
+  if(!bot.emotion.grudges.length)lines.push('  없음');
+  for(const g of bot.emotion.grudges){lines.push('  #'+g.slot+' '+g.nickname+' · '+g.amount.toFixed(2)+' / 점수 +'+g.bonus.toFixed(2)+(g.valuable?' · 가치 기준 충족':''));
+   const e=g.lastEvent;lines.push(e?'    최근 적립: '+grudgeCause(e)+' · +'+e.delta.toFixed(2)+' · '+age(e)+' · life '+e.lifeId+(e.lifeId!==bot.lifeId?' (부활 전)':''):'    진단 시작 전 적립 (원인 기록 없음)');
+  }
+  lines.push('최근 원한 사건 (최대 12건):');
+  if(!bot.grudgeEvents.length)lines.push('  없음');
+  for(const e of [...bot.grudgeEvents].reverse()){
+   const result=e.ignored==='BELOW_THRESHOLD'?'미적립 ('+BOT_PHASE02.captureCells+'칸 미만)':e.ignored==='COOLDOWN'?'미적립 (재적립 대기 '+BOT_PHASE02.captureCooldown+'초)':'원한 +'+e.delta.toFixed(2)+(e.delta===0?' (상한)':'');
+   lines.push('  #'+e.slot+' '+e.nickname+' · '+grudgeCause(e)+' · '+result+' · '+age(e)+' · life '+e.lifeId+(e.lifeId!==bot.lifeId?' (부활 전)':''));
+  }
+  lines.push('탈취는 내 주변 '+snapshot.observationRange+'칸의 피해만 기록 · 원한은 부활 후 유지');
   if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
   if(trace){lines.push('최근 판단 tick '+trace.tick+' · 선택: '+trace.reason,'안전 개입: '+(trace.safetyOverride??'없음'),'선 근처 적 거리: '+(trace.risk?.nearestEnemyToTrail??'관측 없음'),'최근 공격 후보: '+trace.attacks.slice(0,12).map(a=>'#'+a.slot+' '+a.reason).join(', '));
    }else lines.push('아직 판단 기록 없음');

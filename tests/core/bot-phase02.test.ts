@@ -22,9 +22,9 @@ function fixture(){
  updateBotEmotion(observeBot(m,self.participantId),memory.emotion,memory.identity);
  return {m,self,enemy,id,memory};
 }
-function capture(f:ReturnType<typeof fixture>,count:number,far=false){
+function capture(f:ReturnType<typeof fixture>,count:number,far=false,attackerQ=9){
  const cells=Array.from({length:count},(_,i)=>f.id(far?14+i:-1-i,1));for(const cell of cells){setOwner(f.m,cell,1);addTrail(f.m,f.enemy,cell);}
- f.enemy.cellId=f.id(9);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};applySimultaneousCaptures(f.m,[f.enemy]);
+ f.enemy.cellId=f.id(attackerQ);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};applySimultaneousCaptures(f.m,[f.enemy]);
 }
 function update(f:ReturnType<typeof fixture>){const obs=observeBot(f.m,f.self.participantId);updateBotEmotion(obs,f.memory.emotion,f.memory.identity);return obs;}
 
@@ -103,6 +103,46 @@ describe('phase 2 repeated local entries',()=>{
  });
  it('expires unpaired entries after the ten-second window',()=>{
   const f=fixture();setOwner(f.m,f.id(1),1);visit(f,0,5);visit(f,15,1);visit(f,30,5);visit(f,360,1);expect(f.memory.emotion.grudge.size).toBe(0);
+ });
+});
+
+describe('passive grudge cause diagnostics',()=>{
+ it('attributes local capture to a distant actual attacker and separates old death memory',()=>{
+  const f=fixture(),other=makeParticipant({participantId:'old-killer',slot:2,nickname:'옛 가해자',kind:'BOT',personality:'ATTACK'});f.m.participants.push(other);
+  const collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)],[other.participantId,createBotMemory(9)]]));
+  markDead(f.m,f.self,'TRAIL_CUT',other);update(f);f.m.tick=f.self.respawnAtTick;tryRespawns(f.m);
+  neutralizeTerritory(f.m,f.self);f.self.cellId=f.id(0);f.self.position={...f.m.map.cells[f.self.cellId].center};setOwner(f.m,f.id(0),1);update(f);
+  setOwner(f.m,f.id(19),2);capture(f,6,false,19);const obs=update(f);expect(obs.others.some(p=>p.participantId===f.enemy.participantId)).toBe(false);
+  const row=collector.snapshot().bots.find(p=>p.participantId===f.self.participantId)!;
+  expect(row.grudgeEvents.map(e=>[e.targetId,e.reason,e.delta])).toEqual([[other.participantId,'DEATH',5],[f.enemy.participantId,'CAPTURE',3]]);
+  expect(row.emotion.grudges.find(g=>g.participantId===f.enemy.participantId)).toMatchObject({slot:f.enemy.slot,nickname:f.enemy.nickname,amount:3,lastEvent:{reason:'CAPTURE',cells:6,lifeId:2}});
+  expect(row.emotion.grudges.find(g=>g.participantId===other.participantId)?.lastEvent).toMatchObject({reason:'DEATH',lifeId:1});collector.dispose();
+ });
+ it('explains small losses and cooldown misses without changing the remembered cause',()=>{
+  const f=fixture(),collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)]]));
+  capture(f,5);update(f);f.m.tick=30;capture(f,6);update(f);f.m.tick=60;capture(f,6);update(f);update(f);
+  const row=collector.snapshot().bots[0];expect(row.grudgeEvents).toHaveLength(3);
+  expect(row.grudgeEvents.map(e=>[e.cells,e.ignored,e.delta])).toEqual([[5,'BELOW_THRESHOLD',0],[6,undefined,3],[6,'COOLDOWN',0]]);
+  expect(row.emotion.grudges[0].lastEvent).toMatchObject({tick:30,cells:6,delta:3});collector.dispose();
+ });
+ it('records actual capped increments, bounded history and unsubscribes on disposal',()=>{
+  const f=fixture(),collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)]]));
+  f.memory.emotion.grudge.set(f.enemy.participantId,{amount:19,tick:0});capture(f,6);update(f);
+  expect(collector.snapshot().bots[0].grudgeEvents[0]).toMatchObject({delta:1,balance:20});
+  for(let n=1;n<=15;n++){f.m.tick=n*60;capture(f,6);update(f);}expect(collector.snapshot().bots[0].grudgeEvents).toHaveLength(12);
+  const saved=collector.snapshot().bots[0];saved.grudgeEvents[0].delta=999;expect(collector.snapshot().bots[0].grudgeEvents[0].delta).not.toBe(999);
+  collector.dispose();f.m.tick+=60;capture(f,6);update(f);expect(collector.snapshot().bots[0].grudgeEvents).toEqual([]);expect(collector.snapshot().bots[0].emotion.grudges[0].lastEvent).toBeNull();
+ });
+ it('records repeat approach and the later intrusion adjustment as separate causes',()=>{
+  const f=fixture(),collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)]]));
+  setOwner(f.m,f.id(1),1);addTrail(f.m,f.self,f.id(0,1));
+  for(const [tick,q]of [[0,6],[15,1],[30,6],[45,3],[51,1]]){f.m.tick=tick;f.enemy.cellId=f.id(q);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};rememberBotEntries(update(f),f.memory.emotion);}
+  const events=collector.snapshot().bots[0].grudgeEvents;expect(events).toHaveLength(2);expect(events[0]).toMatchObject({reason:'REPEAT_APPROACH',delta:.5,upgrade:false});
+  expect(events[1]).toMatchObject({reason:'REPEAT_INTRUSION',upgrade:true});expect(events[1].delta).toBeCloseTo(1-.5*2**(-.2/45));collector.dispose();
+ });
+ it('does not manufacture a cause for out-of-range capture loss',()=>{
+  const f=fixture(),collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)]]));
+  capture(f,6,true);update(f);expect(collector.snapshot().bots[0].grudgeEvents).toEqual([]);expect(collector.snapshot().bots[0].emotion.grudges).toEqual([]);collector.dispose();
  });
 });
 
@@ -193,6 +233,6 @@ describe('phase 2 atomic pursuit director',()=>{
   for(let tick=0;tick<450;tick++){const ia=getBotInputs(a,ma),ib=getBotInputs(b,mb);expect(ia).toEqual(ib);stepMatch(a,ia);stepMatch(b,ib);if(tick%8===0)collector.snapshot();}
   expect(a).toEqual(b);expect(botDirector(a).snapshot()).toEqual(botDirector(b).snapshot());expect(botDirector(a).stats.maxPlanned).toBeLessThanOrEqual(3);
   for(const [id,m]of ma){expect(m.emotion).toEqual(mb.get(id)!.emotion);expect(m.random()).toBe(mb.get(id)!.random());}
-  expect(a.participants.some(p=>p.deaths>0)).toBe(true);collector.dispose();
+  expect(a.participants.some(p=>p.deaths>0)).toBe(true);expect(collector.snapshot().bots.some(p=>p.grudgeEvents.length>0)).toBe(true);collector.dispose();
  });
 });
