@@ -4,7 +4,7 @@ import { seededRandom, shuffled } from '../../src/shared/random.js';
 import { makeParticipant } from '../../src/shared/state.js';
 describe('T02: shared config and identities', () => {
  it('matches the design defaults', () => {
-  expect(DEFAULT_CONFIG).toMatchObject({ simulationHz:30, snapshotHz:10, maxSlots:16, roundSeconds:240, mapRadius:56, spawnRadius:1, moveCellsPerSecond:4.2 });
+  expect(DEFAULT_CONFIG).toMatchObject({ simulationHz:30, snapshotHz:10, maxSlots:14, roundSeconds:240, mapRadius:56, spawnRadius:1, moveCellsPerSecond:4.2 });
   expect(validateConfig()).toEqual(DEFAULT_CONFIG);
  });
  it.each([{maxSlots:17},{maxSlots:0},{maxSlots:1.2},{roundSeconds:0},{mapRadius:1},{simulationHz:Infinity},{snapshotHz:7},{protectSeconds:NaN}])('rejects invalid config %j', c => expect(() => validateConfig(c)).toThrow());

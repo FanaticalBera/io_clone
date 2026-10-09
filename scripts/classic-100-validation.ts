@@ -41,7 +41,7 @@ export function logicalHash(m:MatchState,memories:ReturnType<typeof createBotMem
 }
 export function runSeed(options:RunOptions) {
  const {seed,minutes,instrument=true,sampleSeconds=5,variant='production'}=options;
- const m=createMatch({},seed,botSpecs(16),`classic-validation-${seed}`),hz=m.config.simulationHz,total=m.map.cells.length;
+ const m=createMatch({maxSlots:16},seed,botSpecs(16),`classic-validation-${seed}`),hz=m.config.simulationHz,total=m.map.cells.length;
  const memories=m.participants.map(p=>createBotMemory(seed^(p.slot*2654435761)));
  const times=emptyTimes(),thresholdParticipants:Record<string,{participantId:string;lifeId:number}|null>=Object.fromEntries(thresholds.map(t=>[t,null]));
  const lives:Life[]=[],active=new Map<string,Life>(),samples:Sample[]=[],episodes:Episode[]=[];

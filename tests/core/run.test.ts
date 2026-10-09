@@ -12,16 +12,16 @@ import {PracticeSession} from '../../src/client/practice.js';
 import {captureFixture} from './helpers.js';
 const human={participantId:'h',slot:0,nickname:'H',kind:'HUMAN' as const};
 describe('Run lifecycle in the actual simulation',()=>{
- it('defaults to R56/16 and gives all participants seven protected cells',()=>{
+ it('defaults to R56/14 and gives all participants seven protected cells',()=>{
   const session=new PracticeSession('H',()=>{},{},{seed:4,autoStart:false}),m=session.match;
-  expect(m.config).toMatchObject({mapRadius:56,maxSlots:16,spawnRadius:1,protectSeconds:2,spawnBufferHexes:3});
-  expect(m.map.cells).toHaveLength(9577);expect(m.participants).toHaveLength(16);
-  expect(m.participants.filter(p=>p.kind==='BOT')).toHaveLength(15);
+  expect(m.config).toMatchObject({mapRadius:56,maxSlots:14,spawnRadius:1,protectSeconds:2,spawnBufferHexes:3});
+  expect(m.map.cells).toHaveLength(9577);expect(m.participants).toHaveLength(14);
+  expect(m.participants.filter(p=>p.kind==='BOT')).toHaveLength(13);
   expect(m.participants.every(p=>p.lifeState==='ALIVE'&&p.territoryCount===7&&p.spawnCells.size===7)).toBe(true);
   expect(m.participants[0].run?.startedAtTick).toBe(0);expect(unpackSnapshot(packSnapshot(buildView(m),1,0,session.selfId)).config.mapRadius).toBe(56);session.dispose();
  });
  it('keeps a human eliminated beyond the BOT deadline while slot 15 respawns',()=>{
-  const m=createMatch({},4,[human,...botSpecs(15,1)]),a=m.participants[0],b=m.participants[15];
+  const m=createMatch({maxSlots:16},4,[human,...botSpecs(15,1)]),a=m.participants[0],b=m.participants[15];
   markDead(m,a,'WALL_HIT');markDead(m,b,'WALL_HIT');expect(a.lifeState).toBe('ELIMINATED');expect(b.lifeState).toBe('DEAD_WAIT');
   const result=a.run!.result!;m.tick=90;tryRespawns(m);expect(a.lifeState).toBe('ELIMINATED');expect(a.lifeId).toBe(1);expect(trySpawn(m,a)).toBe(false);
   expect(b.lifeState).toBe('ALIVE');expect(b.lifeId).toBe(2);expect(b.territoryCount).toBe(7);expect(a.run!.result).toBe(result);
@@ -30,7 +30,7 @@ describe('Run lifecycle in the actual simulation',()=>{
   expect(unpackSnapshot(packSnapshot(buildView(m),2,0,'h')).participants[0].run!.result).toEqual(result);
  });
  it('explicit retry preserves the board and bots, changes life/run identity and resets Run stats',()=>{
-  const m=createMatch({},4,[human,...botSpecs(15,1)]),a=m.participants[0],oldCell=a.cellId;a.kills=3;m.tick=30;markDead(m,a,'WALL_HIT');
+  const m=createMatch({maxSlots:16},4,[human,...botSpecs(15,1)]),a=m.participants[0],oldCell=a.cellId;a.kills=3;m.tick=30;markDead(m,a,'WALL_HIT');
   const old=structuredClone(a.run!.result),owners=m.owners.slice(),bots=m.participants.slice(1).map(p=>[p.lifeId,p.cellId,p.territoryCount]);
   expect(retryHumanRun(m,a)).toBe(true);expect(a.lifeState).toBe('ALIVE');expect(a.cellId).not.toBe(oldCell);expect(a.lifeId).toBe(2);expect(a.run!.result).toBeNull();expect(a.run!.runId).not.toBe(old!.runId);
   expect(a.kills-a.run!.initialKills).toBe(0);expect(a.run!.bestTerritoryCells).toBe(7);

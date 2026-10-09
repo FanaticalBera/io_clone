@@ -2,10 +2,10 @@ import {createGameServer} from '../../src/server/app.js';
 import {markDead} from '../../src/shared/life.js';
 import {until} from '../server/helpers.js';
 import {test,expect} from '@playwright/test';
-test('single-player Run ends after collapse, freezes and retries elsewhere in the same R56/16 world',async({browser})=>{
+test('single-player Run ends after collapse, freezes and retries elsewhere in the same R56/14 world',async({browser})=>{
  const context=await browser.newContext({viewport:{width:844,height:390},isMobile:true,hasTouch:true});const errors:string[]=[];
  await context.addInitScript(()=>{localStorage.setItem('hexhold.tutorialSeen','1');Object.defineProperty(crypto,'randomUUID',{value:undefined});});try{const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto('/?experimentSeed=4');await page.getByTestId('practice').click();
- const before=await page.evaluate(()=>{const t=(window as any).__HEXHOLD_TEST__,s=t.getPractice(),m=s.match,p=m.participants[0];s.setPaused(true);return{matchId:m.matchId,lifeId:p.lifeId,spawn:[...p.spawnCells],bots:m.participants.slice(1).map((b:any)=>b.participantId),config:m.config};});expect(before.config).toMatchObject({mapRadius:56,maxSlots:16,spawnRadius:1});
+ const before=await page.evaluate(()=>{const t=(window as any).__HEXHOLD_TEST__,s=t.getPractice(),m=s.match,p=m.participants[0];s.setPaused(true);return{matchId:m.matchId,lifeId:p.lifeId,spawn:[...p.spawnCells],bots:m.participants.slice(1).map((b:any)=>b.participantId),config:m.config};});expect(before.config).toMatchObject({mapRadius:56,maxSlots:14,spawnRadius:1});
  // The menu/PracticeSession can be ready before Phaser finishes loading assets.
  // Wait for the actual effect renderer before forcing this immediate death fixture.
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getTerritoryEffectState()?.style)).toBe('WAVE_COLLAPSE');

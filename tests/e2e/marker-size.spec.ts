@@ -4,7 +4,7 @@ for(const width of [844,568])test('fixed 48 image markers and chosen nickname at
  try{const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   for(const query of ['', '&experimentMarkerSize=42','&experimentMarkerSize=48']){
    const diameter=48;
-   await page.goto('/?testMarkerGift=all&experimentSeed=4'+query);await expect(page).not.toHaveURL(/testMarkerGift/);
+   await page.goto('/?testMarkerGift=all&experimentSeed=4&experimentSlots=16'+query);await expect(page).not.toHaveURL(/testMarkerGift/);
    await page.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),s=new ProfileStore();try{await s.equip('marker','cat');}finally{s.dispose();}});
    await page.getByTestId('nickname').fill('브로 테스트');
    await page.getByTestId('practice').click();await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice()!=null)).toBe(true);await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
