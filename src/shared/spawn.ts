@@ -1,3 +1,4 @@
+import {safeBotRespawn,ownedDistances,coreDistance,MIN_CORE_OWNED_DISTANCE} from './safe-bot-respawn.js';
 import type {MatchState,Participant,MapDefinition} from './model.js';
 import {startRun} from './run.js';
 import {region} from './hex.js';
@@ -5,12 +6,12 @@ import {setOwner} from './territory.js';
 import {emitEvent} from './life.js';
 import {roundDeadlineTicks} from './modes.js';
 const regionCache=new WeakMap<MapDefinition,Map<number,number[][]>>();
-function spawnRegions(match:MatchState):number[][] {
+function spawnRegions(match:MatchState,radius=match.config.spawnRadius):number[][] {
  let radii=regionCache.get(match.map);if(!radii){radii=new Map();regionCache.set(match.map,radii);}
- let zones=radii.get(match.config.spawnRadius);if(!zones){zones=match.map.cells.map(c=>region(match.map,c.id,match.config.spawnRadius));radii.set(match.config.spawnRadius,zones);}
+ let zones=radii.get(radius);if(!zones){zones=match.map.cells.map(c=>region(match.map,c.id,radius));radii.set(radius,zones);}
  return zones;
 }
-export interface SpawnSpace {validCenterCount:number;bestCenter:number;bestSafety:number}
+export interface SpawnSpace {validCenterCount:number;bestCenter:number;bestSafety:number;nearestOwnedTerritoryDistance?:number|null;edgeRejectedCount?:number}
 export interface SpawnAttemptTrace {tick:number;participantId:string;kind:Participant['kind'];stateBefore:Participant['lifeState'];leaderCells:number;neutralCells:number;validCenterCount:number;alive:number;deadWait:number;spawnBlocked:number;reservedCells:number;success:boolean;center:number|null}
 const spawnObservers=new WeakMap<MatchState,(trace:SpawnAttemptTrace)=>void>();
 export function watchSpawnAttempts(match:MatchState,observer:(trace:SpawnAttemptTrace)=>void):()=>void {spawnObservers.set(match,observer);return()=>spawnObservers.delete(match);}
@@ -18,6 +19,8 @@ export function watchSpawnAttempts(match:MatchState,observer:(trace:SpawnAttempt
 // Omitting p measures space for a hypothetical dead participant (all alive
 // bodies are obstacles). Eligibility/delay is handled by trySpawn/tryRespawns.
 export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:ReadonlySet<number>=new Set()):SpawnSpace {
+ const territorySafe=safeBotRespawn(match,p),territoryDistances=territorySafe?ownedDistances(match):null;
+ const clearance=territorySafe?spawnRegions(match,match.config.spawnRadius+MIN_CORE_OWNED_DISTANCE-1):null;
  const count=match.map.cells.length,distances=new Int32Array(count);distances.fill(count);
  const queue=new Int32Array(count);let head=0,tail=0;
  const sources=new Set(reserved);
@@ -25,16 +28,21 @@ export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:Reado
  for(const id of sources)if(id>=0&&distances[id]!==0){distances[id]=0;queue[tail++]=id;}
  while(head<tail){const id=queue[head++];for(const n of match.map.cells[id].neighbors)if(n>=0&&distances[n]>distances[id]+1){distances[n]=distances[id]+1;queue[tail++]=n;}}
  const zones=spawnRegions(match),pointCells=new Set(match.map.controlPoints.map(cp=>cp.cellId));
- let best=-1,bestSafety=-1,validCenterCount=0;
+ let best=-1,bestSafety=-1,validCenterCount=0,bestTerritoryDistance=-1,edgeRejectedCount=0;
  for(const center of match.spawnOrder){
   const zone=zones[center];let safety=count,valid=true;
+  // Three real neutral layers must fit on the playable board; outside is not neutral.
+  if(clearance?.[center].some(id=>id<0)){edgeRejectedCount++;continue;}
+  const territoryDistance=territoryDistances?(coreDistance(zone,territoryDistances)??count):0;
+  if(territorySafe&&territoryDistance<MIN_CORE_OWNED_DISTANCE)continue;
   for(const id of zone){
    if(id<0||(p?.kind==='HUMAN'&&p.run?.result&&p.spawnCells.has(id))||match.owners[id]!==0||match.trailMasks[id]!==0||pointCells.has(id)||reserved.has(id)||distances[id]<match.config.spawnBufferHexes){valid=false;break;}
    safety=Math.min(safety,distances[id]);
   }
-  if(valid){validCenterCount++;if(safety>bestSafety){best=center;bestSafety=safety;}}
+  // Preserve original head/trail/reservation safety preference; territory is a tie-break.
+  if(valid){validCenterCount++;if(safety>bestSafety||(territorySafe&&safety===bestSafety&&territoryDistance>bestTerritoryDistance)){best=center;bestSafety=safety;bestTerritoryDistance=territoryDistance;}}
  }
- return {validCenterCount,bestCenter:best,bestSafety};
+ return {validCenterCount,bestCenter:best,bestSafety,...(territorySafe?{nearestOwnedTerritoryDistance:best<0||bestTerritoryDistance===count?null:bestTerritoryDistance,edgeRejectedCount}: {})};
 }
 export function trySpawn(match:MatchState,p:Participant,reserved:ReadonlySet<number>=new Set()):boolean {
  if(match.phase!=='RUNNING'||p.lifeState==='FINISHED'||p.lifeState==='ELIMINATED'||p.lifeState==='ALIVE'||

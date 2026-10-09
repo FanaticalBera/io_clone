@@ -1,3 +1,4 @@
+import {experimentalSafeRespawn} from '../shared/safe-bot-respawn.js';
 import {ProfileUI} from './profile-ui.js';
 import {profileTrace} from './profile-diagnostics.js';
 import {startFrameMeter} from './frame-meter.js';
@@ -87,7 +88,7 @@ async function stopOnline():Promise<void> {
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.setRunRetryAvailable(true);ui.showGame('PRACTICE');
  const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment={...experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),...experimentalSlotConfig(experimentParams.get('experimentSlots'),experimentEnabled)},seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,safeBotRespawn:experimentalSafeRespawn(experimentParams.get('respawnMode'),experimentEnabled),wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {
