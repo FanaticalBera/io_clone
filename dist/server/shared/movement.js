@@ -1,5 +1,6 @@
 import { HEX_EPS, MAX_ENTRY_EVENTS, moveSpeed } from './config.js';
-import { HEX_DIRECTIONS, axialToWorld, worldCell } from './hex.js';
+import { wallMargin, movementCell } from './wall-margin.js';
+import { HEX_DIRECTIONS, axialToWorld } from './hex.js';
 export function normalizeDirection(dx, dy) {
     if (!Number.isFinite(dx) || !Number.isFinite(dy) || Math.abs(dx) > 1e6 || Math.abs(dy) > 1e6)
         return null;
@@ -55,22 +56,24 @@ export function traceMovement(map, start, startCell, direction, distance) {
     const at = (t) => ({ x: start.x + delta.x * t, y: start.y + delta.y * t });
     const epsilon = HEX_EPS * 4 / distance, half = Math.sqrt(3) * map.side / 2;
     let cellId = startCell, t = 0;
-    const startProbe = worldCell(map, at(epsilon));
+    const startProbe = movementCell(map, at(epsilon));
     if (startProbe < 0)
         return { position: { ...start }, cellId, entries, blocked: true, boundaryT: 0 };
     if (startProbe !== cellId) {
         cellId = startProbe;
         entries.push({ t: 0, cellId, position: { ...start } });
     }
-    const normals = movementNormals(map);
+    const normals = movementNormals(map), margin = wallMargin(map);
     for (let count = 0; count <= MAX_ENTRY_EVENTS; count++) {
         const center = map.cells[cellId].center;
         let crossing = Infinity;
-        for (const n of normals) {
+        for (let k = 0; k < normals.length; k++) {
+            const n = normals[k];
             const denominator = delta.x * n.x + delta.y * n.y;
             if (denominator <= 1e-12)
                 continue;
-            const candidate = (half - (start.x - center.x) * n.x - (start.y - center.y) * n.y) / denominator;
+            const extent = half + (map.cells[cellId].neighbors[k] < 0 ? margin : 0);
+            const candidate = (extent - (start.x - center.x) * n.x - (start.y - center.y) * n.y) / denominator;
             if (candidate >= t - epsilon && candidate < crossing)
                 crossing = Math.max(t, candidate);
         }
@@ -78,7 +81,7 @@ export function traceMovement(map, start, startCell, direction, distance) {
             return { position: at(1), cellId, entries, blocked: false, boundaryT: null };
         // A step ending on an edge can round just past t=1 when speed changes.
         crossing = Math.min(1, crossing);
-        const next = worldCell(map, at(crossing + epsilon));
+        const next = movementCell(map, at(crossing + epsilon));
         if (next < 0)
             return { position: at(Math.max(t, crossing - epsilon)), cellId, entries, blocked: true, boundaryT: crossing };
         if (next === cellId)

@@ -1,3 +1,4 @@
+import { setSafeBotRespawn } from '../shared/safe-bot-respawn.js';
 import { retryHumanRun } from '../shared/retry.js';
 import { randomUUID, randomBytes, randomInt } from 'node:crypto';
 import { leaveParticipant } from '../shared/life.js';
@@ -172,6 +173,7 @@ export class RoomManager {
         const humans = members.map((m, slot) => ({ participantId: m.memberId, slot, nickname: m.nickname, kind: 'HUMAN' }));
         const seed = this.seed();
         room.match = createMatch(this.config, seed, [...humans, ...botSpecs(this.config.maxSlots - humans.length, humans.length, matchId)], matchId, room.gameMode);
+        setSafeBotRespawn(room.match, true);
         this.initializeMatch?.(room.match);
         room.inputs.clear();
         room.bots.clear();

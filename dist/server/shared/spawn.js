@@ -1,19 +1,20 @@
+import { safeBotRespawn, ownedDistances, coreDistance, MIN_CORE_OWNED_DISTANCE } from './safe-bot-respawn.js';
 import { startRun } from './run.js';
 import { region } from './hex.js';
 import { setOwner } from './territory.js';
 import { emitEvent } from './life.js';
 import { roundDeadlineTicks } from './modes.js';
 const regionCache = new WeakMap();
-function spawnRegions(match) {
+function spawnRegions(match, radius = match.config.spawnRadius) {
     let radii = regionCache.get(match.map);
     if (!radii) {
         radii = new Map();
         regionCache.set(match.map, radii);
     }
-    let zones = radii.get(match.config.spawnRadius);
+    let zones = radii.get(radius);
     if (!zones) {
-        zones = match.map.cells.map(c => region(match.map, c.id, match.config.spawnRadius));
-        radii.set(match.config.spawnRadius, zones);
+        zones = match.map.cells.map(c => region(match.map, c.id, radius));
+        radii.set(radius, zones);
     }
     return zones;
 }
@@ -23,6 +24,8 @@ export function watchSpawnAttempts(match, observer) { spawnObservers.set(match, 
 // Omitting p measures space for a hypothetical dead participant (all alive
 // bodies are obstacles). Eligibility/delay is handled by trySpawn/tryRespawns.
 export function inspectSpawnSpace(match, p, reserved = new Set()) {
+    const territorySafe = safeBotRespawn(match, p), territoryDistances = territorySafe ? ownedDistances(match) : null;
+    const clearance = territorySafe ? spawnRegions(match, match.config.spawnRadius + MIN_CORE_OWNED_DISTANCE - 1) : null;
     const count = match.map.cells.length, distances = new Int32Array(count);
     distances.fill(count);
     const queue = new Int32Array(count);
@@ -48,10 +51,18 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
             }
     }
     const zones = spawnRegions(match), pointCells = new Set(match.map.controlPoints.map(cp => cp.cellId));
-    let best = -1, bestSafety = -1, validCenterCount = 0;
+    let best = -1, bestSafety = -1, validCenterCount = 0, bestTerritoryDistance = -1, edgeRejectedCount = 0;
     for (const center of match.spawnOrder) {
         const zone = zones[center];
         let safety = count, valid = true;
+        // Three real neutral layers must fit on the playable board; outside is not neutral.
+        if (clearance?.[center].some(id => id < 0)) {
+            edgeRejectedCount++;
+            continue;
+        }
+        const territoryDistance = territoryDistances ? (coreDistance(zone, territoryDistances) ?? count) : 0;
+        if (territorySafe && territoryDistance < MIN_CORE_OWNED_DISTANCE)
+            continue;
         for (const id of zone) {
             if (id < 0 || (p?.kind === 'HUMAN' && p.run?.result && p.spawnCells.has(id)) || match.owners[id] !== 0 || match.trailMasks[id] !== 0 || pointCells.has(id) || reserved.has(id) || distances[id] < match.config.spawnBufferHexes) {
                 valid = false;
@@ -59,15 +70,17 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
             }
             safety = Math.min(safety, distances[id]);
         }
+        // Preserve original head/trail/reservation safety preference; territory is a tie-break.
         if (valid) {
             validCenterCount++;
-            if (safety > bestSafety) {
+            if (safety > bestSafety || (territorySafe && safety === bestSafety && territoryDistance > bestTerritoryDistance)) {
                 best = center;
                 bestSafety = safety;
+                bestTerritoryDistance = territoryDistance;
             }
         }
     }
-    return { validCenterCount, bestCenter: best, bestSafety };
+    return { validCenterCount, bestCenter: best, bestSafety, ...(territorySafe ? { nearestOwnedTerritoryDistance: best < 0 || bestTerritoryDistance === count ? null : bestTerritoryDistance, edgeRejectedCount } : {}) };
 }
 export function trySpawn(match, p, reserved = new Set()) {
     if (match.phase !== 'RUNNING' || p.lifeState === 'FINISHED' || p.lifeState === 'ELIMINATED' || p.lifeState === 'ALIVE' ||
