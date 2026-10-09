@@ -1,3 +1,4 @@
+import {getBotInputs} from '../shared/bot-director.js';
 import {botSeed,createBotIdentity,type SecondaryTrait} from '../shared/bot-identity.js';
 import {BotDebugCollector} from './bot-debug-model.js';
 import {setSafeBotRespawn} from '../shared/safe-bot-respawn.js';
@@ -5,7 +6,7 @@ import {setWallMargin} from '../shared/wall-margin.js';
 import type {BotVariant} from '../shared/bot-experiment.js';
 import {retryHumanRun} from '../shared/retry.js';
 import {createMatch,stepMatch,buildView} from '../shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBotForTick,type BotMemory} from '../shared/bot.js';
+import {botSpecs,createBotMemory,type BotMemory} from '../shared/bot.js';
 import {watchDeaths,type DeathTrace} from '../shared/life.js';
 import type {ShadowOpportunity} from '../shared/bot-opportunity.js';
 import type {MatchState,MatchView,Vec,DirectionInput,Personality} from '../shared/model.js';
@@ -62,9 +63,7 @@ export class PracticeSession {
    const inputs=new Map<string,DirectionInput>();
    const human=this.match.participants.find(p=>p.participantId===this.selfId);
    if(this.direction&&human?.lifeState==='ALIVE')inputs.set(human.participantId,{matchId:this.match.matchId,lifeId:human.lifeId,seq:++this.seq,dx:this.direction.x,dy:this.direction.y});
-   for(const p of this.match.participants)if(p.kind==='BOT'&&p.lifeState==='ALIVE'){
-    const input=getBotInput(observeBotForTick(this.match,p.participantId,this.memories.get(p.participantId)!),this.memories.get(p.participantId)!);if(input)inputs.set(p.participantId,input);
-   }
+   for(const [id,input]of getBotInputs(this.match,this.memories))inputs.set(id,input);
    const lifeId=human?.lifeId;stepMatch(this.match,inputs);
    if(human&&human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}
    this.accumulated-=step;count++;if(human?.lifeState==='ELIMINATED'){this.accumulated=0;break;}

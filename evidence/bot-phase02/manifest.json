@@ -1,0 +1,92 @@
+{
+  "baselineGameCommit": "41980bd",
+  "sourceHashFormat": "sha256 of UTF-8 source with CRLF normalized to LF",
+  "sources": [
+    {
+      "path": "src/shared/bot.ts",
+      "sha256": "4073b26fec7245bc9c8b1f352916c585a4fde88a01ea77c9c0c121b9b2a0de16"
+    },
+    {
+      "path": "src/shared/bot-director.ts",
+      "sha256": "6fc47b12da0ac5f337a440a36413bb1585ee0e6a9438d4a8bfa6d822b03b00c8"
+    },
+    {
+      "path": "src/shared/bot-emotion.ts",
+      "sha256": "d2f84fa86c0c46863bfc3ecf5c4ee66b5f4a6b1b0103958ab149ad1f5c8ecfa4"
+    },
+    {
+      "path": "src/shared/bot-events.ts",
+      "sha256": "e99a0f91115b0a2a3745656331da43ef8a44774deaea0d44a285c7fe7f103f7b"
+    },
+    {
+      "path": "src/shared/bot-phase02-config.ts",
+      "sha256": "31e966e4bd816768ca3b3361ad4d5d09ea684ef6de63839981fb15eba49316ca"
+    },
+    {
+      "path": "src/shared/bot-policy.ts",
+      "sha256": "8eb69c5f812954b285ccac9615cc7aeeae08e545cdf29fdee92e37375f1cf46a"
+    },
+    {
+      "path": "src/shared/bot-identity.ts",
+      "sha256": "dcdff33455b9b5ec1bf12139cd46f3ca400ac0a0d9c395a5d99f847ba922798d"
+    },
+    {
+      "path": "src/shared/engine.ts",
+      "sha256": "df758f3ef3bc82c05a67762311c13a989c1fe5ed7edce79ba7404cc3a7ecd959"
+    },
+    {
+      "path": "src/shared/life.ts",
+      "sha256": "a88714ab7a0ce5deb1969132d5bf8458d40dfb550b6257d368a973211b520f19"
+    },
+    {
+      "path": "src/client/practice.ts",
+      "sha256": "9bc34f5b42d752710fad773c555eeec8e176b7aa9f3438af299b812ae5959982"
+    },
+    {
+      "path": "src/client/bot-debug-model.ts",
+      "sha256": "b427e6afc86003cbc85d4dc9101a50bff3785e7fa341555f0ef97c0ca92fe28b"
+    },
+    {
+      "path": "src/client/bot-debug-hud.ts",
+      "sha256": "e25ff3d0b26f695da29bd47b17709975b1d43aa45d3edc9623e654e3188382fb"
+    },
+    {
+      "path": "src/server/loop.ts",
+      "sha256": "72387353d2c1113812121fec1d6df19993e46d886a873f5a0dc16cd68bceda2f"
+    }
+  ],
+  "rawFiles": [
+    {
+      "path": ".local/bot-phase02/runtime-audit.json",
+      "sha256": "231b03941a33e6b6f9e01dd689d627a196b8d80c2da3d70a2521d2b454ec153a"
+    },
+    {
+      "path": ".local/bot-phase02/baseline-growth.json",
+      "sha256": "685edcad84064374070b1db5e55290a2d632c13eb1ddca2e6b74bec5b6087989"
+    },
+    {
+      "path": ".local/bot-phase02/feel-audit.json",
+      "sha256": "1a68f5fb27eb1dd8fafb99216bd035272e6482fec9ac770e25e3112593f3ea3d"
+    },
+    {
+      "path": ".local/bot-phase02/medium-audit.json",
+      "sha256": "9aa2146bf5e5639de1a8752ae9c92b6f9049fda8efd6e62c06f38e7ce00645f0"
+    },
+    {
+      "path": ".local/bot-phase02/death-summary.json",
+      "sha256": "ea28f49c1c088967c722af4409f8819f6287c231ad5881e97dd97c0fd1f222d2"
+    },
+    {
+      "path": ".local/bot-phase02/performance-baseline.json",
+      "sha256": "b8c34d2e60277fd0bcc2aba5e7dd37bead59474ffabe9532ab2de0215bd9ef91"
+    },
+    {
+      "path": ".local/bot-phase02/performance.json",
+      "sha256": "8d1a4c8fb07f53cc11418b19f59e3cc3f4acdd5f1d706b9e2d2638cc02b48e24"
+    },
+    {
+      "path": ".local/bot-phase02/performance-hud.json",
+      "sha256": "536f8f1819f70fbe857e48d4e084d72808a38b644495e65ff9ae6458d34896d2"
+    }
+  ]
+}

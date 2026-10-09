@@ -1,0 +1,238 @@
+{
+  "date": "2026-10-10",
+  "status": "phase02 implemented; user spectating required before phase03",
+  "baselineGameCommit": "41980bd",
+  "proposalCommit": "9501018",
+  "runtimeProfile": {
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "bots": 14,
+    "humans": 0,
+    "seeds": [
+      4,
+      19,
+      73
+    ],
+    "ticks": 3600,
+    "seconds": 120,
+    "simulationHz": 30,
+    "assignment": "botSeed(seed,slot)",
+    "safeBotRespawn": true,
+    "observation": "observeBotForTick",
+    "director": "phase02 only"
+  },
+  "baseline": {
+    "captures": 1845,
+    "gained": 27559,
+    "meanCapture": 14.937127371273712,
+    "deaths": 29,
+    "walls": 0,
+    "netTerritoryGrowth": 20081,
+    "deathResetLoss": 7910,
+    "spawnGrants": 196,
+    "actualHoldingChange": 12367,
+    "maximumShare": 0.08060979429884098,
+    "expansionPlans": 1974,
+    "cancelledExpansions": 820,
+    "earlyReturns": 6,
+    "cancellationRatio": 0.4154002026342452,
+    "earlyReturnRatio": 0.00303951367781155
+  },
+  "phase02": {
+    "captures": 1867,
+    "gained": 27724,
+    "meanCapture": 14.849491162292448,
+    "deaths": 28,
+    "walls": 0,
+    "netTerritoryGrowth": 20849,
+    "deathResetLoss": 6811,
+    "spawnGrants": 189,
+    "actualHoldingChange": 14227,
+    "maximumShare": 0.08207162994674741,
+    "expansionPlans": 1934,
+    "cancelledExpansions": 773,
+    "earlyReturns": 17,
+    "cancellationRatio": 0.3996897621509824,
+    "earlyReturnRatio": 0.008790072388831437
+  },
+  "changePercent": {
+    "gained": 0.5987154831452512,
+    "meanCapture": -0.586700553613817,
+    "netTerritoryGrowth": 3.8245107315372673
+  },
+  "performance": {
+    "baseline": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": false,
+      "msPerTick": [
+        2.403160388888889,
+        2.636400611111111,
+        2.702185499999999
+      ],
+      "medianMsPerTick": 2.636400611111111
+    },
+    "phase02": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": false,
+      "runtime": true,
+      "phase02": {
+        "version": "phase02-v1",
+        "grudgeCap": 20,
+        "death": 5,
+        "capture": 3,
+        "captureCells": 6,
+        "captureCooldown": 2,
+        "approachDistance": 3,
+        "reentryOutside": 0.5,
+        "repeatWindow": 10,
+        "repeatCount": 2,
+        "approach": 0.5,
+        "intrusion": 1,
+        "repeatCooldown": 4,
+        "halfLife": 45,
+        "vengefulHalfLife": 90,
+        "forgetBelow": 0.1,
+        "revengeRelief": 0.25,
+        "otherDeathRelief": 0.5,
+        "valuable": 6,
+        "lossWindow": 10,
+        "lineWeight": 0.5,
+        "lossWeight": 0.35,
+        "pressureRise": 1,
+        "pressureFall": 4,
+        "expansionReduction": 0.08,
+        "riskIncrease": 0.1,
+        "grudgeScore": 0.6,
+        "scoreCap": 12,
+        "attackRangeFraction": 0.1,
+        "vengefulScore": 1.25,
+        "reservationLimit": 3,
+        "reservationFactors": [
+          1,
+          0.65,
+          0.35
+        ],
+        "reservationTtl": 0.8,
+        "reservationSeedDomain": 3900079,
+        "threatEta": 1,
+        "counterEta": 0.75,
+        "etaMargin": 0.15
+      },
+      "msPerTick": [
+        2.4805329999999994,
+        2.6117782222222226,
+        2.615514111111111
+      ],
+      "medianMsPerTick": 2.6117782222222226
+    },
+    "phase02Hud": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": true,
+      "runtime": true,
+      "phase02": {
+        "version": "phase02-v1",
+        "grudgeCap": 20,
+        "death": 5,
+        "capture": 3,
+        "captureCells": 6,
+        "captureCooldown": 2,
+        "approachDistance": 3,
+        "reentryOutside": 0.5,
+        "repeatWindow": 10,
+        "repeatCount": 2,
+        "approach": 0.5,
+        "intrusion": 1,
+        "repeatCooldown": 4,
+        "halfLife": 45,
+        "vengefulHalfLife": 90,
+        "forgetBelow": 0.1,
+        "revengeRelief": 0.25,
+        "otherDeathRelief": 0.5,
+        "valuable": 6,
+        "lossWindow": 10,
+        "lineWeight": 0.5,
+        "lossWeight": 0.35,
+        "pressureRise": 1,
+        "pressureFall": 4,
+        "expansionReduction": 0.08,
+        "riskIncrease": 0.1,
+        "grudgeScore": 0.6,
+        "scoreCap": 12,
+        "attackRangeFraction": 0.1,
+        "vengefulScore": 1.25,
+        "reservationLimit": 3,
+        "reservationFactors": [
+          1,
+          0.65,
+          0.35
+        ],
+        "reservationTtl": 0.8,
+        "reservationSeedDomain": 3900079,
+        "threatEta": 1,
+        "counterEta": 0.75,
+        "etaMargin": 0.15
+      },
+      "msPerTick": [
+        2.6027732777777772,
+        2.739210388888889,
+        2.7769972222222217
+      ],
+      "medianMsPerTick": 2.739210388888889
+    }
+  },
+  "dense": {
+    "mapRadius": 22,
+    "spawnRadius": 2,
+    "safeBotRespawn": false,
+    "assignment": "seed+slot",
+    "games": 16,
+    "deaths": 718,
+    "byKind": {
+      "HUMAN": {
+        "deaths": 9,
+        "causes": {
+          "WALL_HIT": 7,
+          "EXISTING_TRAIL_CONTACT": 1,
+          "PENDING_TRAIL_CONTACT": 1
+        }
+      },
+      "BOT": {
+        "deaths": 709,
+        "causes": {
+          "EXISTING_TRAIL_CONTACT": 616,
+          "TRAIL_CAPTURE": 3,
+          "PENDING_TRAIL_CONTACT": 83,
+          "HOME_CAPTURE": 7
+        }
+      }
+    },
+    "failures": 0,
+    "maxPlanned": 2,
+    "survivalDecisions": 41,
+    "survivalOverCap": 0
+  },
+  "medium": {
+    "cases": 16,
+    "confirmedTrailCuts": 16
+  },
+  "validation": {
+    "typecheck": true,
+    "build": true,
+    "vitest": {
+      "files": 83,
+      "tests": 543
+    },
+    "playwright": 3
+  },
+  "limitations": [
+    "Trait pool adds Vengeful; seed-stable identity assignments therefore differ as part of this rollout.",
+    "R56 natural pursuit occupancy peaked at 1, dense forensic fixture at 2; cap=3/over-cap exceptions are additionally exercised in controlled tests.",
+    "Seed 4 deaths rose from 10 to 16; aggregate survival improvement does not apply to every seed.",
+    "Growth peaks sampled at tick boundaries plus actual pre-neutralization death count, not every fractional capture resolution.",
+    "Cancellation/early-return denominators are all selected expansion plans, including plans cancelled before launch.",
+    "Performance measured sequentially on this machine, excludes DOM/render/multi-room load; small difference is not a speedup claim."
+  ]
+}

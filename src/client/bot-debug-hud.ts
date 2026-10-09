@@ -6,7 +6,7 @@ export class BotDebugHud {
  private buttons=new Map<string,HTMLButtonElement>();private followButton:HTMLButtonElement|null=null;private collapseButton:HTMLButtonElement|null=null;private spectating=false;private following=false;private selected:string|null=null;private timer:number|null=null;private source:(()=>BotDebugSnapshot|null)|null=null;
  constructor(private follow:(id:string|null)=>void=()=>{},private spectate:()=>void=()=>{}){
   this.root.id='bot-debug-hud';this.root.setAttribute('aria-label','봇 판단 디버그');this.root.hidden=true;
-  const title=document.createElement('strong');title.textContent='BOT AI · 0+1';
+  const title=document.createElement('strong');title.textContent='BOT AI · 0+1+2';
   const collapse=document.createElement('button');this.collapseButton=collapse;collapse.textContent='접기';collapse.type='button';collapse.onclick=()=>{const hidden=!this.rows.hidden;this.rows.hidden=hidden;this.detail.hidden=hidden;collapse.textContent=hidden?'펼치기':'접기';};
   const followButton=document.createElement('button');this.followButton=followButton;followButton.textContent='선택 봇 따라보기';followButton.type='button';followButton.onclick=()=>{this.following=!this.following;followButton.textContent=this.following?(this.spectating?'전체 판 보기':'내 화면으로'):'선택 봇 따라보기';this.follow(this.following?this.selected:null);};
   const spectator=document.createElement('button');spectator.type='button';spectator.textContent='14봇 관전 시작';spectator.onclick=()=>this.spectate();
@@ -25,11 +25,13 @@ export class BotDebugHud {
   const bot=snapshot.bots.find(b=>b.participantId===this.selected);if(!bot)return;
   const trace=bot.trace,lines=['seed '+snapshot.seed+' / tick '+snapshot.tick,'#'+bot.slot+' '+bot.nickname];
   if(bot.identity){const i=bot.identity.individual;lines.push('개인차: 확장 '+i.expansionScale.toFixed(2)+' / 위험 가중 '+i.riskScale.toFixed(2)+' / 탈취 '+i.stealScale.toFixed(2)+' / 공격 '+i.attackChance.toFixed(2)+' / 방어 '+i.defenseBonus);}
+  lines.push('pressure '+bot.emotion.pressure.toFixed(2)+' · 선 위협 '+Number(bot.emotion.lineThreat)+' · 최근 피해 '+bot.emotion.recentDamage.toFixed(2),'1위 점유율 격차 '+(bot.shareGap*100).toFixed(1)+'%p (표시 전용)', '원한: '+(bot.emotion.grudges.map(g=>'#'+g.slot+' '+g.amount.toFixed(2)+' / 점수 +'+g.bonus.toFixed(2)+(g.valuable?' · 가치 기준 충족':'')).join(', ')||'없음'),'계획 추격 예약: '+snapshot.director.reservations.map(r=>'#'+snapshot.bots.find(b=>b.participantId===r.attackerId)?.slot+' → '+r.targetId).join(', '),'생존 역공 '+(bot.attackSurvival?'예':'아니오')+' · 예외 '+snapshot.director.stats.survival+' / 상한 중 예외 '+snapshot.director.stats.survivalOverCap);
+  if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
   if(trace){lines.push('최근 판단 tick '+trace.tick+' · 선택: '+trace.reason,'안전 개입: '+(trace.safetyOverride??'없음'),'선 근처 적 거리: '+(trace.risk?.nearestEnemyToTrail??'관측 없음'),'최근 공격 후보: '+trace.attacks.slice(0,12).map(a=>'#'+a.slot+' '+a.reason).join(', '));
    }else lines.push('아직 판단 기록 없음');
   const plan=bot.planTrace;
   if(plan){lines.push('현재 계획을 세운 판단 tick '+plan.tick+' · 선택: '+plan.reason,'계획 생성 시 공격 후보:');
-   for(const a of plan.attacks.slice(0,12))lines.push('  대상 #'+a.slot+' cell '+a.target+' · '+a.reason+(a.score===undefined?'':' · 점수 '+a.score.toFixed(1)));
+   for(const a of plan.attacks.slice(0,12))lines.push('  대상 #'+a.slot+' cell '+a.target+' · '+a.reason+(a.score===undefined?'':' · 점수 '+a.score.toFixed(1))+(a.grudgeBonus===undefined?'':' · 원한 +'+a.grudgeBonus.toFixed(2)+' / 공격 계수 '+a.attackChance?.toFixed(3))+(a.otherReservations===undefined?'':' · 다른 예약 '+a.otherReservations+' / 배율 '+a.reservationFactor));
    lines.push('평가한 계획 상위 5개:');for(const p of plan.expansionScores?.slice(0,5)??[])lines.push('  '+p.goal+' '+(p.shape??'')+' · '+p.score.toFixed(1));
    lines.push('확장 거절 집계: '+JSON.stringify(plan.expansionRejected??{}));
   }else lines.push('아직 계획 생성 기록 없음');

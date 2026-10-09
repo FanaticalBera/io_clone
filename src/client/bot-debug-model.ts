@@ -1,3 +1,5 @@
+import {botDirector} from '../shared/bot-director.js';
+import {BOT_PHASE02} from '../shared/bot-phase02-config.js';
 import {watchBotDecisions,type BotMemory,type BotDecisionTrace} from '../shared/bot.js';
 import type {MatchState} from '../shared/model.js';
 export type BotDebugSnapshot=ReturnType<BotDebugCollector['snapshot']>;
@@ -17,9 +19,11 @@ export class BotDebugCollector {
   },{shadow:false}));
  }
  snapshot(){return {
-  seed:this.match.seed,tick:this.match.tick,
+  seed:this.match.seed,tick:this.match.tick,phase02:BOT_PHASE02,director:botDirector(this.match).snapshot(),
   bots:this.match.participants.filter(p=>p.kind==='BOT').map(p=>{const memory=this.memories.get(p.participantId)!,trace=this.latest.get(p.participantId);return {
    participantId:p.participantId,slot:p.slot,nickname:p.nickname,personality:p.personality!,identity:memory.identity,lifeState:p.lifeState,lifeId:p.lifeId,
+   emotion:{pressure:memory.emotion.pressure,lineThreat:memory.emotion.lineThreat,recentDamage:memory.emotion.recentDamage,grudges:[...memory.emotion.grudge].map(([id,r])=>({participantId:id,slot:this.match.participants.find(p=>p.participantId===id)?.slot,amount:r.amount,valuable:r.amount>=BOT_PHASE02.valuable,bonus:Math.min(BOT_PHASE02.scoreCap,BOT_PHASE02.grudgeScore*r.amount*(memory.identity?.secondaryTrait==='Vengeful'?BOT_PHASE02.vengefulScore:1))}))},
+   shareGap:(Math.max(...this.match.participants.map(p=>p.territoryCount))-p.territoryCount)/this.match.map.cells.length,attackSurvival:memory.attackSurvival,
    goal:memory.goal,attackSlot:memory.attackSlot,trailLength:p.trailCells.size,trace:trace?structuredClone(trace):null,
    planTrace:this.plans.get(p.participantId)?.lifeId===p.lifeId?structuredClone(this.plans.get(p.participantId)!.trace):null,
    history:(this.history.get(p.participantId)??[]).map(h=>({...h}))

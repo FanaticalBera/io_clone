@@ -1,0 +1,810 @@
+{
+  "byKind": {
+    "HUMAN": {
+      "deaths": 9,
+      "causes": {
+        "WALL_HIT": 7,
+        "EXISTING_TRAIL_CONTACT": 1,
+        "PENDING_TRAIL_CONTACT": 1
+      }
+    },
+    "BOT": {
+      "deaths": 709,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 616,
+        "TRAIL_CAPTURE": 3,
+        "PENDING_TRAIL_CONTACT": 83,
+        "HOME_CAPTURE": 7
+      }
+    }
+  },
+  "games": 16,
+  "deaths": 718,
+  "causes": {
+    "EXISTING_TRAIL_CONTACT": 617,
+    "TRAIL_CAPTURE": 3,
+    "PENDING_TRAIL_CONTACT": 84,
+    "HOME_CAPTURE": 7,
+    "WALL_HIT": 7
+  },
+  "failureCount": 0,
+  "reports": [
+    {
+      "seed": 4,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 6,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7789
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 55,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 47,
+        "TRAIL_CAPTURE": 1,
+        "PENDING_TRAIL_CONTACT": 5,
+        "HOME_CAPTURE": 2
+      },
+      "failures": []
+    },
+    {
+      "seed": 4,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 1,
+          "survival": 8,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 6691
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 46,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 43,
+        "PENDING_TRAIL_CONTACT": 2
+      },
+      "failures": []
+    },
+    {
+      "seed": 19,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 1,
+          "survival": 2,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 8009
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 38,
+        "PENDING_TRAIL_CONTACT": 5
+      },
+      "failures": []
+    },
+    {
+      "seed": 19,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 0,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 6937
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 35,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 29,
+        "PENDING_TRAIL_CONTACT": 5
+      },
+      "failures": []
+    },
+    {
+      "seed": 73,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 2,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7880
+        },
+        "reservations": [
+          {
+            "attackerId": "bot-3",
+            "attackerLife": 3,
+            "targetId": "bot-10",
+            "targetLife": 4,
+            "tick": 3597
+          }
+        ]
+      },
+      "ticks": 3600,
+      "deaths": 53,
+      "causes": {
+        "PENDING_TRAIL_CONTACT": 13,
+        "EXISTING_TRAIL_CONTACT": 39,
+        "TRAIL_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 73,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 2,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 6850
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 39,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "failures": []
+    },
+    {
+      "seed": 115,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 0,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 8113
+        },
+        "reservations": [
+          {
+            "attackerId": "bot-1",
+            "attackerLife": 3,
+            "targetId": "bot-8",
+            "targetLife": 5,
+            "tick": 3595
+          }
+        ]
+      },
+      "ticks": 3600,
+      "deaths": 40,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 34,
+        "PENDING_TRAIL_CONTACT": 6
+      },
+      "failures": []
+    },
+    {
+      "seed": 115,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 1,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 6875
+        },
+        "reservations": [
+          {
+            "attackerId": "bot-6",
+            "attackerLife": 6,
+            "targetId": "bot-5",
+            "targetLife": 3,
+            "tick": 3596
+          }
+        ]
+      },
+      "ticks": 3600,
+      "deaths": 36,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 33,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "failures": []
+    },
+    {
+      "seed": 17,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 4,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7829
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 57,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 49,
+        "PENDING_TRAIL_CONTACT": 8
+      },
+      "failures": []
+    },
+    {
+      "seed": 17,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 1,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 6744
+        },
+        "reservations": [
+          {
+            "attackerId": "bot-3",
+            "attackerLife": 2,
+            "targetId": "bot-5",
+            "targetLife": 4,
+            "tick": 3599
+          }
+        ]
+      },
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 34,
+        "HOME_CAPTURE": 3,
+        "PENDING_TRAIL_CONTACT": 5
+      },
+      "failures": []
+    },
+    {
+      "seed": 81,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 4,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7922
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 45,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 42,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "failures": []
+    },
+    {
+      "seed": 81,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 1,
+          "survival": 2,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 6853
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 41,
+      "causes": {
+        "WALL_HIT": 1,
+        "PENDING_TRAIL_CONTACT": 5,
+        "EXISTING_TRAIL_CONTACT": 33,
+        "HOME_CAPTURE": 1,
+        "TRAIL_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 32,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 3,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7959
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 45,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 41,
+        "PENDING_TRAIL_CONTACT": 3,
+        "HOME_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 32,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 1,
+          "survival": 1,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 6862
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 40,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 34,
+        "PENDING_TRAIL_CONTACT": 5
+      },
+      "failures": []
+    },
+    {
+      "seed": 123,
+      "mixed": false,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 1,
+          "survival": 4,
+          "survivalOverCap": 0,
+          "maxPlanned": 2,
+          "decisions": 7840
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 54,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 47,
+        "PENDING_TRAIL_CONTACT": 7
+      },
+      "failures": []
+    },
+    {
+      "seed": 123,
+      "mixed": true,
+      "phase02": true,
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 1,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 6791
+        },
+        "reservations": []
+      },
+      "ticks": 3600,
+      "deaths": 42,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 35,
+        "PENDING_TRAIL_CONTACT": 6
+      },
+      "failures": []
+    }
+  ],
+  "representativeCases": {
+    "EXISTING_TRAIL_CONTACT": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 72,
+      "victimId": "bot-5",
+      "victimKind": "BOT",
+      "lifeId": 1,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "EXISTING_TRAIL_CONTACT",
+        "cellId": 1077,
+        "eventTick": 72.43761
+      },
+      "killerId": "bot-13",
+      "killerCell": 1077,
+      "victimCell": 1074,
+      "position": {
+        "x": -744.394362638496,
+        "y": 382.29522156102695
+      },
+      "trailCells": [
+        1110,
+        1111,
+        1112,
+        1113,
+        1077,
+        1076,
+        1075,
+        1074
+      ],
+      "territoryCount": 19,
+      "ownerCells": 19,
+      "trailMaskCells": [
+        1074,
+        1075,
+        1076,
+        1077,
+        1110,
+        1111,
+        1112,
+        1113
+      ],
+      "rootHomeNeighbors": [
+        1073,
+        1109
+      ],
+      "pendingContact": false,
+      "originCellId": 1073,
+      "originOwner": 6,
+      "diagnostic": {
+        "eventTick": 72.43761,
+        "iteration": 0,
+        "pendingTrails": [
+          {
+            "participantId": "bot-13",
+            "cellId": 1077
+          }
+        ],
+        "victimTrailBefore": [
+          1110,
+          1111,
+          1112,
+          1113,
+          1077,
+          1076,
+          1075,
+          1074
+        ],
+        "existingTrailContact": true,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "TRAIL_CAPTURE": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 675,
+      "victimId": "bot-13",
+      "victimKind": "BOT",
+      "lifeId": 1,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "TRAIL_CAPTURE",
+        "cellId": 1295,
+        "eventTick": 675.82434
+      },
+      "killerId": "bot-12",
+      "killerCell": 1054,
+      "victimCell": 1293,
+      "position": {
+        "x": 125.40737560789832,
+        "y": 676.037648227424
+      },
+      "trailCells": [
+        1193,
+        1227,
+        1260,
+        1292,
+        1293,
+        1294,
+        1295,
+        1325,
+        1324
+      ],
+      "territoryCount": 98,
+      "ownerCells": 98,
+      "trailMaskCells": [
+        1193,
+        1227,
+        1260,
+        1292,
+        1293,
+        1294,
+        1295,
+        1324,
+        1325
+      ],
+      "rootHomeNeighbors": [
+        1159,
+        1158,
+        1192
+      ],
+      "pendingContact": false,
+      "originCellId": 1158,
+      "originOwner": 14,
+      "diagnostic": {
+        "eventTick": 675.82434,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [
+          1193,
+          1227,
+          1260,
+          1292,
+          1293,
+          1294,
+          1295,
+          1325,
+          1324
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [
+          1295,
+          1325
+        ],
+        "wallIntersection": false
+      }
+    },
+    "PENDING_TRAIL_CONTACT": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 1475,
+      "victimId": "bot-6",
+      "victimKind": "BOT",
+      "lifeId": 3,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "PENDING_TRAIL_CONTACT",
+        "cellId": 743,
+        "eventTick": 1475.13572
+      },
+      "killerId": "bot-11",
+      "killerCell": 743,
+      "victimCell": 743,
+      "position": {
+        "x": -908.2259002600358,
+        "y": 19.635587340356352
+      },
+      "trailCells": [
+        788,
+        787
+      ],
+      "territoryCount": 45,
+      "ownerCells": 45,
+      "trailMaskCells": [
+        787,
+        788
+      ],
+      "rootHomeNeighbors": [
+        789,
+        744,
+        832
+      ],
+      "pendingContact": true,
+      "originCellId": 789,
+      "originOwner": 7,
+      "diagnostic": {
+        "eventTick": 1475.13572,
+        "iteration": 0,
+        "pendingTrails": [
+          {
+            "participantId": "bot-6",
+            "cellId": 743
+          }
+        ],
+        "victimTrailBefore": [
+          788,
+          787
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": true,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "HOME_CAPTURE": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 2222,
+      "victimId": "bot-8",
+      "victimKind": "BOT",
+      "lifeId": 2,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "HOME_CAPTURE",
+        "cellId": 174,
+        "eventTick": 2222.46227
+      },
+      "killerId": "bot-10",
+      "killerCell": 173,
+      "victimCell": 234,
+      "position": {
+        "x": 393.24164099911724,
+        "y": -699.0795544639542
+      },
+      "trailCells": [
+        203,
+        234
+      ],
+      "territoryCount": 44,
+      "ownerCells": 44,
+      "trailMaskCells": [
+        203,
+        234
+      ],
+      "rootHomeNeighbors": [
+        204
+      ],
+      "pendingContact": false,
+      "originCellId": 174,
+      "originOwner": 11,
+      "diagnostic": {
+        "eventTick": 2222.46227,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [
+          203,
+          234
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "WALL_HIT": {
+      "seed": 4,
+      "mixed": true,
+      "tick": 79,
+      "victimId": "human-1",
+      "victimKind": "HUMAN",
+      "lifeId": 1,
+      "reason": "WALL_HIT",
+      "context": {
+        "cause": "WALL_HIT",
+        "cellId": 275,
+        "eventTick": 79.91326
+      },
+      "victimCell": 275,
+      "position": {
+        "x": -928.379232551455,
+        "y": -587.714643056935
+      },
+      "trailCells": [
+        382,
+        347,
+        312,
+        279,
+        278,
+        245,
+        244,
+        212,
+        243,
+        275
+      ],
+      "territoryCount": 19,
+      "ownerCells": 19,
+      "trailMaskCells": [
+        212,
+        243,
+        244,
+        245,
+        275,
+        278,
+        279,
+        312,
+        347,
+        382
+      ],
+      "rootHomeNeighbors": [
+        381
+      ],
+      "pendingContact": false,
+      "originCellId": 381,
+      "originOwner": 2,
+      "diagnostic": {
+        "eventTick": 79.91326,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [
+          382,
+          347,
+          312,
+          279,
+          278,
+          245,
+          244,
+          212,
+          243,
+          275
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": true
+      }
+    }
+  }
+}

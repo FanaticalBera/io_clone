@@ -3,6 +3,8 @@ import {createMatch} from '../baseline.js';
 import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
 import {botSpecs} from '../bot-fixtures.js';
 import {neutralizeTerritory,setOwner,addTrail} from '../../src/shared/territory.js';
+import {applySimultaneousCaptures} from '../../src/shared/engine.js';
+import {memoryValuable} from '../../src/shared/bot-emotion.js';
 import {hexDistance} from '../../src/shared/hex.js';
 
 // Controlled local observations isolate tactical choices. Actual movement,
@@ -50,17 +52,27 @@ describe('local tactical opportunities',()=>{
   const f=duel();f.enemy.direction={x:1,y:0};f.enemy.cellId=f.id(2);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};
   getBotInput(observeBot(f.m,f.bot.participantId),f.memory);expect(f.memory.goal).not.toBe('ATTACK');
  });
- it('remembers repeated small thefts by the same opponent and cools down without permanent hostility',()=>{
+ it('responds to repeated observed capture events and cools below valuable before forgetting',()=>{
   const f=duel();f.enemy.trailCells.clear();f.m.trailMasks.fill(0);
-  for(const q of [-1,-2])setOwner(f.m,f.id(q,1),1);
+  const lost=[1,2,3,4,5,6].map(q=>f.id(-q,1));for(const cell of lost)setOwner(f.m,cell,1);
   getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
-  // Five cells away: this is a grievance-driven chase, outside the cheap
+  // Five cells away: this is a grudge-driven chase, outside the cheap
   // four-cell opportunity range used even without a previous theft.
   f.enemy.cellId=f.id(5);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};f.enemy.direction={x:0,y:1};setOwner(f.m,f.id(3),0);setOwner(f.m,f.id(9),2);
   for(const q of [8,7,6,5])addTrail(f.m,f.enemy,f.id(q));
-  for(const q of [-1,-2]){f.memory.goal='EXPAND';f.memory.path=[f.id(0)];f.m.tick+=6;setOwner(f.m,f.id(q,1),2);getBotInput(observeBot(f.m,f.bot.participantId),f.memory);if(q===-1)expect(f.memory.goal).not.toBe('ATTACK');}
-  expect(f.memory.goal).toBe('ATTACK');expect(f.memory.grievances.get(f.enemy.slot)?.amount).toBeGreaterThan(1.5);
-  f.m.tick+=f.m.config.simulationHz*120;f.memory.goal='EXPAND';f.memory.path=[f.id(0)];getBotInput(observeBot(f.m,f.bot.participantId),f.memory);expect(f.memory.grievances.has(f.enemy.slot)).toBe(false);expect(f.memory.goal).not.toBe('ATTACK');
+  for(let event=0;event<3;event++){
+   f.m.tick+=f.m.config.simulationHz*2;for(const cell of lost)setOwner(f.m,cell,1);
+   // Real capture resolution attributes one six-cell loss, rather than six increments.
+   f.enemy.trailCells.clear();f.m.trailMasks.fill(0);for(const cell of lost)addTrail(f.m,f.enemy,cell);
+   f.enemy.cellId=f.id(9);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};applySimultaneousCaptures(f.m,[f.enemy]);
+   f.enemy.cellId=f.id(5);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};for(const q of [8,7,6,5])addTrail(f.m,f.enemy,f.id(q));
+   f.memory.nextDecisionTick=f.m.tick;f.memory.goal='EXPAND';f.memory.path=[f.id(0)];getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
+   if(event<2)expect(f.memory.goal).not.toBe('ATTACK');
+  }
+  expect(memoryValuable(f.memory.emotion,f.enemy.participantId)).toBe(true);expect(f.memory.goal).toBe('ATTACK');
+  f.m.tick+=f.m.config.simulationHz*45;f.memory.goal='EXPAND';f.memory.path=[f.id(0)];getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
+  expect(f.memory.emotion.grudge.has(f.enemy.participantId)).toBe(true);expect(memoryValuable(f.memory.emotion,f.enemy.participantId)).toBe(false);expect(f.memory.goal).not.toBe('ATTACK');
+  f.m.tick+=f.m.config.simulationHz*600;f.memory.goal='EXPAND';f.memory.path=[f.id(0)];getBotInput(observeBot(f.m,f.bot.participantId),f.memory);expect(f.memory.emotion.grudge.has(f.enemy.participantId)).toBe(false);
  });
  it('uses compact expansion paths away from an enemy near home',()=>{
   const m=createMatch({},115,botSpecs(2)),[bot,enemy]=m.participants,origin=m.map.cells[bot.cellId];

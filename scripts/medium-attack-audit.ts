@@ -1,9 +1,11 @@
+import {getBotInputs,botDirector} from '../src/shared/bot-director.js';
 import {createBotIdentity} from '../src/shared/bot-identity.js';
 import {stepMatch} from '../src/shared/game.js';
 import {createMatch} from '../tests/baseline.js';
 import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../src/shared/bot.js';
 import {axialToWorld} from '../src/shared/hex.js';
 import {normalizeDirection} from '../src/shared/movement.js';
+const phase02=process.argv.includes('--phase02');if(phase02&&!process.argv.includes('--phase01'))throw Error('--phase02 requires --phase01');
 const reports=[];
 for(const personality of ['DEFEND','ATTACK','EXPAND','SEEK_POINT'] as const)for(const route of [
  [[-2,2],[-4,2],[-4,0],[-2,-2],[0,0]],
@@ -20,11 +22,11 @@ for(const personality of ['DEFEND','ATTACK','EXPAND','SEEK_POINT'] as const)for(
   if(Math.hypot(target.x-human.position.x,target.y-human.position.y)<18){index++;continue;}
   const d=normalizeDirection(target.x-human.position.x,target.y-human.position.y)!,inputs=new Map();
   inputs.set(human.participantId,{matchId:match.matchId,lifeId:human.lifeId,seq:++seq,dx:d.x,dy:d.y});
-  const input=getBotInput(observeBot(match,bot.participantId),memory);if(input)inputs.set(bot.participantId,input);
+  const input=phase02?getBotInputs(match,new Map([[bot.participantId,memory]])).get(bot.participantId):getBotInput(observeBot(match,bot.participantId),memory);if(input)inputs.set(bot.participantId,input);
   if(match.tick%6===0&&human.trailCells.size)samples.push({tick:match.tick,trail:human.trailCells.size,human:[match.map.cells[human.cellId].q,match.map.cells[human.cellId].r],bot:[match.map.cells[bot.cellId].q,match.map.cells[bot.cellId].r],ownTrail:bot.trailCells.size,goal:memory.goal});
   stepMatch(match,inputs);maxTrail=Math.max(maxTrail,human.trailCells.size);
  }
  const death=match.events.find(e=>e.type==='DEATH'&&e.participantId===human.participantId);
- reports.push({personality,route,maxTrail,tick:match.tick,humanState:human.lifeState,deaths:human.deaths,killer:death?.killerId,deathReason:death?.reason,deathCause:death?.deathContext?.cause,confirmedTrailCut:death?.killerId===bot.participantId&&['EXISTING_TRAIL_CONTACT','PENDING_TRAIL_CONTACT'].includes(death.deathContext?.cause??''),traces,samples});
+ reports.push({phase02,director:phase02?botDirector(match).snapshot():undefined,personality,route,maxTrail,tick:match.tick,humanState:human.lifeState,deaths:human.deaths,killer:death?.killerId,deathReason:death?.reason,deathCause:death?.deathContext?.cause,confirmedTrailCut:death?.killerId===bot.participantId&&['EXISTING_TRAIL_CONTACT','PENDING_TRAIL_CONTACT'].includes(death.deathContext?.cause??''),traces,samples});
 }
 console.log(JSON.stringify(reports,null,2));

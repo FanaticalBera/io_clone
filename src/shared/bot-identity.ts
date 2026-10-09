@@ -14,7 +14,7 @@ export const BOT_RANGES:Readonly<Record<Personality,Readonly<Record<keyof BotInd
  SEEK_POINT:{expansionScale:[.85,1.2],riskScale:[.8,1.2],stealScale:[.85,1.3],attackChance:[.12,.3],defenseBonus:[0,6]}
 };
 // Future traits remain available only to explicit fixtures until their phase ships.
-export const ACTIVE_SECONDARY_TRAITS:readonly SecondaryTrait[]=['Coward','Gambler','Opportunist','Territorial'];
+export const ACTIVE_SECONDARY_TRAITS:readonly SecondaryTrait[]=['Coward','Gambler','Opportunist','Territorial','Vengeful'];
 export function botSeed(seed:number,slot:number):number{return seed^(slot*2654435761);}
 export function allowedSecondaryTraits(personality:Personality):readonly SecondaryTrait[]{
  return personality==='DEFEND'?SECONDARY_TRAITS.filter(t=>t!=='Gambler'):SECONDARY_TRAITS;
@@ -37,7 +37,7 @@ export function createBotIdentity(seed:number,personality:Personality,override:{
   if(!Number.isFinite(individual[key]))throw new Error('Invalid bot individual value');
   individual[key]=Math.max(ranges[key][0],Math.min(ranges[key][1],individual[key]));
  }
- return Object.freeze({personality,secondaryTrait,active:secondaryTrait!=='Vengeful'&&secondaryTrait!=='Persistent',individual:Object.freeze(individual)});
+ return Object.freeze({personality,secondaryTrait,active:secondaryTrait!=='Persistent',individual:Object.freeze(individual)});
 }
 export const BOT_PERSONALITY_LABELS:Record<Personality,string>={EXPAND:'영역탐험가',ATTACK:'선사냥꾼',DEFEND:'안전지킴이',SEEK_POINT:'영역도둑'};
 export const SECONDARY_TRAIT_LABELS:Record<SecondaryTrait,string>={Coward:'겁쟁이',Gambler:'도박꾼',Opportunist:'기회주의',Territorial:'영토집착',Vengeful:'복수심',Persistent:'집요함'};

@@ -59,7 +59,7 @@ describe('phase 1 individual identity',()=>{
   expect(coward.riskScale).toBeGreaterThanOrEqual(base.riskScale);expect(coward.expansionScale).toBeLessThanOrEqual(base.expansionScale);
   expect(gambler.riskScale).toBeLessThanOrEqual(base.riskScale);expect(gambler.expansionScale).toBeGreaterThanOrEqual(base.expansionScale);
   expect(createBotIdentity(7,'EXPAND',{secondaryTrait:'Opportunist'}).individual.attackChance).toBeGreaterThanOrEqual(base.attackChance);
-  for(const trait of SECONDARY_TRAITS){const id=createBotIdentity(7,'EXPAND',{secondaryTrait:trait});expect(id.active).toBe(!['Vengeful','Persistent'].includes(trait));}
+  for(const trait of SECONDARY_TRAITS){const id=createBotIdentity(7,'EXPAND',{secondaryTrait:trait});expect(id.active).toBe(trait!=='Persistent');}
   expect(createBotIdentity(7,'EXPAND',{secondaryTrait:'Persistent'}).individual).toEqual(base);
  });
  it('keeps the same identity and traits through a life change',()=>{

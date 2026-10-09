@@ -1,0 +1,1511 @@
+[
+  {
+    "seed": 4,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "emotions": [
+      {
+        "maximumPressure": 0.18880636579426807,
+        "maximumGrudge": 3.763399187760646,
+        "slot": 0,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.19505615479123106,
+        "maximumGrudge": 4.998716558860384,
+        "slot": 1,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.1939293846849181,
+        "maximumGrudge": 0,
+        "slot": 2,
+        "trait": "Gambler"
+      },
+      {
+        "maximumPressure": 0.37183616218616256,
+        "maximumGrudge": 4.997433447164999,
+        "slot": 3,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0,
+        "maximumGrudge": 0,
+        "slot": 4,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.26728891290579704,
+        "maximumGrudge": 0,
+        "slot": 5,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.2586793434166391,
+        "maximumGrudge": 5.490549799411679,
+        "slot": 6,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.3239241387545756,
+        "maximumGrudge": 8.44524476117436,
+        "slot": 7,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.1939293846849181,
+        "maximumGrudge": 5.730303423490683,
+        "slot": 8,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.37361407623633536,
+        "maximumGrudge": 4.997433447164999,
+        "slot": 9,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.26186663072137345,
+        "maximumGrudge": 7.363494571730536,
+        "slot": 10,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.35061383316984235,
+        "maximumGrudge": 15.317757513904988,
+        "slot": 11,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.4006890338454248,
+        "maximumGrudge": 5.46731543494678,
+        "slot": 12,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.26562131604064443,
+        "maximumGrudge": 4.997433447164999,
+        "slot": 13,
+        "trait": "Gambler"
+      }
+    ],
+    "growth": {
+      "seconds": 120,
+      "maximumSampling": "tick boundary plus immediately before death neutralization",
+      "participants": [
+        {
+          "participantId": "bot-0",
+          "netTerritoryChange": 534,
+          "netCellsPerMinute": 267,
+          "netCellsPerHour": 16020,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 534,
+          "maximumShare": 0.058577842748251015,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.058577842748251015
+            }
+          ],
+          "expansionPlans": 40,
+          "cancelledExpansions": 15,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.375,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-1",
+          "netTerritoryChange": 529,
+          "netCellsPerMinute": 264.5,
+          "netCellsPerHour": 15870,
+          "deathResetLoss": 368,
+          "spawnGrants": 7,
+          "actualHoldingChange": 168,
+          "maximumShare": 0.038425394173540774,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.038425394173540774
+            },
+            {
+              "lifeId": 2,
+              "share": 0.018272945598830533
+            }
+          ],
+          "expansionPlans": 39,
+          "cancelledExpansions": 14,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.358974358974359,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-2",
+          "netTerritoryChange": 588,
+          "netCellsPerMinute": 294,
+          "netCellsPerHour": 17640,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 588,
+          "maximumShare": 0.062128015036023804,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.062128015036023804
+            }
+          ],
+          "expansionPlans": 34,
+          "cancelledExpansions": 13,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.38235294117647056,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-3",
+          "netTerritoryChange": 745,
+          "netCellsPerMinute": 372.5,
+          "netCellsPerHour": 22350,
+          "deathResetLoss": 375,
+          "spawnGrants": 7,
+          "actualHoldingChange": 377,
+          "maximumShare": 0.040096063485433854,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.039156311997493996
+            },
+            {
+              "lifeId": 2,
+              "share": 0.040096063485433854
+            }
+          ],
+          "expansionPlans": 39,
+          "cancelledExpansions": 19,
+          "earlyReturns": 3,
+          "cancellationRatio": 0.48717948717948717,
+          "earlyReturnRatio": 0.07692307692307693
+        },
+        {
+          "participantId": "bot-4",
+          "netTerritoryChange": 622,
+          "netCellsPerMinute": 311,
+          "netCellsPerHour": 18660,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 622,
+          "maximumShare": 0.06776652396366294,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.06776652396366294
+            }
+          ],
+          "expansionPlans": 35,
+          "cancelledExpansions": 2,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.05714285714285714,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-5",
+          "netTerritoryChange": 224,
+          "netCellsPerMinute": 112,
+          "netCellsPerHour": 6720,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 224,
+          "maximumShare": 0.03362221990184818,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03362221990184818
+            }
+          ],
+          "expansionPlans": 75,
+          "cancelledExpansions": 50,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.6666666666666666,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-6",
+          "netTerritoryChange": 583,
+          "netCellsPerMinute": 291.5,
+          "netCellsPerHour": 17490,
+          "deathResetLoss": 401,
+          "spawnGrants": 7,
+          "actualHoldingChange": 189,
+          "maximumShare": 0.041871149629320245,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.041871149629320245
+            },
+            {
+              "lifeId": 2,
+              "share": 0.020465699070690194
+            }
+          ],
+          "expansionPlans": 47,
+          "cancelledExpansions": 20,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.425531914893617,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-7",
+          "netTerritoryChange": 471,
+          "netCellsPerMinute": 235.5,
+          "netCellsPerHour": 14130,
+          "deathResetLoss": 492,
+          "spawnGrants": 14,
+          "actualHoldingChange": -7,
+          "maximumShare": 0.02767046047822909,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.00584734259162577
+            },
+            {
+              "lifeId": 2,
+              "share": 0.01952594758275034
+            },
+            {
+              "lifeId": 3,
+              "share": 0.02767046047822909
+            }
+          ],
+          "expansionPlans": 47,
+          "cancelledExpansions": 20,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.425531914893617,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-8",
+          "netTerritoryChange": 438,
+          "netCellsPerMinute": 219,
+          "netCellsPerHour": 13140,
+          "deathResetLoss": 340,
+          "spawnGrants": 7,
+          "actualHoldingChange": 105,
+          "maximumShare": 0.03550172287772789,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03550172287772789
+            },
+            {
+              "lifeId": 2,
+              "share": 0.01169468518325154
+            }
+          ],
+          "expansionPlans": 50,
+          "cancelledExpansions": 19,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.38,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-9",
+          "netTerritoryChange": 810,
+          "netCellsPerMinute": 405,
+          "netCellsPerHour": 24300,
+          "deathResetLoss": 453,
+          "spawnGrants": 14,
+          "actualHoldingChange": 371,
+          "maximumShare": 0.03946956249347395,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03226480108593505
+            },
+            {
+              "lifeId": 2,
+              "share": 0.015036023807037694
+            },
+            {
+              "lifeId": 3,
+              "share": 0.03946956249347395
+            }
+          ],
+          "expansionPlans": 33,
+          "cancelledExpansions": 14,
+          "earlyReturns": 1,
+          "cancellationRatio": 0.42424242424242425,
+          "earlyReturnRatio": 0.030303030303030304
+        },
+        {
+          "participantId": "bot-10",
+          "netTerritoryChange": 441,
+          "netCellsPerMinute": 220.5,
+          "netCellsPerHour": 13230,
+          "deathResetLoss": 462,
+          "spawnGrants": 21,
+          "actualHoldingChange": 0,
+          "maximumShare": 0.024642372350422888,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.024642372350422888
+            },
+            {
+              "lifeId": 2,
+              "share": 0.016184608958964185
+            },
+            {
+              "lifeId": 3,
+              "share": 0.01712436044690404
+            },
+            {
+              "lifeId": 4,
+              "share": 0.0007309178239532213
+            }
+          ],
+          "expansionPlans": 40,
+          "cancelledExpansions": 15,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.375,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-11",
+          "netTerritoryChange": 250,
+          "netCellsPerMinute": 125,
+          "netCellsPerHour": 7500,
+          "deathResetLoss": 177,
+          "spawnGrants": 14,
+          "actualHoldingChange": 87,
+          "maximumShare": 0.03623264070168111,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03623264070168111
+            },
+            {
+              "lifeId": 2,
+              "share": 0.012530019839198079
+            },
+            {
+              "lifeId": 3,
+              "share": 0.009815182207371828
+            }
+          ],
+          "expansionPlans": 47,
+          "cancelledExpansions": 20,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.425531914893617,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-12",
+          "netTerritoryChange": 688,
+          "netCellsPerMinute": 344,
+          "netCellsPerHour": 20640,
+          "deathResetLoss": 580,
+          "spawnGrants": 7,
+          "actualHoldingChange": 115,
+          "maximumShare": 0.060666179388117365,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.060666179388117365
+            },
+            {
+              "lifeId": 2,
+              "share": 0.012738853503184714
+            }
+          ],
+          "expansionPlans": 47,
+          "cancelledExpansions": 19,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.40425531914893614,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-13",
+          "netTerritoryChange": 809,
+          "netCellsPerMinute": 404.5,
+          "netCellsPerHour": 24270,
+          "deathResetLoss": 206,
+          "spawnGrants": 7,
+          "actualHoldingChange": 610,
+          "maximumShare": 0.0663046883157565,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.02150986739062337
+            },
+            {
+              "lifeId": 2,
+              "share": 0.0663046883157565
+            }
+          ],
+          "expansionPlans": 33,
+          "cancelledExpansions": 6,
+          "earlyReturns": 4,
+          "cancellationRatio": 0.18181818181818182,
+          "earlyReturnRatio": 0.12121212121212122
+        }
+      ]
+    },
+    "phase02": {
+      "version": "phase02-v1",
+      "grudgeCap": 20,
+      "death": 5,
+      "capture": 3,
+      "captureCells": 6,
+      "captureCooldown": 2,
+      "approachDistance": 3,
+      "reentryOutside": 0.5,
+      "repeatWindow": 10,
+      "repeatCount": 2,
+      "approach": 0.5,
+      "intrusion": 1,
+      "repeatCooldown": 4,
+      "halfLife": 45,
+      "vengefulHalfLife": 90,
+      "forgetBelow": 0.1,
+      "revengeRelief": 0.25,
+      "otherDeathRelief": 0.5,
+      "valuable": 6,
+      "lossWindow": 10,
+      "lineWeight": 0.5,
+      "lossWeight": 0.35,
+      "pressureRise": 1,
+      "pressureFall": 4,
+      "expansionReduction": 0.08,
+      "riskIncrease": 0.1,
+      "grudgeScore": 0.6,
+      "scoreCap": 12,
+      "attackRangeFraction": 0.1,
+      "vengefulScore": 1.25,
+      "reservationLimit": 3,
+      "reservationFactors": [
+        1,
+        0.65,
+        0.35
+      ],
+      "reservationTtl": 0.8,
+      "reservationSeedDomain": 3900079,
+      "threatEta": 1,
+      "counterEta": 0.75,
+      "etaMargin": 0.15
+    },
+    "director": {
+      "version": "phase02-v1",
+      "seedDomain": 3900079,
+      "stats": {
+        "denied": 0,
+        "nonPositive": 0,
+        "survival": 0,
+        "survivalOverCap": 0,
+        "maxPlanned": 1,
+        "decisions": 8359
+      },
+      "reservations": []
+    },
+    "captures": 606,
+    "gained": 9088,
+    "walls": 0,
+    "territory": [
+      541,
+      175,
+      595,
+      384,
+      629,
+      231,
+      196,
+      0,
+      112,
+      378,
+      7,
+      94,
+      122,
+      617
+    ],
+    "deaths": 16
+  },
+  {
+    "seed": 19,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "emotions": [
+      {
+        "maximumPressure": 0.32714405460868096,
+        "maximumGrudge": 7.4124333111036345,
+        "slot": 0,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.19484925039334894,
+        "maximumGrudge": 4.998716558860384,
+        "slot": 1,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.1939406602119909,
+        "maximumGrudge": 7.575082382755108,
+        "slot": 2,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.3026425063608218,
+        "maximumGrudge": 8.44294202058726,
+        "slot": 3,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.27993251938668173,
+        "maximumGrudge": 5.841048310145843,
+        "slot": 4,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.2654049199446904,
+        "maximumGrudge": 9.220188660210605,
+        "slot": 5,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.1939293846849181,
+        "maximumGrudge": 4.862817513874854,
+        "slot": 6,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.11880226825256104,
+        "maximumGrudge": 6.26063097492985,
+        "slot": 7,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.25109349028530464,
+        "maximumGrudge": 9.531118215482032,
+        "slot": 8,
+        "trait": "Gambler"
+      },
+      {
+        "maximumPressure": 0.13802647491652753,
+        "maximumGrudge": 3.904117301157547,
+        "slot": 9,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.2772490324851108,
+        "maximumGrudge": 15.221676707483745,
+        "slot": 10,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.4435010815453548,
+        "maximumGrudge": 4.997433447164999,
+        "slot": 11,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.19685365875986366,
+        "maximumGrudge": 2.9992299353162304,
+        "slot": 12,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.019993169247014685,
+        "maximumGrudge": 1,
+        "slot": 13,
+        "trait": "Territorial"
+      }
+    ],
+    "growth": {
+      "seconds": 120,
+      "maximumSampling": "tick boundary plus immediately before death neutralization",
+      "participants": [
+        {
+          "participantId": "bot-0",
+          "netTerritoryChange": 480,
+          "netCellsPerMinute": 240,
+          "netCellsPerHour": 14400,
+          "deathResetLoss": 113,
+          "spawnGrants": 7,
+          "actualHoldingChange": 374,
+          "maximumShare": 0.04072256447739376,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.011799102015244858
+            },
+            {
+              "lifeId": 2,
+              "share": 0.04072256447739376
+            }
+          ],
+          "expansionPlans": 27,
+          "cancelledExpansions": 9,
+          "earlyReturns": 3,
+          "cancellationRatio": 0.3333333333333333,
+          "earlyReturnRatio": 0.1111111111111111
+        },
+        {
+          "participantId": "bot-1",
+          "netTerritoryChange": 525,
+          "netCellsPerMinute": 262.5,
+          "netCellsPerHour": 15750,
+          "deathResetLoss": 532,
+          "spawnGrants": 7,
+          "actualHoldingChange": 0,
+          "maximumShare": 0.05575858828443145,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.05575858828443145
+            },
+            {
+              "lifeId": 2,
+              "share": 0.0007309178239532213
+            }
+          ],
+          "expansionPlans": 52,
+          "cancelledExpansions": 23,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.4423076923076923,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-2",
+          "netTerritoryChange": 196,
+          "netCellsPerMinute": 98,
+          "netCellsPerHour": 5880,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 196,
+          "maximumShare": 0.03330896940586823,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03330896940586823
+            }
+          ],
+          "expansionPlans": 97,
+          "cancelledExpansions": 73,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.7525773195876289,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-3",
+          "netTerritoryChange": 627,
+          "netCellsPerMinute": 313.5,
+          "netCellsPerHour": 18810,
+          "deathResetLoss": 243,
+          "spawnGrants": 7,
+          "actualHoldingChange": 391,
+          "maximumShare": 0.04155789913334029,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.025895374334342695
+            },
+            {
+              "lifeId": 2,
+              "share": 0.04155789913334029
+            }
+          ],
+          "expansionPlans": 36,
+          "cancelledExpansions": 4,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.1111111111111111,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-4",
+          "netTerritoryChange": 625,
+          "netCellsPerMinute": 312.5,
+          "netCellsPerHour": 18750,
+          "deathResetLoss": 537,
+          "spawnGrants": 7,
+          "actualHoldingChange": 95,
+          "maximumShare": 0.060666179388117365,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.060666179388117365
+            },
+            {
+              "lifeId": 2,
+              "share": 0.010650516863318367
+            }
+          ],
+          "expansionPlans": 34,
+          "cancelledExpansions": 15,
+          "earlyReturns": 2,
+          "cancellationRatio": 0.4411764705882353,
+          "earlyReturnRatio": 0.058823529411764705
+        },
+        {
+          "participantId": "bot-5",
+          "netTerritoryChange": 425,
+          "netCellsPerMinute": 212.5,
+          "netCellsPerHour": 12750,
+          "deathResetLoss": 347,
+          "spawnGrants": 14,
+          "actualHoldingChange": 92,
+          "maximumShare": 0.030594131774041976,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.030594131774041976
+            },
+            {
+              "lifeId": 2,
+              "share": 0.006682677247572309
+            },
+            {
+              "lifeId": 3,
+              "share": 0.010337266367338414
+            }
+          ],
+          "expansionPlans": 59,
+          "cancelledExpansions": 24,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.4067796610169492,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-6",
+          "netTerritoryChange": 167,
+          "netCellsPerMinute": 83.5,
+          "netCellsPerHour": 5010,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 167,
+          "maximumShare": 0.023702620862483034,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.023702620862483034
+            }
+          ],
+          "expansionPlans": 63,
+          "cancelledExpansions": 33,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.5238095238095238,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-7",
+          "netTerritoryChange": 484,
+          "netCellsPerMinute": 242,
+          "netCellsPerHour": 14520,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 484,
+          "maximumShare": 0.05126866450871881,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.05126866450871881
+            }
+          ],
+          "expansionPlans": 32,
+          "cancelledExpansions": 8,
+          "earlyReturns": 2,
+          "cancellationRatio": 0.25,
+          "earlyReturnRatio": 0.0625
+        },
+        {
+          "participantId": "bot-8",
+          "netTerritoryChange": 579,
+          "netCellsPerMinute": 289.5,
+          "netCellsPerHour": 17370,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 579,
+          "maximumShare": 0.06118826354808395,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.06118826354808395
+            }
+          ],
+          "expansionPlans": 53,
+          "cancelledExpansions": 20,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.37735849056603776,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-9",
+          "netTerritoryChange": 445,
+          "netCellsPerMinute": 222.5,
+          "netCellsPerHour": 13350,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 445,
+          "maximumShare": 0.04876266054087919,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.04876266054087919
+            }
+          ],
+          "expansionPlans": 51,
+          "cancelledExpansions": 18,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.35294117647058826,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-10",
+          "netTerritoryChange": 283,
+          "netCellsPerMinute": 141.5,
+          "netCellsPerHour": 8490,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 283,
+          "maximumShare": 0.04020048031742717,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.04020048031742717
+            }
+          ],
+          "expansionPlans": 50,
+          "cancelledExpansions": 14,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.28,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-11",
+          "netTerritoryChange": 647,
+          "netCellsPerMinute": 323.5,
+          "netCellsPerHour": 19410,
+          "deathResetLoss": 150,
+          "spawnGrants": 7,
+          "actualHoldingChange": 504,
+          "maximumShare": 0.05440116946851833,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.015662524798997598
+            },
+            {
+              "lifeId": 2,
+              "share": 0.05440116946851833
+            }
+          ],
+          "expansionPlans": 38,
+          "cancelledExpansions": 11,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.2894736842105263,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-12",
+          "netTerritoryChange": 688,
+          "netCellsPerMinute": 344,
+          "netCellsPerHour": 20640,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 688,
+          "maximumShare": 0.07256969823535554,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.07256969823535554
+            }
+          ],
+          "expansionPlans": 41,
+          "cancelledExpansions": 8,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.1951219512195122,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-13",
+          "netTerritoryChange": 421,
+          "netCellsPerMinute": 210.5,
+          "netCellsPerHour": 12630,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 421,
+          "maximumShare": 0.04469040409313981,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.04469040409313981
+            }
+          ],
+          "expansionPlans": 42,
+          "cancelledExpansions": 15,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.35714285714285715,
+          "earlyReturnRatio": 0
+        }
+      ]
+    },
+    "phase02": {
+      "version": "phase02-v1",
+      "grudgeCap": 20,
+      "death": 5,
+      "capture": 3,
+      "captureCells": 6,
+      "captureCooldown": 2,
+      "approachDistance": 3,
+      "reentryOutside": 0.5,
+      "repeatWindow": 10,
+      "repeatCount": 2,
+      "approach": 0.5,
+      "intrusion": 1,
+      "repeatCooldown": 4,
+      "halfLife": 45,
+      "vengefulHalfLife": 90,
+      "forgetBelow": 0.1,
+      "revengeRelief": 0.25,
+      "otherDeathRelief": 0.5,
+      "valuable": 6,
+      "lossWindow": 10,
+      "lineWeight": 0.5,
+      "lossWeight": 0.35,
+      "pressureRise": 1,
+      "pressureFall": 4,
+      "expansionReduction": 0.08,
+      "riskIncrease": 0.1,
+      "grudgeScore": 0.6,
+      "scoreCap": 12,
+      "attackRangeFraction": 0.1,
+      "vengefulScore": 1.25,
+      "reservationLimit": 3,
+      "reservationFactors": [
+        1,
+        0.65,
+        0.35
+      ],
+      "reservationTtl": 0.8,
+      "reservationSeedDomain": 3900079,
+      "threatEta": 1,
+      "counterEta": 0.75,
+      "etaMargin": 0.15
+    },
+    "director": {
+      "version": "phase02-v1",
+      "seedDomain": 3900079,
+      "stats": {
+        "denied": 0,
+        "nonPositive": 0,
+        "survival": 0,
+        "survivalOverCap": 0,
+        "maxPlanned": 1,
+        "decisions": 8497
+      },
+      "reservations": []
+    },
+    "captures": 641,
+    "gained": 9152,
+    "walls": 0,
+    "territory": [
+      381,
+      7,
+      203,
+      398,
+      102,
+      99,
+      174,
+      491,
+      586,
+      452,
+      290,
+      511,
+      695,
+      428
+    ],
+    "deaths": 7
+  },
+  {
+    "seed": 73,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "emotions": [
+      {
+        "maximumPressure": 0.03728903669765992,
+        "maximumGrudge": 9.456253123262979,
+        "slot": 0,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.20016375880019188,
+        "maximumGrudge": 4.997433447164999,
+        "slot": 1,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0,
+        "maximumGrudge": 0,
+        "slot": 2,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.10662896877765776,
+        "maximumGrudge": 0,
+        "slot": 3,
+        "trait": "Opportunist"
+      },
+      {
+        "maximumPressure": 0.3576298382517479,
+        "maximumGrudge": 20,
+        "slot": 4,
+        "trait": "Territorial"
+      },
+      {
+        "maximumPressure": 0.2341662489534131,
+        "maximumGrudge": 11.371846426194542,
+        "slot": 5,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.10666473881173444,
+        "maximumGrudge": 7.9153982894018515,
+        "slot": 6,
+        "trait": "Gambler"
+      },
+      {
+        "maximumPressure": 0.10902007304686795,
+        "maximumGrudge": 3.9474366852870864,
+        "slot": 7,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.12064307302738562,
+        "maximumGrudge": 5.742066631234652,
+        "slot": 8,
+        "trait": "Gambler"
+      },
+      {
+        "maximumPressure": 0.1318712683386924,
+        "maximumGrudge": 6.778464029882742,
+        "slot": 9,
+        "trait": "Gambler"
+      },
+      {
+        "maximumPressure": 0,
+        "maximumGrudge": 0,
+        "slot": 10,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.1325253464534314,
+        "maximumGrudge": 19.989733788659997,
+        "slot": 11,
+        "trait": "Coward"
+      },
+      {
+        "maximumPressure": 0.248248810262244,
+        "maximumGrudge": 18.283628269255335,
+        "slot": 12,
+        "trait": "Vengeful"
+      },
+      {
+        "maximumPressure": 0.2977768068914006,
+        "maximumGrudge": 2.9984600682989995,
+        "slot": 13,
+        "trait": "Opportunist"
+      }
+    ],
+    "growth": {
+      "seconds": 120,
+      "maximumSampling": "tick boundary plus immediately before death neutralization",
+      "participants": [
+        {
+          "participantId": "bot-0",
+          "netTerritoryChange": 85,
+          "netCellsPerMinute": 42.5,
+          "netCellsPerHour": 2550,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 85,
+          "maximumShare": 0.05032891302077895,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.05032891302077895
+            }
+          ],
+          "expansionPlans": 45,
+          "cancelledExpansions": 5,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.1111111111111111,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-1",
+          "netTerritoryChange": 682,
+          "netCellsPerMinute": 341,
+          "netCellsPerHour": 20460,
+          "deathResetLoss": 528,
+          "spawnGrants": 14,
+          "actualHoldingChange": 168,
+          "maximumShare": 0.03518847238174794,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03518847238174794
+            },
+            {
+              "lifeId": 2,
+              "share": 0.022345202046569906
+            },
+            {
+              "lifeId": 3,
+              "share": 0.018272945598830533
+            }
+          ],
+          "expansionPlans": 26,
+          "cancelledExpansions": 8,
+          "earlyReturns": 1,
+          "cancellationRatio": 0.3076923076923077,
+          "earlyReturnRatio": 0.038461538461538464
+        },
+        {
+          "participantId": "bot-2",
+          "netTerritoryChange": 338,
+          "netCellsPerMinute": 169,
+          "netCellsPerHour": 10140,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 338,
+          "maximumShare": 0.039156311997493996,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.039156311997493996
+            }
+          ],
+          "expansionPlans": 40,
+          "cancelledExpansions": 12,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.3,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-3",
+          "netTerritoryChange": 779,
+          "netCellsPerMinute": 389.5,
+          "netCellsPerHour": 23370,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 779,
+          "maximumShare": 0.08207162994674741,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.08207162994674741
+            }
+          ],
+          "expansionPlans": 34,
+          "cancelledExpansions": 13,
+          "earlyReturns": 1,
+          "cancellationRatio": 0.38235294117647056,
+          "earlyReturnRatio": 0.029411764705882353
+        },
+        {
+          "participantId": "bot-4",
+          "netTerritoryChange": 275,
+          "netCellsPerMinute": 137.5,
+          "netCellsPerHour": 8250,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 275,
+          "maximumShare": 0.029445546622115484,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.029445546622115484
+            }
+          ],
+          "expansionPlans": 71,
+          "cancelledExpansions": 43,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.6056338028169014,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-5",
+          "netTerritoryChange": 359,
+          "netCellsPerMinute": 179.5,
+          "netCellsPerHour": 10770,
+          "deathResetLoss": 130,
+          "spawnGrants": 7,
+          "actualHoldingChange": 236,
+          "maximumShare": 0.028819045630155582,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.028819045630155582
+            },
+            {
+              "lifeId": 2,
+              "share": 0.02537329017437611
+            }
+          ],
+          "expansionPlans": 40,
+          "cancelledExpansions": 11,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.275,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-6",
+          "netTerritoryChange": 640,
+          "netCellsPerMinute": 320,
+          "netCellsPerHour": 19200,
+          "deathResetLoss": 106,
+          "spawnGrants": 7,
+          "actualHoldingChange": 541,
+          "maximumShare": 0.06077059622011068,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.01127701785527827
+            },
+            {
+              "lifeId": 2,
+              "share": 0.06077059622011068
+            }
+          ],
+          "expansionPlans": 42,
+          "cancelledExpansions": 10,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.23809523809523808,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-7",
+          "netTerritoryChange": 636,
+          "netCellsPerMinute": 318,
+          "netCellsPerHour": 19080,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 636,
+          "maximumShare": 0.06714002297170305,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.06714002297170305
+            }
+          ],
+          "expansionPlans": 50,
+          "cancelledExpansions": 10,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.2,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-8",
+          "netTerritoryChange": 122,
+          "netCellsPerMinute": 61,
+          "netCellsPerHour": 3660,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 122,
+          "maximumShare": 0.035292889213741255,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.035292889213741255
+            }
+          ],
+          "expansionPlans": 55,
+          "cancelledExpansions": 25,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.45454545454545453,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-9",
+          "netTerritoryChange": 559,
+          "netCellsPerMinute": 279.5,
+          "netCellsPerHour": 16770,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 559,
+          "maximumShare": 0.05993526156416414,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.05993526156416414
+            }
+          ],
+          "expansionPlans": 34,
+          "cancelledExpansions": 16,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.47058823529411764,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-10",
+          "netTerritoryChange": 727,
+          "netCellsPerMinute": 363.5,
+          "netCellsPerHour": 21810,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 727,
+          "maximumShare": 0.07987887647488776,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.07987887647488776
+            }
+          ],
+          "expansionPlans": 32,
+          "cancelledExpansions": 0,
+          "earlyReturns": 0,
+          "cancellationRatio": 0,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-11",
+          "netTerritoryChange": 461,
+          "netCellsPerMinute": 230.5,
+          "netCellsPerHour": 13830,
+          "deathResetLoss": 271,
+          "spawnGrants": 7,
+          "actualHoldingChange": 197,
+          "maximumShare": 0.02850579513417563,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.02850579513417563
+            },
+            {
+              "lifeId": 2,
+              "share": 0.021301033726636734
+            }
+          ],
+          "expansionPlans": 54,
+          "cancelledExpansions": 26,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.48148148148148145,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-12",
+          "netTerritoryChange": 338,
+          "netCellsPerMinute": 169,
+          "netCellsPerHour": 10140,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 338,
+          "maximumShare": 0.03602380703769448,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.03602380703769448
+            }
+          ],
+          "expansionPlans": 70,
+          "cancelledExpansions": 45,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.6428571428571429,
+          "earlyReturnRatio": 0
+        },
+        {
+          "participantId": "bot-13",
+          "netTerritoryChange": 524,
+          "netCellsPerMinute": 262,
+          "netCellsPerHour": 15720,
+          "deathResetLoss": 0,
+          "spawnGrants": 0,
+          "actualHoldingChange": 524,
+          "maximumShare": 0.055445337788451496,
+          "lifeMaximumShares": [
+            {
+              "lifeId": 1,
+              "share": 0.055445337788451496
+            }
+          ],
+          "expansionPlans": 60,
+          "cancelledExpansions": 28,
+          "earlyReturns": 0,
+          "cancellationRatio": 0.4666666666666667,
+          "earlyReturnRatio": 0
+        }
+      ]
+    },
+    "phase02": {
+      "version": "phase02-v1",
+      "grudgeCap": 20,
+      "death": 5,
+      "capture": 3,
+      "captureCells": 6,
+      "captureCooldown": 2,
+      "approachDistance": 3,
+      "reentryOutside": 0.5,
+      "repeatWindow": 10,
+      "repeatCount": 2,
+      "approach": 0.5,
+      "intrusion": 1,
+      "repeatCooldown": 4,
+      "halfLife": 45,
+      "vengefulHalfLife": 90,
+      "forgetBelow": 0.1,
+      "revengeRelief": 0.25,
+      "otherDeathRelief": 0.5,
+      "valuable": 6,
+      "lossWindow": 10,
+      "lineWeight": 0.5,
+      "lossWeight": 0.35,
+      "pressureRise": 1,
+      "pressureFall": 4,
+      "expansionReduction": 0.08,
+      "riskIncrease": 0.1,
+      "grudgeScore": 0.6,
+      "scoreCap": 12,
+      "attackRangeFraction": 0.1,
+      "vengefulScore": 1.25,
+      "reservationLimit": 3,
+      "reservationFactors": [
+        1,
+        0.65,
+        0.35
+      ],
+      "reservationTtl": 0.8,
+      "reservationSeedDomain": 3900079,
+      "threatEta": 1,
+      "counterEta": 0.75,
+      "etaMargin": 0.15
+    },
+    "director": {
+      "version": "phase02-v1",
+      "seedDomain": 3900079,
+      "stats": {
+        "denied": 0,
+        "nonPositive": 0,
+        "survival": 0,
+        "survivalOverCap": 0,
+        "maxPlanned": 1,
+        "decisions": 8509
+      },
+      "reservations": []
+    },
+    "captures": 620,
+    "gained": 9484,
+    "walls": 0,
+    "territory": [
+      92,
+      175,
+      345,
+      786,
+      282,
+      243,
+      548,
+      643,
+      129,
+      566,
+      734,
+      204,
+      345,
+      531
+    ],
+    "deaths": 5
+  }
+]
