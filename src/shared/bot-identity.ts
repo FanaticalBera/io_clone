@@ -13,6 +13,9 @@ export const BOT_RANGES:Readonly<Record<Personality,Readonly<Record<keyof BotInd
  DEFEND:{expansionScale:[.8,1.15],riskScale:[.9,1.3],stealScale:[.7,1.2],attackChance:[.01,.06],defenseBonus:[12,18]},
  SEEK_POINT:{expansionScale:[.85,1.2],riskScale:[.8,1.2],stealScale:[.85,1.3],attackChance:[.12,.3],defenseBonus:[0,6]}
 };
+// Future traits remain available only to explicit fixtures until their phase ships.
+export const ACTIVE_SECONDARY_TRAITS:readonly SecondaryTrait[]=['Coward','Gambler','Opportunist','Territorial'];
+export function botSeed(seed:number,slot:number):number{return seed^(slot*2654435761);}
 export function allowedSecondaryTraits(personality:Personality):readonly SecondaryTrait[]{
  return personality==='DEFEND'?SECONDARY_TRAITS.filter(t=>t!=='Gambler'):SECONDARY_TRAITS;
 }
@@ -20,7 +23,7 @@ export function createBotIdentity(seed:number,personality:Personality,override:{
  if(!BOT_PERSONALITIES.includes(personality))throw new Error('Invalid bot personality');
  // Each assignment stream has its own domain; adding names or traits never draws from decisions.
  const traitRandom=seededRandom(seed^0x7ac311),individualRandom=seededRandom(seed^0x51f15e);
- const allowed=allowedSecondaryTraits(personality),secondaryTrait=override.secondaryTrait??allowed[Math.floor(traitRandom()*allowed.length)];
+ const allowed=allowedSecondaryTraits(personality),active=allowed.filter(t=>ACTIVE_SECONDARY_TRAITS.includes(t)),secondaryTrait=override.secondaryTrait??active[Math.floor(traitRandom()*active.length)];
  if(!allowed.includes(secondaryTrait))throw new Error('Incompatible bot secondary trait');
  const ranges=BOT_RANGES[personality],individual={} as BotIndividual;
  for(const key of ['expansionScale','riskScale','stealScale','attackChance'] as const){const [lo,hi]=ranges[key];individual[key]=lo+individualRandom()*(hi-lo);}

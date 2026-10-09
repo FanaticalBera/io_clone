@@ -6,7 +6,7 @@ import {makeParticipant} from '../shared/state.js';
 import {trySpawn} from '../shared/spawn.js';
 import {validateConfig,type GameConfig} from '../shared/config.js';
 import {createMatch} from '../shared/game.js';
-import {createBotIdentity} from '../shared/bot-identity.js';
+import {botSeed,createBotIdentity} from '../shared/bot-identity.js';
 import {botSpecs,createBotMemory,type BotMemory} from '../shared/bot.js';
 import type {MatchState,DirectionInput} from '../shared/model.js';
 import type {Ack,RoomPhase,RoomView} from '../shared/protocol.js';
@@ -98,7 +98,7 @@ createFriend(session:Session,nickname:unknown,gameMode:GameModeId='classic'):Ack
   const humans=members.map((m,slot)=>({participantId:m.memberId,slot,nickname:m.nickname,kind:'HUMAN' as const}));
   const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(this.config.maxSlots-humans.length,humans.length,matchId,{seed,existing:humans})],matchId,room.gameMode);
   setSafeBotRespawn(room.match,true);
-  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(seed^(p.slot*2654435761),'combined',createBotIdentity(seed^(p.slot*2654435761),p.personality!)));
+  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!)));
   room.snapshotSeq=0;room.accumulator=0;room.lastStepAt=at;room.phase='RUNNING';room.phaseDeadline=null;room.revision++;
   for(const member of members){member.session.highestReceivedSeq=0;}
  }
@@ -134,7 +134,7 @@ disconnected(session:Session):void {
   if(room.phase!=='RUNNING'||!room.match)return;
   const match=room.match,old=match.participants.find(p=>p.participantId===participantId);if(!old)return;
   leaveParticipant(match,old);match.participants=match.participants.filter(p=>p!==old);room.bots.delete(participantId);
-  const assignmentSeed=match.seed^match.tick^(old.slot*2654435761);
+  const assignmentSeed=botSeed(match.seed,old.slot)^match.tick;
   const template=botSpecs(1,old.slot,match.matchId+'-replacement-'+randomUUID(),{seed:assignmentSeed,existing:match.participants})[0];
   const p=makeParticipant({...template,slot:old.slot});p.respawnAtTick=match.tick;match.participants.push(p);
   room.bots.set(p.participantId,createBotMemory(assignmentSeed,'combined',createBotIdentity(assignmentSeed,p.personality!)));trySpawn(match,p);

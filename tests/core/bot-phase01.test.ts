@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch,stepMatch} from '../../src/shared/game.js';
 import {botSpecs,createBotMemory,getBotInput,observeBotForTick,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
-import {createBotIdentity,allowedSecondaryTraits,BOT_PERSONALITIES,BOT_RANGES,SECONDARY_TRAITS} from '../../src/shared/bot-identity.js';
+import {createBotIdentity,allowedSecondaryTraits,BOT_PERSONALITIES,BOT_RANGES,SECONDARY_TRAITS,ACTIVE_SECONDARY_TRAITS} from '../../src/shared/bot-identity.js';
 import {BOT_NICKNAMES} from '../../src/shared/bot-roster.js';
 import {seededRandom} from '../../src/shared/random.js';
 import {BotDebugCollector} from '../../src/client/bot-debug-model.js';
@@ -37,6 +37,13 @@ describe('phase 0+1 assignment',()=>{
  });
 });
 describe('phase 1 individual identity',()=>{
+ it('draws only the active traits across seeds, with all compatible traits represented',()=>{
+  for(const personality of BOT_PERSONALITIES){const counts=new Map<string,number>();
+   for(let seed=0;seed<1024;seed++){const identity=createBotIdentity(seed,personality);expect(identity.active).toBe(true);counts.set(identity.secondaryTrait,(counts.get(identity.secondaryTrait)??0)+1);}
+   const expected=ACTIVE_SECONDARY_TRAITS.filter(t=>personality!=='DEFEND'||t!=='Gambler');expect([...counts.keys()].sort()).toEqual([...expected].sort());
+   for(const count of counts.values())expect(Math.abs(count-1024/expected.length)).toBeLessThan(80);
+  }
+ });
  it('all allowed combinations stay inside archetype bounds and leave decision RNG untouched',()=>{
   for(const personality of BOT_PERSONALITIES)for(const secondaryTrait of allowedSecondaryTraits(personality))for(let seed=1;seed<=20;seed++){
    const identity=createBotIdentity(seed,personality,{secondaryTrait}),memory=createBotMemory(seed,'combined',identity),random=seededRandom(seed);
@@ -88,4 +95,30 @@ it.each([22,56])('HUD collection is bounded, observes real reasons without shado
  const snapshot=collector.snapshot();expect(snapshot.bots).toHaveLength(14);expect(snapshot.bots.some(p=>p.trace?.reason)).toBe(true);
  for(const row of snapshot.bots){expect(row.history.length).toBeLessThanOrEqual(8);expect(row.trace?.shadow).toBeUndefined();}
  collector.dispose();expect(collector.snapshot().bots.every(b=>b.trace===null)).toBe(true);
+});
+
+it('preserves plan reasons and candidates through continuation, replaces same-goal replans, and invalidates on a new life',()=>{
+ const match=createMatch({mapRadius:22},19,botSpecs(1,0,'plan',{seed:19,overrides:{0:{personality:'EXPAND'}}})),p=match.participants[0];
+ const memory=createBotMemory(19,'combined',createBotIdentity(19,'EXPAND')),collector=new BotDebugCollector(match,new Map([[p.participantId,memory]]));
+ let previous:BotDecisionTrace|null=null,continued=0,replanned=0,progressed=0,lastLength=0;
+ collector.onDecision=trace=>{const plan=collector.snapshot().bots[0].planTrace;expect(plan).not.toBeNull();
+  if(!trace.planChanged&&previous){expect(plan).toEqual(previous);if(trace.reason==='PLAN_CONTINUE'){continued++;if(memory.path.length<lastLength)progressed++;}}
+  else{expect(plan?.tick).toBe(trace.tick);expect(plan?.reason).toBe(trace.reason);expect(plan?.attacks).toEqual(trace.attacks);expect(plan?.expansionScores).toEqual(trace.expansionScores);expect(plan?.expansionRejected).toEqual(trace.expansionRejected);
+   if(previous?.to===trace.to&&trace.reason==='EXPANSION_SCORE')replanned++;
+  }
+  previous=plan;lastLength=memory.path.length;
+ };
+ for(let t=0;t<1800&&match.phase==='RUNNING';t++){const input=getBotInput(observeBotForTick(match,p.participantId,memory),memory);stepMatch(match,input?new Map([[p.participantId,input]]):new Map());}
+ expect(continued).toBeGreaterThan(0);expect(progressed).toBeGreaterThan(0);expect(replanned).toBeGreaterThan(0);
+ collector.onDecision=undefined;p.lifeId++;expect(collector.snapshot().bots[0].planTrace).toBeNull();getBotInput(observeBotForTick(match,p.participantId,memory),memory);expect(collector.snapshot().bots[0].planTrace?.tick).toBe(match.tick);collector.dispose();
+});
+
+it('records a perimeter plan change between decision ticks without overwriting it on repeated recovery',()=>{
+ const match=createMatch({mapRadius:22},19,botSpecs(1)),p=match.participants[0],obs=observeBot(match,p.participantId),id=match.map.byKey.get('20,0')!;
+ obs.tick=12;obs.self.cellId=id;obs.self.position={...match.map.cells[id].center};obs.self.direction={x:1,y:0};
+ const memory=createBotMemory(19);memory.plannedLifeId=p.lifeId;memory.nextDecisionTick=100;memory.path=[id];
+ const collector=new BotDebugCollector(match,new Map([[p.participantId,memory]]));getBotInput(obs,memory);
+ const first=collector.snapshot().bots[0];expect(first.trace?.reason).toBe('PERIMETER_GUARD');expect(first.trace?.planChanged).toBe(true);expect(first.planTrace?.tick).toBe(12);
+ memory.nextDecisionTick=100;obs.tick=13;getBotInput(obs,memory);const repeated=collector.snapshot().bots[0];
+ expect(repeated.trace?.tick).toBe(13);expect(repeated.trace?.planChanged).toBe(false);expect(repeated.planTrace).toEqual(first.planTrace);collector.dispose();
 });

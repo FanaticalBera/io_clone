@@ -254,7 +254,7 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 @media(orientation:landscape) and (max-height:340px){.sheet-bar h2{font-size:22px}.shop-detail{width:190px}.pedestal{height:96px}.pedestal>div{width:70px;height:70px}.shop-card{min-height:96px}.profile-collection{width:220px}.profile-stats strong{font-size:26px}.profile-stats article:first-child strong{font-size:34px}}
 @media(orientation:portrait){.sheet-panel{flex-direction:column}.shop-detail,.profile-collection{width:auto;border-right:0;border-bottom:3px solid var(--ink)}.profile-content{flex-direction:column}.shop-tabs{margin-left:0}}
 
-#bot-debug-hud{position:fixed;z-index:8;right:8px;top:80px;width:min(650px,95vw);max-height:75vh;overflow:auto;padding:10px;background:#172033ee;color:#f8fafc;border:1px solid #64748b;border-radius:8px;font:11px/1.5 monospace;pointer-events:auto}
+#bot-debug-hud{position:fixed;z-index:8;right:8px;top:80px;width:min(600px,calc(50vw - 16px));max-height:75vh;overflow:auto;padding:10px;background:#172033ee;color:#f8fafc;border:1px solid #64748b;border-radius:8px;font:11px/1.5 monospace;pointer-events:auto}
 #bot-debug-hud[hidden]{display:none}#bot-debug-hud>button{margin-left:12px}#bot-debug-hud div>button{display:block;width:100%;text-align:left;padding:4px 6px;border:0;border-left:4px solid;background:transparent;color:inherit;font:inherit;cursor:pointer}#bot-debug-hud div>button[aria-pressed=true]{background:#334155}#bot-debug-hud pre{white-space:pre-wrap;font:inherit;border-top:1px solid #64748b;padding-top:6px}
 
 #bot-debug-hud>button{background:#334155;color:#f8fafc;border:1px solid #64748b;border-radius:4px;padding:3px 6px;font:inherit;cursor:pointer}

@@ -30,10 +30,10 @@ let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlin
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
 setColorStyle(settings.get().colorStyle);
 const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('debug')==='1';
-const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;}):null;
+const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
- quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
+ quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
 const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU');
@@ -63,7 +63,8 @@ input.attachJoystick(document.querySelector('#joystick')!);
 input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();setColorStyle(value.colorStyle);scene.refreshColors();});
 if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),getPlayerColors:()=>[...scene.playerColors()],getScene:()=>scene,getMarkerAssets:()=>scene.markerAssetsState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8,0,'preview',{seed:71}))),null);
-function display(view:MatchView,selfId:string,init=false):void {
+function display(view:MatchView,selfId:string|null,init=false):void {
+ if(selfId===null){scene.setBoundaryHighlight(true);scene.setWallMargin(!strictWallExperiment);scene.setView(view,null,false,init);ui.updateView(view,null,init,scene.playerColors());input.enabled=false;return;}
  if(view.participants.find(p=>p.participantId===selfId)?.lifeState==='ALIVE'&&ui.hasRunResult){ui.clearRunResult();ui.showGame(ui.mode==='PRACTICE'?'PRACTICE':'ONLINE');}
  const previousMatchId=scene.view?.matchId,previous=scene.view?.participants.find(p=>p.participantId===selfId);
  if(ui.mode!=='PRACTICE'&&(init||ui.mode!=='ONLINE'))ui.showGame('ONLINE');
@@ -77,6 +78,7 @@ function display(view:MatchView,selfId:string,init=false):void {
 }
 async function restartRun():Promise<void> {
  input.enabled=false;input.reset();
+ if(practice?.spectating){await startPractice(practice.match.gameMode,true);return;}
  if(practice){ui.setRunRetryAvailable(true);ui.clearRunResult();if(practice.match.phase==='RUNNING'&&practice.retryRun()){ui.showGame('PRACTICE');display(buildView(practice.match),practice.selfId);return;}await startPractice(practice.match.gameMode);return;}
  const view=scene.view,self=view?.participants.find(p=>p.participantId===scene.selfId);const result=ui.currentRunResult??self?.run?.result;if(!online||!result)return;
  runRetryPending=true;try{const response=await online.command('run:retry',{matchId:result.matchId,runId:result.runId});
@@ -87,10 +89,11 @@ async function stopOnline():Promise<void> {
  const old=online;online=null;if(!old)return;
  try{await old.leave();}catch{clearSessionToken();}finally{old.dispose();}
 }
-async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
+async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode()),observe=false):Promise<void> {
  try{const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();botHud?.stop();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.setRunRetryAvailable(true);ui.showGame('PRACTICE');
  const experimentParams=new URLSearchParams(location.search),experimentEnabled=import.meta.env.DEV||import.meta.env.MODE==='test',experiment={...experimentalMapConfig(experimentParams.get('experimentMapRadius'),experimentEnabled),...experimentalSlotConfig(experimentParams.get('experimentSlots'),experimentEnabled)},seed=experimentalSeed(experimentParams.get('experimentSeed'),experimentEnabled);
- practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,safeBotRespawn:experimentalSafeRespawn(experimentParams.get('respawnMode'),experimentEnabled),wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);botHud?.start(()=>practice?.botDiagnostics()??null);}
+ const spectating=diagnosticsEnabled&&(observe||experimentParams.get('spectate')==='1');
+ practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,safeBotRespawn:experimentalSafeRespawn(experimentParams.get('respawnMode'),experimentEnabled),wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,spectate:spectating,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);botHud?.start(()=>practice?.botDiagnostics()??null,spectating);}
  catch(error){ui.message((error as Error).message);}
 }
 function onRoom(view:RoomView):void {

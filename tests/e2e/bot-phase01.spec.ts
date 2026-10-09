@@ -7,7 +7,7 @@ test('practice HUD exposes 13 bots, real reasons, selection and camera follow, a
  const snapshot=await page.evaluate(()=>{const p=(window as any).__HEXHOLD_TEST__.getPractice();p.setPaused(true);return p.botDiagnostics();});
  expect(snapshot.bots).toHaveLength(13);expect(snapshot.bots.some((b:any)=>b.nickname==='밤산책')).toBe(false);
  const counts=Object.values(snapshot.bots.reduce((s:any,b:any)=>{s[b.personality]=(s[b.personality]??0)+1;return s;},{})).sort();expect(counts).toEqual([3,3,3,4]);
- expect(snapshot.bots.some((b:any)=>b.identity.active===false)).toBe(true);await expect(hud).toContainText('비활성');
+ expect(snapshot.bots.every((b:any)=>b.identity.active)).toBe(true);await expect(hud).not.toContainText('비활성');await expect(hud.locator('pre')).toContainText('현재 계획을 세운 판단');
  await hud.locator('div>button').nth(4).click();await expect(hud.locator('pre')).toContainText('#5 ');
  await hud.getByRole('button',{name:'선택 봇 따라보기',exact:true}).click();
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().isBotDebugFollowing())).toBe(true);
@@ -20,8 +20,29 @@ test('practice HUD exposes 13 bots, real reasons, selection and camera follow, a
 });
 test('debug HUD stays absent without the flag and on production even with debug=1',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
- for(const url of ['/?experimentSeed=19','http://127.0.0.1:5312/?debug=1&experimentSeed=19']){
+ for(const url of ['/?spectate=1&experimentSeed=19','http://127.0.0.1:5312/?debug=1&spectate=1&experimentSeed=19']){
   await page.goto(url);await page.getByTestId('nickname').fill('검증');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#bot-debug-hud')).toHaveCount(0);
-  expect(await page.evaluate(()=>('__HEXHOLD_DIAGNOSTICS__' in window))).toBe(false);
+  expect(await page.evaluate(()=>('__HEXHOLD_DIAGNOSTICS__' in window))).toBe(false);await expect(page.locator('#population')).toContainText('사람 1 · 봇 13');
  }
+});
+
+test('14-bot spectator survives deaths, follows bots, pauses cleanly and disposes independently of human practice',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=19');await page.getByTestId('nickname').fill('관전');await page.getByTestId('practice').click();
+ const hud=page.locator('#bot-debug-hud');await expect(hud.locator('div>button')).toHaveCount(14);await expect(page.locator('#score')).toHaveText('봇 관전');await expect(page.locator('#population')).toContainText('사람 0 · 봇 14');
+ await hud.locator('div>button').nth(5).click();await hud.getByRole('button',{name:'선택 봇 따라보기',exact:true}).click();
+ const advanced=await page.evaluate(()=>{const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice();p.setPaused(true);const before=p.match.tick;p.advance(10000);if(p.match.tick!==before)throw Error('Paused spectator advanced');p.setPaused(false);p.advance(0);
+  for(let n=1;n<=1800;n++)p.advance(n*1000/p.match.config.simulationHz);p.setPaused(true);api.showPracticeView();
+  return {spectating:p.spectating,selfId:p.selfId,bots:p.match.participants.map((b:any)=>({kind:b.kind,deaths:b.deaths})),ticks:p.match.tick-before,phase:p.match.phase,enabled:api.enabled(),following:api.getScene().isBotDebugFollowing()};});
+ expect(advanced.spectating).toBe(true);expect(advanced.selfId).toBeNull();expect(advanced.bots).toHaveLength(14);expect(advanced.bots.every((b:any)=>b.kind==='BOT')).toBe(true);expect(advanced.bots.some((b:any)=>b.deaths>0)).toBe(true);
+ expect(advanced.ticks).toBe(1800);expect(advanced.phase).toBe('RUNNING');expect(advanced.enabled).toBe(false);expect(advanced.following).toBe(true);await expect(page.locator('#death')).toBeHidden();await expect(hud.locator('pre')).toContainText('현재 계획을 세운 판단');
+ await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);
+ const bounds=await hud.boundingBox();expect(bounds!.x).toBeGreaterThan(640);
+ await hud.locator('pre').scrollIntoViewIfNeeded();await page.screenshot({path:'evidence/bot-phase01/spectator.png'});
+ await hud.getByRole('button',{name:'전체 판 보기',exact:true}).click();expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().isBotDebugFollowing())).toBe(false);
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await expect(hud).toBeHidden();
+ await page.goto('/?debug=1&experimentSeed=19');await page.getByTestId('practice').click();
+ const normal=await page.evaluate(()=>{const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice();p.setPaused(true);const human=p.match.participants.find((b:any)=>b.kind==='HUMAN');human.lifeState='ELIMINATED';const tick=p.match.tick;p.setPaused(false);p.advance(0);p.advance(500);p.setPaused(true);return {tick,after:p.match.tick,spectating:p.spectating};});
+ expect(normal.spectating).toBe(false);expect(normal.after).toBe(normal.tick);
+ await hud.getByRole('button',{name:'14봇 관전 시작',exact:true}).click();await expect(hud.locator('div>button')).toHaveCount(14);expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().spectating)).toBe(true);expect(errors).toEqual([]);
 });

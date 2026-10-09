@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-09",
+  "baseCommit": "4d07624",
+  "branch": "codex/bot-ai-phase01",
+  "implementedReviewItems": [
+    1,
+    2,
+    3,
+    6
+  ],
+  "deferredReviewItems": [
+    4,
+    5
+  ],
+  "validation": {
+    "build": "passed",
+    "typecheck": "passed",
+    "vitest": {
+      "command": "npm test -- --maxWorkers=2",
+      "files": 81,
+      "passed": 491,
+      "failed": 0,
+      "initialConcurrentRun": "2 timeouts under CPU contention; complete limited-worker rerun passed"
+    },
+    "playwright": {
+      "command": "npm run test:bot-ai",
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "spectator": {
+    "gate": "debug=1 AND development/test",
+    "query": "spectate=1",
+    "humanCount": 0,
+    "botCount": 14,
+    "simulatedTicks": 1800,
+    "continuesAfterBotDeath": true,
+    "inputEnabled": false,
+    "cameraCenterErrorLessThan": 1
+  },
+  "planRecord": {
+    "preservesReasonAndCandidates": true,
+    "sameGoalReplansTracked": true,
+    "waypointConsumptionDoesNotReplace": true,
+    "lifeChangeInvalidates": true,
+    "betweenDecisionPerimeterRecoveryTracked": true,
+    "repeatedRecoveryDoesNotReplace": true,
+    "hudRngNoninterferenceRadii": [
+      22,
+      56
+    ]
+  },
+  "automaticTraits": [
+    "Coward",
+    "Gambler",
+    "Opportunist",
+    "Territorial"
+  ],
+  "futureTraitsDefinitionOnly": [
+    "Vengeful",
+    "Persistent"
+  ],
+  "screenshots": [
+    "hud.png",
+    "spectator.png"
+  ],
+  "growthAndPerformanceNumbers": "not rerun; summary.json remains the historical 4d07624 comparison"
+}

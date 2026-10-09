@@ -27,7 +27,7 @@ export function createBotMemory(seed:number,variant:BotVariant='combined',identi
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number}
 export interface ExpansionPlan {shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
-export interface BotDecisionTrace {reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};expansionScores?:{shape?:ExpansionShape;goal:BotGoal;score:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
+export interface BotDecisionTrace {planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};expansionScores?:{shape?:ExpansionShape;goal:BotGoal;score:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const decisionTraces=new WeakMap<BotMemory,BotDecisionTrace>();
 const shadowObservers=new WeakMap<BotMemory,boolean>();
@@ -361,13 +361,16 @@ export function botLookAhead(obs:BotObservation,goal:BotGoal):number {
 export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false):DirectionInput|null {
  if(obs.self.lifeState!=='ALIVE')return null;
  let finishTrace:(()=>void)|undefined,perimeterReturn=false;
+ const observer=botObservers.get(memory),planGoal=memory.goal,planTarget=memory.attackTarget,planSlot=memory.attackSlot;
+ let planChanged=memory.plannedLifeId!==obs.self.lifeId;
+ const setPath=(path:number[],force=false)=>{if(observer&&(force||path.length!==memory.path.length||path.some((id,i)=>id!==memory.path[i])))planChanged=true;memory.path=path;};
  const lifeChanged=memory.plannedLifeId!==obs.self.lifeId,fromGoal=memory.goal;
  const decisionReason:BotTickMetric['reason']=lifeChanged?'LIFE':memory.nextDecisionTick<=obs.tick-1?'URGENT':'REGULAR';
- if(memory.plannedLifeId!==obs.self.lifeId){memory.path=[];memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.knownHome.clear();memory.grievances.clear();memory.expansion=undefined;memory.lastExpansionShape=undefined;}
+ if(memory.plannedLifeId!==obs.self.lifeId){setPath([]);memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.knownHome.clear();memory.grievances.clear();memory.expansion=undefined;memory.lastExpansionShape=undefined;}
  if(memory.lastCell!==obs.self.cellId){memory.lastCell=obs.self.cellId;memory.lastProgressTick=obs.tick;}
  const due=obs.tick>=memory.nextDecisionTick;
  if(due){
-  const observer=botObservers.get(memory),trace:BotDecisionTrace|undefined=observer?{tick:obs.tick,from:memory.goal,to:memory.goal,ownTrail:obs.ownTrail.length,attackTarget:null,attacks:[]}:undefined;
+  const trace:BotDecisionTrace|undefined=observer?{tick:obs.tick,from:memory.goal,to:memory.goal,ownTrail:obs.ownTrail.length,attackTarget:null,attacks:[]}:undefined;
   if(trace)decisionTraces.set(memory,trace);
   if(trace&&shadowObservers.get(memory)!==false){trace.shadow=evaluateShadowOpportunities(obs,{path:shortestPath,seconds:shadowTravelSeconds});trace.shadow.goalBefore=memory.goal;}
   const interval=Math.max(1,Math.round(obs.config.botDecisionMs*obs.config.simulationHz/1000));
@@ -395,12 +398,12 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   const riskGrew=memory.expansion&&!memory.expansion.earlyClosed&&lineDistance<=5&&lineDistance+2<(memory.expansion.threatDistance??Infinity);
   const nearingBudget=obs.ownTrail.length>=settings.trailLimit-4;
   const early=obs.self.personality==='EXPAND'&&expanding&&!returnOnly&&!danger&&!counterStrike&&!stuck&&!homeLost&&(riskGrew||nearingBudget||pressuredExpansion)?earlyClosurePath(obs,memory.path,settings.trailLimit):null;
-  if(early){if(trace)trace.reason='EARLY_CLOSURE';memory.path=early;memory.goal='RETURN';memory.attackTarget=null;memory.attackSlot=null;if(memory.expansion)memory.expansion.earlyClosed=true;if(trace)trace.earlyClosure=true;}
-  if((memory.goal==='ESCAPE'||memory.goal==='RETURN')&&atHome&&!obs.ownTrail.length){memory.path=[];memory.goal='EXPAND';}
+  if(early){if(trace)trace.reason='EARLY_CLOSURE';setPath(early);memory.goal='RETURN';memory.attackTarget=null;memory.attackSlot=null;if(memory.expansion)memory.expansion.earlyClosed=true;if(trace)trace.earlyClosure=true;}
+  if((memory.goal==='ESCAPE'||memory.goal==='RETURN')&&atHome&&!obs.ownTrail.length){setPath([]);memory.goal='EXPAND';}
   // Escape is committed until home. Other opportunities cannot replace it.
   if(returnOnly||(danger&&!counterStrike)||(pressuredExpansion&&!counterStrike&&!early)||stuck||attackFinished||homeLost||(!atHome&&!memory.path.length)){
    if(trace){trace.reason=returnOnly?'RETURN_ONLY':stuck?'STUCK':homeLost?'HOME_ROUTE_LOST':danger&&!counterStrike?'DANGER':pressuredExpansion?'EXPANSION_PRESSURE':attackFinished?'TARGET_GONE':'NO_PATH';trace.safetyOverride=trace.reason;}
-   if(memory.goal!=='ESCAPE'||!memory.path.length||homeLost||stuck)memory.path=home??[];
+   if(memory.goal!=='ESCAPE'||!memory.path.length||homeLost||stuck)setPath(home??[]);
    if(trace&&attacking)trace.exitReason=returnOnly?'RETURN_ONLY':stuck?'STUCK':homeLost?'HOME_ROUTE_LOST':danger&&!counterStrike?'DANGER':!targetPresent?'TARGET_GONE':trace.attacks.find(a=>a.target===memory.attackTarget)?.reason??'NO_PLAN';
    memory.goal=danger||memory.goal==='ESCAPE'?'ESCAPE':'RETURN';memory.attackTarget=null;memory.attackSlot=null;
    if(stuck)memory.lastProgressTick=obs.tick;
@@ -408,17 +411,17 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   const shortDetour=attack&&attack.seconds<=1.25&&home&&attack.totalSeconds<=travelSeconds(obs,obs.self,home)+.85;
   if(attack&&!early&&(!danger||counterStrike)&&(memory.goal==='EXPAND'||memory.goal==='STEAL'||memory.goal==='SEEK_POINT'||(memory.goal==='RETURN'&&shortDetour)||(memory.goal==='ATTACK'&&!targetPresent))){
    if(trace){trace.reason=counterStrike&&danger?'COUNTER_STRIKE':'ATTACK_OPPORTUNITY';if(counterStrike&&danger)trace.safetyOverride='COUNTER_STRIKE';}
-   memory.path=attack.path;memory.goal='ATTACK';memory.attackTarget=attack.target;memory.attackSlot=attack.slot;
+   setPath(attack.path);memory.goal='ATTACK';memory.attackTarget=attack.target;memory.attackSlot=attack.slot;
   }
-  if(!memory.path.length&&returnOnly){const safe=obs.map.cells[obs.self.cellId].neighbors.filter(id=>obs.owners[id]===obs.self.slot+1);if(safe.length)memory.path=[safe[Math.floor(memory.random()*safe.length)]];}
-  if(!memory.path.length&&!returnOnly&&atHome)memory.path=planExpansion(obs,memory);
+  if(!memory.path.length&&returnOnly){const safe=obs.map.cells[obs.self.cellId].neighbors.filter(id=>obs.owners[id]===obs.self.slot+1);if(safe.length)setPath([safe[Math.floor(memory.random()*safe.length)]],true);}
+  if(!memory.path.length&&!returnOnly&&atHome)setPath(planExpansion(obs,memory),true);
   // No useful expansion: patrol an owned cell in front, never aim at (0,0).
   if(!memory.path.length){
    const safe=obs.map.cells[obs.self.cellId].neighbors.filter(id=>id>=0&&obs.owners[id]===obs.self.slot+1);
    safe.sort((a,b)=>{const score=(id:number)=>{const c=obs.map.cells[id].center,d=normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;return d.x*obs.self.direction.x+d.y*obs.self.direction.y;};return score(b)-score(a);});
-   if(safe.length){memory.path=[safe[0]];if(trace)trace.reason='HOME_PATROL';}
+   if(safe.length){setPath([safe[0]],true);if(trace)trace.reason='HOME_PATROL';}
   }
-  if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.to=memory.goal;trace.attackTarget=memory.attackTarget;trace.attackSlot=memory.attackSlot;trace.personality=obs.self.personality;trace.pathLength=memory.path.length;trace.traits=memory.traits;trace.lookAheadUsed=perimeterReturn||!target?1:Math.max(1,memory.path.findIndex(id=>obs.map.cells[id].center===target)+1);
+  if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.planChanged=planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot;trace.to=memory.goal;trace.attackTarget=memory.attackTarget;trace.attackSlot=memory.attackSlot;trace.personality=obs.self.personality;trace.pathLength=memory.path.length;trace.traits=memory.traits;trace.lookAheadUsed=perimeterReturn||!target?1:Math.max(1,memory.path.findIndex(id=>obs.map.cells[id].center===target)+1);
    trace.reason=perimeterReturn?'PERIMETER_GUARD':trace.reason??(memory.goal==='ESCAPE'?'ESCAPE_COMMITMENT':'PLAN_CONTINUE');if(perimeterReturn)trace.safetyOverride='PERIMETER_GUARD';
    const shadow=trace.shadow;if(shadow){const clear=shadow.candidates.filter(c=>c.reason==='CLEAR_KILL_OPPORTUNITY');shadow.selectedGoal=memory.goal;shadow.selectedTarget=memory.attackTarget;
    shadow.missed=clear.length>0&&!(memory.goal==='ATTACK'&&clear.some(c=>c.target===memory.attackTarget&&c.slot===memory.attackSlot));
@@ -443,10 +446,12 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   if(!safe(direction)){
    const alternatives=obs.map.cells[obs.self.cellId].neighbors.filter(id=>id>=0).map(id=>{const c=obs.map.cells[id].center;return normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;});
    alternatives.sort((a,b)=>(b.x*direction.x+b.y*direction.y)-(a.x*direction.x+a.y*direction.y));
-   const escape=alternatives.find(safe);if(escape){direction=escape;memory.path=[];memory.goal='RETURN';memory.nextDecisionTick=obs.tick;perimeterReturn=true;}
+   const escape=alternatives.find(safe);if(escape){direction=escape;setPath([]);memory.goal='RETURN';memory.nextDecisionTick=obs.tick;perimeterReturn=true;}
   }
  }
  if(perimeterReturn){memory.attackTarget=null;memory.attackSlot=null;}
+ // Perimeter recovery can happen between tactical decisions; record that real override too.
+ if(perimeterReturn&&!due&&observer&&shadowObservers.get(memory)===false)observer({tick:obs.tick,from:planGoal,to:memory.goal,planChanged:planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot,reason:'PERIMETER_GUARD',safetyOverride:'PERIMETER_GUARD',ownTrail:obs.ownTrail.length,attackTarget:null,attackSlot:null,attacks:[],pathLength:0});
  finishTrace?.();
  if(due)tickObservers.get(memory)?.({tick:obs.tick,slot:obs.self.slot,lifeId:obs.self.lifeId,goal:memory.goal,from:fromGoal,reason:decisionReason,nextDecisionTick:memory.nextDecisionTick,attackTarget:memory.attackTarget,attackSlot:memory.attackSlot});
  if(!direction)return null;
