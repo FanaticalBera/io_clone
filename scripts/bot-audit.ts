@@ -1,8 +1,11 @@
 import {createMatch,stepMatch} from '../src/shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../src/shared/bot.js';
-const reports=[];
+import {botSpecs} from '../tests/bot-fixtures.js';
+import {createBotIdentity} from '../src/shared/bot-identity.js';
+import {botSpecs as liveBotSpecs,createBotMemory,getBotInput,observeBot} from '../src/shared/bot.js';
+const phase01=process.argv.includes('--phase01');
+const reports=[],count=Number(process.argv.find(arg=>arg.startsWith('--bots='))?.split('=')[1]??8);
 for(const seed of [4,19,73]){
- const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map((p,i)=>createBotMemory(seed+i));
+ const match=createMatch({},seed,phase01?liveBotSpecs(count,0,'bot',{seed}):botSpecs(count)),memories=match.participants.map((p,i)=>createBotMemory(seed+i,'combined',phase01?createBotIdentity(seed+i,p.personality!):undefined));
  let captures=0,gained=0,walls=0;
  for(let tick=0;tick<3600;tick++){
   const before=match.eventCounter,inputs=new Map();

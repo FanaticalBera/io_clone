@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,plannedCapture,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,plannedCapture,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {expansionSides,EXPANSION_SHAPES} from '../../src/shared/bot-expansion.js';
 import {hexDistance} from '../../src/shared/hex.js';
 import {createHash} from 'node:crypto';

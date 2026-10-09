@@ -2,13 +2,16 @@ import {BotOutcomeTracker,summarizeAttackEpisodes} from '../tests/bot-outcome-tr
 import {BotExpansionTracker} from '../tests/bot-expansion-tracker.js';
 import type {BotDecisionTrace} from '../src/shared/bot.js';
 import {createMatch,stepMatch} from '../src/shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
+import {botSpecs} from '../tests/bot-fixtures.js';
+import {createBotIdentity} from '../src/shared/bot-identity.js';
+import {botSpecs as liveBotSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
 import {hexDistance} from '../src/shared/hex.js';
 
 // Normal spawns and shared simulation only. Run the same seeds before/after.
-const reports=[];
+const phase01=process.argv.includes('--phase01');
+const reports=[],count=Number(process.argv.find(arg=>arg.startsWith('--bots='))?.split('=')[1]??8);
 for(const seed of (process.argv.includes('--extended')?[4,19,73,115,17,81,32,123]:[4,19,73])){
- const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map((_,i)=>createBotMemory(seed+i));
+ const match=createMatch({},seed,phase01?liveBotSpecs(count,0,'bot',{seed}):botSpecs(count)),memories=match.participants.map((p,i)=>createBotMemory(seed+i,'combined',phase01?createBotIdentity(seed+i,p.personality!):undefined));
  const trackers=memories.map(()=>new BotOutcomeTracker()),latest:(BotDecisionTrace|undefined)[]=memories.map(()=>undefined);
  const expansions=memories.map(()=>new BotExpansionTracker()),lastLargeSteal=memories.map(()=>-Infinity),largeConsecutiveSteals=memories.map(()=>0),exposedDeaths=memories.map(()=>0);
  const stats=match.participants.map(p=>({personality:p.personality,frames:0,exposure:0,homeDistance:0,captures:0,gained:0,stolen:0,entered:0,exited:0,retargeted:0,attackFrames:0,escapes:0,returns:0,walls:0,reasons:{} as Record<string,number>}));

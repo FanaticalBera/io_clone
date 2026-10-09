@@ -17,7 +17,8 @@
     "test:territory-effects": "playwright test --config playwright.territory-effects.config.ts",
     "build": "npm run typecheck && tsc -p tsconfig.server.json && vite build",
     "start": "node dist/server/server/index.js",
-    "test:run": "playwright test --config playwright.run.config.ts"
+    "test:run": "playwright test --config playwright.run.config.ts",
+    "test:bot-ai": "playwright test --config playwright.bot-ai.config.ts"
   },
   "dependencies": {
     "express": "5.2.1",

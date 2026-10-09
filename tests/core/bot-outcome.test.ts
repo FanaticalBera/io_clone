@@ -1,7 +1,8 @@
 import {it,expect} from 'vitest';
 import {BotOutcomeTracker} from '../bot-outcome-tracker.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory} from '../../src/shared/bot.js';
+import {createBotMemory} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {addTrail} from '../../src/shared/territory.js';
 function fixture(){
  const m=createMatch({},4,botSpecs(3)),[p,v]=m.participants,memory=createBotMemory(4),tracker=new BotOutcomeTracker();

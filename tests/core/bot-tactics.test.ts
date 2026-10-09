@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {createBotMemory,getBotInput,observeBot,botSpecs} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {neutralizeTerritory,setOwner,addTrail} from '../../src/shared/territory.js';
 import {hexDistance} from '../../src/shared/hex.js';
 

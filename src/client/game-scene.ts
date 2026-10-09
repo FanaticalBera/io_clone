@@ -21,7 +21,9 @@ export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
- private boundaryHighlight=true;
+ private boundaryHighlight=true;private botDebugFollowId:string|null=null;
+ setBotDebugFollow(id:string|null):void{this.botDebugFollowId=id;if(this.created&&this.view)this.drawView(this.view,false);}
+ isBotDebugFollowing():boolean{return this.botDebugFollowId!==null;}
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
  private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
@@ -186,7 +188,7 @@ export class GameScene extends Phaser.Scene {
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
    avatar.shield.setVisible(p.protected);
-   if(p.participantId===this.selfId){
+   if(p.participantId===(this.botDebugFollowId??this.selfId)){
     // startFollow recenters immediately; restarting it for every snapshot causes camera shake.
     if(this.followTarget!==avatar.container){this.followTarget=avatar.container;this.cameras.main.startFollow(avatar.container,false,1,1);}
    }

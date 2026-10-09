@@ -1,7 +1,8 @@
 import {it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 
 // Frozen pre-experiment timing regression, explicitly baseline. Combined
 // scheduling is evaluated separately in experiment behavior evidence.

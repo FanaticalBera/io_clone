@@ -6,7 +6,8 @@ import {emptyProfile,migrateProfile} from '../../src/client/profile.js';
 import {purchaseItem,equipItem} from '../../src/client/inventory.js';
 import {markerArt} from '../../src/client/marker-art.js';
 import {createMatch,buildView,stepMatch} from '../../src/shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 const specs=[{participantId:'h',slot:0,nickname:'Human',kind:'HUMAN' as const},...botSpecs(15,1)];
 const colored=MARKER_COLORS.filter(c=>c.value!==null);
 describe('Player Color V2 presentation',()=>{

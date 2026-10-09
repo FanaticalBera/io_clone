@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-09",
+  "branch": "codex/bot-ai-phase01",
+  "scope": "PRD phases 0+1",
+  "audit": {
+    "mapRadius": 56,
+    "participants": 14,
+    "humanCount": 0,
+    "seeds": [
+      4,
+      19,
+      73
+    ],
+    "ticks": 3600,
+    "before": {
+      "captures": 1850,
+      "gained": 27439,
+      "deaths": 32,
+      "walls": 0,
+      "meanCapture": 14.831891891891892
+    },
+    "after": {
+      "captures": 1943,
+      "gained": 26450,
+      "deaths": 26,
+      "walls": 0,
+      "meanCapture": 13.612969634585692
+    }
+  },
+  "feel": {
+    "mapRadius": 56,
+    "participants": 14,
+    "seeds": [
+      4,
+      19,
+      73
+    ],
+    "ticks": 900,
+    "before": {
+      "EXPAND": {
+        "samples": 12,
+        "captures": 90,
+        "gained": 2639,
+        "stolen": 2,
+        "kills": 1,
+        "deaths": 1,
+        "exposure": 77855,
+        "frames": 10710,
+        "attacks": 4,
+        "gainedPerBot": 219.91666666666666,
+        "meanExposure": 7.26937441643324
+      },
+      "ATTACK": {
+        "samples": 12,
+        "captures": 129,
+        "gained": 1744,
+        "stolen": 25,
+        "kills": 0,
+        "deaths": 0,
+        "exposure": 47438,
+        "frames": 10800,
+        "attacks": 2,
+        "gainedPerBot": 145.33333333333334,
+        "meanExposure": 4.392407407407408
+      },
+      "DEFEND": {
+        "samples": 9,
+        "captures": 117,
+        "gained": 1381,
+        "stolen": 0,
+        "kills": 0,
+        "deaths": 1,
+        "exposure": 28418,
+        "frames": 8010,
+        "attacks": 0,
+        "gainedPerBot": 153.44444444444446,
+        "meanExposure": 3.5478152309612985
+      },
+      "SEEK_POINT": {
+        "samples": 9,
+        "captures": 97,
+        "gained": 1486,
+        "stolen": 20,
+        "kills": 1,
+        "deaths": 0,
+        "exposure": 41193,
+        "frames": 8100,
+        "attacks": 1,
+        "gainedPerBot": 165.11111111111111,
+        "meanExposure": 5.085555555555556
+      }
+    },
+    "after": {
+      "ATTACK": {
+        "samples": 11,
+        "captures": 125,
+        "gained": 1682,
+        "stolen": 9,
+        "kills": 1,
+        "deaths": 0,
+        "exposure": 44647,
+        "frames": 9900,
+        "attacks": 2,
+        "gainedPerBot": 152.9090909090909,
+        "meanExposure": 4.5097979797979795
+      },
+      "SEEK_POINT": {
+        "samples": 10,
+        "captures": 104,
+        "gained": 1604,
+        "stolen": 2,
+        "kills": 0,
+        "deaths": 0,
+        "exposure": 44853,
+        "frames": 9000,
+        "attacks": 1,
+        "gainedPerBot": 160.4,
+        "meanExposure": 4.983666666666666
+      },
+      "EXPAND": {
+        "samples": 9,
+        "captures": 66,
+        "gained": 1871,
+        "stolen": 19,
+        "kills": 0,
+        "deaths": 1,
+        "exposure": 55651,
+        "frames": 8010,
+        "attacks": 0,
+        "gainedPerBot": 207.88888888888889,
+        "meanExposure": 6.947690387016229
+      },
+      "DEFEND": {
+        "samples": 12,
+        "captures": 153,
+        "gained": 1861,
+        "stolen": 8,
+        "kills": 0,
+        "deaths": 0,
+        "exposure": 38818,
+        "frames": 10800,
+        "attacks": 1,
+        "gainedPerBot": 155.08333333333334,
+        "meanExposure": 3.594259259259259
+      }
+    }
+  },
+  "death": {
+    "mapRadius": 22,
+    "participants": 14,
+    "games": 16,
+    "ticks": 3600,
+    "before": {
+      "deaths": 754,
+      "failures": 0
+    },
+    "after": {
+      "deaths": 756,
+      "failures": 0
+    },
+    "note": "Audit boundary check aligned to actual padded boundary; game rules unchanged."
+  },
+  "medium": {
+    "mapRadius": 22,
+    "spawnRadius": 2,
+    "participants": 2,
+    "cases": 16,
+    "beforeConfirmedCuts": 16,
+    "afterConfirmedCuts": 16
+  },
+  "performance": {
+    "before": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": false,
+      "msPerTick": [
+        2.4467398888888883,
+        2.8077172777777784,
+        2.770699000000001
+      ],
+      "medianMsPerTick": 2.770699000000001
+    },
+    "after": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": false,
+      "msPerTick": [
+        2.476043666666667,
+        2.8901023888888884,
+        2.7780852222222236
+      ],
+      "medianMsPerTick": 2.7780852222222236
+    },
+    "hud": {
+      "ticksPerRun": 1800,
+      "bots": 14,
+      "hud": true,
+      "msPerTick": [
+        2.548270666666667,
+        2.8545287777777775,
+        2.9202080555555563
+      ],
+      "medianMsPerTick": 2.8545287777777775
+    },
+    "note": "Sequential local full-observation simulation, 1 warm-up + 3 measured batches. HUD includes trace collection and 8-tick snapshots, excludes browser rendering. Not a multi-room server budget."
+  },
+  "checks": {
+    "existingAndCoreTests": 485,
+    "additionalServerTests": 2,
+    "browserTests": 2,
+    "typecheck": "passed",
+    "build": "passed",
+    "hudNoninterference": "passed R22/R56",
+    "archetypeBounds": "passed all allowed combinations"
+  }
+}

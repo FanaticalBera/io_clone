@@ -1,7 +1,7 @@
 import {it,expect} from 'vitest';
 import {runLargeWorld,statistics,inspectInitialPlacement} from '../../scripts/large-world-audit.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 it('large-world accounting preserves deterministic normal gameplay and reports unobserved scans as null',()=>{
  const a=runLargeWorld(56,16,4,.1),b=runLargeWorld(56,16,4,.1);expect(a.hash).toBe(b.hash);expect(a.durationSeconds).toBe(6);expect(a.timing.tick!.n).toBe(180);expect(a.snapshot.bytes.n).toBe(6);expect(a.timing.sampledSpawnScan).toBeNull();expect(a.violations).toEqual([]);
  expect(a.initial).toMatchObject({owned:112,neutral:9465,overlaps:0,outOfMap:0,invalidZones:0,controlPointOverlaps:0});expect(a.initial.minDistance).toBeGreaterThan(4);expect(a.snapshot.bytesPerSecondPerClient).toBe(a.snapshot.bytes.mean*10);

@@ -1,7 +1,8 @@
 import {it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {botSteeringTarget} from '../../src/shared/bot-steering.js';
 
 function fixture(){

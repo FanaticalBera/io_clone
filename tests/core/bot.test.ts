@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {createBotMemory,observeBot,getBotInput,returnPath,botSpecs,plannedCapture} from '../../src/shared/bot.js';
+import {createBotMemory,observeBot,getBotInput,returnPath,plannedCapture} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {setOwner,addTrail} from '../../src/shared/territory.js';
 describe('T14: shared bot navigation',()=>{
  it('limits enemy observation and keeps future/session state out',()=>{

@@ -1,6 +1,6 @@
 import {describe,it,expect,vi} from 'vitest';
 import {createMatch} from '../../src/shared/game.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
 import {markDead} from '../../src/shared/life.js';
 import {region,hexDistance} from '../../src/shared/hex.js';

@@ -1,7 +1,8 @@
 import {it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import type {DirectionInput} from '../../src/shared/model.js';
 
 it.each([4,19,73,115,17,81,32,123])('seed %s: bots cut a normally spawned idle human before it reaches the opposite wall',seed=>{

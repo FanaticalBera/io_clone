@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {createBotMemory,observeBot,getBotInput,botSpecs} from '../../src/shared/bot.js';
+import {createBotMemory,observeBot,getBotInput} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {addTrail} from '../../src/shared/territory.js';
 import type {Personality} from '../../src/shared/model.js';
 describe('T15: personalities perform the same game rules',()=>{

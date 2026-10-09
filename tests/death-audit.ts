@@ -1,6 +1,10 @@
+import {boundaryGeometry} from '../src/shared/wall-margin.js';
+import {botSpecs as liveBotSpecs} from '../src/shared/bot.js';
+import {createBotIdentity} from '../src/shared/bot-identity.js';
 import {stepMatch} from '../src/shared/game.js';
 import {createMatch} from './baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
+import {botSpecs} from './bot-fixtures.js';
 import {summarizeOpportunities,type ShadowOpportunity} from '../src/shared/bot-opportunity.js';
 import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
 import {watchCaptureResolution,type CaptureResolutionTrace} from '../src/shared/engine.js';
@@ -14,9 +18,10 @@ function distanceToSegment(p:Vec,a:Vec,b:Vec):number {
 }
 // All positions, territories and trails here emerge from normal spawns,
 // ordinary input and stepMatch. No setOwner/addTrail or direct state setup.
-export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false){
- const specs=mixed?[{participantId:'human-0',slot:0,nickname:'H0',kind:'HUMAN' as const},{participantId:'human-1',slot:1,nickname:'H1',kind:'HUMAN' as const},...botSpecs(6,2)]:botSpecs(8);
- const m=createMatch({},seed,specs),memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(seed+p.slot)]));
+export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false,total=8,phase01=false){
+ const humans=mixed?[{participantId:'human-0',slot:0,nickname:'H0',kind:'HUMAN' as const},{participantId:'human-1',slot:1,nickname:'H1',kind:'HUMAN' as const}]:[];
+ const specs=[...humans,...(phase01?liveBotSpecs(total-humans.length,humans.length,'bot',{seed,existing:humans}):botSpecs(total-humans.length,humans.length))];
+ const m=createMatch({maxSlots:total},seed,specs),memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(seed+p.slot,'combined',phase01&&p.kind==='BOT'?createBotIdentity(seed+p.slot,p.personality!):undefined)]));
  const deaths:DeathTrace[]=[],captures:CaptureResolutionTrace[]=[],failures:string[]=[],seen=new Set<string>(),frozen=new Map<string,{lifeId:number;position:Vec}>();
  const origins=new Map(m.participants.map(p=>[p.participantId,{...m.map.cells[p.cellId]}])),lifeIds=new Map(m.participants.map(p=>[p.participantId,p.lifeId])),legs=new Map<string,number>();
  watchDeaths(m,trace=>deaths.push(trace));watchCaptureResolution(m,trace=>captures.push(trace));
@@ -56,7 +61,7 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false){
     }
     if(trace.context?.cause==='TRAIL_CAPTURE')check(captures.some(c=>c.tick===trace.tick&&c.participants.some(v=>v.participantId===p.participantId&&v.trailCells.includes(trace.context!.cellId)&&v.claimedTrailCells.includes(trace.context!.cellId))),'capture without trail '+key);
    }else if(trace.reason==='TERRITORY_LOST')check(trace.ownerCells===0,'territory death with land '+key);
-   else if(trace.reason==='WALL_HIT')check(m.map.boundaryEdges.some(e=>distanceToSegment(trace.position,e.a,e.b)<.01),'wall death away from boundary '+key);
+   else if(trace.reason==='WALL_HIT')check(boundaryGeometry(m.map).edges.some(e=>distanceToSegment(trace.position,e.a,e.b)<.01),'wall death away from boundary '+key);
    else check(false,'unknown death reason '+trace.reason);
    check((p.lifeState===(p.kind==='HUMAN'?'ELIMINATED':'DEAD_WAIT'))&&p.trailCells.size===0&&p.territoryCount===0&&!m.trailMasks.some(mask=>(mask&(1<<p.slot))!==0),'death cleanup '+key);
    check(m.events.filter(e=>e.type==='DEATH'&&e.participantId===p.participantId&&Number(e.eventId.split(':').at(-1))>eventCounter).length===1,'death event count '+key);

@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,type BotObservation,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,type BotObservation,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import type {Personality} from '../../src/shared/model.js';
 
 // Controlled PUBLIC observations isolate scoring. Actual cuts and life/return

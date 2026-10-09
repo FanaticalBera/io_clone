@@ -1,4 +1,6 @@
-import {createMatch,stepMatch} from '../src/shared/game.js';
+import {createBotIdentity} from '../src/shared/bot-identity.js';
+import {stepMatch} from '../src/shared/game.js';
+import {createMatch} from '../tests/baseline.js';
 import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../src/shared/bot.js';
 import {axialToWorld} from '../src/shared/hex.js';
 import {normalizeDirection} from '../src/shared/movement.js';
@@ -10,7 +12,7 @@ for(const personality of ['DEFEND','ATTACK','EXPAND','SEEK_POINT'] as const)for(
  [[-2,2],[-4,2],[-5,3],[-5,1],[-3,-1],[0,0]],
 ]){
  const match=createMatch({},115,[{participantId:'human',slot:0,nickname:'H',kind:'HUMAN'},{participantId:'bot',slot:1,nickname:'B',kind:'BOT',personality}]);
- const [human,bot]=match.participants,origin=match.map.cells[human.cellId],memory=createBotMemory(7),traces:BotDecisionTrace[]=[],samples:unknown[]=[];
+ const [human,bot]=match.participants,origin=match.map.cells[human.cellId],memory=createBotMemory(7,'combined',process.argv.includes('--phase01')?createBotIdentity(7,personality):undefined),traces:BotDecisionTrace[]=[],samples:unknown[]=[];
  watchBotDecisions(memory,trace=>{if(human.trailCells.size)traces.push(trace);});
  let index=0,seq=0,maxTrail=0;
  while(match.tick<500&&human.lifeId===1&&human.lifeState==='ALIVE'&&index<route.length){
