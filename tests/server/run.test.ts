@@ -19,7 +19,7 @@ describe('online Run results and explicit retry',()=>{
    const a=await f.client(),b=await f.client();await a.request('room:create',{nickname:'A'});
    const room=[...f.rooms.rooms.values()][0];await b.request('room:join',{nickname:'B',code:room.code});await a.request('room:start');now=3000;f.loop.pump();
    await until(()=>a.snapshots.length>0&&b.snapshots.length>0);const m=room.match!;
-   const self=m.participants.find(p=>p.kind==='HUMAN'&&p.nickname==='A')!,other=m.participants.find(p=>p.nickname==='B')!,bot=m.participants.find(p=>p.slot===15)!;
+   const self=m.participants.find(p=>p.kind==='HUMAN'&&p.nickname==='A')!,other=m.participants.find(p=>p.nickname==='B')!,bot=m.participants.find(p=>p.slot===m.config.maxSlots-1)!;
    markDead(m,self,'TRAIL_CUT',other);markDead(m,bot,'WALL_HIT');const result=structuredClone(self.run!.result)!;
    f.loop.publishSnapshot(room,false,true);await until(()=>a.snapshots.some(s=>s.participants.find(p=>p.participantId===self.participantId)?.lifeState==='ELIMINATED'));
    a.socket.emit('input:direction',{matchId:m.matchId,lifeId:1,seq:999,dx:1,dy:0});await new Promise(r=>setTimeout(r,30));expect(room.inputs.has(self.participantId)).toBe(false);
