@@ -19,7 +19,7 @@ export class PracticeSession {
  constructor(nickname:string,private publish:(view:MatchView,selfId:string)=>void,config:Partial<GameConfig>={},options:{safeBotRespawn?:boolean;seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;botVariant?:BotVariant;wallMargin?:boolean}={}){
   const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
   this.match=createMatch(config,seed,[{participantId:this.selfId,slot:0,nickname,kind:'HUMAN'},...botSpecs(validateConfig(config).maxSlots-1,1,matchId)],matchId,options.gameMode);
-  setSafeBotRespawn(this.match,(import.meta.env.DEV||import.meta.env.MODE==='test')&&options.safeBotRespawn===true);
+  setSafeBotRespawn(this.match,!(import.meta.env.DEV||import.meta.env.MODE==='test')||options.safeBotRespawn!==false);
   if(options.wallMargin!==undefined)setWallMargin(this.match.map,options.wallMargin);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(seed^(p.slot*2654435761),options.botVariant));
   if(options.diagnostics){

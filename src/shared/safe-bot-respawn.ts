@@ -1,5 +1,5 @@
 import type {MatchState,Participant} from './model.js';
-// Explicit development/fixture switch; absent from config, snapshots and Production defaults.
+// Runtime switch for application entry points; baseline override is development-only.
 const enabled=new WeakSet<MatchState>();
 export function setSafeBotRespawn(match:MatchState,on:boolean):void {if(on)enabled.add(match);else enabled.delete(match);}
 export function safeBotRespawn(match:MatchState,p?:Participant):boolean {return enabled.has(match)&&p?.kind==='BOT'&&p.deaths>0;}
@@ -18,7 +18,8 @@ export function coreDistance(zone:ReadonlySet<number>|readonly number[],distance
  return Number.isFinite(best)?best:null;
 }
 export function experimentalSafeRespawn(value:string|null,development:boolean):boolean {
- if(!development||value===null||value==='baseline')return false;
+ if(!development||value===null)return true;
+ if(value==='baseline')return false;
  if(value==='territory-safe')return true;
  throw new Error('respawnMode는 baseline / territory-safe만 사용할 수 있어요.');
 }

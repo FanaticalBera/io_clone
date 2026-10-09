@@ -1,8 +1,8 @@
 import {test,expect} from '@playwright/test';
-for(const mode of ['baseline','territory-safe'])test(`Practice ${mode}: death-only rule and blocked/retry recovery`,async({page})=>{
+for(const mode of ['baseline','territory-safe','default'])test(`Practice ${mode}: death-only rule and blocked/retry recovery`,async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
- await page.goto(`/?respawnMode=${mode}&experimentSeed=1`);await page.getByTestId('nickname').fill('Respawn');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();
+ await page.goto(mode==='default'?'/?experimentSeed=1':`/?respawnMode=${mode}&experimentSeed=1`);await page.getByTestId('nickname').fill('Respawn');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();
  const result=await page.evaluate(async()=>{
   const api=(window as any).__HEXHOLD_TEST__,practice=api.getPractice();practice.setPaused(true);const m=practice.match,h=m.participants[0],p=m.participants[13];
   const load=(path:string)=>new Function('path','return import(path)')(path);
@@ -20,11 +20,11 @@ for(const mode of ['baseline','territory-safe'])test(`Practice ${mode}: death-on
   api.showPracticeView();return {initial,before,first,recovered,due};
  });
  expect(result.initial).toEqual({participants:14,bots:13,cells:9577,spawnCells:7,respawn:3,retry:1,mode:'classic'});expect(result.before).toBe('DEAD_WAIT');
- if(mode==='territory-safe'){expect(result.first).toMatchObject({state:'SPAWN_BLOCKED',retryTick:result.due+30,valid:0});expect(result.recovered).toMatchObject({waiting:'SPAWN_BLOCKED',state:'ALIVE',cells:7});expect(result.recovered!.center).toBe(result.recovered!.expectedCenter);}
+ if(mode!=='baseline'){expect(result.first).toMatchObject({state:'SPAWN_BLOCKED',retryTick:result.due+30,valid:0});expect(result.recovered).toMatchObject({waiting:'SPAWN_BLOCKED',state:'ALIVE',cells:7});expect(result.recovered!.center).toBe(result.recovered!.expectedCenter);}
  else{expect(result.first).toMatchObject({state:'ALIVE',cells:7});expect(result.recovered).toBeNull();}
  await page.screenshot({path:`.local/safe-respawn-${mode}.png`});expect(errors).toEqual([]);
 });
-for(const mode of ['territory-safe','invalid'])test(`Production ignores respawnMode=${mode}`,async({page})=>{
+for(const mode of ['baseline','invalid'])test(`Production ignores the development override respawnMode=${mode}`,async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  await page.goto(`http://127.0.0.1:5311/?respawnMode=${mode}&experimentSeed=1`);await page.getByTestId('nickname').fill('Production');await page.getByTestId('practice').click();
  await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#score-detail')).toContainText('/ 9577칸');await expect(page.locator('#field')).toHaveAttribute('data-avatars','14');

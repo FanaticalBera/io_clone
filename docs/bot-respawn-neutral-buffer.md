@@ -1,11 +1,11 @@
 # BOT 중립 3겹 재스폰 자동 검사
 
 브랜치: `codex/bot-respawn-neutral-buffer`. 기준 코드: master `795faf9`.
-별도 작업 공간에서 구현했으며 master에는 반영하지 않았다.
+별도 작업 공간에서 구현·검증한 뒤, 사용자의 후속 적용 요청에 따라 Practice와 온라인 경기의 기본 동작으로 활성화하여 master에 통합한다. 최초 개발 단계에서는 개발용 옵션으로만 활성화했다.
 
 ## 구현
 
-개발용 Practice에서 `respawnMode=territory-safe`를 명시했을 때 사망한 BOT의 mid-match respawn에만 적용한다. 모든 소유자 ID를 동일하게 취급하여 지급 전 7칸 core에서 기존 owned territory까지의 최소 hex 거리를 4 이상으로 요구한다. 실제 지급은 7칸이며 바깥 3겹은 중립으로 남는다.
+Practice와 공개·친구방 온라인 경기에서 사망한 BOT의 mid-match respawn에 기본 적용한다. 모든 소유자 ID를 동일하게 취급하여 지급 전 7칸 core에서 기존 owned territory까지의 최소 hex 거리를 4 이상으로 요구한다. 실제 지급은 7칸이며 바깥 3겹은 중립으로 남는다.
 
 3겹은 playable cell이어야 한다. 중심 R4 영역의 61칸 중 맵 밖 `-1`이 하나라도 있으면 후보에서 제외한다. 이는 맵 밖을 중립으로 세어 가장자리에서 조건을 완화하지 않기 위한 선택이다. R56에서 이 가장자리 검사로 1,308개 center가 제외된다. 추가 영역에는 별도의 Trail 거리 점수나 영토 지급을 적용하지 않는다.
 
@@ -33,22 +33,24 @@ HUMAN/BOT 두 owner의 셀을 번갈아 배정했고 두 owner의 head는 소유
 
 ## 회귀 검증
 
-신규 핵심 테스트 19개, 기존 spawn / initial spawn / life / run / Practice / config / large-world / server room 회귀 테스트 71개가 통과했다. 브라우저 테스트 4개도 통과했다. client / server / tests TypeScript 검사와 별도 경로의 Production client 빌드가 성공했다.
+핵심·연결 테스트 24개와 기존 spawn / initial spawn / life / run / Practice / config / large-world / server room / reconnect / transport 회귀 테스트 88개가 통과했다. 브라우저 테스트 5개를 합쳐 총 117개가 통과했다. client / server / tests TypeScript 검사와 Production client / server 빌드가 성공했다.
 
 - 3초 대기 전에는 부활을 시도하지 않는다. R3 중립 구멍에서는 차단되며, 1초 재시도 시점 이전에는 다시 시도하지 않는다. 이후 R4 공간을 열면 다음 시점에 정상 부활한다.
 - HUMAN 소유 셀과 BOT 소유 셀의 후보 판정이 동일하다. 같은 tick에서 먼저 부활한 BOT의 새 영토도 다음 BOT의 거리 검사에 포함된다.
 - 기존 head / Trail / reserved / control point / neutral core 조건과 safety 우선 ranking을 확인했다.
-- 초기 상태 및 HUMAN Retry 이후 전체 상태가 baseline과 동일하다. 기본/명시적 baseline의 spawn 결과도 동일하며 기존 trajectory hash 회귀 테스트가 통과했다.
+- 초기 상태 및 HUMAN Retry 이후 전체 상태가 baseline과 동일하다. 명시적 개발용 baseline의 spawn 결과도 동일하며 기존 trajectory hash 회귀 테스트가 통과했다.
 - 실제 개발용 Practice에서 baseline은 R3 공간에 부활하고 territory-safe는 차단된 뒤 R4 공간에서 회복한다. 두 모드 모두 1 HUMAN + BOT 13, R56, Classic, 지급 7칸, 대기 3초, 재시도 1초다.
-- Production 빌드는 territory-safe 또는 잘못된 respawnMode query를 무시하고 기존 Practice를 시작한다.
+- Production Practice는 개발용 baseline override 또는 잘못된 respawnMode query를 무시하고 새 규칙을 기본 적용한다. 직접 생성자에 baseline 옵션을 전달해도 Production에서는 새 규칙을 사용한다.
+- 실제 공개·친구방 RoomManager의 초기 전체 상태는 baseline createMatch 결과와 동일하다. HUMAN Retry와 접속 종료에 따른 대체 BOT 첫 spawn은 기존 경로를 유지하고, 사망한 BOT에게만 새 규칙이 활성화된다. 온라인 차단 후 회복과 Trail 안전성도 검증했다.
 
 ## Production과 직접 플레이
 
-새 동작은 명시적인 Development/Test Practice 옵션이다. Production의 기본 재스폰과 온라인 서버 경로는 baseline을 유지한다. AI, personality, 이동, capture, death, 단절, 승리 조건, 보상, UI와 기본 참가자 수는 수정하지 않았다.
+새 동작은 Development / Production Practice와 온라인 경기의 기본 규칙이다. 기존 baseline 비교는 Development/Test Practice의 `respawnMode=baseline`에서만 가능하다. Production은 이 override를 무시한다. AI, personality, 이동, capture, death, 단절, 승리 조건, 보상, UI와 기본 참가자 수는 수정하지 않았다.
 
 이 작업 공간의 개발 서버에서 다음 주소를 열고 **클래식 → Practice**를 선택한다.
 
-- 새 규칙: `http://127.0.0.1:5320/?respawnMode=territory-safe&experimentSeed=1`
+- 기본 새 규칙: `http://127.0.0.1:5320/?experimentSeed=1`
+- 명시적 새 규칙(동일 동작): `http://127.0.0.1:5320/?respawnMode=territory-safe&experimentSeed=1`
 - 기존 규칙: `http://127.0.0.1:5320/?respawnMode=baseline&experimentSeed=1`
 
 새 규칙은 이전 B의 `territory-aware` 옵션과 구분하여 `territory-safe`를 사용한다. 모드 전환은 다른 주소를 열고 새 Practice를 시작하면 된다. 기본 총원은 14명이다. `experimentSeed`는 초기 seed를 지정하지만 실제 입력과 이후 플레이를 동일하게 만드는 기능은 아니다.
@@ -61,4 +63,4 @@ Raw 결과: `evidence/safe-bot-respawn-fixtures.json`.
 재현: `npx tsx scripts/safe-bot-respawn-validation.ts`, `npx vitest run tests/core/safe-bot-respawn.test.ts`.
 브라우저 검사: `npx vite build --outDir .local/safe-respawn-client-build` 후 `npx playwright test --config playwright.safe-respawn.config.ts`.
 
-추가 seed 시뮬레이션, 장시간 성능 분석, BOT AI 변경, 다른 밸런스 변경, Production 반영은 수행하지 않았다.
+추가 seed 시뮬레이션, 장시간 성능 분석, BOT AI 변경이나 다른 밸런스 변경은 수행하지 않았다. 기본 활성화와 master 통합은 사용자의 후속 요청으로 진행했다. 추적 중인 dist 배포 파일도 현재 master 소스 기준으로 다시 빌드했다. 기존 배포 파일이 오래된 상태여서 이전 master의 참가자 수·표현 변경도 생성물에 함께 반영되며, 해당 기능의 소스는 이번 작업에서 변경하지 않았다. 원격 배포나 실행 중인 서버 재시작은 별도다.

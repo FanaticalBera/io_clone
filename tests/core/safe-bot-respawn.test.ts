@@ -1,4 +1,4 @@
-import {describe,it,expect} from 'vitest';
+import {describe,it,expect,vi} from 'vitest';
 import {createMatch} from '../../src/shared/game.js';
 import {botSpecs} from '../../src/shared/bot.js';
 import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
@@ -74,13 +74,25 @@ describe('three-neutral-layer BOT death respawn',()=>{
   expect(inspectSpawnSpace(a,a.participants[0])).toEqual(inspectSpawnSpace(b,b.participants[0]));
   expect(retryHumanRun(a,a.participants[0])).toBe(true);expect(retryHumanRun(b,b.participants[0])).toBe(true);expect(a).toEqual(b);
  });
- it('enables Practice only with an explicit development flag and leaves default/disabled spawning identical',()=>{
+ it('enables Practice by default and allows baseline only in development',()=>{
   expect(experimentalSafeRespawn('territory-safe',true)).toBe(true);expect(experimentalSafeRespawn('baseline',true)).toBe(false);
-  for(const value of ['territory-safe','invalid',null])expect(experimentalSafeRespawn(value,false)).toBe(false);expect(()=>experimentalSafeRespawn('invalid',true)).toThrow();
-  const practice=new PracticeSession('H',()=>{},{},{safeBotRespawn:true,seed:41,autoStart:false});expect(practice.match.participants).toHaveLength(14);
+  expect(experimentalSafeRespawn(null,true)).toBe(true);expect(experimentalSafeRespawn('baseline',false)).toBe(true);
+  for(const value of ['territory-safe','invalid',null])expect(experimentalSafeRespawn(value,false)).toBe(true);expect(()=>experimentalSafeRespawn('invalid',true)).toThrow();
+  const practice=new PracticeSession('H',()=>{},{},{seed:41,autoStart:false});expect(practice.match.participants).toHaveLength(14);
   const p=practice.match.participants[13];markDead(practice.match,p,'TRAIL_CUT');expect(inspectSpawnSpace(practice.match,p).edgeRejectedCount).toBe(1308);practice.dispose();
   const {m,p:bot}=small(),baseline=structuredClone(m);setSafeBotRespawn(m,false);expect(inspectSpawnSpace(m,bot)).toEqual(inspectSpawnSpace(baseline,baseline.participants[1]));
   expect(trySpawn(m,bot)).toBe(trySpawn(baseline,baseline.participants[1]));expect(m).toEqual(baseline);
+ });
+ it('Production Practice applies the rule even if a caller requests the development baseline',()=>{
+  vi.stubEnv('DEV',false);vi.stubEnv('MODE','production');
+  try{
+   const session=new PracticeSession('H',()=>{},{},{safeBotRespawn:false,seed:41,autoStart:false});
+   const bot=session.match.participants[13];markDead(session.match,bot,'TRAIL_CUT');expect(inspectSpawnSpace(session.match,bot).edgeRejectedCount).toBe(1308);session.dispose();
+  }finally{vi.unstubAllEnvs();}
+ });
+ it('explicit development baseline Practice retains its original candidate scan',()=>{
+  const session=new PracticeSession('H',()=>{},{},{safeBotRespawn:false,seed:41,autoStart:false});
+  const bot=session.match.participants[13];markDead(session.match,bot,'TRAIL_CUT');expect(inspectSpawnSpace(session.match,bot).edgeRejectedCount).toBeUndefined();session.dispose();
  });
  for(const layout of ['clustered','distributed'] as TerritoryLayout[])it.each([20,40,60,80,95])('%s percent '+layout+' fixture matches independent full neutral-region enumeration',percent=>{
   const {m,p}=territoryFixture(percent,layout),expected=independentCenters(m),space=inspectSpawnSpace(m,p),before=m.owners.slice();
