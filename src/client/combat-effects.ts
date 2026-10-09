@@ -71,7 +71,7 @@ export class CombatEffects {
   }
   this.bursts=alive;
   if(!this.feedback){this.message.setVisible(false);return;}
-  const elapsed=now-this.feedback.at,kill=this.feedback.kind==='KILL',duration=kill?900:1200;
+  const elapsed=now-this.feedback.at,kill=this.feedback.kind==='KILL',duration=kill?900:650;
   if(elapsed>=duration){this.feedback=null;this.message.setVisible(false);return;}
   const width=this.viewportWidth,height=this.viewportHeight;
   // Scroll-factor-zero objects still zoom around the backing viewport centre.
@@ -79,13 +79,6 @@ export class CombatEffects {
   if(kill&&elapsed<140){this.flash.fillStyle(0x23d6bb,.24*(1-elapsed/140));this.flash.fillRect(offsetX,offsetY,width,height);}
   this.message.setVisible(true).setText(this.feedback.text).setPosition(offsetX+width/2,offsetY+height*.31).setFontSize(width<600?23:32)
    .setAlpha(alpha).setScale(1+.22*Math.max(0,1-elapsed/180));
-  if(!kill){
-   // My death: the board dims, and the reason sits on a tilted card.
-   this.flash.fillStyle(INK,.4*Math.min(1,elapsed/400)*alpha).fillRect(offsetX,offsetY,width,height);
-   const b=this.message.getBounds(),pad=width<600?14:20,w=b.width+pad*2,h=b.height+pad,cx=b.centerX,cy=b.centerY;
-   this.message.setStroke('#ffffff',0).setRotation(-.03);
-   this.flash.fillStyle(INK,alpha).fillRoundedRect(cx-w/2,cy-h/2+5,w,h,16).fillStyle(0xffffff,alpha).fillRoundedRect(cx-w/2,cy-h/2,w,h,16).lineStyle(3,INK,alpha).strokeRoundedRect(cx-w/2,cy-h/2,w,h,16);
-  }else this.message.setStroke('#ffffff',7).setRotation(0);
  }
  state():{played:number;kills:number;deaths:number;active:number;lastEventId:string;feedback:string|null}{
   return {played:this.played,kills:this.kills,deaths:this.deaths,active:this.bursts.length,lastEventId:this.lastEventId,feedback:this.feedback?.kind??null};
