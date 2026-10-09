@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-10",
+  "gameCommit": "41980bdcc94c38bd3c46151f6a2a2090833d4ecd",
+  "branch": "codex/bot-ai-phase01",
+  "node": "v24.21.0",
+  "platform": "win32",
+  "cpu": "AMD Ryzen 5 5600X 6-Core Processor             ",
+  "sequential": true,
+  "commands": [
+    {
+      "name": "audit",
+      "script": "scripts/bot-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 31.637
+    },
+    {
+      "name": "feel",
+      "script": "scripts/bot-feel-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 16.524
+    },
+    {
+      "name": "death",
+      "script": "scripts/death-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 75.691
+    },
+    {
+      "name": "medium",
+      "script": "scripts/medium-attack-audit.ts",
+      "args": [
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 0.465
+    },
+    {
+      "name": "performance",
+      "script": "scripts/bot-performance.ts",
+      "args": [
+        "--bots=14",
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 23.047
+    },
+    {
+      "name": "performance-hud",
+      "script": "scripts/bot-performance.ts",
+      "args": [
+        "--bots=14",
+        "--phase01",
+        "--hud"
+      ],
+      "status": 0,
+      "elapsedSeconds": 24.362
+    },
+    {
+      "name": "death-enriched",
+      "script": "scripts/death-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 75.572
+    },
+    {
+      "name": "medium-enriched",
+      "script": "scripts/medium-attack-audit.ts",
+      "args": [
+        "--phase01"
+      ],
+      "status": 0,
+      "elapsedSeconds": 0.447
+    },
+    {
+      "name": "runtime-audit",
+      "script": "scripts/bot-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01",
+        "--runtime"
+      ],
+      "status": 0,
+      "elapsedSeconds": 35.635,
+      "scriptHash": "4f7eae371d893529087a01ed967477273170be1e77360713bf3d6a430e224a0f"
+    },
+    {
+      "name": "runtime-feel",
+      "script": "scripts/bot-feel-audit.ts",
+      "args": [
+        "--bots=14",
+        "--phase01",
+        "--runtime"
+      ],
+      "status": 0,
+      "elapsedSeconds": 16.788,
+      "scriptHash": "9c3b4fbbb45a08e091231bdabb8956ae203579df7297b13349db934ec791104c"
+    },
+    {
+      "name": "runtime-performance",
+      "script": "scripts/bot-performance.ts",
+      "args": [
+        "--bots=14",
+        "--phase01",
+        "--runtime"
+      ],
+      "status": 0,
+      "elapsedSeconds": 25.336,
+      "scriptHash": "562b2e114da34179c436c0cf99a19bc71a3753e441cb2de772bce2a751fdd241"
+    },
+    {
+      "name": "runtime-performance-hud",
+      "script": "scripts/bot-performance.ts",
+      "args": [
+        "--bots=14",
+        "--phase01",
+        "--runtime",
+        "--hud"
+      ],
+      "status": 0,
+      "elapsedSeconds": 26.788,
+      "scriptHash": "562b2e114da34179c436c0cf99a19bc71a3753e441cb2de772bce2a751fdd241"
+    }
+  ],
+  "hashes": {
+    "src/shared/bot.ts": "62036e7258dd67ae919211886e295fd7fba59d02e4efaa69f1a49bb27db70ade",
+    "src/shared/bot-identity.ts": "c74e589b27d897ea54d7a6eaed008655d8aa228085aa264743bd4ff75843e548",
+    "src/shared/bot-roster.ts": "a2429b1bf8ce8e6d10bf81c41855da483e8981e9f4c874f48211d5892682583f",
+    "src/shared/config.ts": "042137c9e0520e558d9fd398d28ec85d7abfb90d356a8235712dc644388694df",
+    "src/client/bot-debug-model.ts": "a346cb5fdeaa30341c65411c07980d90cc97c4bd7886259fc15edbbf5be1aa25",
+    "scripts/bot-audit.ts": "4f7eae371d893529087a01ed967477273170be1e77360713bf3d6a430e224a0f",
+    "scripts/bot-feel-audit.ts": "9c3b4fbbb45a08e091231bdabb8956ae203579df7297b13349db934ec791104c",
+    "scripts/death-audit.ts": "65c5a7fff0212a5bea107632ae44434741aa4bca235491e4c4c58669914e6043",
+    "scripts/medium-attack-audit.ts": "6e417da3b993ddcf3947fffcd787deb0461155d259592ca1dd205d95dcae0927",
+    "scripts/bot-performance.ts": "562b2e114da34179c436c0cf99a19bc71a3753e441cb2de772bce2a751fdd241",
+    "tests/death-audit.ts": "13461d83966eb5dc934b64252e2729b9ca447fb1701dd31b45770d57e60fe364",
+    "scripts/diagnostic-summary.ts": "aad356941d22f8c6d7942834462de5d0d14b5ac1f87e3355a14fd72539a2a4dd"
+  },
+  "harnessNote": "Death summary gains victimKind counts; medium report gains authoritative death causes. Runtime game/AI remains 41980bd.",
+  "historicalHarnessHashes": {
+    "src/shared/bot.ts": "62036e7258dd67ae919211886e295fd7fba59d02e4efaa69f1a49bb27db70ade",
+    "src/shared/bot-identity.ts": "c74e589b27d897ea54d7a6eaed008655d8aa228085aa264743bd4ff75843e548",
+    "src/shared/bot-roster.ts": "a2429b1bf8ce8e6d10bf81c41855da483e8981e9f4c874f48211d5892682583f",
+    "src/shared/config.ts": "042137c9e0520e558d9fd398d28ec85d7abfb90d356a8235712dc644388694df",
+    "src/client/bot-debug-model.ts": "a346cb5fdeaa30341c65411c07980d90cc97c4bd7886259fc15edbbf5be1aa25",
+    "scripts/bot-audit.ts": "9ad080f90efa2a369df81f9f524ec7f4a55c476608d2e80e7ac3547da23e4dc9",
+    "scripts/bot-feel-audit.ts": "66e7d887dd701a416305e9d744755ce4afd5f72c852d452f4d7bc135e4fa81b8",
+    "scripts/death-audit.ts": "65c5a7fff0212a5bea107632ae44434741aa4bca235491e4c4c58669914e6043",
+    "scripts/medium-attack-audit.ts": "6e417da3b993ddcf3947fffcd787deb0461155d259592ca1dd205d95dcae0927",
+    "scripts/bot-performance.ts": "b6f5d0b0af96609ba2951caa4032d62a4d5cb3db2de8b1c0292fe7cfdc8ac93a",
+    "tests/death-audit.ts": "13461d83966eb5dc934b64252e2729b9ca447fb1701dd31b45770d57e60fe364",
+    "scripts/diagnostic-summary.ts": "aad356941d22f8c6d7942834462de5d0d14b5ac1f87e3355a14fd72539a2a4dd"
+  },
+  "profiles": {
+    "historical": "seed+slot, legacy respawn (safe switch off), full observation; compare only to same historical fixture",
+    "runtime": "botSeed(seed,slot), safe BOT respawn on, observeBotForTick; production spectator-equivalent R56/14 BOT"
+  }
+}

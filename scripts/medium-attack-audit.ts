@@ -24,6 +24,7 @@ for(const personality of ['DEFEND','ATTACK','EXPAND','SEEK_POINT'] as const)for(
   if(match.tick%6===0&&human.trailCells.size)samples.push({tick:match.tick,trail:human.trailCells.size,human:[match.map.cells[human.cellId].q,match.map.cells[human.cellId].r],bot:[match.map.cells[bot.cellId].q,match.map.cells[bot.cellId].r],ownTrail:bot.trailCells.size,goal:memory.goal});
   stepMatch(match,inputs);maxTrail=Math.max(maxTrail,human.trailCells.size);
  }
- reports.push({personality,route,maxTrail,tick:match.tick,humanState:human.lifeState,deaths:human.deaths,killer:match.events.find(e=>e.type==='DEATH'&&e.participantId===human.participantId)?.killerId,traces,samples});
+ const death=match.events.find(e=>e.type==='DEATH'&&e.participantId===human.participantId);
+ reports.push({personality,route,maxTrail,tick:match.tick,humanState:human.lifeState,deaths:human.deaths,killer:death?.killerId,deathReason:death?.reason,deathCause:death?.deathContext?.cause,confirmedTrailCut:death?.killerId===bot.participantId&&['EXISTING_TRAIL_CONTACT','PENDING_TRAIL_CONTACT'].includes(death.deathContext?.cause??''),traces,samples});
 }
 console.log(JSON.stringify(reports,null,2));

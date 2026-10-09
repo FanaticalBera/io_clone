@@ -3,15 +3,19 @@ import {BotExpansionTracker} from '../tests/bot-expansion-tracker.js';
 import type {BotDecisionTrace} from '../src/shared/bot.js';
 import {createMatch,stepMatch} from '../src/shared/game.js';
 import {botSpecs} from '../tests/bot-fixtures.js';
-import {createBotIdentity} from '../src/shared/bot-identity.js';
-import {botSpecs as liveBotSpecs,createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/shared/bot.js';
+import {setSafeBotRespawn} from '../src/shared/safe-bot-respawn.js';
+import {botSeed,createBotIdentity} from '../src/shared/bot-identity.js';
+import {botSpecs as liveBotSpecs,createBotMemory,getBotInput,observeBotForTick,observeBot,watchBotDecisions} from '../src/shared/bot.js';
 import {hexDistance} from '../src/shared/hex.js';
 
 // Normal spawns and shared simulation only. Run the same seeds before/after.
+const runtime=process.argv.includes('--runtime');
+const assignmentSeed=(seed:number,slot:number)=>runtime?botSeed(seed,slot):seed+slot;
 const phase01=process.argv.includes('--phase01');
 const reports=[],count=Number(process.argv.find(arg=>arg.startsWith('--bots='))?.split('=')[1]??8);
 for(const seed of (process.argv.includes('--extended')?[4,19,73,115,17,81,32,123]:[4,19,73])){
- const match=createMatch({},seed,phase01?liveBotSpecs(count,0,'bot',{seed}):botSpecs(count)),memories=match.participants.map((p,i)=>createBotMemory(seed+i,'combined',phase01?createBotIdentity(seed+i,p.personality!):undefined));
+ const match=createMatch({},seed,phase01?liveBotSpecs(count,0,'bot',{seed}):botSpecs(count)),memories=match.participants.map((p,i)=>createBotMemory(assignmentSeed(seed,p.slot),'combined',phase01?createBotIdentity(assignmentSeed(seed,p.slot),p.personality!):undefined));
+ if(runtime){if(!phase01)throw Error('--runtime requires --phase01');setSafeBotRespawn(match,true);}
  const trackers=memories.map(()=>new BotOutcomeTracker()),latest:(BotDecisionTrace|undefined)[]=memories.map(()=>undefined);
  const expansions=memories.map(()=>new BotExpansionTracker()),lastLargeSteal=memories.map(()=>-Infinity),largeConsecutiveSteals=memories.map(()=>0),exposedDeaths=memories.map(()=>0);
  const stats=match.participants.map(p=>({personality:p.personality,frames:0,exposure:0,homeDistance:0,captures:0,gained:0,stolen:0,entered:0,exited:0,retargeted:0,attackFrames:0,escapes:0,returns:0,walls:0,reasons:{} as Record<string,number>}));
@@ -24,7 +28,7 @@ for(const seed of (process.argv.includes('--extended')?[4,19,73,115,17,81,32,123
  });});
  for(let tick=0;tick<(process.argv.includes('--extended')?3600:900);tick++){
   const before=match.eventCounter,owners=match.owners.slice(),inputs=new Map(),exposed=match.participants.map(p=>p.trailCells.size>0);
-  match.participants.forEach((p,i)=>{latest[i]=undefined;const obs=observeBot(match,p.participantId),input=getBotInput(obs,memories[i]);if(input)inputs.set(p.participantId,input);trackers[i].before(match,p,memories[i],latest[i]);
+  match.participants.forEach((p,i)=>{latest[i]=undefined;const obs=runtime?observeBotForTick(match,p.participantId,memories[i]):observeBot(match,p.participantId),input=getBotInput(obs,memories[i]);if(input)inputs.set(p.participantId,input);trackers[i].before(match,p,memories[i],latest[i]);
    if(p.lifeState==='ALIVE'){const s=stats[i];s.frames++;s.exposure+=p.trailCells.size;s.homeDistance+=Math.min(...match.map.cells.filter(c=>owners[c.id]===p.slot+1).map(c=>hexDistance(c,match.map.cells[p.cellId])));}
    expansions[i].before(match,p,latest[i]);
   });stepMatch(match,inputs);
