@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {TerritoryCaptureModel,captureAppearance,captureEdges,CAPTURE_DURATION,experimentalCaptureEffect} from '../../src/client/territory-capture-model.js';
+import {TerritoryCaptureModel,captureAppearance,captureEdges,CAPTURE_DURATION,CAPTURE_WAVE,experimentalCaptureEffect} from '../../src/client/territory-capture-model.js';
 import {buildView} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
 import {botSpecs} from '../../src/shared/bot.js';
@@ -61,10 +61,18 @@ describe('Capture Bloom presentation',()=>{
   model.accept(view,blocked,m.map,keys,()=>{throw Error('Unexpected color');},0);expect(model.state().active).toBe(0);
   expect(experimentalCaptureEffect('bloom',false)).toBe(true);expect(experimentalCaptureEffect('pulse',true)).toBe(true);expect(experimentalCaptureEffect(null,true)).toBe(true);expect(experimentalCaptureEffect(null,false)).toBe(true);expect(experimentalCaptureEffect('none',true)).toBe(false);expect(experimentalCaptureEffect('none',false)).toBe(true);
  });
- it('all cells pulse together without scaling; outline survives the short fill pulse',()=>{
-  const start=captureAppearance(0,0x102030),mid=captureAppearance(120,0x102030),end=captureAppearance(CAPTURE_DURATION,0x102030);
-  expect(start.fillAlpha).toBe(.5);expect(start.lineAlpha).toBe(.95);expect(start.fillColor).not.toBe(0x102030);
-  expect(mid.fillAlpha).toBe(0);expect(mid.lineAlpha).toBeGreaterThan(0);expect(end.lineAlpha).toBe(0);
+ it('tiles flip outward from the entry: waiting light, popping up, then gone; outline and loss flash fade',()=>{
+  const waiting=captureAppearance(50,100,0x102030),pop=captureAppearance(200,100,0x102030),done=captureAppearance(400,100,0x102030);
+  expect(waiting).toMatchObject({pending:true,alpha:1,scale:1,lift:0});expect(waiting.fillColor).not.toBe(0x102030);
+  expect(pop.pending).toBe(false);expect(pop.scale).toBeGreaterThan(1.1);expect(pop.lift).toBeLessThan(-5);expect(done.alpha).toBe(0);
+  expect(captureAppearance(0,0,0x102030).lineAlpha).toBe(.95);expect(captureAppearance(CAPTURE_DURATION,0,0x102030).lineAlpha).toBe(0);
+  expect(captureAppearance(CAPTURE_WAVE+100,0,0x102030).lossAlpha).toBeGreaterThan(.9);expect(captureAppearance(CAPTURE_DURATION,0,0x102030).lossAlpha).toBe(0);
+ });
+ it('wave delays grow with distance from the capturer and stolen tiles remember their old owner',()=>{
+  const {m,model,cells,capture,accept}=setup();m.owners[cells[1]]=4;accept(0);capture();accept();
+  const list=model.effects[0].chunks.size?[...model.effects[0].chunks.values()].flat():[];
+  expect(list.every(c=>c.delay>=0&&c.delay<=CAPTURE_WAVE)).toBe(true);
+  expect(list.find(c=>c.id===cells[1])).toMatchObject({prior:4,priorColor:0x102033});expect(model.effects[0].losses.get(4)).toBeDefined();
  });
  it('outline has no internal hex edges, including holes and slot 15 territory',()=>{
   const {m}=setup(),a=m.map.byKey.get('0,0')!,b=m.map.cells[a].neighbors[0],edges=captureEdges(m.map,[a,b]);

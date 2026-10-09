@@ -1,19 +1,15 @@
 import {describe,it,expect} from 'vitest';
-import {readFileSync,existsSync} from 'node:fs';
 import {MARKERS,markerDefinition} from '../../src/client/catalog.js';
 import {migrateProfile,emptyProfile} from '../../src/client/profile.js';
 import {claimTestMarker,testMarkerGift} from '../../src/client/test-marker-gift.js';
 import {markerArt} from '../../src/client/marker-art.js';
+import {MARKER_SHAPES} from '../../src/client/marker-shapes.js';
 describe('approved marker catalog and local test gift',()=>{
- it('includes eleven approved designs, excludes moon, and preserves legacy product IDs',()=>{
-  const designs=MARKERS.filter(m=>m.renderType==='IMAGE');
-  expect(designs).toHaveLength(11);expect(markerDefinition('moon')).toBeUndefined();expect(markerDefinition('ghost')).toBeDefined();
-  for(const id of ['cat','slime','crystal','core','orbit'])expect(markerDefinition(id)?.renderType).toBe('IMAGE');
-  expect(designs.filter(m=>m.category==='FANTASY')).toHaveLength(2);
-  for(const d of designs)for(const key of [d.assetKey!,d.detailAssetKey!]){
-   const path='public/assets/markers/'+key.replace(/^marker-/,'')+'.png';expect(existsSync(path)).toBe(true);
-   const png=readFileSync(path);expect(png.subarray(1,4).toString()).toBe('PNG');expect(png.readUInt32BE(16)).toBe(256);expect(png.readUInt32BE(20)).toBe(256);
-  }
+ it('includes twenty vector designs, four per category, and preserves legacy product IDs',()=>{
+  expect(MARKERS).toHaveLength(20);expect(markerDefinition('moon')).toBeUndefined();
+  for(const id of ['default','ring','hex','target','cat','chick','slime','crystal','ghost','core','radar','drone','orbit','crown','ember'])expect(markerDefinition(id)).toBeDefined();
+  for(const category of ['BASIC','CUTE','FANTASY','TECH','SPECIAL'])expect(MARKERS.filter(m=>m.category===category)).toHaveLength(4);
+  for(const m of MARKERS)expect(MARKER_SHAPES[m.id]).toBeDefined();
  });
  it('restores existing paid placeholder ownership/equipment without another purchase',()=>{
   const old=emptyProfile();old.coins=321;old.inventory.ownedMarkerIds.push('cat');old.inventory.equippedMarkerId='cat';
@@ -39,9 +35,9 @@ describe('approved marker catalog and local test gift',()=>{
   expect(inventory).toEqual({...oldInventory,ownedMarkerIds:[...oldInventory.ownedMarkerIds,...MARKERS.map(m=>m.id).filter(id=>!oldInventory.ownedMarkerIds.includes(id))]});
   const all=structuredClone(p);claimTestMarker(p,'all');expect(p).toEqual(all);
  });
- it('keeps slot 15 identity separate from image body and ignores equipment for other players',()=>{
+ it('keeps slot identity separate from the body colour and ignores equipment for other players',()=>{
   const self=markerArt({markerId:'cat',markerColorId:'violet'},0x9b644d,true);
-  expect(self.bodyColor).toBe(0xa180f4);expect(self.primitives.at(-1)).toMatchObject({stroke:0x9b644d,tag:'IDENTIFICATION'});
+  expect(self).toMatchObject({bodyColor:0xa180f4,slotColor:0x9b644d,local:true});
   expect(markerArt({markerId:'cat',markerColorId:'violet'},0x9b644d,false)).toMatchObject({markerId:'default',bodyColor:0x9b644d});
  });
 });

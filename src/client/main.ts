@@ -1,5 +1,4 @@
 import {ProfileUI} from './profile-ui.js';
-import {experimentalMarkerDiameter} from './marker-size-experiment.js';
 import {profileTrace} from './profile-diagnostics.js';
 import {startFrameMeter} from './frame-meter.js';
 import {createMatch,buildView} from '../shared/game.js';
@@ -48,7 +47,6 @@ void (async()=>{
  }catch(error){profileTrace('INITIAL_PRESENTATION_ERROR',error);console.warn('Profile presentation failed',error);}
 })();
 const scene=createRenderer('field');
-scene.setMarkerImageDiameter(experimentalMarkerDiameter(new URLSearchParams(location.search).get('experimentMarkerSize'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 // Legacy strict geometry is available only for local development comparison.

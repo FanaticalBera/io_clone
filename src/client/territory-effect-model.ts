@@ -3,7 +3,7 @@ import {hexDistance,worldCell} from '../shared/hex.js';
 import type {GameEvent,MapDefinition,MatchView} from '../shared/model.js';
 export type TerritoryEffectStyle='NONE'|'WAVE_COLLAPSE'|'POWER_DOWN'|'EDGE_CRUMBLE';
 export const MAX_TERRITORY_EFFECTS=4;
-export const EFFECT_DURATION={NONE:0,WAVE_COLLAPSE:600,POWER_DOWN:440,EDGE_CRUMBLE:640} as const;
+export const EFFECT_DURATION={NONE:0,WAVE_COLLAPSE:680,POWER_DOWN:440,EDGE_CRUMBLE:640} as const;
 export function experimentalTerritoryEffect(value:string|null,enabled:boolean):TerritoryEffectStyle {
  if(!enabled)return 'WAVE_COLLAPSE';
  return value==='wave'?'WAVE_COLLAPSE':value==='power'?'POWER_DOWN':value==='edge'?'EDGE_CRUMBLE':value==='none'?'NONE':'WAVE_COLLAPSE';
@@ -38,12 +38,13 @@ const mix=(a:number,b:number,t:number)=>{
  const channel=(shift:number)=>Math.round(((a>>>shift)&255)*(1-t)+((b>>>shift)&255)*t);
  return (channel(16)<<16)|(channel(8)<<8)|channel(0);
 };
-export function collapseAppearance(style:TerritoryEffectStyle,elapsed:number,delay:number,color:number):{alpha:number;scale:number;color:number} {
- const fade=style==='POWER_DOWN'?340:180,local=elapsed-delay,t=Math.max(0,Math.min(1,local/fade));
- if(local>=fade)return {alpha:0,scale:.88,color};
+/** Wave tiles turn grey and sink into the board as they become unowned. */
+export function collapseAppearance(style:TerritoryEffectStyle,elapsed:number,delay:number,color:number):{alpha:number;scale:number;color:number;drop:number} {
+ const fade=style==='POWER_DOWN'?340:style==='WAVE_COLLAPSE'?240:180,local=elapsed-delay,t=Math.max(0,Math.min(1,local/fade));
+ if(local>=fade)return {alpha:0,scale:.88,color,drop:0};
  const pulse=style==='POWER_DOWN'?Math.max(0,1-elapsed/100):local<0?0:Math.max(0,1-local/80);
- const base=style==='POWER_DOWN'?mix(color,0xa7aba9,t*.8):color;
- return {alpha:.92*(1-t),scale:1-(style==='POWER_DOWN'?0:.12*t),color:mix(base,0xffffff,pulse*.35)};
+ const base=style==='POWER_DOWN'?mix(color,0xa7aba9,t*.8):style==='WAVE_COLLAPSE'?mix(color,0xc4c9d6,Math.min(1,t*1.8)):color;
+ return {alpha:.92*(1-t*t),scale:1-(style==='POWER_DOWN'?0:.12*t),color:mix(base,0xffffff,pulse*.35),drop:style==='WAVE_COLLAPSE'?9*t:0};
 }
 /** V1 animates last-observed victim -> neutral cells, not an exact pre-death board. */
 export class TerritoryEffectModel {

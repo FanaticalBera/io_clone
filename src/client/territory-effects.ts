@@ -51,7 +51,7 @@ export class TerritoryEffects {
     if(view.owners[cell.id]!==0||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
     const a=collapseAppearance(effect.style,now-effect.startedAt,cell.delay,effect.color);if(a.alpha<=0)continue;
     const c=this.map.cells[cell.id];
-    for(let i=0;i<6;i++){this.points[i].x=c.center.x+(c.vertices[i].x-c.center.x)*a.scale;this.points[i].y=c.center.y+(c.vertices[i].y-c.center.y)*a.scale;}
+    for(let i=0;i<6;i++){this.points[i].x=c.center.x+(c.vertices[i].x-c.center.x)*a.scale;this.points[i].y=c.center.y+(c.vertices[i].y-c.center.y)*a.scale+a.drop;}
     g.fillStyle(a.color,a.alpha).fillPoints(this.points,true);
     g.lineStyle(1,FIELD.ground,a.alpha*.8).strokePoints(this.points,true);drawnCells++;
    }

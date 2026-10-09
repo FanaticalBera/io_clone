@@ -69,14 +69,13 @@ export class ShopUI {
       const name=document.createElement('strong');name.textContent=product.name;card.append(name);
       const state=document.createElement('small'),owned=!!this.profile&&ownedItem(this.profile,this.kind,product.id),equipped=owned&&equippedItem(this.profile!,this.kind)===product.id;
       state.className='state '+(equipped?'equipped':owned?'owned':'price');state.textContent=equipped?'장착 중':owned?'보유 중':product.price+' 코인';card.append(state);
-      if('placeholder'in product&&product.placeholder){const label=document.createElement('small');label.className='shop-test-label';label.textContent='임시 디자인';card.append(label);}
       card.addEventListener('click',()=>{this.selected=product.id;this.render();});list.append(card);
     }
     if(focusId)Array.from(list.querySelectorAll<HTMLElement>('[data-product-id]')).find(b=>b.dataset.productId===focusId)?.focus({preventScroll:true});
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;action.classList.add('sun');get('shop-preview').replaceChildren();
     if(!product){get('shop-item-name').textContent='상품 없음';get('shop-item-note').textContent='다른 카테고리나 보유 필터를 골라 보세요.';action.textContent='선택할 상품 없음';return;}
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':('placeholder'in product&&product.placeholder)?'임시 디자인 · 최종 외형은 바뀔 수 있어요':('renderType'in product&&product.renderType==='IMAGE')?'몸통에 내 색상이 칠해져요':'기본 마커 · 내 색상 적용';
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':('category'in product&&product.category==='SPECIAL')?'게임 중에 움직여요 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;
