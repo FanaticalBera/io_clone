@@ -1,3 +1,4 @@
+import {setSafeBotRespawn} from '../shared/safe-bot-respawn.js';
 import {retryHumanRun} from '../shared/retry.js';
 import {randomUUID,randomBytes,randomInt} from 'node:crypto';
 import {leaveParticipant} from '../shared/life.js';
@@ -95,6 +96,7 @@ createFriend(session:Session,nickname:unknown,gameMode:GameModeId='classic'):Ack
   const matchId=room.roomId+':round:'+ (++room.roundNumber);
   const humans=members.map((m,slot)=>({participantId:m.memberId,slot,nickname:m.nickname,kind:'HUMAN' as const}));
   const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(this.config.maxSlots-humans.length,humans.length,matchId)],matchId,room.gameMode);
+  setSafeBotRespawn(room.match,true);
   this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
   room.snapshotSeq=0;room.accumulator=0;room.lastStepAt=at;room.phase='RUNNING';room.phaseDeadline=null;room.revision++;
   for(const member of members){member.session.highestReceivedSeq=0;}
