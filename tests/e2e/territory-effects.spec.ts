@@ -107,6 +107,8 @@ test('Capture Bloom uses real R56/16 practice captures, slot 15, then releases d
  await expect(page.locator('#field')).toHaveAttribute('data-capture-effect','CAPTURE_PULSE');
  const result=await page.evaluate(async()=>{
   const hook=(window as any).__HEXHOLD_TEST__,p=hook.getPractice(),m=p.match;p.setPaused(true);
+  // Let captures made before the pause finish their one-second flip.
+  await new Promise(resolve=>setTimeout(resolve,1100));
   const game=await import('/src/shared/game.ts' as string),engine=await import('/src/shared/engine.ts' as string);
   const territory=await import('/src/shared/territory.ts' as string),hex=await import('/src/shared/hex.ts' as string);
   const capturers=[m.participants[0],m.participants[15]];m.events=[];
@@ -123,7 +125,7 @@ test('Capture Bloom uses real R56/16 practice captures, slot 15, then releases d
  expect(result.capture.captures.map((c:any)=>c.slot).sort((a:number,b:number)=>a-b)).toEqual([0,15]);expect(result.capture.cells).toBe(result.expected);expect(result.expected).toBeGreaterThan(0);
  expect(result.capture.graphics).toBe(51);expect(result.capture.depth).toBe(2);
  await page.waitForTimeout(70);const during=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCaptureEffectState());expect(during.drawnCells).toBeGreaterThan(0);
- await page.waitForTimeout(700);
+ await page.waitForTimeout(1100);
  const end=await page.evaluate(()=>{const hook=(window as any).__HEXHOLD_TEST__;return {capture:hook.getCaptureEffectState(),resources:hook.getResourceState()};});
  expect(end.capture.active).toBe(0);expect(end.capture.visibleGraphics).toBe(0);expect(end.capture.drawnCells).toBe(0);
  expect(end.capture.graphics).toBe(result.before.capture.graphics);expect(end.resources.textures).toBe(result.before.resources.textures);

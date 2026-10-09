@@ -1,3 +1,4 @@
+import {MARKER_SHAPES} from '../../src/client/marker-shapes.js';
 import {describe,it,expect} from 'vitest';
 import {emptyProfile,migrateProfile,validProfile,admitRun,grantProfileReward} from '../../src/client/profile.js';
 import {defaultInventory,normalizeInventory,purchaseItem,equipItem,validInventory} from '../../src/client/inventory.js';
@@ -38,7 +39,7 @@ describe('Catalog-based purchase and equip',()=>{
   it('keeps unique stable IDs, all categories, and safe temporary prices',()=>{
     expect(new Set(MARKERS.map(d=>d.id)).size).toBe(MARKERS.length);expect(new Set(MARKER_COLORS.map(d=>d.id)).size).toBe(MARKER_COLORS.length);
     expect([...new Set(MARKERS.map(d=>d.category))].sort()).toEqual([...MARKER_CATEGORIES].sort());
-    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC')).toHaveLength(4);expect(MARKERS.filter(d=>d.category!=='BASIC').every(d=>d.renderType==='IMAGE'&&!d.placeholder)).toBe(true);
+    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC')).toHaveLength(4);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
   });
   it.each([['marker','ring',SHOP_PRICES.ring],['marker-color','coral',SHOP_PRICES.markerColor]] as const)('buys %s/%s once without auto-equip', (kind,id,price)=>{
     const p=migrateProfile(legacyWallet())!,stats=structuredClone(p.stats),worlds=structuredClone(p.worlds),paid=structuredClone(p.processedRuns);
@@ -62,12 +63,12 @@ describe('Catalog-based purchase and equip',()=>{
   });
 });
 describe('Marker Color is a local presentation',()=>{
-  it.each(['default','ring','hex','target'])('draws %s body with selected color and a separate slot ring',id=>{
-    const a=markerArt({markerId:id,markerColorId:'coral'},0x359aff,true);expect(a.bodyColor).toBe(0xff7084);expect(a.primitives.at(-1)).toMatchObject({kind:'circle',stroke:0x359aff,tag:'IDENTIFICATION'});expect(a.markerId).toBe(id);
+  it.each(['default','ring','hex','target'])('draws %s body with selected color and keeps the slot identity',id=>{
+    const a=markerArt({markerId:id,markerColorId:'coral'},0x359aff,true);expect(a.bodyColor).toBe(0xff7084);expect(a.slotColor).toBe(0x359aff);expect(a.markerId).toBe(id);
   });
   it('uses the actual slot for the free default color',()=>expect(markerArt({markerId:'hex',markerColorId:'slot'},0x359aff,true).bodyColor).toBe(0x359aff));
   it('ignores local equipment entirely for other participants',()=>{
-    const a=markerArt({markerId:'target',markerColorId:'coral'},0x359aff,false);expect(a.markerId).toBe('default');expect(a.markerColorId).toBe('slot');expect(a.bodyColor).toBe(0x359aff);expect(a.primitives.some(p=>'tag'in p&&p.tag==='IDENTIFICATION')).toBe(false);
+    const a=markerArt({markerId:'target',markerColorId:'coral'},0x359aff,false);expect(a.markerId).toBe('default');expect(a.markerColorId).toBe('slot');expect(a.bodyColor).toBe(0x359aff);expect(a.local).toBe(false);
   });
   it('falls back safely when a visual definition is missing',()=>expect(markerArt({markerId:'gone',markerColorId:'gone'},0x359aff,true)).toMatchObject({markerId:'default',markerColorId:'slot',bodyColor:0x359aff}));
 });

@@ -1,7 +1,5 @@
 import {SLOT_COLORS,participantRenderColors} from './player-colors.js';
 import {shuffledBotMarkers} from './bot-cosmetics.js';
-import {DEFAULT_IMAGE_MARKER_DIAMETER,type ImageMarkerDiameter} from './marker-size-experiment.js';
-import {MARKERS,markerAssetUrl} from './catalog.js';
 import {PlayerMarker} from './player-marker.js';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
 import Phaser from 'phaser';
@@ -35,9 +33,7 @@ export class GameScene extends Phaser.Scene {
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
- private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text}>();
- private markerImageDiameter:ImageMarkerDiameter=DEFAULT_IMAGE_MARKER_DIAMETER;
- setMarkerImageDiameter(value:ImageMarkerDiameter):void {if(this.markerImageDiameter===value)return;this.markerImageDiameter=value;this.setMarkerAppearance(this.markerAppearance);}
+ private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number}>();
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
  setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
  // Canvas text keeps its fallback face until it is redrawn after web fonts load.
@@ -62,9 +58,8 @@ export class GameScene extends Phaser.Scene {
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
- preload():void {for(const marker of MARKERS)if(marker.renderType==='IMAGE')for(const key of [marker.assetKey,marker.detailAssetKey])if(key&&!this.textures.exists(key))this.load.image(key,markerAssetUrl(key));}
- markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('marker-')).sort(),avatars:this.avatars.size,imageObjects:[...this.avatars.values()].reduce((count,a)=>count+a.marker.container.list.filter(child=>child.type==='Image').length,0)};}
- create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback());this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
+ create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -167,7 +162,7 @@ export class GameScene extends Phaser.Scene {
    for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,true);
   }
   this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
-  this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
+  this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous,view.participants.find(p=>p.participantId===this.selfId)?.slot??-1);
   this.lastOwners.set(view.owners);this.lastTrails.set(view.trailMasks);
   this.metrics.territoryRedrawMs=performance.now()-redrawAt;
   const present=new Set(view.participants.map(p=>p.participantId));
@@ -175,14 +170,16 @@ export class GameScene extends Phaser.Scene {
   for(const p of view.participants){
    let avatar=this.avatars.get(p.participantId);
    if(!avatar){
-    const shield=this.add.circle(0,0,28,0x101b29,0).setStrokeStyle(3,this.renderColors[p.slot],0.9);
+    const shield=this.add.circle(0,0,44,0x101b29,0).setStrokeStyle(3,this.renderColors[p.slot],0.9);
     const marker=new PlayerMarker(this);
-    const self=p.participantId===this.selfId,label=this.add.text(0,-43,p.nickname,{fontFamily:'Jua, Gothic A1, sans-serif',fontSize:self?'14px':'12px',color:'#ffffff',backgroundColor:self?'#1f1b2d':'#1f1b2d8c',padding:{x:7,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
+    const self=p.participantId===this.selfId,label=this.add.text(0,-54,p.nickname,{fontFamily:'Jua, Gothic A1, sans-serif',fontSize:self?'14px':'12px',color:'#ffffff',backgroundColor:self?'#1f1b2d':'#1f1b2d8c',padding:{x:7,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
-    avatar={container,marker,shield,label};this.avatars.set(p.participantId,avatar);
+    avatar={container,marker,shield,label,life:p.lifeId,territory:p.territoryCount};this.avatars.set(p.participantId,avatar);
    }
    const appearance=p.kind==='BOT'?{markerId:this.botMarkerIds[p.slot%this.botMarkerIds.length]??'default',markerColorId:'slot'}:this.markerAppearance;
-   avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,this.markerImageDiameter,p.kind==='BOT');
+   avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,p.kind==='BOT');
+   // Any gain within one life is a capture; the marker hops once.
+   if(avatar.life===p.lifeId&&p.territoryCount>avatar.territory&&!reset)avatar.marker.jump(performance.now());avatar.life=p.lifeId;avatar.territory=p.territoryCount;
    avatar.shield.setStrokeStyle(3,this.renderColors[p.slot],.9);
    avatar.container.setVisible(p.lifeState==='ALIVE');
    avatar.label.setText(p.nickname);
@@ -207,7 +204,7 @@ export class GameScene extends Phaser.Scene {
   if(!this.map||!this.view)return;
   const now=performance.now();this.renderedAt=now;
   this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);this.captureEffects?.update(now,this.view,this.cullChunks);
-  for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);}
+  for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);if(avatar.container.visible)avatar.marker.update(now);}
   setWallMargin(this.map,this.wallMargin);
   const boardKey=this.map.mapId+':'+this.wallMargin;
   if(this.boardKey!==boardKey){this.boardKey=boardKey;this.drawBoard();}

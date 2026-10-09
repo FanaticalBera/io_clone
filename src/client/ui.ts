@@ -163,8 +163,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   this.closeGamePanels();get('hud').hidden=false;get('minimap').hidden=false;get('rotate-hint').hidden=false;get('control-hint').hidden=true;
   this.controlsActive=true;this.refreshControls();
  }
- private showCaptureGain(percent:number):void {
-  const toast=get('capture-toast');toast.textContent=gainLabel(percent);toast.hidden=false;
+ private showCaptureGain(percent:number,loss=false):void {
+  const toast=get('capture-toast');toast.textContent=loss?gainLabel(percent).replace('+','−'):gainLabel(percent);toast.hidden=false;toast.classList.toggle('loss',loss);
   // Restart the pop animation for back-to-back captures.
   toast.classList.remove('pop');void toast.offsetWidth;toast.classList.add('pop');
   if(this.toastTimer!==null)clearTimeout(this.toastTimer);this.toastTimer=setTimeout(()=>{toast.hidden=true;this.toastTimer=null;},1400);
@@ -182,7 +182,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const life=view.matchId+':'+self.lifeId;
   if(init||life!==this.toastLife||self.lifeState!=='ALIVE'){this.toastLife=life;this.toastCells=self.territoryCount;}
   else if(self.territoryCount>this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((self.territoryCount-this.toastCells)*100/this.totalCells);this.toastCells=self.territoryCount;}
-  else this.toastCells=self.territoryCount;
+  else if(self.territoryCount<this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((this.toastCells-self.territoryCount)*100/this.totalCells,true);this.toastCells=self.territoryCount;}
   get('population').textContent='사람 '+view.participants.filter(p=>p.kind==='HUMAN').length+' · 봇 '+view.participants.filter(p=>p.kind==='BOT').length;
   const ordered=[...view.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills);
   const key=JSON.stringify([colors,selfId,this.totalCells,view.gameMode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);

@@ -78,6 +78,7 @@ h2{font-family:var(--display);font-weight:400;margin:0}
 .score-wrap{position:relative;display:inline-block}
 #capture-toast{position:absolute;left:calc(100% - 6px);top:-10px;z-index:1;padding:1px 9px 2px;background:var(--player,var(--mint));border:2px solid var(--ink);border-radius:10px;box-shadow:0 2px 0 var(--ink);font:400 15px var(--number);white-space:nowrap;transform:rotate(-4deg);pointer-events:none}
 #capture-toast.pop{animation:toast-pop 1.4s ease-out both}
+#capture-toast.loss{background:var(--ink);color:#ffa24d!important}
 @keyframes toast-pop{0%{opacity:0;transform:translateY(6px) rotate(-4deg) scale(.7)}12%{opacity:1;transform:translateY(-2px) rotate(-4deg) scale(1.08)}22%{transform:rotate(-4deg) scale(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-6px) rotate(-4deg)}}
 #mini-board{list-style:none;margin:0;padding:3px 5px 5px;border-top:2px dashed var(--line);display:flex;flex-direction:column;gap:1px}
 #mini-board li{display:flex;align-items:center;gap:6px;height:18px;padding:0 6px;border-radius:6px;font:12px var(--display)}
