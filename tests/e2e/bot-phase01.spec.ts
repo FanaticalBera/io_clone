@@ -35,6 +35,10 @@ test('14-bot spectator survives deaths, follows bots, pauses cleanly and dispose
   for(let n=1;n<=1800;n++)p.advance(n*1000/p.match.config.simulationHz);p.setPaused(true);api.showPracticeView();
   return {spectating:p.spectating,selfId:p.selfId,bots:p.match.participants.map((b:any)=>({kind:b.kind,deaths:b.deaths})),ticks:p.match.tick-before,phase:p.match.phase,enabled:api.enabled(),following:api.getScene().isBotDebugFollowing()};});
  expect(advanced.spectating).toBe(true);expect(advanced.selfId).toBeNull();expect(advanced.bots).toHaveLength(14);expect(advanced.bots.every((b:any)=>b.kind==='BOT')).toBe(true);expect(advanced.bots.some((b:any)=>b.deaths>0)).toBe(true);
+ const combat=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState());
+ expect(combat.played).toBeGreaterThan(0);expect(combat).toMatchObject({kills:0,deaths:0,feedback:null});
+ await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.showPracticeView());
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState().played)).toBe(combat.played);
  expect(advanced.ticks).toBe(1800);expect(advanced.phase).toBe('RUNNING');expect(advanced.enabled).toBe(false);expect(advanced.following).toBe(true);await expect(page.locator('#death')).toBeHidden();await expect(hud.locator('pre')).toContainText('현재 계획을 세운 판단');
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);
  const bounds=await hud.boundingBox();expect(bounds!.x).toBeGreaterThan(640);
