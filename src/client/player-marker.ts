@@ -38,7 +38,7 @@ export class PlayerMarker {
   if(signature===this.signature)return;this.signature=signature;this.art=art;this.shape=markerShape(art.markerId);
   this.key=markerTextureKey(art.markerId,art.bodyColor);this.ready=false;this.image.setVisible(false);
   this.fallback.clear().fillStyle(art.bodyColor,1).lineStyle(4,INK,1).fillCircle(0,0,22).strokeCircle(0,0,22).setVisible(true);
-  this.base.clear();this.pulse.clear();
+  this.base.clear();this.pulse.clear();this.fx.clear();
   // Only the local player stands on a white base, so it is found at a glance.
   if(local)this.base.fillStyle(0xffffff,.55).fillCircle(0,2,BASE_RADIUS).lineStyle(2.5,INK,1).strokeCircle(0,2,BASE_RADIUS+2).lineStyle(3,0xffffff,1).strokeCircle(0,2,BASE_RADIUS);
   this.attach();
@@ -49,7 +49,7 @@ export class PlayerMarker {
   this.ready=true;this.fallback.setVisible(false);
   // Flames flicker from their base, so the image pivots near the bottom.
   const flicker=this.shape.motion==='flicker',originY=flicker?(22+32)/64:.5;
-  this.image.setTexture(key).setDisplaySize(MARKER_DIAMETER,MARKER_DIAMETER).setOrigin(.5,originY).setPosition(0,(originY-.5)*MARKER_DIAMETER).setVisible(true);
+  this.image.setTexture(key).setDisplaySize(MARKER_DIAMETER,MARKER_DIAMETER).setOrigin(.5,originY).setPosition(0,(originY-.5)*MARKER_DIAMETER).setRotation(0).setVisible(true);
  }
  /** A short squash-and-hop, played when this player captures land. */
  jump(now:number):void{this.jumpAt=now;}
@@ -79,9 +79,15 @@ export class PlayerMarker {
     const points=starPoints(s.x,s.y,s.size*(.6+.4*alpha));
     this.fx.fillStyle(CREAM,alpha).fillPoints(points,true).lineStyle(1.6,INK,alpha).strokePoints(points,true);
    }
-  }else if(this.ready){
+  }else if(!this.ready)return;
+  else if(motion==='flicker'){
    const k=Math.sin(now*Math.PI*2/700),scale=MARKER_DIAMETER/this.image.width;
    this.image.setScale(scale*(1-.05*k),scale*(1+.06*k));
+  }else if(motion==='spin')this.image.setRotation(now*Math.PI*2/5000);
+  else{
+   // Two quick beats, then a rest.
+   const t=now%1200,beat=t<150?Math.sin(t/150*Math.PI):t>220&&t<370?.7*Math.sin((t-220)/150*Math.PI):0;
+   this.image.setScale(MARKER_DIAMETER/this.image.width*(1+.12*beat));
   }
  }
  state(){return this.art?{markerId:this.art.markerId,markerColorId:this.art.markerColorId,bodyColor:this.art.bodyColor,slotColor:this.art.slotColor,local:this.art.local,

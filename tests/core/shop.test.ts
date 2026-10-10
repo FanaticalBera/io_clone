@@ -39,7 +39,7 @@ describe('Catalog-based purchase and equip',()=>{
   it('keeps unique stable IDs, all categories, and safe temporary prices',()=>{
     expect(new Set(MARKERS.map(d=>d.id)).size).toBe(MARKERS.length);expect(new Set(MARKER_COLORS.map(d=>d.id)).size).toBe(MARKER_COLORS.length);
     expect([...new Set(MARKERS.map(d=>d.category))].sort()).toEqual([...MARKER_CATEGORIES].sort());
-    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC')).toHaveLength(4);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
+    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC')).toHaveLength(8);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
   });
   it.each([['marker','ring',SHOP_PRICES.ring],['marker-color','coral',SHOP_PRICES.markerColor]] as const)('buys %s/%s once without auto-equip', (kind,id,price)=>{
     const p=migrateProfile(legacyWallet())!,stats=structuredClone(p.stats),worlds=structuredClone(p.worlds),paid=structuredClone(p.processedRuns);

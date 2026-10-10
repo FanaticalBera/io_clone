@@ -5,10 +5,10 @@ import {claimTestMarker,testMarkerGift} from '../../src/client/test-marker-gift.
 import {markerArt} from '../../src/client/marker-art.js';
 import {MARKER_SHAPES} from '../../src/client/marker-shapes.js';
 describe('approved marker catalog and local test gift',()=>{
- it('includes twenty vector designs, four per category, and preserves legacy product IDs',()=>{
-  expect(MARKERS).toHaveLength(20);expect(markerDefinition('moon')).toBeUndefined();
+ it('includes forty vector designs, eight per category, and preserves legacy product IDs',()=>{
+  expect(MARKERS).toHaveLength(40);expect(markerDefinition('moon')).toBeUndefined();
   for(const id of ['default','ring','hex','target','cat','chick','slime','crystal','ghost','core','radar','drone','orbit','crown','ember'])expect(markerDefinition(id)).toBeDefined();
-  for(const category of ['BASIC','CUTE','FANTASY','TECH','SPECIAL'])expect(MARKERS.filter(m=>m.category===category)).toHaveLength(4);
+  for(const category of ['BASIC','CUTE','FANTASY','TECH','SPECIAL'])expect(MARKERS.filter(m=>m.category===category)).toHaveLength(8);
   for(const m of MARKERS)expect(MARKER_SHAPES[m.id]).toBeDefined();
  });
  it('restores existing paid placeholder ownership/equipment without another purchase',()=>{

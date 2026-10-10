@@ -37,8 +37,8 @@ describe('Player Color V2 presentation',()=>{
   for(const c of colored){expect(['purchased','owned']).toContain(purchaseItem(p,'marker-color',c.id).status);expect(equipItem(p,'marker-color',c.id).status).toBe('equipped');expect(purchaseItem(p,'marker-color',c.id).status).toBe('owned');}
   expect(p.coins).toBe(640);expect(p.inventory.ownedMarkerColorIds).toHaveLength(17);expect(p.stats).toEqual(before.stats);expect(p.processedRuns).toEqual(before.processedRuns);expect(p.worlds).toEqual(before.worlds);expect(p.version).toBe(1);
  });
- it('shuffles cosmetic appearances per match only, uses all twenty designs and never consumes global RNG',()=>{
-  const a=shuffledBotMarkers('first'),b=shuffledBotMarkers('second');expect(a).toHaveLength(20);expect(new Set(a).size).toBe(20);expect([...a].sort()).toEqual(MARKERS.map(m=>m.id).sort());expect(a).toEqual(shuffledBotMarkers('first'));expect(a).not.toEqual(b);
+ it('shuffles cosmetic appearances per match only, uses all forty designs and never consumes global RNG',()=>{
+  const a=shuffledBotMarkers('first'),b=shuffledBotMarkers('second');expect(a).toHaveLength(40);expect(new Set(a).size).toBe(40);expect([...a].sort()).toEqual(MARKERS.map(m=>m.id).sort());expect(a).toEqual(shuffledBotMarkers('first'));expect(a).not.toEqual(b);
   const art=markerArt({markerId:'cat',markerColorId:'slot'},0x147f84,false,true);expect(art).toMatchObject({markerId:'cat',bodyColor:0x147f84,local:false});expect(art.slotColor).toBe(0x147f84);
   expect(markerArt({markerId:'cat',markerColorId:'violet'},0x147f84,false)).toMatchObject({markerId:'default',bodyColor:0x147f84});
  });
