@@ -20,13 +20,15 @@ describe('Classic validation telemetry',()=>{
   const s=summarize([observed]);
   expect(s.n).toBe(1);expect(s.thresholds[100].times).toBeNull();
   expect(s.lifeSegments['99-100'].times).toBeNull();
- },60000);
+ // Two complete R56 runs took ~104s locally; keep the simulation and assertions intact.
+ },180000);
  it('keeps the no-respawn control separate without changing config or AI',()=>{
   const control=runSeed({seed:1,minutes:1,variant:'no-respawn'});
   expect(control.deaths).toBeGreaterThan(0);expect(control.respawns).toBe(0);
   expect(control.lives).toHaveLength(16);expect(control.config.respawnSeconds).toBe(3);
   expect(control.variant).toBe('no-respawn');
- },60000);
+ // The complete no-respawn control took ~74s locally; keep all assertions intact.
+ },180000);
  it('uses nearest-rank quantiles and empty samples stay unavailable',()=>{
   expect(statistics([])).toBeNull();
   expect(statistics([4,1,3,2])).toMatchObject({median:2,p75:3,p90:4,min:1,max:4});

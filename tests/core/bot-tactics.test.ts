@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {botSpecs} from '../bot-fixtures.js';
 import {neutralizeTerritory,setOwner,addTrail} from '../../src/shared/territory.js';
 import {applySimultaneousCaptures} from '../../src/shared/engine.js';
@@ -43,6 +43,19 @@ describe('local tactical opportunities',()=>{
  it('takes an immediate winning counter-cut instead of fleeing solely because an enemy is nearby',()=>{
   const f=duel(true);f.enemy.cellId=f.id(2);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
   expect(f.memory.goal).toBe('ATTACK');expect(f.memory.path.at(-1)).toBe(f.id(-3));
+ });
+ it.each(['EXPAND','ATTACK'] as const)('returns under danger instead of using a non-survival short cut from %s',goal=>{
+  const f=duel(true);setOwner(f.m,f.id(-1),1);f.bot.trailCells.clear();f.m.trailMasks.fill(0);
+  addTrail(f.m,f.bot,f.id(0));for(const q of [1,2,3])addTrail(f.m,f.enemy,f.id(q));
+  setOwner(f.m,f.id(3),0);setOwner(f.m,f.id(5),2);
+  f.enemy.cellId=f.id(1);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};f.enemy.direction={x:1,y:0};
+  f.memory.goal=goal;f.memory.path=[f.id(-1)];
+  if(goal==='ATTACK'){f.memory.attackSlot=f.enemy.slot;f.memory.attackTarget=f.id(1);f.memory.path=[f.id(1),f.id(-1)];}
+  let trace:BotDecisionTrace|undefined;watchBotDecisions(f.memory,t=>trace=t,{shadow:false});
+  getBotInput(observeBot(f.m,f.bot.participantId),f.memory);
+  expect(trace!.risk!.danger).toBe(true);
+  expect(trace!.attacks.some(a=>a.reason==='SELECTABLE'&&a.seconds!<=1.25&&a.survival===false)).toBe(true);
+  expect(f.memory.goal).toBe('ESCAPE');expect(f.memory.attackSlot).toBeNull();expect(f.memory.path.at(-1)).toBe(f.id(-1));
  });
  it('rejects a cut when the opponent reaches our exposed line first',()=>{
   const f=duel(true);f.enemy.cellId=f.id(-1);f.enemy.position={...f.m.map.cells[f.enemy.cellId].center};

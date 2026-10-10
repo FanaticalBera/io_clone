@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-10",
+  "unit": {
+    "method": "Initial full 600-test run; rerun only changed/failing files, then final Classic file. Latest result for every unique test is passed. This is not a claim of a single clean 600-test run.",
+    "uniqueTests": 600,
+    "latestPassed": 600,
+    "runs": [
+      {
+        "name": "vitest",
+        "tests": 600,
+        "passed": 596,
+        "failed": 4,
+        "sha256": "dd004b0f4ff3c3e43a7506fd8ac5c89d7858a803ea89f90cd4568bb15545e2db"
+      },
+      {
+        "name": "vitest-repaired",
+        "tests": 15,
+        "passed": 14,
+        "failed": 1,
+        "sha256": "a418fa8fe91d096a34ca85effa647b4662aedc3c8bce19cdb070cc6288e3ec86"
+      },
+      {
+        "name": "vitest-classic-final",
+        "tests": 4,
+        "passed": 4,
+        "failed": 0,
+        "sha256": "82c79cba27848ecfa2156d02720db9765875023fb9ea4abac1328e4c5355fd54"
+      }
+    ]
+  },
+  "pc": {
+    "initial": {
+      "passed": 5,
+      "timeouts": 2,
+      "total": 7
+    },
+    "retry": {
+      "passed": 2,
+      "failed": 0,
+      "sameTimeoutMs": 60000,
+      "sha256": "619c489d395eb0bf875dc2acb98530e55579ffdd4026dbe2dc4ed091880b6a5b"
+    },
+    "screenshotsVisuallyInspected": [
+      ".local/bot-reposition/route.png"
+    ],
+    "notes": "PC only; unchanged assertions. Retry followed the end of this task's long unit simulations. External friend-match Playwright was also running."
+  },
+  "typecheck": "PASS: npm run typecheck",
+  "clientBuild": "PASS: vite build --outDir ../bot-counter-safety/client; existing large bundle warning",
+  "sourceVerification": "All current source files match frozen protocol sourceHashes.reposition",
+  "nextPhase": "Phase3 and other tuning deferred",
+  "reproductionToolsTypecheck": "PASS: strict tsc for case, performance and summary scripts",
+  "cost": {
+    "completedRows": 48,
+    "seeds": 8,
+    "rounds": 3,
+    "discardedWarmupsPerArm": 1,
+    "allRowDeathsMatchAudit": true,
+    "overlappingRows": 30,
+    "certified": false,
+    "status": "INCONCLUSIVE_BACKGROUND_TESTS",
+    "timingDataSHA256": "f65f27549c66284a0459be1935746ec8ef271b28240abcf931284c1babdb548c",
+    "notes": "Strict idle attempts preserved separately and stopped when external tests restarted. Complete fallback retains all predetermined rows regardless of measured value. Process probe caption corrected without changing timings."
+  }
+}

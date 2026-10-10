@@ -1,0 +1,15 @@
+{
+  "allPriorSourceContentsMatch": true,
+  "normalization": "CRLF/LF, including existing mixed line endings; exact normalized bytes compared against hash-matching frozen files",
+  "normalizedFiles": [
+    "src/client/combat-events.ts",
+    "src/client/frame-meter.ts",
+    "src/server/limits.ts",
+    "src/server/sessions.ts",
+    "src/server/transport.ts",
+    "src/shared/capture.ts",
+    "src/shared/legacy-scoring.ts",
+    "src/shared/names.ts",
+    "src/shared/random.ts"
+  ]
+}

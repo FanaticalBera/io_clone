@@ -424,7 +424,8 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
   const reservationBlocked=attacking&&!attack&&!!policy&&(!victim||!!continuation?.reason);
   const attackFinished=attacking&&(!targetPresent&&!attack||reservationBlocked);
   if(attacking)memory.attackSurvival=attack?.survival??false;
-  const counterStrike=!!attack&&attack.seconds<=1.25&&obs.ownTrail.length<settings.trailLimit;
+  // During danger, a short attack may override retreat only as a survival counter.
+  const counterStrike=!!attack&&attack.seconds<=1.25&&obs.ownTrail.length<settings.trailLimit&&(!danger||attack.survival);
   const pressuredExpansion=(memory.goal==='EXPAND'||memory.goal==='STEAL')&&obs.others.some(p=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=6)&&obs.ownTrail.length+memory.path.filter(id=>obs.owners[id]!==obs.self.slot+1).length>6;
   const expanding=memory.goal==='EXPAND'||memory.goal==='STEAL';
   const lineDistance=Math.min(...obs.others.flatMap(p=>obs.ownTrail.map(id=>hexDistance(obs.map.cells[id],obs.map.cells[p.cellId]))));

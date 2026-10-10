@@ -7,11 +7,11 @@ import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
 // Real counterfactual witness refreshed after approved Phase 2.5 behavior changes.
-// Current runtime identities/individual seeds supply seed 19 at tick 5788
-// (cut and safe return tick 5793). Existing safety/branch conditions
+// Current runtime identities/individual seeds supply R28 / 14 bots / seed 73
+// at tick 5114 (cut and safe return tick 5115). Existing safety/branch conditions
 // remain verified through normal movement and the independent branch.
-export function runShadowEscapeWitness(seed=19){
- const match=createMatch({},seed,botSpecs(8,0,'bot',{seed})),memories=match.participants.map(p=>createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!))),traces:(BotDecisionTrace|undefined)[]=Array(8);
+export function runShadowEscapeWitness(seed=73){
+ const match=createMatch({mapRadius:28,maxSlots:14},seed,botSpecs(14,0,'bot',{seed})),memories=match.participants.map(p=>createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!))),traces:(BotDecisionTrace|undefined)[]=Array(14);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};
  // Search normal decisions rather than relying on a tick from an old death
