@@ -1,13 +1,13 @@
 import type {MatchState,Participant} from '../src/shared/model.js';
 import type {BotDecisionTrace} from '../src/shared/bot.js';
-import {watchDeaths} from '../src/shared/life.js';
+import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
 // Audit only: 30 Hz samples plus the actual pre-neutralization death count.
 export class BotGrowthTracker {
  private rows=new Map<string,{initial:number;previous:number;net:number;deathReset:number;spawnGrants:number;maximum:number;lifeMax:Map<number,number>;plans:number;cancelled:number;early:number;active:boolean}>();
  private stop:()=>void;
- constructor(private match:MatchState){
+ constructor(private match:MatchState,onDeath?:(trace:DeathTrace)=>void){
   for(const p of match.participants)this.rows.set(p.participantId,{initial:p.territoryCount,previous:p.territoryCount,net:0,deathReset:0,spawnGrants:0,maximum:p.territoryCount,lifeMax:new Map([[p.lifeId,p.territoryCount]]),plans:0,cancelled:0,early:0,active:false});
-  this.stop=watchDeaths(match,t=>{const r=this.rows.get(t.victimId);if(!r)return;r.deathReset+=t.territoryCount;r.net+=t.territoryCount;r.maximum=Math.max(r.maximum,t.territoryCount);r.lifeMax.set(t.lifeId,Math.max(r.lifeMax.get(t.lifeId)??0,t.territoryCount));});
+  this.stop=watchDeaths(match,t=>{onDeath?.(t);const r=this.rows.get(t.victimId);if(!r)return;r.deathReset+=t.territoryCount;r.net+=t.territoryCount;r.maximum=Math.max(r.maximum,t.territoryCount);r.lifeMax.set(t.lifeId,Math.max(r.lifeMax.get(t.lifeId)??0,t.territoryCount));});
  }
  before(p:Participant,trace?:BotDecisionTrace){
   const r=this.rows.get(p.participantId)!;
