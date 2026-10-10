@@ -64,7 +64,7 @@ export class PracticeSession {
    const human=this.match.participants.find(p=>p.participantId===this.selfId);
    if(this.direction&&human?.lifeState==='ALIVE')inputs.set(human.participantId,{matchId:this.match.matchId,lifeId:human.lifeId,seq:++this.seq,dx:this.direction.x,dy:this.direction.y});
    for(const [id,input]of getBotInputs(this.match,this.memories))inputs.set(id,input);
-   const lifeId=human?.lifeId;stepMatch(this.match,inputs);
+   const lifeId=human?.lifeId;stepMatch(this.match,inputs);this.botDebug?.afterTick();
    if(human&&human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}
    this.accumulated-=step;count++;if(human?.lifeState==='ELIMINATED'){this.accumulated=0;break;}
   }

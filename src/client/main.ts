@@ -30,7 +30,7 @@ let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlin
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
 setColorStyle(settings.get().colorStyle);
 const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('debug')==='1';
-const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true)):null;
+const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true),data=>scene.setBotDebugOverlay(data)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);

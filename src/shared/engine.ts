@@ -1,3 +1,4 @@
+import {prepareCaptureTransfers} from './capture-diagnostics.js';
 import {captureLosses,recordBotCapture} from './bot-events.js';
 import {beginRunResolution,endRunResolution,recordBestTerritories} from './run.js';
 import {slotBit} from './slots.js';
@@ -72,10 +73,12 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
   }
  }
  const botLosses=captureLosses(match,winners);
+ const publishTransfers=prepareCaptureTransfers(match,winners,eventTick);
  const lostTerritory=new Set<Participant>(),territoryAttackers=new Map<Participant,Set<Participant>>();
  for(const [id,p]of winners){if(match.owners[id]!==p.slot+1){
   gained.set(p,(gained.get(p)??0)+1);const previous=participantForOwner(match,match.owners[id]);if(previous){lostTerritory.add(previous);const attackers=territoryAttackers.get(previous)??new Set<Participant>();attackers.add(p);territoryAttackers.set(previous,attackers);}
  }setOwner(match,id,p.slot+1);}
+ publishTransfers?.();
  // Prune only after all simultaneous winners have been applied. A surviving
  // excursion origin (or a head still at home) is the actual home component;
  // choosing a larger distant component must not manufacture a home cut.

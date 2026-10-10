@@ -1,0 +1,430 @@
+{
+  "seed": 73,
+  "ticks": 3600,
+  "trajectoryHash": "4e93dfeb2004e865f4890ebc25567ba1e9a1575811e833232f16795259db836b",
+  "referenceTrajectory": "4e93dfeb2004e865f4890ebc25567ba1e9a1575811e833232f16795259db836b",
+  "trajectoryIdentical": true,
+  "deaths": 11,
+  "walls": 0,
+  "director": {
+    "version": "phase02-v1",
+    "seedDomain": 3900079,
+    "stats": {
+      "denied": 0,
+      "nonPositive": 0,
+      "survival": 0,
+      "survivalOverCap": 0,
+      "maxPlanned": 1,
+      "decisions": 8399
+    },
+    "reservations": []
+  },
+  "total": {
+    "plans": 74,
+    "withAppliedBonus": 69,
+    "withExpectedRecoveryAndBonus": 45,
+    "outcomes": {
+      "CAPTURE": 56,
+      "REPLANNED": 9,
+      "DEATH": 4,
+      "ATTACK": 2,
+      "CENSORED": 3
+    },
+    "withExpectedRecovery": 49,
+    "withAnyRecovery": 50,
+    "expectedCells": 487,
+    "recoveredExpectedCells": 244,
+    "otherRecovery": 19,
+    "ordinaryStolen": 126,
+    "neutral": 223
+  },
+  "counts": {
+    "CAPTURE": 56,
+    "REPLANNED": 9,
+    "DEATH": 4,
+    "ATTACK": 2,
+    "CENSORED": 3
+  },
+  "personalities": {
+    "EXPAND": {
+      "plans": 11,
+      "withAppliedBonus": 10,
+      "withExpectedRecoveryAndBonus": 4,
+      "outcomes": {
+        "REPLANNED": 2,
+        "CAPTURE": 6,
+        "DEATH": 1,
+        "ATTACK": 1,
+        "CENSORED": 1
+      },
+      "withExpectedRecovery": 5,
+      "withAnyRecovery": 5,
+      "expectedCells": 83,
+      "recoveredExpectedCells": 28,
+      "otherRecovery": 2,
+      "ordinaryStolen": 3,
+      "neutral": 65
+    },
+    "ATTACK": {
+      "plans": 18,
+      "withAppliedBonus": 16,
+      "withExpectedRecoveryAndBonus": 10,
+      "outcomes": {
+        "CAPTURE": 14,
+        "DEATH": 1,
+        "REPLANNED": 2,
+        "CENSORED": 1
+      },
+      "withExpectedRecovery": 12,
+      "withAnyRecovery": 12,
+      "expectedCells": 118,
+      "recoveredExpectedCells": 49,
+      "otherRecovery": 3,
+      "ordinaryStolen": 33,
+      "neutral": 35
+    },
+    "DEFEND": {
+      "plans": 36,
+      "withAppliedBonus": 34,
+      "withExpectedRecoveryAndBonus": 25,
+      "outcomes": {
+        "CAPTURE": 29,
+        "REPLANNED": 4,
+        "DEATH": 1,
+        "ATTACK": 1,
+        "CENSORED": 1
+      },
+      "withExpectedRecovery": 26,
+      "withAnyRecovery": 27,
+      "expectedCells": 250,
+      "recoveredExpectedCells": 142,
+      "otherRecovery": 13,
+      "ordinaryStolen": 72,
+      "neutral": 119
+    },
+    "SEEK_POINT": {
+      "plans": 9,
+      "withAppliedBonus": 9,
+      "withExpectedRecoveryAndBonus": 6,
+      "outcomes": {
+        "CAPTURE": 7,
+        "REPLANNED": 1,
+        "DEATH": 1
+      },
+      "withExpectedRecovery": 6,
+      "withAnyRecovery": 6,
+      "expectedCells": 36,
+      "recoveredExpectedCells": 25,
+      "otherRecovery": 1,
+      "ordinaryStolen": 18,
+      "neutral": 4
+    }
+  },
+  "samples": [
+    {
+      "id": 595,
+      "participantId": "bot-1",
+      "slot": 1,
+      "lifeId": 2,
+      "selectedTick": 3427,
+      "endedTick": 3523,
+      "outcome": "CAPTURE",
+      "startCellId": 1187,
+      "plannedPath": [
+        1188,
+        1189,
+        1265,
+        1266,
+        1267,
+        1268,
+        1269,
+        1270,
+        1271,
+        1196,
+        1122,
+        1049,
+        977,
+        906,
+        836,
+        835,
+        834
+      ],
+      "movementCells": [
+        1187,
+        1112,
+        1113,
+        1188,
+        1189,
+        1265,
+        1266,
+        1267,
+        1268,
+        1269,
+        1270,
+        1271,
+        1196,
+        1122,
+        1048,
+        975
+      ],
+      "movementTruncated": false,
+      "dRaw": 1.0022871095364492,
+      "appliedBonus": 1.0022871095364492,
+      "expectedCellIds": [
+        905,
+        976,
+        977
+      ],
+      "actualCellIds": [],
+      "otherReclaimCellIds": [],
+      "ordinaryStolenCells": 0,
+      "neutralCells": 41,
+      "retainedCells": 0,
+      "launched": true,
+      "interruptions": [
+        {
+          "tick": 3505,
+          "goal": "RETURN",
+          "reason": "EARLY_CLOSURE"
+        }
+      ],
+      "damageActors": [
+        "bot-4",
+        "bot-9"
+      ],
+      "relatedDeaths": []
+    },
+    {
+      "id": 328,
+      "participantId": "bot-9",
+      "slot": 9,
+      "lifeId": 1,
+      "selectedTick": 1797,
+      "endedTick": 1847,
+      "outcome": "CAPTURE",
+      "startCellId": 1978,
+      "plannedPath": [
+        1979,
+        1980,
+        2066,
+        2153,
+        2241,
+        2242,
+        2154,
+        2067
+      ],
+      "movementCells": [
+        1978,
+        1979,
+        1980,
+        2066,
+        2153,
+        2241,
+        2242,
+        2155,
+        2154,
+        2067
+      ],
+      "movementTruncated": false,
+      "dRaw": 2.387104009776041,
+      "appliedBonus": 2.1796249730817068,
+      "expectedCellIds": [
+        2153,
+        2154,
+        2155,
+        2241,
+        2242
+      ],
+      "actualCellIds": [
+        2153,
+        2241,
+        2242,
+        2155,
+        2154
+      ],
+      "otherReclaimCellIds": [],
+      "ordinaryStolenCells": 0,
+      "neutralCells": 0,
+      "retainedCells": 5,
+      "launched": true,
+      "interruptions": [],
+      "damageActors": [
+        "bot-2"
+      ],
+      "relatedDeaths": [
+        {
+          "tick": 1982,
+          "victimId": "bot-2",
+          "killerId": "bot-9",
+          "cause": "EXISTING_TRAIL_CONTACT"
+        },
+        {
+          "tick": 3256,
+          "victimId": "bot-9",
+          "killerId": "bot-1",
+          "cause": "EXISTING_TRAIL_CONTACT"
+        }
+      ]
+    },
+    {
+      "id": 542,
+      "participantId": "bot-9",
+      "slot": 9,
+      "lifeId": 1,
+      "selectedTick": 3081,
+      "endedTick": 3183,
+      "outcome": "ATTACK",
+      "startCellId": 1271,
+      "plannedPath": [
+        1196,
+        1122,
+        1048,
+        975,
+        903,
+        832,
+        762,
+        693,
+        625,
+        558,
+        557,
+        556,
+        555,
+        554,
+        553,
+        552,
+        551,
+        617,
+        684,
+        752,
+        821,
+        891
+      ],
+      "movementCells": [
+        1271,
+        1272,
+        1196,
+        1122,
+        1048,
+        975,
+        903,
+        832,
+        762,
+        693,
+        625,
+        558,
+        557,
+        556,
+        555,
+        554
+      ],
+      "movementTruncated": false,
+      "dRaw": 3,
+      "appliedBonus": 3,
+      "expectedCellIds": [
+        894,
+        895,
+        896,
+        897,
+        965,
+        966,
+        967,
+        968,
+        1037,
+        1038,
+        1039,
+        1040,
+        1111,
+        1112,
+        1113,
+        1186,
+        1187,
+        1262,
+        1263
+      ],
+      "actualCellIds": [],
+      "otherReclaimCellIds": [],
+      "ordinaryStolenCells": 0,
+      "neutralCells": 0,
+      "retainedCells": 0,
+      "launched": true,
+      "interruptions": [
+        {
+          "tick": 3183,
+          "goal": "ATTACK",
+          "reason": "ATTACK_OPPORTUNITY"
+        }
+      ],
+      "damageActors": [
+        "bot-1",
+        "bot-2"
+      ],
+      "relatedDeaths": [
+        {
+          "tick": 3256,
+          "victimId": "bot-9",
+          "killerId": "bot-1",
+          "cause": "EXISTING_TRAIL_CONTACT"
+        }
+      ]
+    },
+    {
+      "id": 292,
+      "participantId": "bot-11",
+      "slot": 11,
+      "lifeId": 1,
+      "selectedTick": 1631,
+      "endedTick": 1655,
+      "outcome": "DEATH",
+      "startCellId": 257,
+      "plannedPath": [
+        258,
+        198,
+        139,
+        138,
+        137,
+        196,
+        197,
+        198
+      ],
+      "movementCells": [
+        257,
+        258,
+        198,
+        139,
+        138
+      ],
+      "movementTruncated": false,
+      "dRaw": 0.7012077957320493,
+      "appliedBonus": 0.7012077957320493,
+      "expectedCellIds": [
+        137,
+        138
+      ],
+      "actualCellIds": [],
+      "otherReclaimCellIds": [],
+      "ordinaryStolenCells": 0,
+      "neutralCells": 0,
+      "retainedCells": 0,
+      "launched": false,
+      "interruptions": [],
+      "damageActors": [
+        "bot-4"
+      ],
+      "relatedDeaths": [
+        {
+          "tick": 1654,
+          "victimId": "bot-11",
+          "killerId": "bot-4",
+          "cause": "PENDING_TRAIL_CONTACT"
+        },
+        {
+          "tick": 2773,
+          "victimId": "bot-11",
+          "killerId": "bot-12",
+          "cause": "EXISTING_TRAIL_CONTACT"
+        }
+      ]
+    }
+  ],
+  "notes": "D-positive selected plans; exact winning transfers before pruning/death, excludes respawn grants. Expected and unexpected recovery are disjoint. Same cells may recur across plans, not unique map area. ATTACK closes D attribution immediately; later kills are separate facts. CENSORED is not failure. No statistical/balance inference from one seed; raw records local only."
+}

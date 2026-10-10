@@ -91,3 +91,33 @@ test('phase 2.5 HUD accumulates public remote theft, explains the cooldown, and 
  await expect(hud.locator('pre')).toContainText('REPOSITION 보류');await expect(hud.locator('pre')).toContainText('누적 6칸 미만');expect(errors).toEqual([]);
  await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});await page.screenshot({path:'.local/bot-phase025/remote-loss-hud.png'});
 });
+
+
+test('spectator overlays expected damaged cells and reports exact recovery separately from ordinary theft',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=73');await page.getByTestId('nickname').fill('되찾기 확인');await page.getByTestId('practice').click();
+ await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
+ const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(8).click();
+ await page.evaluate(async()=>{
+  const territoryPath='/src/shared/territory.ts';const {neutralizeTerritory,setOwner,clearTrail}=await import(territoryPath);
+  const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice(),m=p.match,[a,b,c]=[8,2,3].map(slot=>m.participants.find((q:any)=>q.slot===slot)),id=(q:number,r=0)=>m.map.byKey.get(q+','+r);
+  for(const [v,q]of [[a,0],[b,5],[c,-5]]){neutralizeTerritory(m,v);clearTrail(m,v);v.cellId=id(q);v.position={...m.map.cells[v.cellId].center};setOwner(m,v.cellId,v.slot+1);v.protectedUntilTick=0;v.spawnCells.clear();}
+  setOwner(m,id(1),c.slot+1);setOwner(m,id(1,-1),c.slot+1);
+  const memory=p.memories.get(a.participantId);memory.emotion.damage.regions.clear();memory.emotion.damage.regions.set(id(1),{attackerId:b.participantId,tick:m.tick});
+  p.botDebug.reclaim.decision(a.participantId,{tick:m.tick,from:'EXPAND',to:'EXPAND',ownTrail:0,attackTarget:null,attacks:[],planChanged:true,reason:'EXPANSION_SCORE',expansionPath:[id(1),id(1,-1),id(0,-1),id(0)],expansionPlan:{shape:'RHOMBUS',pathLength:4,externalLength:3,captureSize:3,stolenCells:2,earlyClosed:false,response:{reclaimRaw:.5,bonus:.5}}});api.showPracticeView();
+ });
+ await expect(hud.locator('pre')).toContainText('예상 되찾기 1칸 → 실제 0칸');
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState())).toMatchObject({enabled:true,damage:1,expected:1,actual:0});
+ await page.evaluate(async()=>{
+  const territoryPath='/src/shared/territory.ts',enginePath='/src/shared/engine.ts';const [{addTrail},{applySimultaneousCaptures}]=await Promise.all([import(territoryPath),import(enginePath)]);
+  const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice(),m=p.match,a=m.participants.find((q:any)=>q.slot===8),id=(q:number,r=0)=>m.map.byKey.get(q+','+r);
+  for(const cell of [id(1),id(1,-1),id(0,-1)])addTrail(m,a,cell);applySimultaneousCaptures(m,[a]);p.botDebug.afterTick();api.showPracticeView();
+ });
+ await expect(hud.locator('pre')).toContainText('예상 되찾기 1칸 → 실제 1칸');await expect(hud.locator('pre')).toContainText('일반 탈취 1칸 / 중립 1칸');
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState())).toMatchObject({enabled:true,actual:1});
+ await hud.getByRole('button',{name:'선택 봇 따라보기',exact:true}).click();
+ await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});
+ await page.screenshot({path:'.local/bot-reclaim/recovery-overlay.png'});
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().enabled)).toBe(false);expect(errors).toEqual([]);
+});

@@ -24,6 +24,19 @@ export class GameScene extends Phaser.Scene {
  private boundaryHighlight=true;private botDebugFollowId:string|null=null;
  setBotDebugFollow(id:string|null):void{this.botDebugFollowId=id;if(this.created&&this.view)this.drawView(this.view,false);}
  isBotDebugFollowing():boolean{return this.botDebugFollowId!==null;}
+ private debugOverlay?:Phaser.GameObjects.Graphics;
+ private debugOverlayData:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number}|null=null;
+ setBotDebugOverlay(data:typeof this.debugOverlayData):void {
+  this.debugOverlayData=data;if(!this.created||!this.map)return;
+  if(!data||data.matchId!==this.view?.matchId){this.debugOverlay?.clear().setVisible(false);return;}
+  if(!this.debugOverlay){this.debugOverlay=this.add.graphics().setDepth(6);const clear=()=>{this.debugOverlay?.destroy();this.debugOverlay=undefined;this.debugOverlayData=null;};this.events.once(Phaser.Scenes.Events.SHUTDOWN,clear);}
+  const g=this.debugOverlay;g.clear().setVisible(true);
+  for(const [ids,color,width,fill]of [[data.damage,0xffd54a,2,0],[data.expected,0x42dbff,4,.15],[data.actual,0x61ff92,3,.20]] as const){
+   g.lineStyle(width,color,1);for(const id of ids){const cell=this.map.cells[id];if(!cell||(color===0x61ff92&&this.view?.owners[id]!==data.slot+1))continue;if(fill)g.fillStyle(color,fill).fillPoints(cell.vertices,true);g.strokePoints(cell.vertices,true);}
+  }
+ }
+ botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0};}
+
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
  private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
@@ -83,7 +96,7 @@ export class GameScene extends Phaser.Scene {
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
   const cleanup=()=>{observer.disconnect();abort.abort();cancelAnimationFrame(frame);};this.events.once(Phaser.Scenes.Events.SHUTDOWN,cleanup);this.events.once(Phaser.Scenes.Events.DESTROY,cleanup);fit();
  }
- setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);this.combat?.accept(view,selfId,reset);}}
+ setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {

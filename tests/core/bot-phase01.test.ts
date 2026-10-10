@@ -88,7 +88,7 @@ it.each([22,56])('HUD collection is bounded, observes real reasons without shado
  const memories=(m:typeof a)=>new Map(m.participants.map(p=>[p.participantId,createBotMemory(19+p.slot,'combined',createBotIdentity(19+p.slot,p.personality!))]));
  const ma=memories(a),mb=memories(b),collector=new BotDebugCollector(b,mb);
  for(let tick=0;tick<360;tick++){
-  const advance=(m:typeof a,mem:typeof ma)=>{const inputs=new Map();for(const p of m.participants){const memory=mem.get(p.participantId)!,input=getBotInput(observeBotForTick(m,p.participantId,memory),memory);if(input)inputs.set(p.participantId,input);}stepMatch(m,inputs);return inputs;};
+  const advance=(m:typeof a,mem:typeof ma)=>{const inputs=new Map();for(const p of m.participants){const memory=mem.get(p.participantId)!,input=getBotInput(observeBotForTick(m,p.participantId,memory),memory);if(input)inputs.set(p.participantId,input);}stepMatch(m,inputs);if(m===b)collector.afterTick();return inputs;};
   expect(advance(a,ma)).toEqual(advance(b,mb));
  }
  expect(a).toEqual(b);for(const [id,memory]of ma){expect(memory.path).toEqual(mb.get(id)!.path);expect(memory.random()).toBe(mb.get(id)!.random());}

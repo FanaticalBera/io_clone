@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-10",
+  "scope": "Read-only diagnostics; no AI tuning. REPOSITION and phase3 deferred.",
+  "coreChecks": {
+    "relatedFiles": 15,
+    "initialTests": 129,
+    "finalBotAndDiagnosticsRetest": {
+      "files": 4,
+      "tests": 92
+    },
+    "addedThirdPartyDeathCasePassed": true,
+    "maxWorkers": 1
+  },
+  "playwright": {
+    "allPCSpectatorTestsPassed": 6,
+    "finalOverlayTestPassed": true
+  },
+  "typecheck": true,
+  "scriptStrictTypecheck": true,
+  "build": true,
+  "seed73TrajectoryIdentical": true,
+  "rawLocalPath": ".local/bot-reclaim/seed73.json",
+  "rawSHA256": "3c3883862b8e2dad1b9b291c684c7bd472b1c0632aee4631babb2b7e3edcc4b5",
+  "sourceSHA256": {
+    "src/shared/capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+    "src/shared/bot-reclaim-diagnostics.ts": "b484cb14532f032ae65902764c67bfc5f39778dcd26f7d930a9c8c1325f40595",
+    "src/shared/engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+    "src/client/bot-debug-model.ts": "6b8ea6b4e1111c9179fb2ff68c1bfea0936573983e82ea9456280b07619689b2",
+    "src/client/bot-debug-hud.ts": "05da104795ac6e64e6b360b89adf380898b0cd64f95d3de5ec8440d6e44dab01",
+    "src/client/game-scene.ts": "e6aa7c6c518647dc542b4484a96d2a784144264919912a4604dc1ac2891fd12b",
+    "src/client/practice.ts": "da34163a6bc791c19c1e491c3230c5157d35085e1ecc910a3ba7d096d5819345",
+    "src/client/main.ts": "6eb8fcb18eeb26134b182f069d83087bd99c2ed47fbc7249230642c1bbd21e84",
+    "scripts/bot-reclaim-audit.ts": "a2b913ccdcad12d614b1726a9c481d4319fb86eabc820c2bc88e8ea6cfbc4aaa"
+  }
+}
