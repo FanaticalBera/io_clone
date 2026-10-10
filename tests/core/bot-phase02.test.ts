@@ -33,11 +33,11 @@ describe('phase 2 observed event memory',()=>{
   const f=fixture();capture(f,count);const obs=update(f);expect(grudgeAmount(f.memory.emotion,f.enemy.participantId)).toBe(count>=6?3:0);
   update(f);expect(grudgeAmount(f.memory.emotion,f.enemy.participantId)).toBe(count>=6?3:0);
   expect(obs.events).toEqual(expect.arrayContaining([expect.objectContaining({type:'LOSS',cells:count})]));
-  expect(JSON.stringify(obs.events)).not.toMatch(/position|cellId|direction|trail|targetDirection/);
+  expect(JSON.stringify(obs.events)).not.toMatch(/position|direction|trail|targetDirection/);
  });
- it('filters loss cells at the event location/time and does not infer out-of-range damage',()=>{
-  const f=fixture();capture(f,6,true);expect(update(f).events!.filter(e=>e.type==='LOSS')).toEqual([]);expect(f.memory.emotion.grudge.size).toBe(0);
-  f.self.cellId=f.id(17,1);f.self.position={...f.m.map.cells[f.self.cellId].center};update(f);expect(f.memory.emotion.grudge.size).toBe(0);
+ it('filters loss cells at the event location/time and records public remote damage without widening local pressure',()=>{
+  const f=fixture();capture(f,6,true);expect(update(f).events!.filter(e=>e.type==='LOSS')).toEqual([expect.objectContaining({cells:6,observedCells:0})]);expect(grudgeAmount(f.memory.emotion,f.enemy.participantId)).toBe(3);expect(f.memory.emotion.losses).toEqual([]);
+  f.self.cellId=f.id(17,1);f.self.position={...f.m.map.cells[f.self.cellId].center};update(f);expect(grudgeAmount(f.memory.emotion,f.enemy.participantId)).toBe(3);
  });
  it('small ownership edits and death neutralization do not manufacture capture damage',()=>{
   const f=fixture();for(const q of [-1,-2]){setOwner(f.m,f.id(q,1),1);setOwner(f.m,f.id(q,1),2);}update(f);
@@ -140,9 +140,9 @@ describe('passive grudge cause diagnostics',()=>{
   const events=collector.snapshot().bots[0].grudgeEvents;expect(events).toHaveLength(2);expect(events[0]).toMatchObject({reason:'REPEAT_APPROACH',delta:.5,upgrade:false});
   expect(events[1]).toMatchObject({reason:'REPEAT_INTRUSION',upgrade:true});expect(events[1].delta).toBeCloseTo(1-.5*2**(-.2/45));collector.dispose();
  });
- it('does not manufacture a cause for out-of-range capture loss',()=>{
+ it('explains a remote public capture while keeping pressure local',()=>{
   const f=fixture(),collector=new BotDebugCollector(f.m,new Map([[f.self.participantId,f.memory],[f.enemy.participantId,createBotMemory(8)]]));
-  capture(f,6,true);update(f);expect(collector.snapshot().bots[0].grudgeEvents).toEqual([]);expect(collector.snapshot().bots[0].emotion.grudges).toEqual([]);collector.dispose();
+  capture(f,6,true);update(f);expect(collector.snapshot().bots[0].grudgeEvents).toEqual([expect.objectContaining({reason:'CAPTURE',cells:6,observedCells:0,delta:3})]);expect(collector.snapshot().bots[0].emotion.grudges[0].amount).toBe(3);expect(f.memory.emotion.losses).toEqual([]);collector.dispose();
  });
 });
 

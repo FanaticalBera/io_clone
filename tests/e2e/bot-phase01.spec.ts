@@ -62,9 +62,28 @@ test('grudge HUD identifies the actual distant thief and explains unawarded capt
   capture(6);m.tick+=30;capture(5);m.tick+=15;capture(6);m.tick+=15;api.showPracticeView();
   const row=p.botDiagnostics().bots.find((b:any)=>b.slot===8);return {thief:thief.nickname,victim:victim.nickname,row};
  });
- expect(result.row.grudgeEvents.slice(-3).map((e:any)=>[e.slot,e.cells,e.ignored])).toEqual([[2,6,undefined],[2,5,'BELOW_THRESHOLD'],[2,6,'COOLDOWN']]);
+ expect(result.row.grudgeEvents.slice(-3).map((e:any)=>[e.slot,e.cells,e.ignored])).toEqual([[2,6,undefined],[2,5,'COOLDOWN'],[2,6,'COOLDOWN']]);
  expect(result.row.emotion.grudges.find((g:any)=>g.slot===2).lastEvent).toMatchObject({reason:'CAPTURE',delta:3,cells:6});
- await expect(hud.locator('pre')).toContainText('#2 '+result.thief);await expect(hud.locator('pre')).toContainText('최근 적립: 영토 6칸 탈취 · +3.00 · 2.0초 전');
- await expect(hud.locator('pre')).toContainText('영토 5칸 탈취 · 미적립 (6칸 미만)');await expect(hud.locator('pre')).toContainText('영토 6칸 탈취 · 미적립 (재적립 대기 2초)');
+ await expect(hud.locator('pre')).toContainText('#2 '+result.thief);await expect(hud.locator('pre')).toContainText('최근 적립: 영토 6칸 탈취 (최근 누적 6칸) · +3.00 · 2.0초 전');
+ await expect(hud.locator('pre')).toContainText('영토 5칸 탈취 (최근 누적 0칸) · 미적립 (재적립 대기 2초)');await expect(hud.locator('pre')).toContainText('영토 6칸 탈취 (최근 누적 0칸) · 미적립 (재적립 대기 2초)');
  await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});await page.screenshot({path:'.local/bot-grudge/grudge-causes.png'});expect(errors).toEqual([]);
+});
+
+test('phase 2.5 HUD accumulates public remote theft, explains the cooldown, and shows region memory without REPOSITION',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=19');await page.getByTestId('nickname').fill('누적 확인');await page.getByTestId('practice').click();
+ await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(8).click();
+ const row=await page.evaluate(async()=>{
+  const territoryPath='/src/shared/territory.ts',enginePath='/src/shared/engine.ts',directorPath='/src/shared/bot-director.ts';
+  const [{neutralizeTerritory,setOwner,addTrail},{applySimultaneousCaptures},{getBotInputs}]=await Promise.all([import(territoryPath),import(enginePath),import(directorPath)]);
+  const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice(),m=p.match,a=m.participants.find((b:any)=>b.slot===8),b=m.participants.find((b:any)=>b.slot===2),id=(q:number,r=0)=>m.map.byKey.get(q+','+r);
+  neutralizeTerritory(m,a);neutralizeTerritory(m,b);a.cellId=id(0);a.position={...m.map.cells[a.cellId].center};b.cellId=id(22);b.position={...m.map.cells[b.cellId].center};setOwner(m,a.cellId,a.slot+1);setOwner(m,b.cellId,b.slot+1);
+  const capture=(qs:number[])=>{for(const q of qs){setOwner(m,id(q,1),a.slot+1);addTrail(m,b,id(q,1));}applySimultaneousCaptures(m,[b]);getBotInputs(m,p.memories);};
+  capture([14,15,16]);m.tick+=30;capture([17,18,19]);m.tick+=15;capture([20]);api.showPracticeView();return p.botDiagnostics().bots.find((b:any)=>b.slot===8);
+ });
+ expect(row.grudgeEvents.slice(-3).map((e:any)=>[e.cells,e.accumulated,e.observedCells,e.ignored])).toEqual([[3,3,0,'BELOW_THRESHOLD'],[3,6,0,undefined],[1,0,0,'COOLDOWN']]);
+ expect(row.damage.opponents.find((d:any)=>d.slot===2)).toMatchObject({accumulated:0,total:7,local:0});expect(row.damage.regions).toHaveLength(7);expect(row.emotion.recentDamage).toBe(0);
+ await expect(hud.locator('pre')).toContainText('최근 누적 6칸');await expect(hud.locator('pre')).toContainText('전체 7 / 근처 0 / 관측 밖 7');await expect(hud.locator('pre')).toContainText('피해 구역 7/96칸');
+ await expect(hud.locator('pre')).toContainText('REPOSITION 보류');await expect(hud.locator('pre')).toContainText('누적 6칸 미만');expect(errors).toEqual([]);
+ await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});await page.screenshot({path:'.local/bot-phase025/remote-loss-hud.png'});
 });

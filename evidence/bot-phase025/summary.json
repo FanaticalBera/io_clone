@@ -1,0 +1,78 @@
+{
+  "baseline": "0384f9a",
+  "scope": "approved bundles 1/2 only; REPOSITION deferred",
+  "conditions": {
+    "seeds": [
+      4,
+      19,
+      73
+    ],
+    "secondsPerSeed": 120,
+    "mapRadius": 56,
+    "spawnCells": 7,
+    "bots": 14,
+    "safeRespawn": true,
+    "classic": true
+  },
+  "baselineTotals": {
+    "netTerritory": 20849,
+    "totalCapture": 27724,
+    "deaths": 28,
+    "walls": 0,
+    "reclaimedCellsTickSample": 324
+  },
+  "afterTotals": {
+    "netTerritory": 21196,
+    "totalCapture": 27153,
+    "deaths": 43,
+    "walls": 0,
+    "reclaimedCellsTickSample": 556
+  },
+  "changePercent": {
+    "netTerritory": 1.6643484099956751,
+    "totalCapture": -2.0595873611311544,
+    "deaths": 53.571428571428584,
+    "walls": null,
+    "reclaimedCellsTickSample": 71.60493827160495
+  },
+  "bundle1SameInputWorldTrajectory": {
+    "4": true,
+    "19": true,
+    "73": true
+  },
+  "seedDeaths": {
+    "4": {
+      "before": 16,
+      "after": 15
+    },
+    "19": {
+      "before": 7,
+      "after": 14
+    },
+    "73": {
+      "before": 5,
+      "after": 14
+    }
+  },
+  "performanceMsPerTick": {
+    "baseline": 2.902925055555555,
+    "after": 2.717463444444445,
+    "afterWithCollector": 3.0306031666666673
+  },
+  "validation": {
+    "vitestFiles": 84,
+    "vitestTests": 565,
+    "playwrightPc": 5,
+    "typecheck": "passed",
+    "build": "passed",
+    "hudRngDirectorNoninterference": "passed"
+  },
+  "acceptance": "functional checks passed; death increase exceeds approved 20% review trigger; user observation and balance review pending",
+  "limitations": [
+    "Three 120-second seeds; not a statistical significance claim.",
+    "Recapture/theft sampled at tick boundaries; simultaneous transfers neutralized in the same tick may be omitted.",
+    "Repeated unreachable-boundary observations are not unique incidents.",
+    "Movement similarity reports goal distributions and descriptors, not identical trajectories.",
+    "REPOSITION/global cooldown/ping-pong remain design only."
+  ]
+}

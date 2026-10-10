@@ -5,17 +5,17 @@ import {botSpecs} from './bot-fixtures.js';
 import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
-// Frozen original AI counterfactual witness; new timing is measured separately.
-// Spatial padding changes emergent encounters. Seed 4 supplies a real
-// ESCAPE cut-and-return witness at tick 4358 (cut tick 4374). All conditions
+// Real counterfactual witness refreshed after approved Phase 2.5 behavior changes.
+// Seed 15 supplies an ESCAPE cut-and-return witness at tick 5114
+// (cut tick 5119). Existing safety/branch conditions
 // remain verified through normal movement and the independent branch.
-export function runShadowEscapeWitness(seed=4){
+export function runShadowEscapeWitness(seed=15){
  const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),traces:(BotDecisionTrace|undefined)[]=Array(8);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};
  // Search normal decisions rather than relying on a tick from an old death
  // timeline. Neither game state nor BOT policy/memory is injected.
- try{while(match.tick<7200){const inputs=new Map();
+ try{while(match.tick<7200&&match.phase==='RUNNING'){const inputs=new Map();
   for(const [i,bot] of match.participants.entries()){
    traces[i]=undefined;const memory=memories[i],actualInput=getBotInput(observeBot(match,bot.participantId,'baseline'),memory);if(actualInput)inputs.set(bot.participantId,actualInput);
    const trace=traces[i] as BotDecisionTrace|undefined;if(trace?.from==='ESCAPE')attempts.escape++;if(trace?.from!=='ESCAPE'||trace.to!=='ESCAPE'||trace.shadow?.missedReason!=='GOAL_ESCAPE_BLOCK')continue;

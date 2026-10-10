@@ -1,4 +1,5 @@
 import {botEvents,type BotEvent} from './bot-events.js';
+import {damageExpansionAnchors,expansionDamageBonus,type DamageBonus} from './bot-damage.js';
 import {createBotEmotion,updateBotEmotion,rememberBotEntries,updatePressure,emotionIndividual,memoryValuable,grudgeBonus,grudgeAmount,type BotEmotion} from './bot-emotion.js';
 import {survivalCounterAllowed,type BotAttackPolicy} from './bot-policy.js';
 import type {MatchState,MapDefinition,PublicParticipant,DirectionInput,Personality} from './model.js';
@@ -30,8 +31,8 @@ export function createBotMemory(seed:number,variant:BotVariant='combined',identi
  const memory:BotMemory={identity,traits:identity?Object.freeze({expansionScale:identity.individual.expansionScale,riskScale:identity.individual.riskScale,stealScale:identity.individual.stealScale}):traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,emotion:createBotEmotion(),attackSurvival:false};memoryVariants.set(memory,variant);return memory;
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number;grudge?:number;grudgeBonus?:number;attackChance?:number;otherReservations?:number;reservationFactor?:number;survival?:boolean}
-export interface ExpansionPlan {shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
-export interface BotDecisionTrace {emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};expansionScores?:{shape?:ExpansionShape;goal:BotGoal;score:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
+export interface ExpansionPlan {response?:DamageBonus;anchor?:number;shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
+export interface BotDecisionTrace {emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};damageBoundary?:{anchors:number[];unreachable:number};expansionScores?:{shape?:ExpansionShape;goal:BotGoal;score:number;response?:DamageBonus;anchor?:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const decisionTraces=new WeakMap<BotMemory,BotDecisionTrace>();
 const shadowObservers=new WeakMap<BotMemory,boolean>();
@@ -316,7 +317,9 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  const cautiousExplorer=obs.self.personality==='EXPAND'&&obs.others.length>0;
  const loopLength=cautiousExplorer?Math.min(settings.length,4):settings.length;
  const loopWidth=cautiousExplorer?Math.min(settings.width,3):settings.width;
- for(const [anchorIndex,anchor] of boundary.slice(0,6).entries())for(let d=0;d<6;d++){
+ const damageBoundary=damageExpansionAnchors(obs,memory.emotion.damage,boundary);
+ const boundaryTrace=decisionTraces.get(memory);if(boundaryTrace)boundaryTrace.damageBoundary={anchors:damageBoundary.damageAnchors,unreachable:damageBoundary.unreachable};
+ for(const [anchorIndex,anchor] of damageBoundary.anchors.entries())for(let d=0;d<6;d++){
   const prefix=shortestPath(obs.map,obs.self.cellId,id=>id===anchor.id,id=>obs.owners[id]===owner,10);if(!prefix)continue;
   let current=anchor.id;const path=[...prefix];let valid=true,leftHome=false,closed=false;
   let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*3));
@@ -355,10 +358,12 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const excursionRisk=obs.self.personality==='EXPAND'?Math.max(0,(external.length-threatDistance)/obs.config.moveCellsPerSecond)*settings.risk*2:0;
   const repeatPenalty=obs.self.personality!=='DEFEND'&&memory.lastExpansionShape===shape?1.5:0;
   if(trace)(trace.expansionAccepted??=[]).push(shape);
-  candidates.push({path,score:gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk-turn*2-excursionRisk-repeatPenalty+memory.random()*0.5,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
+  const baseScore=gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk-turn*2-excursionRisk-repeatPenalty+memory.random()*0.5;
+  const response=expansionDamageBonus(obs,memory.emotion,gain,baseScore,memory.identity);
+  candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
  }
  candidates.sort((a,b)=>b.score-a.score);
- const evaluated=decisionTraces.get(memory);if(evaluated)evaluated.expansionScores=candidates.map(c=>({shape:c.expansion?.shape,goal:c.goal,score:c.score}));
+ const evaluated=decisionTraces.get(memory);if(evaluated)evaluated.expansionScores=candidates.map(c=>({shape:c.expansion?.shape,goal:c.goal,score:c.score,response:c.expansion?.response,anchor:c.expansion?.anchor}));
  const selected=candidates[0];memory.attackSurvival=selected?.goal==='ATTACK'&&'survival' in selected?!!selected.survival:false;memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
  const trace=decisionTraces.get(memory);if(trace){trace.reason=selected?.expansion?'EXPANSION_SCORE':selected?.goal==='ATTACK'?'ATTACK_SCORE':selected?'POINT_SCORE':'NO_EXPANSION';trace.expansionPlan=selected?.expansion;if(selected?.expansion)trace.expansionPath=[...selected.path];}
  memory.expansion=selected?.expansion;if(selected?.expansion)memory.lastExpansionShape=selected.expansion.shape;

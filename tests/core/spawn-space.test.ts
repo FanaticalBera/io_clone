@@ -31,10 +31,10 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
  it.each([false,true])('R22 / padding %s: actual movement/capture/respawn matches its fixed trajectory',padded=>{
-  // Phase 2 changes serialized memory and remembered opponents.
+  // Phase 2.5 adds bounded damage memory and changes repeated-theft responses.
   // Ownership, real captures, wall safety and successful spawn evidence guard the new pin.
   // Initial anchors and observer equivalence remain checked separately.
-  const radius=22,expected=padded?'26db5a6037728b53babb77aa92bf02b8c6810f5dc549429b1d80d037f9d8f12b':'014131cfc72c00b155482d43b17e125cf1a009094ae431cb5a637818713fa4c7';
+  const radius=22,expected=padded?'1aafe619ff763147f30ed6c406b99ef2a084d372a48fa848676dd802b41ce02a':'8a81f43784c47664c166232361833af9f51fc3a79aaecb9664197f21f8e6dda5';
   const spawnTraces:SpawnAttemptTrace[]=[];let captures=0,walls=0;
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,t=>spawnTraces.push(t));setWallMargin(m.map,padded);
   for(let tick=0;tick<1200;tick++){

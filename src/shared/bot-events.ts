@@ -1,8 +1,9 @@
 import type {MatchState,Participant,GameEvent} from './model.js';
 import {hexDistance} from './hex.js';
-// AI-only facts. No positions, trails, or capture cells cross this boundary.
+// AI-only public ownership facts. Never include hidden heads, trails or intent.
+export type BotCaptureLoss={cellIds:number[];observedCells:number};
 export type BotEvent = {id:number;tick:number;type:'DEATH';victimId:string;lifeId:number;killerId?:string}
- | {id:number;tick:number;type:'LOSS';victimId:string;attackerId:string;cells:number};
+ | {id:number;tick:number;type:'LOSS';victimId:string;attackerId:string;cells:number;cellIds:readonly number[];observedCells:number};
 const journals=new WeakMap<MatchState,BotEvent[]>();
 function append(match:MatchState,events:BotEvent[]){
  const journal=journals.get(match)??[];journal.push(...events);
@@ -13,18 +14,23 @@ function append(match:MatchState,events:BotEvent[]){
 export function recordBotDeath(match:MatchState,event:GameEvent){
  if(event.type==='DEATH')append(match,[{id:match.eventCounter,tick:event.tick,type:'DEATH',victimId:event.participantId,lifeId:event.lifeId??0,killerId:event.killerId}]);
 }
-export function recordBotCapture(match:MatchState,attacker:Participant,transfers:ReadonlyMap<Participant,number>){
- append(match,[...transfers].map(([victim,cells])=>({id:match.eventCounter,tick:match.tick,type:'LOSS' as const,victimId:victim.participantId,attackerId:attacker.participantId,cells})));
+export function recordBotCapture(match:MatchState,attacker:Participant,transfers:ReadonlyMap<Participant,BotCaptureLoss>){
+ append(match,[...transfers].map(([victim,loss])=>({id:match.eventCounter,tick:match.tick,type:'LOSS' as const,victimId:victim.participantId,attackerId:attacker.participantId,cells:loss.cellIds.length,cellIds:loss.cellIds,observedCells:loss.observedCells})));
 }
 export function botEvents(match:MatchState,selfId:string):readonly BotEvent[]{
  return (journals.get(match)??[]).filter(e=>e.type==='DEATH'||e.victimId===selfId);
 }
-export function observedCaptureLosses(match:MatchState,winners:ReadonlyMap<number,Participant>):Map<Participant,Map<Participant,number>>{
- const losses=new Map<Participant,Map<Participant,number>>();
+// Capture the actual attacker and prior owner BEFORE simultaneous transfers.
+// Remote public losses remain facts; only the local count feeds pressure.
+export function captureLosses(match:MatchState,winners:ReadonlyMap<number,Participant>):Map<Participant,Map<Participant,BotCaptureLoss>>{
+ const losses=new Map<Participant,Map<Participant,BotCaptureLoss>>(),byOwner=new Map(match.participants.map(p=>[p.slot+1,p]));
  for(const [cellId,attacker] of winners){
-  const victim=match.participants.find(p=>p.slot+1===match.owners[cellId]);
-  if(!victim||victim===attacker||victim.lifeState!=='ALIVE'||!match.map.cells[victim.cellId]||hexDistance(match.map.cells[victim.cellId],match.map.cells[cellId])>match.config.botObservationRange)continue;
-  const byVictim=losses.get(attacker)??new Map<Participant,number>();byVictim.set(victim,(byVictim.get(victim)??0)+1);losses.set(attacker,byVictim);
+  const victim=byOwner.get(match.owners[cellId]);
+  if(!victim||victim===attacker||victim.lifeState!=='ALIVE')continue;
+  const byVictim=losses.get(attacker)??new Map<Participant,BotCaptureLoss>(),loss=byVictim.get(victim)??{cellIds:[],observedCells:0};
+  loss.cellIds.push(cellId);
+  if(match.map.cells[victim.cellId]&&hexDistance(match.map.cells[victim.cellId],match.map.cells[cellId])<=match.config.botObservationRange)loss.observedCells++;
+  byVictim.set(victim,loss);losses.set(attacker,byVictim);
  }
  return losses;
 }

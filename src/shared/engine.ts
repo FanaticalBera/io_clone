@@ -1,4 +1,4 @@
-import {observedCaptureLosses,recordBotCapture} from './bot-events.js';
+import {captureLosses,recordBotCapture} from './bot-events.js';
 import {beginRunResolution,endRunResolution,recordBestTerritories} from './run.js';
 import {slotBit} from './slots.js';
 import {moveSpeed} from './config.js';
@@ -71,7 +71,7 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
    const contexts=cutContexts.get(victim)??new Map<Participant,DeathContext>();if(!contexts.has(attacker))contexts.set(attacker,{cause:'TRAIL_CAPTURE',cellId:id,eventTick});cutContexts.set(victim,contexts);
   }
  }
- const botLosses=observedCaptureLosses(match,winners);
+ const botLosses=captureLosses(match,winners);
  const lostTerritory=new Set<Participant>(),territoryAttackers=new Map<Participant,Set<Participant>>();
  for(const [id,p]of winners){if(match.owners[id]!==p.slot+1){
   gained.set(p,(gained.get(p)??0)+1);const previous=participantForOwner(match,match.owners[id]);if(previous){lostTerritory.add(previous);const attackers=territoryAttackers.get(previous)??new Set<Participant>();attackers.add(p);territoryAttackers.set(previous,attackers);}
