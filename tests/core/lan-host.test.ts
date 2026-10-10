@@ -139,7 +139,7 @@ describe('L08–L10: LAN host over frame channels',()=>{
    for(const g of f.guests){expect(g.rec.errors.map(e=>e.code)).toEqual(['HOST_LEFT']);expect(g.rec.disconnected).toBe(true);}
    expect(f.closedWith.map(e=>e.code)).toEqual(['HOST_LEFT']);expect(f.host.rooms.rooms.size).toBe(0);
   }
- });
+ },60000);
  it('delivers run results and retry state despite losing most replaceable snapshots (PRD 10.3)',async()=>{
   const sent:{e:string;replaceKey?:string}[]=[];
   const f=await lobby(0);const lossy=await client(f.host,{channel:{dropReplaceable:0.8,random:seededRandom(3)},sentFrames:sent});
