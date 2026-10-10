@@ -1,5 +1,5 @@
 import {MAX_MATCH_SLOTS} from './slots.js';
-export const PROTOCOL_VERSION = 6;
+export const PROTOCOL_VERSION = 7;
 export const HEX_EPS = 1e-7;
 export const MAX_ENTRY_EVENTS = 64;
 export interface GameConfig {

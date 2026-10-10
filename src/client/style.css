@@ -47,7 +47,7 @@ h2{font-family:var(--display);font-weight:400;margin:0}
 .home-marker{position:absolute;left:65.5%;top:63%;width:12%;aspect-ratio:1;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;background:#fff;border:3px solid var(--ink);border-radius:50%;box-shadow:var(--lip)}
 .home-marker>:is(svg,canvas){width:82%;height:82%}
 .friend-card{display:flex;flex-direction:column;gap:9px;padding:10px 12px 12px;background:var(--paper);border:3px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink)}
-.friend-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 4px}.friend-head h2{font-size:21px}.friend-head span{font:700 12.5px var(--body);color:var(--muted)}
+.friend-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 4px}.friend-head h2{font-size:21px;white-space:nowrap;flex-shrink:0}.friend-head span{font:700 12.5px var(--body);color:var(--muted)}
 .friend-card .code-field{background:var(--soft)}
 .play-column{display:flex;flex-direction:column;gap:14px}
 .nickname-row{display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;background:var(--paper);border:3px solid var(--ink);border-radius:14px}
@@ -142,11 +142,12 @@ h2{font-family:var(--display);font-weight:400;margin:0}
 #room-leave{position:fixed;top:var(--top);left:max(16px,env(safe-area-inset-left));padding:0 14px 0 10px}
 .room-info{align-self:start;display:flex;flex-direction:column;gap:12px}
 #room-title{font-size:32px;color:#fff;text-shadow:0 3px 0 var(--ink)}
-#invite{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
-#friend-code{display:flex;gap:8px}#friend-code span{width:52px;height:60px;display:flex;align-items:center;justify-content:center;background:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:var(--lip);font:400 34px var(--number)}
+#invite{display:flex;flex-direction:column;align-items:flex-start;gap:16px;container-type:inline-size;width:100%}
+/* 8 tiles must fit the left column on short landscape phones: tiles shrink with the column, split 4+4 so the code reads aloud easily. */
+#friend-code{display:flex;gap:min(8px,1.4cqw);width:100%;max-width:476px}#friend-code span{flex:1 1 0;min-width:0;max-width:52px;aspect-ratio:52/60;display:flex;align-items:center;justify-content:center;background:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:var(--lip);font:400 min(34px,7cqw) var(--number)}#friend-code span:nth-child(4){margin-right:min(12px,2.4cqw)}
 #room-game-mode{margin:0;align-self:flex-start;padding:6px 12px;border-radius:12px;background:#1f1b2d59;color:#fff;font:14px var(--display)}
 .room-members{align-self:stretch;display:flex;flex-direction:column;gap:8px;padding:14px 16px 16px;min-height:0}
-.members-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.members-head h3{margin:0;font:400 20px var(--display)}#room-status{margin:0;font:13px var(--display);color:var(--muted);text-align:right}
+.members-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.members-head h3{margin:0;font:400 20px var(--display);white-space:nowrap;flex-shrink:0}#room-status{margin:0;font:13px var(--display);color:var(--muted);text-align:right}
 #members{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;overflow:auto}#members li{display:flex;align-items:center;min-height:44px;padding:0 12px;background:var(--soft);border:2.5px solid var(--ink);border-radius:13px;font:17px var(--display)}#members li.self{background:#ffe27a}
 #start{margin-top:auto;height:58px;font-size:24px;box-shadow:0 5px 0 var(--ink)}#start svg{width:22px;height:22px}
 
@@ -188,6 +189,12 @@ legend{padding:0;margin-bottom:8px;font:17px var(--display);color:var(--muted)}
 .vibration-option:has(input:checked)::before{background:var(--mint) radial-gradient(circle at 33px 50%,#fff 9px,var(--ink) 9.5px 11px,transparent 11.5px)}
 
 /* Notice toast. */
+/* Short who-joined/left notices; in game they sit under the minimap so the field stays readable. */
+#member-toast{position:fixed;left:50%;top:var(--top);transform:translateX(-50%);z-index:31;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none}
+#app[data-screen="game"] #member-toast{top:calc(var(--top) + 86px)}
+#member-toast p{margin:0;padding:7px 14px;background:var(--paper);border:2.5px solid var(--ink);border-radius:12px;box-shadow:var(--lip);font:15px var(--display);white-space:nowrap;animation:member-toast 2.6s ease forwards}
+@keyframes member-toast{0%{opacity:0;transform:translateY(-6px)}10%,80%{opacity:1;transform:none}100%{opacity:0}}
+.room-note{margin:0;font:13px var(--display);color:var(--sun)}
 #notice{position:fixed;left:50%;top:var(--top);transform:translateX(-50%);max-width:min(560px,85vw);padding:10px 48px 10px 16px;background:var(--paper);border:3px solid var(--ink);border-radius:14px;box-shadow:var(--lip);z-index:30}
 #notice p{margin:0;font:15px/1.4 var(--display);overflow-wrap:anywhere}#notice-close{position:absolute;right:6px;top:50%;transform:translateY(-50%)}#notice-actions{display:flex;gap:8px;margin-top:8px}
 

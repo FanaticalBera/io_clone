@@ -9,11 +9,13 @@ import {InputAdapter} from './input.js';
 import {botVariant} from '../shared/bot-experiment.js';
 import {PracticeSession} from './practice.js';
 import {NetworkSession,clearSessionToken} from './network.js';
+import {lanAvailable,hostLan,joinLan,type LanHosting} from './lan-session.js';
+import type {GameTransport} from './transport.js';
 import {UI} from './ui.js';
 import {SettingsStore} from './settings.js';
 import {KillHaptics} from './haptics.js';
 import type {MatchView} from '../shared/model.js';
-import type {WireSnapshot,RoomView} from '../shared/protocol.js';
+import type {WireSnapshot,RoomView,AppError} from '../shared/protocol.js';
 import {createMode,type GameModeConfig,type GameModeId} from '../shared/modes.js';
 import {experimentalMapConfig,experimentalSeed,experimentalSlotConfig} from '../shared/map-experiment.js';
 import {experimentalTerritoryEffect} from './territory-effect-model.js';
@@ -25,6 +27,7 @@ import {ProfileStore} from './profile-store.js';
 import {RewardService} from './reward-service.js';
 import {setColorStyle} from './player-colors.js';
 import './style.css';
+let lanHosting:LanHosting|null=null;
 let practice:PracticeSession|null=null,online:NetworkSession|null=null,lastOnlineAction:(()=>Promise<void>)|null=null,expired=false,runRetryPending=false;
 const settings=new SettingsStore(),haptics=new KillHaptics(()=>settings.get().killVibration);
 setColorStyle(settings.get().colorStyle);
@@ -32,6 +35,7 @@ const diagnosticsEnabled=new URLSearchParams(location.search).get('debug')==='1'
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&scene.selfId)display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
+ui.setLanMode(lanAvailable());
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
 const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU');
@@ -52,7 +56,7 @@ scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(locatio
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 // Legacy strict geometry is available only for local development comparison.
 const strictWallExperiment=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('experimentWall')==='strict';
-void document.fonts?.load('14px Jua').then(()=>scene.refreshLabels()).catch(()=>{});
+void (import.meta.env.MODE==='apk'?import('./fonts-bundled.js'):Promise.resolve()).then(()=>document.fonts?.load('14px Jua')).then(()=>scene.refreshLabels()).catch(()=>{});
 scene.setKillFeedback(()=>{haptics.kill();});
 scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
@@ -78,12 +82,14 @@ async function restartRun():Promise<void> {
  if(practice){ui.setRunRetryAvailable(true);ui.clearRunResult();if(practice.match.phase==='RUNNING'&&practice.retryRun()){ui.showGame('PRACTICE');display(buildView(practice.match),practice.selfId);return;}await startPractice(practice.match.gameMode);return;}
  const view=scene.view,self=view?.participants.find(p=>p.participantId===scene.selfId);const result=ui.currentRunResult??self?.run?.result;if(!online||!result)return;
  runRetryPending=true;try{const response=await online.command('run:retry',{matchId:result.matchId,runId:result.runId});
-  if(response.ok){ui.clearRunResult();if(online.view?.participants.find(p=>p.participantId===online?.selfId)?.lifeState==='ALIVE')display(online.view,online.selfId!);}else if(response.code==='ROOM_NOT_FOUND'){await enterOnline('room:quickJoin');}else{runRetryPending=false;ui.message(response.message);}
+  // Like practice, closing the result card must bring the game HUD back even before the respawn lands.
+  if(response.ok){ui.clearRunResult();ui.showGame('ONLINE');if(online.view?.participants.find(p=>p.participantId===online?.selfId)?.lifeState==='ALIVE')display(online.view,online.selfId!);}else if(response.code==='ROOM_NOT_FOUND'){await enterOnline('room:quickJoin');}else{runRetryPending=false;ui.message(response.message);}
  }catch(error){runRetryPending=false;ui.message((error as Error).message,true);}
 }
 async function stopOnline():Promise<void> {
+ knownMembers=null;if(pauseTimer){clearInterval(pauseTimer);pauseTimer=null;}
  const old=online;online=null;if(!old)return;
- try{await old.leave();}catch{clearSessionToken();}finally{old.dispose();}
+ try{await old.leave();}catch{clearSessionToken();}finally{old.dispose();lanHosting?.close();lanHosting=null;}
 }
 async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameMode())):Promise<void> {
  try{const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();ui.clearMessage();ui.setRunRetryAvailable(true);ui.showGame('PRACTICE');
@@ -91,7 +97,20 @@ async function startPractice(gameMode:GameModeConfig=createMode(ui.selectedGameM
  practice=new PracticeSession(nickname,(v,id)=>display(v,id),experiment, {seed,gameMode,safeBotRespawn:experimentalSafeRespawn(experimentParams.get('respawnMode'),experimentEnabled),wallMargin:!strictWallExperiment,diagnostics:diagnosticsEnabled,botVariant:experimentEnabled?botVariant(experimentParams.get('experimentBotVariant')):undefined});input.setDirection(practice.match.participants[0].direction);}
  catch(error){ui.message((error as Error).message);}
 }
+/** Announces who joined, left, stepped away or came back since the last room view (same room only). */
+let knownMembers:{roomId:string;members:Map<string,{nickname:string;away:boolean}>}|null=null;
+function announceMembers(view:RoomView):void {
+ const next=new Map(view.members.map(m=>[m.memberId,{nickname:m.nickname,away:m.away}]));
+ const previous=knownMembers?.roomId===view.roomId?knownMembers.members:null;knownMembers={roomId:view.roomId,members:next};
+ if(!previous)return;
+ for(const [id,m] of next){if(id===view.selfMemberId)continue;const before=previous.get(id);
+  if(!before)ui.memberToast(m.nickname+'님이 들어왔어요');
+  else if(!before.away&&m.away)ui.memberToast(m.nickname+'님이 잠시 자리를 비웠어요');
+  else if(before.away&&!m.away)ui.memberToast(m.nickname+'님이 돌아왔어요');}
+ for(const [id,m] of previous)if(id!==view.selfMemberId&&!next.has(id))ui.memberToast(m.nickname+'님이 나갔어요');
+}
 function onRoom(view:RoomView):void {
+ announceMembers(view);
  if(view.selfRunResult&&!runRetryPending&&(view.phase!=='RUNNING'||!online?.hasCurrentState)){ui.mode='ONLINE';ui.showRunResult(view.selfRunResult,true);void rewards.present(view.selfRunResult);input.enabled=false;return;}
  if(ui.hasRunResult&&!runRetryPending)return;
  if(view.phase!=='RUNNING'||online?.hasCurrentState)ui.clearMessage();
@@ -103,14 +122,38 @@ async function enterOnline(event:'room:quickJoin'|'room:create'|'room:join',code
  try{
   const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();practice?.dispose();practice=null;await stopOnline();
   if(expired){clearSessionToken();expired=false;}
-  ui.message('대전 서버에 연결하고 있어요.');
+  // In the APK a friend room lives on a phone on the same Wi-Fi/hotspot instead of a server (PRD 4).
+  const lan=lanAvailable()&&event!=='room:quickJoin';let transport:GameTransport|undefined;
+  if(lan){
+   ui.message(event==='room:create'?'방을 여는 중이에요.':'방에 연결하고 있어요.');
+   if(event==='room:create'){const hosting=await hostLan(error=>lanEnded(error));lanHosting=hosting;transport=hosting.transport;}
+   else transport=await joinLan(code??'');
+  }else ui.message('대전 서버에 연결하고 있어요.');
   const session=new NetworkSession({input:(direction,seq)=>scene.setLocalInput(direction,seq),room:onRoom,view:display,snapshot:raw=>{
-if(import.meta.env.MODE==='test'){testHistory.push(raw);if(testHistory.length>512)testHistory.shift();}},error:error=>{expired=error.code==='SESSION_EXPIRED';input.enabled=false;scene.freezePresentation();ui.message(error.message,true);},connected:connected=>{ui.setRunRetryAvailable(connected);if(!connected){input.enabled=false;scene.freezePresentation();ui.message('연결을 복구하고 있어요.',true);}}});online=session;activeSession=session;
+if(import.meta.env.MODE==='test'){testHistory.push(raw);if(testHistory.length>512)testHistory.shift();}},error:error=>{if(error.code==='HOST_LEFT'||lan&&error.code==='SESSION_EXPIRED'){lanEnded(error);return;}expired=error.code==='SESSION_EXPIRED';input.enabled=false;scene.freezePresentation();ui.message(error.message,true);},paused:graceMs=>{if(online===session)hostPaused(graceMs);},resumed:()=>{if(online===session)hostResumed();},connected:connected=>{if(online!==session)return;ui.setRunRetryAvailable(connected);if(!connected){input.enabled=false;scene.freezePresentation();ui.message('연결을 복구하고 있어요.',!lan);}}},transport);online=session;activeSession=session;
   await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
  }catch(error){if(activeSession&&online!==activeSession)return;ui.message((error as Error).message||'서버에 연결할 수 없어요.',true);}
 }
 async function startOnline():Promise<void>{try{const response=await online?.command('room:start');if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message,true);}}
 async function retryOnline():Promise<void>{await stopOnline();if(expired){clearSessionToken();expired=false;}if(lastOnlineAction)await lastOnlineAction();}
+/** LAN guests: the host phone left the app. Freeze play and count down the time the host has to come back. */
+let pauseTimer:ReturnType<typeof setInterval>|null=null;
+function hostPaused(graceMs:number):void {
+ input.enabled=false;input.reset();scene.freezePresentation();
+ const until=performance.now()+graceMs;
+ const show=()=>ui.message('방장이 잠시 자리를 비웠어요. 기다리는 중… '+Math.max(0,Math.ceil((until-performance.now())/1000))+'초');
+ if(pauseTimer)clearInterval(pauseTimer);show();pauseTimer=setInterval(show,1000);
+}
+function hostResumed():void {
+ if(pauseTimer)clearInterval(pauseTimer);pauseTimer=null;
+ ui.clearMessage();ui.memberToast('방장이 돌아왔어요');
+}
+/** A LAN room has no reconnect: when it ends (host left, connection lost, room expired) go back to the menu and say why. */
+function lanEnded(error:AppError):void {
+ // HOST_LEFT on the host phone is the host's own leave; guests, lost connections and expired rooms get a notice.
+ if(error.code==='HOST_LEFT'&&lanHosting)return;
+ void leave().then(()=>ui.message(error.message,false,4000));
+}
 async function leave():Promise<void>{rewards.retire();haptics.stop();input.enabled=false;input.reset();practice?.dispose();practice=null;runRetryPending=false;await stopOnline();ui.clearMessage();ui.showMenu();preview();}
 const invited=new URLSearchParams(location.search).get('room');if(invited){document.querySelector<HTMLInputElement>('#room-code')!.value=invited.toUpperCase();ui.message('초대받은 방 코드가 입력됐어요. 닉네임을 정하고 입장하세요.');}
 ui.showMenu();preview();
@@ -122,7 +165,12 @@ ui.showMenu();preview();
 
 document.addEventListener('visibilitychange',()=>{
  haptics.stop();input.reset();input.enabled=false;scene.freezePresentation();practice?.setPaused(document.hidden||ui.isSettingsOpen());
- if(online)void online.setBackground(document.hidden).catch(error=>ui.message((error as Error).message,true));
+ // The LAN host phone runs the room: leaving the app freezes it for everyone for up to 60 s (PRD 11).
+ // Guests behave as online: a bot steers them home while away, and the seat is held for 30 s.
+ if(lanHosting){
+  if(document.hidden)lanHosting.pause();
+  else if(!lanHosting.resume())void leave().then(()=>ui.message('자리를 너무 오래 비워서 친구대전이 끝났어요.',false,4000));
+ }else if(online)void online.setBackground(document.hidden).catch(error=>ui.message((error as Error).message,true));
  else if(practice&&!document.hidden)display(buildView(practice.match),practice.selfId,true);
 });
 

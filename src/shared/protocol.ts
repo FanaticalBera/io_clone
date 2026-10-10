@@ -1,7 +1,7 @@
 import {PROTOCOL_VERSION,validateConfig} from './config.js';
 import type {MatchView,DirectionInput,ResultRow,RunResult} from './model.js';
 import {isGameModeId,validateMode,GAME_MODES,type GameModeId,type GameModeConfig} from './modes.js';
-export type ErrorCode='INVALID_INPUT'|'INVALID_NICKNAME'|'ROOM_NOT_FOUND'|'ROOM_FULL'|'ALREADY_IN_ROOM'|'NOT_HOST'|'BAD_PHASE'|'SESSION_EXPIRED'|'PROTOCOL_MISMATCH'|'RATE_LIMITED'|'SERVER_BUSY'|'SERVER_OVERLOAD'|'MATCH_ABORTED'|'INTERNAL_ERROR';
+export type ErrorCode='INVALID_INPUT'|'HOST_LEFT'|'INVALID_NICKNAME'|'ROOM_NOT_FOUND'|'ROOM_FULL'|'ALREADY_IN_ROOM'|'NOT_HOST'|'BAD_PHASE'|'SESSION_EXPIRED'|'PROTOCOL_MISMATCH'|'RATE_LIMITED'|'SERVER_BUSY'|'SERVER_OVERLOAD'|'MATCH_ABORTED'|'INTERNAL_ERROR';
 export interface AppError {code:ErrorCode;message:string}
 export type Ack={ok:true;roomId?:string}|({ok:false}&AppError);
 export interface CommandRequest {requestId:string;nickname?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}
@@ -9,7 +9,8 @@ export type RoomPhase='WAITING'|'COUNTDOWN'|'RUNNING'|'RESULTS'|'CLOSED';
 export interface RoomView {
  roomId:string;mode:'PUBLIC'|'FRIEND';code:string|null;phase:RoomPhase;phaseDeadline:number|null;
  serverTime:number;hostId:string|null;selfMemberId:string;selfParticipantId:string|null;
- members:{memberId:string;nickname:string;connected:boolean;waitingForNextRound:boolean}[];
+ /** `away`: not playing right now (app in background or connection lost); a bot steers them home meanwhile. */
+ members:{memberId:string;nickname:string;connected:boolean;away:boolean;waitingForNextRound:boolean}[];
  waitingForNextRound:boolean;remainingSeconds:number|null;results:ResultRow[]|null;matchId:string|null;mapCellCount:number;
  gameMode:GameModeConfig;outcome:MatchView['outcome'];selfRunResult?:RunResult|null;
 }
@@ -33,6 +34,8 @@ export interface ServerEvents {
  'session:ready':(ready:SessionReady)=>void;'room:view':(view:RoomView)=>void;
  'match:init':(snapshot:WireSnapshot)=>void;'match:snapshot':(snapshot:WireSnapshot)=>void;
  'match:result':(data:{matchId:string;results:ResultRow[];gameMode:GameModeConfig;modeState:MatchView['modeState'];outcome:MatchView['outcome']})=>void;'app:error':(error:AppError)=>void;
+ /** LAN only: the host phone left the app, so the whole room is frozen for at most `graceMs` (PRD 11). */
+ 'room:paused':(data:{graceMs:number})=>void;'room:resumed':(data:null)=>void;
 }
 export function record(value:unknown):value is Record<string,unknown> {return !!value&&typeof value==='object'&&!Array.isArray(value);}
 function validDeathContext(value:unknown,count:number):boolean {

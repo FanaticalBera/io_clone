@@ -44,7 +44,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
   <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
-  <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span>방을 만들거나 코드로 들어가요</span></div>
+  <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span id="friend-hint">방을 만들거나 코드로 들어가요</span></div>
    <div class="friend-actions"><button id="create" data-testid="create" class="btn dark">${ICONS.plus}방 만들기</button><label class="code-field"><span class="sr-only">친구 방 코드</span><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드"><button id="join" data-testid="join" class="btn mini sun">입장</button></label></div></section>
  </div>
  <p class="menu-footer">내 땅에서 나가 선을 긋고, 돌아오면 점령!</p>
@@ -64,7 +64,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <div id="death" data-testid="death" role="status" hidden></div>
 <section id="room-panel" class="room-panel" hidden>
  <button id="room-leave" class="btn back">${ICONS.back}나가기</button>
- <div class="room-info"><p class="eyebrow" id="room-kind">친구 방</p><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><p id="room-game-mode"></p></div>
+ <div class="room-info"><p class="eyebrow" id="room-kind">친구 방</p><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><p id="room-host-note" class="room-note" hidden>방장이 앱을 나가면 최대 60초 동안 모두의 경기가 멈춰요.</p><p id="room-game-mode"></p></div>
  <div class="room-members card"><div class="members-head"><h3>참가자</h3><p id="room-status"></p></div><ul id="members"></ul><button id="start" data-testid="start" class="btn sun big">라운드 시작 ${ICONS.play}</button></div>
 </section>
 <section id="results" class="card results-panel" hidden><p class="eyebrow" id="result-mode">판 종료</p><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="btn sun">다시 연습</button><button id="result-leave" class="btn">나가기</button></div><small id="next-round"></small></section>
@@ -96,7 +96,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
    <p id="vibration-support" class="settings-help"></p><p id="vibration-status" role="status" class="settings-help"></p>
   </div>
  </div></dialog>
-<div id="notice" role="alert" hidden><p id="notice-text"></p><div id="notice-actions" hidden><button id="retry" class="btn mini">재시도</button><button id="fallback-practice" class="btn mini">봇 연습</button></div><button id="notice-close" aria-label="안내 닫기" class="btn icon small">${ICONS.close}</button></div>
+<div id="member-toast" aria-live="polite"></div><div id="notice" role="alert" hidden><p id="notice-text"></p><div id="notice-actions" hidden><button id="retry" class="btn mini">재시도</button><button id="fallback-practice" class="btn mini">봇 연습</button></div><button id="notice-close" aria-label="안내 닫기" class="btn icon small">${ICONS.close}</button></div>
 <div id="joystick" aria-label="방향 조이스틱" hidden><div id="joystick-thumb"></div></div>`;
   get<HTMLInputElement>('nickname').value=stored('hexhold.nickname')??'플레이어';
   const bind=(id:string,action:()=>void)=>get(id).addEventListener('click',action);
@@ -123,7 +123,21 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());bind('tutorial-skip',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
-  bind('copy-link',()=>{const code=get('friend-code').textContent??'';(navigator.clipboard?.writeText(location.origin+'/?room='+encodeURIComponent(code))??Promise.reject(new Error('Clipboard unavailable'))).then(()=>this.message('초대 링크를 복사했어요.')).catch(()=>this.message('복사가 막혔어요. 이 링크를 직접 공유하세요: '+location.origin+'/?room='+encodeURIComponent(code)));});
+  bind('copy-link',()=>{const code=get('friend-code').textContent??'';
+   if(this.lan){(navigator.clipboard?.writeText(code)??Promise.reject(new Error('Clipboard unavailable'))).then(()=>this.message('방 코드를 복사했어요.')).catch(()=>this.message('복사가 막혔어요. 코드를 직접 알려 주세요: '+code));return;}(navigator.clipboard?.writeText(location.origin+'/?room='+encodeURIComponent(code))??Promise.reject(new Error('Clipboard unavailable'))).then(()=>this.message('초대 링크를 복사했어요.')).catch(()=>this.message('복사가 막혔어요. 이 링크를 직접 공유하세요: '+location.origin+'/?room='+encodeURIComponent(code)));});
+ }
+ private lan=false;
+ /** APK friend match runs on the same Wi-Fi/hotspot: no invite link, and the host must keep the app open (PRD 13). */
+ setLanMode(on:boolean):void {
+  this.lan=on;if(!on)return;
+  get('friend-hint').textContent='같은 Wi-Fi·핫스팟에서 함께해요';
+  const copy=get('copy-link');copy.lastChild!.textContent='코드 복사';
+ }
+ /** A short top notice for room membership changes ("OO님이 나갔어요"); several can stack and each fades out. */
+ memberToast(text:string):void {
+  const host=get('member-toast'),p=document.createElement('p');p.textContent=text;host.append(p);
+  while(host.childElementCount>3)host.firstElementChild!.remove();
+  setTimeout(()=>p.remove(),2700);
  }
  private homeAppearance:MarkerAppearance|null=null;
  // The equipped marker stands on the home art's trail head, in the current color style.
@@ -248,6 +262,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('room-title').textContent=view.mode==='FRIEND'?'친구와 같은 판에서.':'상대를 모으고 있어요.';
   this.activeMode=view.gameMode;get('room-game-mode').textContent=modeLabel(view.gameMode);
   get('room-status').textContent=view.waitingForNextRound?'현재 경기 진행 중 · 다음 라운드 참가 대기':view.phase==='COUNTDOWN'?Math.ceil(view.remainingSeconds??0)+'초 후 시작해요.':view.mode==='PUBLIC'?'빈자리는 봇이 채워요. 곧 출발!':'부족한 인원은 봇으로 채워요.';
+  get('room-host-note').hidden=!(this.lan&&view.hostId===view.selfMemberId);
   get('invite').hidden=view.mode!=='FRIEND';
   const code=get('friend-code');code.replaceChildren(...[...(view.code??'')].map(letter=>{const tile=document.createElement('span');tile.textContent=letter;return tile;}));
   get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
