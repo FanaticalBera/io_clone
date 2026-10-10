@@ -6,10 +6,10 @@ import {normalizeDirection} from '../src/shared/movement.js';
 import {moveSpeed} from '../src/shared/config.js';
 
 // Real counterfactual witness refreshed after approved Phase 2.5 behavior changes.
-// Seed 15 supplies an ESCAPE cut-and-return witness at tick 5114
-// (cut tick 5119). Existing safety/branch conditions
+// Seed 5 supplies an ESCAPE cut-and-return witness at tick 1065
+// (cut tick 1077, return tick 1092). Existing safety/branch conditions
 // remain verified through normal movement and the independent branch.
-export function runShadowEscapeWitness(seed=15){
+export function runShadowEscapeWitness(seed=5){
  const match=createMatch({},seed,botSpecs(8)),memories=match.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),traces:(BotDecisionTrace|undefined)[]=Array(8);
  const stops=memories.map((memory,i)=>watchBotDecisions(memory,t=>{traces[i]=t;}));
  const attempts={escape:0,clear:0,cut:0};

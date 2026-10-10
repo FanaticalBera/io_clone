@@ -1,0 +1,44 @@
+{
+  "typecheck": "npm run typecheck + strict NodeNext boundary script check passed",
+  "build": "npm run build passed",
+  "vitest": {
+    "files": 85,
+    "tests": 569,
+    "command": "npm test -- --maxWorkers=1",
+    "passed": true,
+    "notes": "Default parallel full run exceeded 20 s on the R56 HUD equivalence test; single-worker full run passed with original checks and timeout unchanged."
+  },
+  "playwright": {
+    "pcTests": 5,
+    "command": "npm run test:bot-ai",
+    "passed": true
+  },
+  "fixtures": {
+    "trajectoryPins": {
+      "R22PaddingFalse": "20e1c116fb2af03bbc269cf2d5b74a64779e772e4baf127ad4dc53d1a20dfabc",
+      "R22PaddingTrue": "7e7130fe231e73a19ce68419bcb65a8a2fda46d72484594590d962238134f878"
+    },
+    "shadowEscape": {
+      "seed": 5,
+      "selectionTick": 1065,
+      "cutTick": 1077,
+      "returnedTick": 1092,
+      "normalMovement": true
+    }
+  },
+  "safety": {
+    "boundary": {
+      "originalSixRetained": true,
+      "maximumExtras": 2,
+      "duplicatesSkipped": true,
+      "ownLandApproachLimit": 10
+    },
+    "walls": 0,
+    "hudRNGDirectorChecksPassed": true
+  },
+  "sourceHashes": {
+    "src/shared/bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+    "src/shared/bot-phase025-config.ts": "4d8057d79ad4c1c912cce6e6c2d5164063f11ca249cbaf394c1957f592f3ed49"
+  },
+  "postprocessorSHA256": "9985577e11063ca39545358f95f6c1b9c53fa71050e9f7bf76a6c3dffbaeab36"
+}

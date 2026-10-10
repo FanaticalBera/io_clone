@@ -71,10 +71,10 @@ describe('phase 2.5 public damage aggregation',()=>{
  });
 });
 describe('phase 2.5 safe damage expansion',()=>{
- it.each([100,2,0,-5])('caps recovery and vengeance together for base score %s',base=>{
+ it.each([100,2,0,-5])('caps recovery with vengeance disabled for base score %s',base=>{
   const f=fixture(),gain=[1,2,3,4,5,6].map(q=>f.id(q,1));f.capture(gain);f.memory.emotion.grudge.set(f.b.participantId,{amount:20,tick:0});
   const bonus=expansionDamageBonus(observeBot(f.m,f.a.participantId),f.memory.emotion,gain,base,f.memory.identity);
-  expect(bonus.overlapCells).toBe(6);expect(bonus.reclaimRaw).toBe(4.5);expect(bonus.revengeRaw).toBe(4.5);expect(bonus.bonus).toBe(Math.min(6,.5*Math.max(0,base)));
+  expect(bonus.overlapCells).toBe(6);expect(bonus.reclaimRaw).toBe(4.5);expect(bonus.revengeRaw).toBe(0);expect(bonus.bonus).toBe(Math.min(4.5,6,.5*Math.max(0,base)));
   for(const id of gain)setOwner(f.m,id,f.c.slot+1);const third=expansionDamageBonus(observeBot(f.m,f.a.participantId),f.memory.emotion,gain,base,f.memory.identity);expect(third.reclaimRaw).toBe(4.5);expect(third.revengeRaw).toBe(0);
  });
  it('uses only nearby candidate cells and never hidden head/trail/direction information',()=>{
@@ -85,12 +85,13 @@ describe('phase 2.5 safe damage expansion',()=>{
   const changed=observeBot(f.m,f.a.participantId);expect(changed.others).toEqual(obs.others);expect(changed.trails).toEqual(obs.trails);
   expect(getBotInput(obs,a)).toEqual(getBotInput(changed,b));expect(a.random()).toBe(b.random());
  });
- it('adds reachable damage boundaries outside the nearest six, preserves six total, and reports far boundaries without REPOSITION',()=>{
+ it('appends reachable damage boundaries after the original six, and reports far boundaries without REPOSITION',()=>{
   const f=fixture();for(const c of f.m.map.cells)setOwner(f.m,c.id,0);for(let q=-20;q<=0;q++)setOwner(f.m,f.id(q),1);
   const obs=observeBot(f.m,f.a.participantId),boundary=Array.from({length:21},(_,n)=>f.m.map.cells[f.id(-n)]);
   expect(damageExpansionAnchors(obs,f.memory.emotion.damage,boundary).anchors).toEqual(boundary.slice(0,6));
   f.memory.emotion.damage.regions.set(f.id(-9,1),{attackerId:f.b.participantId,tick:0});const near=damageExpansionAnchors(obs,f.memory.emotion.damage,boundary);
-  expect(near.anchors).toHaveLength(6);expect(new Set(near.anchors.map(c=>c.id)).size).toBe(6);expect(near.damageAnchors).toHaveLength(2);expect(near.damageAnchors.some(id=>!boundary.slice(0,6).some(c=>c.id===id))).toBe(true);
+  expect(near.anchors).toHaveLength(8);expect(near.anchors.slice(0,6)).toEqual(boundary.slice(0,6));expect(new Set(near.anchors.map(c=>c.id)).size).toBe(8);expect(near.damageAnchors).toHaveLength(2);expect(near.damageAnchors.some(id=>!boundary.slice(0,6).some(c=>c.id===id))).toBe(true);
+  f.memory.emotion.damage.regions.clear();f.memory.emotion.damage.regions.set(f.id(1),{attackerId:f.b.participantId,tick:0});const duplicate=damageExpansionAnchors(obs,f.memory.emotion.damage,boundary);expect(duplicate.anchors).toEqual(boundary.slice(0,6));expect(duplicate.damageAnchors).toEqual([]);
   f.memory.emotion.damage.regions.clear();f.memory.emotion.damage.regions.set(f.id(-20,1),{attackerId:f.b.participantId,tick:0});const far=damageExpansionAnchors(obs,f.memory.emotion.damage,boundary);
   expect(far.damageAnchors).toEqual([]);expect(far.unreachable).toBeGreaterThan(0);expect(far.anchors).toEqual(boundary.slice(0,6));
  });

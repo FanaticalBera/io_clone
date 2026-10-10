@@ -68,8 +68,8 @@ export function damageExpansionAnchors(obs:BotObservation,state:BotDamage,bounda
  }
  const damaged=boundary.filter(c=>weights.has(c.id)),unreachable=damaged.filter(c=>!distances.has(c.id)).length;
  damaged.sort((a,b)=>weights.get(b.id)!-weights.get(a.id)!||(distances.get(a.id)??Infinity)-(distances.get(b.id)??Infinity)||a.id-b.id);
- const anchors=boundary.slice(0,C.boundaryTotal-C.boundarySlots),chosen=new Set(anchors.map(c=>c.id)),damageAnchors:number[]=[];
+ // Keep the caller's personality-specific border order intact; damage never evicts a normal anchor.
+ const anchors=boundary.slice(0,C.boundaryTotal),chosen=new Set(anchors.map(c=>c.id)),damageAnchors:number[]=[];
  for(const cell of damaged)if(distances.has(cell.id)&&!chosen.has(cell.id)&&damageAnchors.length<C.boundarySlots){anchors.push(cell);chosen.add(cell.id);damageAnchors.push(cell.id);}
- for(const cell of boundary)if(anchors.length<C.boundaryTotal&&!chosen.has(cell.id)){anchors.push(cell);chosen.add(cell.id);}
  return {anchors,damageAnchors,unreachable};
 }

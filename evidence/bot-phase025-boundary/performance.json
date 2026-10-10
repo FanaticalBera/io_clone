@@ -1,0 +1,918 @@
+{
+  "method": "Same PC, one observer-free process, Latin-rotated arm order across 8 seeds and 3 measured rounds. One full seed19 warm-up per arm discarded. Each batch 3600 ticks. Time getBotInputs + stepMatch only, exclude creation/loading/output/HUD/audit. Per-seed 3 batch averages and median; overall median of 3 rounds each containing all 8 seeds. Review if append median cost >=20% above either reference.",
+  "clock": "performance.now desktop elapsed time; no other validation/audits running",
+  "warmup": {
+    "seed": 19,
+    "ticks": 3600,
+    "perArm": 1,
+    "discarded": true
+  },
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "batches": [
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 9444.807600000004,
+      "msPerTick": 2.6235576666666676,
+      "deaths": 16
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 9731.212399999997,
+      "msPerTick": 2.7031145555555547,
+      "deaths": 14
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10588.338799999998,
+      "msPerTick": 2.9412052222222216,
+      "deaths": 14
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 10641.220899999993,
+      "msPerTick": 2.9558946944444426,
+      "deaths": 11
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 10085.165200000003,
+      "msPerTick": 2.8014347777777786,
+      "deaths": 10
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 11302.472999999998,
+      "msPerTick": 3.139575833333333,
+      "deaths": 7
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 10813.63459999999,
+      "msPerTick": 3.0037873888888864,
+      "deaths": 11
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11067.904200000004,
+      "msPerTick": 3.0744178333333347,
+      "deaths": 5
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 10791.468699999998,
+      "msPerTick": 2.9976301944444437,
+      "deaths": 11
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 11413.881500000003,
+      "msPerTick": 3.17052263888889,
+      "deaths": 8
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 9938.3756,
+      "msPerTick": 2.7606598888888887,
+      "deaths": 10
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 10822.969199999992,
+      "msPerTick": 3.006380333333331,
+      "deaths": 13
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 9938.030499999993,
+      "msPerTick": 2.760564027777776,
+      "deaths": 10
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 10846.587099999975,
+      "msPerTick": 3.012940861111104,
+      "deaths": 9
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 11007.468800000002,
+      "msPerTick": 3.057630222222223,
+      "deaths": 8
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 10037.453000000009,
+      "msPerTick": 2.788181388888891,
+      "deaths": 18
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 10633.020000000019,
+      "msPerTick": 2.953616666666672,
+      "deaths": 16
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 9205.502300000022,
+      "msPerTick": 2.5570839722222285,
+      "deaths": 14
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 11478.363799999992,
+      "msPerTick": 3.1884343888888864,
+      "deaths": 13
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10177.5668,
+      "msPerTick": 2.827101888888889,
+      "deaths": 12
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10402.840800000005,
+      "msPerTick": 2.8896780000000013,
+      "deaths": 10
+    },
+    {
+      "round": 0,
+      "arm": "reclaim",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 9977.14480000001,
+      "msPerTick": 2.7714291111111136,
+      "deaths": 11
+    },
+    {
+      "round": 0,
+      "arm": "append",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 10817.897799999977,
+      "msPerTick": 3.0049716111111047,
+      "deaths": 9
+    },
+    {
+      "round": 0,
+      "arm": "control",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 11593.410600000003,
+      "msPerTick": 3.220391833333334,
+      "deaths": 9
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10506.270699999994,
+      "msPerTick": 2.918408527777776,
+      "deaths": 14
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10503.15770000004,
+      "msPerTick": 2.9175438055555665,
+      "deaths": 14
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10390.118099999963,
+      "msPerTick": 2.8861439166666565,
+      "deaths": 16
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 10259.458199999994,
+      "msPerTick": 2.849849499999998,
+      "deaths": 10
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 11073.317299999995,
+      "msPerTick": 3.075921472222221,
+      "deaths": 7
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 10109.997900000017,
+      "msPerTick": 2.808332750000005,
+      "deaths": 11
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11907.254200000025,
+      "msPerTick": 3.307570611111118,
+      "deaths": 5
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11123.17220000003,
+      "msPerTick": 3.089770055555564,
+      "deaths": 11
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11074.268500000006,
+      "msPerTick": 3.076185694444446,
+      "deaths": 11
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 9813.37599999999,
+      "msPerTick": 2.7259377777777747,
+      "deaths": 10
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 10510.989499999967,
+      "msPerTick": 2.9197193055555464,
+      "deaths": 13
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 11488.934000000008,
+      "msPerTick": 3.191370555555558,
+      "deaths": 8
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 10885.9093,
+      "msPerTick": 3.023863694444444,
+      "deaths": 9
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 10969.371400000004,
+      "msPerTick": 3.047047611111112,
+      "deaths": 8
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 9897.72100000002,
+      "msPerTick": 2.74936694444445,
+      "deaths": 10
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 10965.33600000001,
+      "msPerTick": 3.0459266666666696,
+      "deaths": 16
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 9411.381999999983,
+      "msPerTick": 2.614272777777773,
+      "deaths": 14
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 9769.836100000015,
+      "msPerTick": 2.7138433611111155,
+      "deaths": 18
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10341.703299999994,
+      "msPerTick": 2.8726953611111092,
+      "deaths": 12
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10044.10619999998,
+      "msPerTick": 2.7900294999999944,
+      "deaths": 10
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 11265.246400000004,
+      "msPerTick": 3.1292351111111123,
+      "deaths": 13
+    },
+    {
+      "round": 1,
+      "arm": "append",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 10769.389099999971,
+      "msPerTick": 2.9914969722222144,
+      "deaths": 9
+    },
+    {
+      "round": 1,
+      "arm": "control",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 11444.90180000005,
+      "msPerTick": 3.179139388888903,
+      "deaths": 9
+    },
+    {
+      "round": 1,
+      "arm": "reclaim",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 10410.875400000019,
+      "msPerTick": 2.8919098333333384,
+      "deaths": 11
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 11436.59970000002,
+      "msPerTick": 3.176833250000006,
+      "deaths": 14
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10539.322000000044,
+      "msPerTick": 2.9275894444444566,
+      "deaths": 16
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 4,
+      "ticks": 3600,
+      "elapsedMs": 10606.180399999954,
+      "msPerTick": 2.9461612222222096,
+      "deaths": 14
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 11504.595500000054,
+      "msPerTick": 3.195720972222237,
+      "deaths": 7
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 9837.983699999982,
+      "msPerTick": 2.7327732499999953,
+      "deaths": 11
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 19,
+      "ticks": 3600,
+      "elapsedMs": 10348.399800000014,
+      "msPerTick": 2.874555500000004,
+      "deaths": 10
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11090.130400000024,
+      "msPerTick": 3.0805917777777845,
+      "deaths": 11
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 10891.527200000011,
+      "msPerTick": 3.025424222222225,
+      "deaths": 11
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 73,
+      "ticks": 3600,
+      "elapsedMs": 11017.929000000004,
+      "msPerTick": 3.0605358333333346,
+      "deaths": 5
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 10292.812000000034,
+      "msPerTick": 2.859114444444454,
+      "deaths": 13
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 11393.204099999974,
+      "msPerTick": 3.164778916666659,
+      "deaths": 8
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 11,
+      "ticks": 3600,
+      "elapsedMs": 10939.447600000072,
+      "msPerTick": 3.0387354444444643,
+      "deaths": 10
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 11373.543999999994,
+      "msPerTick": 3.159317777777776,
+      "deaths": 8
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 10256.904500000062,
+      "msPerTick": 2.8491401388889064,
+      "deaths": 10
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 31,
+      "ticks": 3600,
+      "elapsedMs": 10867.65850000002,
+      "msPerTick": 3.0187940277777834,
+      "deaths": 9
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 9422.222200000077,
+      "msPerTick": 2.6172839444444658,
+      "deaths": 14
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 10326.688499999931,
+      "msPerTick": 2.8685245833333144,
+      "deaths": 18
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 47,
+      "ticks": 3600,
+      "elapsedMs": 10274.780700000003,
+      "msPerTick": 2.854105750000001,
+      "deaths": 16
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10639.424899999984,
+      "msPerTick": 2.955395805555551,
+      "deaths": 10
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 11608.584499999997,
+      "msPerTick": 3.224606805555555,
+      "deaths": 13
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 101,
+      "ticks": 3600,
+      "elapsedMs": 10675.126899999916,
+      "msPerTick": 2.9653130277777544,
+      "deaths": 12
+    },
+    {
+      "round": 2,
+      "arm": "control",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 11778.61950000003,
+      "msPerTick": 3.271838750000008,
+      "deaths": 9
+    },
+    {
+      "round": 2,
+      "arm": "reclaim",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 10290.079499999993,
+      "msPerTick": 2.8583554166666647,
+      "deaths": 11
+    },
+    {
+      "round": 2,
+      "arm": "append",
+      "seed": 137,
+      "ticks": 3600,
+      "elapsedMs": 11175.41009999998,
+      "msPerTick": 3.1042805833333276,
+      "deaths": 9
+    }
+  ],
+  "summary": {
+    "control": {
+      "roundMsPerTick": [
+        3.0535183854166674,
+        3.107794416666669,
+        3.1073117812500035
+      ],
+      "medianMsPerTick": 3.1073117812500035,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.6235576666666676,
+            2.8861439166666565,
+            2.9275894444444566
+          ],
+          "medianMsPerTick": 2.8861439166666565
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.139575833333333,
+            3.075921472222221,
+            3.195720972222237
+          ],
+          "medianMsPerTick": 3.139575833333333
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.0744178333333347,
+            3.307570611111118,
+            3.0605358333333346
+          ],
+          "medianMsPerTick": 3.0744178333333347
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.17052263888889,
+            3.191370555555558,
+            3.164778916666659
+          ],
+          "medianMsPerTick": 3.17052263888889
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.057630222222223,
+            3.047047611111112,
+            3.159317777777776
+          ],
+          "medianMsPerTick": 3.057630222222223
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.953616666666672,
+            3.0459266666666696,
+            2.854105750000001
+          ],
+          "medianMsPerTick": 2.953616666666672
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.1884343888888864,
+            3.1292351111111123,
+            3.224606805555555
+          ],
+          "medianMsPerTick": 3.1884343888888864
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.220391833333334,
+            3.179139388888903,
+            3.271838750000008
+          ],
+          "medianMsPerTick": 3.220391833333334
+        }
+      ]
+    },
+    "reclaim": {
+      "roundMsPerTick": [
+        2.791684791666667,
+        2.833836753472224,
+        2.8860442777777804
+      ],
+      "medianMsPerTick": 2.833836753472224,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.7031145555555547,
+            2.918408527777776,
+            2.9461612222222096
+          ],
+          "medianMsPerTick": 2.918408527777776
+        },
+        {
+          "seed": 19,
+          "samples": [
+            2.9558946944444426,
+            2.808332750000005,
+            2.7327732499999953
+          ],
+          "medianMsPerTick": 2.808332750000005
+        },
+        {
+          "seed": 73,
+          "samples": [
+            2.9976301944444437,
+            3.089770055555564,
+            3.0805917777777845
+          ],
+          "medianMsPerTick": 3.0805917777777845
+        },
+        {
+          "seed": 11,
+          "samples": [
+            2.7606598888888887,
+            2.7259377777777747,
+            3.0387354444444643
+          ],
+          "medianMsPerTick": 2.7606598888888887
+        },
+        {
+          "seed": 31,
+          "samples": [
+            2.760564027777776,
+            2.74936694444445,
+            2.8491401388889064
+          ],
+          "medianMsPerTick": 2.760564027777776
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.5570839722222285,
+            2.614272777777773,
+            2.6172839444444658
+          ],
+          "medianMsPerTick": 2.614272777777773
+        },
+        {
+          "seed": 101,
+          "samples": [
+            2.827101888888889,
+            2.8726953611111092,
+            2.9653130277777544
+          ],
+          "medianMsPerTick": 2.8726953611111092
+        },
+        {
+          "seed": 137,
+          "samples": [
+            2.7714291111111136,
+            2.8919098333333384,
+            2.8583554166666647
+          ],
+          "medianMsPerTick": 2.8583554166666647
+        }
+      ]
+    },
+    "append": {
+      "roundMsPerTick": [
+        2.931072447916665,
+        2.910316479166666,
+        2.9853653020833333
+      ],
+      "medianMsPerTick": 2.931072447916665,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.9412052222222216,
+            2.9175438055555665,
+            3.176833250000006
+          ],
+          "medianMsPerTick": 2.9412052222222216
+        },
+        {
+          "seed": 19,
+          "samples": [
+            2.8014347777777786,
+            2.849849499999998,
+            2.874555500000004
+          ],
+          "medianMsPerTick": 2.849849499999998
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.0037873888888864,
+            3.076185694444446,
+            3.025424222222225
+          ],
+          "medianMsPerTick": 3.025424222222225
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.006380333333331,
+            2.9197193055555464,
+            2.859114444444454
+          ],
+          "medianMsPerTick": 2.9197193055555464
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.012940861111104,
+            3.023863694444444,
+            3.0187940277777834
+          ],
+          "medianMsPerTick": 3.0187940277777834
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.788181388888891,
+            2.7138433611111155,
+            2.8685245833333144
+          ],
+          "medianMsPerTick": 2.788181388888891
+        },
+        {
+          "seed": 101,
+          "samples": [
+            2.8896780000000013,
+            2.7900294999999944,
+            2.955395805555551
+          ],
+          "medianMsPerTick": 2.8896780000000013
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.0049716111111047,
+            2.9914969722222144,
+            3.1042805833333276
+          ],
+          "medianMsPerTick": 3.0049716111111047
+        }
+      ]
+    }
+  }
+}

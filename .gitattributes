@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep the frozen boundary experiment script hashes stable across checkouts.
+scripts/bot-phase025-boundary.ts -text
+scripts/bot-phase025-boundary-performance.ts -text
+scripts/summarize-bot-phase025-boundary.py -text
