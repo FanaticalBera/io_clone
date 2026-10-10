@@ -29,6 +29,20 @@ describe('phase 2.5 internal reposition',()=>{
   const f=fixture(distance,true);f.memory.emotion.grudge.set(f.b.participantId,{amount:20,tick:0});const selection=f.select();if(distance===11||distance===20)expect(selection.plan?.distance).toBe(distance);else expect(selection.plan).toBeUndefined();
   expect(selection.examined).toBeLessThanOrEqual(8);if(distance===10)expect(selection.within10).toBeGreaterThan(0);if(distance===21)expect(selection.beyond20OrDisconnected).toBeGreaterThan(0);
  });
+ it('filters unreachable recent boundaries before the eight-destination cap',()=>{
+  const f=fixture(14);f.m.tick=1;
+  for(let q=15;q<=25;q++)for(const r of [2,3])setOwner(f.m,f.id(q,r),f.a.slot+1);
+  for(const q of [25,26])for(const r of [0,1]){const id=f.id(q,r);setOwner(f.m,id,f.b.slot+1);f.memory.emotion.damage.regions.set(id,{attackerId:f.b.participantId,tick:1});}
+  let calls=0;const obs=observeBot(f.m,f.a.participantId),selection=selectReposition(obs,f.memory.emotion,f.memory.reposition,f.memory.identity,(...args)=>{calls++;expect(args[4]).toBe(20);return shortestPath(...args);});
+  expect(selection.beyond20OrDisconnected).toBeGreaterThanOrEqual(8);expect(selection.reason).toBe('SELECTED');expect(selection.plan!.distance).toBeGreaterThanOrEqual(11);expect(selection.plan!.distance).toBeLessThanOrEqual(20);
+  expect(calls).toBe(selection.examined);expect(calls).toBeLessThanOrEqual(8);expect(selection.plan!.path.every(id=>f.m.owners[id]===f.a.slot+1)).toBe(true);
+ });
+ it('filters nearby recent boundaries before the cap without suppressing LOW_PRIORITY',()=>{
+  const f=fixture(14);f.m.tick=1;
+  for(let q=2;q<=7;q++){const id=f.id(q,3);setOwner(f.m,id,f.b.slot+1);f.memory.emotion.damage.regions.set(id,{attackerId:f.b.participantId,tick:1});}
+  const selection=f.select();expect(selection.within10).toBeGreaterThanOrEqual(8);expect(selection.plan).toBeDefined();expect(selection.examined).toBeLessThanOrEqual(8);
+  for(const cell of f.memory.emotion.damage.regions.values())cell.tick=-1700;f.memory.emotion.grudge.clear();expect(f.select().reason).toBe('LOW_PRIORITY');
+ });
  it('requires actual recent damage or grudge plus a region; deterministic selection consumes no RNG',()=>{
   const f=fixture();const first=f.select();expect(f.select()).toEqual(first);const untouched=createBotMemory(19,'combined',f.memory.identity);expect(f.memory.random()).toBe(untouched.random());
   f.memory.emotion.damage.recent.clear();expect(f.select().plan).toBeUndefined();f.memory.emotion.grudge.set(f.b.participantId,{amount:6,tick:0});expect(f.select().plan).toBeDefined();

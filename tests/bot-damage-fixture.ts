@@ -23,6 +23,9 @@ export function runRepeatedTheft(seed=19,diagnostics=false,far=false){
  const offset=far?-12:0,apatrol=[id(-2+offset,0),id(-2+offset,-2),id(-4+offset,-2),id(-4+offset,0)],broute=[[0,-3],[-1,-3],[-1,-2],[0,-2],[1,-2],[2,-2],[2,0],[1,1],[0,1],[-1,1],[-1,2],[0,2],[1,2],[3,2],[8,2],[13,2]].map(([q,r])=>id(q,r));
  let ap=[...apatrol],bp=[...broute],bpatrol=[id(13,2),id(13,4),id(15,4),id(15,2)],released=false,stolen=0,reclaimed=0;const captures:any[]=[],plans:any[]=[];
  const tracker=diagnostics?new BotReclaimDiagnostics(m,new Map([[a.participantId,memory]])):null;
+ // Capture every completed result in this bounded 900-tick fixture; the HUD's
+ // rolling six-plan history may evict an earlier successful recovery.
+ const observedDiagnosticPlans:ReturnType<BotReclaimDiagnostics['snapshot']>['recent']=[];if(tracker)tracker.onClose=row=>observedDiagnosticPlans.push(structuredClone(row));
  watchBotDecisions(memory,t=>{tracker?.decision(a.participantId,t);if(t.expansionPlan)plans.push({tick:m.tick,cell:a.cellId,...t.expansionPlan});},{shadow:false});
  for(let t=0;t<900;t++){
   const obs=observeBot(m,a.participantId);updateBotEmotion(obs,memory.emotion,memory.identity);
@@ -35,6 +38,6 @@ export function runRepeatedTheft(seed=19,diagnostics=false,far=false){
   for(const c of regions)if(owners[c]!==1&&m.owners[c]===1)reclaimed++;
   if(a.lifeState!=='ALIVE'||b.lifeState!=='ALIVE')break;
  }
- const diagnosticPlans=tracker?.snapshot(a.participantId).recent??[];tracker?.dispose();
+ const diagnosticPlans=[...observedDiagnosticPlans,...(tracker?.snapshot(a.participantId).recent.filter(r=>r.outcome==='OPEN')??[])];tracker?.dispose();
  return {diagnosticPlans,match:m,victim:a,thief:b,memory,stolen,reclaimed,captures,plans};
 }

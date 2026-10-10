@@ -70,7 +70,7 @@ export class BotDebugHud {
   if(active)lines.push('REPOSITION → cell '+active.target+' · 가해자 '+label(active.attackerId)+' · 내부 '+active.distance+'칸 · 실제 이동 '+active.movedCells+'칸 · 경과 '+((snapshot.tick-active.startedTick)/snapshot.simulationHz).toFixed(1)+'초');
   else lines.push('REPOSITION: '+(selection?.reason??'미평가')+' · 봇 전체 재시도 대기 '+Math.max(0,(rp.cooldownUntil-snapshot.tick)/snapshot.simulationHz).toFixed(1)+'초');
   if(last)lines.push('최근 재배치 t'+last.startedTick+'→'+last.endedTick+' · '+last.outcome+' · 목적지 '+last.target+' · 실제 이동 '+last.movedCells+'칸');
-  if(selection)lines.push('재배치 경계 탐색 '+selection.examined+'/8 · 10칸 이내 '+selection.within10+' · 20칸 내 경로 없음 '+selection.beyond20OrDisconnected+' · 근접 차단 '+selection.nearBlocked);
+  if(selection)lines.push('재배치 경계 평가 '+selection.examined+'/8 · 전체 경계 중 10칸 이내 '+selection.within10+' · 20칸 내 경로 없음 '+selection.beyond20OrDisconnected+' · 근접 차단 '+selection.nearBlocked);
   lines.push('재배치 집계: 도착 '+rp.stats.arrivals+' / 중단 '+rp.stats.aborts+' / A→B→A 왕복 '+rp.stats.pingPong);
   if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
   if(trace){lines.push('최근 판단 tick '+trace.tick+' · 선택: '+trace.reason,'안전 개입: '+(trace.safetyOverride??'없음'),'선 근처 적 거리: '+(trace.risk?.nearestEnemyToTrail??'관측 없음'),'최근 공격 후보: '+trace.attacks.slice(0,12).map(a=>'#'+a.slot+' '+a.reason).join(', '));

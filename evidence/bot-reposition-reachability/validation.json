@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-10",
+  "scope": "Reachability filter before destination cap only; balance REVIEW_REQUIRED, phase3 deferred",
+  "typecheck": true,
+  "strictScriptCheck": true,
+  "build": true,
+  "vitest": {
+    "tests": 598,
+    "passed": 598,
+    "fullFinalRun": true,
+    "maxWorkers": 1,
+    "timeoutsUnchanged": true,
+    "initialFailed": 4,
+    "relatedRetestPassed": 40,
+    "repositionCases": 23
+  },
+  "playwright": {
+    "pcTests": 7,
+    "fullRunPassed": true
+  },
+  "fixtures": {
+    "R22PaddingFalse": "b555e3da3e586c484f62dfe018af4c2154d89912d73406f4df9aca2adcd45bed",
+    "R22PaddingTrue": "26fba1ad6338b5f58294ce7367496472667535478e7f46164f057c5ca96c5697",
+    "escapeWitness": {
+      "seed": 19,
+      "selectionTick": 5788,
+      "cutTick": 5793,
+      "returnedTick": 5793,
+      "currentRuntimeIdentitiesAndIndividualSeeds": true,
+      "normalMovementNoInjectedStateOrGoal": true,
+      "originalCutAndSurvivalAssertionsRetained": true
+    },
+    "repeatedTheft": {
+      "actualReclaimedCells": 8,
+      "deaths": 0,
+      "allClosedEpisodesObservedRatherThanLastSix": true,
+      "worldPlanRNGEquivalenceRetained": true
+    }
+  },
+  "safety": {
+    "wallsAllArms": 0,
+    "hiddenOpponentInfoNotUsed": true,
+    "inputsRNGMemoryWorldDirectorReservationsEqualWithHUD": true,
+    "distanceAndSafetyLimitsUnchanged": true,
+    "oneOwnedBFSMaxDepth": 20,
+    "destinationPathChecksMax": 8
+  },
+  "frozenSourceHashesMatch": true,
+  "cost": {
+    "rounds": 3,
+    "seeds": 8,
+    "batches": 48,
+    "observersDisabled": true,
+    "behaviorCountsMatchAudits": true,
+    "medianBefore": 2.992926815972221,
+    "medianAfter": 3.0462665277777807,
+    "percent": 1.7821923182653159
+  },
+  "review": "REVIEW_REQUIRED",
+  "reviewReasons": [
+    "Death increase >=20% against original control"
+  ],
+  "rawHashes": {
+    "control": "ac0eb5823eb176cbd68348c87d6777457dd0766cd870b91dc16ee186b2c31842",
+    "baseline": "1aa723ccf80143f4ecbf7c44d8345515602c3a75db5a72455df98dd92b4f2b4c",
+    "reposition": "8d0af6d4fce25328d50f96127f3841fbb33b7da29ebbf447f93e6fa53dfcb66a",
+    "performance": "a87d132d8e43813ced13ba62271be2dbfd701c2c847c287276291d038357b2df",
+    "seed73-case": "5eaf53567ff69bec967f0a5ae8a0d2e90e2e9fdbca8646533ebac332d3dc1442"
+  },
+  "fileSHA256": {
+    "src/shared/bot-reposition.ts": "8c879f4762da6c768afd2eb8bbad8031211456f0fcd79b8bb7fa5ed8090f7310",
+    "src/client/bot-debug-hud.ts": "3f3bebe40acd25a6d6e16c0bee538850dcf74ad291b1b634e6d6bf941114ff32",
+    "scripts/bot-phase025-audit.ts": "8b7c4a4c8d8d41c6dce216b4faef91260aacbb08457b46602c1520a23471f0c8",
+    "scripts/bot-reposition-performance.ts": "9a1332ddff743c6ee2c95e0d40d4557c6d18c7494cabdb6c45398941f0e481a4",
+    "scripts/summarize-bot-reposition-reachability.ts": "e3d47b91a4246a748ff0f8842feca9ee4d29b49294ca4f02e3bae94723399b82",
+    "tests/core/bot-reposition.test.ts": "6a20608d8a9cbac95cf043e2800030534f4e42d19ad2ffa70485f257c8a55f89",
+    "tests/bot-damage-fixture.ts": "3fa8dfcdfdc2e7bbb59cb7bb6bd196e33445fc64a97ba5722a456419e927e02e",
+    "tests/shadow-escape-fixture.ts": "6e1098f88cc21a5cdd2120ec35e3f221a3193f53f71fe37a0c25a277dc38651d",
+    "tests/core/spawn-space.test.ts": "f441a954fbbc07dbf24dbf2c960be71ea50c608c374e8809a7cf78110f2ca101",
+    ".local/bot-reposition-reachability/vitest-final.json": "2abd78d9b279ac2e6c6fd74077f6f99f0ab568751173e9ff6ab214b442b04739",
+    ".local/bot-reposition-reachability/route.png": "fe24e765eb7d1e34cc5f9c622e3fa79a53c9f597636e6ba8bc7aac062d83f7df",
+    ".local/bot-reposition-reachability/replay-case.ts": "ca4c034b353f46eec31b5d854326257d1c05c27ee56d4773ffb3810fccdcc9ee"
+  },
+  "generatedBuildPreserved": ".local/bot-reposition-reachability/dist-built"
+}

@@ -50,7 +50,15 @@ export function selectReposition(obs:BotObservation,emotion:BotEmotion,state:Rep
    for(const n of cell.neighbors)if(n>=0&&!seen.has(n)&&hexDistance(origin,obs.map.cells[n])<=C.boundaryRadius){seen.add(n);queue.push(n);}
   }
  }
- const ordered=[...targets].sort((a,b)=>b[1].tick-a[1].tick||Math.max(...b[1].groups.values())-Math.max(...a[1].groups.values())||a[0]-b[0]).slice(0,C.maxDestinations);
+ // Filter public owned-route distances before the destination cap. Otherwise
+ // eight recent but unreachable boundaries hide older reachable ones.
+ const distances=new Map<number,number>(),queue:number[]=[];
+ if(obs.owners[obs.self.cellId]===owner){distances.set(obs.self.cellId,0);queue.push(obs.self.cellId);}
+ for(let i=0;i<queue.length;i++){const id=queue[i],depth=distances.get(id)!;if(depth>=C.maxDistance)continue;
+  for(const n of obs.map.cells[id].neighbors)if(n>=0&&obs.owners[n]===owner&&!distances.has(n)){distances.set(n,depth+1);queue.push(n);}
+ }
+ const reachable=[...targets].filter(([id])=>{const distance=distances.get(id);if(distance===undefined){result.beyond20OrDisconnected++;return false;}if(distance<C.minDistance){result.within10++;return false;}return true;});
+ const ordered=reachable.sort((a,b)=>b[1].tick-a[1].tick||Math.max(...b[1].groups.values())-Math.max(...a[1].groups.values())||a[0]-b[0]).slice(0,C.maxDestinations);
  const plans:RepositionPlan[]=[];result.reason='NO_DISTANT_DESTINATION';
  for(const [target,entry]of ordered){result.examined++;const path=findPath(obs.map,obs.self.cellId,id=>id===target,id=>obs.owners[id]===owner,C.maxDistance);
   if(!path){result.beyond20OrDisconnected++;continue;}if(path.length<C.minDistance){result.within10++;continue;}if(repositionPathNearHead(obs,path)){result.nearBlocked++;continue;}
@@ -59,5 +67,5 @@ export function selectReposition(obs:BotObservation,emotion:BotEmotion,state:Rep
   }
  }
  plans.sort((a,b)=>b.score-a.score||a.distance-b.distance||a.target-b.target||(a.attackerId<b.attackerId?-1:a.attackerId>b.attackerId?1:0));
- if(plans.length){result.plan=plans[0];result.reason='SELECTED';}else if(result.nearBlocked)result.reason='NEAR_HEAD';else if(result.examined>result.within10+result.beyond20OrDisconnected)result.reason='LOW_PRIORITY';return result;
+ if(plans.length){result.plan=plans[0];result.reason='SELECTED';}else if(result.nearBlocked)result.reason='NEAR_HEAD';else if(result.examined>0)result.reason='LOW_PRIORITY';return result;
 }
