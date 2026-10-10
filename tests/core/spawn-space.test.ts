@@ -31,10 +31,11 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
  it.each([false,true])('R22 / padding %s: actual movement/capture/respawn matches its fixed trajectory',padded=>{
-  // Approved V=0 and append-only damage anchors intentionally change BOT trajectories.
+  // Approved REPOSITION adds state and intentionally changes BOT trajectories.
+  // Keep real ownership, capture, wall and successful-spawn assertions intact.
   // Ownership, real captures, wall safety and successful spawn evidence guard the new pin.
   // Initial anchors and observer equivalence remain checked separately.
-  const radius=22,expected=padded?'7e7130fe231e73a19ce68419bcb65a8a2fda46d72484594590d962238134f878':'20e1c116fb2af03bbc269cf2d5b74a64779e772e4baf127ad4dc53d1a20dfabc';
+  const radius=22,expected=padded?'129dcff3599786409e754e810d482dbef64c148d3c78213383d9ff806d40d891':'a911dbfcc19a62d742bef437e87dc1c80baee5648c6f2d9d8a93903c155c50d9';
   const spawnTraces:SpawnAttemptTrace[]=[];let captures=0,walls=0;
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,t=>spawnTraces.push(t));setWallMargin(m.map,padded);
   for(let tick=0;tick<1200;tick++){

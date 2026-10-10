@@ -12,7 +12,7 @@ export class BotGrowthTracker {
  before(p:Participant,trace?:BotDecisionTrace){
   const r=this.rows.get(p.participantId)!;
   if(trace?.earlyClosure&&r.active){r.early++;r.active=false;}
-  else if(trace&&r.active&&(['ATTACK','RETURN','ESCAPE'].includes(trace.to)||trace.expansionPlan)){r.cancelled++;r.active=false;}
+  else if(trace&&r.active&&(['ATTACK','RETURN','ESCAPE','REPOSITION'].includes(trace.to)||trace.expansionPlan)){r.cancelled++;r.active=false;}
   if(trace?.expansionPlan){r.plans++;r.active=true;}
  }
  after(eventCounter:number){

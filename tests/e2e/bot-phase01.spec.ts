@@ -73,7 +73,7 @@ test('grudge HUD identifies the actual distant thief and explains unawarded capt
  await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});await page.screenshot({path:'.local/bot-grudge/grudge-causes.png'});expect(errors).toEqual([]);
 });
 
-test('phase 2.5 HUD accumulates public remote theft, explains the cooldown, and shows region memory without REPOSITION',async({page})=>{
+test('phase 2.5 HUD accumulates public remote theft, explains the cooldown, and shows region memory while the existing plan continues',async({page})=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
  await page.goto('/?debug=1&spectate=1&experimentSeed=19');await page.getByTestId('nickname').fill('누적 확인');await page.getByTestId('practice').click();
  await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(8).click();
@@ -88,7 +88,7 @@ test('phase 2.5 HUD accumulates public remote theft, explains the cooldown, and 
  expect(row.grudgeEvents.slice(-3).map((e:any)=>[e.cells,e.accumulated,e.observedCells,e.ignored])).toEqual([[3,3,0,'BELOW_THRESHOLD'],[3,6,0,undefined],[1,0,0,'COOLDOWN']]);
  expect(row.damage.opponents.find((d:any)=>d.slot===2)).toMatchObject({accumulated:0,total:7,local:0});expect(row.damage.regions).toHaveLength(7);expect(row.emotion.recentDamage).toBe(0);
  await expect(hud.locator('pre')).toContainText('최근 누적 6칸');await expect(hud.locator('pre')).toContainText('전체 7 / 근처 0 / 관측 밖 7');await expect(hud.locator('pre')).toContainText('피해 구역 7/96칸');
- await expect(hud.locator('pre')).toContainText('REPOSITION 보류');await expect(hud.locator('pre')).toContainText('누적 6칸 미만');expect(errors).toEqual([]);
+ await expect(hud.locator('pre')).toContainText('REPOSITION:');await expect(hud.locator('pre')).toContainText('누적 6칸 미만');expect(errors).toEqual([]);
  await hud.evaluate(el=>{el.scrollTop=el.querySelector('pre')!.offsetTop-12;});await page.screenshot({path:'.local/bot-phase025/remote-loss-hud.png'});
 });
 
@@ -120,4 +120,31 @@ test('spectator overlays expected damaged cells and reports exact recovery separ
  await page.screenshot({path:'.local/bot-reclaim/recovery-overlay.png'});
  await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().enabled)).toBe(false);expect(errors).toEqual([]);
+});
+
+test('reposition shows an orange owned route, actual arrival and a fresh recovery plan, and clears on exit',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=73');await page.getByTestId('nickname').fill('검증');await page.getByTestId('practice').click();
+ const selected=await page.evaluate(async()=>{
+  const api=(window as any).__HEXHOLD_TEST__,practice=api.getPractice();practice.setPaused(true);const m=practice.match,a=m.participants[12],b=m.participants[10];
+  const territory=await import('/src/shared/territory.ts' as string),bot=await import('/src/shared/bot.ts' as string),director=await import('/src/shared/bot-director.ts' as string),game=await import('/src/shared/game.ts' as string);
+  const id=(q:number,r=0)=>m.map.byKey.get(q+','+r),memory=practice.memories.get(a.participantId);
+  for(const p of m.participants){territory.clearTrail(m,p);territory.neutralizeTerritory(m,p);p.lifeState='DEAD_WAIT';p.respawnAtTick=Infinity;}
+  for(const [p,q]of [[a,0],[b,25]] as const){p.lifeState='ALIVE';p.cellId=id(q);p.position={...m.map.cells[p.cellId].center};p.direction={x:1,y:0};p.targetDirection=null;territory.setOwner(m,p.cellId,p.slot+1);}
+  for(let q=0;q<=14;q++)for(let r=-2;r<=2;r++)territory.setOwner(m,id(q,r),a.slot+1);
+  memory.path=[];memory.goal='EXPAND';memory.expansion=undefined;memory.nextDecisionTick=0;memory.lastProgressTick=m.tick;memory.plannedLifeId=a.lifeId;memory.attackSlot=null;memory.attackTarget=null;
+  memory.emotion.damage.regions.clear();memory.emotion.damage.recent.clear();memory.emotion.lifeId=a.lifeId;memory.emotion.matchId=m.matchId;memory.emotion.grudge.set(b.participantId,{amount:12,tick:m.tick});
+  for(const q of [17,18])for(const r of [-1,0,1]){territory.setOwner(m,id(q,r),b.slot+1);memory.emotion.damage.regions.set(id(q,r),{attackerId:b.participantId,tick:m.tick});}
+  memory.emotion.damage.recent.set(b.participantId,[{tick:m.tick,cells:6,observedCells:0}]);
+  const advance=()=>{game.stepMatch(m,director.getBotInputs(m,practice.memories,new Set([a.participantId])));practice.botDebug.afterTick();practice.publish(game.buildView(m),null);};advance();
+  (window as any).__REPOSITION_FIXTURE__={practice,a,memory,advance};return a.participantId;
+ });
+ const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').filter({hasText:'#12 호두과자'}).click();
+ await expect(hud.locator('pre')).toContainText('REPOSITION → cell');await expect(hud.locator('pre')).toContainText('주황 = 재배치');
+ const state=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState());expect(state.route).toBeGreaterThan(10);expect(state.destination).not.toBeNull();
+ await hud.getByRole('button',{name:'선택 봇 따라보기',exact:true}).click();await hud.evaluate(el=>el.scrollTop=el.querySelector('pre')!.offsetTop-12);await page.screenshot({path:'.local/bot-reposition/route.png'});
+ const result=await page.evaluate(()=>{const {practice,a,memory,advance}=(window as any).__REPOSITION_FIXTURE__;for(let i=0;i<300&&memory.reposition.active;i++)advance();return {last:memory.reposition.last,goal:memory.goal,trail:a.trailCells.size,bots:practice.botDiagnostics().bots};});
+ expect(result.last.outcome).toBe('ARRIVED');expect(result.last.movedCells).toBeGreaterThanOrEqual(11);await expect(hud.locator('pre')).toContainText('ARRIVED');
+ expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().route)).toBe(0);
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().enabled)).toBe(false);expect(errors).toEqual([]);expect(selected).toBeTruthy();
 });

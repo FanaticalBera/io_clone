@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-10",
+  "scope": "Approved REPOSITION implemented; balance REVIEW_REQUIRED; no phase3 or followup tuning",
+  "typecheck": true,
+  "scriptStrictTypecheck": true,
+  "build": {
+    "passed": true,
+    "generatedFilesPreservedLocally": ".local/bot-reposition/dist-built",
+    "trackedBuildRestored": true
+  },
+  "vitest": {
+    "command": "node node_modules/vitest/vitest.mjs run --maxWorkers=1 --reporter=json --outputFile=.local/bot-reposition/vitest-final.json",
+    "tests": 596,
+    "passed": 596,
+    "failed": 0,
+    "fullFinalRun": true,
+    "originalTimeoutsRetained": true,
+    "repositionFixtures": 21
+  },
+  "playwright": {
+    "pcCases": 7,
+    "eachPassed": true,
+    "fullInitialRun": {
+      "passed": 6,
+      "failed": 1,
+      "failure": "Existing phase-2.5 fixture expected obsolete REPOSITION deferred text"
+    },
+    "targetedRetestPassed": true,
+    "notes": "Updated only obsolete text assertion then reran its case. New actual-movement route/arrival/cleanup case passed."
+  },
+  "fixtures": {
+    "trajectoryPins": {
+      "R22PaddingFalse": "a911dbfcc19a62d742bef437e87dc1c80baee5648c6f2d9d8a93903c155c50d9",
+      "R22PaddingTrue": "129dcff3599786409e754e810d482dbef64c148d3c78213383d9ff806d40d891"
+    },
+    "shadowEscape": {
+      "seed": 4,
+      "selectionTick": 1486,
+      "cutTick": 1498,
+      "returnedTick": 1504,
+      "normalMovement": true
+    },
+    "realRepeatedSmallThefts": {
+      "thefts": [
+        4,
+        4
+      ],
+      "actualRepositionAndReclaim": true,
+      "deaths": 0
+    }
+  },
+  "safety": {
+    "wallsBothEightSeedArms": 0,
+    "wallsBothLongArms": 0,
+    "hudInputsRNGWorldMemoryDirectorReservationsEqual": true,
+    "hiddenOpponentHeadsTrailsDirectionsIgnored": true,
+    "originalAttackSafetyUnchanged": true,
+    "globalCooldownSeconds": 6,
+    "repositionHasNoPursuitReservation": true
+  },
+  "audit": {
+    "predeterminedSeeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "baselineHashesMatchPreviousAppendArm": true,
+    "longPrefixHashesMatch120SecondAudits": true,
+    "sourceHashesMatchProtocol": true,
+    "costRuns": 48,
+    "costObserversDisabled": true
+  },
+  "review": {
+    "deathPercent": 20.21276595744681,
+    "growthPercent": 8.96700520970373,
+    "capturePercent": -2.2557719224340596,
+    "costPercent": -1.4872155931228228,
+    "status": "REVIEW_REQUIRED",
+    "reasons": [
+      "Death increase >=20%"
+    ]
+  },
+  "rawHashes": {
+    "baseline": "ac0eb5823eb176cbd68348c87d6777457dd0766cd870b91dc16ee186b2c31842",
+    "reposition": "1aa723ccf80143f4ecbf7c44d8345515602c3a75db5a72455df98dd92b4f2b4c",
+    "performance": "439df5b91de5ea26a79370ce272a4bc50ddba35b40b3f148c5825519335ff95f",
+    "baseline-long": "b1a27c7c51e59c67b46beadb98b0dd8b0425edf8b62d3771df4e3ba81afacd3d",
+    "reposition-long": "34d7a10eac0c97bf3d574cdb0da7438391e13db80c74815f1f3c1f01c3c46915"
+  },
+  "fileSHA256": {
+    "scripts/bot-phase025-audit.ts": "8b7c4a4c8d8d41c6dce216b4faef91260aacbb08457b46602c1520a23471f0c8",
+    "scripts/bot-reposition-performance.ts": "bff185b321981c6f0113b5ea07bbedf9e14f27922b301f94b5b52458e1f36375",
+    "scripts/summarize-bot-reposition.ts": "7e436cc21946fb1e51bdad5d632cda15fd63758840c2c950e2d54a1592b65ac7",
+    ".local/bot-reposition/long-audit.ts": "91acbef3f68c7b5155b19a0a3f35c5ada76f7169629f0fad9b718e1dbf880679",
+    ".local/bot-reposition/vitest-final.json": "212901eba15001baa40d353bef2d76f02fcd265c4a17101e31f79e73478d5dc5",
+    ".local/bot-reposition/route.png": "4e2ef88c77ef84b592ee0f086dcb96536b6595985903fecf739f92ce87b91595",
+    "evidence/bot-reposition/summary.json": "57c36a76840b2622628f61b738d7f22e459c19ffb8ce1197ff951811b4cb7a97",
+    "evidence/bot-reposition/personality-by-seed.csv": "24e76f9d19703ea5bff1151d587f2f44a3f63bcb8eb05a8e28be8c35bd6ef24c"
+  }
+}

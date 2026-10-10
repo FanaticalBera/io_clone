@@ -13,14 +13,14 @@ function input(m:MatchState,p:Participant,path:number[],seq:number):DirectionInp
  const center=m.map.cells[path[0]].center,d=normalizeDirection(center.x-p.position.x,center.y-p.position.y)??p.direction;
  return {matchId:m.matchId,lifeId:p.lifeId,seq,dx:d.x,dy:d.y};
 }
-export function runRepeatedTheft(seed=19,diagnostics=false){
+export function runRepeatedTheft(seed=19,diagnostics=false,far=false){
  const m=createMatch({mapRadius:22},19,botSpecs(2)),[a,b]=m.participants,id=(q:number,r=0)=>m.map.byKey.get(q+','+r)!;
  for(const p of m.participants)neutralizeTerritory(m,p);
- for(const c of m.map.cells)if(c.q>=-8&&c.q<=0&&c.r>=-5&&c.r<=5)setOwner(m,c.id,1);else if(c.q>=1&&c.q<=17&&c.r>=-5&&c.r<=5)setOwner(m,c.id,2);
- a.cellId=id(-4,0);a.position={...m.map.cells[a.cellId].center};a.direction={x:1,y:0};a.personality='DEFEND';
+ for(const c of m.map.cells)if(c.q>=(far?-18:-8)&&c.q<=0&&c.r>=-5&&c.r<=5)setOwner(m,c.id,1);else if(c.q>=1&&c.q<=17&&c.r>=-5&&c.r<=5)setOwner(m,c.id,2);
+ a.cellId=id(far?-16:-4,0);a.position={...m.map.cells[a.cellId].center};a.direction={x:1,y:0};a.personality='DEFEND';
  b.cellId=id(1,-3);b.position={...m.map.cells[b.cellId].center};b.direction={x:-1,y:0};
  const memory=createBotMemory(seed,'combined',createBotIdentity(seed,'DEFEND',{secondaryTrait:'Territorial'}));
- const apatrol=[id(-2,0),id(-2,-2),id(-4,-2),id(-4,0)],broute=[[0,-3],[-1,-3],[-1,-2],[0,-2],[1,-2],[2,-2],[2,0],[1,1],[0,1],[-1,1],[-1,2],[0,2],[1,2],[3,2],[8,2],[13,2]].map(([q,r])=>id(q,r));
+ const offset=far?-12:0,apatrol=[id(-2+offset,0),id(-2+offset,-2),id(-4+offset,-2),id(-4+offset,0)],broute=[[0,-3],[-1,-3],[-1,-2],[0,-2],[1,-2],[2,-2],[2,0],[1,1],[0,1],[-1,1],[-1,2],[0,2],[1,2],[3,2],[8,2],[13,2]].map(([q,r])=>id(q,r));
  let ap=[...apatrol],bp=[...broute],bpatrol=[id(13,2),id(13,4),id(15,4),id(15,2)],released=false,stolen=0,reclaimed=0;const captures:any[]=[],plans:any[]=[];
  const tracker=diagnostics?new BotReclaimDiagnostics(m,new Map([[a.participantId,memory]])):null;
  watchBotDecisions(memory,t=>{tracker?.decision(a.participantId,t);if(t.expansionPlan)plans.push({tick:m.tick,cell:a.cellId,...t.expansionPlan});},{shadow:false});

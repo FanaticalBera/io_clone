@@ -27,7 +27,7 @@ export class TerritoryDistances {
 }
 export interface ExpansionEpisode {
  id:string;slot:number;personality:Participant['personality'];lifeId:number;selectedTick:number;launchedTick:number|null;
- endedTick:number|null;outcome:'OPEN'|'CAPTURE'|'HOME'|'REPLANNED'|'LIFE_RESET'|'DEATH'|'CENSORED';
+ endedTick:number|null;outcome:'OPEN'|'CAPTURE'|'HOME'|'REPLANNED'|'LIFE_RESET'|'DEATH'|'CENSORED'|'REPOSITION';
  goalAtSelection:string;attackInterrupted:boolean;attackTick:number|null;escape:boolean;exposureTicks:number;
  plan:ExpansionPlan;grudgeSlots:number[];topGrudgeSlot:number|null;damageSlots:number[];
  plannedDistances:{grudge:number|null;topGrudge:number|null;damage:number|null};
@@ -43,6 +43,7 @@ export class ExpansionEpisodeTracker {
  before(p:Participant,memory:BotMemory,trace?:BotDecisionTrace){
   let active=this.active.get(p.participantId);
   if(active&&active.lifeId!==p.lifeId){this.close(active,'LIFE_RESET');this.active.delete(p.participantId);active=undefined;}
+  if(active&&trace?.to==='REPOSITION'){this.close(active,'REPOSITION');this.active.delete(p.participantId);active=undefined;}
   if(trace?.expansionPlan){
    if(active)this.close(active,'REPLANNED');
    const roster=new Map(this.match.participants.map(q=>[q.participantId,q.slot]));

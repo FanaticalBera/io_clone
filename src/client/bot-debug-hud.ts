@@ -3,16 +3,16 @@ import {BOT_PHASE02} from '../shared/bot-phase02-config.js';
 import {BOT_PHASE025} from '../shared/bot-phase025-config.js';
 import type {BotDebugSnapshot} from './bot-debug-model.js';
 import {BOT_PERSONALITY_LABELS,SECONDARY_TRAIT_LABELS} from '../shared/bot-identity.js';
-const COLORS:Record<string,string>={EXPAND:'#86efac',STEAL:'#fbbf24',SEEK_POINT:'#c4b5fd',ATTACK:'#fca5a5',RETURN:'#93c5fd',ESCAPE:'#f9a8d4'};
+const COLORS:Record<string,string>={EXPAND:'#86efac',STEAL:'#fbbf24',SEEK_POINT:'#c4b5fd',ATTACK:'#fca5a5',RETURN:'#93c5fd',ESCAPE:'#f9a8d4',REPOSITION:'#fb923c'};
 function grudgeCause(event:BotGrudgeTrace):string {
  switch(event.reason){case 'DEATH':return '나를 처치';case 'CAPTURE':return '영토 '+event.cells+'칸 탈취'+(event.accumulated===undefined?'':' (최근 누적 '+event.accumulated+'칸)');case 'REPEAT_APPROACH':return '내 선에 반복 접근';case 'REPEAT_INTRUSION':return '내 영토에 반복 침입'+(event.upgrade?' (접근 적립 보정)':'');}
 }
 export class BotDebugHud {
  private root=document.createElement('aside');private rows=document.createElement('div');private detail=document.createElement('pre');
  private buttons=new Map<string,HTMLButtonElement>();private followButton:HTMLButtonElement|null=null;private collapseButton:HTMLButtonElement|null=null;private spectating=false;private following=false;private selected:string|null=null;private timer:number|null=null;private source:(()=>BotDebugSnapshot|null)|null=null;
- constructor(private follow:(id:string|null)=>void=()=>{},private spectate:()=>void=()=>{},private overlay:(data:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number}|null)=>void=()=>{}){
+ constructor(private follow:(id:string|null)=>void=()=>{},private spectate:()=>void=()=>{},private overlay:(data:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number;route?:number[];destination?:number|null}|null)=>void=()=>{}){
   this.root.id='bot-debug-hud';this.root.setAttribute('aria-label','봇 판단 디버그');this.root.hidden=true;
-  const title=document.createElement('strong');title.textContent='BOT AI · 0+1+2+2.5 (①②)';
+  const title=document.createElement('strong');title.textContent='BOT AI · 0+1+2+2.5 (①②③)';
   const collapse=document.createElement('button');this.collapseButton=collapse;collapse.textContent='접기';collapse.type='button';collapse.onclick=()=>{const hidden=!this.rows.hidden;this.rows.hidden=hidden;this.detail.hidden=hidden;collapse.textContent=hidden?'펼치기':'접기';};
   const followButton=document.createElement('button');this.followButton=followButton;followButton.textContent='선택 봇 따라보기';followButton.type='button';followButton.onclick=()=>{this.following=!this.following;followButton.textContent=this.following?(this.spectating?'전체 판 보기':'내 화면으로'):'선택 봇 따라보기';this.follow(this.following?this.selected:null);};
   const spectator=document.createElement('button');spectator.type='button';spectator.textContent='14봇 관전 시작';spectator.onclick=()=>this.spectate();
@@ -31,9 +31,9 @@ export class BotDebugHud {
   const bot=snapshot.bots.find(b=>b.participantId===this.selected);if(!bot)return;
   const reclaim=bot.reclaim.active??bot.reclaim.recent.filter(r=>r.lifeId===bot.lifeId).at(-1);
   const lastRecovered=bot.reclaim.recent.filter(r=>r.lifeId===bot.lifeId&&r.outcome!=='OPEN'&&r.dRaw>0).at(-1);
-  this.overlay({matchId:snapshot.matchId,slot:bot.slot,damage:bot.damage.regions.map(c=>c.cellId),expected:reclaim?.expectedCellIds??[],actual:lastRecovered?[...lastRecovered.actualCellIds,...lastRecovered.otherReclaimCellIds]:[]});
+  this.overlay({matchId:snapshot.matchId,slot:bot.slot,damage:bot.damage.regions.map(c=>c.cellId),route:bot.reposition.route,destination:bot.reposition.active?.target??null,expected:bot.goal==='REPOSITION'?[]:reclaim?.expectedCellIds??[],actual:lastRecovered?[...lastRecovered.actualCellIds,...lastRecovered.otherReclaimCellIds]:[]});
   const trace=bot.trace,lines=['seed '+snapshot.seed+' / tick '+snapshot.tick,'#'+bot.slot+' '+bot.nickname+' · life '+bot.lifeId];
-  lines.push('지도: 노랑 = 피해 기억 · 하늘색 = 예상 되찾기 · 초록 = 최근 완료 D 계획에서 회수해 현재 보유');
+  lines.push('지도: 노랑 = 피해 기억 · 하늘색 = 예상 되찾기 · 초록 = 회수해 보유 · 주황 = 재배치 경로/목적지');
   if(reclaim)lines.push('예상 되찾기 '+reclaim.expectedCellIds.length+'칸 → 실제 '+reclaim.actualCellIds.length+'칸 · 예상 밖 회수 '+reclaim.otherReclaimCellIds.length+'칸 · 종료 시 유지 '+reclaim.retainedCells+'칸',
    'D 계획 #'+reclaim.id+' · t'+reclaim.selectedTick+' · '+reclaim.outcome+' · D raw +'+reclaim.dRaw.toFixed(2)+' · 적용 +'+reclaim.appliedBonus.toFixed(2));
   if(bot.identity){const i=bot.identity.individual;lines.push('개인차: 확장 '+i.expansionScale.toFixed(2)+' / 위험 가중 '+i.riskScale.toFixed(2)+' / 탈취 '+i.stealScale.toFixed(2)+' / 공격 '+i.attackChance.toFixed(2)+' / 방어 '+i.defenseBonus);}
@@ -57,7 +57,7 @@ export class BotDebugHud {
   const regions=bot.damage.regions;lines.push('피해 구역 '+regions.length+'/'+BOT_PHASE025.regionTotal+'칸 · 기억 무게 '+regions.reduce((sum,c)=>sum+c.weight,0).toFixed(2));
   for(const c of [...regions].sort((a,b)=>b.tick-a.tick||a.cellId-b.cellId).slice(0,6))lines.push('  cell '+c.cellId+' ('+c.q+','+c.r+') · #'+snapshot.bots.find(b=>b.participantId===c.attackerId)?.slot+' · 무게 '+c.weight.toFixed(2));
   if(reclaim){
-   const outcomes:Record<string,string>={OPEN:'실행 중',CAPTURE:'점령 완료',HOME:'귀환 (점령 없음)',REPLANNED:'다른 확장으로 교체',ATTACK:'공격으로 전환',DEATH:'사망',LIFE_RESET:'새 생명',CENSORED:'측정 종료'};
+   const outcomes:Record<string,string>={OPEN:'실행 중',CAPTURE:'점령 완료',HOME:'귀환 (점령 없음)',REPLANNED:'다른 확장으로 교체',ATTACK:'공격으로 전환',DEATH:'사망',LIFE_RESET:'새 생명',CENSORED:'측정 종료',REPOSITION:'피해 쪽 재배치로 전환'};
    lines.push('되찾기 결과: 계획 #'+reclaim.id+' · t'+reclaim.selectedTick+' · '+outcomes[reclaim.outcome],
     '  일반 탈취 '+reclaim.ordinaryStolenCells+'칸 / 중립 '+reclaim.neutralCells+'칸 · 계획 생성 D raw +'+reclaim.dRaw.toFixed(2)+' · 적용 +'+reclaim.appliedBonus.toFixed(2));
    for(const transition of reclaim.interruptions)lines.push('  실행 변경 t'+transition.tick+' · '+transition.goal+' · '+transition.reason);
@@ -66,7 +66,12 @@ export class BotDebugHud {
   const label=(id:string|null)=>{const b=snapshot.bots.find(b=>b.participantId===id);return b?'#'+b.slot+' '+b.nickname:id??'없음';};
   const deaths=new Map(bot.reclaim.recent.filter(r=>r.lifeId===bot.lifeId).flatMap(r=>r.relatedDeaths).map(e=>[[e.tick,e.victimId].join(':'),e]));
   for(const e of [...deaths.values()].sort((a,b)=>a.tick-b.tick).slice(-4))lines.push('관련 사망 t'+e.tick+' · '+label(e.victimId)+' · 처치자 '+label(e.killerId)+' · '+e.cause+' (되찾기와 별개)');
-  lines.push('REPOSITION 보류 · 현재 위치에서 안전한 피해 대응 확장만 적용');
+  const rp=bot.reposition,active=rp.active,last=rp.last,selection=rp.selection;
+  if(active)lines.push('REPOSITION → cell '+active.target+' · 가해자 '+label(active.attackerId)+' · 내부 '+active.distance+'칸 · 실제 이동 '+active.movedCells+'칸 · 경과 '+((snapshot.tick-active.startedTick)/snapshot.simulationHz).toFixed(1)+'초');
+  else lines.push('REPOSITION: '+(selection?.reason??'미평가')+' · 봇 전체 재시도 대기 '+Math.max(0,(rp.cooldownUntil-snapshot.tick)/snapshot.simulationHz).toFixed(1)+'초');
+  if(last)lines.push('최근 재배치 t'+last.startedTick+'→'+last.endedTick+' · '+last.outcome+' · 목적지 '+last.target+' · 실제 이동 '+last.movedCells+'칸');
+  if(selection)lines.push('재배치 경계 탐색 '+selection.examined+'/8 · 10칸 이내 '+selection.within10+' · 20칸 내 경로 없음 '+selection.beyond20OrDisconnected+' · 근접 차단 '+selection.nearBlocked);
+  lines.push('재배치 집계: 도착 '+rp.stats.arrivals+' / 중단 '+rp.stats.aborts+' / A→B→A 왕복 '+rp.stats.pingPong);
   if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
   if(trace){lines.push('최근 판단 tick '+trace.tick+' · 선택: '+trace.reason,'안전 개입: '+(trace.safetyOverride??'없음'),'선 근처 적 거리: '+(trace.risk?.nearestEnemyToTrail??'관측 없음'),'최근 공격 후보: '+trace.attacks.slice(0,12).map(a=>'#'+a.slot+' '+a.reason).join(', '));
    }else lines.push('아직 판단 기록 없음');

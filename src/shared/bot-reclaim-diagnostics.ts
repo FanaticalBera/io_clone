@@ -2,7 +2,7 @@ import {observeBot,plannedCapture,type BotMemory,type BotDecisionTrace} from './
 import {hexDistance} from './hex.js';
 import {watchCaptureTransfers,type CaptureTransferTrace} from './capture-diagnostics.js';
 import type {MatchState,GameEvent} from './model.js';
-export type ReclaimOutcome='OPEN'|'CAPTURE'|'HOME'|'REPLANNED'|'ATTACK'|'DEATH'|'LIFE_RESET'|'CENSORED';
+export type ReclaimOutcome='OPEN'|'CAPTURE'|'HOME'|'REPLANNED'|'ATTACK'|'DEATH'|'LIFE_RESET'|'CENSORED'|'REPOSITION';
 export interface ReclaimPlanResult {
  id:number;participantId:string;slot:number;lifeId:number;selectedTick:number;endedTick:number|null;outcome:ReclaimOutcome;
  startCellId:number;plannedPath:number[];movementCells:number[];movementTruncated:boolean;
@@ -32,9 +32,9 @@ export class BotReclaimDiagnostics {
     interruptions:[],damageActors:[...new Set([...memory.emotion.damage.regions.values()].map(r=>r.attackerId))],relatedDeaths:[]};
    const rows=this.recent.get(id)??[];rows.push(row);if(rows.length>6)rows.shift();this.recent.set(id,rows);this.active.set(id,row);
   }
-  if(row&&trace.planChanged&&['ATTACK','RETURN','ESCAPE'].includes(trace.to)){
+  if(row&&trace.planChanged&&['ATTACK','RETURN','ESCAPE','REPOSITION'].includes(trace.to)){
    row.interruptions.push({tick:trace.tick,goal:trace.to,reason:trace.reason??'UNRECORDED'});if(row.interruptions.length>8)row.interruptions.shift();
-   if(trace.to==='ATTACK')this.close(id,'ATTACK');
+   if(trace.to==='ATTACK'||trace.to==='REPOSITION')this.close(id,trace.to);
   }
  }
  private capture(trace:CaptureTransferTrace){

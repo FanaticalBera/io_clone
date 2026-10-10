@@ -1,4 +1,4 @@
-import {getBotInput,observeBotForTick,type BotMemory} from './bot.js';
+import {getBotInput,observeBotForTick,botRepositionDue,type BotObservation,type BotMemory} from './bot.js';
 import type {BotAttackPolicy} from './bot-policy.js';
 import type {MatchState,DirectionInput,Participant} from './model.js';
 import {seededRandom,shuffled} from './random.js';
@@ -34,17 +34,18 @@ export class BotDirector {
  snapshot(){return {version:C.version,seedDomain:C.reservationSeedDomain,stats:{...this.stats},reservations:[...this.reservations.values()].map(r=>({...r}))};}
  inputs(memories:ReadonlyMap<string,BotMemory>,selected?:ReadonlySet<string>,returnOnly:ReadonlySet<string>=new Set()):Map<string,DirectionInput>{
   this.prune(memories);
-  const due:Participant[]=[],light:Participant[]=[],inactive:Participant[]=[];
+  const due:Participant[]=[],light:Participant[]=[],inactive:Participant[]=[],observations=new Map<string,BotObservation>();
   for(const p of this.match.participants){const m=memories.get(p.participantId);if(!m)continue;
    if(p.lifeState!=='ALIVE'){inactive.push(p);continue;}
    if(selected?!selected.has(p.participantId):p.kind!=='BOT')continue;
+   if(m.reposition.active){const obs=observeBotForTick(this.match,p.participantId,m);observations.set(p.participantId,obs);if(botRepositionDue(obs,m,returnOnly.has(p.participantId)))m.nextDecisionTick=this.match.tick;}
    (p.lifeId!==m.plannedLifeId||this.match.tick>=m.nextDecisionTick?due:light).push(p);
   }
   const inputs=new Map<string,DirectionInput>();
   for(const p of inactive){const m=memories.get(p.participantId)!;getBotInput(observeBotForTick(this.match,p.participantId,m),m);}
   // Cosmetic/assignment/action streams are independent of this actual due order.
   for(const p of [...shuffled(due,this.random),...light]){
-   const m=memories.get(p.participantId)!,isDue=due.includes(p),input=getBotInput(observeBotForTick(this.match,p.participantId,m),m,returnOnly.has(p.participantId),p.kind==='BOT'?this.policy(p.participantId):undefined);
+   const m=memories.get(p.participantId)!,isDue=due.includes(p),input=getBotInput(observations.get(p.participantId)??observeBotForTick(this.match,p.participantId,m),m,returnOnly.has(p.participantId),p.kind==='BOT'?this.policy(p.participantId):undefined);
    if(input)inputs.set(p.participantId,input);
    if(isDue&&p.kind==='BOT')this.commit(p,m);
    // Perimeter recovery and vanished targets also release between decisions.

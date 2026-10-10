@@ -1,3 +1,4 @@
+import {BotRepositionDiagnostics} from '../shared/bot-reposition-diagnostics.js';
 import {BotReclaimDiagnostics} from '../shared/bot-reclaim-diagnostics.js';
 import {botDirector} from '../shared/bot-director.js';
 import {watchBotGrudges,type BotGrudgeTrace} from '../shared/bot-emotion.js';
@@ -15,10 +16,10 @@ export class BotDebugCollector {
  private grudgeEvents=new Map<string,GrudgeRecord[]>();
  private grudgeOrigins=new Map<string,Map<string,GrudgeRecord>>();
  private stops:(()=>void)[]=[];
- readonly reclaim:BotReclaimDiagnostics;
+ readonly reclaim:BotReclaimDiagnostics;readonly reposition:BotRepositionDiagnostics;
  onDecision?: (trace:BotDecisionTrace)=>void;
  constructor(private match:MatchState,private memories:ReadonlyMap<string,BotMemory>){
-  this.reclaim=new BotReclaimDiagnostics(match,memories);
+  this.reclaim=new BotReclaimDiagnostics(match,memories);this.reposition=new BotRepositionDiagnostics(memories,match.config.simulationHz);
   for(const [id,memory] of memories)this.stops.push(watchBotGrudges(memory.emotion,event=>{
    const target=match.participants.find(p=>p.participantId===event.targetId),record={...event,slot:target?.slot??null,nickname:target?.nickname??'이탈한 참가자'};
    const events=this.grudgeEvents.get(id)??[];events.push(record);if(events.length>12)events.shift();this.grudgeEvents.set(id,events);
@@ -46,10 +47,11 @@ export class BotDebugCollector {
    grudgeEvents:(this.grudgeEvents.get(p.participantId)??[]).map(e=>({...e})),
    shareGap:(Math.max(...this.match.participants.map(p=>p.territoryCount))-p.territoryCount)/this.match.map.cells.length,attackSurvival:memory.attackSurvival,
    reclaim:this.reclaim.snapshot(p.participantId),
+   reposition:{...structuredClone(memory.reposition),route:memory.reposition.active?[...memory.path]:[],recent:this.reposition.snapshot(p.participantId),stats:{...this.reposition.stats,reasons:{...this.reposition.stats.reasons}}},
    goal:memory.goal,attackSlot:memory.attackSlot,trailLength:p.trailCells.size,trace:trace?structuredClone(trace):null,
    planTrace:this.plans.get(p.participantId)?.lifeId===p.lifeId?structuredClone(this.plans.get(p.participantId)!.trace):null,
    history:(this.history.get(p.participantId)??[]).map(h=>({...h}))
   };})
  };}
- dispose(){this.reclaim.dispose();for(const stop of this.stops)stop();this.stops=[];this.latest.clear();this.plans.clear();this.history.clear();this.grudgeEvents.clear();this.grudgeOrigins.clear();}
+ dispose(){this.reposition.dispose();this.reclaim.dispose();for(const stop of this.stops)stop();this.stops=[];this.latest.clear();this.plans.clear();this.history.clear();this.grudgeEvents.clear();this.grudgeOrigins.clear();}
 }

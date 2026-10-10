@@ -25,7 +25,7 @@ export class GameScene extends Phaser.Scene {
  setBotDebugFollow(id:string|null):void{this.botDebugFollowId=id;if(this.created&&this.view)this.drawView(this.view,false);}
  isBotDebugFollowing():boolean{return this.botDebugFollowId!==null;}
  private debugOverlay?:Phaser.GameObjects.Graphics;
- private debugOverlayData:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number}|null=null;
+ private debugOverlayData:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number;route?:number[];destination?:number|null}|null=null;
  setBotDebugOverlay(data:typeof this.debugOverlayData):void {
   this.debugOverlayData=data;if(!this.created||!this.map)return;
   if(!data||data.matchId!==this.view?.matchId){this.debugOverlay?.clear().setVisible(false);return;}
@@ -34,8 +34,10 @@ export class GameScene extends Phaser.Scene {
   for(const [ids,color,width,fill]of [[data.damage,0xffd54a,2,0],[data.expected,0x42dbff,4,.15],[data.actual,0x61ff92,3,.20]] as const){
    g.lineStyle(width,color,1);for(const id of ids){const cell=this.map.cells[id];if(!cell||(color===0x61ff92&&this.view?.owners[id]!==data.slot+1))continue;if(fill)g.fillStyle(color,fill).fillPoints(cell.vertices,true);g.strokePoints(cell.vertices,true);}
   }
+  g.lineStyle(2,0xfb923c,1);for(const id of data.route??[]){const cell=this.map.cells[id];if(cell)g.strokePoints(cell.vertices,true);}
+  if(data.destination!=null){const cell=this.map.cells[data.destination];if(cell){g.fillStyle(0xfb923c,.35).fillPoints(cell.vertices,true);g.lineStyle(5,0xfb923c,1).strokePoints(cell.vertices,true);}}
  }
- botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0};}
+ botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0,route:this.debugOverlayData?.route?.length??0,destination:this.debugOverlayData?.destination??null};}
 
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
  private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';

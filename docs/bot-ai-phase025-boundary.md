@@ -160,3 +160,5 @@ node node_modules/tsx/dist/cli.mjs scripts/bot-phase025-boundary-performance.ts
 ```
 
 프로토콜은 최초 준비 시에만 생성한다. 저장된 사본으로 감사와 비용 실행을 다시 할 수 있으며, 준비를 다시 실행해 프로토콜을 덮어쓰지는 않는다. 대전/테스트와 비용 측정을 겹쳐 실행하지 않는다. 최종 보고서는 같은 8시드의 원값·차이·합계·판정을 모두 보존한다.
+
+③ 후속 승인·구현 결과: [REPOSITION 결과](bot-ai-phase025-reposition.md). 위 표는 ③ 이전의 경계 추가 비교이며 최신 재배치 결과와 섞지 않는다.
