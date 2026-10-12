@@ -14,3 +14,6 @@ evidence/origin-capture-after.json
 
 # Keep full map time series locally; commit the small summary instead.
 evidence/map-size/R*.json
+
+# APK web bundle (Capacitor webDir); the tracked production build stays in dist/.
+build/apk-web/
