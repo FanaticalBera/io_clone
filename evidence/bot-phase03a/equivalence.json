@@ -1,0 +1,181 @@
+{
+  "baseline": "4c66377 / c84fc7a behavior",
+  "master": "960f678",
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "ticks": 3600,
+  "checks": [
+    {
+      "seed": 4,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a",
+      "traceHash": "93f65920d1937e57de072bcc906be1e9e80e08a1871c0965ae29eef61cb7d153",
+      "memoryHash": "448ea60519560fe75ace774dbee0f4a0075395a80d766504c32045ca27cf43f2"
+    },
+    {
+      "seed": 19,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832",
+      "traceHash": "ac2bba00525788fed4ce04a30f581e5c20dcc768a36c94bcac1d4c470629cda6",
+      "memoryHash": "3ec5cd12ff974959c5c8f336100783a87ce45808170cfb3eb174f2a7839b69da"
+    },
+    {
+      "seed": 73,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033",
+      "traceHash": "4a1d1e20e7875a29bd051b1f5d3c753c76b884dc43b6d88579511153c69a2924",
+      "memoryHash": "1593a81e149dfbada9509151c6e2c02fd35e342b38c70c37715c1b7e4920035a"
+    },
+    {
+      "seed": 11,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c",
+      "traceHash": "8ceaadefd75d6993b366bf555732895a6db9d3ed472449bbe7b5e3529f995332",
+      "memoryHash": "311880ff9cd5241ab8c1b3ce71bb6952a4d1c0e328dcfa5b6b2e8b2b08031b54"
+    },
+    {
+      "seed": 31,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd",
+      "traceHash": "5ec5e0fe778bfa8e811672c46e1609606278a29aa253a266c5f8f09aad5bd652",
+      "memoryHash": "fe4ef852231b2d27e38f99b65a9844a4c3d8f3e0f51312d6e9f2b95631e8f5f1"
+    },
+    {
+      "seed": 47,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d",
+      "traceHash": "857f23022aa14680d7d9fd54e91c43ca79b84df801fbfaae2eccab65ae07436b",
+      "memoryHash": "c1a44ddc49717582ad28b9b560c619b590ee7e12b4bfc8c53d3f280c4dd39bab"
+    },
+    {
+      "seed": 101,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d",
+      "traceHash": "6673485b09f7094a4c56d1f3fbf2f11ccdc36051e74fbb22451f40f545eb6d54",
+      "memoryHash": "f082d50b03f183d2a932344ffccf8df7417e9f93f3e572d3e2ad13c487f4109f"
+    },
+    {
+      "seed": 137,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deathDetails": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a",
+      "traceHash": "cb38418cd7c8a98e01a5ac42517ef6eb2e87960c8bcb5ea0944d01ca52e25597",
+      "memoryHash": "1d8a7cd27e05a49606a1bc95377fbe2a66e72d909afd3f9041aa5e9fbf4944fa"
+    }
+  ],
+  "auditedBotSourceHashes": {
+    "src\\shared\\bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+    "src\\shared\\bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+    "src\\shared\\bot-director.ts": "80b0e6efc3a8c9abf1fbdccb902790d88c332f02b557b48a302bbbc5b7325f01",
+    "src\\shared\\bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+    "src\\shared\\bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+    "src\\shared\\bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+    "src\\shared\\bot-experiment.ts": "3c8b84bdd9e6dea45637f2bb9fea263c1098590fb1118a8b6b989584e6d1eff8",
+    "src\\shared\\bot-identity.ts": "5bece711f5c098fd7b6d228d7baf366d0454f6ea7f736cf99cd4752676b6df7b",
+    "src\\shared\\bot-immediate-safety.ts": "33e2c275aedab6e5fd3aa41712151ad2366c872d0a0d69531443f656eb4c619a",
+    "src\\shared\\bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+    "src\\shared\\bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+    "src\\shared\\bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+    "src\\shared\\bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+    "src\\shared\\bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+    "src\\shared\\bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+    "src\\shared\\bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+    "src\\shared\\bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+    "src\\shared\\bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+    "src\\shared\\bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+    "src\\shared\\bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+    "src\\shared\\bot-scheduler.ts": "edf001ff08f0c36b20ee1d49c9a6d027b24a73b169043676a1239663682a6104",
+    "src\\shared\\bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "src\\shared\\bot-strategy.ts": "b429c3f4752837d68b88f87123caee54946353b1ec2d848fba9f2f6ec7a43bd2",
+    "src\\shared\\bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+    "src\\shared\\bot.ts": "e6407ec0d4a61fca8d882027c7ca35e7747ebcb4a4c00e90a0440ab38f4e86d2"
+  },
+  "implementationCommit": "9589ba4"
+}

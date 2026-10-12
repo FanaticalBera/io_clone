@@ -9,7 +9,7 @@ import {watchReposition,watchRepositionSelection} from '../src/shared/bot-reposi
 import {hexDistance} from '../src/shared/hex.js';
 import {createHash} from 'node:crypto';
 import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
-const local='../bot-phase025-spectating';mkdirSync(local,{recursive:true});
+const local=process.argv.find(a=>a.startsWith('--out-dir='))?.slice(10)??'../bot-phase025-spectating';mkdirSync(local,{recursive:true});
 const cases=[{seed:137,windows:[{slot:5,start:1000,end:3900}]},{seed:47,windows:[{slot:9,start:1000,end:2650},{slot:5,start:2600,end:5000}]},{seed:73,windows:[{slot:13,start:1300,end:3750}]},{seed:19,windows:[{slot:2,start:0,end:3600}]}];
 const increment=(r:Record<string,number>,key:string,n=1)=>r[key]=(r[key]??0)+n;
 const reference=JSON.parse(readFileSync('../bot-phase025-closeout/current.json','utf8'));

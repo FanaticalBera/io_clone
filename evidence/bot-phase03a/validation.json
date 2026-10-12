@@ -1,0 +1,64 @@
+{
+  "implementationCommit": "9589ba4",
+  "behaviorBaseline": "c84fc7a",
+  "comparisonArtifact": "main .local/bot-phase03-preflight/merged.json (verified against c84fc7a)",
+  "master": "960f678",
+  "masterChanged": false,
+  "implemented": [
+    "3A structural extraction",
+    "audit-only transition metrics"
+  ],
+  "notImplemented": [
+    "3B cadence",
+    "3C continuity/trait activation",
+    "3D added recovery behavior",
+    "merge experimental branch into master"
+  ],
+  "equivalence": {
+    "seeds": 8,
+    "ticksPerSeed": 3600,
+    "checks": [
+      "trajectory",
+      "judgment trace",
+      "memory",
+      "next action RNG",
+      "holding",
+      "growth",
+      "personality values",
+      "death tick/cause",
+      "departure",
+      "reposition",
+      "director"
+    ]
+  },
+  "tests": {
+    "vitestFiles": 93,
+    "vitestPassed": 649,
+    "transitionDefinitionTests": 4,
+    "typecheck": [
+      "client",
+      "server",
+      "tests",
+      "audit strict",
+      "spectating script strict"
+    ],
+    "hudE2EPassed": 9,
+    "build": [
+      "server TypeScript",
+      "production web"
+    ]
+  },
+  "performance": "Not remeasured for 3A; previous cost is a reference only. No observer execution time used as a performance result.",
+  "rawArtifacts": "main .local/bot-phase03a/",
+  "limitations": [
+    "Global 8-seed hash proof is 3600 ticks; longer selected scenes are compared through their recorded common fields, not a longer all-participant hash proof.",
+    "Counterfactual hold applicability is eligibility counting, not an enabled policy replay or a causal death estimate.",
+    "3B can change eligibility: repeat the pre-3C measurement if 3B is approved.",
+    "Churn counts include safety/completion/invalidity causes; voluntary subsets separate. No approved numeric pass threshold for the new metrics."
+  ],
+  "sceneRegressions": {
+    "cases": 4,
+    "maximumTicks": 5000,
+    "comparison": "all existing recorded fields equal; separate from the 3600-tick global hash proof"
+  }
+}
