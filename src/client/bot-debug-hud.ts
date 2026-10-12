@@ -31,7 +31,7 @@ export class BotDebugHud {
   const bot=snapshot.bots.find(b=>b.participantId===this.selected);if(!bot)return;
   const reclaim=bot.reclaim.active??bot.reclaim.recent.filter(r=>r.lifeId===bot.lifeId).at(-1);
   const lastRecovered=bot.reclaim.recent.filter(r=>r.lifeId===bot.lifeId&&r.outcome!=='OPEN'&&r.dRaw>0).at(-1);
-  this.overlay({matchId:snapshot.matchId,slot:bot.slot,damage:bot.damage.regions.map(c=>c.cellId),route:bot.reposition.route,destination:bot.reposition.active?.target??null,expected:bot.goal==='REPOSITION'?[]:reclaim?.expectedCellIds??[],actual:lastRecovered?[...lastRecovered.actualCellIds,...lastRecovered.otherReclaimCellIds]:[]});
+  this.overlay({matchId:snapshot.matchId,slot:bot.slot,damage:bot.damage.regions.map(c=>c.cellId),route:bot.reposition.route,destination:bot.reposition.active?.target??null,expected:bot.goal==='REPOSITION'||reclaim?.outcome==='LAUNCH_BLOCKED'?[]:reclaim?.expectedCellIds??[],actual:lastRecovered?[...lastRecovered.actualCellIds,...lastRecovered.otherReclaimCellIds]:[]});
   const trace=bot.trace,lines=['seed '+snapshot.seed+' / tick '+snapshot.tick,'#'+bot.slot+' '+bot.nickname+' · life '+bot.lifeId];
   lines.push('지도: 노랑 = 피해 기억 · 하늘색 = 예상 되찾기 · 초록 = 회수해 보유 · 주황 = 재배치 경로/목적지');
   if(reclaim)lines.push('예상 되찾기 '+reclaim.expectedCellIds.length+'칸 → 실제 '+reclaim.actualCellIds.length+'칸 · 예상 밖 회수 '+reclaim.otherReclaimCellIds.length+'칸 · 종료 시 유지 '+reclaim.retainedCells+'칸',
@@ -73,6 +73,9 @@ export class BotDebugHud {
   if(selection)lines.push('재배치 경계 평가 '+selection.examined+'/8 · 전체 경계 중 10칸 이내 '+selection.within10+' · 20칸 내 경로 없음 '+selection.beyond20OrDisconnected+' · 근접 차단 '+selection.nearBlocked);
   lines.push('재배치 집계: 도착 '+rp.stats.arrivals+' / 중단 '+rp.stats.aborts+' / A→B→A 왕복 '+rp.stats.pingPong);
   if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
+  const launch=bot.departure,lastLaunch=launch?.lastBlock;
+  lines.push('출발 차단: '+(launch?.blocks??0)+'회 · 봇 생존 분당 '+(launch?.blocksPerAliveMinute??0).toFixed(2)+' · 연속 '+(launch?.consecutiveBlocks??0)+' / 최대 '+(launch?.maxConsecutiveBlocks??0),'출발 후보 탈락: '+(launch?.candidateRejected??0)+' · 사전 필터 생략 '+(launch?.prefilterSkipped??0));
+  if(lastLaunch){const d=lastLaunch.result;lines.push('최근 출발 경계 tick '+lastLaunch.tick+' · '+(lastLaunch.fallback?'LAUNCH_BLOCKED':'LAUNCH_NO_SAFE_OWNED_ROUTE')+' · '+d.reason+' #'+d.enemySlot,'첫 노출 칸 '+d.firstCell+' · 진입 '+d.entrySeconds?.toFixed(3)+'초 · 사전 필터 '+d.prefilterCells+'칸 · 대체 경로 '+(lastLaunch.fallback?.join('→')??'없음'));}
   if(trace){lines.push('최근 판단 tick '+trace.tick+' · 선택: '+trace.reason,'안전 개입: '+(trace.safetyOverride??'없음'),'선 근처 적 거리: '+(trace.risk?.nearestEnemyToTrail??'관측 없음'),'최근 공격 후보: '+trace.attacks.slice(0,12).map(a=>'#'+a.slot+' '+a.reason).join(', '));
    }else lines.push('아직 판단 기록 없음');
   const plan=bot.planTrace;
@@ -81,7 +84,7 @@ export class BotDebugHud {
    const response=plan.expansionPlan?.response;
    if(response)lines.push('선택 확장: 기본 '+response.baseScore.toFixed(2)+' · 되찾기 D '+response.reclaimWeight.toFixed(2)+' / raw +'+response.reclaimRaw.toFixed(2)+' · 복수 V '+response.revengeWeight.toFixed(2)+' / raw +'+response.revengeRaw.toFixed(2)+' · 적용 +'+response.bonus.toFixed(2)+' · D/V 중첩 '+response.overlapCells+'칸 (의도된 중첩)');
    lines.push('피해 대응 출발 경계: '+(plan.damageBoundary?.anchors.join(', ')||'없음')+' · 내부 10칸으로 도달 불가 경계 '+(plan.damageBoundary?.unreachable??0));
-   lines.push('평가한 계획 상위 5개:');for(const p of plan.expansionScores?.slice(0,5)??[])lines.push('  '+p.goal+' '+(p.shape??'')+' · '+p.score.toFixed(1)+(p.response?' (기본 '+p.response.baseScore.toFixed(1)+' / 대응 +'+p.response.bonus.toFixed(2)+')':''));
+   lines.push('평가한 계획 상위 5개:');for(const p of plan.expansionScores?.slice(0,5)??[])lines.push('  '+p.goal+' '+(p.shape??'')+' · '+p.score.toFixed(1)+(p.departureBlocked?' [출발 탈락 '+p.departureBlocked+']':'')+(p.response?' (기본 '+p.response.baseScore.toFixed(1)+' / 대응 +'+p.response.bonus.toFixed(2)+')':''));
    lines.push('확장 거절 집계: '+JSON.stringify(plan.expansionRejected??{}));
   }else lines.push('아직 계획 생성 기록 없음');
   lines.push('최근 상태 전환:');for(const h of bot.history)lines.push('  t'+h.tick+' life '+h.lifeId+' '+h.from+' → '+h.to+' · '+h.reason);

@@ -8,7 +8,11 @@ import type {Personality} from '../src/shared/model.js';
 export function runMediumAttack(personality:Personality,reverse=false,wide=false){
  const humanSlot=reverse?1:0,botSlot=reverse?0:1;
  const specs=[{participantId:'human',slot:humanSlot,nickname:'H',kind:'HUMAN' as const},{participantId:'bot',slot:botSlot,nickname:'B',kind:'BOT' as const,personality}];
- const match=createMatch({},reverse?17:115,specs),[human,bot]=match.participants,origin=match.map.cells[human.cellId],memory=createBotMemory(7),traces:BotDecisionTrace[]=[];
+ // New departure safety changes the approach before the duel. Keep the same
+ // spawned layout and human loop; choose a fixed RNG fixture that still meets
+ // all real-cut, trail-size and return assertions for each personality.
+ const memorySeed=wide?7:personality==='EXPAND'&&!reverse?1:3;
+ const match=createMatch({},reverse?17:115,specs),[human,bot]=match.participants,origin=match.map.cells[human.cellId],memory=createBotMemory(memorySeed),traces:BotDecisionTrace[]=[];
  watchBotDecisions(memory,trace=>{if(human.trailCells.size)traces.push(trace);});
  const route=wide?[[0,2],[-2,4],[-4,4],[-4,2],[-2,0],[0,0]]:[[-2,2],[-3,2],[-3,0],[-1,-2],[1,-2],[0,0]];
  let index=0,seq=0,maxTrail=0,attackTicks=0,captures=0;

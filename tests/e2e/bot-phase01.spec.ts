@@ -20,7 +20,7 @@ test('practice HUD exposes 13 bots, real reasons, selection and camera follow, a
 });
 test('debug HUD stays absent without the flag and on production even with debug=1',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
- for(const url of ['/?spectate=1&experimentSeed=19','http://127.0.0.1:5312/?debug=1&spectate=1&experimentSeed=19']){
+ for(const url of ['/?spectate=1&experimentSeed=19',(process.env.BOT_PRODUCTION_PREVIEW_URL??'http://127.0.0.1:5312')+'/?debug=1&spectate=1&experimentSeed=19']){
   await page.goto(url);await page.getByTestId('nickname').fill('검증');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();await expect(page.locator('#bot-debug-hud')).toHaveCount(0);
   expect(await page.evaluate(()=>('__HEXHOLD_DIAGNOSTICS__' in window))).toBe(false);await expect(page.locator('#population')).toContainText('사람 1 · 봇 13');
  }
@@ -146,5 +146,21 @@ test('reposition shows an orange owned route, actual arrival and a fresh recover
  const result=await page.evaluate(()=>{const {practice,a,memory,advance}=(window as any).__REPOSITION_FIXTURE__;for(let i=0;i<300&&memory.reposition.active;i++)advance();return {last:memory.reposition.last,goal:memory.goal,trail:a.trailCells.size,bots:practice.botDiagnostics().bots};});
  expect(result.last.outcome).toBe('ARRIVED');expect(result.last.movedCells).toBeGreaterThanOrEqual(11);await expect(hud.locator('pre')).toContainText('ARRIVED');
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().route)).toBe(0);
- await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().enabled)).toBe(false);expect(errors).toEqual([]);expect(selected).toBeTruthy();
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await expect(page.getByTestId('practice')).toBeVisible();expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().enabled)).toBe(false);expect(errors).toEqual([]);expect(selected).toBeTruthy();
+});
+
+test('departure HUD separates first-trail safety from danger and counts actual blocked attempts',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=137');await page.getByTestId('nickname').fill('출발 확인');await page.getByTestId('practice').click();
+ await page.evaluate(async()=>{const api=(window as any).__HEXHOLD_TEST__,p=api.getPractice();p.setPaused(true);const m=p.match,a=m.participants[7],b=m.participants[9];
+  const territory=await import('/src/shared/territory.ts' as string),director=await import('/src/shared/bot-director.ts' as string),game=await import('/src/shared/game.ts' as string),id=(q:number,r=0)=>m.map.byKey.get(q+','+r);
+  for(const other of m.participants){territory.clearTrail(m,other);territory.neutralizeTerritory(m,other);other.lifeState='DEAD_WAIT';other.respawnAtTick=Infinity;}
+  for(const [actor,q]of [[a,0],[b,4]] as const){actor.lifeState='ALIVE';actor.cellId=id(q);actor.position={...m.map.cells[actor.cellId].center};actor.direction={x:actor===a?1:-1,y:0};actor.targetDirection=null;}
+  for(let q=-6;q<=0;q++)for(let r=-4;r<=4;r++)territory.setOwner(m,id(q,r),a.slot+1);
+  const memory=p.memories.get(a.participantId);memory.plannedLifeId=a.lifeId;memory.path=[id(1),id(2),id(2,-1),id(1,-1),id(0)];memory.goal='STEAL';memory.nextDecisionTick=m.tick+6;memory.departureOwned=false;
+  memory.emotion.damage.regions.set(id(1),{attackerId:b.participantId,tick:m.tick});p.botDebug.reclaim.decision(a.participantId,{tick:m.tick,from:'EXPAND',to:'STEAL',ownTrail:0,attackTarget:null,attacks:[],planChanged:true,expansionPlan:{shape:'RHOMBUS',pathLength:5,externalLength:4,captureSize:4,stolenCells:1,earlyClosed:false},expansionPath:[...memory.path]});
+  director.getBotInputs(m,p.memories);p.publish(game.buildView(m),null);api.showPracticeView();
+ });
+ const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(7).click();await expect(hud.locator('pre')).toContainText('LAUNCH_BLOCKED');await expect(hud.locator('pre')).toContainText('PREDICTED_OVERLAP #9');await expect(hud.locator('pre')).toContainText('사전 필터 7칸');await expect(hud.locator('pre')).toContainText('봇 생존 분당');
+ const row=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().botDiagnostics().bots.find((b:any)=>b.slot===7));expect(row.trailLength).toBe(0);expect(row.goal).toBe('RETURN');expect(row.departure.blocks).toBeGreaterThanOrEqual(1);expect(row.planTrace.expansionPlan).toBeUndefined();expect(row.reclaim.active).toBeNull();expect(row.reclaim.recent.at(-1).outcome).toBe('LAUNCH_BLOCKED');expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().expected)).toBe(0);expect(errors).toEqual([]);
 });

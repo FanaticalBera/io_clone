@@ -1,0 +1,167 @@
+{
+  "seed": 137,
+  "slot": 7,
+  "prefixHash": "9997b1c4ba70693aef35fa85ada863b6320efca84f11984ee1982d21d31b13d7",
+  "prefixMatchesAudit": true,
+  "originalDeath": [
+    {
+      "tick": 6801,
+      "cause": "PENDING_TRAIL_CONTACT",
+      "killer": 9,
+      "oldTrail": 0
+    }
+  ],
+  "implementation": [
+    {
+      "tick": 6775,
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": 391,
+        "entrySeconds": 0.8822397244567068,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    },
+    {
+      "tick": 6781,
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": 391,
+        "entrySeconds": 0.6822397244567069,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    },
+    {
+      "tick": 6787,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.48223972445670693,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": [
+        267
+      ],
+      "branchResult": {
+        "alive": true,
+        "maxTrail": 0
+      }
+    },
+    {
+      "tick": 6793,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.28411998925217213,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": [
+        328
+      ],
+      "branchResult": {
+        "alive": true,
+        "maxTrail": 0
+      }
+    },
+    {
+      "tick": 6795,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.21745332258550545,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": [
+        328
+      ],
+      "branchResult": {
+        "alive": true,
+        "maxTrail": 0
+      }
+    },
+    {
+      "tick": 6797,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.1507866559188388,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    },
+    {
+      "tick": 6799,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.08411998925217214,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    },
+    {
+      "tick": 6800,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.05078665591883879,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    },
+    {
+      "tick": 6801,
+      "safety": {
+        "blocked": true,
+        "reason": "NEAR_HEAD",
+        "enemySlot": 9,
+        "firstCell": 391,
+        "entrySeconds": 0.017453322585505457,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "fallback": null,
+      "branchResult": null
+    }
+  ],
+  "method": "Read-only normal AI replay and frozen actual input tape. Branch changes only #7 input; normal engine movement/turning/collision/ownership. Candidate forecast uses public heading and ownership only; taped future enemy inputs are validation-only, never production policy. 60-tick survival is a controlled counterfactual, not natural AI reaction or global balance."
+}

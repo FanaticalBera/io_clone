@@ -27,6 +27,10 @@ describe('plan-to-recovery diagnostics',()=>{
   expect(row).toMatchObject({outcome:'CAPTURE',actualCellIds:[f.id(1)],otherReclaimCellIds:[],ordinaryStolenCells:1,neutralCells:1,retainedCells:1});
   f.tracker.afterTick();expect(f.tracker.snapshot(f.a.participantId).recent[0]).toEqual(row);f.tracker.dispose();
  });
+ it('ends a blocked departure immediately and attributes no later capture to its cancelled D plan',()=>{
+  const f=fixture();f.tracker.decision(f.a.participantId,{...f.trace,expansionPlan:undefined,expansionPath:undefined,to:'RETURN',reason:'LAUNCH_BLOCKED',departure:{blocked:true,reason:'NEAR_HEAD',enemySlot:1,firstCell:f.id(1),entrySeconds:.2,prefilterCells:7,consideredHeads:1,skipped:false,fallback:[f.id(0)]}});
+  expect(f.tracker.snapshot(f.a.participantId).active).toBeNull();f.capture();f.tracker.afterTick();const row=f.tracker.snapshot(f.a.participantId).recent[0];expect(row.outcome).toBe('LAUNCH_BLOCKED');expect(row.actualCellIds).toEqual([]);expect(row.ordinaryStolenCells).toBe(0);f.tracker.dispose();
+ });
  it('does not attribute a later attack capture or kill to the interrupted D plan',()=>{
   const f=fixture();f.tracker.decision(f.a.participantId,{...f.trace,expansionPlan:undefined,expansionPath:undefined,to:'ATTACK',reason:'ATTACK_OPPORTUNITY'});
   f.capture();markDead(f.m,f.b,'TRAIL_CUT',f.a,{cause:'TRAIL_CAPTURE',cellId:f.id(1),eventTick:0});f.tracker.afterTick();

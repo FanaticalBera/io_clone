@@ -1,3 +1,4 @@
+import {immediateLookAhead,evaluateDepartureSafety,selectOwnedDepartureFallback,departureIntent,recordDepartureSafety,type DepartureSafety} from './bot-immediate-safety.js';
 import {createRepositionState,selectReposition,startReposition,endReposition,repositionProgress,repositionImmediateReason,repositionRegularReason,type RepositionState,type RepositionEnd} from './bot-reposition.js';
 import {botEvents,type BotEvent} from './bot-events.js';
 import {damageExpansionAnchors,expansionDamageBonus,type DamageBonus} from './bot-damage.js';
@@ -19,11 +20,11 @@ export type {ExpansionShape} from './bot-expansion.js';
 export interface BotObservation {
  matchId:string; tick:number; config:MatchState['config']; map:MapDefinition; owners:Uint8Array;gameMode:GameModeConfig;
  roster?:{participantId:string;slot:number;lifeId:number;lifeState:PublicParticipant['lifeState']}[]; standings?:{participantId:string;territory:number;share:number;rank:number}[];events?:readonly BotEvent[];spawnCells?:number;
- self:PublicParticipant; ownTrail:number[]; others:PublicParticipant[]; trails:{cellId:number;slot:number}[];
+ actualOwnTrailLength?:number;departureHeads?:PublicParticipant[];self:PublicParticipant; ownTrail:number[]; others:PublicParticipant[]; trails:{cellId:number;slot:number}[];
 }
 export type BotGoal='EXPAND'|'STEAL'|'SEEK_POINT'|'ATTACK'|'RETURN'|'ESCAPE'|'REPOSITION';
 export interface BotTraits {readonly expansionScale:number;readonly riskScale:number;readonly stealScale:number}
-export interface BotMemory { reposition:RepositionState; identity?:Readonly<BotIdentity>; traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; emotion:BotEmotion;attackSurvival:boolean;expansion?:ExpansionPlan;lastExpansionShape?:ExpansionShape }
+export interface BotMemory { departureOwned?:boolean;reposition:RepositionState; identity?:Readonly<BotIdentity>; traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; emotion:BotEmotion;attackSurvival:boolean;expansion?:ExpansionPlan;lastExpansionShape?:ExpansionShape }
 const memoryVariants=new WeakMap<BotMemory,BotVariant>();
 export function createBotMemory(seed:number,variant:BotVariant='combined',identity?:Readonly<BotIdentity>):BotMemory {
  // Independent stream: traits neither consume decision RNG nor change on respawn.
@@ -33,7 +34,7 @@ export function createBotMemory(seed:number,variant:BotVariant='combined',identi
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number;grudge?:number;grudgeBonus?:number;attackChance?:number;otherReservations?:number;reservationFactor?:number;survival?:boolean}
 export interface ExpansionPlan {response?:DamageBonus;anchor?:number;shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
-export interface BotDecisionTrace {repositionEvent?:RepositionEnd;emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};damageBoundary?:{anchors:number[];unreachable:number};expansionScores?:{shape?:ExpansionShape;goal:BotGoal;score:number;response?:DamageBonus;anchor?:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
+export interface BotDecisionTrace {departure?:DepartureSafety & {fallback:number[]|null};repositionEvent?:RepositionEnd;emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};damageBoundary?:{anchors:number[];unreachable:number};expansionScores?:{departureBlocked?:string;shape?:ExpansionShape;goal:BotGoal;score:number;response?:DamageBonus;anchor?:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const decisionTraces=new WeakMap<BotMemory,BotDecisionTrace>();
 const shadowObservers=new WeakMap<BotMemory,boolean>();
@@ -58,17 +59,18 @@ export function observeBot(match:MatchState,participantId:string,variant:BotVari
  const origin=match.map.cells[self.cellId]??{q:0,r:0},range=match.config.botObservationRange,options=botOptions(variant);
  setMovementNormalCaching(match.map,options.cache);
  const snapshot=options.fair?observableParticipant:publicParticipant;
- const others:PublicParticipant[]=[],trails:{cellId:number;slot:number}[]=[];
+ const departureHeads:PublicParticipant[]=[],others:PublicParticipant[]=[],trails:{cellId:number;slot:number}[]=[];
  // Between decisions only the live near-head/near-trail predicates used by
  // botLookAhead are needed. Preserve observation range and source order.
  for(const p of match.participants)if(p!==self){
+  if(steeringOnly&&self.trailCells.size===0&&match.owners[self.cellId]===self.slot+1&&p.lifeState==='ALIVE'&&hexDistance(origin,match.map.cells[p.cellId])<=range)departureHeads.push(observableParticipant(p));
   if(p.lifeState==='ALIVE'&&hexDistance(origin,match.map.cells[p.cellId])<=Math.min(range,steeringOnly?3:range)&&(!steeringOnly||others.length===0))others.push(snapshot(p));
   if(!steeringOnly||trails.length===0)for(const cellId of p.trailCells)if(hexDistance(origin,match.map.cells[cellId])<=Math.min(range,steeringOnly?2:range)){trails.push({cellId,slot:p.slot});if(steeringOnly)break;}
  }
  const obs:BotObservation={matchId:match.matchId,tick:match.tick,config:match.config,map:match.map,owners:match.owners,gameMode:match.gameMode,
  roster:match.participants.filter(p=>p.lifeState!=='FINISHED').map(p=>({participantId:p.participantId,slot:p.slot,lifeId:p.lifeId,lifeState:p.lifeState})),
  standings:steeringOnly?undefined:[...match.participants].filter(p=>p.lifeState!=='FINISHED').sort((a,b)=>b.territoryCount-a.territoryCount||a.slot-b.slot).map((p,i)=>({participantId:p.participantId,territory:p.territoryCount,share:p.territoryCount/match.map.cells.length,rank:i+1})),events:botEvents(match,participantId),spawnCells:1+3*match.config.spawnRadius*(match.config.spawnRadius+1),
- self:publicParticipant(self),ownTrail:steeringOnly?[]:[...self.trailCells],others,trails};
+ actualOwnTrailLength:steeringOnly?self.trailCells.size:undefined,departureHeads:steeringOnly?departureHeads:undefined,self:publicParticipant(self),ownTrail:steeringOnly?[]:[...self.trailCells],others,trails};
  observationVariants.set(obs,variant);return obs;
 }
 export function observeBotForTick(match:MatchState,participantId:string,memory:BotMemory):BotObservation {
@@ -366,23 +368,23 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  }
  candidates.sort((a,b)=>b.score-a.score);
  const evaluated=decisionTraces.get(memory);if(evaluated)evaluated.expansionScores=candidates.map(c=>({shape:c.expansion?.shape,goal:c.goal,score:c.score,response:c.expansion?.response,anchor:c.expansion?.anchor}));
- const selected=candidates[0];memory.attackSurvival=selected?.goal==='ATTACK'&&'survival' in selected?!!selected.survival:false;memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
+ // Evaluate in score order: a soon-blocked loop cannot be selected. Same pure
+ // one-second predicate as the per-tick immediate guard, no additional RNG.
+ let selected:typeof candidates[number]|undefined;
+ for(const candidate of candidates){const safety=evaluateDepartureSafety(obs,candidate.path,candidate.goal);
+  if(safety.blocked){recordDepartureSafety(memory,{type:'candidate',tick:obs.tick,result:safety});if(evaluated){const score=evaluated.expansionScores?.[candidates.indexOf(candidate)];if(score)score.departureBlocked=safety.reason??'UNKNOWN';const counts=evaluated.expansionRejected??={};counts['LAUNCH_'+safety.reason]=(counts['LAUNCH_'+safety.reason]??0)+1;}continue;}selected=candidate;break;
+ }memory.attackSurvival=selected?.goal==='ATTACK'&&'survival' in selected?!!selected.survival:false;memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
  const trace=decisionTraces.get(memory);if(trace){trace.reason=selected?.expansion?'EXPANSION_SCORE':selected?.goal==='ATTACK'?'ATTACK_SCORE':selected?'POINT_SCORE':'NO_EXPANSION';trace.expansionPlan=selected?.expansion;if(selected?.expansion)trace.expansionPath=[...selected.path];}
  memory.expansion=selected?.expansion;if(selected?.expansion)memory.lastExpansionShape=selected.expansion.shape;
  return selected?.path??returnPath(obs)??[];
 }
-export function botLookAhead(obs:BotObservation,goal:BotGoal):number {
- if(goal==='ATTACK')return 3;
- if((goal==='EXPAND'&&obs.self.personality==='DEFEND')||hexDistance(obs.map.cells[obs.self.cellId],{q:0,r:0})>=obs.map.radius-2)return 1;
- // Preserve precise local steering around observed heads and trails.
- if(obs.others.some(p=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=3)||obs.trails.some(t=>hexDistance(obs.map.cells[t.cellId],obs.map.cells[obs.self.cellId])<=2))return 1;
- return 2;
-}
+export const botLookAhead=immediateLookAhead;
 export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false,policy?:BotAttackPolicy):DirectionInput|null {
  if(policy)attackPolicies.set(memory,policy);else attackPolicies.delete(memory);
  updateBotEmotion(obs,memory.emotion,memory.identity);
+ recordDepartureSafety(memory,{type:'tick',tick:obs.tick,lifeId:obs.self.lifeId,alive:obs.self.lifeState==='ALIVE',outside:(obs.actualOwnTrailLength??obs.ownTrail.length)>0||obs.owners[obs.self.cellId]!==obs.self.slot+1});
  if(obs.self.lifeState!=='ALIVE'){endReposition(obs,memory.reposition,'DEATH');return null;}
- let finishTrace:(()=>void)|undefined,perimeterReturn=false;
+ let finishTrace:(()=>void)|undefined,perimeterReturn=false;let departure:BotDecisionTrace['departure'];
  const observer=botObservers.get(memory),planGoal=memory.goal,planTarget=memory.attackTarget,planSlot=memory.attackSlot;
  let planChanged=memory.plannedLifeId!==obs.self.lifeId;
  const setPath=(path:number[],force=false)=>{if(observer&&(force||path.length!==memory.path.length||path.some((id,i)=>id!==memory.path[i])))planChanged=true;memory.path=path;};
@@ -392,10 +394,11 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
  if(repositionEvent){endReposition(obs,memory.reposition,repositionEvent);setPath([]);memory.goal='RETURN';memory.nextDecisionTick=obs.tick;}
  const lifeChanged=memory.plannedLifeId!==obs.self.lifeId,fromGoal=planGoal;
  const decisionReason:BotTickMetric['reason']=lifeChanged?'LIFE':memory.nextDecisionTick<=obs.tick-1?'URGENT':'REGULAR';
- if(memory.plannedLifeId!==obs.self.lifeId){setPath([]);memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.attackSurvival=false;memory.expansion=undefined;memory.lastExpansionShape=undefined;}
+ if(memory.plannedLifeId!==obs.self.lifeId){setPath([]);memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.attackSurvival=false;memory.expansion=undefined;memory.lastExpansionShape=undefined;memory.departureOwned=false;}
  if(memory.lastCell!==obs.self.cellId){memory.lastCell=obs.self.cellId;memory.lastProgressTick=obs.tick;}
  const due=obs.tick>=memory.nextDecisionTick;
  if(due){
+  memory.departureOwned=false;
   const trace:BotDecisionTrace|undefined=observer?{tick:obs.tick,from:planGoal,to:memory.goal,repositionEvent:repositionEvent??undefined,ownTrail:obs.ownTrail.length,attackTarget:null,attacks:[]}:undefined;
   if(trace)decisionTraces.set(memory,trace);
   if(trace&&shadowObservers.get(memory)!==false){trace.shadow=evaluateShadowOpportunities(obs,{path:shortestPath,seconds:shadowTravelSeconds});trace.shadow.goalBefore=memory.goal;}
@@ -462,7 +465,7 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
    safe.sort((a,b)=>{const score=(id:number)=>{const c=obs.map.cells[id].center,d=normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;return d.x*obs.self.direction.x+d.y*obs.self.direction.y;};return score(b)-score(a);});
    if(safe.length){setPath([safe[0]],true);if(trace)trace.reason='HOME_PATROL';}
   }
-  if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.repositionEvent??=repositionEvent??undefined;trace.planChanged=planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot;trace.to=memory.goal;trace.attackTarget=memory.attackTarget;trace.attackSlot=memory.attackSlot;trace.personality=obs.self.personality;trace.pathLength=memory.path.length;trace.traits=memory.traits;trace.lookAheadUsed=perimeterReturn||!target?1:Math.max(1,memory.path.findIndex(id=>obs.map.cells[id].center===target)+1);
+  if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.repositionEvent??=repositionEvent??undefined;if(departure){trace.departure=departure;trace.expansionPlan=undefined;trace.expansionPath=undefined;trace.reason=departure.fallback?'LAUNCH_BLOCKED':'LAUNCH_NO_SAFE_OWNED_ROUTE';trace.safetyOverride=trace.reason;}trace.planChanged=planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot;trace.to=memory.goal;trace.attackTarget=memory.attackTarget;trace.attackSlot=memory.attackSlot;trace.personality=obs.self.personality;trace.pathLength=memory.path.length;trace.traits=memory.traits;trace.lookAheadUsed=perimeterReturn||!target?1:Math.max(1,memory.path.findIndex(id=>obs.map.cells[id].center===target)+1);
    trace.reason=perimeterReturn?'PERIMETER_GUARD':trace.reason??(memory.goal==='ESCAPE'?'ESCAPE_COMMITMENT':'PLAN_CONTINUE');if(perimeterReturn)trace.safetyOverride='PERIMETER_GUARD';
    const shadow=trace.shadow;if(shadow){const clear=shadow.candidates.filter(c=>c.reason==='CLEAR_KILL_OPPORTUNITY');shadow.selectedGoal=memory.goal;shadow.selectedTarget=memory.attackTarget;
    shadow.missed=clear.length>0&&!(memory.goal==='ATTACK'&&clear.some(c=>c.target===memory.attackTarget&&c.slot===memory.attackSlot));
@@ -476,7 +479,15 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
  // A point-seeking bot otherwise orbits centers it cannot reach while turning.
  const reach=Math.max(Math.sqrt(3)*obs.map.side*0.18,moveSpeed(obs.config)/obs.config.turnRadiansPerSecond+moveSpeed(obs.config)/obs.config.simulationHz);
  while(memory.path.length&&obs.self.cellId===memory.path[0]&&Math.hypot(obs.map.cells[memory.path[0]].center.x-obs.self.position.x,obs.map.cells[memory.path[0]].center.y-obs.self.position.y)<reach)memory.path.shift();
- const lookAhead=botLookAhead(obs,memory.goal);
+ // Immediate safety runs on light ticks too, without rescheduling strategy.
+ if(memory.departureOwned&&((obs.actualOwnTrailLength??obs.ownTrail.length)>0||obs.owners[obs.self.cellId]!==obs.self.slot+1))memory.departureOwned=false;
+ if(memory.departureOwned&&memory.path.some(id=>obs.owners[id]!==obs.self.slot+1)){setPath([]);memory.departureOwned=false;}
+ if(!returnOnly&&['EXPAND','STEAL'].includes(memory.goal)&&(obs.actualOwnTrailLength??obs.ownTrail.length)===0&&obs.owners[obs.self.cellId]===obs.self.slot+1){
+  const safety=evaluateDepartureSafety(obs,memory.path,memory.goal);recordDepartureSafety(memory,{type:'check',tick:obs.tick,result:safety});
+  if(safety.blocked){const fallback=selectOwnedDepartureFallback(obs);departure={...safety,fallback};recordDepartureSafety(memory,{type:'block',tick:obs.tick,result:safety,fallback});setPath(fallback??[]);memory.departureOwned=!!fallback;memory.goal='RETURN';memory.expansion=undefined;memory.attackTarget=null;memory.attackSlot=null;memory.attackSurvival=false;}
+ }
+ if(memory.departureOwned)departureIntent(obs,memory.path,'RETURN',true);
+ const lookAhead=memory.departureOwned?1:botLookAhead(obs,memory.goal);
  const target=botSteeringTarget(obs.map,obs.self,memory.path,obs.config,lookAhead);
  let direction=target?normalizeDirection(target.x-obs.self.position.x,target.y-obs.self.position.y)??obs.self.direction:obs.self.direction;
  // Predict bot steering near the perimeter. Shared movement and player input
@@ -490,7 +501,8 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
    const escape=alternatives.find(safe);if(escape){if(memory.reposition.active){endReposition(obs,memory.reposition,'PERIMETER_GUARD');repositionEvent='PERIMETER_GUARD';}direction=escape;setPath([]);memory.goal='RETURN';memory.nextDecisionTick=obs.tick;perimeterReturn=true;}
   }
  }
- if(perimeterReturn){memory.attackTarget=null;memory.attackSlot=null;}
+ if(perimeterReturn){memory.attackTarget=null;memory.attackSlot=null;memory.departureOwned=false;}
+ if(departure&&!due&&observer)observer({tick:obs.tick,from:planGoal,to:memory.goal,planChanged:true,reason:departure.fallback?'LAUNCH_BLOCKED':'LAUNCH_NO_SAFE_OWNED_ROUTE',safetyOverride:departure.fallback?'LAUNCH_BLOCKED':'LAUNCH_NO_SAFE_OWNED_ROUTE',departure,ownTrail:obs.actualOwnTrailLength??obs.ownTrail.length,attackTarget:null,attackSlot:null,attacks:[],pathLength:memory.path.length});
  // Perimeter recovery can happen between tactical decisions; record that real override too.
  if(perimeterReturn&&!due&&observer&&shadowObservers.get(memory)===false)observer({tick:obs.tick,from:planGoal,to:memory.goal,planChanged:planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot,reason:'PERIMETER_GUARD',safetyOverride:'PERIMETER_GUARD',ownTrail:obs.ownTrail.length,attackTarget:null,attackSlot:null,attacks:[],pathLength:0});
  if(memory.goal!=='ATTACK')memory.attackSurvival=false;

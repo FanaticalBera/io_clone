@@ -43,6 +43,7 @@ export class ExpansionEpisodeTracker {
  before(p:Participant,memory:BotMemory,trace?:BotDecisionTrace){
   let active=this.active.get(p.participantId);
   if(active&&active.lifeId!==p.lifeId){this.close(active,'LIFE_RESET');this.active.delete(p.participantId);active=undefined;}
+  if(active&&trace?.departure){this.close(active,'REPLANNED');this.active.delete(p.participantId);active=undefined;}
   if(active&&trace?.to==='REPOSITION'){this.close(active,'REPOSITION');this.active.delete(p.participantId);active=undefined;}
   if(trace?.expansionPlan){
    if(active)this.close(active,'REPLANNED');

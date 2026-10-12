@@ -12,6 +12,7 @@ const load=(path:string)=>import(pathToFileURL(resolve(source,path)).href);
 const [game,bot,identity,director,respawn,growthModule]=await Promise.all([
  load('src/shared/game.ts'),load('src/shared/bot.ts'),load('src/shared/bot-identity.ts'),load('src/shared/bot-director.ts'),load('src/shared/safe-bot-respawn.ts'),load('tests/bot-growth-tracker.ts')]);
 const repositionModule=existsSync(resolve(source,'src/shared/bot-reposition-diagnostics.ts'))?await load('src/shared/bot-reposition-diagnostics.ts'):null;
+const departureModule=existsSync(resolve(source,'src/shared/bot-departure-diagnostics.ts'))?await load('src/shared/bot-departure-diagnostics.ts'):null;
 const reports=[];
 const seeds=(process.argv.find(a=>a.startsWith('--seeds='))?.slice(8)??'4,19,73').split(',').map(Number);
 const ticks=Number(process.argv.find(a=>a.startsWith('--ticks='))?.slice(8)??3600);
@@ -22,9 +23,10 @@ const increment=(table:Record<string,number>,key:string,n=1)=>table[key]=(table[
 for(const seed of seeds){
  const m=game.createMatch({mapRadius:56,spawnRadius:1},seed,bot.botSpecs(14,0,'bot',{seed}));respawn.setSafeBotRespawn(m,true);
  const memories=new Map<string,any>(m.participants.map((p:any)=>[p.participantId,bot.createBotMemory(identity.botSeed(seed,p.slot),'combined',identity.createBotIdentity(identity.botSeed(seed,p.slot),p.personality))]));
+ const departure=departureModule?new departureModule.BotDepartureDiagnostics(memories,m.config.simulationHz):null;let firstTrailDeaths=0;
  const episodes=auditEpisodes?new ExpansionEpisodeTracker(m,seed):undefined;
  const reposition=repositionModule?new repositionModule.BotRepositionDiagnostics(memories,m.config.simulationHz):null,repositionRows:any[]=[];if(reposition)reposition.onEpisode=(id:string,row:any)=>repositionRows.push({participantId:id,slot:m.participants.find((p:any)=>p.participantId===id).slot,...row});
- const growth=new growthModule.BotGrowthTracker(m,(trace:any)=>episodes?.death(trace,memories.get(trace.victimId)!)),latest=new Map<string,BotDecisionTrace>();
+ const growth=new growthModule.BotGrowthTracker(m,(trace:any)=>{episodes?.death(trace,memories.get(trace.victimId)!);if(trace.context?.cause==='PENDING_TRAIL_CONTACT'&&trace.trailCells.length===0)firstTrailDeaths++;}),latest=new Map<string,BotDecisionTrace>();
  const stats=new Map<Personality,any>();
  for(const name of identity.BOT_PERSONALITIES)stats.set(name,{aliveFrames:0,goalFrames:{},decisions:0,newPlanDecisions:0,continuationDecisions:0,noAttackCandidates:0,attackCandidateObservations:0,
   attackReasons:{},newPlanAttackReasons:{},continuationAttackReasons:{},selectableAttackCandidates:0,selectedAttackDecisions:0,selectableButNotSelected:0,
@@ -79,7 +81,7 @@ for(const seed of seeds){
  const groups=[...stats].map(([personality,s])=>({...s,personality,meanExternalLength:s.externalLengthSum/(s.expansionPlans||1),stolenShare:s.stolenCells/(s.totalCapture||1),meanCapture:s.totalCapture/(s.captures||1),meanReclaimSeconds:s.responseSeconds.length?s.responseSeconds.reduce((a:number,b:number)=>a+b,0)/s.responseSeconds.length:null,responseSeconds:undefined}));
  const goalDistances=[];for(let i=0;i<groups.length;i++)for(let j=i+1;j<groups.length;j++){const a=groups[i],b=groups[j],goals=new Set([...Object.keys(a.goalFrames),...Object.keys(b.goalFrames)]);goalDistances.push({a:a.personality,b:b.personality,totalVariation:[...goals].reduce((sum,key)=>sum+Math.abs((a.goalFrames[key]??0)/(a.aliveFrames||1)-(b.goalFrames[key]??0)/(b.aliveFrames||1)),0)/2});}
  reposition?.finish(memories);
- reports.push({reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});growth.dispose();reposition?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
+ reports.push({departure:departure?.all(m.tick)??null,firstTrailDeaths,reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});growth.dispose();reposition?.dispose();departure?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
 }
 const result={source,seeds,auditEpisodes,measurement:'Real movement. Steal/recapture cells sampled at tick boundaries, excluding neutral ownership and respawn grants; transfers neutralized within the same tick may be omitted. Grudge/candidate counts distinguish plan creation and continuation; within-decision identical slot/cell/interrupt/reason is counted once. No behavior tuning.',reposition:repositionModule?'Actual relocation episodes; A→B→A requires three executed moves in one life within 30s and two >=120 degree actual displacement reversals':'Baseline without relocation',reports};
 const json=JSON.stringify(result,null,2);if(out)writeFileSync(out,json);else console.log(json);
