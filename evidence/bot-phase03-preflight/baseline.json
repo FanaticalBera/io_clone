@@ -1,0 +1,335 @@
+{
+  "baselineBehavior": "c84fc7a",
+  "master": "960f678",
+  "conditions": {
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 3600,
+    "simulationHz": 30,
+    "bots": 14,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "safeRespawn": true,
+    "variant": "combined",
+    "gameMode": "classic"
+  },
+  "definitions": {
+    "legacyReclaimed": "Unchanged tick-boundary non-neutral recapture metric; excludes zero-owner transitions and may omit transfers neutralized in the same tick.",
+    "neutralizedRecovery": "Exact capture transfer of a previously stolen own cell from owner 0, within 60 seconds in the same victim life; death resets ledger, spawn grants excluded. Acquisition events, not unique lifetime cells.",
+    "enemyRecovery": "Same exact-transfer ledger, previousOwner > 0; diagnostic only, not substituted for legacy audit reclaim.",
+    "damageLedger": "Audit-only unbounded cell ledger for a 60-second window; distinct from HUD/AI bounded 96-cell damage memory.",
+    "guardTicks": "Observer notifications with PERIMETER_GUARD, counted once per bot/tick.",
+    "guardInterruptedPlans": "Active selected expansion interrupted by a perimeter override, counted once per plan. Ends on capture, death, replacement, attack/reposition, or non-early RETURN/ESCAPE. May still close and capture on the interrupted route.",
+    "guardInterruptedDPlans": "Subset whose selected plan had predicted reclaimCells > 0; not necessarily bonus > 0."
+  },
+  "observerNoninterference": [
+    {
+      "seed": 4,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 19,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 73,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 11,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 31,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 47,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 101,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    },
+    {
+      "seed": 137,
+      "trajectory": true,
+      "judgmentMemoryRng": true,
+      "holding": true,
+      "personalities": true
+    }
+  ],
+  "deathCausesByPersonality": [
+    {
+      "personality": "ATTACK",
+      "cause": "EXISTING_TRAIL_CONTACT",
+      "count": 17
+    },
+    {
+      "personality": "ATTACK",
+      "cause": "HOME_CAPTURE",
+      "count": 2
+    },
+    {
+      "personality": "ATTACK",
+      "cause": "PENDING_TRAIL_CONTACT",
+      "count": 2
+    },
+    {
+      "personality": "DEFEND",
+      "cause": "EXISTING_TRAIL_CONTACT",
+      "count": 21
+    },
+    {
+      "personality": "DEFEND",
+      "cause": "PENDING_TRAIL_CONTACT",
+      "count": 1
+    },
+    {
+      "personality": "EXPAND",
+      "cause": "EXISTING_TRAIL_CONTACT",
+      "count": 16
+    },
+    {
+      "personality": "SEEK_POINT",
+      "cause": "EXISTING_TRAIL_CONTACT",
+      "count": 24
+    },
+    {
+      "personality": "SEEK_POINT",
+      "cause": "HOME_CAPTURE",
+      "count": 3
+    },
+    {
+      "personality": "SEEK_POINT",
+      "cause": "PENDING_TRAIL_CONTACT",
+      "count": 4
+    }
+  ],
+  "reports": [
+    {
+      "seed": 4,
+      "deaths": 12,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 10,
+        "PENDING_TRAIL_CONTACT": 2
+      },
+      "legacyReclaimed": 313,
+      "holding": {
+        "holdingCellTicks": 10369361,
+        "timeAverageCells": 2880.3780555555554,
+        "finalCells": 4069,
+        "maximumCells": 4226,
+        "maximumShare": 0.441265532003759,
+        "maximumTick": 3453,
+        "largestBotMaximumShare": 0.06766210713166962
+      },
+      "neutralizedRecovery": 45,
+      "enemyRecovery": 313,
+      "guardTicks": 153,
+      "guardInterruptedPlans": 103,
+      "guardInterruptedDPlans": 10
+    },
+    {
+      "seed": 19,
+      "deaths": 11,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 10,
+        "PENDING_TRAIL_CONTACT": 1
+      },
+      "legacyReclaimed": 546,
+      "holding": {
+        "holdingCellTicks": 10584666,
+        "timeAverageCells": 2940.185,
+        "finalCells": 4037,
+        "maximumCells": 4266,
+        "maximumShare": 0.4454422052834917,
+        "maximumTick": 3341,
+        "largestBotMaximumShare": 0.058055758588284434
+      },
+      "neutralizedRecovery": 125,
+      "enemyRecovery": 546,
+      "guardTicks": 153,
+      "guardInterruptedPlans": 97,
+      "guardInterruptedDPlans": 1
+    },
+    {
+      "seed": 73,
+      "deaths": 10,
+      "deathCauses": {
+        "PENDING_TRAIL_CONTACT": 1,
+        "HOME_CAPTURE": 2,
+        "EXISTING_TRAIL_CONTACT": 7
+      },
+      "legacyReclaimed": 418,
+      "holding": {
+        "holdingCellTicks": 11082072,
+        "timeAverageCells": 3078.3533333333335,
+        "finalCells": 4006,
+        "maximumCells": 4462,
+        "maximumShare": 0.4659079043541819,
+        "maximumTick": 3308,
+        "largestBotMaximumShare": 0.08938080818627962
+      },
+      "neutralizedRecovery": 127,
+      "enemyRecovery": 416,
+      "guardTicks": 192,
+      "guardInterruptedPlans": 140,
+      "guardInterruptedDPlans": 6
+    },
+    {
+      "seed": 11,
+      "deaths": 13,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 12,
+        "HOME_CAPTURE": 1
+      },
+      "legacyReclaimed": 321,
+      "holding": {
+        "holdingCellTicks": 11828136,
+        "timeAverageCells": 3285.5933333333332,
+        "finalCells": 4534,
+        "maximumCells": 5344,
+        "maximumShare": 0.5580035501722878,
+        "maximumTick": 3519,
+        "largestBotMaximumShare": 0.07977445964289444
+      },
+      "neutralizedRecovery": 133,
+      "enemyRecovery": 320,
+      "guardTicks": 132,
+      "guardInterruptedPlans": 103,
+      "guardInterruptedDPlans": 2
+    },
+    {
+      "seed": 31,
+      "deaths": 10,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 10
+      },
+      "legacyReclaimed": 307,
+      "holding": {
+        "holdingCellTicks": 10309385,
+        "timeAverageCells": 2863.7180555555556,
+        "finalCells": 4518,
+        "maximumCells": 4518,
+        "maximumShare": 0.47175524694580767,
+        "maximumTick": 3598,
+        "largestBotMaximumShare": 0.07256969823535554
+      },
+      "neutralizedRecovery": 178,
+      "enemyRecovery": 304,
+      "guardTicks": 314,
+      "guardInterruptedPlans": 269,
+      "guardInterruptedDPlans": 7
+    },
+    {
+      "seed": 47,
+      "deaths": 11,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 8,
+        "PENDING_TRAIL_CONTACT": 2,
+        "HOME_CAPTURE": 1
+      },
+      "legacyReclaimed": 521,
+      "holding": {
+        "holdingCellTicks": 11234407,
+        "timeAverageCells": 3120.668611111111,
+        "finalCells": 4712,
+        "maximumCells": 4712,
+        "maximumShare": 0.49201211235251124,
+        "maximumTick": 3598,
+        "largestBotMaximumShare": 0.07246528140336223
+      },
+      "neutralizedRecovery": 182,
+      "enemyRecovery": 518,
+      "guardTicks": 122,
+      "guardInterruptedPlans": 84,
+      "guardInterruptedDPlans": 1
+    },
+    {
+      "seed": 101,
+      "deaths": 10,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 9,
+        "PENDING_TRAIL_CONTACT": 1
+      },
+      "legacyReclaimed": 534,
+      "holding": {
+        "holdingCellTicks": 10300194,
+        "timeAverageCells": 2861.165,
+        "finalCells": 4262,
+        "maximumCells": 4263,
+        "maximumShare": 0.44512895478751174,
+        "maximumTick": 3581,
+        "largestBotMaximumShare": 0.0687062754516028
+      },
+      "neutralizedRecovery": 121,
+      "enemyRecovery": 522,
+      "guardTicks": 180,
+      "guardInterruptedPlans": 124,
+      "guardInterruptedDPlans": 6
+    },
+    {
+      "seed": 137,
+      "deaths": 13,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 12,
+        "HOME_CAPTURE": 1
+      },
+      "legacyReclaimed": 233,
+      "holding": {
+        "holdingCellTicks": 9893524,
+        "timeAverageCells": 2748.201111111111,
+        "finalCells": 4454,
+        "maximumCells": 4454,
+        "maximumShare": 0.46507256969823535,
+        "maximumTick": 3600,
+        "largestBotMaximumShare": 0.06661793881173646
+      },
+      "neutralizedRecovery": 210,
+      "enemyRecovery": 232,
+      "guardTicks": 253,
+      "guardInterruptedPlans": 193,
+      "guardInterruptedDPlans": 8
+    }
+  ],
+  "totals": {
+    "deaths": 90,
+    "legacyReclaimed": 3193,
+    "neutralizedRecovery": 1121,
+    "enemyRecovery": 3171,
+    "guardTicks": 1499,
+    "guardInterruptedPlans": 1113,
+    "guardInterruptedDPlans": 41
+  },
+  "perBotFile": "baseline-bots.csv"
+}

@@ -1,0 +1,145 @@
+{
+  "golden": "c84fc7a",
+  "master": "960f678",
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "ticks": 3600,
+  "checks": [
+    {
+      "seed": 4,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a"
+    },
+    {
+      "seed": 19,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832"
+    },
+    {
+      "seed": 73,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033"
+    },
+    {
+      "seed": 11,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c"
+    },
+    {
+      "seed": 31,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd"
+    },
+    {
+      "seed": 47,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d"
+    },
+    {
+      "seed": 101,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d"
+    },
+    {
+      "seed": 137,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "holding": true,
+        "growth": true,
+        "personalities": true,
+        "deaths": true,
+        "walls": true,
+        "departure": true,
+        "reposition": true,
+        "director": true
+      },
+      "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a"
+    }
+  ]
+}
