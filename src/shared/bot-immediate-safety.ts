@@ -1,5 +1,5 @@
 import type {BotObservation,BotGoal} from './bot.js';
-import type {PublicParticipant} from './model.js';
+import type {PublicParticipant,Vec} from './model.js';
 import {hexDistance} from './hex.js';
 import {moveSpeed} from './config.js';
 import {normalizeDirection,stepSteering} from './movement.js';
@@ -82,4 +82,17 @@ export interface RepositionStartSafety {safe:boolean;reason:'INVALID_START'|'LEA
 export function evaluateRepositionStartSafety(obs:BotObservation,path:readonly number[]):RepositionStartSafety {
  if(obs.self.lifeState!=='ALIVE'||(obs.actualOwnTrailLength??obs.ownTrail.length)>0||obs.owners[obs.self.cellId]!==obs.self.slot+1)return {safe:false,reason:'INVALID_START',firstCell:null,entrySeconds:null,blocked:false};
  const p=projectDeparture(obs,path,'REPOSITION');return {safe:p.allOwned&&!p.blocked,reason:p.blocked?'WALL':p.allOwned?null:'LEAVES_HOME',firstCell:p.firstCell,entrySeconds:p.entrySeconds,blocked:p.blocked};
+}
+
+// Same 0.65 s perimeter steering check, extracted without changing turn geometry.
+export function perimeterEscapeDirection(obs:BotObservation,direction:Vec):Vec|null {
+ if(hexDistance(obs.map.cells[obs.self.cellId],{q:0,r:0})<obs.map.radius-2)return null;
+ const safe=(intent:typeof direction)=>{let position=obs.self.position,cellId=obs.self.cellId,heading=obs.self.direction;
+   for(let step=0;step<Math.ceil(obs.config.simulationHz*0.65);step++){const next=stepSteering(obs.map,position,cellId,heading,intent,obs.config);if(next.blocked)return false;position=next.position;cellId=next.cellId;heading=next.direction;}return true;};
+ if(!safe(direction)){
+   const alternatives=obs.map.cells[obs.self.cellId].neighbors.filter(id=>id>=0).map(id=>{const c=obs.map.cells[id].center;return normalizeDirection(c.x-obs.self.position.x,c.y-obs.self.position.y)!;});
+   alternatives.sort((a,b)=>(b.x*direction.x+b.y*direction.y)-(a.x*direction.x+a.y*direction.y));
+   return alternatives.find(safe)??null;
+ }
+ return null;
 }
