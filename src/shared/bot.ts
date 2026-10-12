@@ -351,11 +351,15 @@ function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const reject=(reason:string)=>{if(trace){const reasons=trace.expansionRejected??={};reasons[reason]=(reasons[reason]??0)+1;}};
   if(!valid||path.length>24){reject(!valid?'BLOCKED_PATH':'PATH_BUDGET');continue;}
   if(!leftHome||obs.owners[current]!==owner){reject('NOT_CLOSED');continue;}
-  const gain=plannedCapture(obs,path),stolen=gain.filter(id=>obs.owners[id]!==0).length;
-  if(!gain.length){reject('NO_GAIN');continue;}
-  const external=path.filter(id=>obs.owners[id]!==owner),risk=external.reduce((sum,id)=>sum+obs.others.reduce((danger,p)=>danger+Math.max(0,4-hexDistance(obs.map.cells[id],obs.map.cells[p.cellId])),0),0);
+  const external=path.filter(id=>obs.owners[id]!==owner);
+  // Any outside path cell is blocked from the capture flood, so these rejected
+  // candidates cannot have zero gain. Keep the same guards/reason order/RNG,
+  // but avoid a full-map flood whose result would immediately be discarded.
   if(external.length>settings.trailLimit||(crowded&&external.length>6)){reject('TRAIL_BUDGET');continue;}
   if(obs.others.some(enemy=>external.some(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId])<=2))){reject('NEAR_HEAD');continue;}
+  const gain=plannedCapture(obs,path),stolen=gain.filter(id=>obs.owners[id]!==0).length;
+  if(!gain.length){reject('NO_GAIN');continue;}
+  const risk=external.reduce((sum,id)=>sum+obs.others.reduce((danger,p)=>danger+Math.max(0,4-hexDistance(obs.map.cells[id],obs.map.cells[p.cellId])),0),0);
   const first=obs.map.cells[path[0]??anchor.id].center,heading=normalizeDirection(first.x-obs.self.position.x,first.y-obs.self.position.y);
   const turn=heading?1-(heading.x*obs.self.direction.x+heading.y*obs.self.direction.y):0;
   const threatDistance=Math.min(...obs.others.flatMap(enemy=>external.map(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId]))));

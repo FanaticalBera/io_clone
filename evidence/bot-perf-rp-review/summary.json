@@ -1,0 +1,828 @@
+{
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "totals": {
+    "baseline": {
+      "timeAverageCells": 2972.2828124999996,
+      "finalCells": 4324.0,
+      "deaths": 90.0,
+      "reclaimed": 3193.0,
+      "tickMs": 3.1631605763888913
+    },
+    "optimized": {
+      "timeAverageCells": 2972.2828124999996,
+      "finalCells": 4324.0,
+      "deaths": 90.0,
+      "reclaimed": 3193.0,
+      "tickMs": 2.8798932326388877
+    },
+    "no-reposition": {
+      "timeAverageCells": 3047.706180555555,
+      "finalCells": 4216.25,
+      "deaths": 85.0,
+      "reclaimed": 2400.0,
+      "tickMs": 3.0302684166666625
+    }
+  },
+  "contrasts": [
+    {
+      "before": "baseline",
+      "after": "optimized",
+      "delta": {
+        "timeAverageCells": 0.0,
+        "finalCells": 0.0,
+        "deaths": 0.0,
+        "reclaimed": 0.0,
+        "tickMs": -0.2832673437500035
+      },
+      "percent": {
+        "timeAverageCells": 0.0,
+        "finalCells": 0.0,
+        "deaths": 0.0,
+        "reclaimed": 0.0,
+        "tickMs": -8.955199614727922
+      },
+      "signals": {
+        "timeAverageCells": {
+          "up": 0,
+          "down": 0,
+          "ties": 8,
+          "sumDelta": 0.0,
+          "leaveOneOutSums": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "direction": "inconclusive"
+        },
+        "finalCells": {
+          "up": 0,
+          "down": 0,
+          "ties": 8,
+          "sumDelta": 0,
+          "leaveOneOutSums": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "inconclusive"
+        },
+        "deaths": {
+          "up": 0,
+          "down": 0,
+          "ties": 8,
+          "sumDelta": 0,
+          "leaveOneOutSums": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "inconclusive"
+        },
+        "reclaimed": {
+          "up": 0,
+          "down": 0,
+          "ties": 8,
+          "sumDelta": 0,
+          "leaveOneOutSums": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "inconclusive"
+        },
+        "tickMs": {
+          "up": 0,
+          "down": 8,
+          "ties": 0,
+          "sumDelta": -2.161609805555523,
+          "leaveOneOutSums": [
+            -1.8422924444444173,
+            -1.9187445833333352,
+            -1.8423117499999844,
+            -1.8795851111110826,
+            -1.9571632499999643,
+            -1.890775361111074,
+            -1.879239166666618,
+            -1.9211569722221857
+          ],
+          "direction": "decrease"
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.31931736111110576
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.24286522222218787
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.3192980555555387
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.28202469444444045
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.2044465555555588
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.27083444444444904
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.2823706388889051
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "deaths": 0,
+            "reclaimed": 0,
+            "tickMs": -0.24045283333333733
+          }
+        }
+      ]
+    },
+    {
+      "before": "baseline",
+      "after": "no-reposition",
+      "delta": {
+        "timeAverageCells": 75.42336805555533,
+        "finalCells": -107.75,
+        "deaths": -5.0,
+        "reclaimed": -793.0,
+        "tickMs": -0.1328921597222288
+      },
+      "percent": {
+        "timeAverageCells": 2.5375569154577327,
+        "finalCells": -2.491905642923219,
+        "deaths": -5.555555555555555,
+        "reclaimed": -24.83557782649546,
+        "tickMs": -4.201246080081725
+      },
+      "signals": {
+        "timeAverageCells": {
+          "up": 5,
+          "down": 3,
+          "ties": 0,
+          "sumDelta": 603.3869444444445,
+          "leaveOneOutSums": [
+            724.6597222222222,
+            437.87361111111113,
+            564.7011111111115,
+            710.3897222222222,
+            241.42166666666662,
+            498.90055555555546,
+            682.5905555555555,
+            363.1716666666666
+          ],
+          "direction": "inconclusive"
+        },
+        "finalCells": {
+          "up": 3,
+          "down": 5,
+          "ties": 0,
+          "sumDelta": -862,
+          "leaveOneOutSums": [
+            -326,
+            -664,
+            -1022,
+            -733,
+            -694,
+            -915,
+            -535,
+            -1145
+          ],
+          "direction": "inconclusive"
+        },
+        "deaths": {
+          "up": 3,
+          "down": 4,
+          "ties": 1,
+          "sumDelta": -5,
+          "leaveOneOutSums": [
+            -8,
+            -7,
+            -3,
+            -2,
+            -2,
+            -5,
+            -6,
+            -2
+          ],
+          "direction": "inconclusive"
+        },
+        "reclaimed": {
+          "up": 2,
+          "down": 6,
+          "ties": 0,
+          "sumDelta": -793,
+          "leaveOneOutSums": [
+            -833,
+            -525,
+            -656,
+            -701,
+            -854,
+            -681,
+            -612,
+            -689
+          ],
+          "direction": "inconclusive"
+        },
+        "tickMs": {
+          "up": 4,
+          "down": 4,
+          "ties": 0,
+          "sumDelta": -0.5525344722221335,
+          "leaveOneOutSums": [
+            -0.6854517499999404,
+            -0.6543576944443865,
+            -0.30187294444437107,
+            -0.5845415555554747,
+            -0.5892945277776946,
+            -0.27619666666657894,
+            -0.4102033333332291,
+            -0.36582283333325893
+          ],
+          "direction": "inconclusive"
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": -121.27277777777772,
+            "finalCells": -536,
+            "deaths": 3,
+            "reclaimed": 40,
+            "tickMs": 0.13291727777780693
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 165.51333333333332,
+            "finalCells": -198,
+            "deaths": 2,
+            "reclaimed": -268,
+            "tickMs": 0.10182322222225304
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": 38.685833333332994,
+            "finalCells": 160,
+            "deaths": -2,
+            "reclaimed": -137,
+            "tickMs": -0.2506615277777624
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": -107.00277777777774,
+            "finalCells": -129,
+            "deaths": -3,
+            "reclaimed": -92,
+            "tickMs": 0.032007083333341235
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 361.9652777777778,
+            "finalCells": -168,
+            "deaths": -3,
+            "reclaimed": 61,
+            "tickMs": 0.036760055555561166
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 104.486388888889,
+            "finalCells": 53,
+            "deaths": 0,
+            "reclaimed": -112,
+            "tickMs": -0.27633780555555454
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": -79.20361111111106,
+            "finalCells": -327,
+            "deaths": 1,
+            "reclaimed": -181,
+            "tickMs": -0.14233113888890436
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 240.21527777777783,
+            "finalCells": 283,
+            "deaths": -3,
+            "reclaimed": -104,
+            "tickMs": -0.18671163888887454
+          }
+        }
+      ]
+    }
+  ],
+  "optimizationProof": [
+    {
+      "seed": 4,
+      "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a",
+      "allChecksEqual": true,
+      "traceHash": "93f65920d1937e57de072bcc906be1e9e80e08a1871c0965ae29eef61cb7d153",
+      "memoryHash": "448ea60519560fe75ace774dbee0f4a0075395a80d766504c32045ca27cf43f2"
+    },
+    {
+      "seed": 19,
+      "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832",
+      "allChecksEqual": true,
+      "traceHash": "ac2bba00525788fed4ce04a30f581e5c20dcc768a36c94bcac1d4c470629cda6",
+      "memoryHash": "3ec5cd12ff974959c5c8f336100783a87ce45808170cfb3eb174f2a7839b69da"
+    },
+    {
+      "seed": 73,
+      "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033",
+      "allChecksEqual": true,
+      "traceHash": "4a1d1e20e7875a29bd051b1f5d3c753c76b884dc43b6d88579511153c69a2924",
+      "memoryHash": "1593a81e149dfbada9509151c6e2c02fd35e342b38c70c37715c1b7e4920035a"
+    },
+    {
+      "seed": 11,
+      "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c",
+      "allChecksEqual": true,
+      "traceHash": "8ceaadefd75d6993b366bf555732895a6db9d3ed472449bbe7b5e3529f995332",
+      "memoryHash": "311880ff9cd5241ab8c1b3ce71bb6952a4d1c0e328dcfa5b6b2e8b2b08031b54"
+    },
+    {
+      "seed": 31,
+      "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd",
+      "allChecksEqual": true,
+      "traceHash": "5ec5e0fe778bfa8e811672c46e1609606278a29aa253a266c5f8f09aad5bd652",
+      "memoryHash": "fe4ef852231b2d27e38f99b65a9844a4c3d8f3e0f51312d6e9f2b95631e8f5f1"
+    },
+    {
+      "seed": 47,
+      "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d",
+      "allChecksEqual": true,
+      "traceHash": "857f23022aa14680d7d9fd54e91c43ca79b84df801fbfaae2eccab65ae07436b",
+      "memoryHash": "c1a44ddc49717582ad28b9b560c619b590ee7e12b4bfc8c53d3f280c4dd39bab"
+    },
+    {
+      "seed": 101,
+      "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d",
+      "allChecksEqual": true,
+      "traceHash": "6673485b09f7094a4c56d1f3fbf2f11ccdc36051e74fbb22451f40f545eb6d54",
+      "memoryHash": "f082d50b03f183d2a932344ffccf8df7417e9f93f3e572d3e2ad13c487f4109f"
+    },
+    {
+      "seed": 137,
+      "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a",
+      "allChecksEqual": true,
+      "traceHash": "cb38418cd7c8a98e01a5ac42517ef6eb2e87960c8bcb5ea0944d01ca52e25597",
+      "memoryHash": "1d8a7cd27e05a49606a1bc95377fbe2a66e72d909afd3f9041aa5e9fbf4944fa"
+    }
+  ],
+  "longProof": {
+    "seed": 137,
+    "ticks": 8800,
+    "trajectoryHash": "364935b755544c1fdc1c08f2fe43847e796c34720929de43b447c13d0e7d8895",
+    "deaths": 36,
+    "allChecksEqual": true
+  },
+  "duplicateReview": {
+    "queries": 120607,
+    "hits": 1001,
+    "hitRatio": 0.00829968409793793,
+    "bySeed": [
+      {
+        "seed": 4,
+        "plans": 662,
+        "plansWithDuplicates": 111,
+        "queries": 15308,
+        "hits": 126,
+        "hitRatio": 0.008230990331852626,
+        "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a"
+      },
+      {
+        "seed": 19,
+        "plans": 642,
+        "plansWithDuplicates": 86,
+        "queries": 14343,
+        "hits": 94,
+        "hitRatio": 0.00655371958446629,
+        "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832"
+      },
+      {
+        "seed": 73,
+        "plans": 717,
+        "plansWithDuplicates": 121,
+        "queries": 16237,
+        "hits": 142,
+        "hitRatio": 0.008745457904785366,
+        "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033"
+      },
+      {
+        "seed": 11,
+        "plans": 599,
+        "plansWithDuplicates": 97,
+        "queries": 14059,
+        "hits": 111,
+        "hitRatio": 0.007895298385375915,
+        "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c"
+      },
+      {
+        "seed": 31,
+        "plans": 803,
+        "plansWithDuplicates": 137,
+        "queries": 15723,
+        "hits": 168,
+        "hitRatio": 0.010684983781721046,
+        "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd"
+      },
+      {
+        "seed": 47,
+        "plans": 622,
+        "plansWithDuplicates": 117,
+        "queries": 14525,
+        "hits": 131,
+        "hitRatio": 0.009018932874354561,
+        "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d"
+      },
+      {
+        "seed": 101,
+        "plans": 647,
+        "plansWithDuplicates": 109,
+        "queries": 15222,
+        "hits": 124,
+        "hitRatio": 0.008146104322690842,
+        "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d"
+      },
+      {
+        "seed": 137,
+        "plans": 701,
+        "plansWithDuplicates": 97,
+        "queries": 15190,
+        "hits": 105,
+        "hitRatio": 0.0069124423963133645,
+        "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a"
+      }
+    ],
+    "scope": "Exact ordered full path equality within one planExpansion call; optimized guard order; no memoized reuse; no cross-owner/decision cache",
+    "decision": "Do not implement an extra cache for this 0.83% exact hit rate; key/allocation costs require evidence, no cache speedup claimed."
+  },
+  "cost": {
+    "method": "One discarded seed19 warmup per arm;3 rounds x8seeds x3 arms, balanced rotating/reversed timing positions, no observers. Record external test overlap. Same new timing set for both comparisons.",
+    "resourceGuard": {
+      "recordBackground": true,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Record external Vitest/Playwright presence before/after every timing; retain all fixed rows, mark overlap, withhold cost certification"
+    },
+    "warmup": {
+      "seed": 19,
+      "ticks": 3600,
+      "perArm": 1,
+      "discarded": true
+    },
+    "summary": {
+      "baseline": {
+        "roundMsPerTick": [
+          3.0651296631944454,
+          3.1631605763888913,
+          3.2273778819444408
+        ],
+        "medianMsPerTick": 3.1631605763888913,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.8011413333333337,
+              3.24366108333333,
+              3.2893757222222244
+            ],
+            "medianMsPerTick": 3.24366108333333
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.997223472222221,
+              3.098026666666669,
+              3.02537533333331
+            ],
+            "medianMsPerTick": 3.02537533333331
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.3601800555555585,
+              3.440716972222225,
+              3.3906138333333202
+            ],
+            "medianMsPerTick": 3.3906138333333202
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.8225911388888925,
+              2.9918070833333252,
+              3.3961049166666797
+            ],
+            "medianMsPerTick": 2.9918070833333252
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.2607189444444438,
+              3.2277709166666804,
+              3.3140310833333446
+            ],
+            "medianMsPerTick": 3.2607189444444438
+          },
+          {
+            "seed": 47,
+            "samples": [
+              3.0833500277777786,
+              3.046481666666659,
+              3.125969138888888
+            ],
+            "medianMsPerTick": 3.0833500277777786
+          },
+          {
+            "seed": 101,
+            "samples": [
+              3.1087555277777814,
+              3.1369054722222307,
+              3.164433083333327
+            ],
+            "medianMsPerTick": 3.1369054722222307
+          },
+          {
+            "seed": 137,
+            "samples": [
+              3.0870768055555526,
+              3.1199147500000093,
+              3.113119944444431
+            ],
+            "medianMsPerTick": 3.113119944444431
+          }
+        ]
+      },
+      "optimized": {
+        "roundMsPerTick": [
+          2.8798932326388877,
+          2.8736527812499966,
+          9.774839913194443
+        ],
+        "medianMsPerTick": 2.8798932326388877,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.595455166666666,
+              2.954210444444438,
+              2.924343722222224
+            ],
+            "medianMsPerTick": 2.924343722222224
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.943180638888888,
+              2.7825101111111223,
+              2.712362416666648
+            ],
+            "medianMsPerTick": 2.7825101111111223
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.1362901388888913,
+              3.0713157777777815,
+              3.0238068611111117
+            ],
+            "medianMsPerTick": 3.0713157777777815
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.709782388888885,
+              2.6459579444444454,
+              58.30687305555556
+            ],
+            "medianMsPerTick": 2.709782388888885
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.056272388888885,
+              2.9955104444444363,
+              3.0825669722222178
+            ],
+            "medianMsPerTick": 3.056272388888885
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.8230936388888868,
+              2.8125155833333295,
+              2.7830709166666687
+            ],
+            "medianMsPerTick": 2.8125155833333295
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.906984000000003,
+              2.8545348333333256,
+              2.454367694444437
+            ],
+            "medianMsPerTick": 2.8545348333333256
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.8680874999999975,
+              2.8726671111110935,
+              2.911327666666669
+            ],
+            "medianMsPerTick": 2.8726671111110935
+          }
+        ]
+      },
+      "no-reposition": {
+        "roundMsPerTick": [
+          3.0190641076388913,
+          3.0302684166666625,
+          3.2167494027777783
+        ],
+        "medianMsPerTick": 3.0302684166666625,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.8363356666666673,
+              3.379142944444433,
+              3.376578361111137
+            ],
+            "medianMsPerTick": 3.376578361111137
+          },
+          {
+            "seed": 19,
+            "samples": [
+              3.076941027777781,
+              3.1586236388888858,
+              3.1271985555555633
+            ],
+            "medianMsPerTick": 3.1271985555555633
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.139952305555558,
+              3.1146797500000036,
+              3.186179083333312
+            ],
+            "medianMsPerTick": 3.139952305555558
+          },
+          {
+            "seed": 11,
+            "samples": [
+              3.0238141666666665,
+              2.959462916666671,
+              3.8591800277777817
+            ],
+            "medianMsPerTick": 3.0238141666666665
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.3416564166666647,
+              3.0199049166666616,
+              3.297479000000005
+            ],
+            "medianMsPerTick": 3.297479000000005
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.807012222222224,
+              2.752658916666664,
+              2.8786429444444366
+            ],
+            "medianMsPerTick": 2.807012222222224
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.988761416666675,
+              2.9945743333333263,
+              3.0823289444444364
+            ],
+            "medianMsPerTick": 2.9945743333333263
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.9380396388888927,
+              2.8630999166666555,
+              2.9264083055555563
+            ],
+            "medianMsPerTick": 2.9264083055555563
+          }
+        ]
+      }
+    }
+  },
+  "rawHashes": {
+    "baseline": "71f8eb71f43149a53d768e6c0b6959be5061978a05a18654fdfce89087c7e18f",
+    "optimized": "3969f9fa38c40804a9dc00056cf071d2f9d77a34bc96812c42d1b1665e5f9f18",
+    "no-reposition": "743de2fd4470cd0537d4b4643984e48b3e194a42626bf67b273ab88495687428",
+    "performance": "34bfe877b360150121651d6237c512d927d1464379713704e5daead35bcf8e42"
+  },
+  "repositionDecision": "Deferred to user; live reposition stays enabled."
+}
