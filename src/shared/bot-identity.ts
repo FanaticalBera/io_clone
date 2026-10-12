@@ -13,7 +13,7 @@ export const BOT_RANGES:Readonly<Record<Personality,Readonly<Record<keyof BotInd
  DEFEND:{expansionScale:[.8,1.15],riskScale:[.9,1.3],stealScale:[.7,1.2],attackChance:[.01,.06],defenseBonus:[12,18]},
  SEEK_POINT:{expansionScale:[.85,1.2],riskScale:[.8,1.2],stealScale:[.85,1.3],attackChance:[.12,.3],defenseBonus:[0,6]}
 };
-// Future traits remain available only to explicit fixtures until their phase ships.
+// Phase 3C is closed. Persistent stays definition-only for explicit fixtures, never automatic assignment.
 export const ACTIVE_SECONDARY_TRAITS:readonly SecondaryTrait[]=['Coward','Gambler','Opportunist','Territorial','Vengeful'];
 export function botSeed(seed:number,slot:number):number{return seed^(slot*2654435761);}
 export function allowedSecondaryTraits(personality:Personality):readonly SecondaryTrait[]{

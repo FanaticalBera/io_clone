@@ -1,0 +1,14 @@
+import {it,expect} from 'vitest';
+import {createMatch} from '../../src/shared/game.js';
+import {botSpecs,createBotMemory,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotIdentity,ACTIVE_SECONDARY_TRAITS,BOT_PERSONALITIES} from '../../src/shared/bot-identity.js';
+import {BotSafetyStopTracker} from '../bot-safety-stop-tracker.js';
+function fixture(){const match=createMatch({mapRadius:8},19,botSpecs(1)),p=match.participants[0],memory=createBotMemory(3),tracker=new BotSafetyStopTracker(match),memories=new Map([[p.participantId,memory]]);
+ const trace=(reason:string,expansion=false,early=false):BotDecisionTrace=>({tick:match.tick,from:memory.goal,to:memory.goal,ownTrail:0,attackTarget:null,attacks:[],reason,earlyClosure:early,safetyOverride:['DANGER','EXPANSION_PRESSURE'].includes(reason)?reason:undefined,expansionPlan:expansion?{shape:'RHOMBUS',pathLength:4,externalLength:2,captureSize:2,stolenCells:0,earlyClosed:false}:undefined});
+ const input=(t:BotDecisionTrace)=>tracker.afterInputs(memories,new Map([[p.participantId,t]]));return {match,p,memory,tracker,trace,input,row:()=>tracker.snapshot().participants[0]};
+}
+it('counts repeated danger notifications separately from one adopted expansion stop',()=>{const f=fixture();f.input(f.trace('EXPANSION_SCORE',true));f.memory.goal='ESCAPE';f.input(f.trace('DANGER'));f.input(f.trace('DANGER'));expect(f.row().notifications.DANGER).toBe(2);expect(f.row().planStops.DANGER).toBe(1);expect(f.row().expansionStops.DANGER).toBe(1);});
+it('preserves an early-closure interruption when the final reason is overwritten by a new plan',()=>{const f=fixture();f.input(f.trace('EXPANSION_SCORE',true));f.input(f.trace('EXPANSION_SCORE',true,true));expect(f.row().expansionStops.EARLY_CLOSURE).toBe(1);f.input(f.trace('EXPANSION_PRESSURE'));expect(f.row().expansionStops.EXPANSION_PRESSURE).toBe(1);});
+it.each(['capture','life'] as const)('closes a plan before future unrelated safety notifications (%s)',how=>{const f=fixture();f.input(f.trace('EXPANSION_SCORE',true));if(how==='life')f.p.lifeId++;f.tracker.afterTick(new Set(how==='capture'?[f.p.participantId]:[]));f.input(f.trace('DANGER'));expect(f.row().expansionStops.DANGER).toBe(0);expect(f.row().notifications.DANGER).toBe(1);});
+it('reports an attack stop in the general count, not as a stopped expansion',()=>{const f=fixture();f.memory.goal='ATTACK';f.input(f.trace('ATTACK_SCORE'));f.memory.goal='ESCAPE';f.input(f.trace('DANGER'));expect(f.row().planStops.DANGER).toBe(1);expect(f.row().expansionStops.DANGER).toBe(0);});
+it('keeps the closed Persistent trait out of every automatic personality assignment',()=>{expect(ACTIVE_SECONDARY_TRAITS).not.toContain('Persistent');for(let seed=0;seed<128;seed++)for(const personality of BOT_PERSONALITIES)expect(createBotIdentity(seed,personality).secondaryTrait).not.toBe('Persistent');expect(createBotIdentity(19,'EXPAND',{secondaryTrait:'Persistent'}).active).toBe(false);});

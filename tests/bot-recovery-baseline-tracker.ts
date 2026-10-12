@@ -8,9 +8,9 @@ export class BotRecoveryBaselineTracker {
  private rows=new Map<string,{neutralizedRecovery:number;enemyRecovery:number;guardTicks:number;guardInterruptedPlans:number;guardInterruptedDPlans:number}>();
  private active=new Map<string,{lifeId:number;damage:boolean}>();
  private stop:()=>void;
- constructor(private match:MatchState){
+ constructor(private match:MatchState,watch:typeof watchCaptureTransfers=watchCaptureTransfers){
   for(const p of match.participants){this.lost.set(p.participantId,new Map());this.rows.set(p.participantId,{neutralizedRecovery:0,enemyRecovery:0,guardTicks:0,guardInterruptedPlans:0,guardInterruptedDPlans:0});}
-  this.stop=watchCaptureTransfers(match,t=>this.capture(t));
+  this.stop=watch(match,t=>this.capture(t));
  }
  capture(trace:CaptureTransferTrace){
   const byOwner=new Map(this.match.participants.map(p=>[p.slot+1,p]));
