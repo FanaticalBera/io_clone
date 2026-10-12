@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-12",
+  "parentCommit": "c84fc7a29ed94bf5b6954bd04c6fd8bd8ba13085",
+  "productionCodeChanged": false,
+  "decisions": {
+    "departureSafety": "retain",
+    "guardOrderOptimization": "retain",
+    "reposition": "retain",
+    "cache": "defer"
+  },
+  "snapshots": {
+    "base": "exact 65034bd shared source",
+    "current": "exact c84fc7a shared source; live source equal",
+    "measurementHelpers": "same current helpers; source and helper hashes verified"
+  },
+  "audit": {
+    "newMatches": 16,
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticksPerMatch": 3600,
+    "slotPersonaNicknameAssignments": "equal for all 8 seeds",
+    "historicalHashes": "baseline 8/8 matches previous 65034bd audit; current 8/8 matches previous c84fc7a trace/memory/RNG/holding/persona audit"
+  },
+  "diagnostic": {
+    "runs": 1,
+    "discardedWarmup": 1,
+    "seed": 11,
+    "originalFilePreserved": true,
+    "oldFileSha256": "34bfe877b360150121651d6237c512d927d1464379713704e5daead35bcf8e42",
+    "deathsAndAllNextRngEqual": true,
+    "attribution": "203.005s sleep/resume in original session is the leading explanation; original per-row timestamps absent, inference only",
+    "notIncludedInClosingCost": true
+  },
+  "cost": {
+    "sameNodeProcess": true,
+    "discardedWarmups": 2,
+    "fixedRows": 48,
+    "positions": {
+      "base": {
+        "first": 12,
+        "second": 12
+      },
+      "current": {
+        "first": 12,
+        "second": 12
+      }
+    },
+    "observedExternalTestOverlaps": 0,
+    "noValueBasedDiscardOrReplacement": true,
+    "wallClockAndCPURecorded": true
+  },
+  "verification": {
+    "newMeasurementScriptsStrictTypes": "passed",
+    "previousFullVitest": {
+      "commit": "c84fc7a",
+      "tests": 622,
+      "files": 89,
+      "status": "passed",
+      "rerunThisTask": false
+    },
+    "checks": {
+      "walls": true,
+      "holding": true,
+      "deaths": true,
+      "cost": true,
+      "seed4LegacyDeaths": true
+    },
+    "phase3": "not started; user observation pending"
+  },
+  "rawHashes": {
+    "base.json": "cf160581e4a98dda54f762a1a4bfcd37c725cb93424c0b6551acc112845c2673",
+    "current.json": "09d6783c1113635c66e29b64200c1d73e32be414f54b6cdcb949decf5ef65c12",
+    "outlier-diagnostic.json": "b5979f95731c8f05c2cf939a6f2b16025a98fd3fd00f8ab4b20fc3da92d5ba90",
+    "power-details.json": "f776c58df3b588554a33734087b0627d03d2ec93ed40fbae20abf9a81523252b",
+    "background-before.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "performance.json": "75c2eeca6390a6f8e72b1a51e0393a54acadc1490a76379f0e8281f39930434c",
+    "script-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "base.log": "c01e7f9698f3d752e03a23ad47ce2762e1258fb6881c452137d455c82f8ee709",
+    "current.log": "d70abdaffdf6b8f64b290bf26c8e956ff57aabf6debbec11d8c2475236e3ab60",
+    "performance.log": "d04d266fcf3d2b919ad14953ded949ab2cf3b10c296cce8f428894fd9eb00d3a"
+  }
+}

@@ -1,0 +1,1038 @@
+{
+  "protocol": "protocol.json",
+  "totals": {
+    "base": {
+      "holdingMean": 3084.0112499999996,
+      "finalHolding": 4184.5,
+      "deaths": 94.0,
+      "reclaimed": 1416.0,
+      "tv": 0.17999553110140176,
+      "tvWithoutReposition": 0.17999553110140176,
+      "tickMs": 2.6805107256944454,
+      "netReference": 57009.0,
+      "captureReference": 73589.0
+    },
+    "current": {
+      "holdingMean": 2972.2828124999996,
+      "finalHolding": 4324.0,
+      "deaths": 90.0,
+      "reclaimed": 3193.0,
+      "tv": 0.1776323888341682,
+      "tvWithoutReposition": 0.1669390265021135,
+      "tickMs": 2.861057229166667,
+      "netReference": 53799.0,
+      "captureReference": 68764.0
+    }
+  },
+  "percent": {
+    "holdingMean": -3.622828467308605,
+    "finalHolding": 3.333731628629466,
+    "deaths": -4.25531914893617,
+    "reclaimed": 125.49435028248588,
+    "tv": -1.3128894105166757,
+    "tvWithoutReposition": -7.253793757764341,
+    "tickMs": 6.7355262466053825,
+    "netReference": -5.630689891069831,
+    "captureReference": -6.556686461291769
+  },
+  "paired": {
+    "holdingMean": {
+      "up": 2,
+      "down": 6,
+      "ties": 0,
+      "sumDelta": -893.8274999999999,
+      "leaveOneOutSums": [
+        -849.6277777777777,
+        -496.3208333333332,
+        -761.4294444444445,
+        -1042.8516666666665,
+        -607.2905555555553,
+        -1204.9652777777778,
+        -761.4919444444445,
+        -532.8149999999996
+      ],
+      "direction": "inconclusive"
+    },
+    "finalHolding": {
+      "up": 5,
+      "down": 3,
+      "ties": 0,
+      "sumDelta": 1116,
+      "leaveOneOutSums": [
+        859,
+        2400,
+        935,
+        870,
+        762,
+        -601,
+        1207,
+        1380
+      ],
+      "direction": "inconclusive"
+    },
+    "deaths": {
+      "up": 3,
+      "down": 3,
+      "ties": 2,
+      "sumDelta": -4,
+      "leaveOneOutSums": [
+        -2,
+        -5,
+        -3,
+        -4,
+        -5,
+        3,
+        -4,
+        -8
+      ],
+      "direction": "inconclusive"
+    },
+    "reclaimed": {
+      "up": 8,
+      "down": 0,
+      "ties": 0,
+      "sumDelta": 1777,
+      "leaveOneOutSums": [
+        1652,
+        1429,
+        1596,
+        1661,
+        1609,
+        1362,
+        1428,
+        1702
+      ],
+      "direction": "increase"
+    },
+    "tv": {
+      "up": 4,
+      "down": 4,
+      "ties": 0,
+      "sumDelta": -0.018905138137868538,
+      "leaveOneOutSums": [
+        -0.18242595521494884,
+        -0.04451577062786294,
+        -0.05132755928520688,
+        0.012416846309734497,
+        -0.031088934313654226,
+        0.07328698176330864,
+        0.05902463825600909,
+        0.03229378614754089
+      ],
+      "direction": "inconclusive"
+    },
+    "tvWithoutReposition": {
+      "up": 4,
+      "down": 4,
+      "ties": 0,
+      "sumDelta": -0.10445203679430623,
+      "leaveOneOutSums": [
+        -0.2757685665443315,
+        -0.13484388039241885,
+        -0.12169688986509605,
+        -0.06747995973959199,
+        -0.10733210129055598,
+        0.019527890509090956,
+        -0.014381577705818271,
+        -0.029189172531421892
+      ],
+      "direction": "inconclusive"
+    },
+    "tickMs": {
+      "up": 8,
+      "down": 0,
+      "ties": 0,
+      "sumDelta": 1.7096296111111262,
+      "leaveOneOutSums": [
+        1.4307873888888971,
+        1.5135902777777988,
+        1.3366644722222394,
+        1.624173333333351,
+        1.4979726944444538,
+        1.4506507777777893,
+        1.4560768888889042,
+        1.65749144444445
+      ],
+      "direction": "increase"
+    },
+    "netReference": {
+      "up": 3,
+      "down": 5,
+      "ties": 0,
+      "sumDelta": -3210,
+      "leaveOneOutSums": [
+        -3146,
+        -1637,
+        -3524,
+        -3231,
+        -2501,
+        -2116,
+        -2594,
+        -3721
+      ],
+      "direction": "inconclusive"
+    },
+    "captureReference": {
+      "up": 0,
+      "down": 8,
+      "ties": 0,
+      "sumDelta": -4825,
+      "leaveOneOutSums": [
+        -4229,
+        -3791,
+        -3904,
+        -4639,
+        -4338,
+        -4419,
+        -4150,
+        -4305
+      ],
+      "direction": "decrease"
+    }
+  },
+  "bySeed": {
+    "base": {
+      "4": {
+        "holdingMean": 2924.5777777777776,
+        "finalHolding": 3812,
+        "deaths": 14,
+        "reclaimed": 188,
+        "walls": 0,
+        "tv": 0.16759259259259265,
+        "tvWithoutReposition": 0.16759259259259265,
+        "tickMs": 2.652542055555556,
+        "netReference": 6792,
+        "captureReference": 9100,
+        "trajectoryHash": "3a75d510bf8d593a2cfcce83efccf56360938f521c0ae48f5a2ae30480af406a"
+      },
+      "19": {
+        "holdingMean": 3337.6916666666666,
+        "finalHolding": 5321,
+        "deaths": 10,
+        "reclaimed": 198,
+        "walls": 0,
+        "tv": 0.22128060263653485,
+        "tvWithoutReposition": 0.22128060263653485,
+        "tickMs": 2.6035465833333324,
+        "netReference": 7483,
+        "captureReference": 9380,
+        "trajectoryHash": "9b775332bf65bb40f1fc8011d4379df769701cd5555e709710fb4b1e5ffd06f2"
+      },
+      "73": {
+        "holdingMean": 3210.751388888889,
+        "finalHolding": 3825,
+        "deaths": 11,
+        "reclaimed": 237,
+        "walls": 0,
+        "tv": 0.1361435807519969,
+        "tvWithoutReposition": 0.1361435807519969,
+        "tickMs": 2.7843738055555556,
+        "netReference": 6710,
+        "captureReference": 9349,
+        "trajectoryHash": "4e93dfeb2004e865f4890ebc25567ba1e9a1575811e833232f16795259db836b"
+      },
+      "11": {
+        "holdingMean": 3136.5691666666667,
+        "finalHolding": 4288,
+        "deaths": 13,
+        "reclaimed": 205,
+        "walls": 0,
+        "tv": 0.12874779541446213,
+        "tvWithoutReposition": 0.12874779541446213,
+        "tickMs": 2.6453559444444465,
+        "netReference": 7127,
+        "captureReference": 9214,
+        "trajectoryHash": "901871fdc52e12bea68b7631f48210665137da7ed0f8ec5276506b7231c9b3d1"
+      },
+      "31": {
+        "holdingMean": 3150.255,
+        "finalHolding": 4164,
+        "deaths": 9,
+        "reclaimed": 139,
+        "walls": 0,
+        "tv": 0.15367231638418077,
+        "tvWithoutReposition": 0.15367231638418077,
+        "tickMs": 2.75933366666666,
+        "netReference": 7330,
+        "captureReference": 9126,
+        "trajectoryHash": "c5a1314ea812f84f64103a495a35eb25eac7559ff0f652cc8eff3d44f689f040"
+      },
+      "47": {
+        "holdingMean": 2809.5308333333332,
+        "finalHolding": 2995,
+        "deaths": 18,
+        "reclaimed": 106,
+        "walls": 0,
+        "tv": 0.19946297478349698,
+        "tvWithoutReposition": 0.19946297478349698,
+        "tickMs": 2.509223833333332,
+        "netReference": 8027,
+        "captureReference": 9404,
+        "trajectoryHash": "1dfec5cc352670660e3807a0650964798f7f8df4d59e5bd5f9678248845824d8"
+      },
+      "101": {
+        "holdingMean": 2993.5005555555554,
+        "finalHolding": 4353,
+        "deaths": 10,
+        "reclaimed": 185,
+        "walls": 0,
+        "tv": 0.2888525635878513,
+        "tvWithoutReposition": 0.2888525635878513,
+        "tickMs": 2.617328555555553,
+        "netReference": 6981,
+        "captureReference": 9117,
+        "trajectoryHash": "9dde5022d4c5553b3c04ecabec28260d25ff29490d07fc6f25509e158593f7d3"
+      },
+      "137": {
+        "holdingMean": 3109.2136111111113,
+        "finalHolding": 4718,
+        "deaths": 9,
+        "reclaimed": 158,
+        "walls": 0,
+        "tv": 0.14421182266009852,
+        "tvWithoutReposition": 0.14421182266009852,
+        "tickMs": 2.8058147499999984,
+        "netReference": 6559,
+        "captureReference": 8899,
+        "trajectoryHash": "9807432c9170c13289d5712df076440a0c87bcbf6bc8bff9210af7a3d88b9892"
+      }
+    },
+    "current": {
+      "4": {
+        "holdingMean": 2880.3780555555554,
+        "finalHolding": 4069,
+        "deaths": 12,
+        "reclaimed": 313,
+        "walls": 0,
+        "tv": 0.33111340966967295,
+        "tvWithoutReposition": 0.33890912234261794,
+        "tickMs": 2.931384277777785,
+        "netReference": 6728,
+        "captureReference": 8504,
+        "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a"
+      },
+      "19": {
+        "holdingMean": 2940.185,
+        "finalHolding": 4037,
+        "deaths": 11,
+        "reclaimed": 546,
+        "walls": 0,
+        "tv": 0.24689123512652925,
+        "tvWithoutReposition": 0.25167244623464746,
+        "tickMs": 2.79958591666666,
+        "netReference": 5910,
+        "captureReference": 8346,
+        "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832"
+      },
+      "73": {
+        "holdingMean": 3078.3533333333335,
+        "finalHolding": 4006,
+        "deaths": 10,
+        "reclaimed": 418,
+        "walls": 0,
+        "tv": 0.16856600189933524,
+        "tvWithoutReposition": 0.15338843382278672,
+        "tickMs": 3.1573389444444424,
+        "netReference": 7024,
+        "captureReference": 8428,
+        "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033"
+      },
+      "11": {
+        "holdingMean": 3285.5933333333332,
+        "finalHolding": 4534,
+        "deaths": 13,
+        "reclaimed": 321,
+        "walls": 0,
+        "tv": 0.0974258109668591,
+        "tvWithoutReposition": 0.09177571835974789,
+        "tickMs": 2.7308122222222218,
+        "netReference": 7148,
+        "captureReference": 9028,
+        "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c"
+      },
+      "31": {
+        "holdingMean": 2863.7180555555556,
+        "finalHolding": 4518,
+        "deaths": 10,
+        "reclaimed": 307,
+        "walls": 0,
+        "tv": 0.16585611255996646,
+        "tvWithoutReposition": 0.15655238088043053,
+        "tickMs": 2.9709905833333323,
+        "netReference": 6621,
+        "captureReference": 8639,
+        "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd"
+      },
+      "47": {
+        "holdingMean": 3120.668611111111,
+        "finalHolding": 4712,
+        "deaths": 11,
+        "reclaimed": 521,
+        "walls": 0,
+        "tv": 0.1072708548823198,
+        "tvWithoutReposition": 0.07548304748009979,
+        "tickMs": 2.768202666666669,
+        "netReference": 6933,
+        "captureReference": 8998,
+        "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d"
+      },
+      "101": {
+        "holdingMean": 2861.165,
+        "finalHolding": 4262,
+        "deaths": 10,
+        "reclaimed": 534,
+        "walls": 0,
+        "tv": 0.21092278719397364,
+        "tvWithoutReposition": 0.19878210449936332,
+        "tickMs": 2.8708812777777752,
+        "netReference": 6365,
+        "captureReference": 8442,
+        "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d"
+      },
+      "137": {
+        "holdingMean": 2748.201111111111,
+        "finalHolding": 4454,
+        "deaths": 13,
+        "reclaimed": 233,
+        "walls": 0,
+        "tv": 0.0930128983746891,
+        "tvWithoutReposition": 0.06894895839721418,
+        "tickMs": 2.8579529166666746,
+        "netReference": 7070,
+        "captureReference": 8379,
+        "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a"
+      }
+    }
+  },
+  "personaTotals": {
+    "base": {
+      "EXPAND": {
+        "stolenCells": 2247,
+        "totalCapture": 20332,
+        "stolenShare": 0.11051544363564823
+      },
+      "ATTACK": {
+        "stolenCells": 2647,
+        "totalCapture": 17338,
+        "stolenShare": 0.15267043488291615
+      },
+      "DEFEND": {
+        "stolenCells": 2545,
+        "totalCapture": 18970,
+        "stolenShare": 0.1341591987348445
+      },
+      "SEEK_POINT": {
+        "stolenCells": 3962,
+        "totalCapture": 16949,
+        "stolenShare": 0.23376010384093457
+      }
+    },
+    "current": {
+      "EXPAND": {
+        "stolenCells": 2457,
+        "totalCapture": 18979,
+        "stolenShare": 0.12945887559934666
+      },
+      "ATTACK": {
+        "stolenCells": 2243,
+        "totalCapture": 16696,
+        "stolenShare": 0.13434355534259704
+      },
+      "DEFEND": {
+        "stolenCells": 2647,
+        "totalCapture": 17413,
+        "stolenShare": 0.1520128639522196
+      },
+      "SEEK_POINT": {
+        "stolenCells": 3775,
+        "totalCapture": 15676,
+        "stolenShare": 0.24081398315896912
+      }
+    }
+  },
+  "personaSignals": {
+    "EXPAND": {
+      "up": 4,
+      "down": 4,
+      "ties": 0,
+      "sumDelta": 0.11485036947130621,
+      "leaveOneOutSums": [
+        0.17479259765277333,
+        0.13631717839044982,
+        0.17641863022471257,
+        0.12422293326167612,
+        0.07153025451044748,
+        -0.0076252216229455855,
+        0.07968060146397728,
+        0.04861561241805247
+      ],
+      "direction": "inconclusive"
+    },
+    "ATTACK": {
+      "up": 3,
+      "down": 5,
+      "ties": 0,
+      "sumDelta": -0.1431590488939157,
+      "leaveOneOutSums": [
+        -0.04662512483376276,
+        -0.1265771227398517,
+        -0.1552536778745373,
+        -0.17263771788681415,
+        -0.09988385728439572,
+        -0.18704264690071493,
+        -0.10996180504506997,
+        -0.10413138969226338
+      ],
+      "direction": "inconclusive"
+    },
+    "DEFEND": {
+      "up": 5,
+      "down": 3,
+      "ties": 0,
+      "sumDelta": 0.15492398805671564,
+      "leaveOneOutSums": [
+        0.10457223788513019,
+        0.0605543981131233,
+        0.08116832629512205,
+        0.17131927160528387,
+        0.10133761180053204,
+        0.10297783854757107,
+        0.1810518544317843,
+        0.2814863777184627
+      ],
+      "direction": "inconclusive"
+    },
+    "SEEK_POINT": {
+      "up": 5,
+      "down": 3,
+      "ties": 0,
+      "sumDelta": 0.08663634278026067,
+      "leaveOneOutSums": [
+        -0.01054568034184658,
+        -0.030261980903175112,
+        0.18160989883203718,
+        0.13074127565508337,
+        0.06333504914969929,
+        0.17126664476547981,
+        0.04092489398192428,
+        0.05938429832262243
+      ],
+      "direction": "inconclusive"
+    }
+  },
+  "pairwiseTV": {
+    "ATTACK/DEFEND": {
+      "base": 0.08169045777661176,
+      "current": 0.08619174052040328,
+      "signal": {
+        "up": 5,
+        "down": 3,
+        "ties": 0,
+        "sumDelta": 0.03601026195033208,
+        "leaveOneOutSums": [
+          0.08697516708886827,
+          0.017707388642712263,
+          -0.10594683596104654,
+          -0.013202065065399074,
+          0.10434797896506574,
+          0.018579316420350295,
+          0.01531768388925367,
+          0.1282931996725199
+        ],
+        "direction": "inconclusive"
+      }
+    },
+    "ATTACK/EXPAND": {
+      "base": 0.07823976039836505,
+      "current": 0.09324745598627646,
+      "signal": {
+        "up": 5,
+        "down": 3,
+        "ties": 0,
+        "sumDelta": 0.12006156470329118,
+        "leaveOneOutSums": [
+          0.17616703664258354,
+          0.11093868115334166,
+          0.037271268393256854,
+          0.16566515128160958,
+          0.15821877664840622,
+          0.016618709119558844,
+          0.08299071386718176,
+          0.09256061581709984
+        ],
+        "direction": "inconclusive"
+      }
+    },
+    "ATTACK/SEEK_POINT": {
+      "base": 0.12510546120279334,
+      "current": 0.15331705356930098,
+      "signal": {
+        "up": 5,
+        "down": 3,
+        "ties": 0,
+        "sumDelta": 0.2256927389320611,
+        "leaveOneOutSums": [
+          -0.005374926176858197,
+          0.14622790962136561,
+          0.26902003594191176,
+          0.3097240261933359,
+          0.16424776580193617,
+          0.3613921225924246,
+          0.15460831513729426,
+          0.1800039234130176
+        ],
+        "direction": "inconclusive"
+      }
+    },
+    "DEFEND/EXPAND": {
+      "base": 0.08098036738982968,
+      "current": 0.11853665971729078,
+      "signal": {
+        "up": 6,
+        "down": 2,
+        "ties": 0,
+        "sumDelta": 0.30045033861968895,
+        "leaveOneOutSums": [
+          0.22727860000209044,
+          0.2706669912600895,
+          0.08418266763260793,
+          0.35157597488717296,
+          0.2968525909462067,
+          0.23006604260431596,
+          0.27153245573013285,
+          0.3709970472752063
+        ],
+        "direction": "inconclusive"
+      }
+    },
+    "DEFEND/SEEK_POINT": {
+      "base": 0.16912637471435638,
+      "current": 0.15914610114240002,
+      "signal": {
+        "up": 4,
+        "down": 4,
+        "ties": 0,
+        "sumDelta": -0.07984218857565059,
+        "leaveOneOutSums": [
+          -0.16579315669222372,
+          -0.0004508383384005943,
+          -0.0899162488923201,
+          -0.005888924138555213,
+          -0.07009825589368485,
+          0.07016892017405946,
+          -0.11916444113742991,
+          -0.1777523751109992
+        ],
+        "direction": "inconclusive"
+      }
+    },
+    "EXPAND/SEEK_POINT": {
+      "base": 0.17999553110140176,
+      "current": 0.1776323888341682,
+      "signal": {
+        "up": 4,
+        "down": 4,
+        "ties": 0,
+        "sumDelta": -0.018905138137868538,
+        "leaveOneOutSums": [
+          -0.18242595521494884,
+          -0.04451577062786294,
+          -0.05132755928520688,
+          0.012416846309734497,
+          -0.031088934313654226,
+          0.07328698176330864,
+          0.05902463825600909,
+          0.03229378614754089
+        ],
+        "direction": "inconclusive"
+      }
+    }
+  },
+  "cost": {
+    "method": "Same process/session and PC for both arms; discarded one seed19 warmup per arm; 3 rounds x8seeds x2 arms; balanced rotating order (two arms: alternate the first arm per seed block, no reverse); no observers; record all fixed samples and external test overlap before/after; never exclude by value. Median of 3 round means overall, median of 3 samples per seed. Whole-run UTC start/end and CPU times retained for future anomaly attribution.",
+    "resourceGuard": {
+      "recordBackground": true,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Record external Vitest/Playwright presence before/after every timing; retain all fixed rows, mark overlap, withhold cost certification"
+    },
+    "warmup": {
+      "seed": 19,
+      "ticks": 3600,
+      "perArm": 1,
+      "discarded": true
+    },
+    "summary": {
+      "base": {
+        "roundMsPerTick": [
+          2.6100244930555547,
+          2.6805107256944454,
+          2.69249659375
+        ],
+        "medianMsPerTick": 2.6805107256944454,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.330666611111111,
+              2.652542055555556,
+              2.677834388888894
+            ],
+            "medianMsPerTick": 2.652542055555556
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.5667859999999987,
+              2.6035465833333324,
+              2.63712627777778
+            ],
+            "medianMsPerTick": 2.6035465833333324
+          },
+          {
+            "seed": 73,
+            "samples": [
+              2.7383340555555575,
+              2.7843738055555556,
+              2.8254416388888948
+            ],
+            "medianMsPerTick": 2.7843738055555556
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.612333305555557,
+              2.6453559444444465,
+              2.7690094444444466
+            ],
+            "medianMsPerTick": 2.6453559444444465
+          },
+          {
+            "seed": 31,
+            "samples": [
+              2.7104218888888862,
+              2.75933366666666,
+              2.7755798611111016
+            ],
+            "medianMsPerTick": 2.75933366666666
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.4985107777777738,
+              2.5471613888888935,
+              2.509223833333332
+            ],
+            "medianMsPerTick": 2.509223833333332
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.617328555555553,
+              2.6308054444444458,
+              2.603813638888888
+            ],
+            "medianMsPerTick": 2.617328555555553
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.8058147499999984,
+              2.8209669166666735,
+              2.741943666666662
+            ],
+            "medianMsPerTick": 2.8058147499999984
+          }
+        ]
+      },
+      "current": {
+        "roundMsPerTick": [
+          2.847931829861111,
+          2.861057229166667,
+          2.9050764131944438
+        ],
+        "medianMsPerTick": 2.861057229166667,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.608430805555556,
+              2.931384277777785,
+              2.9378150277777846
+            ],
+            "medianMsPerTick": 2.931384277777785
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.849051555555555,
+              2.7694577777777725,
+              2.79958591666666
+            ],
+            "medianMsPerTick": 2.79958591666666
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.169666861111113,
+              3.031499194444445,
+              3.1573389444444424
+            ],
+            "medianMsPerTick": 3.1573389444444424
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.7308122222222218,
+              2.6735259444444415,
+              2.88604713888889
+            ],
+            "medianMsPerTick": 2.7308122222222218
+          },
+          {
+            "seed": 31,
+            "samples": [
+              2.9644267500000003,
+              2.9709905833333323,
+              3.0493507499999963
+            ],
+            "medianMsPerTick": 2.9709905833333323
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.7707365277777796,
+              2.768202666666669,
+              2.753285527777771
+            ],
+            "medianMsPerTick": 2.768202666666669
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.8304965555555506,
+              2.885444472222217,
+              2.8708812777777752
+            ],
+            "medianMsPerTick": 2.8708812777777752
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.859833361111111,
+              2.8579529166666746,
+              2.7863067222222324
+            ],
+            "medianMsPerTick": 2.8579529166666746
+          }
+        ]
+      }
+    }
+  },
+  "outlierDiagnostic": {
+    "original": {
+      "round": 2,
+      "arm": "optimized",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 13,
+      "elapsedMs": 209904.74300000002,
+      "msPerTick": 58.30687305555556,
+      "externalTestProcessesBefore": "",
+      "externalTestProcessesAfter": "",
+      "overlapped": false
+    },
+    "repeat": {
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 13,
+      "elapsedMs": 9240.3899,
+      "msPerTick": 2.5667749722222224,
+      "cpuUserMs": 9344,
+      "cpuSystemMs": 422,
+      "cpuTotalMs": 9766,
+      "wallMinusCpuMs": -525.6100999999999,
+      "heapBefore": {
+        "rss": 198361088,
+        "heapTotal": 104513536,
+        "heapUsed": 47620408,
+        "external": 5890795,
+        "arrayBuffers": 3274210
+      },
+      "heapAfter": {
+        "rss": 264949760,
+        "heapTotal": 166703104,
+        "heapUsed": 34074208,
+        "external": 11132270,
+        "arrayBuffers": 8515685
+      },
+      "slowestTicks": [
+        {
+          "tick": 1,
+          "ms": 196.6166000000012
+        },
+        {
+          "tick": 1074,
+          "ms": 63.641600000000835
+        },
+        {
+          "tick": 1556,
+          "ms": 33.09280000000217
+        },
+        {
+          "tick": 1994,
+          "ms": 32.18659999999727
+        },
+        {
+          "tick": 2082,
+          "ms": 31.815300000002026
+        },
+        {
+          "tick": 2733,
+          "ms": 31.342900000003283
+        },
+        {
+          "tick": 3329,
+          "ms": 30.293000000001484
+        },
+        {
+          "tick": 1732,
+          "ms": 29.890900000002148
+        },
+        {
+          "tick": 1165,
+          "ms": 27.738400000000183
+        },
+        {
+          "tick": 2217,
+          "ms": 27.392000000003463
+        }
+      ],
+      "blocks": [
+        {
+          "lastTick": 300,
+          "wallMs": 795.6126999999997,
+          "cpuMs": 968
+        },
+        {
+          "lastTick": 600,
+          "wallMs": 560.6828999999998,
+          "cpuMs": 579
+        },
+        {
+          "lastTick": 900,
+          "wallMs": 744.9792999999991,
+          "cpuMs": 750
+        },
+        {
+          "lastTick": 1200,
+          "wallMs": 740.0174999999999,
+          "cpuMs": 766
+        },
+        {
+          "lastTick": 1500,
+          "wallMs": 690.8390999999992,
+          "cpuMs": 734
+        },
+        {
+          "lastTick": 1800,
+          "wallMs": 785.4890000000014,
+          "cpuMs": 797
+        },
+        {
+          "lastTick": 2100,
+          "wallMs": 755.6103000000003,
+          "cpuMs": 875
+        },
+        {
+          "lastTick": 2400,
+          "wallMs": 912.9510999999984,
+          "cpuMs": 937
+        },
+        {
+          "lastTick": 2700,
+          "wallMs": 762.5740000000005,
+          "cpuMs": 766
+        },
+        {
+          "lastTick": 3000,
+          "wallMs": 924.292300000001,
+          "cpuMs": 1000
+        },
+        {
+          "lastTick": 3300,
+          "wallMs": 684.4945000000007,
+          "cpuMs": 719
+        },
+        {
+          "lastTick": 3600,
+          "wallMs": 882.8173999999999,
+          "cpuMs": 875
+        }
+      ]
+    },
+    "atUtc": "2026-10-12T10:01:20.915Z",
+    "gcEntriesCaptured": 0,
+    "originalPreserved": true,
+    "oldFileSha256": "34bfe877b360150121651d6237c512d927d1464379713704e5daead35bcf8e42",
+    "powerEvents": [
+      {
+        "timeCreated": "2026-10-12T18:38:17.1857611+09:00",
+        "id": 1,
+        "provider": "Microsoft-Windows-Power-Troubleshooter",
+        "data": {
+          "SleepTime": "2026-10-12T09:34:52.7265204Z",
+          "WakeTime": "2026-10-12T09:38:15.7319401Z",
+          "SleepDuration": "2170",
+          "WakeDuration": "2230",
+          "TargetState": "4",
+          "EffectiveState": "4"
+        }
+      },
+      {
+        "timeCreated": "2026-10-12T18:34:56.8145069+09:00",
+        "id": 107,
+        "provider": "Microsoft-Windows-Kernel-Power",
+        "data": {
+          "TargetState": "4",
+          "EffectiveState": "4"
+        }
+      },
+      {
+        "timeCreated": "2026-10-12T18:34:54.8968489+09:00",
+        "id": 42,
+        "provider": "Microsoft-Windows-Kernel-Power",
+        "data": {
+          "TargetState": "4",
+          "EffectiveState": "4",
+          "Reason": "7"
+        }
+      }
+    ],
+    "sleepSeconds": 203.00542,
+    "interpretation": "Sleep/resume is the leading explanation, inferred from a 203s system sleep interval within the old session and normal repeat. Original per-row timestamps/CPU/GC were not recorded; no definitive row-level attribution or sample replacement."
+  },
+  "checks": {
+    "walls": true,
+    "holding": true,
+    "deaths": true,
+    "cost": true,
+    "seed4LegacyDeaths": true
+  },
+  "verdict": "quantitative thresholds clear, user spectating pending",
+  "rawHashes": {
+    "base.json": "cf160581e4a98dda54f762a1a4bfcd37c725cb93424c0b6551acc112845c2673",
+    "current.json": "09d6783c1113635c66e29b64200c1d73e32be414f54b6cdcb949decf5ef65c12",
+    "outlier-diagnostic.json": "b5979f95731c8f05c2cf939a6f2b16025a98fd3fd00f8ab4b20fc3da92d5ba90",
+    "power-details.json": "f776c58df3b588554a33734087b0627d03d2ec93ed40fbae20abf9a81523252b",
+    "performance.json": "75c2eeca6390a6f8e72b1a51e0393a54acadc1490a76379f0e8281f39930434c"
+  },
+  "decisions": {
+    "departureSafety": "retain",
+    "guardOrderOptimization": "retain",
+    "reposition": "retain",
+    "cache": "defer"
+  },
+  "phase3": "not started; user observation required"
+}
