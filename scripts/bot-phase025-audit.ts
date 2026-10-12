@@ -1,3 +1,4 @@
+import {BotHoldingTracker} from '../tests/bot-holding-tracker.js';
 import {resolve} from 'node:path';
 import {writeFileSync,existsSync} from 'node:fs';
 import {ExpansionEpisodeTracker} from '../tests/bot-phase025-plan-tracker.js';
@@ -18,12 +19,14 @@ const seeds=(process.argv.find(a=>a.startsWith('--seeds='))?.slice(8)??'4,19,73'
 const ticks=Number(process.argv.find(a=>a.startsWith('--ticks='))?.slice(8)??3600);
 const out=process.argv.find(a=>a.startsWith('--out='))?.slice(6);
 const auditEpisodes=process.argv.includes('--episodes');
+const auditHolding=process.argv.includes('--holding');
 if(!seeds.length||seeds.some(s=>!Number.isSafeInteger(s))||!Number.isSafeInteger(ticks)||ticks<1)throw new Error('Invalid audit arguments');
 const increment=(table:Record<string,number>,key:string,n=1)=>table[key]=(table[key]??0)+n;
 for(const seed of seeds){
  const m=game.createMatch({mapRadius:56,spawnRadius:1},seed,bot.botSpecs(14,0,'bot',{seed}));respawn.setSafeBotRespawn(m,true);
  const memories=new Map<string,any>(m.participants.map((p:any)=>[p.participantId,bot.createBotMemory(identity.botSeed(seed,p.slot),'combined',identity.createBotIdentity(identity.botSeed(seed,p.slot),p.personality))]));
  const departure=departureModule?new departureModule.BotDepartureDiagnostics(memories,m.config.simulationHz):null;let firstTrailDeaths=0;
+ const holding=auditHolding?new BotHoldingTracker(m):undefined;
  const episodes=auditEpisodes?new ExpansionEpisodeTracker(m,seed):undefined;
  const reposition=repositionModule?new repositionModule.BotRepositionDiagnostics(memories,m.config.simulationHz):null,repositionRows:any[]=[];if(reposition)reposition.onEpisode=(id:string,row:any)=>repositionRows.push({participantId:id,slot:m.participants.find((p:any)=>p.participantId===id).slot,...row});
  const growth=new growthModule.BotGrowthTracker(m,(trace:any)=>{episodes?.death(trace,memories.get(trace.victimId)!);if(trace.context?.cause==='PENDING_TRAIL_CONTACT'&&trace.trailCells.length===0)firstTrailDeaths++;}),latest=new Map<string,BotDecisionTrace>();
@@ -56,7 +59,7 @@ for(const seed of seeds){
   }
   // Audit-only grudge amounts, never supplied to AI.
   const grudges=new Map([...memories].map(([id,memory])=>[id,new Map(memory.emotion.grudge)]));
-  trajectory.update(JSON.stringify([...inputs]));game.stepMatch(m,inputs);growth.after(before);
+  trajectory.update(JSON.stringify([...inputs]));game.stepMatch(m,inputs);growth.after(before);holding?.afterTick();
   trajectory.update(m.owners);trajectory.update(Buffer.from(m.trailMasks.buffer,m.trailMasks.byteOffset,m.trailMasks.byteLength));trajectory.update(JSON.stringify(m.participants.map((p:any)=>({lifeId:p.lifeId,lifeState:p.lifeState,position:p.position,direction:p.direction,seq:p.lastAppliedInputSeq}))));
   const recaptureOwners=new Set<number>();
   for(let id=0;id<owners.length;id++)if(owners[id]&&m.owners[id]&&owners[id]!==m.owners[id]){
@@ -81,7 +84,7 @@ for(const seed of seeds){
  const groups=[...stats].map(([personality,s])=>({...s,personality,meanExternalLength:s.externalLengthSum/(s.expansionPlans||1),stolenShare:s.stolenCells/(s.totalCapture||1),meanCapture:s.totalCapture/(s.captures||1),meanReclaimSeconds:s.responseSeconds.length?s.responseSeconds.reduce((a:number,b:number)=>a+b,0)/s.responseSeconds.length:null,responseSeconds:undefined}));
  const goalDistances=[];for(let i=0;i<groups.length;i++)for(let j=i+1;j<groups.length;j++){const a=groups[i],b=groups[j],goals=new Set([...Object.keys(a.goalFrames),...Object.keys(b.goalFrames)]);goalDistances.push({a:a.personality,b:b.personality,totalVariation:[...goals].reduce((sum,key)=>sum+Math.abs((a.goalFrames[key]??0)/(a.aliveFrames||1)-(b.goalFrames[key]??0)/(b.aliveFrames||1)),0)/2});}
  reposition?.finish(memories);
- reports.push({departure:departure?.all(m.tick)??null,firstTrailDeaths,reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});growth.dispose();reposition?.dispose();departure?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
+ reports.push({holding:holding?.snapshot(),departure:departure?.all(m.tick)??null,firstTrailDeaths,reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});growth.dispose();reposition?.dispose();departure?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
 }
 const result={source,seeds,auditEpisodes,measurement:'Real movement. Steal/recapture cells sampled at tick boundaries, excluding neutral ownership and respawn grants; transfers neutralized within the same tick may be omitted. Grudge/candidate counts distinguish plan creation and continuation; within-decision identical slot/cell/interrupt/reason is counted once. No behavior tuning.',reposition:repositionModule?'Actual relocation episodes; A→B→A requires three executed moves in one life within 30s and two >=120 degree actual displacement reversals':'Baseline without relocation',reports};
 const json=JSON.stringify(result,null,2);if(out)writeFileSync(out,json);else console.log(json);

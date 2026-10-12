@@ -1,0 +1,1012 @@
+{
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "metrics": [
+    "timeAverageCells",
+    "finalCells",
+    "maximumShare"
+  ],
+  "aggregates": {
+    "base": {
+      "timeAverageCells": 3084.0112499999996,
+      "finalCells": 4184.5,
+      "maximumShare": 0.49256030072047613,
+      "finalSumAcrossSeeds": 33476,
+      "deaths": 94,
+      "walls": 0
+    },
+    "rp": {
+      "timeAverageCells": 2891.053194444444,
+      "finalCells": 4341.125,
+      "maximumShare": 0.4775373290174376,
+      "finalSumAcrossSeeds": 34729,
+      "deaths": 113,
+      "walls": 0
+    },
+    "reachable": {
+      "timeAverageCells": 2870.3635069444445,
+      "finalCells": 3822.875,
+      "maximumShare": 0.45545316905085104,
+      "finalSumAcrossSeeds": 30583,
+      "deaths": 115,
+      "walls": 0
+    },
+    "counter": {
+      "timeAverageCells": 2889.734861111111,
+      "finalCells": 3702.75,
+      "maximumShare": 0.44924036754724866,
+      "finalSumAcrossSeeds": 29622,
+      "deaths": 114,
+      "walls": 0
+    },
+    "departure": {
+      "timeAverageCells": 2952.4479513888887,
+      "finalCells": 4186.125,
+      "maximumShare": 0.4664430406181477,
+      "finalSumAcrossSeeds": 33489,
+      "deaths": 94,
+      "walls": 0
+    },
+    "start": {
+      "timeAverageCells": 2972.2828124999996,
+      "finalCells": 4324.0,
+      "maximumShare": 0.47307350944972326,
+      "finalSumAcrossSeeds": 34592,
+      "deaths": 90,
+      "walls": 0
+    }
+  },
+  "contrasts": [
+    {
+      "before": "base",
+      "after": "rp",
+      "meanDelta": {
+        "timeAverageCells": -192.95805555555535,
+        "finalCells": 156.625,
+        "maximumShare": -0.015022971703038512
+      },
+      "meanPercent": {
+        "timeAverageCells": -6.256723465439867,
+        "finalCells": 3.742980045405664,
+        "maximumShare": -3.049976151359369
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 1,
+          "down": 7,
+          "ties": 0,
+          "direction": "decrease",
+          "sumDelta": -1543.6644444444446,
+          "leaveOneOutSums": [
+            -1300.7033333333338,
+            -853.9250000000002,
+            -1424.7141666666666,
+            -1522.3661111111114,
+            -1110.6066666666666,
+            -1851.0902777777778,
+            -1326.742777777778,
+            -1415.5027777777777
+          ]
+        },
+        "finalCells": {
+          "up": 5,
+          "down": 3,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": 1253,
+          "leaveOneOutSums": [
+            1160,
+            3042,
+            193,
+            1381,
+            1257,
+            -149,
+            1185,
+            702
+          ]
+        },
+        "maximumShare": {
+          "up": 3,
+          "down": 5,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -0.12018377362430827,
+          "leaveOneOutSums": [
+            -0.09940482405763812,
+            0.05168633183669208,
+            -0.11036859141693639,
+            -0.1404406390310119,
+            -0.06202359820403053,
+            -0.21207058577842752,
+            -0.119766106296335,
+            -0.1488984024224705
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": -242.96111111111077,
+            "finalCells": 93,
+            "maximumShare": -0.020778949566670146
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": -689.7394444444444,
+            "finalCells": -1789,
+            "maximumShare": -0.17187010546100034
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": -118.95027777777796,
+            "finalCells": 1060,
+            "maximumShare": -0.009815182207371875
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": -21.298333333333176,
+            "finalCells": -128,
+            "maximumShare": 0.020256865406703628
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": -433.057777777778,
+            "finalCells": -4,
+            "maximumShare": -0.05816017542027774
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 307.42583333333323,
+            "finalCells": 1402,
+            "maximumShare": 0.09188681215411926
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": -216.92166666666662,
+            "finalCells": 68,
+            "maximumShare": -0.0004176673279732701
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": -128.16166666666686,
+            "finalCells": 551,
+            "maximumShare": 0.028714628798162223
+          }
+        }
+      ]
+    },
+    {
+      "before": "rp",
+      "after": "reachable",
+      "meanDelta": {
+        "timeAverageCells": -20.689687499999764,
+        "finalCells": -518.25,
+        "maximumShare": -0.02208415996658658
+      },
+      "meanPercent": {
+        "timeAverageCells": -0.7156453412810888,
+        "finalCells": -11.938149673183794,
+        "maximumShare": -4.624593434826571
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 5,
+          "down": 3,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -165.51749999999993,
+          "leaveOneOutSums": [
+            -401.268333333333,
+            -295.8269444444445,
+            -55.63694444444445,
+            -184.45805555555535,
+            -252.57972222222224,
+            -17.788611111111095,
+            -253.65444444444438,
+            302.5905555555555
+          ]
+        },
+        "finalCells": {
+          "up": 3,
+          "down": 5,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -4146,
+          "leaveOneOutSums": [
+            -3819,
+            -5066,
+            -2773,
+            -4356,
+            -3956,
+            -4478,
+            -3495,
+            -1079
+          ]
+        },
+        "maximumShare": {
+          "up": 3,
+          "down": 5,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -0.17667327973269287,
+          "leaveOneOutSums": [
+            -0.22877727889735822,
+            -0.25780515819150046,
+            -0.11600710034457551,
+            -0.17322752427691335,
+            -0.1793881173645191,
+            -0.1448261459747311,
+            -0.13636838258327239,
+            -0.00031325049597996646
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": 235.75083333333305,
+            "finalCells": -327,
+            "maximumShare": 0.05210399916466535
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 130.30944444444458,
+            "finalCells": 920,
+            "maximumShare": 0.0811318784588076
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": -109.88055555555547,
+            "finalCells": -1373,
+            "maximumShare": -0.06066617938811736
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 18.94055555555542,
+            "finalCells": 210,
+            "maximumShare": -0.00344575545577952
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 87.06222222222232,
+            "finalCells": -190,
+            "maximumShare": 0.002714837631826228
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": -147.72888888888883,
+            "finalCells": 332,
+            "maximumShare": -0.031847133757961776
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": 88.13694444444445,
+            "finalCells": -651,
+            "maximumShare": -0.04030489714942048
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": -468.10805555555544,
+            "finalCells": -3067,
+            "maximumShare": -0.1763600292367129
+          }
+        }
+      ]
+    },
+    {
+      "before": "reachable",
+      "after": "counter",
+      "meanDelta": {
+        "timeAverageCells": 19.371354166666606,
+        "finalCells": -120.125,
+        "maximumShare": -0.006212801503602372
+      },
+      "meanPercent": {
+        "timeAverageCells": 0.674874597583209,
+        "finalCells": -3.1422685805839845,
+        "maximumShare": -1.3640922768304895
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 4,
+          "down": 3,
+          "ties": 1,
+          "direction": "inconclusive",
+          "sumDelta": 154.97083333333376,
+          "leaveOneOutSums": [
+            233.30027777777786,
+            137.05416666666724,
+            155.09611111111144,
+            101.7997222222225,
+            141.58361111111162,
+            154.97083333333376,
+            161.27361111111122,
+            -0.28249999999934516
+          ]
+        },
+        "finalCells": {
+          "up": 2,
+          "down": 5,
+          "ties": 1,
+          "direction": "inconclusive",
+          "sumDelta": -961,
+          "leaveOneOutSums": [
+            -937,
+            321,
+            -960,
+            -87,
+            -1009,
+            -961,
+            -727,
+            -2367
+          ]
+        },
+        "maximumShare": {
+          "up": 2,
+          "down": 4,
+          "ties": 2,
+          "direction": "inconclusive",
+          "sumDelta": -0.04970241202881909,
+          "leaveOneOutSums": [
+            -0.03497963871776133,
+            -0.019003863422783762,
+            -0.04970241202881909,
+            -0.04500365458911981,
+            -0.060248512060144144,
+            -0.04970241202881909,
+            -0.024851206014409544,
+            -0.06442518533987684
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": -78.3294444444441,
+            "finalCells": -24,
+            "maximumShare": -0.014722773311057757
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 17.916666666666515,
+            "finalCells": -1282,
+            "maximumShare": -0.030698548606035325
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": -0.12527777777768279,
+            "finalCells": -1,
+            "maximumShare": 0.0
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 53.17111111111126,
+            "finalCells": -874,
+            "maximumShare": -0.004698757439699275
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 13.387222222222135,
+            "finalCells": 48,
+            "maximumShare": 0.010546100031325056
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "maximumShare": 0.0
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": -6.3027777777774645,
+            "finalCells": -234,
+            "maximumShare": -0.024851206014409544
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 155.2533333333331,
+            "finalCells": 1406,
+            "maximumShare": 0.014722773311057757
+          }
+        }
+      ]
+    },
+    {
+      "before": "counter",
+      "after": "departure",
+      "meanDelta": {
+        "timeAverageCells": 62.71309027777761,
+        "finalCells": 483.375,
+        "maximumShare": 0.01720267307089901
+      },
+      "meanPercent": {
+        "timeAverageCells": 2.170202225877022,
+        "finalCells": 13.054486530281547,
+        "maximumShare": 3.829280339347449
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 8,
+          "down": 0,
+          "ties": 0,
+          "direction": "increase",
+          "sumDelta": 501.7047222222218,
+          "leaveOneOutSums": [
+            460.3647222222221,
+            409.6847222222218,
+            440.0444444444438,
+            401.51611111111106,
+            455.63333333333276,
+            412.4586111111107,
+            499.2916666666665,
+            432.9394444444438
+          ]
+        },
+        "finalCells": {
+          "up": 7,
+          "down": 1,
+          "ties": 0,
+          "direction": "increase",
+          "sumDelta": 3867,
+          "leaveOneOutSums": [
+            3352,
+            3422,
+            3234,
+            2699,
+            3367,
+            4013,
+            3175,
+            3807
+          ]
+        },
+        "maximumShare": {
+          "up": 5,
+          "down": 3,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": 0.1376213845671922,
+          "leaveOneOutSums": [
+            0.14148480735094493,
+            0.1396053043750652,
+            0.12488253106400748,
+            0.08374229925864052,
+            0.1147540983606557,
+            0.15286624203821653,
+            0.12362952908008767,
+            0.08238488044272735
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": 41.33999999999969,
+            "finalCells": 515,
+            "maximumShare": -0.0038634227837527346
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 92.01999999999998,
+            "finalCells": 445,
+            "maximumShare": -0.0019839198078729914
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": 61.66027777777799,
+            "finalCells": 633,
+            "maximumShare": 0.01273885350318471
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 100.18861111111073,
+            "finalCells": 1168,
+            "maximumShare": 0.05387908530855168
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 46.07138888888903,
+            "finalCells": 500,
+            "maximumShare": 0.022867286206536497
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 89.24611111111108,
+            "finalCells": -146,
+            "maximumShare": -0.015244857471024331
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": 2.4130555555552746,
+            "finalCells": 692,
+            "maximumShare": 0.013991855487104521
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 68.76527777777801,
+            "finalCells": 60,
+            "maximumShare": 0.05523650412446485
+          }
+        }
+      ]
+    },
+    {
+      "before": "departure",
+      "after": "start",
+      "meanDelta": {
+        "timeAverageCells": 19.834861111110968,
+        "finalCells": 137.875,
+        "maximumShare": 0.006630468831575587
+      },
+      "meanPercent": {
+        "timeAverageCells": 0.671810695317432,
+        "finalCells": 3.2936188002030518,
+        "maximumShare": 1.4214959285894035
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 5,
+          "down": 1,
+          "ties": 2,
+          "direction": "inconclusive",
+          "sumDelta": 158.6788888888891,
+          "leaveOneOutSums": [
+            158.6788888888891,
+            106.69222222222243,
+            123.78111111111139,
+            160.65666666666675,
+            158.6788888888891,
+            96.48416666666662,
+            158.34000000000015,
+            147.4402777777782
+          ]
+        },
+        "finalCells": {
+          "up": 4,
+          "down": 2,
+          "ties": 2,
+          "direction": "inconclusive",
+          "sumDelta": 1103,
+          "leaveOneOutSums": [
+            1103,
+            681,
+            1241,
+            1233,
+            1103,
+            974,
+            1069,
+            317
+          ]
+        },
+        "maximumShare": {
+          "up": 5,
+          "down": 1,
+          "ties": 2,
+          "direction": "inconclusive",
+          "sumDelta": 0.05304375065260525,
+          "leaveOneOutSums": [
+            0.05304375065260525,
+            0.039782812989453964,
+            0.04928474470084582,
+            0.05544533778845151,
+            0.05304375065260525,
+            0.0395739793254673,
+            0.04938916153283912,
+            0.03174271692596853
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "maximumShare": 0.0
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 51.98666666666668,
+            "finalCells": 422,
+            "maximumShare": 0.013260937663151284
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": 34.89777777777772,
+            "finalCells": -138,
+            "maximumShare": 0.003759005951759431
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": -1.9777777777776464,
+            "finalCells": -130,
+            "maximumShare": -0.0024015871358462615
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 0.0,
+            "finalCells": 0,
+            "maximumShare": 0.0
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 62.19472222222248,
+            "finalCells": 129,
+            "maximumShare": 0.013469771327137947
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": 0.3388888888889596,
+            "finalCells": 34,
+            "maximumShare": 0.0036545891197661273
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 11.238611111110913,
+            "finalCells": 786,
+            "maximumShare": 0.02130103372663672
+          }
+        }
+      ]
+    },
+    {
+      "before": "base",
+      "after": "start",
+      "meanDelta": {
+        "timeAverageCells": -111.72843749999993,
+        "finalCells": 139.5,
+        "maximumShare": -0.019486791270752868
+      },
+      "meanPercent": {
+        "timeAverageCells": -3.622828467308605,
+        "finalCells": 3.333731628629466,
+        "maximumShare": -3.956224495203778
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 2,
+          "down": 6,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -893.8274999999999,
+          "leaveOneOutSums": [
+            -849.6277777777777,
+            -496.3208333333332,
+            -761.4294444444445,
+            -1042.8516666666665,
+            -607.2905555555553,
+            -1204.9652777777778,
+            -761.4919444444445,
+            -532.8149999999996
+          ]
+        },
+        "finalCells": {
+          "up": 5,
+          "down": 3,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": 1116,
+          "leaveOneOutSums": [
+            859,
+            2400,
+            935,
+            870,
+            762,
+            -601,
+            1207,
+            1380
+          ]
+        },
+        "maximumShare": {
+          "up": 3,
+          "down": 5,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": -0.15589433016602278,
+          "leaveOneOutSums": [
+            -0.1686331836692075,
+            -0.045734572413072994,
+            -0.10191082802547768,
+            -0.21948418084995303,
+            -0.13386237861543282,
+            -0.21415892241829387,
+            -0.10796700428109013,
+            -0.09950924088963142
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": -44.199722222222135,
+            "finalCells": 257,
+            "maximumShare": 0.01273885350318471
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": -397.50666666666666,
+            "finalCells": -1284,
+            "maximumShare": -0.11015975775294978
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": -132.3980555555554,
+            "finalCells": 181,
+            "maximumShare": -0.05398350214054509
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 149.0241666666666,
+            "finalCells": 246,
+            "maximumShare": 0.06358985068393025
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": -286.53694444444454,
+            "finalCells": 354,
+            "maximumShare": -0.022031951550589957
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 311.13777777777796,
+            "finalCells": 1717,
+            "maximumShare": 0.0582645922522711
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": -132.3355555555554,
+            "finalCells": -91,
+            "maximumShare": -0.04792732588493265
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": -361.0125000000003,
+            "finalCells": -264,
+            "maximumShare": -0.056385089276391354
+          }
+        }
+      ]
+    },
+    {
+      "before": "counter",
+      "after": "start",
+      "meanDelta": {
+        "timeAverageCells": 82.54795138888858,
+        "finalCells": 621.25,
+        "maximumShare": 0.023833141902474597
+      },
+      "meanPercent": {
+        "timeAverageCells": 2.856592571857913,
+        "finalCells": 16.77807035311593,
+        "maximumShare": 5.305209332054951
+      },
+      "paired": {
+        "timeAverageCells": {
+          "up": 8,
+          "down": 0,
+          "ties": 0,
+          "direction": "increase",
+          "sumDelta": 660.3836111111109,
+          "leaveOneOutSums": [
+            619.0436111111112,
+            516.3769444444442,
+            563.8255555555552,
+            562.1727777777778,
+            614.3122222222219,
+            508.94277777777734,
+            657.6316666666667,
+            580.379722222222
+          ]
+        },
+        "finalCells": {
+          "up": 7,
+          "down": 1,
+          "ties": 0,
+          "direction": "increase",
+          "sumDelta": 4970,
+          "leaveOneOutSums": [
+            4455,
+            4103,
+            4475,
+            3932,
+            4470,
+            4987,
+            4244,
+            4124
+          ]
+        },
+        "maximumShare": {
+          "up": 6,
+          "down": 2,
+          "ties": 0,
+          "direction": "inconclusive",
+          "sumDelta": 0.19066513521979744,
+          "leaveOneOutSums": [
+            0.19452855800355018,
+            0.17938811736451915,
+            0.1741672757648533,
+            0.13918763704709203,
+            0.16779784901326095,
+            0.19244022136368383,
+            0.1730186906129268,
+            0.11412759736869588
+          ]
+        }
+      },
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "timeAverageCells": 41.33999999999969,
+            "finalCells": 515,
+            "maximumShare": -0.0038634227837527346
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "timeAverageCells": 144.00666666666666,
+            "finalCells": 867,
+            "maximumShare": 0.011277017855278293
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "timeAverageCells": 96.55805555555571,
+            "finalCells": 495,
+            "maximumShare": 0.01649785945494414
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "timeAverageCells": 98.21083333333308,
+            "finalCells": 1038,
+            "maximumShare": 0.051477498172705416
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "timeAverageCells": 46.07138888888903,
+            "finalCells": 500,
+            "maximumShare": 0.022867286206536497
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "timeAverageCells": 151.44083333333356,
+            "finalCells": -17,
+            "maximumShare": -0.001775086143886384
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "timeAverageCells": 2.7519444444442343,
+            "finalCells": 726,
+            "maximumShare": 0.017646444606870648
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "timeAverageCells": 80.00388888888892,
+            "finalCells": 846,
+            "maximumShare": 0.07653753785110157
+          }
+        }
+      ]
+    }
+  ],
+  "departureDecision": "benefit_signal",
+  "interpretation": "Same-seed adjacent conditional effects, not independent/factorial contributions. Inconclusive is not equivalence. Means over eight separate equal-duration games, not a summed multi-map share.",
+  "verifiedTrajectories": 48,
+  "rawHashes": {
+    "base": "c20705b0df68a6104dd6be4e5710e576089a94174e43449746788acfb66b4a89",
+    "rp": "6a205a67314f681c0b851d1fb2dc5dd6dc0d9dced7499d43430636ea48a04252",
+    "reachable": "be7a5b428ddd423cf880133f666fa0edde2c40578c7eeb7a5aa9d17b7da12788",
+    "counter": "8507fcd95a6f6cc73c3581e11239811939463331b6a3708586a940d33251cf5c",
+    "departure": "4cd9fa635e12291e32ccf7728d4aab40b05c8724d1dbc0e2f85574f59b513778",
+    "start": "56dafa5d7ef96086e313c3744ac9ae48c6049093f6dcd2c4c5a73cfd902c6f47"
+  },
+  "behaviorSourceFrozen": true
+}
