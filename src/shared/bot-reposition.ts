@@ -2,15 +2,18 @@ import type {BotObservation} from './bot.js';
 import type {BotEmotion} from './bot-emotion.js';
 import type {BotIdentity} from './bot-identity.js';
 import type {MapDefinition,Vec} from './model.js';
+import {evaluateRepositionStartSafety,type RepositionStartSafety} from './bot-immediate-safety.js';
 import {damageWeight} from './bot-damage.js';
 import {hexDistance} from './hex.js';
 import {BOT_REPOSITION as C} from './bot-phase025-config.js';
 export type RepositionEnd='ARRIVED'|'ROUTE_LOST'|'OUTSIDE_HOME'|'TRAIL_EXPOSED'|'NEAR_HEAD'|'DESTINATION_CHANGED'|'DAMAGE_GONE'|'OPPONENT_LEFT'|'TIMEOUT'|'LIFE_CHANGED'|'DEATH'|'RETURN_ONLY'|'STUCK'|'ATTACK'|'SAFETY'|'PERIMETER_GUARD';
 export interface RepositionPlan {target:number;attackerId:string;distance:number;score:number;weight:number;grudge:number;path:number[]}
-export interface RepositionSelection {reason:'SELECTED'|'COOLDOWN'|'NO_ACTIVE_DAMAGE'|'NO_DISTANT_DESTINATION'|'LOW_PRIORITY'|'NEAR_HEAD';nearBlocked:number;examined:number;within10:number;beyond20OrDisconnected:number;plan?:RepositionPlan}
+export interface RepositionSelection {reason:'SELECTED'|'COOLDOWN'|'NO_ACTIVE_DAMAGE'|'NO_DISTANT_DESTINATION'|'LOW_PRIORITY'|'NEAR_HEAD'|'PHYSICAL_START_UNSAFE';startChecked:number;startRejected:number;firstStartRejection?:RepositionStartSafety;nearBlocked:number;examined:number;within10:number;beyond20OrDisconnected:number;plan?:RepositionPlan}
 export interface RepositionEpisode {sequence:number;lifeId:number;startedTick:number;endedTick:number|null;outcome:RepositionEnd|'OPEN';target:number;attackerId:string;distance:number;score:number;startCell:number;endCell:number;start:Vec;end:Vec;movedCells:number;lastCell:number}
 export interface RepositionState {active:RepositionEpisode|null;cooldownUntil:number;sequence:number;last:RepositionEpisode|null;selection:RepositionSelection|null}
 export function createRepositionState():RepositionState{return {active:null,cooldownUntil:0,sequence:0,last:null,selection:null};}
+const selectionObservers=new WeakMap<RepositionState,Set<(row:RepositionSelection)=>void>>();
+export function watchRepositionSelection(state:RepositionState,observer:(row:RepositionSelection)=>void){const set=selectionObservers.get(state)??new Set();set.add(observer);selectionObservers.set(state,set);return()=>{set.delete(observer);if(!set.size)selectionObservers.delete(state);};}
 const observers=new WeakMap<RepositionState,Set<(row:RepositionEpisode)=>void>>();
 export function watchReposition(state:RepositionState,observer:(row:RepositionEpisode)=>void){const set=observers.get(state)??new Set();set.add(observer);observers.set(state,set);return()=>{set.delete(observer);if(!set.size)observers.delete(state);};}
 function publish(state:RepositionState,row:RepositionEpisode){for(const observer of observers.get(state)??[])observer(structuredClone(row));}
@@ -39,11 +42,12 @@ type FindPath=(map:MapDefinition,start:number,goal:(id:number)=>boolean,allowed:
 // Public ownership/damage only. At most eight destinations, deterministic ties,
 // no opponent positions used to choose a remote destination and no RNG draws.
 export function selectReposition(obs:BotObservation,emotion:BotEmotion,state:RepositionState,identity:Readonly<BotIdentity>|undefined,findPath:FindPath):RepositionSelection {
- const result:RepositionSelection={reason:'NO_ACTIVE_DAMAGE',nearBlocked:0,examined:0,within10:0,beyond20OrDisconnected:0};
- if(obs.tick<state.cooldownUntil)return {...result,reason:'COOLDOWN'};
+ const result:RepositionSelection={reason:'NO_ACTIVE_DAMAGE',startChecked:0,startRejected:0,nearBlocked:0,examined:0,within10:0,beyond20OrDisconnected:0};
+ const finish=()=>{for(const observer of selectionObservers.get(state)??[])observer(structuredClone(result));return result;};
+ if(obs.tick<state.cooldownUntil){result.reason='COOLDOWN';return finish();}
  const active=new Set(obs.roster?.map(p=>p.participantId)),eligible=new Set<string>();
  for(const region of emotion.damage.regions.values())if(active.has(region.attackerId)&&((emotion.damage.recent.get(region.attackerId)??[]).filter(s=>s.tick>obs.tick-C.damageWindow*obs.config.simulationHz).reduce((n,s)=>n+s.cells,0)>=C.damageCells||(emotion.grudge.get(region.attackerId)?.amount??0)>=C.grudgeThreshold))eligible.add(region.attackerId);
- if(!eligible.size)return result;
+ if(!eligible.size)return finish();
  const owner=obs.self.slot+1,targets=new Map<number,{tick:number;groups:Map<string,number>}>();
  for(const [id,region]of emotion.damage.regions){if(!eligible.has(region.attackerId))continue;const origin=obs.map.cells[id],seen=new Set([id]),queue=[id],weight=damageWeight(region,obs.tick,obs.config.simulationHz);
   for(let i=0;i<queue.length;i++){const current=queue[i],cell=obs.map.cells[current];if(obs.owners[current]===owner&&cell.neighbors.some(n=>n>=0&&obs.owners[n]!==owner)){const entry=targets.get(current)??{tick:region.tick,groups:new Map<string,number>()};entry.tick=Math.max(entry.tick,region.tick);entry.groups.set(region.attackerId,(entry.groups.get(region.attackerId)??0)+weight);targets.set(current,entry);}
@@ -67,5 +71,11 @@ export function selectReposition(obs:BotObservation,emotion:BotEmotion,state:Rep
   }
  }
  plans.sort((a,b)=>b.score-a.score||a.distance-b.distance||a.target-b.target||(a.attackerId<b.attackerId?-1:a.attackerId>b.attackerId?1:0));
- if(plans.length){result.plan=plans[0];result.reason='SELECTED';}else if(result.nearBlocked)result.reason='NEAR_HEAD';else if(result.examined>0)result.reason='LOW_PRIORITY';return result;
+ // Only positive score-ranked plans are forecast. All attacker entries for a
+ // destination share the same owned path; cache avoids repeated projections.
+ const checked=new Map<number,RepositionStartSafety>();
+ for(const plan of plans){let safety=checked.get(plan.target);if(!safety){safety=evaluateRepositionStartSafety(obs,plan.path);checked.set(plan.target,safety);result.startChecked++;if(!safety.safe){result.startRejected++;result.firstStartRejection??=safety;}}
+  if(safety.safe){result.plan=plan;result.reason='SELECTED';return finish();}
+ }
+ if(plans.length)result.reason='PHYSICAL_START_UNSAFE';else if(result.nearBlocked)result.reason='NEAR_HEAD';else if(result.examined>0)result.reason='LOW_PRIORITY';return finish();
 }

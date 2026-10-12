@@ -35,7 +35,7 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   // Keep real ownership, capture, wall and successful-spawn assertions intact.
   // Ownership, real captures, wall safety and successful spawn evidence guard the new pin.
   // Initial anchors and observer equivalence remain checked separately.
-  const radius=22,expected=padded?'6e4e6fd4d3d3a98daa895b843bd8c15db76ba0d21f19e156c38026c9e6424cc9':'4703d35ec288c63c0f93e6feb7323a4f657a58190a2db6f289313eba7c943870';
+  const radius=22,expected=padded?'e1898b0e77ee1ff17cc538bf611a173125b897ad2e3f42f05d8b0995a8acd752':'359ff58fe743bda0bfd6f3b3a3910ed0493eb96179a273fd961d3a348ff2594b';
   const spawnTraces:SpawnAttemptTrace[]=[];let captures=0,walls=0;
   const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,t=>spawnTraces.push(t));setWallMargin(m.map,padded);
   for(let tick=0;tick<1200;tick++){

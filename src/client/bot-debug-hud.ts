@@ -71,6 +71,7 @@ export class BotDebugHud {
   else lines.push('REPOSITION: '+(selection?.reason??'미평가')+' · 봇 전체 재시도 대기 '+Math.max(0,(rp.cooldownUntil-snapshot.tick)/snapshot.simulationHz).toFixed(1)+'초');
   if(last)lines.push('최근 재배치 t'+last.startedTick+'→'+last.endedTick+' · '+last.outcome+' · 목적지 '+last.target+' · 실제 이동 '+last.movedCells+'칸');
   if(selection)lines.push('재배치 경계 평가 '+selection.examined+'/8 · 전체 경계 중 10칸 이내 '+selection.within10+' · 20칸 내 경로 없음 '+selection.beyond20OrDisconnected+' · 근접 차단 '+selection.nearBlocked);
+  if(selection)lines.push('재배치 시작 조향 검사 '+selection.startChecked+' · 제외 '+selection.startRejected+(selection.firstStartRejection?' · '+selection.firstStartRejection.reason+' · 첫 외부 칸 '+selection.firstStartRejection.firstCell+' / '+selection.firstStartRejection.entrySeconds?.toFixed(3)+'초':''));
   lines.push('재배치 집계: 도착 '+rp.stats.arrivals+' / 중단 '+rp.stats.aborts+' / A→B→A 왕복 '+rp.stats.pingPong);
   if(trace?.emotion)lines.push('이번 판단 조절값: 확장 '+trace.emotion.expansionScale.toFixed(2)+' / 위험 '+trace.emotion.riskScale.toFixed(2));
   const launch=bot.departure,lastLaunch=launch?.lastBlock;

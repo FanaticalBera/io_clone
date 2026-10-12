@@ -164,3 +164,24 @@ test('departure HUD separates first-trail safety from danger and counts actual b
  const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(7).click();await expect(hud.locator('pre')).toContainText('LAUNCH_BLOCKED');await expect(hud.locator('pre')).toContainText('PREDICTED_OVERLAP #9');await expect(hud.locator('pre')).toContainText('사전 필터 7칸');await expect(hud.locator('pre')).toContainText('봇 생존 분당');
  const row=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().botDiagnostics().bots.find((b:any)=>b.slot===7));expect(row.trailLength).toBe(0);expect(row.goal).toBe('RETURN');expect(row.departure.blocks).toBeGreaterThanOrEqual(1);expect(row.planTrace.expansionPlan).toBeUndefined();expect(row.reclaim.active).toBeNull();expect(row.reclaim.recent.at(-1).outcome).toBe('LAUNCH_BLOCKED');expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getScene().botDebugOverlayState().expected)).toBe(0);expect(errors).toEqual([]);
 });
+
+test('reposition HUD reports a physically rejected start without creating an episode',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));
+ await page.goto('/?debug=1&spectate=1&experimentSeed=137');await page.getByTestId('nickname').fill('검증');await page.getByTestId('practice').click();
+ const selected=await page.evaluate(async()=>{
+  const api=(window as any).__HEXHOLD_TEST__,practice=api.getPractice();practice.setPaused(true);const m=practice.match,a=m.participants[7],b=m.participants[10];
+  const territory=await import('/src/shared/territory.ts' as string),bot=await import('/src/shared/bot.ts' as string),director=await import('/src/shared/bot-director.ts' as string),game=await import('/src/shared/game.ts' as string);
+  const id=(q:number,r=0)=>m.map.byKey.get(q+','+r),memory=practice.memories.get(a.participantId);
+  for(const p of m.participants){territory.clearTrail(m,p);territory.neutralizeTerritory(m,p);p.lifeState='DEAD_WAIT';p.respawnAtTick=Infinity;}
+  for(const [p,q]of [[a,0],[b,25]] as const){p.lifeState='ALIVE';p.cellId=id(q);p.position={...m.map.cells[p.cellId].center};p.direction={x:p===a?-1:1,y:0};p.targetDirection=null;territory.setOwner(m,p.cellId,p.slot+1);}
+  for(let q=0;q<=14;q++)for(let r=0;r<=0;r++)territory.setOwner(m,id(q,r),a.slot+1);
+  memory.path=[];memory.goal='EXPAND';memory.expansion=undefined;memory.nextDecisionTick=0;memory.lastProgressTick=m.tick;memory.plannedLifeId=a.lifeId;memory.attackSlot=null;memory.attackTarget=null;
+  memory.emotion.damage.regions.clear();memory.emotion.damage.recent.clear();memory.emotion.lifeId=a.lifeId;memory.emotion.matchId=m.matchId;memory.emotion.grudge.set(b.participantId,{amount:12,tick:m.tick});
+  for(const q of [17,18])for(const r of [-1,0,1]){territory.setOwner(m,id(q,r),b.slot+1);memory.emotion.damage.regions.set(id(q,r),{attackerId:b.participantId,tick:m.tick});}
+  memory.emotion.damage.recent.set(b.participantId,[{tick:m.tick,cells:6,observedCells:0}]);
+  const advance=()=>{game.stepMatch(m,director.getBotInputs(m,practice.memories,new Set([a.participantId])));practice.botDebug.afterTick();practice.publish(game.buildView(m),null);};advance();
+  (window as any).__REPOSITION_FIXTURE__={practice,a,memory,advance};return a.participantId;
+ });
+ const hud=page.locator('#bot-debug-hud');await hud.locator('div>button').nth(7).click();await expect(hud.locator('pre')).toContainText('PHYSICAL_START_UNSAFE');await expect(hud.locator('pre')).toContainText('재배치 시작 조향 검사');await expect(hud.locator('pre')).toContainText('LEAVES_HOME');
+ const row=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().botDiagnostics().bots.find((b:any)=>b.slot===7));expect(row.reposition.active).toBeNull();expect(row.reposition.sequence).toBe(0);expect(row.reposition.cooldownUntil).toBe(0);expect(row.reposition.selection.startRejected).toBeGreaterThan(0);expect(row.reposition.stats.starts).toBe(0);expect(row.reposition.stats.aborts).toBe(0);expect(row.reposition.stats.unsafeSelections).toBe(1);expect(errors).toEqual([]);expect(selected).toBeTruthy();
+});

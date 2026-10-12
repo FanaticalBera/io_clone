@@ -1,0 +1,3552 @@
+{
+  "cumulativePaired": {
+    "rp": {
+      "deaths": {
+        "positive": 7,
+        "negative": 1,
+        "ties": 0,
+        "sumDelta": 19,
+        "leaveOneOutSums": [
+          18,
+          12,
+          18,
+          18,
+          13,
+          21,
+          16,
+          17
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "net": {
+        "positive": 7,
+        "negative": 1,
+        "ties": 0,
+        "sumDelta": 5112,
+        "leaveOneOutSums": [
+          4774,
+          5246,
+          4033,
+          4296,
+          4035,
+          4809,
+          4457,
+          4134
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "totalCapture": {
+        "positive": 1,
+        "negative": 7,
+        "ties": 0,
+        "sumDelta": -1660,
+        "leaveOneOutSums": [
+          -1423,
+          -1145,
+          -1349,
+          -1507,
+          -1767,
+          -1532,
+          -1468,
+          -1429
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "reclaimed": {
+        "positive": 3,
+        "negative": 5,
+        "ties": 0,
+        "sumDelta": -146,
+        "leaveOneOutSums": [
+          -59,
+          -34,
+          -156,
+          -120,
+          -113,
+          -145,
+          -236,
+          -159
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "tickMs": {
+        "positive": 0,
+        "negative": 8,
+        "ties": 0,
+        "sumDelta": -1.1992658333332895,
+        "leaveOneOutSums": [
+          -1.0592923611110825,
+          -1.0213623055555132,
+          -1.1817743888887908,
+          -1.094945638888845,
+          -0.8134878333333306,
+          -1.1938270277777656,
+          -1.037477138888789,
+          -0.9926941388889099
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      }
+    },
+    "reachable": {
+      "deaths": {
+        "positive": 6,
+        "negative": 2,
+        "ties": 0,
+        "sumDelta": 21,
+        "leaveOneOutSums": [
+          20,
+          16,
+          19,
+          22,
+          16,
+          25,
+          18,
+          11
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "net": {
+        "positive": 7,
+        "negative": 1,
+        "ties": 0,
+        "sumDelta": 3074,
+        "leaveOneOutSums": [
+          2251,
+          2576,
+          2440,
+          2827,
+          2355,
+          2931,
+          3221,
+          2917
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "totalCapture": {
+        "positive": 2,
+        "negative": 6,
+        "ties": 0,
+        "sumDelta": -2171,
+        "leaveOneOutSums": [
+          -1781,
+          -1953,
+          -1632,
+          -1914,
+          -2214,
+          -2212,
+          -1690,
+          -1801
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "reclaimed": {
+        "positive": 4,
+        "negative": 4,
+        "ties": 0,
+        "sumDelta": 442,
+        "leaveOneOutSums": [
+          367,
+          484,
+          450,
+          258,
+          468,
+          452,
+          210,
+          405
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "tickMs": {
+        "positive": 1,
+        "negative": 7,
+        "ties": 0,
+        "sumDelta": -1.2100978611110453,
+        "leaveOneOutSums": [
+          -1.1440124166665915,
+          -0.9956650833332721,
+          -1.0539323611109928,
+          -1.1008409444443767,
+          -0.8388168333333299,
+          -0.9890307499999547,
+          -1.282053555555458,
+          -1.0663330833333418
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      }
+    },
+    "counter": {
+      "deaths": {
+        "positive": 5,
+        "negative": 2,
+        "ties": 1,
+        "sumDelta": 20,
+        "leaveOneOutSums": [
+          21,
+          13,
+          18,
+          20,
+          16,
+          24,
+          15,
+          13
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "net": {
+        "positive": 7,
+        "negative": 1,
+        "ties": 0,
+        "sumDelta": 2403,
+        "leaveOneOutSums": [
+          2319,
+          1863,
+          1770,
+          2381,
+          1794,
+          2260,
+          2669,
+          1765
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "totalCapture": {
+        "positive": 2,
+        "negative": 6,
+        "ties": 0,
+        "sumDelta": -2740,
+        "leaveOneOutSums": [
+          -2320,
+          -2230,
+          -2200,
+          -2289,
+          -2756,
+          -2781,
+          -2195,
+          -2409
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "reclaimed": {
+        "positive": 5,
+        "negative": 3,
+        "ties": 0,
+        "sumDelta": 515,
+        "leaveOneOutSums": [
+          449,
+          629,
+          523,
+          300,
+          430,
+          525,
+          319,
+          430
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "tickMs": {
+        "positive": 1,
+        "negative": 7,
+        "ties": 0,
+        "sumDelta": -0.8479925555555465,
+        "leaveOneOutSums": [
+          -0.7761388611110953,
+          -0.8263771111111016,
+          -0.6783475833332586,
+          -0.8436837222222193,
+          -0.5299238611111408,
+          -0.6210501111111326,
+          -0.9453993055554988,
+          -0.7150273333333788
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      }
+    },
+    "departure": {
+      "deaths": {
+        "positive": 4,
+        "negative": 3,
+        "ties": 1,
+        "sumDelta": 0,
+        "leaveOneOutSums": [
+          2,
+          -2,
+          1,
+          0,
+          -1,
+          6,
+          -1,
+          -5
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "net": {
+        "positive": 2,
+        "negative": 6,
+        "ties": 0,
+        "sumDelta": -3088,
+        "leaveOneOutSums": [
+          -3024,
+          -1578,
+          -3654,
+          -3239,
+          -2379,
+          -2302,
+          -2504,
+          -2936
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "totalCapture": {
+        "positive": 0,
+        "negative": 8,
+        "ties": 0,
+        "sumDelta": -4825,
+        "leaveOneOutSums": [
+          -4229,
+          -3748,
+          -4156,
+          -4580,
+          -4338,
+          -4488,
+          -4115,
+          -4121
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "reclaimed": {
+        "positive": 8,
+        "negative": 0,
+        "ties": 0,
+        "sumDelta": 1569,
+        "leaveOneOutSums": [
+          1444,
+          1303,
+          1424,
+          1434,
+          1401,
+          1255,
+          1225,
+          1497
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "tickMs": {
+        "positive": 8,
+        "negative": 0,
+        "ties": 0,
+        "sumDelta": 2.6269363888890562,
+        "leaveOneOutSums": [
+          2.206948611111277,
+          2.3413046388890346,
+          2.20395130555578,
+          2.500982250000153,
+          2.2774535555556783,
+          2.244005055555673,
+          2.25996980555569,
+          2.353939500000108
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      }
+    },
+    "start": {
+      "deaths": {
+        "positive": 3,
+        "negative": 3,
+        "ties": 2,
+        "sumDelta": -4,
+        "leaveOneOutSums": [
+          -2,
+          -5,
+          -3,
+          -4,
+          -5,
+          3,
+          -4,
+          -8
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "net": {
+        "positive": 3,
+        "negative": 5,
+        "ties": 0,
+        "sumDelta": -3210,
+        "leaveOneOutSums": [
+          -3146,
+          -1637,
+          -3524,
+          -3231,
+          -2501,
+          -2116,
+          -2594,
+          -3721
+        ],
+        "direction": "inconclusive",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "totalCapture": {
+        "positive": 0,
+        "negative": 8,
+        "ties": 0,
+        "sumDelta": -4825,
+        "leaveOneOutSums": [
+          -4229,
+          -3791,
+          -3904,
+          -4639,
+          -4338,
+          -4419,
+          -4150,
+          -4305
+        ],
+        "direction": "decrease",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "reclaimed": {
+        "positive": 8,
+        "negative": 0,
+        "ties": 0,
+        "sumDelta": 1777,
+        "leaveOneOutSums": [
+          1652,
+          1429,
+          1596,
+          1661,
+          1609,
+          1362,
+          1428,
+          1702
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      },
+      "tickMs": {
+        "positive": 8,
+        "negative": 0,
+        "ties": 0,
+        "sumDelta": 2.4631256388890246,
+        "leaveOneOutSums": [
+          2.0637461111112416,
+          2.173160805555688,
+          1.9207617777779604,
+          2.401155888889003,
+          2.155763527777866,
+          2.0660384722223375,
+          2.1439494166668016,
+          2.3173034722222736
+        ],
+        "direction": "increase",
+        "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+      }
+    }
+  },
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "measurement": "Same current audit and growth helper on exact historical shared sources. Reclaim at tick boundaries, 60s lost-cell memory reset on respawn. Net excludes initial/spawn grants and adds pre-neutralization death reset losses; not final held territory.",
+  "interpretation": "Chronological nested additions. Adjacent contrasts conditional on earlier changes, not factorial independent effects. cbcc9c7 is an extra behavioral reachability correction separated from e4e2f08. Observer-only changes between listed commits do not define extra behavior arms.",
+  "armTotals": {
+    "base": {
+      "deaths": 94,
+      "net": 57009,
+      "totalCapture": 73589,
+      "reclaimed": 1416,
+      "tickMs": 2.7460055381944404,
+      "walls": 0,
+      "tv": 0.17999553110140176
+    },
+    "rp": {
+      "deaths": 113,
+      "net": 62121,
+      "totalCapture": 71929,
+      "reclaimed": 1270,
+      "tickMs": 2.5899098437500006,
+      "walls": 0,
+      "tv": 0.1220650353532727
+    },
+    "reachable": {
+      "deaths": 115,
+      "net": 60083,
+      "totalCapture": 71418,
+      "reclaimed": 1858,
+      "tickMs": 2.606971729166665,
+      "walls": 0,
+      "tv": 0.11147066745034587
+    },
+    "counter": {
+      "deaths": 114,
+      "net": 59412,
+      "totalCapture": 70849,
+      "reclaimed": 1931,
+      "tickMs": 2.6640721076388862,
+      "walls": 0,
+      "tv": 0.12679440443901485
+    },
+    "departure": {
+      "deaths": 94,
+      "net": 53921,
+      "totalCapture": 68764,
+      "reclaimed": 2985,
+      "tickMs": 3.085756833333338,
+      "walls": 0,
+      "tv": 0.1925429835890981
+    },
+    "start": {
+      "deaths": 90,
+      "net": 53799,
+      "totalCapture": 68764,
+      "reclaimed": 3193,
+      "tickMs": 3.0395130277777853,
+      "walls": 0,
+      "tv": 0.1776323888341682
+    }
+  },
+  "bySeed": {
+    "base": {
+      "4": {
+        "deaths": 14,
+        "net": 6792,
+        "totalCapture": 9100,
+        "reclaimed": 188,
+        "tickMs": 2.7726926388889033,
+        "walls": 0,
+        "tv": 0.16759259259259263,
+        "trajectoryHash": "3a75d510bf8d593a2cfcce83efccf56360938f521c0ae48f5a2ae30480af406a"
+      },
+      "19": {
+        "deaths": 10,
+        "net": 7483,
+        "totalCapture": 9380,
+        "reclaimed": 198,
+        "tickMs": 2.6737865277777746,
+        "walls": 0,
+        "tv": 0.22128060263653485,
+        "trajectoryHash": "9b775332bf65bb40f1fc8011d4379df769701cd5555e709710fb4b1e5ffd06f2"
+      },
+      "73": {
+        "deaths": 11,
+        "net": 6710,
+        "totalCapture": 9349,
+        "reclaimed": 237,
+        "tickMs": 2.8162527500000496,
+        "walls": 0,
+        "tv": 0.1361435807519969,
+        "trajectoryHash": "4e93dfeb2004e865f4890ebc25567ba1e9a1575811e833232f16795259db836b"
+      },
+      "11": {
+        "deaths": 13,
+        "net": 7127,
+        "totalCapture": 9214,
+        "reclaimed": 205,
+        "tickMs": 2.693915944444436,
+        "walls": 0,
+        "tv": 0.12874779541446213,
+        "trajectoryHash": "901871fdc52e12bea68b7631f48210665137da7ed0f8ec5276506b7231c9b3d1"
+      },
+      "31": {
+        "deaths": 9,
+        "net": 7330,
+        "totalCapture": 9126,
+        "reclaimed": 139,
+        "tickMs": 2.8371957499999554,
+        "walls": 0,
+        "tv": 0.15367231638418077,
+        "trajectoryHash": "c5a1314ea812f84f64103a495a35eb25eac7559ff0f652cc8eff3d44f689f040"
+      },
+      "47": {
+        "deaths": 18,
+        "net": 8027,
+        "totalCapture": 9404,
+        "reclaimed": 106,
+        "tickMs": 2.5845842222221997,
+        "walls": 0,
+        "tv": 0.19946297478349698,
+        "trajectoryHash": "1dfec5cc352670660e3807a0650964798f7f8df4d59e5bd5f9678248845824d8"
+      },
+      "101": {
+        "deaths": 10,
+        "net": 6981,
+        "totalCapture": 9117,
+        "reclaimed": 185,
+        "tickMs": 2.706216000000002,
+        "walls": 0,
+        "tv": 0.2888525635878512,
+        "trajectoryHash": "9dde5022d4c5553b3c04ecabec28260d25ff29490d07fc6f25509e158593f7d3"
+      },
+      "137": {
+        "deaths": 9,
+        "net": 6559,
+        "totalCapture": 8899,
+        "reclaimed": 158,
+        "tickMs": 2.8940572777777236,
+        "walls": 0,
+        "tv": 0.1442118226600985,
+        "trajectoryHash": "9807432c9170c13289d5712df076440a0c87bcbf6bc8bff9210af7a3d88b9892"
+      }
+    },
+    "rp": {
+      "4": {
+        "deaths": 15,
+        "net": 7130,
+        "totalCapture": 8863,
+        "reclaimed": 101,
+        "tickMs": 2.6327191666666963,
+        "walls": 0,
+        "tv": 0.1097348906192065,
+        "trajectoryHash": "c86507ff094482daee7b5253fba853661510090fe8f675ea69ac6e9876452cc7"
+      },
+      "19": {
+        "deaths": 17,
+        "net": 7349,
+        "totalCapture": 8865,
+        "reclaimed": 86,
+        "tickMs": 2.4958829999999983,
+        "walls": 0,
+        "tv": 0.24079261254328593,
+        "trajectoryHash": "e48c92d6628fd4e5b25f083e0c65138efebba18b24d2293c53c07b85855b772c"
+      },
+      "73": {
+        "deaths": 12,
+        "net": 7789,
+        "totalCapture": 9038,
+        "reclaimed": 247,
+        "tickMs": 2.798761305555551,
+        "walls": 0,
+        "tv": 0.06665180230397622,
+        "trajectoryHash": "245746e6a3842f455592e1a383d1570bbbe6ce558eeb1bf37d15d3fd6d352813"
+      },
+      "11": {
+        "deaths": 14,
+        "net": 7943,
+        "totalCapture": 9061,
+        "reclaimed": 179,
+        "tickMs": 2.5895957499999915,
+        "walls": 0,
+        "tv": 0.11583971583971585,
+        "trajectoryHash": "fd89aeecbe4eab72ee44733bd5864f889d6710c0911d8893843462e6dd81ebc2"
+      },
+      "31": {
+        "deaths": 15,
+        "net": 8407,
+        "totalCapture": 9233,
+        "reclaimed": 106,
+        "tickMs": 2.4514177499999965,
+        "walls": 0,
+        "tv": 0.11270555305643024,
+        "trajectoryHash": "4d5599c4a11b899ba48254323baf77375ce8b5bfa90537aa808ba0286a873179"
+      },
+      "47": {
+        "deaths": 16,
+        "net": 8330,
+        "totalCapture": 9276,
+        "reclaimed": 105,
+        "tickMs": 2.579145416666676,
+        "walls": 0,
+        "tv": 0.06724763979665939,
+        "trajectoryHash": "0bf9e3b471791427a45b8ff70ff48edf9d741a0f0c63a1aeaa75b8460bc1bae6"
+      },
+      "101": {
+        "deaths": 13,
+        "net": 7636,
+        "totalCapture": 8925,
+        "reclaimed": 275,
+        "tickMs": 2.5444273055555016,
+        "walls": 0,
+        "tv": 0.17062309240859794,
+        "trajectoryHash": "e31b990d7bd15dbdba8e9551c17c8b3642d58f5b6924c7252af84c4feb9ad40a"
+      },
+      "137": {
+        "deaths": 11,
+        "net": 7537,
+        "totalCapture": 8668,
+        "reclaimed": 171,
+        "tickMs": 2.687485583333344,
+        "walls": 0,
+        "tv": 0.09292497625830957,
+        "trajectoryHash": "df06bc9684f23b2d723ffc68770f8c398f47a908616f8ec1ddc8285d89ec8134"
+      }
+    },
+    "reachable": {
+      "4": {
+        "deaths": 15,
+        "net": 7615,
+        "totalCapture": 8710,
+        "reclaimed": 263,
+        "tickMs": 2.7066071944444494,
+        "walls": 0,
+        "tv": 0.12304008252284118,
+        "trajectoryHash": "880a639945fa64421887bd7f8d77b870c3dca14faaa3f81889c7a3566c34d6c9"
+      },
+      "19": {
+        "deaths": 15,
+        "net": 7981,
+        "totalCapture": 9162,
+        "reclaimed": 156,
+        "tickMs": 2.4593537500000013,
+        "walls": 0,
+        "tv": 0.18195704779189353,
+        "trajectoryHash": "9da4c5a99a3836a84eb8fbe5b8448bc8318146c5e71fac9e42465d34c36303db"
+      },
+      "73": {
+        "deaths": 13,
+        "net": 7344,
+        "totalCapture": 8810,
+        "reclaimed": 229,
+        "tickMs": 2.660087249999997,
+        "walls": 0,
+        "tv": 0.03598667699117475,
+        "trajectoryHash": "c740ca0bcaf4689c6181765069b2f15e1416b052627aeb52736512db64b49747"
+      },
+      "11": {
+        "deaths": 12,
+        "net": 7374,
+        "totalCapture": 8957,
+        "reclaimed": 389,
+        "tickMs": 2.5846590277777675,
+        "walls": 0,
+        "tv": 0.07485693457262621,
+        "trajectoryHash": "5885f43c32d82cf3b2f8b76052458c82eb235b8ba488b0b88682d7fe4e8e2f18"
+      },
+      "31": {
+        "deaths": 14,
+        "net": 8049,
+        "totalCapture": 9169,
+        "reclaimed": 113,
+        "tickMs": 2.46591472222224,
+        "walls": 0,
+        "tv": 0.137203848218341,
+        "trajectoryHash": "47bc5c4b0504f6ed5c9bb2abd5c02771949e323676c655c4644c795d84ffd52b"
+      },
+      "47": {
+        "deaths": 14,
+        "net": 8170,
+        "totalCapture": 9445,
+        "reclaimed": 96,
+        "tickMs": 2.363517111111109,
+        "walls": 0,
+        "tv": 0.1579925702474722,
+        "trajectoryHash": "2d0e1bf4d9dd08c19771ee327a4214f5a2e4d4f12600987fdde48b8809fb33eb"
+      },
+      "101": {
+        "deaths": 13,
+        "net": 6834,
+        "totalCapture": 8636,
+        "reclaimed": 417,
+        "tickMs": 2.778171694444415,
+        "walls": 0,
+        "tv": 0.040951588680467624,
+        "trajectoryHash": "e0c08c8a871de7b682b18bae763bdd134563ec77e92fea59ba2f3d3137c8e846"
+      },
+      "137": {
+        "deaths": 19,
+        "net": 6716,
+        "totalCapture": 8529,
+        "reclaimed": 195,
+        "tickMs": 2.75029250000002,
+        "walls": 0,
+        "tv": 0.13977659057795044,
+        "trajectoryHash": "0c323de92a586c0612022f19500b09cefe42abf587b19ac8a6be020d32ff3982"
+      }
+    },
+    "counter": {
+      "4": {
+        "deaths": 13,
+        "net": 6876,
+        "totalCapture": 8680,
+        "reclaimed": 254,
+        "tickMs": 2.700838944444452,
+        "walls": 0,
+        "tv": 0.23369682680027506,
+        "trajectoryHash": "1eb86a0fdcb81a5a089bc0e708e4d7b09916ba4ead94b0837db8f3b09643554b"
+      },
+      "19": {
+        "deaths": 17,
+        "net": 8023,
+        "totalCapture": 8870,
+        "reclaimed": 84,
+        "tickMs": 2.6521710833333296,
+        "walls": 0,
+        "tv": 0.1383443871284696,
+        "trajectoryHash": "957f71c88396670b7690a1e289e3665a05f4e3b10f62f6862af303f39deea7c9"
+      },
+      "73": {
+        "deaths": 13,
+        "net": 7343,
+        "totalCapture": 8809,
+        "reclaimed": 229,
+        "tickMs": 2.6466077777777617,
+        "walls": 0,
+        "tv": 0.03381885127772505,
+        "trajectoryHash": "71b7a93b38c3ec2c18bba80b485bfe83c9ec9e19f67047fe7fcd6b3040e8a268"
+      },
+      "11": {
+        "deaths": 13,
+        "net": 7149,
+        "totalCapture": 8763,
+        "reclaimed": 420,
+        "tickMs": 2.689607111111109,
+        "walls": 0,
+        "tv": 0.060468628179625616,
+        "trajectoryHash": "8f855b9c40c73edfd00648012b319b5d3ac39bb078f824fe377fe7630a3eaf61"
+      },
+      "31": {
+        "deaths": 13,
+        "net": 7939,
+        "totalCapture": 9142,
+        "reclaimed": 224,
+        "tickMs": 2.5191270555555496,
+        "walls": 0,
+        "tv": 0.1346399449847726,
+        "trajectoryHash": "071fb144bf4d9a6f9fd23a2871992c8fff615ba167c07176867f4a906b2cb171"
+      },
+      "47": {
+        "deaths": 14,
+        "net": 8170,
+        "totalCapture": 9445,
+        "reclaimed": 96,
+        "tickMs": 2.357641777777786,
+        "walls": 0,
+        "tv": 0.1579925702474722,
+        "trajectoryHash": "2d0e1bf4d9dd08c19771ee327a4214f5a2e4d4f12600987fdde48b8809fb33eb"
+      },
+      "101": {
+        "deaths": 15,
+        "net": 6715,
+        "totalCapture": 8572,
+        "reclaimed": 381,
+        "tickMs": 2.8036227499999544,
+        "walls": 0,
+        "tv": 0.05097246574452882,
+        "trajectoryHash": "48a313617e04748c1f3e2f4cc786f8267078ed05890936de80a506ea23fe56e9"
+      },
+      "137": {
+        "deaths": 16,
+        "net": 7197,
+        "totalCapture": 8568,
+        "reclaimed": 243,
+        "tickMs": 2.761092055555556,
+        "walls": 0,
+        "tv": 0.20442156114924992,
+        "trajectoryHash": "9997b1c4ba70693aef35fa85ada863b6320efca84f11984ee1982d21d31b13d7"
+      }
+    },
+    "departure": {
+      "4": {
+        "deaths": 12,
+        "net": 6728,
+        "totalCapture": 8504,
+        "reclaimed": 313,
+        "tickMs": 3.1926804166666827,
+        "walls": 0,
+        "tv": 0.33111340966967295,
+        "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a"
+      },
+      "19": {
+        "deaths": 12,
+        "net": 5973,
+        "totalCapture": 8303,
+        "reclaimed": 464,
+        "tickMs": 2.959418277777796,
+        "walls": 0,
+        "tv": 0.27169185700259146,
+        "trajectoryHash": "c342b5ffe97e9ecc3e1fad7e1d501bd1d9753b06b9e1c14eb501ffc513389c56"
+      },
+      "73": {
+        "deaths": 10,
+        "net": 7276,
+        "totalCapture": 8680,
+        "reclaimed": 382,
+        "tickMs": 3.239237833333326,
+        "walls": 0,
+        "tv": 0.18297779076563414,
+        "trajectoryHash": "f0f47fdea8fa34cd0df11bcd82b355fcd63ad8de42b125465b7865517bcc47c5"
+      },
+      "11": {
+        "deaths": 13,
+        "net": 7278,
+        "totalCapture": 8969,
+        "reclaimed": 340,
+        "tickMs": 2.819870083333339,
+        "walls": 0,
+        "tv": 0.0863312647440479,
+        "trajectoryHash": "fa2c8ac633f0488d5a11361e96f98f1305250cbd8a179906fdefa1854c1985ee"
+      },
+      "31": {
+        "deaths": 10,
+        "net": 6621,
+        "totalCapture": 8639,
+        "reclaimed": 307,
+        "tickMs": 3.1866785833333333,
+        "walls": 0,
+        "tv": 0.16585611255996646,
+        "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd"
+      },
+      "47": {
+        "deaths": 12,
+        "net": 7241,
+        "totalCapture": 9067,
+        "reclaimed": 420,
+        "tickMs": 2.967515555555583,
+        "walls": 0,
+        "tv": 0.12094606855753351,
+        "trajectoryHash": "dd08fc80bbf576feb69649bc60a9e9c901a92f1cce08d18be141f22cf6b0ee3e"
+      },
+      "101": {
+        "deaths": 11,
+        "net": 6397,
+        "totalCapture": 8407,
+        "reclaimed": 529,
+        "tickMs": 3.0731825833333684,
+        "walls": 0,
+        "tv": 0.21054613935969868,
+        "trajectoryHash": "1a8ac7204fd9ffc5813a1abdfc3b9d8e9187ba18fa415c5bc0a521640083a2e4"
+      },
+      "137": {
+        "deaths": 14,
+        "net": 6407,
+        "totalCapture": 8195,
+        "reclaimed": 230,
+        "tickMs": 3.167054166666672,
+        "walls": 0,
+        "tv": 0.17088122605363987,
+        "trajectoryHash": "2db2106475096c456d69a4ec0ff1374100d1b492754dd44bd26f46ceb622d0db"
+      }
+    },
+    "start": {
+      "4": {
+        "deaths": 12,
+        "net": 6728,
+        "totalCapture": 8504,
+        "reclaimed": 313,
+        "tickMs": 3.1720721666666862,
+        "walls": 0,
+        "tv": 0.33111340966967295,
+        "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a"
+      },
+      "19": {
+        "deaths": 11,
+        "net": 5910,
+        "totalCapture": 8346,
+        "reclaimed": 546,
+        "tickMs": 2.963751361111111,
+        "walls": 0,
+        "tv": 0.24689123512652922,
+        "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832"
+      },
+      "73": {
+        "deaths": 10,
+        "net": 7024,
+        "totalCapture": 8428,
+        "reclaimed": 418,
+        "tickMs": 3.3586166111111138,
+        "walls": 0,
+        "tv": 0.16856600189933524,
+        "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033"
+      },
+      "11": {
+        "deaths": 13,
+        "net": 7148,
+        "totalCapture": 9028,
+        "reclaimed": 321,
+        "tickMs": 2.7558856944444576,
+        "walls": 0,
+        "tv": 0.0974258109668591,
+        "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c"
+      },
+      "31": {
+        "deaths": 10,
+        "net": 6621,
+        "totalCapture": 8639,
+        "reclaimed": 307,
+        "tickMs": 3.144557861111114,
+        "walls": 0,
+        "tv": 0.16585611255996646,
+        "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd"
+      },
+      "47": {
+        "deaths": 11,
+        "net": 6933,
+        "totalCapture": 8998,
+        "reclaimed": 521,
+        "tickMs": 2.981671388888887,
+        "walls": 0,
+        "tv": 0.1072708548823198,
+        "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d"
+      },
+      "101": {
+        "deaths": 10,
+        "net": 6365,
+        "totalCapture": 8442,
+        "reclaimed": 534,
+        "tickMs": 3.025392222222225,
+        "walls": 0,
+        "tv": 0.21092278719397364,
+        "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d"
+      },
+      "137": {
+        "deaths": 13,
+        "net": 7070,
+        "totalCapture": 8379,
+        "reclaimed": 233,
+        "tickMs": 3.0398794444444746,
+        "walls": 0,
+        "tv": 0.0930128983746891,
+        "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a"
+      }
+    }
+  },
+  "adjacentComparisons": [
+    {
+      "before": "base",
+      "after": "rp",
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "deaths": 1,
+            "net": 338,
+            "totalCapture": -237,
+            "reclaimed": -87,
+            "tickMs": -0.13997347222220702
+          },
+          "percent": {
+            "deaths": 7.142857142857143,
+            "net": 4.976442873969376,
+            "totalCapture": -2.6043956043956045,
+            "reclaimed": -46.276595744680854,
+            "tickMs": -5.048286645947831
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "deaths": 7,
+            "net": -134,
+            "totalCapture": -515,
+            "reclaimed": -112,
+            "tickMs": -0.1779035277777763
+          },
+          "percent": {
+            "deaths": 70.0,
+            "net": -1.7907256447948683,
+            "totalCapture": -5.490405117270789,
+            "reclaimed": -56.56565656565657,
+            "tickMs": -6.653617479538827
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "deaths": 1,
+            "net": 1079,
+            "totalCapture": -311,
+            "reclaimed": 10,
+            "tickMs": -0.017491444444498683
+          },
+          "percent": {
+            "deaths": 9.090909090909092,
+            "net": 16.08047690014903,
+            "totalCapture": -3.3265589902663386,
+            "reclaimed": 4.219409282700422,
+            "tickMs": -0.6210892983415063
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "deaths": 1,
+            "net": 816,
+            "totalCapture": -153,
+            "reclaimed": -26,
+            "tickMs": -0.10432019444444451
+          },
+          "percent": {
+            "deaths": 7.6923076923076925,
+            "net": 11.449417707310229,
+            "totalCapture": -1.6605166051660516,
+            "reclaimed": -12.682926829268293,
+            "tickMs": -3.872436876123779
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "deaths": 6,
+            "net": 1077,
+            "totalCapture": 107,
+            "reclaimed": -33,
+            "tickMs": -0.3857779999999589
+          },
+          "percent": {
+            "deaths": 66.66666666666667,
+            "net": 14.693042291950887,
+            "totalCapture": 1.1724742493973264,
+            "reclaimed": -23.741007194244606,
+            "tickMs": -13.597158391343457
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "deaths": -2,
+            "net": 303,
+            "totalCapture": -128,
+            "reclaimed": -1,
+            "tickMs": -0.005438805555523896
+          },
+          "percent": {
+            "deaths": -11.11111111111111,
+            "net": 3.774760184377725,
+            "totalCapture": -1.361122926414292,
+            "reclaimed": -0.9433962264150944,
+            "tickMs": -0.21043251400984198
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "deaths": 3,
+            "net": 655,
+            "totalCapture": -192,
+            "reclaimed": 90,
+            "tickMs": -0.1617886944445006
+          },
+          "percent": {
+            "deaths": 30.0,
+            "net": 9.382609941269159,
+            "totalCapture": -2.1059559065482065,
+            "reclaimed": 48.648648648648646,
+            "tickMs": -5.978410239408107
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "deaths": 2,
+            "net": 978,
+            "totalCapture": -231,
+            "reclaimed": 13,
+            "tickMs": -0.20657169444437962
+          },
+          "percent": {
+            "deaths": 22.22222222222222,
+            "net": 14.91080957463028,
+            "totalCapture": -2.595797280593325,
+            "reclaimed": 8.227848101265822,
+            "tickMs": -7.137788737996265
+          }
+        }
+      ],
+      "totalDelta": {
+        "deaths": 19,
+        "net": 5112,
+        "totalCapture": -1660,
+        "reclaimed": -146,
+        "tickMs": -0.15609569444443983
+      },
+      "totalPercent": {
+        "deaths": 20.21276595744681,
+        "net": 8.96700520970373,
+        "totalCapture": -2.2557719224340596,
+        "reclaimed": -10.310734463276836,
+        "tickMs": -5.6844639340048895
+      },
+      "paired": {
+        "deaths": {
+          "positive": 7,
+          "negative": 1,
+          "ties": 0,
+          "sumDelta": 19,
+          "leaveOneOutSums": [
+            18,
+            12,
+            18,
+            18,
+            13,
+            21,
+            16,
+            17
+          ],
+          "direction": "increase",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "net": {
+          "positive": 7,
+          "negative": 1,
+          "ties": 0,
+          "sumDelta": 5112,
+          "leaveOneOutSums": [
+            4774,
+            5246,
+            4033,
+            4296,
+            4035,
+            4809,
+            4457,
+            4134
+          ],
+          "direction": "increase",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "totalCapture": {
+          "positive": 1,
+          "negative": 7,
+          "ties": 0,
+          "sumDelta": -1660,
+          "leaveOneOutSums": [
+            -1423,
+            -1145,
+            -1349,
+            -1507,
+            -1767,
+            -1532,
+            -1468,
+            -1429
+          ],
+          "direction": "decrease",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "reclaimed": {
+          "positive": 3,
+          "negative": 5,
+          "ties": 0,
+          "sumDelta": -146,
+          "leaveOneOutSums": [
+            -59,
+            -34,
+            -156,
+            -120,
+            -113,
+            -145,
+            -236,
+            -159
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "tickMs": {
+          "positive": 0,
+          "negative": 8,
+          "ties": 0,
+          "sumDelta": -1.1992658333332895,
+          "leaveOneOutSums": [
+            -1.0592923611110825,
+            -1.0213623055555132,
+            -1.1817743888887908,
+            -1.094945638888845,
+            -0.8134878333333306,
+            -1.1938270277777656,
+            -1.037477138888789,
+            -0.9926941388889099
+          ],
+          "direction": "decrease",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        }
+      }
+    },
+    {
+      "before": "rp",
+      "after": "reachable",
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "deaths": 0,
+            "net": 485,
+            "totalCapture": -153,
+            "reclaimed": 162,
+            "tickMs": 0.07388802777775316
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": 6.802244039270687,
+            "totalCapture": -1.7262777840460342,
+            "reclaimed": 160.3960396039604,
+            "tickMs": 2.8065290332999435
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "deaths": -2,
+            "net": 632,
+            "totalCapture": 297,
+            "reclaimed": 70,
+            "tickMs": -0.03652924999999696
+          },
+          "percent": {
+            "deaths": -11.764705882352942,
+            "net": 8.59980949789087,
+            "totalCapture": 3.350253807106599,
+            "reclaimed": 81.3953488372093,
+            "tickMs": -1.4635802239126188
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "deaths": 1,
+            "net": -445,
+            "totalCapture": -228,
+            "reclaimed": -18,
+            "tickMs": -0.1386740555555539
+          },
+          "percent": {
+            "deaths": 8.333333333333334,
+            "net": -5.713185261265888,
+            "totalCapture": -2.522682009294092,
+            "reclaimed": -7.287449392712551,
+            "tickMs": -4.954836815854407
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "deaths": -2,
+            "net": -569,
+            "totalCapture": -104,
+            "reclaimed": 210,
+            "tickMs": -0.004936722222224077
+          },
+          "percent": {
+            "deaths": -14.285714285714286,
+            "net": -7.163540224096689,
+            "totalCapture": -1.1477761836441893,
+            "reclaimed": 117.31843575418995,
+            "tickMs": -0.19063679040344783
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "deaths": -1,
+            "net": -358,
+            "totalCapture": -64,
+            "reclaimed": 7,
+            "tickMs": 0.014496972222243443
+          },
+          "percent": {
+            "deaths": -6.666666666666667,
+            "net": -4.258356131794933,
+            "totalCapture": -0.693165818260587,
+            "reclaimed": 6.60377358490566,
+            "tickMs": 0.591370941254034
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "deaths": -2,
+            "net": -160,
+            "totalCapture": 169,
+            "reclaimed": -9,
+            "tickMs": -0.21562830555556678
+          },
+          "percent": {
+            "deaths": -12.5,
+            "net": -1.9207683073229291,
+            "totalCapture": 1.821905993962915,
+            "reclaimed": -8.571428571428571,
+            "tickMs": -8.360455527716924
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "deaths": 0,
+            "net": -802,
+            "totalCapture": -289,
+            "reclaimed": 142,
+            "tickMs": 0.23374438888891325
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": -10.502881089575695,
+            "totalCapture": -3.238095238095238,
+            "reclaimed": 51.63636363636363,
+            "tickMs": 9.186522577342094
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "deaths": 8,
+            "net": -821,
+            "totalCapture": -139,
+            "reclaimed": 24,
+            "tickMs": 0.06280691666667604
+          },
+          "percent": {
+            "deaths": 72.72727272727273,
+            "net": -10.892928220777497,
+            "totalCapture": -1.6035994462390402,
+            "reclaimed": 14.035087719298245,
+            "tickMs": 2.33701408692862
+          }
+        }
+      ],
+      "totalDelta": {
+        "deaths": 2,
+        "net": -2038,
+        "totalCapture": -511,
+        "reclaimed": 588,
+        "tickMs": 0.017061885416664424
+      },
+      "totalPercent": {
+        "deaths": 1.7699115044247788,
+        "net": -3.2806941291994653,
+        "totalCapture": -0.7104227780172114,
+        "reclaimed": 46.2992125984252,
+        "tickMs": 0.6587829865135405
+      },
+      "paired": {
+        "deaths": {
+          "positive": 2,
+          "negative": 4,
+          "ties": 2,
+          "sumDelta": 2,
+          "leaveOneOutSums": [
+            2,
+            4,
+            1,
+            4,
+            3,
+            4,
+            2,
+            -6
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "net": {
+          "positive": 2,
+          "negative": 6,
+          "ties": 0,
+          "sumDelta": -2038,
+          "leaveOneOutSums": [
+            -2523,
+            -2670,
+            -1593,
+            -1469,
+            -1680,
+            -1878,
+            -1236,
+            -1217
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "totalCapture": {
+          "positive": 2,
+          "negative": 6,
+          "ties": 0,
+          "sumDelta": -511,
+          "leaveOneOutSums": [
+            -358,
+            -808,
+            -283,
+            -407,
+            -447,
+            -680,
+            -222,
+            -372
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "reclaimed": {
+          "positive": 6,
+          "negative": 2,
+          "ties": 0,
+          "sumDelta": 588,
+          "leaveOneOutSums": [
+            426,
+            518,
+            606,
+            378,
+            581,
+            597,
+            446,
+            564
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "tickMs": {
+          "positive": 4,
+          "negative": 4,
+          "ties": 0,
+          "sumDelta": -0.010832027777755826,
+          "leaveOneOutSums": [
+            -0.08472005555550899,
+            0.025697222222241134,
+            0.12784202777779807,
+            -0.005895305555531749,
+            -0.02532899999999927,
+            0.20479627777781095,
+            -0.24457641666666907,
+            -0.07363894444443186
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        }
+      }
+    },
+    {
+      "before": "reachable",
+      "after": "counter",
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "deaths": -2,
+            "net": -739,
+            "totalCapture": -30,
+            "reclaimed": -9,
+            "tickMs": -0.005768249999997366
+          },
+          "percent": {
+            "deaths": -13.333333333333334,
+            "net": -9.704530531845043,
+            "totalCapture": -0.34443168771526983,
+            "reclaimed": -3.4220532319391634,
+            "tickMs": -0.21311736744944773
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "deaths": 2,
+            "net": 42,
+            "totalCapture": -292,
+            "reclaimed": -72,
+            "tickMs": 0.1928173333333283
+          },
+          "percent": {
+            "deaths": 13.333333333333334,
+            "net": 0.5262498433780228,
+            "totalCapture": -3.1870770574110456,
+            "reclaimed": -46.15384615384615,
+            "tickMs": 7.840162617245616
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "deaths": 0,
+            "net": -1,
+            "totalCapture": -1,
+            "reclaimed": 0,
+            "tickMs": -0.013479472222235334
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": -0.013616557734204794,
+            "totalCapture": -0.011350737797956867,
+            "reclaimed": 0.0,
+            "tickMs": -0.5067304548839647
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "deaths": 1,
+            "net": -225,
+            "totalCapture": -194,
+            "reclaimed": 31,
+            "tickMs": 0.10494808333334138
+          },
+          "percent": {
+            "deaths": 8.333333333333334,
+            "net": -3.051261187957689,
+            "totalCapture": -2.165903762420453,
+            "reclaimed": 7.969151670951157,
+            "tickMs": 4.060422756171959
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "deaths": -1,
+            "net": -110,
+            "totalCapture": -27,
+            "reclaimed": 111,
+            "tickMs": 0.05321233333330966
+          },
+          "percent": {
+            "deaths": -7.142857142857143,
+            "net": -1.3666293949558952,
+            "totalCapture": -0.29447049841858436,
+            "reclaimed": 98.23008849557522,
+            "tickMs": 2.157914580491073
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "deaths": 0,
+            "net": 0,
+            "totalCapture": 0,
+            "reclaimed": 0,
+            "tickMs": -0.0058753333333232405
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": 0.0,
+            "totalCapture": 0.0,
+            "reclaimed": 0.0,
+            "tickMs": -0.2485843366947827
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "deaths": 2,
+            "net": -119,
+            "totalCapture": -64,
+            "reclaimed": -36,
+            "tickMs": 0.025451055555539615
+          },
+          "percent": {
+            "deaths": 15.384615384615385,
+            "net": -1.7412935323383085,
+            "totalCapture": -0.7410838351088467,
+            "reclaimed": -8.633093525179856,
+            "tickMs": 0.9161080867116593
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "deaths": -3,
+            "net": 481,
+            "totalCapture": 39,
+            "reclaimed": 48,
+            "tickMs": 0.0107995555555358
+          },
+          "percent": {
+            "deaths": -15.789473684210526,
+            "net": 7.1620011911852295,
+            "totalCapture": 0.457263454097784,
+            "reclaimed": 24.615384615384617,
+            "tickMs": 0.3926693453709277
+          }
+        }
+      ],
+      "totalDelta": {
+        "deaths": -1,
+        "net": -671,
+        "totalCapture": -569,
+        "reclaimed": 73,
+        "tickMs": 0.05710037847222127
+      },
+      "totalPercent": {
+        "deaths": -0.8695652173913043,
+        "net": -1.1167884426543282,
+        "totalCapture": -0.7967179142513092,
+        "reclaimed": 3.928955866523143,
+        "tickMs": 2.19029526992507
+      },
+      "paired": {
+        "deaths": {
+          "positive": 3,
+          "negative": 3,
+          "ties": 2,
+          "sumDelta": -1,
+          "leaveOneOutSums": [
+            1,
+            -3,
+            -1,
+            -2,
+            0,
+            -1,
+            -3,
+            2
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "net": {
+          "positive": 2,
+          "negative": 5,
+          "ties": 1,
+          "sumDelta": -671,
+          "leaveOneOutSums": [
+            68,
+            -713,
+            -670,
+            -446,
+            -561,
+            -671,
+            -552,
+            -1152
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "totalCapture": {
+          "positive": 1,
+          "negative": 6,
+          "ties": 1,
+          "sumDelta": -569,
+          "leaveOneOutSums": [
+            -539,
+            -277,
+            -568,
+            -375,
+            -542,
+            -569,
+            -505,
+            -608
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "reclaimed": {
+          "positive": 3,
+          "negative": 3,
+          "ties": 2,
+          "sumDelta": 73,
+          "leaveOneOutSums": [
+            82,
+            145,
+            73,
+            42,
+            -38,
+            73,
+            109,
+            25
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "tickMs": {
+          "positive": 5,
+          "negative": 3,
+          "ties": 0,
+          "sumDelta": 0.3621053055554988,
+          "leaveOneOutSums": [
+            0.36787355555549617,
+            0.1692879722221705,
+            0.37558477777773414,
+            0.2571572222221574,
+            0.30889297222218914,
+            0.36798063888882204,
+            0.3366542499999592,
+            0.351305749999963
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        }
+      }
+    },
+    {
+      "before": "counter",
+      "after": "departure",
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "deaths": -1,
+            "net": -148,
+            "totalCapture": -176,
+            "reclaimed": 59,
+            "tickMs": 0.4918414722222306
+          },
+          "percent": {
+            "deaths": -7.6923076923076925,
+            "net": -2.152414194299011,
+            "totalCapture": -2.0276497695852536,
+            "reclaimed": 23.228346456692915,
+            "tickMs": 18.21069239370731
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "deaths": -5,
+            "net": -2050,
+            "totalCapture": -567,
+            "reclaimed": 380,
+            "tickMs": 0.3072471944444666
+          },
+          "percent": {
+            "deaths": -29.41176470588235,
+            "net": -25.551539324442228,
+            "totalCapture": -6.392333709131905,
+            "reclaimed": 452.3809523809524,
+            "tickMs": 11.58474264255641
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "deaths": -3,
+            "net": -67,
+            "totalCapture": -129,
+            "reclaimed": 153,
+            "tickMs": 0.5926300555555644
+          },
+          "percent": {
+            "deaths": -23.076923076923077,
+            "net": -0.9124336102410459,
+            "totalCapture": -1.4644113974344422,
+            "reclaimed": 66.8122270742358,
+            "tickMs": 22.392062040003875
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "deaths": 0,
+            "net": 129,
+            "totalCapture": 206,
+            "reclaimed": -80,
+            "tickMs": 0.13026297222223038
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": 1.80444817456987,
+            "totalCapture": 2.3507931073833164,
+            "reclaimed": -19.047619047619047,
+            "tickMs": 4.843197048524206
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "deaths": -3,
+            "net": -1318,
+            "totalCapture": -503,
+            "reclaimed": 83,
+            "tickMs": 0.6675515277777837
+          },
+          "percent": {
+            "deaths": -23.076923076923077,
+            "net": -16.601587101650082,
+            "totalCapture": -5.502078319842485,
+            "reclaimed": 37.05357142857143,
+            "tickMs": 26.499319528389837
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "deaths": -2,
+            "net": -929,
+            "totalCapture": -378,
+            "reclaimed": 324,
+            "tickMs": 0.6098737777777972
+          },
+          "percent": {
+            "deaths": -14.285714285714286,
+            "net": -11.370869033047736,
+            "totalCapture": -4.0021175224986765,
+            "reclaimed": 337.5,
+            "tickMs": 25.867957699351535
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "deaths": -4,
+            "net": -318,
+            "totalCapture": -165,
+            "reclaimed": 148,
+            "tickMs": 0.26955983333341393
+          },
+          "percent": {
+            "deaths": -26.666666666666668,
+            "net": -4.735666418466121,
+            "totalCapture": -1.924871675221652,
+            "reclaimed": 38.84514435695538,
+            "tickMs": 9.614697032024665
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "deaths": -2,
+            "net": -790,
+            "totalCapture": -373,
+            "reclaimed": -13,
+            "tickMs": 0.405962111111116
+          },
+          "percent": {
+            "deaths": -12.5,
+            "net": -10.976795887175212,
+            "totalCapture": -4.353408029878618,
+            "reclaimed": -5.349794238683128,
+            "tickMs": 14.702954589807506
+          }
+        }
+      ],
+      "totalDelta": {
+        "deaths": -20,
+        "net": -5491,
+        "totalCapture": -2085,
+        "reclaimed": 1054,
+        "tickMs": 0.4216847256944516
+      },
+      "totalPercent": {
+        "deaths": -17.54385964912281,
+        "net": -9.242240624789606,
+        "totalCapture": -2.942878516281105,
+        "reclaimed": 54.58311755567064,
+        "tickMs": 15.828577780808729
+      },
+      "paired": {
+        "deaths": {
+          "positive": 0,
+          "negative": 7,
+          "ties": 1,
+          "sumDelta": -20,
+          "leaveOneOutSums": [
+            -19,
+            -15,
+            -17,
+            -20,
+            -17,
+            -18,
+            -16,
+            -18
+          ],
+          "direction": "decrease",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "net": {
+          "positive": 1,
+          "negative": 7,
+          "ties": 0,
+          "sumDelta": -5491,
+          "leaveOneOutSums": [
+            -5343,
+            -3441,
+            -5424,
+            -5620,
+            -4173,
+            -4562,
+            -5173,
+            -4701
+          ],
+          "direction": "decrease",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "totalCapture": {
+          "positive": 1,
+          "negative": 7,
+          "ties": 0,
+          "sumDelta": -2085,
+          "leaveOneOutSums": [
+            -1909,
+            -1518,
+            -1956,
+            -2291,
+            -1582,
+            -1707,
+            -1920,
+            -1712
+          ],
+          "direction": "decrease",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "reclaimed": {
+          "positive": 6,
+          "negative": 2,
+          "ties": 0,
+          "sumDelta": 1054,
+          "leaveOneOutSums": [
+            995,
+            674,
+            901,
+            1134,
+            971,
+            730,
+            906,
+            1067
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "tickMs": {
+          "positive": 8,
+          "negative": 0,
+          "ties": 0,
+          "sumDelta": 3.4749289444446028,
+          "leaveOneOutSums": [
+            2.983087472222372,
+            3.167681750000136,
+            2.8822988888890384,
+            3.3446659722223724,
+            2.807377416666819,
+            2.8650551666668056,
+            3.205369111111189,
+            3.0689668333334867
+          ],
+          "direction": "increase",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        }
+      }
+    },
+    {
+      "before": "departure",
+      "after": "start",
+      "bySeed": [
+        {
+          "seed": 4,
+          "delta": {
+            "deaths": 0,
+            "net": 0,
+            "totalCapture": 0,
+            "reclaimed": 0,
+            "tickMs": -0.020608249999996442
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": 0.0,
+            "totalCapture": 0.0,
+            "reclaimed": 0.0,
+            "tickMs": -0.6454842737286083
+          }
+        },
+        {
+          "seed": 19,
+          "delta": {
+            "deaths": -1,
+            "net": -63,
+            "totalCapture": 43,
+            "reclaimed": 82,
+            "tickMs": 0.0043330833333148355
+          },
+          "percent": {
+            "deaths": -8.333333333333334,
+            "net": -1.054746358613762,
+            "totalCapture": 0.5178851017704444,
+            "reclaimed": 17.67241379310345,
+            "tickMs": 0.14641672540349765
+          }
+        },
+        {
+          "seed": 73,
+          "delta": {
+            "deaths": 0,
+            "net": -252,
+            "totalCapture": -252,
+            "reclaimed": 36,
+            "tickMs": 0.11937877777778771
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": -3.463441451346894,
+            "totalCapture": -2.903225806451613,
+            "reclaimed": 9.424083769633508,
+            "tickMs": 3.685397118708675
+          }
+        },
+        {
+          "seed": 11,
+          "delta": {
+            "deaths": 0,
+            "net": -130,
+            "totalCapture": 59,
+            "reclaimed": -19,
+            "tickMs": -0.06398438888888158
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": -1.7862050013740038,
+            "totalCapture": 0.6578213847697625,
+            "reclaimed": -5.588235294117647,
+            "tickMs": -2.269054495349172
+          }
+        },
+        {
+          "seed": 31,
+          "delta": {
+            "deaths": 0,
+            "net": 0,
+            "totalCapture": 0,
+            "reclaimed": 0,
+            "tickMs": -0.04212072222221952
+          },
+          "percent": {
+            "deaths": 0.0,
+            "net": 0.0,
+            "totalCapture": 0.0,
+            "reclaimed": 0.0,
+            "tickMs": -1.3217750432226005
+          }
+        },
+        {
+          "seed": 47,
+          "delta": {
+            "deaths": -1,
+            "net": -308,
+            "totalCapture": -69,
+            "reclaimed": 101,
+            "tickMs": 0.014155833333303836
+          },
+          "percent": {
+            "deaths": -8.333333333333334,
+            "net": -4.253556138654882,
+            "totalCapture": -0.7610014337708173,
+            "reclaimed": 24.047619047619047,
+            "tickMs": 0.4770264238986797
+          }
+        },
+        {
+          "seed": 101,
+          "delta": {
+            "deaths": -1,
+            "net": -32,
+            "totalCapture": 35,
+            "reclaimed": 5,
+            "tickMs": -0.04779036111114321
+          },
+          "percent": {
+            "deaths": -9.090909090909092,
+            "net": -0.5002344849148038,
+            "totalCapture": 0.4163197335553705,
+            "reclaimed": 0.945179584120983,
+            "tickMs": -1.5550771818870182
+          }
+        },
+        {
+          "seed": 137,
+          "delta": {
+            "deaths": -1,
+            "net": 663,
+            "totalCapture": 184,
+            "reclaimed": 3,
+            "tickMs": -0.12717472222219728
+          },
+          "percent": {
+            "deaths": -7.142857142857143,
+            "net": 10.348056812860934,
+            "totalCapture": 2.2452715070164735,
+            "reclaimed": 1.3043478260869565,
+            "tickMs": -4.0155524828313505
+          }
+        }
+      ],
+      "totalDelta": {
+        "deaths": -4,
+        "net": -122,
+        "totalCapture": 0,
+        "reclaimed": 208,
+        "tickMs": -0.04624380555555252
+      },
+      "totalPercent": {
+        "deaths": -4.25531914893617,
+        "net": -0.2262569314367315,
+        "totalCapture": 0.0,
+        "reclaimed": 6.968174204355109,
+        "tickMs": -1.4986211828492788
+      },
+      "paired": {
+        "deaths": {
+          "positive": 0,
+          "negative": 4,
+          "ties": 4,
+          "sumDelta": -4,
+          "leaveOneOutSums": [
+            -4,
+            -3,
+            -4,
+            -4,
+            -4,
+            -3,
+            -3,
+            -3
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "net": {
+          "positive": 1,
+          "negative": 5,
+          "ties": 2,
+          "sumDelta": -122,
+          "leaveOneOutSums": [
+            -122,
+            -59,
+            130,
+            8,
+            -122,
+            186,
+            -90,
+            -785
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "totalCapture": {
+          "positive": 4,
+          "negative": 2,
+          "ties": 2,
+          "sumDelta": 0,
+          "leaveOneOutSums": [
+            0,
+            -43,
+            252,
+            -59,
+            0,
+            69,
+            -35,
+            -184
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "reclaimed": {
+          "positive": 5,
+          "negative": 1,
+          "ties": 2,
+          "sumDelta": 208,
+          "leaveOneOutSums": [
+            208,
+            126,
+            172,
+            227,
+            208,
+            107,
+            203,
+            205
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        },
+        "tickMs": {
+          "positive": 3,
+          "negative": 5,
+          "ties": 0,
+          "sumDelta": -0.16381075000003165,
+          "leaveOneOutSums": [
+            -0.1432025000000352,
+            -0.16814383333334648,
+            -0.28318952777781936,
+            -0.09982636111115006,
+            -0.12169002777781213,
+            -0.17796658333333548,
+            -0.11602038888888844,
+            -0.03663602777783437
+          ],
+          "direction": "inconclusive",
+          "note": "Inconclusive is not no effect; predefined directional screen, not a significance test."
+        }
+      }
+    }
+  ],
+  "observerExtras": {
+    "base": {
+      "4": {
+        "reposition": null
+      },
+      "19": {
+        "reposition": null
+      },
+      "73": {
+        "reposition": null
+      },
+      "11": {
+        "reposition": null
+      },
+      "31": {
+        "reposition": null
+      },
+      "47": {
+        "reposition": null
+      },
+      "101": {
+        "reposition": null
+      },
+      "137": {
+        "reposition": null
+      }
+    },
+    "rp": {
+      "4": {
+        "reposition": {
+          "starts": 15,
+          "arrivals": 6,
+          "aborts": 7,
+          "censored": 2,
+          "executed": 12,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 6,
+            "NEAR_HEAD": 4,
+            "ROUTE_LOST": 2,
+            "ATTACK": 1
+          }
+        }
+      },
+      "19": {
+        "reposition": {
+          "starts": 14,
+          "arrivals": 4,
+          "aborts": 10,
+          "censored": 0,
+          "executed": 13,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ATTACK": 1,
+            "ARRIVED": 4,
+            "ROUTE_LOST": 5,
+            "NEAR_HEAD": 4
+          }
+        }
+      },
+      "73": {
+        "reposition": {
+          "starts": 17,
+          "arrivals": 3,
+          "aborts": 14,
+          "censored": 0,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 1,
+          "reasons": {
+            "ARRIVED": 3,
+            "TRAIL_EXPOSED": 4,
+            "ROUTE_LOST": 2,
+            "NEAR_HEAD": 6,
+            "ATTACK": 2
+          }
+        }
+      },
+      "11": {
+        "reposition": {
+          "starts": 19,
+          "arrivals": 9,
+          "aborts": 8,
+          "censored": 2,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "ATTACK": 2,
+            "NEAR_HEAD": 3,
+            "ROUTE_LOST": 2,
+            "ARRIVED": 9,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      },
+      "31": {
+        "reposition": {
+          "starts": 17,
+          "arrivals": 7,
+          "aborts": 10,
+          "censored": 0,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 6,
+            "ATTACK": 1,
+            "ROUTE_LOST": 2,
+            "DEATH": 1,
+            "ARRIVED": 7
+          }
+        }
+      },
+      "47": {
+        "reposition": {
+          "starts": 17,
+          "arrivals": 7,
+          "aborts": 10,
+          "censored": 0,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 4,
+            "ARRIVED": 7,
+            "ROUTE_LOST": 2,
+            "ATTACK": 3,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      },
+      "101": {
+        "reposition": {
+          "starts": 28,
+          "arrivals": 14,
+          "aborts": 13,
+          "censored": 1,
+          "executed": 27,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 6,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 14,
+            "ATTACK": 4
+          }
+        }
+      },
+      "137": {
+        "reposition": {
+          "starts": 21,
+          "arrivals": 9,
+          "aborts": 12,
+          "censored": 0,
+          "executed": 20,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 9,
+            "ROUTE_LOST": 4,
+            "NEAR_HEAD": 6,
+            "ATTACK": 2
+          }
+        }
+      }
+    },
+    "reachable": {
+      "4": {
+        "reposition": {
+          "starts": 25,
+          "arrivals": 13,
+          "aborts": 12,
+          "censored": 0,
+          "executed": 25,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 13,
+            "NEAR_HEAD": 8,
+            "ROUTE_LOST": 3,
+            "ATTACK": 1
+          }
+        }
+      },
+      "19": {
+        "reposition": {
+          "starts": 19,
+          "arrivals": 8,
+          "aborts": 10,
+          "censored": 1,
+          "executed": 16,
+          "unexecuted": 2,
+          "pingPong": 0,
+          "reasons": {
+            "ROUTE_LOST": 6,
+            "ATTACK": 2,
+            "NEAR_HEAD": 1,
+            "ARRIVED": 8,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      },
+      "73": {
+        "reposition": {
+          "starts": 24,
+          "arrivals": 11,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 23,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 11,
+            "TRAIL_EXPOSED": 2,
+            "ROUTE_LOST": 3,
+            "NEAR_HEAD": 6,
+            "ATTACK": 2
+          }
+        }
+      },
+      "11": {
+        "reposition": {
+          "starts": 25,
+          "arrivals": 9,
+          "aborts": 15,
+          "censored": 1,
+          "executed": 23,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ATTACK": 4,
+            "NEAR_HEAD": 6,
+            "DAMAGE_GONE": 1,
+            "TRAIL_EXPOSED": 2,
+            "ARRIVED": 9,
+            "ROUTE_LOST": 2
+          }
+        }
+      },
+      "31": {
+        "reposition": {
+          "starts": 19,
+          "arrivals": 8,
+          "aborts": 10,
+          "censored": 1,
+          "executed": 18,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 6,
+            "ATTACK": 2,
+            "ROUTE_LOST": 1,
+            "DEATH": 1,
+            "ARRIVED": 8
+          }
+        }
+      },
+      "47": {
+        "reposition": {
+          "starts": 17,
+          "arrivals": 10,
+          "aborts": 7,
+          "censored": 0,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 3,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 10,
+            "ATTACK": 1
+          }
+        }
+      },
+      "101": {
+        "reposition": {
+          "starts": 33,
+          "arrivals": 16,
+          "aborts": 16,
+          "censored": 1,
+          "executed": 32,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 11,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 16,
+            "ATTACK": 2
+          }
+        }
+      },
+      "137": {
+        "reposition": {
+          "starts": 23,
+          "arrivals": 10,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 23,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 10,
+            "ROUTE_LOST": 2,
+            "NEAR_HEAD": 8,
+            "ATTACK": 2,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      }
+    },
+    "counter": {
+      "4": {
+        "reposition": {
+          "starts": 27,
+          "arrivals": 14,
+          "aborts": 12,
+          "censored": 1,
+          "executed": 25,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 14,
+            "NEAR_HEAD": 5,
+            "ROUTE_LOST": 5,
+            "TRAIL_EXPOSED": 1,
+            "ATTACK": 1
+          }
+        }
+      },
+      "19": {
+        "reposition": {
+          "starts": 16,
+          "arrivals": 4,
+          "aborts": 12,
+          "censored": 0,
+          "executed": 13,
+          "unexecuted": 3,
+          "pingPong": 0,
+          "reasons": {
+            "ROUTE_LOST": 6,
+            "ATTACK": 1,
+            "ARRIVED": 4,
+            "NEAR_HEAD": 4,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      },
+      "73": {
+        "reposition": {
+          "starts": 24,
+          "arrivals": 11,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 23,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 11,
+            "TRAIL_EXPOSED": 2,
+            "ROUTE_LOST": 3,
+            "NEAR_HEAD": 6,
+            "ATTACK": 2
+          }
+        }
+      },
+      "11": {
+        "reposition": {
+          "starts": 29,
+          "arrivals": 11,
+          "aborts": 18,
+          "censored": 0,
+          "executed": 28,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ATTACK": 4,
+            "NEAR_HEAD": 10,
+            "DAMAGE_GONE": 1,
+            "TRAIL_EXPOSED": 2,
+            "ARRIVED": 11,
+            "ROUTE_LOST": 1
+          }
+        }
+      },
+      "31": {
+        "reposition": {
+          "starts": 21,
+          "arrivals": 10,
+          "aborts": 11,
+          "censored": 0,
+          "executed": 21,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 6,
+            "ATTACK": 1,
+            "ROUTE_LOST": 3,
+            "DEATH": 1,
+            "ARRIVED": 10
+          }
+        }
+      },
+      "47": {
+        "reposition": {
+          "starts": 17,
+          "arrivals": 10,
+          "aborts": 7,
+          "censored": 0,
+          "executed": 17,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 3,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 10,
+            "ATTACK": 1
+          }
+        }
+      },
+      "101": {
+        "reposition": {
+          "starts": 32,
+          "arrivals": 14,
+          "aborts": 17,
+          "censored": 1,
+          "executed": 31,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 11,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 14,
+            "ATTACK": 3
+          }
+        }
+      },
+      "137": {
+        "reposition": {
+          "starts": 25,
+          "arrivals": 8,
+          "aborts": 17,
+          "censored": 0,
+          "executed": 25,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "ARRIVED": 8,
+            "ROUTE_LOST": 5,
+            "NEAR_HEAD": 9,
+            "ATTACK": 2,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      }
+    },
+    "departure": {
+      "4": {
+        "reposition": {
+          "starts": 26,
+          "arrivals": 13,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 25,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 10,
+            "ARRIVED": 13,
+            "ROUTE_LOST": 3
+          }
+        }
+      },
+      "19": {
+        "reposition": {
+          "starts": 38,
+          "arrivals": 16,
+          "aborts": 22,
+          "censored": 0,
+          "executed": 34,
+          "unexecuted": 4,
+          "pingPong": 0,
+          "reasons": {
+            "ROUTE_LOST": 10,
+            "ATTACK": 3,
+            "NEAR_HEAD": 8,
+            "ARRIVED": 16,
+            "DAMAGE_GONE": 1
+          }
+        }
+      },
+      "73": {
+        "reposition": {
+          "starts": 35,
+          "arrivals": 9,
+          "aborts": 23,
+          "censored": 3,
+          "executed": 32,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 14,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 9,
+            "TRAIL_EXPOSED": 3,
+            "ATTACK": 3
+          }
+        }
+      },
+      "11": {
+        "reposition": {
+          "starts": 33,
+          "arrivals": 18,
+          "aborts": 13,
+          "censored": 2,
+          "executed": 30,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "ATTACK": 3,
+            "NEAR_HEAD": 9,
+            "DAMAGE_GONE": 1,
+            "ARRIVED": 18
+          }
+        }
+      },
+      "31": {
+        "reposition": {
+          "starts": 31,
+          "arrivals": 10,
+          "aborts": 20,
+          "censored": 1,
+          "executed": 30,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 13,
+            "ARRIVED": 10,
+            "ROUTE_LOST": 5,
+            "ATTACK": 2
+          }
+        }
+      },
+      "47": {
+        "reposition": {
+          "starts": 37,
+          "arrivals": 16,
+          "aborts": 19,
+          "censored": 2,
+          "executed": 34,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 14,
+            "ARRIVED": 16,
+            "ROUTE_LOST": 5
+          }
+        }
+      },
+      "101": {
+        "reposition": {
+          "starts": 42,
+          "arrivals": 16,
+          "aborts": 25,
+          "censored": 1,
+          "executed": 40,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 14,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 16,
+            "ATTACK": 6,
+            "PERIMETER_GUARD": 1,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      },
+      "137": {
+        "reposition": {
+          "starts": 26,
+          "arrivals": 12,
+          "aborts": 13,
+          "censored": 1,
+          "executed": 24,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "reasons": {
+            "NEAR_HEAD": 7,
+            "ARRIVED": 12,
+            "ROUTE_LOST": 3,
+            "ATTACK": 2,
+            "TRAIL_EXPOSED": 1
+          }
+        }
+      }
+    },
+    "start": {
+      "4": {
+        "reposition": {
+          "starts": 26,
+          "arrivals": 13,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 25,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "startChecked": 26,
+          "startRejected": 0,
+          "unsafeSelections": 0,
+          "reasons": {
+            "NEAR_HEAD": 10,
+            "ARRIVED": 13,
+            "ROUTE_LOST": 3
+          }
+        }
+      },
+      "19": {
+        "reposition": {
+          "starts": 39,
+          "arrivals": 16,
+          "aborts": 22,
+          "censored": 1,
+          "executed": 34,
+          "unexecuted": 4,
+          "pingPong": 0,
+          "startChecked": 47,
+          "startRejected": 8,
+          "unsafeSelections": 1,
+          "reasons": {
+            "ROUTE_LOST": 10,
+            "ATTACK": 2,
+            "NEAR_HEAD": 10,
+            "ARRIVED": 16
+          }
+        }
+      },
+      "73": {
+        "reposition": {
+          "starts": 36,
+          "arrivals": 13,
+          "aborts": 21,
+          "censored": 2,
+          "executed": 34,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "startChecked": 57,
+          "startRejected": 21,
+          "unsafeSelections": 7,
+          "reasons": {
+            "NEAR_HEAD": 15,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 13,
+            "ATTACK": 3
+          }
+        }
+      },
+      "11": {
+        "reposition": {
+          "starts": 33,
+          "arrivals": 17,
+          "aborts": 14,
+          "censored": 2,
+          "executed": 30,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "startChecked": 36,
+          "startRejected": 3,
+          "unsafeSelections": 1,
+          "reasons": {
+            "ATTACK": 3,
+            "NEAR_HEAD": 9,
+            "DAMAGE_GONE": 1,
+            "ARRIVED": 17,
+            "ROUTE_LOST": 1
+          }
+        }
+      },
+      "31": {
+        "reposition": {
+          "starts": 31,
+          "arrivals": 10,
+          "aborts": 20,
+          "censored": 1,
+          "executed": 30,
+          "unexecuted": 0,
+          "pingPong": 0,
+          "startChecked": 31,
+          "startRejected": 0,
+          "unsafeSelections": 0,
+          "reasons": {
+            "NEAR_HEAD": 13,
+            "ARRIVED": 10,
+            "ROUTE_LOST": 5,
+            "ATTACK": 2
+          }
+        }
+      },
+      "47": {
+        "reposition": {
+          "starts": 41,
+          "arrivals": 21,
+          "aborts": 18,
+          "censored": 2,
+          "executed": 38,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "startChecked": 42,
+          "startRejected": 1,
+          "unsafeSelections": 1,
+          "reasons": {
+            "NEAR_HEAD": 14,
+            "ARRIVED": 21,
+            "ROUTE_LOST": 4
+          }
+        }
+      },
+      "101": {
+        "reposition": {
+          "starts": 40,
+          "arrivals": 17,
+          "aborts": 23,
+          "censored": 0,
+          "executed": 39,
+          "unexecuted": 1,
+          "pingPong": 0,
+          "startChecked": 71,
+          "startRejected": 31,
+          "unsafeSelections": 5,
+          "reasons": {
+            "NEAR_HEAD": 13,
+            "ROUTE_LOST": 3,
+            "ARRIVED": 17,
+            "ATTACK": 6,
+            "PERIMETER_GUARD": 1
+          }
+        }
+      },
+      "137": {
+        "reposition": {
+          "starts": 24,
+          "arrivals": 11,
+          "aborts": 13,
+          "censored": 0,
+          "executed": 24,
+          "unexecuted": 0,
+          "pingPong": 1,
+          "startChecked": 51,
+          "startRejected": 27,
+          "unsafeSelections": 4,
+          "reasons": {
+            "NEAR_HEAD": 7,
+            "ARRIVED": 11,
+            "ROUTE_LOST": 4,
+            "ATTACK": 2
+          }
+        }
+      }
+    }
+  },
+  "cost": {
+    "method": "Same PC, each source warmup seed19/3600 excluded; 3 rounds x 8 paired seeds x all arms; cyclic arm rotations with reversed alternating six-block cycles (every arm occupies each timing position equally across 24 blocks); no observers; external test overlap recorded before/after each sample. Aggregate median of round means; seed median of three. Overlap or replicate instability reported, no invalid certification.",
+    "resourceGuard": {
+      "recordBackground": true,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Record external Vitest/Playwright presence before/after every timing; retain all fixed rows, mark overlap, withhold cost certification"
+    },
+    "warmup": {
+      "seed": 19,
+      "ticks": 3600,
+      "perArm": 1,
+      "discarded": true
+    },
+    "summary": {
+      "base": {
+        "roundMsPerTick": [
+          2.648974986111109,
+          2.7938184166666584,
+          2.7460055381944404
+        ],
+        "medianMsPerTick": 2.7460055381944404,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.4047289444444444,
+              2.7770384444444467,
+              2.7726926388889033
+            ],
+            "medianMsPerTick": 2.7726926388889033
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.6737865277777746,
+              2.7291468611111243,
+              2.6534130277777632
+            ],
+            "medianMsPerTick": 2.6737865277777746
+          },
+          {
+            "seed": 73,
+            "samples": [
+              2.783931861111115,
+              2.8736982222222207,
+              2.8162527500000496
+            ],
+            "medianMsPerTick": 2.8162527500000496
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.693915944444436,
+              2.7779529722222165,
+              2.6790030277777825
+            ],
+            "medianMsPerTick": 2.693915944444436
+          },
+          {
+            "seed": 31,
+            "samples": [
+              2.797248694444441,
+              2.8433539444444533,
+              2.8371957499999554
+            ],
+            "medianMsPerTick": 2.8371957499999554
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.4835783055555494,
+              2.5845842222221997,
+              2.6081091388888633
+            ],
+            "medianMsPerTick": 2.5845842222221997
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.5916960277777816,
+              2.8707153888888812,
+              2.706216000000002
+            ],
+            "medianMsPerTick": 2.706216000000002
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.7629135833333325,
+              2.8940572777777236,
+              2.895161972222203
+            ],
+            "medianMsPerTick": 2.8940572777777236
+          }
+        ]
+      },
+      "rp": {
+        "roundMsPerTick": [
+          2.552519315972218,
+          2.6123761423611156,
+          2.5899098437500006
+        ],
+        "medianMsPerTick": 2.5899098437500006,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.294208333333332,
+              2.6801407500000076,
+              2.6327191666666963
+            ],
+            "medianMsPerTick": 2.6327191666666963
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.592281777777777,
+              2.4958829999999983,
+              2.4836619722221642
+            ],
+            "medianMsPerTick": 2.4958829999999983
+          },
+          {
+            "seed": 73,
+            "samples": [
+              2.798761305555551,
+              2.8502030277778005,
+              2.730636472222266
+            ],
+            "medianMsPerTick": 2.798761305555551
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.610338777777765,
+              2.5895957499999915,
+              2.5872923611111602
+            ],
+            "medianMsPerTick": 2.5895957499999915
+          },
+          {
+            "seed": 31,
+            "samples": [
+              2.480542777777769,
+              2.4323122777777866,
+              2.4514177499999965
+            ],
+            "medianMsPerTick": 2.4514177499999965
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.5108706944444403,
+              2.5932743888889025,
+              2.579145416666676
+            ],
+            "medianMsPerTick": 2.579145416666676
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.445665277777767,
+              2.5780619999999828,
+              2.5444273055555016
+            ],
+            "medianMsPerTick": 2.5444273055555016
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.687485583333344,
+              2.6795379444444554,
+              2.709978305555544
+            ],
+            "medianMsPerTick": 2.687485583333344
+          }
+        ]
+      },
+      "reachable": {
+        "roundMsPerTick": [
+          2.5348140972222226,
+          2.62695196875,
+          2.606971729166665
+        ],
+        "medianMsPerTick": 2.606971729166665,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.4541346666666666,
+              2.7066071944444494,
+              2.846919749999975
+            ],
+            "medianMsPerTick": 2.7066071944444494
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.4593537500000013,
+              2.514880416666662,
+              2.4441810277777645
+            ],
+            "medianMsPerTick": 2.4593537500000013
+          },
+          {
+            "seed": 73,
+            "samples": [
+              2.660087249999997,
+              2.7209744166666576,
+              2.6221180000000297
+            ],
+            "medianMsPerTick": 2.660087249999997
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.557580583333329,
+              2.6585895555555665,
+              2.5846590277777675
+            ],
+            "medianMsPerTick": 2.5846590277777675
+          },
+          {
+            "seed": 31,
+            "samples": [
+              2.454927361111105,
+              2.477390611111122,
+              2.46591472222224
+            ],
+            "medianMsPerTick": 2.46591472222224
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.2996702222222263,
+              2.3852570277777785,
+              2.363517111111109
+            ],
+            "medianMsPerTick": 2.363517111111109
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.7102631388888887,
+              2.7782696111111242,
+              2.778171694444415
+            ],
+            "medianMsPerTick": 2.778171694444415
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.6824958055555665,
+              2.773646916666637,
+              2.75029250000002
+            ],
+            "medianMsPerTick": 2.75029250000002
+          }
+        ]
+      },
+      "counter": {
+        "roundMsPerTick": [
+          2.7075701805555568,
+          2.6640721076388862,
+          2.630905086805546
+        ],
+        "medianMsPerTick": 2.6640721076388862,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.3963015000000008,
+              2.700838944444452,
+              2.7039586666666824
+            ],
+            "medianMsPerTick": 2.700838944444452
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.6521710833333296,
+              2.6653756111111013,
+              2.587650666666644
+            ],
+            "medianMsPerTick": 2.6521710833333296
+          },
+          {
+            "seed": 73,
+            "samples": [
+              2.6860278333333394,
+              2.6466077777777617,
+              2.6449055277778015
+            ],
+            "medianMsPerTick": 2.6466077777777617
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.682585166666662,
+              2.689607111111109,
+              2.701742944444413
+            ],
+            "medianMsPerTick": 2.689607111111109
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.3821804166666696,
+              2.5191270555555496,
+              2.517417944444395
+            ],
+            "medianMsPerTick": 2.5191270555555496
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.3502721944444542,
+              2.384427999999995,
+              2.357641777777786
+            ],
+            "medianMsPerTick": 2.357641777777786
+          },
+          {
+            "seed": 101,
+            "samples": [
+              2.7171571666666647,
+              2.9455003055555666,
+              2.8036227499999544
+            ],
+            "medianMsPerTick": 2.8036227499999544
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.7938660833333335,
+              2.761092055555556,
+              2.730300416666691
+            ],
+            "medianMsPerTick": 2.761092055555556
+          }
+        ]
+      },
+      "departure": {
+        "roundMsPerTick": [
+          3.0406955069444397,
+          3.085756833333338,
+          3.088172131944448
+        ],
+        "medianMsPerTick": 3.085756833333338,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.7154656111111115,
+              3.1926804166666827,
+              3.225659305555552
+            ],
+            "medianMsPerTick": 3.1926804166666827
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.992279777777779,
+              2.959418277777796,
+              2.8946627777778002
+            ],
+            "medianMsPerTick": 2.959418277777796
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.239237833333326,
+              3.2495613888888815,
+              3.156801833333318
+            ],
+            "medianMsPerTick": 3.239237833333326
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.819870083333339,
+              2.7759517222222185,
+              3.0301262222222025
+            ],
+            "medianMsPerTick": 2.819870083333339
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.1866785833333333,
+              3.0694796111111,
+              3.190374611111086
+            ],
+            "medianMsPerTick": 3.1866785833333333
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.900796888888888,
+              3.0230182222222277,
+              2.967515555555583
+            ],
+            "medianMsPerTick": 2.967515555555583
+          },
+          {
+            "seed": 101,
+            "samples": [
+              3.0225757777777713,
+              3.279269138888889,
+              3.0731825833333684
+            ],
+            "medianMsPerTick": 3.0731825833333684
+          },
+          {
+            "seed": 137,
+            "samples": [
+              3.44865949999997,
+              3.1366758888889064,
+              3.167054166666672
+            ],
+            "medianMsPerTick": 3.167054166666672
+          }
+        ]
+      },
+      "start": {
+        "roundMsPerTick": [
+          3.0017942881944424,
+          3.1042650694444536,
+          3.0395130277777853
+        ],
+        "medianMsPerTick": 3.0395130277777853,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.8098802499999995,
+              3.1901007500000156,
+              3.1720721666666862
+            ],
+            "medianMsPerTick": 3.1720721666666862
+          },
+          {
+            "seed": 19,
+            "samples": [
+              2.963751361111111,
+              2.9886659722222246,
+              2.8772608055555935
+            ],
+            "medianMsPerTick": 2.963751361111111
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.4254683888888877,
+              3.3586166111111138,
+              3.282169888888861
+            ],
+            "medianMsPerTick": 3.3586166111111138
+          },
+          {
+            "seed": 11,
+            "samples": [
+              2.782334111111106,
+              2.7558856944444576,
+              2.710747250000002
+            ],
+            "medianMsPerTick": 2.7558856944444576
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.1450628333333266,
+              3.144557861111114,
+              3.1327583055555848
+            ],
+            "medianMsPerTick": 3.144557861111114
+          },
+          {
+            "seed": 47,
+            "samples": [
+              2.9380718888888886,
+              2.981671388888887,
+              3.0077338611110784
+            ],
+            "medianMsPerTick": 2.981671388888887
+          },
+          {
+            "seed": 101,
+            "samples": [
+              3.0016340833333377,
+              3.3747428333333422,
+              3.025392222222225
+            ],
+            "medianMsPerTick": 3.025392222222225
+          },
+          {
+            "seed": 137,
+            "samples": [
+              2.9481513888888813,
+              3.0398794444444746,
+              3.1079697222222524
+            ],
+            "medianMsPerTick": 3.0398794444444746
+          }
+        ]
+      }
+    }
+  },
+  "rawHashes": {
+    "base": "1bc68dc3dad1412c65a770b13abc0b9a2704ef40f548598f144b96a56654a0ed",
+    "rp": "de0b4098f2f0b31b23d164a8b8ac43c2c10d45f0e60838dcfc235b109d5db464",
+    "reachable": "779352b3346869010c283f95dc1e978f47b26e47459e854996f8d9f694de54b6",
+    "counter": "f91b0f13db60b9fdddc58d54d535b57b7ef1a61ca92a0bffd12edc8b0b3d2b05",
+    "departure": "bb96ed3b519e004c959a734ea313da96587da91fd7f564b3620eac5cf03116df",
+    "start": "f4c45efad542166ed6e6aa34fcda1065fe430d0c01aab0944f09b95d16ce3094",
+    "performance": "e3d89e3d491c8f51c8b8c4d4592f65d5b9e43b4fc1a9901a01ff8b80110d304d"
+  },
+  "noFurtherSafetyChanges": true,
+  "6004": "Recorded only; no new fix.",
+  "retentionDecision": "Deferred to user review."
+}

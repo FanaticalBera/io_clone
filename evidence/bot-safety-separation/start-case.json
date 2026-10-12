@@ -1,0 +1,80 @@
+{
+  "proposalOnly": false,
+  "runtimeBaseline": "6c307e3",
+  "seed": 137,
+  "slot": 7,
+  "tick": 5761,
+  "prefixMatchesAudit": true,
+  "prefixHash": "2db2106475096c456d69a4ec0ff1374100d1b492754dd44bd26f46ceb622d0db",
+  "original": {
+    "path": [
+      2634,
+      2542,
+      2541,
+      2540,
+      2539,
+      2538,
+      2537,
+      2536,
+      2535,
+      2626,
+      2718
+    ],
+    "owners": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "projection": {
+      "firstCell": 2726,
+      "entrySeconds": 0.11546021628424095,
+      "exposureEnd": 0.3850864673903711,
+      "blocked": false,
+      "allOwned": false
+    }
+  },
+  "integrated": {
+    "reason": "PHYSICAL_START_UNSAFE",
+    "startChecked": 8,
+    "startRejected": 8,
+    "nearBlocked": 0,
+    "examined": 8,
+    "within10": 19,
+    "beyond20OrDisconnected": 2,
+    "firstStartRejection": {
+      "safe": false,
+      "reason": "LEAVES_HOME",
+      "firstCell": 2726,
+      "entrySeconds": 0.11546021628424095,
+      "blocked": false
+    },
+    "decisionRngDelta": 0
+  },
+  "normalControl": {
+    "pathLength": 15,
+    "projection": {
+      "firstCell": null,
+      "entrySeconds": null,
+      "exposureEnd": 1,
+      "blocked": false,
+      "allOwned": true
+    },
+    "actualTicks": 30,
+    "maxTrail": 0,
+    "allOwned": true,
+    "alive": true
+  },
+  "limits": [
+    "Frozen original encounter with current integrated selector; full-match audit reported separately.",
+    "Rejecting relocation does not guarantee the replacement action stays owned; at frozen5761 no safe owned-neighbor fallback exists.",
+    "Prediction holds current public ownership and observed environment fixed; future captures/new strategy/other inputs can change it."
+  ]
+}

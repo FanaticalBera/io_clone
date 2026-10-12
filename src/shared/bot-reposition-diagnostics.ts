@@ -1,5 +1,5 @@
 import type {BotMemory} from './bot.js';
-import {watchReposition,type RepositionEpisode} from './bot-reposition.js';
+import {watchReposition,watchRepositionSelection,type RepositionEpisode} from './bot-reposition.js';
 import {BOT_REPOSITION as C} from './bot-phase025-config.js';
 export function isRepositionPingPong(rows:readonly RepositionEpisode[],hz:number){
  if(rows.length!==3)return false;const [a,b,c]=rows;
@@ -9,7 +9,7 @@ export function isRepositionPingPong(rows:readonly RepositionEpisode[],hz:number
 }
 export class BotRepositionDiagnostics {
  private stops:(()=>void)[]=[];private rows=new Map<string,RepositionEpisode[]>();
- readonly stats={starts:0,arrivals:0,aborts:0,censored:0,executed:0,unexecuted:0,pingPong:0,reasons:{} as Record<string,number>};
+ readonly stats={starts:0,arrivals:0,aborts:0,censored:0,executed:0,unexecuted:0,pingPong:0,startChecked:0,startRejected:0,unsafeSelections:0,reasons:{} as Record<string,number>};
  onEpisode?:(id:string,row:RepositionEpisode)=>void;
  constructor(memories:ReadonlyMap<string,BotMemory>,private hz:number){for(const [id,memory]of memories)this.stops.push(watchReposition(memory.reposition,row=>{
   const rows=this.rows.get(id)??[];
@@ -20,7 +20,7 @@ export class BotRepositionDiagnostics {
    if(isRepositionPingPong(rows.filter(r=>r.outcome!=='OPEN').slice(-3),hz))this.stats.pingPong++;
    this.onEpisode?.(id,structuredClone(row));
   }this.rows.set(id,rows);
- }));}
+ }));for(const memory of memories.values())this.stops.push(watchRepositionSelection(memory.reposition,row=>{this.stats.startChecked+=row.startChecked;this.stats.startRejected+=row.startRejected;if(row.reason==='PHYSICAL_START_UNSAFE')this.stats.unsafeSelections++;}));}
  snapshot(id:string){return structuredClone(this.rows.get(id)??[]);}
  finish(memories:ReadonlyMap<string,BotMemory>){this.stats.censored=[...memories.values()].filter(m=>m.reposition.active).length;}
  dispose(){for(const stop of this.stops)stop();this.stops=[];this.rows.clear();}

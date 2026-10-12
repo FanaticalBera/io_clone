@@ -1,0 +1,358 @@
+{
+  "seed": 137,
+  "slot": 7,
+  "commit": "6c307e3",
+  "prefixMatchesAudit": true,
+  "prefixHash": "2db2106475096c456d69a4ec0ff1374100d1b492754dd44bd26f46ceb622d0db",
+  "status": "Record only. No warning/avoidance change; not evidence of a death.",
+  "originalCauseRawHash": "2ae0604765ac264f42e7cfd762df803ae6c5a6f293726474de8d271a92aca3db",
+  "rows": [
+    {
+      "tick": 6003,
+      "self": {
+        "cell": 2815,
+        "position": {
+          "x": -358.36179384483825,
+          "y": -909.6853316843002
+        },
+        "direction": {
+          "x": -0.5439824154546805,
+          "y": 0.8390966164132063
+        },
+        "life": 2,
+        "trail": 0
+      },
+      "goal": "STEAL",
+      "path": [
+        2909,
+        3004,
+        3101,
+        3005
+      ],
+      "pathOwners": [
+        4,
+        4,
+        4,
+        8
+      ],
+      "firstProjection": {
+        "firstCell": 2909,
+        "entrySeconds": 0.114680231432209,
+        "exposureEnd": 0.7439804776383007,
+        "blocked": false,
+        "allOwned": false
+      },
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": 2909,
+        "entrySeconds": 0.114680231432209,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false
+      },
+      "headDistanceFromFirst": 3,
+      "fallback": [
+        2814
+      ],
+      "entries": [],
+      "after": {
+        "self": {
+          "cell": 2815,
+          "position": {
+            "x": -362.5828730601604,
+            "y": -903.1742879693513
+          },
+          "direction": {
+            "x": -0.5439824154546807,
+            "y": 0.8390966164132062
+          },
+          "life": 2,
+          "trail": 0
+        },
+        "pathOwners": [
+          4,
+          4,
+          4,
+          8
+        ],
+        "enteredCells": [],
+        "ownerChanges": []
+      }
+    },
+    {
+      "tick": 6004,
+      "self": {
+        "cell": 2815,
+        "position": {
+          "x": -362.5828730601604,
+          "y": -903.1742879693513
+        },
+        "direction": {
+          "x": -0.5439824154546807,
+          "y": 0.8390966164132062
+        },
+        "life": 2,
+        "trail": 0
+      },
+      "goal": "RETURN",
+      "path": [],
+      "pathOwners": [],
+      "firstProjection": {
+        "firstCell": 2909,
+        "entrySeconds": 0.08134689809887542,
+        "exposureEnd": 1,
+        "blocked": false,
+        "allOwned": false
+      },
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": null,
+        "entrySeconds": null,
+        "prefilterCells": 7,
+        "consideredHeads": 0,
+        "skipped": true
+      },
+      "headDistanceFromFirst": 2,
+      "fallback": null,
+      "entries": [],
+      "after": {
+        "self": {
+          "cell": 2815,
+          "position": {
+            "x": -366.8039522754826,
+            "y": -896.6632442544025
+          },
+          "direction": {
+            "x": -0.5439824154546807,
+            "y": 0.8390966164132062
+          },
+          "life": 2,
+          "trail": 0
+        },
+        "pathOwners": [],
+        "enteredCells": [],
+        "ownerChanges": []
+      }
+    },
+    {
+      "tick": 6006,
+      "self": {
+        "cell": 2815,
+        "position": {
+          "x": -371.02503149080474,
+          "y": -890.1522005394536
+        },
+        "direction": {
+          "x": -0.5439824154546807,
+          "y": 0.8390966164132062
+        },
+        "life": 2,
+        "trail": 0
+      },
+      "goal": "RETURN",
+      "path": [],
+      "pathOwners": [],
+      "firstProjection": {
+        "firstCell": 2909,
+        "entrySeconds": 0.014680231432208753,
+        "exposureEnd": 0.9683293523546898,
+        "blocked": false,
+        "allOwned": false
+      },
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": null,
+        "entrySeconds": null,
+        "prefilterCells": 7,
+        "consideredHeads": 0,
+        "skipped": true
+      },
+      "headDistanceFromFirst": 2,
+      "fallback": null,
+      "entries": [
+        {
+          "cell": 2909,
+          "t": 0.4404069429662626,
+          "ownerBefore": 4
+        }
+      ],
+      "after": {
+        "self": {
+          "cell": 2909,
+          "position": {
+            "x": -375.2461107061269,
+            "y": -883.6411568245047
+          },
+          "direction": {
+            "x": -0.5439824154546807,
+            "y": 0.8390966164132062
+          },
+          "life": 2,
+          "trail": 1
+        },
+        "pathOwners": [],
+        "enteredCells": [
+          {
+            "cell": 2909,
+            "ownerBefore": 4,
+            "ownerAfter": 4
+          }
+        ],
+        "ownerChanges": []
+      }
+    },
+    {
+      "tick": 6007,
+      "self": {
+        "cell": 2909,
+        "position": {
+          "x": -375.2461107061269,
+          "y": -883.6411568245047
+        },
+        "direction": {
+          "x": -0.5439824154546807,
+          "y": 0.8390966164132062
+        },
+        "life": 2,
+        "trail": 1
+      },
+      "goal": "RETURN",
+      "path": [
+        2910
+      ],
+      "pathOwners": [
+        8
+      ],
+      "firstProjection": {
+        "firstCell": 3007,
+        "entrySeconds": 0.5631258806916102,
+        "exposureEnd": 1,
+        "blocked": false,
+        "allOwned": false
+      },
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": null,
+        "entrySeconds": null,
+        "prefilterCells": 7,
+        "consideredHeads": 0,
+        "skipped": true
+      },
+      "headDistanceFromFirst": 6,
+      "fallback": null,
+      "entries": [],
+      "after": {
+        "self": {
+          "cell": 2909,
+          "position": {
+            "x": -377.3545167197911,
+            "y": -876.1735049792762
+          },
+          "direction": {
+            "x": -0.27171624543528006,
+            "y": 0.9623774113966697
+          },
+          "life": 2,
+          "trail": 1
+        },
+        "pathOwners": [
+          8
+        ],
+        "enteredCells": [],
+        "ownerChanges": []
+      }
+    },
+    {
+      "tick": 6012,
+      "self": {
+        "cell": 2909,
+        "position": {
+          "x": -363.95034848903043,
+          "y": -850.0978771273034
+        },
+        "direction": {
+          "x": 0.7985148743228965,
+          "y": 0.6019750787907161
+        },
+        "life": 2,
+        "trail": 1
+      },
+      "goal": "RETURN",
+      "path": [
+        2910
+      ],
+      "pathOwners": [
+        8
+      ],
+      "firstProjection": {
+        "firstCell": 3007,
+        "entrySeconds": 0.3964592140249435,
+        "exposureEnd": 1,
+        "blocked": false,
+        "allOwned": false
+      },
+      "safety": {
+        "blocked": false,
+        "reason": null,
+        "enemySlot": null,
+        "firstCell": null,
+        "entrySeconds": null,
+        "prefilterCells": 7,
+        "consideredHeads": 0,
+        "skipped": true
+      },
+      "headDistanceFromFirst": 6,
+      "fallback": [
+        2815
+      ],
+      "entries": [
+        {
+          "cell": 2910,
+          "t": 0.5046411182453494,
+          "ownerBefore": 8
+        }
+      ],
+      "after": {
+        "self": {
+          "cell": 2910,
+          "position": {
+            "x": -356.65054595309647,
+            "y": -847.4665119043874
+          },
+          "direction": {
+            "x": 0.940746196239419,
+            "y": 0.3391114776309769
+          },
+          "life": 2,
+          "trail": 0
+        },
+        "pathOwners": [
+          8
+        ],
+        "enteredCells": [
+          {
+            "cell": 2910,
+            "ownerBefore": 8,
+            "ownerAfter": 8
+          }
+        ],
+        "ownerChanges": [
+          {
+            "cell": 2909,
+            "old": 4,
+            "new": 8
+          }
+        ]
+      }
+    }
+  ],
+  "method": "Frozen original 6c307e3 replay; no new modified match simulation for this case."
+}

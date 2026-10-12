@@ -1,4 +1,5 @@
-import {describe,it,expect} from 'vitest';
+import * as immediateSafety from '../../src/shared/bot-immediate-safety.js';
+import {describe,it,expect,vi} from 'vitest';
 import {createMatch,stepMatch} from '../../src/shared/game.js';
 import {botSpecs,createBotMemory,getBotInput,observeBot,observeBotForTick,shortestPath,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {createBotIdentity} from '../../src/shared/bot-identity.js';
@@ -111,5 +112,37 @@ describe('phase 2.5 internal reposition',()=>{
   const row=(sequence:number,attackerId:string,start:number,end:number):RepositionEpisode=>({sequence,lifeId:1,startedTick:sequence*200,endedTick:sequence*200+50,outcome:'ROUTE_LOST',target:sequence,attackerId,distance:14,score:1,startCell:0,endCell:1,start:{x:start,y:0},end:{x:end,y:0},movedCells:3,lastCell:1});
   const rows=[row(1,'A',0,3),row(2,'B',3,0),row(3,'A',0,3)];expect(isRepositionPingPong(rows,30)).toBe(true);
   expect(isRepositionPingPong(rows.map((r,i)=>i===1?{...r,movedCells:0}:r),30)).toBe(false);expect(isRepositionPingPong(rows.map((r,i)=>i===2?{...r,startedTick:1200}:r),30)).toBe(false);expect(isRepositionPingPong(rows.map((r,i)=>i===2?{...r,lifeId:2}:r),30)).toBe(false);
+ });
+});
+describe('relocation physical start preflight',()=>{
+ it('HUD observes rejected starts without changing inputs, RNG, memory, world or reservation order',()=>{
+  const a=fixture(14,true),b=fixture(14,true);a.a.direction=b.a.direction={x:-1,y:0};
+  const am=new Map([[a.a.participantId,a.memory]]),bm=new Map([[b.a.participantId,b.memory]]),collector=new BotDebugCollector(b.m,bm);let rejected=0;
+  for(let tick=0;tick<120;tick++){const ai=getBotInputs(a.m,am),bi=getBotInputs(b.m,bm);if(b.memory.reposition.selection?.reason==='PHYSICAL_START_UNSAFE')rejected++;expect([...bi]).toEqual([...ai]);stepMatch(a.m,ai);stepMatch(b.m,bi);collector.afterTick();expect(b.m.owners).toEqual(a.m.owners);expect(b.m.trailMasks).toEqual(a.m.trailMasks);expect({...b.memory,random:undefined}).toEqual({...a.memory,random:undefined});expect(botDirector(b.m).snapshot()).toEqual(botDirector(a.m).snapshot());}
+  expect(rejected).toBeGreaterThan(0);expect(a.memory.random()).toBe(b.memory.random());collector.dispose();
+ });
+ it('rejects an all-owned route when current steering first curves outside, with no cooldown or episode',()=>{
+  const f=fixture(14,true);f.a.direction={x:-1,y:0};const obs=observeBot(f.m,f.a.participantId),saved=structuredClone(obs),state=structuredClone(f.memory.reposition);
+  const result=f.select();expect(result.reason).toBe('PHYSICAL_START_UNSAFE');expect(result.startChecked).toBeGreaterThan(0);expect(result.startChecked).toBeLessThanOrEqual(8);expect(result.startRejected).toBe(result.startChecked);expect(result.firstStartRejection?.firstCell).not.toBeNull();expect(result.firstStartRejection?.entrySeconds).toBeLessThan(1);
+  expect(f.memory.reposition).toEqual(state);expect(obs).toEqual(saved);expect(f.memory.reposition.sequence).toBe(0);
+ });
+ it('checks score order lazily and caches one forecast per destination across two attackers',()=>{
+  const f=fixture();const first=f.select().plan!;
+  for(const [id,region]of [...f.memory.emotion.damage.regions]){const n=f.m.map.cells[id].neighbors.find(n=>n>=0&&!f.memory.emotion.damage.regions.has(n));if(n!==undefined)f.memory.emotion.damage.regions.set(n,{...region,attackerId:f.c.participantId});}
+  f.memory.emotion.damage.recent.set(f.c.participantId,[{tick:0,cells:6,observedCells:0}]);
+  const spy=vi.spyOn(immediateSafety,'evaluateRepositionStartSafety');const checked:number[]=[];spy.mockImplementation((_obs,path)=>{checked.push(path.at(-1)!);return {safe:false,reason:'LEAVES_HOME',firstCell:0,entrySeconds:.1,blocked:false};});
+  try{const result=f.select();expect(result.reason).toBe('PHYSICAL_START_UNSAFE');expect(checked[0]).toBe(first.target);expect(checked.length).toBe(result.startChecked);expect(new Set(checked).size).toBe(checked.length);expect(checked.length).toBeLessThanOrEqual(8);}finally{spy.mockRestore();}
+ });
+ it('chooses the next safe positive plan without forecasting lower ranked plans',()=>{
+  const f=fixture(),best=f.select().plan!,original=immediateSafety.evaluateRepositionStartSafety,spy=vi.spyOn(immediateSafety,'evaluateRepositionStartSafety');
+  let calls=0;spy.mockImplementation((obs,path)=>{calls++;return path.at(-1)===best.target?{safe:false,reason:'LEAVES_HOME',firstCell:0,entrySeconds:.1,blocked:false}:original(obs,path);});
+  try{const result=f.select();expect(result.reason).toBe('SELECTED');expect(result.plan!.target).not.toBe(best.target);expect(result.startRejected).toBe(1);expect(result.startChecked).toBe(2);expect(calls).toBe(2);}finally{spy.mockRestore();}
+ });
+ it('rejects dead, exposed and non-owned starts, and detects a physical wall obstruction',()=>{
+  const f=fixture(),obs=observeBot(f.m,f.a.participantId),path=f.select().plan!.path;
+  expect(immediateSafety.evaluateRepositionStartSafety({...obs,actualOwnTrailLength:1},path).reason).toBe('INVALID_START');
+  expect(immediateSafety.evaluateRepositionStartSafety({...obs,self:{...obs.self,lifeState:'DEAD_WAIT'}},path).reason).toBe('INVALID_START');
+  const owners=obs.owners.slice();owners[obs.self.cellId]=0;expect(immediateSafety.evaluateRepositionStartSafety({...obs,owners},path).reason).toBe('INVALID_START');
+  owners.fill(f.a.slot+1);const cell=f.m.map.cells[f.id(28)],edge={...obs,owners,self:{...obs.self,cellId:cell.id,position:{...cell.center},direction:{x:1,y:0}}};expect(immediateSafety.evaluateRepositionStartSafety(edge,[]).reason).toBe('WALL');
  });
 });

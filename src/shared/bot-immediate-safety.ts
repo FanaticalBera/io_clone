@@ -75,3 +75,11 @@ export type DepartureEvent={type:'tick';tick:number;lifeId:number;alive:boolean;
 const observers=new WeakMap<object,Set<(event:DepartureEvent)=>void>>();
 export function watchDepartureSafety(memory:object,observer:(event:DepartureEvent)=>void){let set=observers.get(memory);if(!set){set=new Set();observers.set(memory,set);}set.add(observer);return()=>{set!.delete(observer);};}
 export function recordDepartureSafety(memory:object,event:DepartureEvent){for(const observer of observers.get(memory)??[])observer(event);}
+
+export interface RepositionStartSafety {safe:boolean;reason:'INVALID_START'|'LEAVES_HOME'|'WALL'|null;firstCell:number|null;entrySeconds:number|null;blocked:boolean}
+// One second of actual steering with current ownership held fixed. Start only:
+// active relocation keeps its existing immediate/regular invalidation rules.
+export function evaluateRepositionStartSafety(obs:BotObservation,path:readonly number[]):RepositionStartSafety {
+ if(obs.self.lifeState!=='ALIVE'||(obs.actualOwnTrailLength??obs.ownTrail.length)>0||obs.owners[obs.self.cellId]!==obs.self.slot+1)return {safe:false,reason:'INVALID_START',firstCell:null,entrySeconds:null,blocked:false};
+ const p=projectDeparture(obs,path,'REPOSITION');return {safe:p.allOwned&&!p.blocked,reason:p.blocked?'WALL':p.allOwned?null:'LEAVES_HOME',firstCell:p.firstCell,entrySeconds:p.entrySeconds,blocked:p.blocked};
+}
