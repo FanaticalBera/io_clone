@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-10-12T15:49:57.235701+00:00",
+  "master": "960f678",
+  "runtimeBehaviorChanged": false,
+  "automaticPersistent": false,
+  "cadenceAdopted": false,
+  "nearPenaltyImplemented": false,
+  "checks": {
+    "replayArms": 5,
+    "seeds": 8,
+    "ticksPerReplay": 3600,
+    "unitFiles": 5,
+    "unitTests": 23,
+    "unitPassed": true,
+    "projectTypes": "pass",
+    "auditScriptStrictTypes": "pass with NodeNext --types node",
+    "baselineAndCombinedHistoricalProofs": "8/8 each",
+    "zeroFactorNormalizedProofs": "8/8",
+    "nearObserverNoninterference": "8/8 full trajectory/trace/memory/RNG/reservations",
+    "sourcePrivateCaptureHooks": "8/8 baseline recovery data identical to historical3A",
+    "zeroPenaltyMismatches": 0,
+    "wallDeaths": {
+      "baseline": 0,
+      "tactical": 0,
+      "strategy": 0,
+      "combined": 0
+    }
+  },
+  "rawFileHashes": {
+    "protocol.json": "960b2130b3195b7bb0948b042d1968b8eee189a8166f0bcdb322ab30c032ed83",
+    "baseline.json": "47d9798e1d339852e3bcd81b8905293c86168793c9157728ce80c6f5f85af2cf",
+    "tactical.json": "9b2d0ff7ca7ec17604b6590643d54f99e3c5dd34edaaffa3977979e7b33b6471",
+    "strategy.json": "4d5e10ebde9751e89dcf0ffc340aff4d44fc3588ba534b16ad0e678838d54b26",
+    "combined.json": "5b35b64428f5f73f07012b30e3fd90486ca6063a36a44afb8a119608a675e79a",
+    "legacy-control.json": "f770e3f167f16208bfcf3f6aba853fe56961b0b7b410b2c3c7586d658493a391",
+    "near-baseline.json": "2a14d6153f3fb074c61ae872faca010f5088cf7aaae69b70d9b2699348300f36",
+    "near-baseline-final.json": "49048342fe5308af7b15a624c3f269aed8a2b7ae627f3369316e80bd1156d30b",
+    "tests-final.log": "3d74baab097038f2e6fc06636f98a34e4662630a6204d2a6a8469dad8a4da591",
+    "typecheck-final.log": "b504ad0fbc7dbf23da9b306133827c1eb1f20088dd3e26236720b69ef9d2fa84",
+    "audit-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "No cadence-only performance benchmark or new UI validation; no executable gameplay/client change",
+    "Actual restart uses tick-boundary exposure; extremely short same-tick exposure may be omitted",
+    "Final-trace safety attribution; overwritten intermediate DANGER/PRESSURE not inferred",
+    "Single-choice near-B reranking, no enabled-B outcome rollout"
+  ],
+  "auditSourceHashes": {
+    "scripts/bot-phase025-audit.ts": "2ef613b0925b0b3a6145d586b0986f0e11f179f6777d60c1ae386c72a4c63114",
+    "scripts/prepare-bot-phase03b-separation.ts": "7f1c70b20e958f935fd08b8ae2cd8687d369d34d8901704cd45e2c10f7e7acde",
+    "tests/bot-near-restart-audit.ts": "420b064693640f7c6cbf81c5789164797fb116a42967765589c0d44865cb1469",
+    "tests/bot-safety-stop-tracker.ts": "685e55e6aa866ba7c6487640b26c2a5fc1044c5a75849e6c5dcacb4ef005e844"
+  }
+}

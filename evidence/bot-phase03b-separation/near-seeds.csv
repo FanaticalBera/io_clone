@@ -1,0 +1,9 @@
+seed,choices,eligibleChoices,eligibleCandidates,wouldChange,wouldChangeApplied,wouldChangeWithoutReturnCapture,zeroCheckMismatches,failures,unknownThreat,realReturns,atHomeFailures,matchedSelections,actualRestarts,realReturnRestarts,atHomeRetryRestarts,reCancelled,earlyClosedAgain,atHomeRetryReCancelled,realRepeatsEligible,realRepeatSelectionsChanged,atHomeRepeatSelectionsChanged,changedRealReturn,changedAtHome
+4,662,53,231,3,3,2,0,164,34,102,55,33,25,13,12,2,1,6,0,0,1,1,2
+19,642,37,131,2,2,2,0,134,20,67,58,31,25,7,18,0,0,4,0,0,0,0,2
+73,717,55,212,1,1,1,0,159,19,83,71,30,18,3,15,0,0,4,0,0,0,0,1
+11,599,26,96,0,0,0,0,103,29,63,31,23,19,9,10,3,0,1,1,0,0,0,0
+31,803,46,154,3,3,2,0,133,28,77,44,36,25,13,12,5,0,5,3,0,1,1,2
+47,622,50,185,1,1,1,0,135,25,68,60,40,27,8,19,0,0,6,0,0,0,0,1
+101,647,28,113,2,2,1,0,114,17,71,37,21,15,7,8,0,0,2,0,0,1,1,1
+137,701,40,162,2,2,2,0,112,25,51,52,29,20,9,11,2,0,5,1,0,2,0,2

@@ -1,0 +1,1866 @@
+{
+  "date": "2026-10-13",
+  "baseline": "5b714eaec087764eed54760dc79126691a0b5acb",
+  "unadopted3B": "7ebf4ebae6eaac8fb06e9e61b62380cd7a308238",
+  "master": "960f678",
+  "protocol": {
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 3600,
+    "simulationHz": 30,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "bots": 14,
+    "safeRespawn": true,
+    "variant": "combined",
+    "definitions": {
+      "baseline": "3A actual source plus read-only candidate hooks; both cadence factors off",
+      "tactical": "100ms tactics only; strategy remains legacy 6 ticks with slot%6 phase; independent tactical phase equals combined",
+      "strategy": "Personal strategy periods/phases only; no independent tactical tick",
+      "combined": "Unadopted full 3B source reference",
+      "legacyControl": "3B machinery with both scheduling factors off; gameplay/RNG/normalized state/order must equal actual 3A"
+    },
+    "adoption": "No arm adopted; runtime source and master unchanged"
+  },
+  "sourceManifests": [
+    {
+      "name": "baseline",
+      "sourceManifestSha256": "46985c7051f3914bf56a5e90eeac9b097f2a2fa58212b8d7dd1102f6dea41fb1",
+      "schedulerSha256": "cdb12b553720217f58b2e785603def55243aea4f2886d844a11487a6dc76aee6"
+    },
+    {
+      "name": "tactical",
+      "sourceManifestSha256": "a3871f16c4f0e23ed20d5134660f21c4616fef03782f91b3126fc7d09760b939",
+      "schedulerSha256": "bd494bbb0ecd113c615e35f41c8bc787ac9b874cb1a20f793c9183d5ed9b2df0"
+    },
+    {
+      "name": "strategy",
+      "sourceManifestSha256": "a1f9fda0bbaab78c22ba1770ba62f2ee454c2a7202020e9ded61626986422be2",
+      "schedulerSha256": "f18fea9e35f890f1095c2bd57c078dcce76d655f69d5861af529c60ae12e9b08"
+    },
+    {
+      "name": "combined",
+      "sourceManifestSha256": "e72e9c2f19e4bffeea89cf473afb5cc8eabca497a55fa3db79be2731dbc4d2ba",
+      "schedulerSha256": "4586af2736ad177e070280e45feddbfb505771fd9bdd5bc558c11641baddecfa"
+    },
+    {
+      "name": "legacy-control",
+      "sourceManifestSha256": "e48757ab2498142fe1e25e196253c02101bb1934f8ef682de08a67d5408d2db7",
+      "schedulerSha256": "b7656902ff5457e333ab4c0a94022ea7b78929bef1973f9b8e047c4abc64c486"
+    }
+  ],
+  "aggregate": {
+    "baseline": {
+      "holding": 2972.2828124999996,
+      "final": 4324.0,
+      "deaths": 90,
+      "reclaim": 3193,
+      "tv": 0.1776323888341682,
+      "tvWithoutRP": 0.16693902650211348,
+      "nearRate": 47.415095579058004,
+      "nearStops": 1203,
+      "nearFrames": 45669,
+      "targetABA": 44,
+      "modeABA": 1438,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1427,
+      "share_ATTACK": 0.13434355534259704,
+      "share_EXPAND": 0.12945887559934666,
+      "share_DEFEND": 0.1520128639522196,
+      "share_SEEK_POINT": 0.24081398315896912,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 78,
+        "PENDING_TRAIL_CONTACT": 7,
+        "HOME_CAPTURE": 5
+      },
+      "byPersonality": {
+        "ATTACK": {
+          "captured": 16696,
+          "stolen": 2243,
+          "deaths": 21,
+          "expansionPlans": 1389,
+          "aliveFrames": 102510,
+          "safety": {
+            "notifications": {
+              "DANGER": 89,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 124
+            },
+            "planStops": {
+              "DANGER": 23,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 108
+            },
+            "expansionStops": {
+              "DANGER": 19,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 108
+            }
+          }
+        },
+        "EXPAND": {
+          "captured": 18979,
+          "stolen": 2457,
+          "deaths": 16,
+          "expansionPlans": 1035,
+          "aliveFrames": 88577,
+          "safety": {
+            "notifications": {
+              "DANGER": 216,
+              "EARLY_CLOSURE": 36,
+              "EXPANSION_PRESSURE": 108
+            },
+            "planStops": {
+              "DANGER": 92,
+              "EARLY_CLOSURE": 31,
+              "EXPANSION_PRESSURE": 87
+            },
+            "expansionStops": {
+              "DANGER": 84,
+              "EARLY_CLOSURE": 31,
+              "EXPANSION_PRESSURE": 87
+            }
+          }
+        },
+        "DEFEND": {
+          "captured": 17413,
+          "stolen": 2647,
+          "deaths": 22,
+          "expansionPlans": 1735,
+          "aliveFrames": 109620,
+          "safety": {
+            "notifications": {
+              "DANGER": 384,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 161
+            },
+            "planStops": {
+              "DANGER": 182,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 134
+            },
+            "expansionStops": {
+              "DANGER": 170,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 134
+            }
+          }
+        },
+        "SEEK_POINT": {
+          "captured": 15676,
+          "stolen": 3775,
+          "deaths": 31,
+          "expansionPlans": 1193,
+          "aliveFrames": 94410,
+          "safety": {
+            "notifications": {
+              "DANGER": 189,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 163
+            },
+            "planStops": {
+              "DANGER": 71,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 145
+            },
+            "expansionStops": {
+              "DANGER": 65,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 145
+            }
+          }
+        }
+      }
+    },
+    "tactical": {
+      "holding": 3149.4219097222226,
+      "final": 4467.625,
+      "deaths": 80,
+      "reclaim": 3233,
+      "tv": 0.11335811296106665,
+      "tvWithoutRP": 0.10550685285771035,
+      "nearRate": 50.163582089552236,
+      "nearStops": 1167,
+      "nearFrames": 41875,
+      "targetABA": 44,
+      "modeABA": 1501,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1491,
+      "share_ATTACK": 0.14478094326071342,
+      "share_EXPAND": 0.15725231175693527,
+      "share_DEFEND": 0.13974471830985916,
+      "share_SEEK_POINT": 0.23360732885737592,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 73,
+        "HOME_CAPTURE": 4,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "byPersonality": {
+        "ATTACK": {
+          "captured": 16708,
+          "stolen": 2419,
+          "deaths": 23,
+          "expansionPlans": 1429,
+          "aliveFrames": 102330,
+          "safety": {
+            "notifications": {
+              "DANGER": 296,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 159
+            },
+            "planStops": {
+              "DANGER": 45,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 137
+            },
+            "expansionStops": {
+              "DANGER": 36,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 137
+            }
+          }
+        },
+        "EXPAND": {
+          "captured": 18925,
+          "stolen": 2976,
+          "deaths": 23,
+          "expansionPlans": 921,
+          "aliveFrames": 87950,
+          "safety": {
+            "notifications": {
+              "DANGER": 698,
+              "EARLY_CLOSURE": 34,
+              "EXPANSION_PRESSURE": 120
+            },
+            "planStops": {
+              "DANGER": 103,
+              "EARLY_CLOSURE": 29,
+              "EXPANSION_PRESSURE": 100
+            },
+            "expansionStops": {
+              "DANGER": 93,
+              "EARLY_CLOSURE": 29,
+              "EXPANSION_PRESSURE": 100
+            }
+          }
+        },
+        "DEFEND": {
+          "captured": 18176,
+          "stolen": 2540,
+          "deaths": 10,
+          "expansionPlans": 1833,
+          "aliveFrames": 110700,
+          "safety": {
+            "notifications": {
+              "DANGER": 882,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 160
+            },
+            "planStops": {
+              "DANGER": 164,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 144
+            },
+            "expansionStops": {
+              "DANGER": 155,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 144
+            }
+          }
+        },
+        "SEEK_POINT": {
+          "captured": 15937,
+          "stolen": 3723,
+          "deaths": 24,
+          "expansionPlans": 1224,
+          "aliveFrames": 95066,
+          "safety": {
+            "notifications": {
+              "DANGER": 443,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 149
+            },
+            "planStops": {
+              "DANGER": 57,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 126
+            },
+            "expansionStops": {
+              "DANGER": 53,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 126
+            }
+          }
+        }
+      }
+    },
+    "strategy": {
+      "holding": 3152.9422916666667,
+      "final": 4075.625,
+      "deaths": 100,
+      "reclaim": 2070,
+      "tv": 0.11401517690118632,
+      "tvWithoutRP": 0.10433755606826757,
+      "nearRate": 46.15023474178404,
+      "nearStops": 983,
+      "nearFrames": 38340,
+      "targetABA": 37,
+      "modeABA": 1321,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1317,
+      "share_ATTACK": 0.14430859307732047,
+      "share_EXPAND": 0.11882195448460509,
+      "share_DEFEND": 0.12541001530723814,
+      "share_SEEK_POINT": 0.15621309131596942,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 90,
+        "HOME_CAPTURE": 1,
+        "PENDING_TRAIL_CONTACT": 9
+      },
+      "byPersonality": {
+        "ATTACK": {
+          "captured": 17421,
+          "stolen": 2514,
+          "deaths": 28,
+          "expansionPlans": 1332,
+          "aliveFrames": 102044,
+          "safety": {
+            "notifications": {
+              "DANGER": 109,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 142
+            },
+            "planStops": {
+              "DANGER": 39,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 130
+            },
+            "expansionStops": {
+              "DANGER": 33,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 130
+            }
+          }
+        },
+        "EXPAND": {
+          "captured": 18675,
+          "stolen": 2219,
+          "deaths": 23,
+          "expansionPlans": 866,
+          "aliveFrames": 88075,
+          "safety": {
+            "notifications": {
+              "DANGER": 178,
+              "EARLY_CLOSURE": 35,
+              "EXPANSION_PRESSURE": 89
+            },
+            "planStops": {
+              "DANGER": 90,
+              "EARLY_CLOSURE": 28,
+              "EXPANSION_PRESSURE": 76
+            },
+            "expansionStops": {
+              "DANGER": 84,
+              "EARLY_CLOSURE": 28,
+              "EXPANSION_PRESSURE": 76
+            }
+          }
+        },
+        "DEFEND": {
+          "captured": 18292,
+          "stolen": 2294,
+          "deaths": 16,
+          "expansionPlans": 1693,
+          "aliveFrames": 110160,
+          "safety": {
+            "notifications": {
+              "DANGER": 395,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 150
+            },
+            "planStops": {
+              "DANGER": 158,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 124
+            },
+            "expansionStops": {
+              "DANGER": 149,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 124
+            }
+          }
+        },
+        "SEEK_POINT": {
+          "captured": 16087,
+          "stolen": 2513,
+          "deaths": 33,
+          "expansionPlans": 1207,
+          "aliveFrames": 94391,
+          "safety": {
+            "notifications": {
+              "DANGER": 171,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 97
+            },
+            "planStops": {
+              "DANGER": 64,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 85
+            },
+            "expansionStops": {
+              "DANGER": 60,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 85
+            }
+          }
+        }
+      }
+    },
+    "combined": {
+      "holding": 3088.6170833333335,
+      "final": 4055.5,
+      "deaths": 100,
+      "reclaim": 2723,
+      "tv": 0.09262630054875447,
+      "tvWithoutRP": 0.0870111126700483,
+      "nearRate": 54.26025480521393,
+      "nearStops": 1228,
+      "nearFrames": 40737,
+      "targetABA": 68,
+      "modeABA": 1515,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1505,
+      "share_ATTACK": 0.14085749573604658,
+      "share_EXPAND": 0.13568141980718668,
+      "share_DEFEND": 0.10434782608695652,
+      "share_SEEK_POINT": 0.15825248717790275,
+      "deathCauses": {
+        "PENDING_TRAIL_CONTACT": 6,
+        "EXISTING_TRAIL_CONTACT": 89,
+        "HOME_CAPTURE": 5
+      },
+      "byPersonality": {
+        "ATTACK": {
+          "captured": 17003,
+          "stolen": 2395,
+          "deaths": 27,
+          "expansionPlans": 1435,
+          "aliveFrames": 102100,
+          "safety": {
+            "notifications": {
+              "DANGER": 328,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 186
+            },
+            "planStops": {
+              "DANGER": 61,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 163
+            },
+            "expansionStops": {
+              "DANGER": 47,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 163
+            }
+          }
+        },
+        "EXPAND": {
+          "captured": 18256,
+          "stolen": 2477,
+          "deaths": 26,
+          "expansionPlans": 942,
+          "aliveFrames": 87845,
+          "safety": {
+            "notifications": {
+              "DANGER": 628,
+              "EARLY_CLOSURE": 48,
+              "EXPANSION_PRESSURE": 131
+            },
+            "planStops": {
+              "DANGER": 101,
+              "EARLY_CLOSURE": 39,
+              "EXPANSION_PRESSURE": 114
+            },
+            "expansionStops": {
+              "DANGER": 91,
+              "EARLY_CLOSURE": 39,
+              "EXPANSION_PRESSURE": 114
+            }
+          }
+        },
+        "DEFEND": {
+          "captured": 18630,
+          "stolen": 1944,
+          "deaths": 17,
+          "expansionPlans": 1818,
+          "aliveFrames": 110091,
+          "safety": {
+            "notifications": {
+              "DANGER": 963,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 189
+            },
+            "planStops": {
+              "DANGER": 184,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 164
+            },
+            "expansionStops": {
+              "DANGER": 171,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 164
+            }
+          }
+        },
+        "SEEK_POINT": {
+          "captured": 16183,
+          "stolen": 2561,
+          "deaths": 30,
+          "expansionPlans": 1295,
+          "aliveFrames": 94500,
+          "safety": {
+            "notifications": {
+              "DANGER": 414,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 144
+            },
+            "planStops": {
+              "DANGER": 64,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 117
+            },
+            "expansionStops": {
+              "DANGER": 64,
+              "EARLY_CLOSURE": 0,
+              "EXPANSION_PRESSURE": 117
+            }
+          }
+        }
+      }
+    }
+  },
+  "signals": {
+    "tactical": {
+      "holding": {
+        "positive": 6,
+        "negative": 2,
+        "tie": 0,
+        "leaveOneOutMin": 118.7028968253976,
+        "leaveOneOutMax": 241.44567460317467,
+        "direction": "indistinguishable"
+      },
+      "final": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -40.42857142857156,
+        "leaveOneOutMax": 307.0,
+        "direction": "indistinguishable"
+      },
+      "deaths": {
+        "positive": 2,
+        "negative": 5,
+        "tie": 1,
+        "leaveOneOutMin": -14,
+        "leaveOneOutMax": -6,
+        "direction": "indistinguishable"
+      },
+      "reclaim": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -217,
+        "leaveOneOutMax": 322,
+        "direction": "indistinguishable"
+      },
+      "tv": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.08316451968592738,
+        "leaveOneOutMax": -0.03388824056056314,
+        "direction": "indistinguishable"
+      },
+      "tvWithoutRP": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.08130536116307484,
+        "leaveOneOutMax": -0.0283774302220884,
+        "direction": "indistinguishable"
+      },
+      "nearRate": {
+        "positive": 6,
+        "negative": 2,
+        "tie": 0,
+        "leaveOneOutMin": 1.680943570978478,
+        "leaveOneOutMax": 3.451856182185935,
+        "direction": "indistinguishable"
+      },
+      "nearStops": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -85,
+        "leaveOneOutMax": 12,
+        "direction": "indistinguishable"
+      },
+      "nearFrames": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -5820,
+        "leaveOneOutMax": -1786,
+        "direction": "indistinguishable"
+      },
+      "targetABA": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -3,
+        "leaveOneOutMax": 6,
+        "direction": "indistinguishable"
+      },
+      "modeABA": {
+        "positive": 6,
+        "negative": 2,
+        "tie": 0,
+        "leaveOneOutMin": 16,
+        "leaveOneOutMax": 91,
+        "direction": "indistinguishable"
+      },
+      "voluntaryTargetABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "voluntaryModeABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "nearVoluntary": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "walls": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "wouldBlockHold": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "modeABAWithSafety": {
+        "positive": 5,
+        "negative": 2,
+        "tie": 1,
+        "leaveOneOutMin": 16,
+        "leaveOneOutMax": 94,
+        "direction": "indistinguishable"
+      },
+      "share_ATTACK": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -0.016636523315762153,
+        "leaveOneOutMax": 0.022012727865523746,
+        "direction": "indistinguishable"
+      },
+      "share_EXPAND": {
+        "positive": 7,
+        "negative": 1,
+        "tie": 0,
+        "leaveOneOutMin": 0.008820605109125218,
+        "leaveOneOutMax": 0.050492916441977204,
+        "direction": "increase"
+      },
+      "share_DEFEND": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -0.024975781290809712,
+        "leaveOneOutMax": 0.006401581559277308,
+        "direction": "indistinguishable"
+      },
+      "share_SEEK_POINT": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -0.03368253425483464,
+        "leaveOneOutMax": 0.018377217963392395,
+        "direction": "indistinguishable"
+      }
+    },
+    "strategy": {
+      "holding": {
+        "positive": 7,
+        "negative": 1,
+        "tie": 0,
+        "leaveOneOutMin": 144.61694444444447,
+        "leaveOneOutMax": 245.8906349206345,
+        "direction": "increase"
+      },
+      "final": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -338.14285714285734,
+        "leaveOneOutMax": -114.0,
+        "direction": "indistinguishable"
+      },
+      "deaths": {
+        "positive": 6,
+        "negative": 2,
+        "tie": 0,
+        "leaveOneOutMin": 6,
+        "leaveOneOutMax": 11,
+        "direction": "indistinguishable"
+      },
+      "reclaim": {
+        "positive": 1,
+        "negative": 7,
+        "tie": 0,
+        "leaveOneOutMin": -1161,
+        "leaveOneOutMax": -748,
+        "direction": "decrease"
+      },
+      "tv": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.07494477058949629,
+        "leaveOneOutMax": -0.054265079829406704,
+        "direction": "indistinguishable"
+      },
+      "tvWithoutRP": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.07808148563777365,
+        "leaveOneOutMax": -0.04258537133502606,
+        "direction": "indistinguishable"
+      },
+      "nearRate": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -2.16571275810999,
+        "leaveOneOutMax": -0.13985888405595404,
+        "direction": "indistinguishable"
+      },
+      "nearStops": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -256,
+        "leaveOneOutMax": -133,
+        "direction": "indistinguishable"
+      },
+      "nearFrames": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -9158,
+        "leaveOneOutMax": -4053,
+        "direction": "indistinguishable"
+      },
+      "targetABA": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -10,
+        "leaveOneOutMax": -2,
+        "direction": "indistinguishable"
+      },
+      "modeABA": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -218,
+        "leaveOneOutMax": -11,
+        "direction": "indistinguishable"
+      },
+      "voluntaryTargetABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "voluntaryModeABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "nearVoluntary": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "walls": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "wouldBlockHold": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "modeABAWithSafety": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -210,
+        "leaveOneOutMax": -4,
+        "direction": "indistinguishable"
+      },
+      "share_ATTACK": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": -0.0063127221012637125,
+        "leaveOneOutMax": 0.030899196037836446,
+        "direction": "indistinguishable"
+      },
+      "share_EXPAND": {
+        "positive": 3,
+        "negative": 5,
+        "tie": 0,
+        "leaveOneOutMin": -0.0306898406531554,
+        "leaveOneOutMax": -0.0008989425642328686,
+        "direction": "indistinguishable"
+      },
+      "share_DEFEND": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.04179739786122527,
+        "leaveOneOutMax": -0.012358389427678501,
+        "direction": "indistinguishable"
+      },
+      "share_SEEK_POINT": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.11079288347674421,
+        "leaveOneOutMax": -0.061842003030790266,
+        "direction": "indistinguishable"
+      }
+    },
+    "combined": {
+      "holding": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": 72.82738095238074,
+        "leaveOneOutMax": 155.36416666666628,
+        "direction": "indistinguishable"
+      },
+      "final": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -404.2857142857142,
+        "leaveOneOutMax": -165.28571428571468,
+        "direction": "indistinguishable"
+      },
+      "deaths": {
+        "positive": 5,
+        "negative": 1,
+        "tie": 2,
+        "leaveOneOutMin": 5,
+        "leaveOneOutMax": 13,
+        "direction": "indistinguishable"
+      },
+      "reclaim": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": -605,
+        "leaveOneOutMax": -35,
+        "direction": "indistinguishable"
+      },
+      "tv": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.09816191629294639,
+        "leaveOneOutMax": -0.0559712460658333,
+        "direction": "indistinguishable"
+      },
+      "tvWithoutRP": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.09628977295251753,
+        "leaveOneOutMax": -0.047674398026046616,
+        "direction": "indistinguishable"
+      },
+      "nearRate": {
+        "positive": 6,
+        "negative": 2,
+        "tie": 0,
+        "leaveOneOutMin": 5.700422024734259,
+        "leaveOneOutMax": 8.274439825866722,
+        "direction": "indistinguishable"
+      },
+      "nearStops": {
+        "positive": 3,
+        "negative": 4,
+        "tie": 1,
+        "leaveOneOutMin": -40,
+        "leaveOneOutMax": 116,
+        "direction": "indistinguishable"
+      },
+      "nearFrames": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -7456,
+        "leaveOneOutMax": -994,
+        "direction": "indistinguishable"
+      },
+      "targetABA": {
+        "positive": 7,
+        "negative": 0,
+        "tie": 1,
+        "leaveOneOutMin": 19,
+        "leaveOneOutMax": 24,
+        "direction": "increase"
+      },
+      "modeABA": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": -31,
+        "leaveOneOutMax": 197,
+        "direction": "indistinguishable"
+      },
+      "voluntaryTargetABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "voluntaryModeABA": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "nearVoluntary": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "walls": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "wouldBlockHold": {
+        "positive": 0,
+        "negative": 0,
+        "tie": 8,
+        "leaveOneOutMin": 0,
+        "leaveOneOutMax": 0,
+        "direction": "indistinguishable"
+      },
+      "modeABAWithSafety": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": -30,
+        "leaveOneOutMax": 199,
+        "direction": "indistinguishable"
+      },
+      "share_ATTACK": {
+        "positive": 5,
+        "negative": 3,
+        "tie": 0,
+        "leaveOneOutMin": -0.001614702852784422,
+        "leaveOneOutMax": 0.017191677783769982,
+        "direction": "indistinguishable"
+      },
+      "share_EXPAND": {
+        "positive": 4,
+        "negative": 4,
+        "tie": 0,
+        "leaveOneOutMin": -0.009798436688422701,
+        "leaveOneOutMax": 0.020386487754872396,
+        "direction": "indistinguishable"
+      },
+      "share_DEFEND": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.0647591441834732,
+        "leaveOneOutMax": -0.026494876730049383,
+        "direction": "indistinguishable"
+      },
+      "share_SEEK_POINT": {
+        "positive": 2,
+        "negative": 6,
+        "tie": 0,
+        "leaveOneOutMin": -0.11064403657937727,
+        "leaveOneOutMax": -0.06015429395885202,
+        "direction": "indistinguishable"
+      }
+    }
+  },
+  "safetySignals": {
+    "tactical": {
+      "ATTACK": {
+        "planStops": {
+          "DANGER": {
+            "positive": 5,
+            "negative": 1,
+            "tie": 2,
+            "leaveOneOutMin": 15,
+            "leaveOneOutMax": 24,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 5,
+            "negative": 2,
+            "tie": 1,
+            "leaveOneOutMin": 17,
+            "leaveOneOutMax": 32,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "EXPAND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 4,
+            "negative": 3,
+            "tie": 1,
+            "leaveOneOutMin": 4,
+            "leaveOneOutMax": 16,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 3,
+            "negative": 3,
+            "tie": 2,
+            "leaveOneOutMin": -6,
+            "leaveOneOutMax": 3,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 3,
+            "negative": 3,
+            "tie": 2,
+            "leaveOneOutMin": 3,
+            "leaveOneOutMax": 18,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "DEFEND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 2,
+            "negative": 6,
+            "tie": 0,
+            "leaveOneOutMin": -24,
+            "leaveOneOutMax": -9,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 3,
+            "negative": 5,
+            "tie": 0,
+            "leaveOneOutMin": -9,
+            "leaveOneOutMax": 22,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "SEEK_POINT": {
+        "planStops": {
+          "DANGER": {
+            "positive": 2,
+            "negative": 6,
+            "tie": 0,
+            "leaveOneOutMin": -22,
+            "leaveOneOutMax": -8,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 3,
+            "negative": 4,
+            "tie": 1,
+            "leaveOneOutMin": -21,
+            "leaveOneOutMax": -8,
+            "direction": "indistinguishable"
+          }
+        }
+      }
+    },
+    "strategy": {
+      "ATTACK": {
+        "planStops": {
+          "DANGER": {
+            "positive": 5,
+            "negative": 1,
+            "tie": 2,
+            "leaveOneOutMin": 11,
+            "leaveOneOutMax": 17,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 5,
+            "negative": 3,
+            "tie": 0,
+            "leaveOneOutMin": 10,
+            "leaveOneOutMax": 29,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "EXPAND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 3,
+            "negative": 4,
+            "tie": 1,
+            "leaveOneOutMin": -8,
+            "leaveOneOutMax": 6,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 3,
+            "negative": 3,
+            "tie": 2,
+            "leaveOneOutMin": -6,
+            "leaveOneOutMax": 1,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 3,
+            "negative": 5,
+            "tie": 0,
+            "leaveOneOutMin": -16,
+            "leaveOneOutMax": -6,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "DEFEND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 4,
+            "negative": 4,
+            "tie": 0,
+            "leaveOneOutMin": -28,
+            "leaveOneOutMax": -7,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 3,
+            "negative": 5,
+            "tie": 0,
+            "leaveOneOutMin": -29,
+            "leaveOneOutMax": 13,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "SEEK_POINT": {
+        "planStops": {
+          "DANGER": {
+            "positive": 3,
+            "negative": 5,
+            "tie": 0,
+            "leaveOneOutMin": -13,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 1,
+            "negative": 7,
+            "tie": 0,
+            "leaveOneOutMin": -66,
+            "leaveOneOutMax": -39,
+            "direction": "decrease"
+          }
+        }
+      }
+    },
+    "combined": {
+      "ATTACK": {
+        "planStops": {
+          "DANGER": {
+            "positive": 8,
+            "negative": 0,
+            "tie": 0,
+            "leaveOneOutMin": 29,
+            "leaveOneOutMax": 36,
+            "direction": "increase"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 6,
+            "negative": 1,
+            "tie": 1,
+            "leaveOneOutMin": 36,
+            "leaveOneOutMax": 59,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "EXPAND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 5,
+            "negative": 2,
+            "tie": 1,
+            "leaveOneOutMin": 4,
+            "leaveOneOutMax": 12,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 4,
+            "negative": 3,
+            "tie": 1,
+            "leaveOneOutMin": 4,
+            "leaveOneOutMax": 10,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 6,
+            "negative": 1,
+            "tie": 1,
+            "leaveOneOutMin": 17,
+            "leaveOneOutMax": 35,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "DEFEND": {
+        "planStops": {
+          "DANGER": {
+            "positive": 3,
+            "negative": 4,
+            "tie": 1,
+            "leaveOneOutMin": -8,
+            "leaveOneOutMax": 9,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 5,
+            "negative": 2,
+            "tie": 1,
+            "leaveOneOutMin": 10,
+            "leaveOneOutMax": 53,
+            "direction": "indistinguishable"
+          }
+        }
+      },
+      "SEEK_POINT": {
+        "planStops": {
+          "DANGER": {
+            "positive": 3,
+            "negative": 4,
+            "tie": 1,
+            "leaveOneOutMin": -12,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EARLY_CLOSURE": {
+            "positive": 0,
+            "negative": 0,
+            "tie": 8,
+            "leaveOneOutMin": 0,
+            "leaveOneOutMax": 0,
+            "direction": "indistinguishable"
+          },
+          "EXPANSION_PRESSURE": {
+            "positive": 2,
+            "negative": 6,
+            "tie": 0,
+            "leaveOneOutMin": -44,
+            "leaveOneOutMax": -14,
+            "direction": "indistinguishable"
+          }
+        }
+      }
+    }
+  },
+  "equivalence": [
+    {
+      "seed": 4,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 19,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 73,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 11,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 31,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 47,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 101,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    },
+    {
+      "seed": 137,
+      "baselineMatches3A": true,
+      "combinedMatches3B": true,
+      "zeroFactorTrajectory": true,
+      "zeroFactorNormalizedState": true,
+      "zeroFactorRng": true,
+      "zeroFactorReservations": true,
+      "nearObserverTrajectory": true,
+      "nearObserverStateRng": true,
+      "nearObserverReservations": true,
+      "sourceCaptureHooks": true
+    }
+  ],
+  "nearB": {
+    "basis": "3A; remains adopted reference after cadence comparisons, no experimental cadence arm adopted",
+    "definitions": {
+      "sameBoundary": 1,
+      "sameDirectionDegrees": 60,
+      "returnToLaunchSeconds": 1,
+      "launchToRecancelSeconds": 1,
+      "cancelToReturnSeconds": 2,
+      "penaltyMax": 1.5,
+      "penaltyBaseRatio": 0.1,
+      "threat": "Current observed same ID/life within 6 cells. DANGER uses nearest observed head within 5 of own trail; budget-only or unidentified threat cannot activate B.",
+      "capture": "Uninterrupted normal completion clears failure. Capture while returning after safety cancellation is a separate sensitivity count; strict alternative excludes it.",
+      "actualRestart": "Physical exposure using pre-step ownership/trail; at-home blocked retries reported separately from real exposure/return."
+    },
+    "total": {
+      "choices": 5393,
+      "eligibleChoices": 335,
+      "eligibleCandidates": 1284,
+      "wouldChange": 14,
+      "wouldChangeApplied": 14,
+      "wouldChangeWithoutReturnCapture": 11,
+      "zeroCheckMismatches": 0,
+      "failures": 1054,
+      "unknownThreat": 197,
+      "realReturns": 582,
+      "atHomeFailures": 408,
+      "matchedSelections": 243,
+      "actualRestarts": 174,
+      "realReturnRestarts": 69,
+      "atHomeRetryRestarts": 105,
+      "reCancelled": 12,
+      "earlyClosedAgain": 1,
+      "atHomeRetryReCancelled": 33,
+      "realRepeatsEligible": 5,
+      "realRepeatSelectionsChanged": 0,
+      "atHomeRepeatSelectionsChanged": 5,
+      "changedRealReturn": 3,
+      "changedAtHome": 11
+    },
+    "bySeed": [
+      {
+        "seed": 4,
+        "choices": 662,
+        "eligibleChoices": 53,
+        "eligibleCandidates": 231,
+        "wouldChange": 3,
+        "wouldChangeApplied": 3,
+        "wouldChangeWithoutReturnCapture": 2,
+        "zeroCheckMismatches": 0,
+        "failures": 164,
+        "unknownThreat": 34,
+        "realReturns": 102,
+        "atHomeFailures": 55,
+        "matchedSelections": 33,
+        "actualRestarts": 25,
+        "realReturnRestarts": 13,
+        "atHomeRetryRestarts": 12,
+        "reCancelled": 2,
+        "earlyClosedAgain": 1,
+        "atHomeRetryReCancelled": 6,
+        "realRepeatsEligible": 0,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 1,
+        "changedRealReturn": 1,
+        "changedAtHome": 2
+      },
+      {
+        "seed": 19,
+        "choices": 642,
+        "eligibleChoices": 37,
+        "eligibleCandidates": 131,
+        "wouldChange": 2,
+        "wouldChangeApplied": 2,
+        "wouldChangeWithoutReturnCapture": 2,
+        "zeroCheckMismatches": 0,
+        "failures": 134,
+        "unknownThreat": 20,
+        "realReturns": 67,
+        "atHomeFailures": 58,
+        "matchedSelections": 31,
+        "actualRestarts": 25,
+        "realReturnRestarts": 7,
+        "atHomeRetryRestarts": 18,
+        "reCancelled": 0,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 4,
+        "realRepeatsEligible": 0,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 0,
+        "changedRealReturn": 0,
+        "changedAtHome": 2
+      },
+      {
+        "seed": 73,
+        "choices": 717,
+        "eligibleChoices": 55,
+        "eligibleCandidates": 212,
+        "wouldChange": 1,
+        "wouldChangeApplied": 1,
+        "wouldChangeWithoutReturnCapture": 1,
+        "zeroCheckMismatches": 0,
+        "failures": 159,
+        "unknownThreat": 19,
+        "realReturns": 83,
+        "atHomeFailures": 71,
+        "matchedSelections": 30,
+        "actualRestarts": 18,
+        "realReturnRestarts": 3,
+        "atHomeRetryRestarts": 15,
+        "reCancelled": 0,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 4,
+        "realRepeatsEligible": 0,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 0,
+        "changedRealReturn": 0,
+        "changedAtHome": 1
+      },
+      {
+        "seed": 11,
+        "choices": 599,
+        "eligibleChoices": 26,
+        "eligibleCandidates": 96,
+        "wouldChange": 0,
+        "wouldChangeApplied": 0,
+        "wouldChangeWithoutReturnCapture": 0,
+        "zeroCheckMismatches": 0,
+        "failures": 103,
+        "unknownThreat": 29,
+        "realReturns": 63,
+        "atHomeFailures": 31,
+        "matchedSelections": 23,
+        "actualRestarts": 19,
+        "realReturnRestarts": 9,
+        "atHomeRetryRestarts": 10,
+        "reCancelled": 3,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 1,
+        "realRepeatsEligible": 1,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 0,
+        "changedRealReturn": 0,
+        "changedAtHome": 0
+      },
+      {
+        "seed": 31,
+        "choices": 803,
+        "eligibleChoices": 46,
+        "eligibleCandidates": 154,
+        "wouldChange": 3,
+        "wouldChangeApplied": 3,
+        "wouldChangeWithoutReturnCapture": 2,
+        "zeroCheckMismatches": 0,
+        "failures": 133,
+        "unknownThreat": 28,
+        "realReturns": 77,
+        "atHomeFailures": 44,
+        "matchedSelections": 36,
+        "actualRestarts": 25,
+        "realReturnRestarts": 13,
+        "atHomeRetryRestarts": 12,
+        "reCancelled": 5,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 5,
+        "realRepeatsEligible": 3,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 1,
+        "changedRealReturn": 1,
+        "changedAtHome": 2
+      },
+      {
+        "seed": 47,
+        "choices": 622,
+        "eligibleChoices": 50,
+        "eligibleCandidates": 185,
+        "wouldChange": 1,
+        "wouldChangeApplied": 1,
+        "wouldChangeWithoutReturnCapture": 1,
+        "zeroCheckMismatches": 0,
+        "failures": 135,
+        "unknownThreat": 25,
+        "realReturns": 68,
+        "atHomeFailures": 60,
+        "matchedSelections": 40,
+        "actualRestarts": 27,
+        "realReturnRestarts": 8,
+        "atHomeRetryRestarts": 19,
+        "reCancelled": 0,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 6,
+        "realRepeatsEligible": 0,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 0,
+        "changedRealReturn": 0,
+        "changedAtHome": 1
+      },
+      {
+        "seed": 101,
+        "choices": 647,
+        "eligibleChoices": 28,
+        "eligibleCandidates": 113,
+        "wouldChange": 2,
+        "wouldChangeApplied": 2,
+        "wouldChangeWithoutReturnCapture": 1,
+        "zeroCheckMismatches": 0,
+        "failures": 114,
+        "unknownThreat": 17,
+        "realReturns": 71,
+        "atHomeFailures": 37,
+        "matchedSelections": 21,
+        "actualRestarts": 15,
+        "realReturnRestarts": 7,
+        "atHomeRetryRestarts": 8,
+        "reCancelled": 0,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 2,
+        "realRepeatsEligible": 0,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 1,
+        "changedRealReturn": 1,
+        "changedAtHome": 1
+      },
+      {
+        "seed": 137,
+        "choices": 701,
+        "eligibleChoices": 40,
+        "eligibleCandidates": 162,
+        "wouldChange": 2,
+        "wouldChangeApplied": 2,
+        "wouldChangeWithoutReturnCapture": 2,
+        "zeroCheckMismatches": 0,
+        "failures": 112,
+        "unknownThreat": 25,
+        "realReturns": 51,
+        "atHomeFailures": 52,
+        "matchedSelections": 29,
+        "actualRestarts": 20,
+        "realReturnRestarts": 9,
+        "atHomeRetryRestarts": 11,
+        "reCancelled": 2,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 5,
+        "realRepeatsEligible": 1,
+        "realRepeatSelectionsChanged": 0,
+        "atHomeRepeatSelectionsChanged": 2,
+        "changedRealReturn": 0,
+        "changedAtHome": 2
+      }
+    ],
+    "byPersonality": {
+      "ATTACK": {
+        "choices": 1394,
+        "eligibleChoices": 59,
+        "eligibleCandidates": 194,
+        "wouldChange": 1,
+        "wouldChangeApplied": 1,
+        "wouldChangeWithoutReturnCapture": 1,
+        "zeroCheckMismatches": 0,
+        "failures": 185,
+        "unknownThreat": 4,
+        "realReturns": 84,
+        "atHomeFailures": 85,
+        "matchedSelections": 48,
+        "actualRestarts": 32,
+        "realReturnRestarts": 15,
+        "atHomeRetryRestarts": 17,
+        "reCancelled": 4,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 5
+      },
+      "EXPAND": {
+        "choices": 1052,
+        "eligibleChoices": 48,
+        "eligibleCandidates": 175,
+        "wouldChange": 3,
+        "wouldChangeApplied": 3,
+        "wouldChangeWithoutReturnCapture": 2,
+        "zeroCheckMismatches": 0,
+        "failures": 215,
+        "unknownThreat": 68,
+        "realReturns": 130,
+        "atHomeFailures": 75,
+        "matchedSelections": 54,
+        "actualRestarts": 39,
+        "realReturnRestarts": 19,
+        "atHomeRetryRestarts": 20,
+        "reCancelled": 1,
+        "earlyClosedAgain": 1,
+        "atHomeRetryReCancelled": 2
+      },
+      "DEFEND": {
+        "choices": 1740,
+        "eligibleChoices": 93,
+        "eligibleCandidates": 303,
+        "wouldChange": 2,
+        "wouldChangeApplied": 2,
+        "wouldChangeWithoutReturnCapture": 1,
+        "zeroCheckMismatches": 0,
+        "failures": 363,
+        "unknownThreat": 104,
+        "realReturns": 225,
+        "atHomeFailures": 120,
+        "matchedSelections": 74,
+        "actualRestarts": 60,
+        "realReturnRestarts": 17,
+        "atHomeRetryRestarts": 43,
+        "reCancelled": 1,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 16
+      },
+      "SEEK_POINT": {
+        "choices": 1207,
+        "eligibleChoices": 135,
+        "eligibleCandidates": 612,
+        "wouldChange": 8,
+        "wouldChangeApplied": 8,
+        "wouldChangeWithoutReturnCapture": 7,
+        "zeroCheckMismatches": 0,
+        "failures": 291,
+        "unknownThreat": 21,
+        "realReturns": 143,
+        "atHomeFailures": 128,
+        "matchedSelections": 67,
+        "actualRestarts": 43,
+        "realReturnRestarts": 18,
+        "atHomeRetryRestarts": 25,
+        "reCancelled": 6,
+        "earlyClosedAgain": 0,
+        "atHomeRetryReCancelled": 10
+      }
+    }
+  },
+  "scope": {
+    "3B": "not adopted; two cadence factors measured independently",
+    "3C": "closed, Persistent excluded automatically",
+    "3D": "prefix measurement complete",
+    "nearBehavior": "not implemented; single-decision B shadow only"
+  }
+}
