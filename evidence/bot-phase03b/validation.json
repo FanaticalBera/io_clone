@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-10-12T14:39:30.854921+00:00",
+  "master": "960f678",
+  "checks": {
+    "projectTypes": "pass",
+    "changedAuditStrictTypes": "pass (--ignoreConfig, NodeNext, strict)",
+    "unitSuite": {
+      "files": 95,
+      "tests": 662,
+      "passed": true,
+      "workers": 1,
+      "seconds": 168.02
+    },
+    "finalCadenceOnlyGeometryFixture": {
+      "files": 1,
+      "tests": 9,
+      "passed": true
+    },
+    "clientProductionBuild": "pass, local output; existing bundle size warning",
+    "serverBuild": "pass, local output",
+    "pcHudE2e": {
+      "tests": 9,
+      "passed": true,
+      "seconds": 102,
+      "previewPort": 5183
+    },
+    "oldBaselineProof": "8/8 trajectory, trace, memory, next RNG equal 3A/c84fc7a",
+    "candidatePrefixNoninterference": "8/8 trajectory, trace, memory, next RNG equal observer OFF",
+    "walls": 0,
+    "plannedPursuitLimit": 3,
+    "maximumObservedPlannedPursuit": 1
+  },
+  "rawFileHashes": {
+    "baseline-choices-final.json": "0d8f7d596cc14c0938a9ec253327418eeb918c423d6e52f8909ef0cbdee1d2e8",
+    "current-final.json": "3148e3a8e6b5c2f749aab5ccbb877de214620cde38c682ef62361fce4504848e",
+    "current-uninstrumented.json": "24a3eeec1bcda951db74688c848bed92d568a0389e0552de5e91950ed284b13b",
+    "performance.json": "f673573790d62110e27588f650d549e73a174f66bf0ec7ac094d35e7ab21e68e",
+    "protocol.json": "b66c92529852d39aa0ce5f705858ad83def9aaacdd7730248acc9ee40e607774",
+    "vitest-final.log": "21137993cff77df81345c2e081bf4253b8505b1e393dec168fe4b92a625eb974",
+    "geometry-final.log": "5353be8d8b6efc397a4e5a238d8c174140120f94e8ed3568c30b4c3c826f13b3",
+    "typecheck-final.log": "b504ad0fbc7dbf23da9b306133827c1eb1f20088dd3e26236720b69ef9d2fa84",
+    "script-typecheck-final.log": "ea60fe22a7278fbcb5f19eb825949adeb853debdc37fb38cdf8b70da2263bbd7",
+    "playwright.log": "4720816215df53ac154da5ce8a6dc4f2b69cc865ef8567c78c43cbe127c21fee",
+    "client-build.log": "4b8d1d06ede8060718c7db62f3d19ed427800301d5730408a62f4008b59f0239",
+    "server-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": {
+    "implemented": [
+      "3B"
+    ],
+    "measuredOnly": [
+      "3C C1/C2 ordinary strategic choices on 3A baseline",
+      "3D existing prefix"
+    ],
+    "proposalOnly": [
+      "near plan selection"
+    ],
+    "masterMerge": false
+  },
+  "implementationCommit": "7ebf4eb"
+}
