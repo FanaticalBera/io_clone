@@ -38,7 +38,9 @@ describe('bounded expansion geometry and real closure',()=>{
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{
+  // Fixed six-tick geometry witness; new cadence is covered by phase03 and paired movement audits.
   const m=createMatch({},4,botSpecs(8)),memories=m.participants.map(p=>createBotMemory(4+p.slot)),p=m.participants[4],memory=memories[4];
+  memories.forEach(m=>{m.schedule=undefined;}); // Pin only cadence; keep combined fairness/cache/geometry.
   let trace:BotDecisionTrace|undefined,closedAt=-1,oldLength=0,newLength=0,oldTerritory=0,lifeId=0,captures=0,sawTrail=false;
   watchBotDecisions(memory,t=>{trace=t;});
   for(let tick=0;tick<300;tick++){

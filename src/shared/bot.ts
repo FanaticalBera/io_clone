@@ -1,6 +1,6 @@
 import {memoryVariants,observationVariants,decisionTraces,attackPolicies} from './bot-runtime.js';
 import {shortestPath} from './bot-navigation.js';
-import {scheduleBotDecision} from './bot-scheduler.js';
+import {scheduleBotDecision,scheduleBotTactics,botDecisionDue,createBotSchedule,type BotSchedule} from './bot-scheduler.js';
 import {runBotTactics} from './bot-tactical.js';
 import {selectBotStrategicPlan} from './bot-strategy.js';
 export {shortestPath,returnPath} from './bot-navigation.js';
@@ -31,16 +31,16 @@ export interface BotObservation {
 }
 export type BotGoal='EXPAND'|'STEAL'|'SEEK_POINT'|'ATTACK'|'RETURN'|'ESCAPE'|'REPOSITION';
 export interface BotTraits {readonly expansionScale:number;readonly riskScale:number;readonly stealScale:number}
-export interface BotMemory { departureOwned?:boolean;reposition:RepositionState; identity?:Readonly<BotIdentity>; traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; emotion:BotEmotion;attackSurvival:boolean;expansion?:ExpansionPlan;lastExpansionShape?:ExpansionShape }
+export interface BotMemory { schedule?:BotSchedule;departureOwned?:boolean;reposition:RepositionState; identity?:Readonly<BotIdentity>; traits:Readonly<BotTraits>; path:number[]; nextDecisionTick:number; seq:number; random:()=>number; goal:BotGoal; lastCell:number; lastProgressTick:number; plannedLifeId:number; attackTarget:number|null; attackSlot:number|null; emotion:BotEmotion;attackSurvival:boolean;expansion?:ExpansionPlan;lastExpansionShape?:ExpansionShape }
 export function createBotMemory(seed:number,variant:BotVariant='combined',identity?:Readonly<BotIdentity>):BotMemory {
  // Independent stream: traits neither consume decision RNG nor change on respawn.
  const random=seededRandom(seed),traitRandom=seededRandom(seed^0x51f15e),scale=()=>.9+traitRandom()*.2;
  const traits=Object.freeze({expansionScale:scale(),riskScale:scale(),stealScale:scale()});
- const memory:BotMemory={reposition:createRepositionState(),identity,traits:identity?Object.freeze({expansionScale:identity.individual.expansionScale,riskScale:identity.individual.riskScale,stealScale:identity.individual.stealScale}):traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,emotion:createBotEmotion(),attackSurvival:false};memoryVariants.set(memory,variant);return memory;
+ const memory:BotMemory={schedule:variant==='combined'?createBotSchedule(seed):undefined,reposition:createRepositionState(),identity,traits:identity?Object.freeze({expansionScale:identity.individual.expansionScale,riskScale:identity.individual.riskScale,stealScale:identity.individual.stealScale}):traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,emotion:createBotEmotion(),attackSurvival:false};memoryVariants.set(memory,variant);return memory;
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number;grudge?:number;grudgeBonus?:number;attackChance?:number;otherReservations?:number;reservationFactor?:number;survival?:boolean}
 export interface ExpansionPlan {response?:DamageBonus;anchor?:number;shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number}
-export interface BotDecisionTrace {departure?:DepartureSafety & {fallback:number[]|null};repositionEvent?:RepositionEnd;emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};damageBoundary?:{anchors:number[];unreachable:number};expansionScores?:{departureBlocked?:string;shape?:ExpansionShape;goal:BotGoal;score:number;response?:DamageBonus;anchor?:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
+export interface BotDecisionTrace {cadence?:{strategy:boolean;tactical:boolean;strategyTicks:number|null;tacticalTicks:number|null};departure?:DepartureSafety & {fallback:number[]|null};repositionEvent?:RepositionEnd;emotion?:{pressure:number;lineThreat:boolean;recentDamage:number;expansionScale:number;riskScale:number};planChanged?:boolean;reason?:string;safetyOverride?:string;risk?:{danger:boolean;nearestEnemyToTrail:number|null;trailLimit:number};damageBoundary?:{anchors:number[];unreachable:number};expansionScores?:{departureBlocked?:string;shape?:ExpansionShape;goal:BotGoal;score:number;response?:DamageBonus;anchor?:number}[];expansionRejected?:Record<string,number>;tick:number;from:BotGoal;to:BotGoal;ownTrail:number;attackTarget:number|null;attacks:BotAttackTrace[];personality?:Personality;traits?:Readonly<BotTraits>;lookAheadUsed?:number;attackSlot?:number|null;pathLength?:number;exitReason?:string;shadow?:ShadowOpportunity;expansionCandidates?:ExpansionShape[];expansionAccepted?:ExpansionShape[];expansionPlan?:ExpansionPlan;expansionPath?:number[];earlyClosure?:boolean}
 const botObservers=new WeakMap<BotMemory,(trace:BotDecisionTrace)=>void>();
 const shadowObservers=new WeakMap<BotMemory,boolean>();
 // Optional tactical audit: production decisions do not allocate trace records.
@@ -79,11 +79,12 @@ export function observeBot(match:MatchState,participantId:string,variant:BotVari
 }
 export function observeBotForTick(match:MatchState,participantId:string,memory:BotMemory):BotObservation {
  const variant=memoryVariants.get(memory)??'combined',self=match.participants.find(p=>p.participantId===participantId);
- const light=botOptions(variant).cache&&self?.lifeId===memory.plannedLifeId&&match.tick<memory.nextDecisionTick&&!memory.reposition.active;
+ const due=self?botDecisionDue(memory,match.tick,self,match.owners,self.trailCells.size):undefined;
+ const light=botOptions(variant).cache&&self?.lifeId===memory.plannedLifeId&&!due?.strategy&&!due?.tactical&&!memory.reposition.active;
  return observeBot(match,participantId,variant,light);
 }
 export function botRepositionDue(obs:BotObservation,memory:BotMemory,returnOnly=false){return !!repositionImmediateReason(obs,memory.reposition,memory.path,returnOnly);}
-export interface BotTickMetric {tick:number;slot:number;lifeId:number;goal:BotGoal;from:BotGoal;reason:'LIFE'|'URGENT'|'REGULAR';nextDecisionTick:number;attackTarget:number|null;attackSlot:number|null}
+export interface BotTickMetric {tick:number;slot:number;lifeId:number;goal:BotGoal;from:BotGoal;reason:'LIFE'|'URGENT'|'REGULAR';nextDecisionTick:number;nextTacticalTick?:number;layer?:'BOTH'|'TACTICAL'|'STRATEGY';attackTarget:number|null;attackSlot:number|null}
 const tickObservers=new WeakMap<BotMemory,(metric:BotTickMetric)=>void>();
 export function watchBotTicks(memory:BotMemory,observer:(metric:BotTickMetric)=>void):()=>void {tickObservers.set(memory,observer);return()=>tickObservers.delete(memory);}
 export const botLookAhead=immediateLookAhead;
@@ -98,21 +99,25 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
  const setPath=(path:number[],force=false)=>{if(observer&&(force||path.length!==memory.path.length||path.some((id,i)=>id!==memory.path[i])))planChanged=true;memory.path=path;};
  repositionProgress(obs,memory.reposition);
  let repositionEvent=repositionImmediateReason(obs,memory.reposition,memory.path,returnOnly);
- if(!repositionEvent&&obs.tick>=memory.nextDecisionTick)repositionEvent=repositionRegularReason(obs,memory.reposition,memory.emotion);
+ if(!repositionEvent&&(()=>{const d=botDecisionDue(memory,obs.tick,obs.self,obs.owners,obs.actualOwnTrailLength??obs.ownTrail.length);return d.strategy||d.tactical;})())repositionEvent=repositionRegularReason(obs,memory.reposition,memory.emotion);
  if(repositionEvent){endReposition(obs,memory.reposition,repositionEvent);setPath([]);memory.goal='RETURN';memory.nextDecisionTick=obs.tick;}
  const lifeChanged=memory.plannedLifeId!==obs.self.lifeId,fromGoal=planGoal;
  const decisionReason:BotTickMetric['reason']=lifeChanged?'LIFE':memory.nextDecisionTick<=obs.tick-1?'URGENT':'REGULAR';
- if(memory.plannedLifeId!==obs.self.lifeId){setPath([]);memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.attackSurvival=false;memory.expansion=undefined;memory.lastExpansionShape=undefined;memory.departureOwned=false;}
+ if(memory.plannedLifeId!==obs.self.lifeId){setPath([]);memory.seq=0;memory.nextDecisionTick=0;memory.plannedLifeId=obs.self.lifeId;if(memory.schedule)memory.schedule.nextTacticalTick=obs.tick;memory.lastCell=-1;memory.attackTarget=null;memory.attackSlot=null;memory.goal='EXPAND';memory.attackSurvival=false;memory.expansion=undefined;memory.lastExpansionShape=undefined;memory.departureOwned=false;}
  if(memory.lastCell!==obs.self.cellId){memory.lastCell=obs.self.cellId;memory.lastProgressTick=obs.tick;}
- const due=obs.tick>=memory.nextDecisionTick;
+ const cadence=botDecisionDue(memory,obs.tick,obs.self,obs.owners,obs.actualOwnTrailLength??obs.ownTrail.length);
+ let strategyDue=cadence.strategy;const due=strategyDue||cadence.tactical;
  if(due){
-  memory.departureOwned=false;
+  if(strategyDue)memory.departureOwned=false;
   const trace:BotDecisionTrace|undefined=observer?{tick:obs.tick,from:planGoal,to:memory.goal,repositionEvent:repositionEvent??undefined,ownTrail:obs.ownTrail.length,attackTarget:null,attacks:[]}:undefined;
   if(trace)decisionTraces.set(memory,trace);
   if(trace&&shadowObservers.get(memory)!==false){trace.shadow=evaluateShadowOpportunities(obs,{path:shortestPath,seconds:shadowTravelSeconds});trace.shadow.goalBefore=memory.goal;}
-  scheduleBotDecision(obs,memory);
+  if(strategyDue)scheduleBotDecision(obs,memory);
+  scheduleBotTactics(obs,memory);
   const {stuck,homeLost,danger,targetPresent,atHome}=runBotTactics(obs,memory,returnOnly,policy,setPath,trace);
-  selectBotStrategicPlan(obs,memory,returnOnly,atHome,setPath,trace);
+  if(!strategyDue&&!memory.path.length&&atHome){strategyDue=true;scheduleBotDecision(obs,memory);}
+  if(strategyDue)selectBotStrategicPlan(obs,memory,returnOnly,atHome,setPath,trace);
+  if(trace)trace.cadence={strategy:strategyDue,tactical:true,strategyTicks:cadence.strategyTicks??null,tacticalTicks:memory.schedule&&obs.self.kind==='BOT'?3:null};
   if(trace&&observer){decisionTraces.delete(memory);finishTrace=()=>{trace.repositionEvent??=repositionEvent??undefined;if(departure){trace.departure=departure;trace.expansionPlan=undefined;trace.expansionPath=undefined;trace.reason=departure.fallback?'LAUNCH_BLOCKED':'LAUNCH_NO_SAFE_OWNED_ROUTE';trace.safetyOverride=trace.reason;}trace.planChanged=planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot;trace.to=memory.goal;trace.attackTarget=memory.attackTarget;trace.attackSlot=memory.attackSlot;trace.personality=obs.self.personality;trace.pathLength=memory.path.length;trace.traits=memory.traits;trace.lookAheadUsed=perimeterReturn||!target?1:Math.max(1,memory.path.findIndex(id=>obs.map.cells[id].center===target)+1);
    trace.reason=perimeterReturn?'PERIMETER_GUARD':trace.reason??(memory.goal==='ESCAPE'?'ESCAPE_COMMITMENT':'PLAN_CONTINUE');if(perimeterReturn)trace.safetyOverride='PERIMETER_GUARD';
    const shadow=trace.shadow;if(shadow){const clear=shadow.candidates.filter(c=>c.reason==='CLEAR_KILL_OPPORTUNITY');shadow.selectedGoal=memory.goal;shadow.selectedTarget=memory.attackTarget;
@@ -148,7 +153,7 @@ export function getBotInput(obs:BotObservation,memory:BotMemory,returnOnly=false
  if(perimeterReturn&&!due&&observer&&shadowObservers.get(memory)===false)observer({tick:obs.tick,from:planGoal,to:memory.goal,planChanged:planChanged||planGoal!==memory.goal||planTarget!==memory.attackTarget||planSlot!==memory.attackSlot,reason:'PERIMETER_GUARD',safetyOverride:'PERIMETER_GUARD',ownTrail:obs.ownTrail.length,attackTarget:null,attackSlot:null,attacks:[],pathLength:0});
  if(memory.goal!=='ATTACK')memory.attackSurvival=false;
  finishTrace?.();
- if(due)tickObservers.get(memory)?.({tick:obs.tick,slot:obs.self.slot,lifeId:obs.self.lifeId,goal:memory.goal,from:fromGoal,reason:decisionReason,nextDecisionTick:memory.nextDecisionTick,attackTarget:memory.attackTarget,attackSlot:memory.attackSlot});
+ if(due)tickObservers.get(memory)?.({tick:obs.tick,slot:obs.self.slot,lifeId:obs.self.lifeId,goal:memory.goal,from:fromGoal,reason:decisionReason,layer:strategyDue?'BOTH':'TACTICAL',nextTacticalTick:memory.schedule?.nextTacticalTick,nextDecisionTick:memory.nextDecisionTick,attackTarget:memory.attackTarget,attackSlot:memory.attackSlot});
  if(!direction)return null;
  return {matchId:obs.matchId,lifeId:obs.self.lifeId,seq:++memory.seq,dx:direction.x,dy:direction.y};
 }

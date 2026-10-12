@@ -230,9 +230,9 @@ describe('phase 2 atomic pursuit director',()=>{
   const specs=botSpecs(14,0,'bot',{seed:19}),a=createMatch({mapRadius:22},19,specs,'same'),b=createMatch({mapRadius:22},19,specs,'same');
   const memories=(m:typeof a)=>new Map(m.participants.map(p=>[p.participantId,createBotMemory(botSeed(19,p.slot),'combined',createBotIdentity(botSeed(19,p.slot),p.personality!))]));
   const ma=memories(a),mb=memories(b),collector=new BotDebugCollector(b,mb);
-  for(let tick=0;tick<450;tick++){const ia=getBotInputs(a,ma),ib=getBotInputs(b,mb);expect(ia).toEqual(ib);stepMatch(a,ia);stepMatch(b,ib);collector.afterTick();if(tick%8===0)collector.snapshot();}
+  for(let tick=0;tick<900;tick++){const ia=getBotInputs(a,ma),ib=getBotInputs(b,mb);expect(ia).toEqual(ib);stepMatch(a,ia);stepMatch(b,ib);collector.afterTick();if(tick%8===0)collector.snapshot();}
   expect(a).toEqual(b);expect(botDirector(a).snapshot()).toEqual(botDirector(b).snapshot());expect(botDirector(a).stats.maxPlanned).toBeLessThanOrEqual(3);
-  for(const [id,m]of ma){expect(m.emotion).toEqual(mb.get(id)!.emotion);expect(m.random()).toBe(mb.get(id)!.random());}
-  expect(a.participants.some(p=>p.deaths>0)).toBe(true);expect(collector.snapshot().bots.some(p=>p.grudgeEvents.length>0)).toBe(true);collector.dispose();
+  for(const [id,m]of ma){expect({...m,random:undefined}).toEqual({...mb.get(id)!,random:undefined});expect(m.random()).toBe(mb.get(id)!.random());}
+  expect(a.participants.some(p=>p.lifeId>1)).toBe(true);expect(collector.snapshot().bots.some(p=>p.grudgeEvents.length>0)).toBe(true);collector.dispose();
  });
 });

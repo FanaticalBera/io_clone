@@ -1,3 +1,5 @@
+import {BotContinuityAudit} from '../tests/bot-continuity-audit.js';
+import {BotPrefixTracker} from '../tests/bot-prefix-tracker.js';
 import {BotPlanTransitionTracker} from '../tests/bot-plan-transition-tracker.js';
 import {BotRecoveryBaselineTracker} from '../tests/bot-recovery-baseline-tracker.js';
 import {BotHoldingTracker} from '../tests/bot-holding-tracker.js';
@@ -25,6 +27,9 @@ const auditHolding=process.argv.includes('--holding');
 const equivalenceProof=process.argv.includes('--equivalence-proof');
 const phase03Baseline=process.argv.includes('--phase03-baseline');
 const transitionAudit=process.argv.includes('--transition-audit');
+const choiceAudit=process.argv.includes('--choice-audit');
+const candidateModule=choiceAudit?await load('src/shared/bot-candidate-diagnostics.ts'):null;
+const immediateModule=choiceAudit?await load('src/shared/bot-immediate-safety.ts'):null;
 if((phase03Baseline||transitionAudit)&&source!==resolve('.'))throw new Error('Supplementary baseline observes current source only');
 if(!seeds.length||seeds.some(s=>!Number.isSafeInteger(s))||!Number.isSafeInteger(ticks)||ticks<1)throw new Error('Invalid audit arguments');
 const increment=(table:Record<string,number>,key:string,n=1)=>table[key]=(table[key]??0)+n;
@@ -36,6 +41,8 @@ for(const seed of seeds){
  const episodes=auditEpisodes?new ExpansionEpisodeTracker(m,seed):undefined;
  const recovery=phase03Baseline?new BotRecoveryBaselineTracker(m):undefined;
  const transitions=transitionAudit?new BotPlanTransitionTracker(m):undefined;
+ const continuity=choiceAudit?new BotContinuityAudit(m,memories,candidateModule!.watchBotCandidates,immediateModule!.evaluateDepartureSafety):undefined;
+ const prefix=choiceAudit?new BotPrefixTracker(m,memories):undefined;
  const reposition=repositionModule?new repositionModule.BotRepositionDiagnostics(memories,m.config.simulationHz):null,repositionRows:any[]=[];if(reposition)reposition.onEpisode=(id:string,row:any)=>repositionRows.push({participantId:id,slot:m.participants.find((p:any)=>p.participantId===id).slot,...row});
  const growth=new growthModule.BotGrowthTracker(m,(trace:any)=>{transitions?.death(trace.victimId);recovery?.death(trace.victimId);episodes?.death(trace,memories.get(trace.victimId)!);if(trace.context?.cause==='PENDING_TRAIL_CONTACT'&&trace.trailCells.length===0)firstTrailDeaths++;}),latest=new Map<string,BotDecisionTrace>();
  const stats=new Map<Personality,any>();
@@ -49,8 +56,8 @@ for(const seed of seeds){
  for(const [id,memory]of memories)bot.watchBotDecisions(memory,(trace:BotDecisionTrace)=>latest.set(id,trace),{shadow:false});
  for(let t=0;t<ticks&&m.phase==='RUNNING';t++){
   latest.clear();const before=m.eventCounter,owners=m.owners.slice(),lives=new Map(m.participants.map((p:any)=>[p.participantId,p.lifeId])),cells=new Map(m.participants.map((p:any)=>[p.participantId,p.cellId]));
-  transitions?.beforeTick(memories);
-  const inputs=director.getBotInputs(m,memories);transitions?.afterInputs(memories,latest);
+  transitions?.beforeTick(memories);continuity?.beforeTick();
+  const inputs=director.getBotInputs(m,memories);transitions?.afterInputs(memories,latest);continuity?.afterInputs(latest);prefix?.afterInputs(latest);
   traceHash?.update(JSON.stringify([...latest]));
   for(const p of m.participants){const memory=memories.get(p.participantId)!,trace=latest.get(p.participantId),s=stats.get(p.personality)!;growth.before(p,trace);episodes?.before(p,memory,trace);recovery?.before(p.participantId,p.lifeId,trace);
    if(p.lifeState==='ALIVE'){s.aliveFrames++;increment(s.goalFrames,memory.goal);}
@@ -85,7 +92,7 @@ for(const seed of seeds){
    for(const [id,r]of memory)if(m.owners[id]===p.slot+1||m.tick-r.tick>60*m.config.simulationHz)memory.delete(id);
   }
   const capturedIds=new Set<string>(m.events.filter((e:any)=>Number(e.eventId.split(':').at(-1))>before&&e.type==='CAPTURE').map((e:any)=>e.participantId));
-  for(const p of m.participants){episodes?.after(p,capturedIds.has(p.participantId));if(capturedIds.has(p.participantId))recovery?.captured(p.participantId);}recovery?.afterTick();transitions?.afterTick(capturedIds);
+  for(const p of m.participants){episodes?.after(p,capturedIds.has(p.participantId));if(capturedIds.has(p.participantId))recovery?.captured(p.participantId);}recovery?.afterTick();transitions?.afterTick(capturedIds);continuity?.afterTick(capturedIds);prefix?.afterTick();
   for(const e of m.events)if(Number(e.eventId.split(':').at(-1))>before){const p=m.participants.find((p:any)=>p.participantId===e.participantId),s=stats.get(p.personality)!;
    if(e.type==='CAPTURE'&&(e.amount??0)>0){totalCapture+=e.amount;captures++;s.captures++;s.totalCapture+=e.amount;}
    if(e.type==='DEATH'){s.deaths++;if(e.reason==='WALL_HIT')walls++;const mem=memories.get(p.participantId)!;deathDetails.push({slot:p.slot,personality:p.personality,tick:e.tick,reason:e.reason,cause:e.deathContext?.cause,goal:mem.goal,grudge:Math.max(0,...[...mem.emotion.grudge.values()].map((r:any)=>r.amount)),responseBonus:mem.expansion?.response?.bonus??0});}
@@ -95,7 +102,7 @@ for(const seed of seeds){
  const goalDistances=[];for(let i=0;i<groups.length;i++)for(let j=i+1;j<groups.length;j++){const a=groups[i],b=groups[j],goals=new Set([...Object.keys(a.goalFrames),...Object.keys(b.goalFrames)]);goalDistances.push({a:a.personality,b:b.personality,totalVariation:[...goals].reduce((sum,key)=>sum+Math.abs((a.goalFrames[key]??0)/(a.aliveFrames||1)-(b.goalFrames[key]??0)/(b.aliveFrames||1)),0)/2});}
  reposition?.finish(memories);
  const proof=equivalenceProof?{traceHash:traceHash!.digest('hex'),memoryHash:createHash('sha256').update(JSON.stringify([...memories].map(([id,memory])=>[id,{...memory,random:undefined}]),(_k,v)=>v instanceof Map?[...v]:v instanceof Set?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v)).digest('hex'),nextRng:Object.fromEntries([...memories].map(([id,memory])=>[id,memory.random()]))}:undefined;
- reports.push({transitionAudit:transitions?.snapshot(),supplementaryRecovery:recovery?.snapshot(),equivalenceProof:proof,holding:holding?.snapshot(),departure:departure?.all(m.tick)??null,firstTrailDeaths,reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});recovery?.dispose();growth.dispose();reposition?.dispose();departure?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
+ reports.push({continuityAudit:continuity?.snapshot(),prefixAudit:prefix?.snapshot(),transitionAudit:transitions?.snapshot(),supplementaryRecovery:recovery?.snapshot(),equivalenceProof:proof,holding:holding?.snapshot(),departure:departure?.all(m.tick)??null,firstTrailDeaths,reposition:reposition?{stats:reposition.stats,episodes:repositionRows}:null,seed,trajectoryHash:trajectory.digest('hex'),seconds:m.tick/m.config.simulationHz,requestedTicks:ticks,phase:m.phase,mapRadius:56,spawnCells:7,bots:14,safeRespawn:true,classic:true,totalCapture,captures,walls,deaths:m.participants.reduce((sum:number,p:any)=>sum+p.deaths,0),growth:growth.snapshot(),personalities:groups,goalDistances,boundary,memoryPeaks,deathDetails,episodeAudit:episodes?.finish(),director:director.botDirector(m).snapshot()});recovery?.dispose();growth.dispose();reposition?.dispose();departure?.dispose();if(out)console.error('Finished seed '+seed+' ('+reports.at(-1)!.deaths+' deaths)');
 }
 const result={source,seeds,auditEpisodes,measurement:'Real movement. Steal/recapture cells sampled at tick boundaries, excluding neutral ownership and respawn grants; transfers neutralized within the same tick may be omitted. Grudge/candidate counts distinguish plan creation and continuation; within-decision identical slot/cell/interrupt/reason is counted once. No behavior tuning.',reposition:repositionModule?'Actual relocation episodes; A→B→A requires three executed moves in one life within 30s and two >=120 degree actual displacement reversals':'Baseline without relocation',reports};
 const json=JSON.stringify(result,null,2);if(out)writeFileSync(out,json);else console.log(json);

@@ -1,3 +1,4 @@
+import {botDecisionDue} from './bot-scheduler.js';
 import {getBotInput,observeBotForTick,botRepositionDue,type BotObservation,type BotMemory} from './bot.js';
 import type {BotAttackPolicy} from './bot-policy.js';
 import type {MatchState,DirectionInput,Participant} from './model.js';
@@ -39,7 +40,8 @@ export class BotDirector {
    if(p.lifeState!=='ALIVE'){inactive.push(p);continue;}
    if(selected?!selected.has(p.participantId):p.kind!=='BOT')continue;
    if(m.reposition.active){const obs=observeBotForTick(this.match,p.participantId,m);observations.set(p.participantId,obs);if(botRepositionDue(obs,m,returnOnly.has(p.participantId)))m.nextDecisionTick=this.match.tick;}
-   (p.lifeId!==m.plannedLifeId||this.match.tick>=m.nextDecisionTick?due:light).push(p);
+   const cadence=botDecisionDue(m,this.match.tick,p,this.match.owners,p.trailCells.size);
+   (cadence.strategy||cadence.tactical?due:light).push(p);
   }
   const inputs=new Map<string,DirectionInput>();
   for(const p of inactive){const m=memories.get(p.participantId)!;getBotInput(observeBotForTick(this.match,p.participantId,m),m);}

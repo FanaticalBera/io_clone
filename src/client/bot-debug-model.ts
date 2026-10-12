@@ -49,6 +49,7 @@ export class BotDebugCollector {
    shareGap:(Math.max(...this.match.participants.map(p=>p.territoryCount))-p.territoryCount)/this.match.map.cells.length,attackSurvival:memory.attackSurvival,
    departure:this.departure.snapshot(p.participantId,this.match.tick),reclaim:this.reclaim.snapshot(p.participantId),
    reposition:{...structuredClone(memory.reposition),route:memory.reposition.active?[...memory.path]:[],recent:this.reposition.snapshot(p.participantId),stats:{...this.reposition.stats,reasons:{...this.reposition.stats.reasons}}},
+   cadence:memory.schedule?.profile?{...memory.schedule.profile,nextStrategyTick:memory.nextDecisionTick,nextTacticalTick:memory.schedule.nextTacticalTick}:null,
    goal:memory.goal,attackSlot:memory.attackSlot,trailLength:p.trailCells.size,trace:trace?structuredClone(trace):null,
    planTrace:this.plans.get(p.participantId)?.lifeId===p.lifeId?structuredClone(this.plans.get(p.participantId)!.trace):null,
    history:(this.history.get(p.participantId)??[]).map(h=>({...h}))

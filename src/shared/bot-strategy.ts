@@ -1,3 +1,4 @@
+import {botCandidateListener,type BotChoiceCandidate} from './bot-candidate-diagnostics.js';
 import type {BotObservation,BotMemory,BotGoal,BotAttackTrace,BotDecisionTrace,ExpansionPlan,ExpansionShape} from './bot.js';
 import type {Personality,PublicParticipant,MapDefinition} from './model.js';
 import type {BotAttackPolicy} from './bot-policy.js';
@@ -50,7 +51,8 @@ function observedReturnSeconds(obs:BotObservation,victim:PublicParticipant,home:
  return back?Math.min(earliest+.5,ticks/obs.config.simulationHz+travelSeconds(obs,{...victim,position,direction:heading,cellId},back)):earliest;
 }
 export function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,locked=false):AttackPlan|null {
- if(!obs.trails.length)return null;
+ const listener=botCandidateListener(memory),diagnostic:BotChoiceCandidate[]|undefined=listener?[]:undefined;
+ if(!obs.trails.length){listener?.(obs,{kind:'ATTACK',interrupt,candidates:[],selectedIndex:-1});return null;}
  const settings=settingsFor(obs,memory),owner=obs.self.slot+1,counts=new Map<number,number>();
  for(const trail of obs.trails)counts.set(trail.slot,(counts.get(trail.slot)??0)+1);
  const targetId=(slot:number)=>obs.roster?.find(p=>p.slot===slot)?.participantId??obs.others.find(p=>p.slot===slot)?.participantId;
@@ -135,13 +137,16 @@ export function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,l
    survival=survivalCounterAllowed(obs.ownTrail.length,threat,homeEta,seconds);
   }
   const targetLife=obs.roster?.find(p=>p.slot===target.slot)?.lifeId??victim?.lifeId;
+  const rawScore=score;
   const policy=attackPolicies.get(memory),adjusted=id&&targetLife!==undefined?policy?.evaluate(id,targetLife,score,survival):undefined;
   if(record){record.grudge=grudgeAmount(memory.emotion,id??'');record.grudgeBonus=grudgeBonus(memory.emotion,id??'',memory.identity);record.attackChance=targetAttack(target.slot);record.survival=survival;record.otherReservations=adjusted?.otherReservations;record.reservationFactor=adjusted?.factor;}
   if(adjusted?.reason){if(record)record.reason=adjusted.reason;continue;}
   if(adjusted)score=adjusted.score;
   if(record){record.qualityBonus=qualityBonus;record.score=score;}
+  diagnostic?.push({survival,path:[...outward,...back],score,rawScore,reservationFactor:adjusted?.factor??1,goal:'ATTACK',target:target.cellId,slot:target.slot});
   if(!best||score>best.score)best={survival,path:[...outward,...back],score,goal:'ATTACK',target:target.cellId,slot:target.slot,urgent,seconds,totalSeconds:seconds+back.length/obs.config.moveCellsPerSecond};
  }
+ listener?.(obs,{kind:'ATTACK',interrupt,candidates:diagnostic!,selectedIndex:best?diagnostic!.findIndex(c=>c.slot===best!.slot&&c.target===best!.target):-1});
  return best;
 }
 // Evaluate the same enclosure rule as capture: home plus the planned trail
@@ -247,6 +252,7 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const response=expansionDamageBonus(obs,memory.emotion,gain,baseScore,memory.identity);
   candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
  }
+ const candidateListener=botCandidateListener(memory),ordinals=candidateListener?new Map(candidates.map((c,i)=>[c,i])):undefined;
  candidates.sort((a,b)=>b.score-a.score);
  const evaluated=decisionTraces.get(memory);if(evaluated)evaluated.expansionScores=candidates.map(c=>({shape:c.expansion?.shape,goal:c.goal,score:c.score,response:c.expansion?.response,anchor:c.expansion?.anchor}));
  // Evaluate in score order: a soon-blocked loop cannot be selected. Same pure
@@ -257,6 +263,7 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  }memory.attackSurvival=selected?.goal==='ATTACK'&&'survival' in selected?!!selected.survival:false;memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
  const trace=decisionTraces.get(memory);if(trace){trace.reason=selected?.expansion?'EXPANSION_SCORE':selected?.goal==='ATTACK'?'ATTACK_SCORE':selected?'POINT_SCORE':'NO_EXPANSION';trace.expansionPlan=selected?.expansion;if(selected?.expansion)trace.expansionPath=[...selected.path];}
  memory.expansion=selected?.expansion;if(selected?.expansion)memory.lastExpansionShape=selected.expansion.shape;
+ if(candidateListener)candidateListener(obs,{kind:'STRATEGY',candidates:candidates.map(c=>({...c,ordinal:ordinals!.get(c),path:[...c.path],expansion:c.expansion?{...c.expansion,response:c.expansion.response?{...c.expansion.response}:undefined}:undefined})),selectedIndex:selected?candidates.indexOf(selected):-1});
  return selected?.path??returnPath(obs)??[];
 }
 

@@ -116,9 +116,9 @@ it('preserves plan reasons and candidates through continuation, replaces same-go
 it('records a perimeter plan change between decision ticks without overwriting it on repeated recovery',()=>{
  const match=createMatch({mapRadius:22},19,botSpecs(1)),p=match.participants[0],obs=observeBot(match,p.participantId),id=match.map.byKey.get('20,0')!;
  obs.tick=12;obs.self.cellId=id;obs.self.position={...match.map.cells[id].center};obs.self.direction={x:1,y:0};
- const memory=createBotMemory(19);memory.plannedLifeId=p.lifeId;memory.nextDecisionTick=100;memory.path=[id];
+ const memory=createBotMemory(19);memory.plannedLifeId=p.lifeId;memory.nextDecisionTick=100;memory.schedule!.nextTacticalTick=100;memory.path=[id];
  const collector=new BotDebugCollector(match,new Map([[p.participantId,memory]]));getBotInput(obs,memory);
  const first=collector.snapshot().bots[0];expect(first.trace?.reason).toBe('PERIMETER_GUARD');expect(first.trace?.planChanged).toBe(true);expect(first.planTrace?.tick).toBe(12);
- memory.nextDecisionTick=100;obs.tick=13;getBotInput(obs,memory);const repeated=collector.snapshot().bots[0];
+ memory.nextDecisionTick=100;memory.schedule!.nextTacticalTick=100;obs.tick=13;getBotInput(obs,memory);const repeated=collector.snapshot().bots[0];
  expect(repeated.trace?.tick).toBe(13);expect(repeated.trace?.planChanged).toBe(false);expect(repeated.planTrace).toEqual(first.planTrace);collector.dispose();
 });

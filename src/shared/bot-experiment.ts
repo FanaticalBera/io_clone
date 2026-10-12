@@ -1,4 +1,4 @@
-// Comparison switches: combined is the adopted runtime default. No protocol fields or RNG consumption.
+// Historical controls stay fixed. combined adopts Phase 3B; phase retains the old common slot cadence.
 export const BOT_VARIANTS=['baseline','fairness','cache','phase','combined'] as const;
 export type BotVariant=typeof BOT_VARIANTS[number];
 export function botVariant(value:string|null):BotVariant {
