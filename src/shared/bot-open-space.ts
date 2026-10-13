@@ -8,6 +8,8 @@ export interface OpenBoundary {
  headClearance:number;trailClearance:number;score:number;
 }
 export function openSpaceExpansionAnchor(obs:BotObservation,existing:readonly number[]):OpenBoundary|null {
+ // Keep the original launch choices and action RNG when a rival is observable.
+ if(obs.others.length||obs.trails.length)return null;
  const origin=obs.map.cells[obs.self.cellId],owner=obs.self.slot+1,limit=obs.config.botObservationRange;
  const distances=new Map([[origin.id,0]]),queue=[origin.id],excluded=new Set(existing);
  const visible=(id:number)=>hexDistance(origin,obs.map.cells[id])<=limit;

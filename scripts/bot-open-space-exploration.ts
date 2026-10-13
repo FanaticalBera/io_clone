@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {BotHoldingTracker} from '../tests/bot-holding-tracker.js';
 import {rankOpenBoundaries} from './bot-open-space-model.js';
 
-const root=resolve('../bot-open-space-exploration'),protocol=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8'));
+const root=resolve(process.argv.find(v=>v.startsWith('--root='))?.slice(7)??'../bot-open-space-exploration'),protocol=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8'));
 const probe=process.argv.includes('--probe'),seeds=(process.argv.find(v=>v.startsWith('--seeds='))?.slice(8)??protocol.seeds.join(',')).split(',').map(Number);
 const digest=(v:any)=>createHash('sha256').update(JSON.stringify(v,(_k,v)=>v instanceof Map?[...v]:v instanceof Set?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v)).digest('hex');
 async function replay(seed:number,watched:boolean){
@@ -26,11 +26,16 @@ async function replay(seed:number,watched:boolean){
    if(batch.kind!=='STRATEGY')return;decisions++;
    // Verify production ranking against the frozen read-only proposal on actual observations.
    if(rankChecks<100){const existing=contexts.get(memory)!.values();const anchors=[...new Set([...existing].map((g:any)=>g.anchor))];
-    const reference=rankOpenBoundaries(obs,anchors).extra[0];assert.deepEqual(open.openSpaceExpansionAnchor(obs,anchors),reference?Object.fromEntries(Object.entries(reference).filter(([k])=>['id','direction','prefix','neutral','headClearance','trailClearance','score'].includes(k))):null);rankChecks++;
+    const reference=obs.others.length||obs.trails.length?undefined:rankOpenBoundaries(obs,anchors).extra[0];assert.deepEqual(open.openSpaceExpansionAnchor(obs,anchors),reference?Object.fromEntries(Object.entries(reference).filter(([k])=>['id','direction','prefix','neutral','headClearance','trailClearance','score'].includes(k))):null);rankChecks++;
    }
    const chosen=batch.candidates[batch.selectedIndex];
    if(!chosen?.expansion){plans.delete(id);return;}
-   plans.set(id,{life:obs.self.lifeId,crowded:obs.others.some((p:any)=>hex.hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=6),heads:obs.others.length,geometry:contexts.get(memory)!.get(chosen.ordinal),path:chosen.path.length,external:chosen.expansion.externalLength,capture:chosen.expansion.captureSize});
+   const origin=chosen.expansion.anchor;let last=origin;
+   const prefixEnd=obs.self.cellId===origin?-1:chosen.path.indexOf(origin);
+   const loop=chosen.path.slice(prefixEnd+1);
+   const directions=loop.map((cell:number)=>{const d=obs.map.cells[last].neighbors.indexOf(cell);last=cell;return d;});
+   const rotation=directions[0]??0,canonicalPath=directions.map((d:number)=>(d-rotation+6)%6).join(',');
+   plans.set(id,{life:obs.self.lifeId,crowded:obs.others.some((p:any)=>hex.hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=6),heads:obs.others.length,geometry:contexts.get(memory)!.get(chosen.ordinal),canonicalPath,path:chosen.path.length,external:chosen.expansion.externalLength,capture:chosen.expansion.captureSize});
   });
  }
  for(let tick=0;tick<(probe?450:protocol.ticks);tick++){

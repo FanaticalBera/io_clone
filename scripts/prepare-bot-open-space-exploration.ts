@@ -4,7 +4,8 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {BOT_OPEN_SPACE} from '../src/shared/bot-open-space.js';
 
-const root=resolve('../bot-open-space-exploration');
+const root=resolve(process.argv.find(v=>v.startsWith('--root='))?.slice(7)??'../bot-open-space-exploration');
+const stage=process.argv.find(v=>v.startsWith('--stage='))?.slice(8)??'B';
 if(existsSync(root))throw Error('Preserve existing outcomes: exploration directory already exists');
 mkdirSync(root,{recursive:true});
 const previous=JSON.parse(readFileSync('../bot-open-space-analysis/protocol.json','utf8'));
@@ -23,5 +24,5 @@ replace('export function planExpansion(obs:BotObservation,memory:BotMemory):numb
 const push=source.split(/\r?\n/).find(line=>line.includes('candidates.push({path,score:baseScore+response.bonus'));if(!push)throw Error('No candidate push');
 replace(push,push+'\n recordOpenGeometry(memory,candidates.length-1,{anchor:anchor.id,direction:d,length,width,bevel,shape});');
 writeFileSync(file,"import {beginOpenAudit,recordOpenGeometry} from './bot-open-space-audit.js';\n"+source);
-writeFileSync(resolve(root,'protocol.json'),JSON.stringify({createdAt:new Date().toISOString(),baseCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim(),baselineCommit:previous.commit,seeds:previous.seeds,ticks:3600,config:previous.config,arms:['baseline','candidate'],baseline:previous.source,candidate,audit,sourceHashes:hashes(candidate),auditHashes:hashes(audit),baselineHashes:previous.sourceHashes,settings:BOT_OPEN_SPACE,baselineRaw:resolve('../bot-open-space-analysis'),scope:'B only: append one observed open boundary. Baseline120s outcomes already frozen in previous read-only analysis; no baseline rerun. Candidate120s8seeds plus medium16 and unchanged actual RP recovery. No C implementation,240s,1024,cost or full-suite checks.',movement:'Same-life adjacent actual EXPAND/STEAL departures. Crowded pairs require both adjacent departures crowded; size normalized with expansionSides(direction0).',decision:'No adopted improvement claim before measured candidate results; C proposal only.'},null,2)+'\n');
+writeFileSync(resolve(root,'protocol.json'),JSON.stringify({createdAt:new Date().toISOString(),stage,baseCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8',windowsHide:true}).trim(),baselineCommit:previous.commit,seeds:previous.seeds,ticks:3600,config:previous.config,arms:['baseline','candidate'],baseline:previous.source,candidate,audit,sourceHashes:hashes(candidate),auditHashes:hashes(audit),baselineHashes:previous.sourceHashes,settings:BOT_OPEN_SPACE,baselineRaw:resolve('../bot-open-space-analysis'),scope:stage==='B-quiet'?'Revised B: add one open anchor only when observed heads AND rival trails are empty. Candidate120s8seeds,medium16,expanded1024,actual RP recovery.':'Approved crowded shapes only on selected base; candidate120s8seeds,medium16,actual RP recovery.',movement:'Same-life adjacent actual EXPAND/STEAL departures. Crowded pairs require both adjacent departures crowded; named size normalized with expansionSides(direction0). Also record actual selected-path geometry ignoring shape names.',decision:'B is screened before adding C. No safety threshold changes. No240s/cost/full-suite/player checks at this stage.'},null,2)+'\n');
 console.log(root);
