@@ -16,10 +16,15 @@ describe('normally spawned bots exploit medium movement loops',()=>{
  // Separate witnesses, not replacements for the frozen1024 audit. Retain all
  // original cut, trail-size, capture, attribution and trail-cleanup assertions.
  it.each([
-  ['DEFEND',2,2],['ATTACK',12,12],['SEEK_POINT',2,5],['EXPAND',12,12]
+  ['DEFEND',2,2],['ATTACK',12,12],['SEEK_POINT',5,5],['EXPAND',12,12]
  ] as const)('%s: C positive real-cut witnesses with memory seeds %s / %s',(personality,normalSeed,reverseSeed)=>{
   assertActualCut(runMediumAttack(personality,false,false,normalSeed));
   assertActualCut(runMediumAttack(personality,true,false,reverseSeed));
+ });
+ // Rim inner-anchor known cost: the earlier SEEK_POINT normal-role witness (memory
+ // seed 2) no longer attacks. Re-selected by the same rule (first passing seed 1..256).
+ it.fails('inner-anchor known cost: SEEK_POINT normal-role witness memory seed 2',()=>{
+  assertActualCut(runMediumAttack('SEEK_POINT',false,false,2));
  });
  // Preserve the original contract and inputs. Expected failure becomes a failing
  // test if the regression is fixed, prompting removal of this annotation.
