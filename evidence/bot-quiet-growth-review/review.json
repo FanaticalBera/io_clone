@@ -1,0 +1,14 @@
+{
+  "candidateAccepted": false,
+  "status": "REVIEW_REQUIRED_NEW_FUNCTIONAL_RECOVERY_REGRESSION",
+  "primaryHoldingPercent": 3.713264226002022,
+  "primaryHoldingDirection": "INDISTINGUISHABLE",
+  "primaryDeathPercent": 20,
+  "deathExactlyAt20PercentLimit": true,
+  "costPercent": 16.367745580752068,
+  "costWithin20": true,
+  "newRecoveryFixtureFailure": true,
+  "riskStrengtheningImplemented": false,
+  "masterChanged": false,
+  "remotePushed": false
+}

@@ -1,0 +1,468 @@
+{
+  "case": "Unchanged bot-reposition.test.ts actual movement recovery fixture,750 ticks. No threshold/test relaxation.",
+  "results": [
+    {
+      "arm": "baseline",
+      "ticks": 190,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 5,
+      "deaths": 0,
+      "deathReason": null,
+      "finalHoldings": 96,
+      "plans": [
+        {
+          "tick": 103,
+          "plan": {
+            "response": {
+              "baseScore": 16.691721248946788,
+              "reclaimWeight": 4.439082213642921,
+              "revengeWeight": 0,
+              "reclaimRaw": 3.329311660232191,
+              "revengeRaw": 0,
+              "raw": 3.329311660232191,
+              "bonus": 3.329311660232191,
+              "reclaimCells": 5,
+              "revengeCells": 0,
+              "overlapCells": 0
+            },
+            "anchor": 1345,
+            "shape": "BEVEL",
+            "pathLength": 13,
+            "externalLength": 11,
+            "captureSize": 21,
+            "stolenCells": 0,
+            "earlyClosed": false,
+            "downScaled": false,
+            "threatDistance": null
+          },
+          "observedHeads": 0,
+          "location": {
+            "q": 14,
+            "r": 1
+          }
+        }
+      ],
+      "closed": [
+        {
+          "id": 1,
+          "participantId": "bot-0",
+          "slot": 0,
+          "lifeId": 1,
+          "selectedTick": 103,
+          "endedTick": 190,
+          "outcome": "CAPTURE",
+          "startCellId": 1289,
+          "plannedPath": [
+            1345,
+            1346,
+            1347,
+            1292,
+            1236,
+            1180,
+            1124,
+            1069,
+            1068,
+            1067,
+            1121,
+            1176,
+            1232
+          ],
+          "movementCells": [
+            1289,
+            1345,
+            1346,
+            1347,
+            1292,
+            1236,
+            1180,
+            1124,
+            1069,
+            1068,
+            1067,
+            1121,
+            1176,
+            1232
+          ],
+          "movementTruncated": false,
+          "dRaw": 3.329311660232191,
+          "appliedBonus": 3.329311660232191,
+          "expectedCellIds": [
+            1178,
+            1179,
+            1235,
+            1236,
+            1292
+          ],
+          "actualCellIds": [
+            1292,
+            1236,
+            1178,
+            1179,
+            1235
+          ],
+          "otherReclaimCellIds": [],
+          "ordinaryStolenCells": 0,
+          "neutralCells": 16,
+          "retainedCells": 5,
+          "launched": true,
+          "interruptions": [],
+          "damageActors": [
+            "bot-1"
+          ],
+          "relatedDeaths": []
+        }
+      ]
+    },
+    {
+      "arm": "candidate",
+      "ticks": 283,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 0,
+      "deaths": 1,
+      "deathReason": "TRAIL_CUT",
+      "deathContext": {
+        "cause": "EXISTING_TRAIL_CONTACT",
+        "cellId": 1233,
+        "eventTick": 282.14286
+      },
+      "finalHoldings": 0,
+      "plans": [
+        {
+          "tick": 103,
+          "plan": {
+            "response": {
+              "baseScore": 21.490943576343064,
+              "reclaimWeight": 0,
+              "revengeWeight": 0,
+              "reclaimRaw": 0,
+              "revengeRaw": 0,
+              "raw": 0,
+              "bonus": 0,
+              "reclaimCells": 0,
+              "revengeCells": 0,
+              "overlapCells": 0
+            },
+            "anchor": 1345,
+            "shape": "BEVEL",
+            "pathLength": 19,
+            "externalLength": 12,
+            "captureSize": 28,
+            "stolenCells": 0,
+            "earlyClosed": false,
+            "downScaled": false,
+            "threatDistance": null,
+            "quietLarge": true
+          },
+          "observedHeads": 0,
+          "location": {
+            "q": 14,
+            "r": 1
+          }
+        },
+        {
+          "tick": 232,
+          "plan": {
+            "response": {
+              "baseScore": 13.457690647485364,
+              "reclaimWeight": 4.5893690805719745,
+              "revengeWeight": 0,
+              "reclaimRaw": 3.442026810428981,
+              "revengeRaw": 0,
+              "raw": 3.442026810428981,
+              "bonus": 3.442026810428981,
+              "reclaimCells": 6,
+              "revengeCells": 0,
+              "overlapCells": 0
+            },
+            "anchor": 1232,
+            "shape": "BEVEL",
+            "pathLength": 16,
+            "externalLength": 10,
+            "captureSize": 19,
+            "stolenCells": 0,
+            "earlyClosed": false,
+            "downScaled": false,
+            "threatDistance": 8
+          },
+          "observedHeads": 1,
+          "location": {
+            "q": 14,
+            "r": 2
+          }
+        },
+        {
+          "tick": 240,
+          "plan": {
+            "response": {
+              "baseScore": 2.748838999611326,
+              "reclaimWeight": 0.757858283255199,
+              "revengeWeight": 0,
+              "reclaimRaw": 0.5683937124413992,
+              "revengeRaw": 0,
+              "raw": 0.5683937124413992,
+              "bonus": 0.5683937124413992,
+              "reclaimCells": 1,
+              "revengeCells": 0,
+              "overlapCells": 0
+            },
+            "anchor": 1232,
+            "shape": "RHOMBUS",
+            "pathLength": 7,
+            "externalLength": 5,
+            "captureSize": 5,
+            "stolenCells": 0,
+            "earlyClosed": false,
+            "downScaled": false,
+            "threatDistance": 6
+          },
+          "observedHeads": 1,
+          "location": {
+            "q": 14,
+            "r": 1
+          }
+        }
+      ],
+      "closed": [
+        {
+          "id": 1,
+          "participantId": "bot-0",
+          "slot": 0,
+          "lifeId": 1,
+          "selectedTick": 103,
+          "endedTick": 232,
+          "outcome": "CAPTURE",
+          "startCellId": 1289,
+          "plannedPath": [
+            1345,
+            1344,
+            1343,
+            1342,
+            1341,
+            1340,
+            1394,
+            1447,
+            1500,
+            1552,
+            1553,
+            1554,
+            1555,
+            1556,
+            1557,
+            1506,
+            1454,
+            1400,
+            1345
+          ],
+          "movementCells": [
+            1289,
+            1345,
+            1344,
+            1343,
+            1342,
+            1341,
+            1340,
+            1394,
+            1447,
+            1500,
+            1552,
+            1553,
+            1554,
+            1555,
+            1556,
+            1557,
+            1506,
+            1454,
+            1400,
+            1345
+          ],
+          "movementTruncated": false,
+          "dRaw": 0,
+          "appliedBonus": 0,
+          "expectedCellIds": [],
+          "actualCellIds": [],
+          "otherReclaimCellIds": [],
+          "ordinaryStolenCells": 0,
+          "neutralCells": 28,
+          "retainedCells": 0,
+          "launched": true,
+          "interruptions": [
+            {
+              "tick": 226,
+              "goal": "ESCAPE",
+              "reason": "DANGER"
+            }
+          ],
+          "damageActors": [
+            "bot-1"
+          ],
+          "relatedDeaths": []
+        },
+        {
+          "id": 2,
+          "participantId": "bot-0",
+          "slot": 0,
+          "lifeId": 1,
+          "selectedTick": 232,
+          "endedTick": 240,
+          "outcome": "REPLANNED",
+          "startCellId": 1345,
+          "plannedPath": [
+            1289,
+            1232,
+            1289,
+            1345,
+            1400,
+            1401,
+            1402,
+            1403,
+            1349,
+            1293,
+            1236,
+            1179,
+            1178,
+            1177,
+            1176,
+            1232
+          ],
+          "movementCells": [
+            1345,
+            1289
+          ],
+          "movementTruncated": false,
+          "dRaw": 3.442026810428981,
+          "appliedBonus": 3.442026810428981,
+          "expectedCellIds": [
+            1178,
+            1179,
+            1235,
+            1236,
+            1292,
+            1293
+          ],
+          "actualCellIds": [],
+          "otherReclaimCellIds": [],
+          "ordinaryStolenCells": 0,
+          "neutralCells": 0,
+          "retainedCells": 0,
+          "launched": false,
+          "interruptions": [
+            {
+              "tick": 240,
+              "goal": "EXPAND",
+              "reason": "EXPANSION_PRESSURE"
+            }
+          ],
+          "damageActors": [
+            "bot-1"
+          ],
+          "relatedDeaths": []
+        },
+        {
+          "id": 3,
+          "participantId": "bot-0",
+          "slot": 0,
+          "lifeId": 1,
+          "selectedTick": 240,
+          "endedTick": 283,
+          "outcome": "DEATH",
+          "startCellId": 1289,
+          "plannedPath": [
+            1232,
+            1233,
+            1234,
+            1178,
+            1177,
+            1176,
+            1232
+          ],
+          "movementCells": [
+            1289,
+            1232,
+            1233,
+            1234,
+            1178,
+            1122,
+            1177,
+            1176
+          ],
+          "movementTruncated": false,
+          "dRaw": 0.5683937124413992,
+          "appliedBonus": 0.5683937124413992,
+          "expectedCellIds": [
+            1178
+          ],
+          "actualCellIds": [],
+          "otherReclaimCellIds": [],
+          "ordinaryStolenCells": 0,
+          "neutralCells": 0,
+          "retainedCells": 0,
+          "launched": true,
+          "interruptions": [
+            {
+              "tick": 265,
+              "goal": "ESCAPE",
+              "reason": "DANGER"
+            }
+          ],
+          "damageActors": [
+            "bot-1"
+          ],
+          "relatedDeaths": [
+            {
+              "tick": 282,
+              "victimId": "bot-0",
+              "killerId": "bot-2",
+              "cause": "EXISTING_TRAIL_CONTACT"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

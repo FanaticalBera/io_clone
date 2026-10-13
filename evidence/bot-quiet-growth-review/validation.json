@@ -1,0 +1,23 @@
+{
+  "typecheckAndBuild": "client/server/tests 타입 검사 및 production build 통과. 새 audit scripts strict 타입 검사 별도 확인",
+  "vitest": "최초 전체682개:676통과,4개 이전 궤적pin 실패,새 실제 회수 회귀1실패,known seed1 기대실패1. 승인 변경의pin4개 갱신 후 관련44개 단독재실행:43통과/회수1실패. 전체 통과로 보고하지 않음",
+  "pcE2E": "단독 재실행9/9통과. 최초 부하 중 시간초과/중단 로그는 원본 보존",
+  "candidateAccepted": false,
+  "newFunctionalFailure": {
+    "file": "tests/core/bot-reposition.test.ts",
+    "name": "uses actual shared movement to arrive, replans a bounded guardian loop and actually recovers damaged cells",
+    "baseline": "t103도착, t190실제5칸회수, 사망0",
+    "candidate": "t103도착, t283 EXISTING_TRAIL_CONTACT, 실제회수0, 사망1",
+    "testChanged": false,
+    "expectedFailureAdded": false
+  },
+  "timeouts": {
+    "firstWholeSuite": false,
+    "contendedTargetedRepeat": ["R36 spawn observer equivalence", "shape/shadow observer equivalence"],
+    "idleTargetedRepeat": false,
+    "idlePcRepeat": false
+  },
+  "masterChanged": false,
+  "remotePushed": false,
+  "riskStrengtheningImplemented": false
+}

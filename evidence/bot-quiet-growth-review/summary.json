@@ -1,0 +1,5102 @@
+{
+  "protocol": {
+    "createdAt": "2026-10-13T09:10:01.465Z",
+    "baselineCommit": "a535bf72dbdc7671b4cf4b84e888cf7b4ea13fe9",
+    "workingParent": "fb075d306684bc72366faa3251b107873faae743",
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 7200,
+    "checkpointTicks": [
+      900,
+      1800,
+      2700,
+      3600,
+      4500,
+      5400,
+      6300,
+      7200
+    ],
+    "primaryComparisonTick": 3600,
+    "config": {
+      "mapRadius": 56,
+      "spawnRadius": 1,
+      "maxSlots": 14,
+      "simulationHz": 30,
+      "safeRespawn": true,
+      "classic": true
+    },
+    "humanFixture": {
+      "slots": "Human0+BOT1..13 as native PracticeSession",
+      "routes": [
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "source": "Existing medium-attack audit four relative loops, reused unchanged, cyclic order1..4 then repeat; waypoint reach18 world units",
+      "duration": 7200,
+      "stop": "Stop at human ELIMINATED exactly like practice; no immunity, human respawn, input or rule changes",
+      "comparison": "Mechanical repeated input is not the observed skilled human30%; report death-censored horizons rather than inventing2–3min figures"
+    },
+    "native": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-quiet-growth-review\\baseline-source",
+    "nativeHashes": {
+      "bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "6a0ac5dcefda4242e5ce844d028f136d7fcc574e11f426bd8ec8089757d328e8",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "candidate": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-quiet-growth-review\\candidate-source",
+    "candidateHashes": {
+      "bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "aa0271a5c59c4500ed1e102301e551d32b2c849664f79476856e770762352267",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "b8df7f741eac604244ca68aab3c62ee0418b9927a24765231556c3d678c74f12",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "off": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-quiet-growth-review\\refactor-off-source",
+    "offHashes": {
+      "bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "578c8592849f0ce0bd5b9044e5c654b3822de1ee8747ef5bd4851cb63ff23a0a",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "b8df7f741eac604244ca68aab3c62ee0418b9927a24765231556c3d678c74f12",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "arms": [
+      {
+        "name": "baseline",
+        "source": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-quiet-growth-review\\baseline-source",
+        "sourceHashes": {
+          "src/shared/bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+          "src/shared/bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+          "src/shared/bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+          "src/shared/bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+          "src/shared/bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+          "src/shared/bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+          "src/shared/bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+          "src/shared/bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+          "src/shared/bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+          "src/shared/bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+          "src/shared/bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+          "src/shared/bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+          "src/shared/bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+          "src/shared/bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+          "src/shared/bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+          "src/shared/bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+          "src/shared/bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+          "src/shared/bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+          "src/shared/bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+          "src/shared/bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+          "src/shared/bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+          "src/shared/bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+          "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+          "src/shared/bot-strategy.ts": "6a0ac5dcefda4242e5ce844d028f136d7fcc574e11f426bd8ec8089757d328e8",
+          "src/shared/bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+          "src/shared/bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+          "src/shared/capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+          "src/shared/capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+          "src/shared/config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+          "src/shared/engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+          "src/shared/game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+          "src/shared/hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+          "src/shared/lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+          "src/shared/lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+          "src/shared/lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+          "src/shared/legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+          "src/shared/life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+          "src/shared/map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+          "src/shared/model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+          "src/shared/modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+          "src/shared/movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+          "src/shared/names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+          "src/shared/protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+          "src/shared/random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+          "src/shared/retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+          "src/shared/room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+          "src/shared/room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+          "src/shared/rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+          "src/shared/run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+          "src/shared/safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+          "src/shared/scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+          "src/shared/slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+          "src/shared/spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+          "src/shared/starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+          "src/shared/state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+          "src/shared/territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+          "src/shared/wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+        }
+      },
+      {
+        "name": "candidate",
+        "source": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-quiet-growth-review\\candidate-source",
+        "sourceHashes": {
+          "src/shared/bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+          "src/shared/bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+          "src/shared/bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+          "src/shared/bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+          "src/shared/bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+          "src/shared/bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+          "src/shared/bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+          "src/shared/bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+          "src/shared/bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+          "src/shared/bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+          "src/shared/bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+          "src/shared/bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+          "src/shared/bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+          "src/shared/bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+          "src/shared/bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+          "src/shared/bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+          "src/shared/bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+          "src/shared/bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+          "src/shared/bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+          "src/shared/bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+          "src/shared/bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+          "src/shared/bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+          "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+          "src/shared/bot-strategy.ts": "aa0271a5c59c4500ed1e102301e551d32b2c849664f79476856e770762352267",
+          "src/shared/bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+          "src/shared/bot.ts": "b8df7f741eac604244ca68aab3c62ee0418b9927a24765231556c3d678c74f12",
+          "src/shared/capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+          "src/shared/capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+          "src/shared/config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+          "src/shared/engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+          "src/shared/game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+          "src/shared/hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+          "src/shared/lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+          "src/shared/lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+          "src/shared/lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+          "src/shared/legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+          "src/shared/life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+          "src/shared/map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+          "src/shared/model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+          "src/shared/modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+          "src/shared/movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+          "src/shared/names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+          "src/shared/protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+          "src/shared/random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+          "src/shared/retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+          "src/shared/room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+          "src/shared/room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+          "src/shared/rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+          "src/shared/run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+          "src/shared/safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+          "src/shared/scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+          "src/shared/slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+          "src/shared/spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+          "src/shared/starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+          "src/shared/state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+          "src/shared/territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+          "src/shared/wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+        }
+      }
+    ],
+    "cost": {
+      "sameSession": true,
+      "rounds": 3,
+      "ticks": 3600,
+      "warmup": "Discard one seed19 replay per arm",
+      "order": "Alternate arm order by round+seed index",
+      "aggregation": "Median of three complete8-seed rounds; all48 samples retained; observer/HUD off"
+    },
+    "change": "Only holdings>=64 and observed heads0: retain original candidates then add one larger variant per anchor/direction/shape with original random geometry shifted+2/+1; all old safety/score/period/rules unchanged",
+    "deathAnalysis": "Read-only same resolved runs: pre-neutralization holdings, killer type/personality, cause, actual current goal/trail length, active and last expansion plan",
+    "referenceTarget": "Human1+BOT13 at180s: leading bot>=20% auxiliary only; report human censoring/input limitations; not a sole acceptance gate",
+    "thresholds": {
+      "holdingReconsiderPercent": -5,
+      "deathReconsiderPercent": 20,
+      "costReconsiderPercent": 20,
+      "direction": "paired7/8 and all leave-one-out same sign"
+    },
+    "status": "APPROVED_SINGLE_GAMEPLAY_CHANGE_FROZEN_BEFORE_OUTCOMES"
+  },
+  "comparisons": [
+    {
+      "seconds": 120,
+      "rows": [
+        {
+          "seed": 4,
+          "baseline": {
+            "holding": 3121.2083333333335,
+            "final": 5168,
+            "deaths": 8,
+            "deathLoss": 1977,
+            "totalCapture": 8708,
+            "net": 6991,
+            "reclaim": 270,
+            "enemyRecovery": 270,
+            "neutralRecovery": 170,
+            "TV": 0.07412790873512737,
+            "attacks": 17,
+            "attackKills": 6,
+            "wallDeaths": 0,
+            "captureMean": 15.03972366148532
+          },
+          "candidate": {
+            "holding": 3048.6466666666665,
+            "final": 3722,
+            "deaths": 18,
+            "deathLoss": 4657,
+            "totalCapture": 9696,
+            "net": 8155,
+            "reclaim": 443,
+            "enemyRecovery": 430,
+            "neutralRecovery": 136,
+            "TV": 0.1275559588626739,
+            "attacks": 24,
+            "attackKills": 15,
+            "wallDeaths": 0,
+            "captureMean": 18.46857142857143
+          },
+          "delta": {
+            "holding": -72.56166666666695,
+            "final": -1446,
+            "deaths": 10,
+            "deathLoss": 2680,
+            "totalCapture": 988,
+            "net": 1164,
+            "reclaim": 173,
+            "enemyRecovery": 160,
+            "neutralRecovery": -34,
+            "TV": 0.053428050127546534,
+            "attacks": 7,
+            "attackKills": 9,
+            "wallDeaths": 0,
+            "captureMean": 3.4288477670861095
+          }
+        },
+        {
+          "seed": 19,
+          "baseline": {
+            "holding": 3209.010277777778,
+            "final": 4964,
+            "deaths": 14,
+            "deathLoss": 2882,
+            "totalCapture": 8889,
+            "net": 7657,
+            "reclaim": 348,
+            "enemyRecovery": 337,
+            "neutralRecovery": 218,
+            "TV": 0.08154924100602937,
+            "attacks": 24,
+            "attackKills": 14,
+            "wallDeaths": 0,
+            "captureMean": 14.572131147540984
+          },
+          "candidate": {
+            "holding": 3137.5255555555555,
+            "final": 4189,
+            "deaths": 14,
+            "deathLoss": 4383,
+            "totalCapture": 9893,
+            "net": 8376,
+            "reclaim": 216,
+            "enemyRecovery": 216,
+            "neutralRecovery": 206,
+            "TV": 0.01902876366153204,
+            "attacks": 26,
+            "attackKills": 9,
+            "wallDeaths": 0,
+            "captureMean": 17.447971781305114
+          },
+          "delta": {
+            "holding": -71.48472222222244,
+            "final": -775,
+            "deaths": 0,
+            "deathLoss": 1501,
+            "totalCapture": 1004,
+            "net": 719,
+            "reclaim": -132,
+            "enemyRecovery": -121,
+            "neutralRecovery": -12,
+            "TV": -0.06252047734449732,
+            "attacks": 2,
+            "attackKills": -5,
+            "wallDeaths": 0,
+            "captureMean": 2.8758406337641294
+          }
+        },
+        {
+          "seed": 73,
+          "baseline": {
+            "holding": 3143.195277777778,
+            "final": 4431,
+            "deaths": 11,
+            "deathLoss": 2924,
+            "totalCapture": 8498,
+            "net": 7180,
+            "reclaim": 335,
+            "enemyRecovery": 335,
+            "neutralRecovery": 183,
+            "TV": 0.06115859449192779,
+            "attacks": 30,
+            "attackKills": 11,
+            "wallDeaths": 0,
+            "captureMean": 13.134466769706338
+          },
+          "candidate": {
+            "holding": 3162.9994444444446,
+            "final": 4516,
+            "deaths": 14,
+            "deathLoss": 3907,
+            "totalCapture": 9679,
+            "net": 8234,
+            "reclaim": 311,
+            "enemyRecovery": 297,
+            "neutralRecovery": 178,
+            "TV": 0.13734392379009758,
+            "attacks": 24,
+            "attackKills": 12,
+            "wallDeaths": 0,
+            "captureMean": 18.19360902255639
+          },
+          "delta": {
+            "holding": 19.804166666666788,
+            "final": 85,
+            "deaths": 3,
+            "deathLoss": 983,
+            "totalCapture": 1181,
+            "net": 1054,
+            "reclaim": -24,
+            "enemyRecovery": -38,
+            "neutralRecovery": -5,
+            "TV": 0.07618532929816979,
+            "attacks": -6,
+            "attackKills": 1,
+            "wallDeaths": 0,
+            "captureMean": 5.059142252850053
+          }
+        },
+        {
+          "seed": 11,
+          "baseline": {
+            "holding": 3366.6944444444443,
+            "final": 4609,
+            "deaths": 10,
+            "deathLoss": 2725,
+            "totalCapture": 8869,
+            "net": 7173,
+            "reclaim": 645,
+            "enemyRecovery": 608,
+            "neutralRecovery": 173,
+            "TV": 0.06490527393753197,
+            "attacks": 19,
+            "attackKills": 8,
+            "wallDeaths": 0,
+            "captureMean": 15.083333333333334
+          },
+          "candidate": {
+            "holding": 3603.8330555555553,
+            "final": 5433,
+            "deaths": 12,
+            "deathLoss": 2499,
+            "totalCapture": 9761,
+            "net": 7757,
+            "reclaim": 510,
+            "enemyRecovery": 485,
+            "neutralRecovery": 205,
+            "TV": 0.14896645810906958,
+            "attacks": 17,
+            "attackKills": 9,
+            "wallDeaths": 0,
+            "captureMean": 18.699233716475096
+          },
+          "delta": {
+            "holding": 237.138611111111,
+            "final": 824,
+            "deaths": 2,
+            "deathLoss": -226,
+            "totalCapture": 892,
+            "net": 584,
+            "reclaim": -135,
+            "enemyRecovery": -123,
+            "neutralRecovery": 32,
+            "TV": 0.08406118417153761,
+            "attacks": -2,
+            "attackKills": 1,
+            "wallDeaths": 0,
+            "captureMean": 3.6159003831417618
+          }
+        },
+        {
+          "seed": 31,
+          "baseline": {
+            "holding": 2937.1175,
+            "final": 3584,
+            "deaths": 10,
+            "deathLoss": 2733,
+            "totalCapture": 8526,
+            "net": 6156,
+            "reclaim": 453,
+            "enemyRecovery": 453,
+            "neutralRecovery": 209,
+            "TV": 0.09575224942456581,
+            "attacks": 23,
+            "attackKills": 6,
+            "wallDeaths": 0,
+            "captureMean": 13.280373831775702
+          },
+          "candidate": {
+            "holding": 3073.7722222222224,
+            "final": 4152,
+            "deaths": 14,
+            "deathLoss": 3312,
+            "totalCapture": 9544,
+            "net": 7282,
+            "reclaim": 258,
+            "enemyRecovery": 257,
+            "neutralRecovery": 126,
+            "TV": 0.22738363011118717,
+            "attacks": 20,
+            "attackKills": 13,
+            "wallDeaths": 0,
+            "captureMean": 17.973634651600754
+          },
+          "delta": {
+            "holding": 136.65472222222252,
+            "final": 568,
+            "deaths": 4,
+            "deathLoss": 579,
+            "totalCapture": 1018,
+            "net": 1126,
+            "reclaim": -195,
+            "enemyRecovery": -196,
+            "neutralRecovery": -83,
+            "TV": 0.13163138068662136,
+            "attacks": -3,
+            "attackKills": 7,
+            "wallDeaths": 0,
+            "captureMean": 4.693260819825053
+          }
+        },
+        {
+          "seed": 47,
+          "baseline": {
+            "holding": 3167.012777777778,
+            "final": 3789,
+            "deaths": 14,
+            "deathLoss": 3371,
+            "totalCapture": 9242,
+            "net": 6964,
+            "reclaim": 335,
+            "enemyRecovery": 335,
+            "neutralRecovery": 103,
+            "TV": 0.10894660894660894,
+            "attacks": 26,
+            "attackKills": 12,
+            "wallDeaths": 0,
+            "captureMean": 16.926739926739927
+          },
+          "candidate": {
+            "holding": 3407.4377777777777,
+            "final": 4646,
+            "deaths": 12,
+            "deathLoss": 3821,
+            "totalCapture": 9982,
+            "net": 8285,
+            "reclaim": 209,
+            "enemyRecovery": 209,
+            "neutralRecovery": 126,
+            "TV": 0.11563180827886713,
+            "attacks": 32,
+            "attackKills": 12,
+            "wallDeaths": 0,
+            "captureMean": 19.611001964636543
+          },
+          "delta": {
+            "holding": 240.42499999999973,
+            "final": 857,
+            "deaths": -2,
+            "deathLoss": 450,
+            "totalCapture": 740,
+            "net": 1321,
+            "reclaim": -126,
+            "enemyRecovery": -126,
+            "neutralRecovery": 23,
+            "TV": 0.006685199332258182,
+            "attacks": 6,
+            "attackKills": 0,
+            "wallDeaths": 0,
+            "captureMean": 2.684262037896616
+          }
+        },
+        {
+          "seed": 101,
+          "baseline": {
+            "holding": 2872.8730555555558,
+            "final": 4213,
+            "deaths": 14,
+            "deathLoss": 3467,
+            "totalCapture": 8561,
+            "net": 7484,
+            "reclaim": 219,
+            "enemyRecovery": 215,
+            "neutralRecovery": 133,
+            "TV": 0.13249362723046934,
+            "attacks": 35,
+            "attackKills": 11,
+            "wallDeaths": 0,
+            "captureMean": 13.852750809061488
+          },
+          "candidate": {
+            "holding": 3198.6497222222224,
+            "final": 4257,
+            "deaths": 13,
+            "deathLoss": 3309,
+            "totalCapture": 9629,
+            "net": 7384,
+            "reclaim": 411,
+            "enemyRecovery": 394,
+            "neutralRecovery": 169,
+            "TV": 0.1328040781868953,
+            "attacks": 25,
+            "attackKills": 9,
+            "wallDeaths": 0,
+            "captureMean": 16.601724137931033
+          },
+          "delta": {
+            "holding": 325.77666666666664,
+            "final": 44,
+            "deaths": -1,
+            "deathLoss": -158,
+            "totalCapture": 1068,
+            "net": -100,
+            "reclaim": 192,
+            "enemyRecovery": 179,
+            "neutralRecovery": 36,
+            "TV": 0.0003104509564259561,
+            "attacks": -10,
+            "attackKills": -2,
+            "wallDeaths": 0,
+            "captureMean": 2.7489733288695444
+          }
+        },
+        {
+          "seed": 137,
+          "baseline": {
+            "holding": 2854.173333333333,
+            "final": 4078,
+            "deaths": 9,
+            "deathLoss": 2269,
+            "totalCapture": 8152,
+            "net": 6186,
+            "reclaim": 629,
+            "enemyRecovery": 623,
+            "neutralRecovery": 73,
+            "TV": 0.2935454523689818,
+            "attacks": 26,
+            "attackKills": 8,
+            "wallDeaths": 0,
+            "captureMean": 13.148387096774194
+          },
+          "candidate": {
+            "holding": 2954.5305555555556,
+            "final": 4666,
+            "deaths": 11,
+            "deathLoss": 3080,
+            "totalCapture": 9032,
+            "net": 7571,
+            "reclaim": 202,
+            "enemyRecovery": 202,
+            "neutralRecovery": 156,
+            "TV": 0.24467497889473347,
+            "attacks": 39,
+            "attackKills": 11,
+            "wallDeaths": 0,
+            "captureMean": 14.806557377049181
+          },
+          "delta": {
+            "holding": 100.35722222222239,
+            "final": 588,
+            "deaths": 2,
+            "deathLoss": 811,
+            "totalCapture": 880,
+            "net": 1385,
+            "reclaim": -427,
+            "enemyRecovery": -421,
+            "neutralRecovery": 83,
+            "TV": -0.048870473474248305,
+            "attacks": 13,
+            "attackKills": 3,
+            "wallDeaths": 0,
+            "captureMean": 1.6581702802749874
+          }
+        }
+      ],
+      "totals": {
+        "baseline": {
+          "holding": 3083.910625,
+          "final": 4354.5,
+          "deaths": 90,
+          "deathLoss": 22348,
+          "totalCapture": 69445,
+          "net": 55791,
+          "reclaim": 3234,
+          "enemyRecovery": 3176,
+          "neutralRecovery": 1262,
+          "TV": 0.1140598695176553,
+          "attacks": 200,
+          "attackKills": 76,
+          "wallDeaths": 0,
+          "captureMean": 14.379738322052162
+        },
+        "candidate": {
+          "holding": 3198.424375,
+          "final": 4447.625,
+          "deaths": 108,
+          "deathLoss": 28968,
+          "totalCapture": 77216,
+          "net": 63044,
+          "reclaim": 2560,
+          "enemyRecovery": 2490,
+          "neutralRecovery": 1302,
+          "TV": 0.144173699986882,
+          "attacks": 207,
+          "attackKills": 90,
+          "wallDeaths": 0,
+          "captureMean": 17.725288010015692
+        }
+      },
+      "percent": {
+        "holding": 3.713264226002022,
+        "final": 2.138592260879557,
+        "deaths": 19.999999999999996,
+        "deathLoss": 29.622337569357438,
+        "totalCapture": 11.190150478796168,
+        "net": 13.000304708644773,
+        "reclaim": -20.841063698206554,
+        "enemyRecovery": -21.599496221662474,
+        "neutralRecovery": 3.1695721077654504,
+        "TV": 26.401775310259666,
+        "attacks": 3.499999999999992,
+        "attackKills": 18.421052631578938,
+        "wallDeaths": null,
+        "captureMean": 23.265720231034635
+      },
+      "signals": {
+        "holding": {
+          "positive": 6,
+          "negative": 2,
+          "tied": 0,
+          "mean": 114.51374999999996,
+          "min": -72.56166666666695,
+          "max": 325.77666666666664,
+          "leaveOneOut": [
+            988.6716666666666,
+            987.5947222222221,
+            896.3058333333329,
+            678.9713888888887,
+            779.4552777777772,
+            675.685,
+            590.333333333333,
+            815.7527777777773
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "final": {
+          "positive": 6,
+          "negative": 2,
+          "tied": 0,
+          "mean": 93.125,
+          "min": -1446,
+          "max": 857,
+          "leaveOneOut": [
+            2191,
+            1520,
+            660,
+            -79,
+            177,
+            -112,
+            701,
+            157
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "deaths": {
+          "positive": 5,
+          "negative": 2,
+          "tied": 1,
+          "mean": 2.25,
+          "min": -2,
+          "max": 10,
+          "leaveOneOut": [
+            8,
+            18,
+            15,
+            16,
+            14,
+            20,
+            19,
+            16
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "deathLoss": {
+          "positive": 6,
+          "negative": 2,
+          "tied": 0,
+          "mean": 827.5,
+          "min": -226,
+          "max": 2680,
+          "leaveOneOut": [
+            3940,
+            5119,
+            5637,
+            6846,
+            6041,
+            6170,
+            6778,
+            5809
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "totalCapture": {
+          "positive": 8,
+          "negative": 0,
+          "tied": 0,
+          "mean": 971.375,
+          "min": 740,
+          "max": 1181,
+          "leaveOneOut": [
+            6783,
+            6767,
+            6590,
+            6879,
+            6753,
+            7031,
+            6703,
+            6891
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "net": {
+          "positive": 7,
+          "negative": 1,
+          "tied": 0,
+          "mean": 906.625,
+          "min": -100,
+          "max": 1385,
+          "leaveOneOut": [
+            6089,
+            6534,
+            6199,
+            6669,
+            6127,
+            5932,
+            7353,
+            5868
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "reclaim": {
+          "positive": 2,
+          "negative": 6,
+          "tied": 0,
+          "mean": -84.25,
+          "min": -427,
+          "max": 192,
+          "leaveOneOut": [
+            -847,
+            -542,
+            -650,
+            -539,
+            -479,
+            -548,
+            -866,
+            -247
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "enemyRecovery": {
+          "positive": 2,
+          "negative": 6,
+          "tied": 0,
+          "mean": -85.75,
+          "min": -421,
+          "max": 179,
+          "leaveOneOut": [
+            -846,
+            -565,
+            -648,
+            -563,
+            -490,
+            -560,
+            -865,
+            -265
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "neutralRecovery": {
+          "positive": 4,
+          "negative": 4,
+          "tied": 0,
+          "mean": 5,
+          "min": -83,
+          "max": 83,
+          "leaveOneOut": [
+            74,
+            52,
+            45,
+            8,
+            123,
+            17,
+            4,
+            -43
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "TV": {
+          "positive": 6,
+          "negative": 2,
+          "tied": 0,
+          "mean": 0.03011383046922673,
+          "min": -0.06252047734449732,
+          "max": 0.13163138068662136,
+          "leaveOneOut": [
+            0.18748259362626732,
+            0.30343112109831116,
+            0.16472531445564406,
+            0.15684945958227625,
+            0.10927926306719249,
+            0.23422544442155568,
+            0.2406001927973879,
+            0.28978111722806216
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "attacks": {
+          "positive": 4,
+          "negative": 4,
+          "tied": 0,
+          "mean": 0.875,
+          "min": -10,
+          "max": 13,
+          "leaveOneOut": [
+            0,
+            5,
+            13,
+            9,
+            10,
+            1,
+            17,
+            -6
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "attackKills": {
+          "positive": 5,
+          "negative": 2,
+          "tied": 1,
+          "mean": 1.75,
+          "min": -5,
+          "max": 9,
+          "leaveOneOut": [
+            5,
+            19,
+            13,
+            13,
+            7,
+            14,
+            16,
+            11
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "wallDeaths": {
+          "positive": 0,
+          "negative": 0,
+          "tied": 8,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "leaveOneOut": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "captureMean": {
+          "positive": 8,
+          "negative": 0,
+          "tied": 0,
+          "mean": 3.3455496879635316,
+          "min": 1.6581702802749874,
+          "max": 5.059142252850053,
+          "leaveOneOut": [
+            23.33554973662214,
+            23.888556869944125,
+            21.7052552508582,
+            23.14849712056649,
+            22.0711366838832,
+            24.080135465811637,
+            24.015424174838707,
+            25.106227223433265
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        }
+      },
+      "personality": [
+        {
+          "personality": "DEFEND",
+          "baseline": {
+            "captured": 18523,
+            "stolen": 2352,
+            "stolenShare": 0.12697727150029692
+          },
+          "candidate": {
+            "captured": 19721,
+            "stolen": 2772,
+            "stolenShare": 0.14056082348765275
+          },
+          "stolenShareSignal": {
+            "positive": 4,
+            "negative": 4,
+            "tied": 0,
+            "mean": 0.009222061746373073,
+            "min": -0.08194259251912253,
+            "max": 0.15172663465705388,
+            "leaveOneOut": [
+              -0.0779501406860693,
+              0.11279333186717555,
+              -0.0020715430462003998,
+              0.03499057449956065,
+              0.15571908649010713,
+              0.14355969635542237,
+              0.06069956560059432,
+              0.08869488671630177
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "ATTACK",
+          "baseline": {
+            "captured": 16685,
+            "stolen": 2167,
+            "stolenShare": 0.12987713515133353
+          },
+          "candidate": {
+            "captured": 19617,
+            "stolen": 2575,
+            "stolenShare": 0.13126369985216904
+          },
+          "stolenShareSignal": {
+            "positive": 4,
+            "negative": 4,
+            "tied": 0,
+            "mean": -0.001842360691877683,
+            "min": -0.12255833566520537,
+            "max": 0.08805395067335402,
+            "leaveOneOut": [
+              0.07980451361759613,
+              0.018689988277558356,
+              -0.01219272976712174,
+              0.1078194501301839,
+              -0.08823971246851504,
+              -0.08169589933577497,
+              -0.10279283620837548,
+              -0.024564972990701414
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "EXPAND",
+          "baseline": {
+            "captured": 18812,
+            "stolen": 2743,
+            "stolenShare": 0.14581118435041462
+          },
+          "candidate": {
+            "captured": 20092,
+            "stolen": 2595,
+            "stolenShare": 0.12915588293848299
+          },
+          "stolenShareSignal": {
+            "positive": 4,
+            "negative": 4,
+            "tied": 0,
+            "mean": -0.01481499331269221,
+            "min": -0.10870362198309516,
+            "max": 0.07549432454313598,
+            "leaveOneOut": [
+              -0.11098623136288864,
+              -0.1415708578082121,
+              -0.009816324518442512,
+              -0.19401427104467367,
+              -0.06871803736264556,
+              -0.12498315251677684,
+              -0.16669638674606918,
+              -0.01285436415105519
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "SEEK_POINT",
+          "baseline": {
+            "captured": 15425,
+            "stolen": 3420,
+            "stolenShare": 0.22171799027552674
+          },
+          "candidate": {
+            "captured": 17786,
+            "stolen": 3703,
+            "stolenShare": 0.20819745867536266
+          },
+          "stolenShareSignal": {
+            "positive": 3,
+            "negative": 5,
+            "tied": 0,
+            "mean": -0.013201111147208688,
+            "min": -0.1468240473931953,
+            "max": 0.08451354943829859,
+            "leaveOneOut": [
+              -0.05539924406435548,
+              -0.07755837210131028,
+              -0.13852017756311055,
+              -0.07579541195777759,
+              -0.1901224386159681,
+              -0.09097878891009145,
+              -0.15210294924659887,
+              0.04121515821552579
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        }
+      ]
+    },
+    {
+      "seconds": 240,
+      "rows": [
+        {
+          "seed": 4,
+          "baseline": {
+            "holding": 3529.6119444444444,
+            "final": 4043,
+            "deaths": 21,
+            "deathLoss": 6557,
+            "totalCapture": 16937,
+            "net": 10355,
+            "reclaim": 1315,
+            "enemyRecovery": 1304,
+            "neutralRecovery": 755,
+            "TV": 0.19447033141376152,
+            "attacks": 42,
+            "attackKills": 16,
+            "wallDeaths": 0,
+            "captureMean": 14.463706233988045
+          },
+          "candidate": {
+            "holding": 3681.7361111111113,
+            "final": 4379,
+            "deaths": 32,
+            "deathLoss": 8928,
+            "totalCapture": 19013,
+            "net": 12985,
+            "reclaim": 1365,
+            "enemyRecovery": 1332,
+            "neutralRecovery": 589,
+            "TV": 0.18466689541608106,
+            "attacks": 65,
+            "attackKills": 28,
+            "wallDeaths": 0,
+            "captureMean": 17.769158878504673
+          },
+          "delta": {
+            "holding": 152.12416666666695,
+            "final": 336,
+            "deaths": 11,
+            "deathLoss": 2371,
+            "totalCapture": 2076,
+            "net": 2630,
+            "reclaim": 50,
+            "enemyRecovery": 28,
+            "neutralRecovery": -166,
+            "TV": -0.009803435997680465,
+            "attacks": 23,
+            "attackKills": 12,
+            "wallDeaths": 0,
+            "captureMean": 3.3054526445166275
+          }
+        },
+        {
+          "seed": 19,
+          "baseline": {
+            "holding": 4041.8393055555557,
+            "final": 5275,
+            "deaths": 27,
+            "deathLoss": 8572,
+            "totalCapture": 17582,
+            "net": 13560,
+            "reclaim": 959,
+            "enemyRecovery": 940,
+            "neutralRecovery": 541,
+            "TV": 0.09647114926084885,
+            "attacks": 53,
+            "attackKills": 27,
+            "wallDeaths": 0,
+            "captureMean": 15.027350427350427
+          },
+          "candidate": {
+            "holding": 4078.3243055555554,
+            "final": 5790,
+            "deaths": 25,
+            "deathLoss": 8137,
+            "totalCapture": 18607,
+            "net": 13654,
+            "reclaim": 1188,
+            "enemyRecovery": 1188,
+            "neutralRecovery": 487,
+            "TV": 0.14177497742468975,
+            "attacks": 57,
+            "attackKills": 19,
+            "wallDeaths": 0,
+            "captureMean": 16.25065502183406
+          },
+          "delta": {
+            "holding": 36.48499999999967,
+            "final": 515,
+            "deaths": -2,
+            "deathLoss": -435,
+            "totalCapture": 1025,
+            "net": 94,
+            "reclaim": 229,
+            "enemyRecovery": 248,
+            "neutralRecovery": -54,
+            "TV": 0.045303828163840903,
+            "attacks": 4,
+            "attackKills": -8,
+            "wallDeaths": 0,
+            "captureMean": 1.2233045944836327
+          }
+        },
+        {
+          "seed": 73,
+          "baseline": {
+            "holding": 3773.004027777778,
+            "final": 4243,
+            "deaths": 27,
+            "deathLoss": 8044,
+            "totalCapture": 16969,
+            "net": 12000,
+            "reclaim": 1093,
+            "enemyRecovery": 1090,
+            "neutralRecovery": 435,
+            "TV": 0.05172413793103445,
+            "attacks": 50,
+            "attackKills": 21,
+            "wallDeaths": 0,
+            "captureMean": 13.29858934169279
+          },
+          "candidate": {
+            "holding": 3660.270138888889,
+            "final": 3380,
+            "deaths": 30,
+            "deathLoss": 9591,
+            "totalCapture": 18610,
+            "net": 12670,
+            "reclaim": 963,
+            "enemyRecovery": 945,
+            "neutralRecovery": 688,
+            "TV": 0.17807264528569733,
+            "attacks": 58,
+            "attackKills": 22,
+            "wallDeaths": 0,
+            "captureMean": 16.735611510791365
+          },
+          "delta": {
+            "holding": -112.73388888888894,
+            "final": -863,
+            "deaths": 3,
+            "deathLoss": 1547,
+            "totalCapture": 1641,
+            "net": 670,
+            "reclaim": -130,
+            "enemyRecovery": -145,
+            "neutralRecovery": 253,
+            "TV": 0.12634850735466288,
+            "attacks": 8,
+            "attackKills": 1,
+            "wallDeaths": 0,
+            "captureMean": 3.437022169098576
+          }
+        },
+        {
+          "seed": 11,
+          "baseline": {
+            "holding": 3918.1894444444442,
+            "final": 3879,
+            "deaths": 26,
+            "deathLoss": 8586,
+            "totalCapture": 17291,
+            "net": 12206,
+            "reclaim": 1346,
+            "enemyRecovery": 1309,
+            "neutralRecovery": 406,
+            "TV": 0.20814005673799763,
+            "attacks": 50,
+            "attackKills": 20,
+            "wallDeaths": 0,
+            "captureMean": 14.409166666666666
+          },
+          "candidate": {
+            "holding": 4292.618472222222,
+            "final": 4267,
+            "deaths": 29,
+            "deathLoss": 9127,
+            "totalCapture": 19121,
+            "net": 13093,
+            "reclaim": 1324,
+            "enemyRecovery": 1293,
+            "neutralRecovery": 521,
+            "TV": 0.17836055218029467,
+            "attacks": 48,
+            "attackKills": 22,
+            "wallDeaths": 0,
+            "captureMean": 18.54607177497575
+          },
+          "delta": {
+            "holding": 374.4290277777782,
+            "final": 388,
+            "deaths": 3,
+            "deathLoss": 541,
+            "totalCapture": 1830,
+            "net": 887,
+            "reclaim": -22,
+            "enemyRecovery": -16,
+            "neutralRecovery": 115,
+            "TV": -0.02977950455770295,
+            "attacks": -2,
+            "attackKills": 2,
+            "wallDeaths": 0,
+            "captureMean": 4.136905108309085
+          }
+        },
+        {
+          "seed": 31,
+          "baseline": {
+            "holding": 3509.750972222222,
+            "final": 4868,
+            "deaths": 23,
+            "deathLoss": 7332,
+            "totalCapture": 17182,
+            "net": 11941,
+            "reclaim": 1144,
+            "enemyRecovery": 1144,
+            "neutralRecovery": 565,
+            "TV": 0.12698238020126437,
+            "attacks": 52,
+            "attackKills": 19,
+            "wallDeaths": 0,
+            "captureMean": 13.571879936808847
+          },
+          "candidate": {
+            "holding": 3469.561388888889,
+            "final": 4148,
+            "deaths": 31,
+            "deathLoss": 10087,
+            "totalCapture": 19541,
+            "net": 13920,
+            "reclaim": 735,
+            "enemyRecovery": 714,
+            "neutralRecovery": 572,
+            "TV": 0.2051226388261473,
+            "attacks": 43,
+            "attackKills": 28,
+            "wallDeaths": 0,
+            "captureMean": 18.77137367915466
+          },
+          "delta": {
+            "holding": -40.1895833333333,
+            "final": -720,
+            "deaths": 8,
+            "deathLoss": 2755,
+            "totalCapture": 2359,
+            "net": 1979,
+            "reclaim": -409,
+            "enemyRecovery": -430,
+            "neutralRecovery": 7,
+            "TV": 0.07814025862488294,
+            "attacks": -9,
+            "attackKills": 9,
+            "wallDeaths": 0,
+            "captureMean": 5.199493742345814
+          }
+        },
+        {
+          "seed": 47,
+          "baseline": {
+            "holding": 3771.6244444444446,
+            "final": 3562,
+            "deaths": 32,
+            "deathLoss": 9551,
+            "totalCapture": 18199,
+            "net": 12791,
+            "reclaim": 816,
+            "enemyRecovery": 812,
+            "neutralRecovery": 591,
+            "TV": 0.17651515151515154,
+            "attacks": 61,
+            "attackKills": 28,
+            "wallDeaths": 0,
+            "captureMean": 16.45479204339964
+          },
+          "candidate": {
+            "holding": 3927.9331944444443,
+            "final": 3750,
+            "deaths": 32,
+            "deathLoss": 11192,
+            "totalCapture": 19390,
+            "net": 14627,
+            "reclaim": 962,
+            "enemyRecovery": 936,
+            "neutralRecovery": 693,
+            "TV": 0.21196290307867305,
+            "attacks": 68,
+            "attackKills": 31,
+            "wallDeaths": 0,
+            "captureMean": 18.590604026845636
+          },
+          "delta": {
+            "holding": 156.3087499999997,
+            "final": 188,
+            "deaths": 0,
+            "deathLoss": 1641,
+            "totalCapture": 1191,
+            "net": 1836,
+            "reclaim": 146,
+            "enemyRecovery": 124,
+            "neutralRecovery": 102,
+            "TV": 0.03544775156352151,
+            "attacks": 7,
+            "attackKills": 3,
+            "wallDeaths": 0,
+            "captureMean": 2.135811983445997
+          }
+        },
+        {
+          "seed": 101,
+          "baseline": {
+            "holding": 3709.29875,
+            "final": 5379,
+            "deaths": 26,
+            "deathLoss": 6852,
+            "totalCapture": 16572,
+            "net": 11951,
+            "reclaim": 1149,
+            "enemyRecovery": 1142,
+            "neutralRecovery": 580,
+            "TV": 0.16709228718973845,
+            "attacks": 68,
+            "attackKills": 21,
+            "wallDeaths": 0,
+            "captureMean": 13.21531100478469
+          },
+          "candidate": {
+            "holding": 3815.0705555555555,
+            "final": 3458,
+            "deaths": 30,
+            "deathLoss": 9700,
+            "totalCapture": 18979,
+            "net": 12857,
+            "reclaim": 934,
+            "enemyRecovery": 916,
+            "neutralRecovery": 444,
+            "TV": 0.18492459444036846,
+            "attacks": 57,
+            "attackKills": 25,
+            "wallDeaths": 0,
+            "captureMean": 17.082808280828083
+          },
+          "delta": {
+            "holding": 105.7718055555556,
+            "final": -1921,
+            "deaths": 4,
+            "deathLoss": 2848,
+            "totalCapture": 2407,
+            "net": 906,
+            "reclaim": -215,
+            "enemyRecovery": -226,
+            "neutralRecovery": -136,
+            "TV": 0.01783230725063001,
+            "attacks": -11,
+            "attackKills": 4,
+            "wallDeaths": 0,
+            "captureMean": 3.8674972760433928
+          }
+        },
+        {
+          "seed": 137,
+          "baseline": {
+            "holding": 3548.5870833333333,
+            "final": 4124,
+            "deaths": 25,
+            "deathLoss": 6221,
+            "totalCapture": 16089,
+            "net": 10079,
+            "reclaim": 1780,
+            "enemyRecovery": 1772,
+            "neutralRecovery": 363,
+            "TV": 0.26796302788430776,
+            "attacks": 64,
+            "attackKills": 24,
+            "wallDeaths": 0,
+            "captureMean": 13.531539108494533
+          },
+          "candidate": {
+            "holding": 3515.105138888889,
+            "final": 4711,
+            "deaths": 25,
+            "deathLoss": 8591,
+            "totalCapture": 18464,
+            "net": 13029,
+            "reclaim": 679,
+            "enemyRecovery": 674,
+            "neutralRecovery": 602,
+            "TV": 0.2017644253695756,
+            "attacks": 66,
+            "attackKills": 21,
+            "wallDeaths": 0,
+            "captureMean": 16.083623693379792
+          },
+          "delta": {
+            "holding": -33.48194444444425,
+            "final": 587,
+            "deaths": 0,
+            "deathLoss": 2370,
+            "totalCapture": 2375,
+            "net": 2950,
+            "reclaim": -1101,
+            "enemyRecovery": -1098,
+            "neutralRecovery": 239,
+            "TV": -0.06619860251473217,
+            "attacks": 2,
+            "attackKills": -3,
+            "wallDeaths": 0,
+            "captureMean": 2.552084584885259
+          }
+        }
+      ],
+      "totals": {
+        "baseline": {
+          "holding": 3725.238246527778,
+          "final": 4421.625,
+          "deaths": 207,
+          "deathLoss": 61715,
+          "totalCapture": 136821,
+          "net": 94883,
+          "reclaim": 9602,
+          "enemyRecovery": 9513,
+          "neutralRecovery": 4236,
+          "TV": 0.16116981526676305,
+          "attacks": 440,
+          "attackKills": 176,
+          "wallDeaths": 0,
+          "captureMean": 14.246541845398204
+        },
+        "candidate": {
+          "holding": 3805.0774131944445,
+          "final": 4235.375,
+          "deaths": 234,
+          "deathLoss": 75353,
+          "totalCapture": 151725,
+          "net": 106835,
+          "reclaim": 8150,
+          "enemyRecovery": 7998,
+          "neutralRecovery": 4596,
+          "TV": 0.1858312040026909,
+          "attacks": 462,
+          "attackKills": 196,
+          "wallDeaths": 0,
+          "captureMean": 17.478738358289252
+        }
+      },
+      "percent": {
+        "holding": 2.1431962570738428,
+        "final": -4.2122522828145765,
+        "deaths": 13.043478260869556,
+        "deathLoss": 22.098355343109443,
+        "totalCapture": 10.893064661126584,
+        "net": 12.596566297440015,
+        "reclaim": -15.121849614663606,
+        "enemyRecovery": -15.925575528224535,
+        "neutralRecovery": 8.498583569405094,
+        "TV": 15.30149345589875,
+        "attacks": 5.000000000000004,
+        "attackKills": 11.363636363636353,
+        "wallDeaths": null,
+        "captureMean": 22.687586559366224
+      },
+      "signals": {
+        "holding": {
+          "positive": 5,
+          "negative": 3,
+          "tied": 0,
+          "mean": 79.8391666666667,
+          "min": -112.73388888888894,
+          "max": 374.4290277777782,
+          "leaveOneOut": [
+            486.58916666666664,
+            602.2283333333339,
+            751.4472222222225,
+            264.2843055555554,
+            678.9029166666669,
+            482.4045833333339,
+            532.941527777778,
+            672.1952777777778
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "final": {
+          "positive": 5,
+          "negative": 3,
+          "tied": 0,
+          "mean": -186.25,
+          "min": -1921,
+          "max": 587,
+          "leaveOneOut": [
+            -1826,
+            -2005,
+            -627,
+            -1878,
+            -770,
+            -1678,
+            431,
+            -2077
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "deaths": {
+          "positive": 5,
+          "negative": 1,
+          "tied": 2,
+          "mean": 3.375,
+          "min": -2,
+          "max": 11,
+          "leaveOneOut": [
+            16,
+            29,
+            24,
+            24,
+            19,
+            27,
+            23,
+            27
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "deathLoss": {
+          "positive": 7,
+          "negative": 1,
+          "tied": 0,
+          "mean": 1704.75,
+          "min": -435,
+          "max": 2848,
+          "leaveOneOut": [
+            11267,
+            14073,
+            12091,
+            13097,
+            10883,
+            11997,
+            10790,
+            11268
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "totalCapture": {
+          "positive": 8,
+          "negative": 0,
+          "tied": 0,
+          "mean": 1863,
+          "min": 1025,
+          "max": 2407,
+          "leaveOneOut": [
+            12828,
+            13879,
+            13263,
+            13074,
+            12545,
+            13713,
+            12497,
+            12529
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "net": {
+          "positive": 8,
+          "negative": 0,
+          "tied": 0,
+          "mean": 1494,
+          "min": 94,
+          "max": 2950,
+          "leaveOneOut": [
+            9322,
+            11858,
+            11282,
+            11065,
+            9973,
+            10116,
+            11046,
+            9002
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "reclaim": {
+          "positive": 3,
+          "negative": 5,
+          "tied": 0,
+          "mean": -181.5,
+          "min": -1101,
+          "max": 229,
+          "leaveOneOut": [
+            -1502,
+            -1681,
+            -1322,
+            -1430,
+            -1043,
+            -1598,
+            -1237,
+            -351
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "enemyRecovery": {
+          "positive": 3,
+          "negative": 5,
+          "tied": 0,
+          "mean": -189.375,
+          "min": -1098,
+          "max": 248,
+          "leaveOneOut": [
+            -1543,
+            -1763,
+            -1370,
+            -1499,
+            -1085,
+            -1639,
+            -1289,
+            -417
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "neutralRecovery": {
+          "positive": 5,
+          "negative": 3,
+          "tied": 0,
+          "mean": 45,
+          "min": -166,
+          "max": 253,
+          "leaveOneOut": [
+            526,
+            414,
+            107,
+            245,
+            353,
+            258,
+            496,
+            121
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "TV": {
+          "positive": 5,
+          "negative": 3,
+          "tied": 0,
+          "mean": 0.02466138873592783,
+          "min": -0.06619860251473217,
+          "max": 0.12634850735466288,
+          "leaveOneOut": [
+            0.2070945458851031,
+            0.15198728172358172,
+            0.07094260253275975,
+            0.22707061444512558,
+            0.11915085126253969,
+            0.16184335832390112,
+            0.17945880263679262,
+            0.2634897124021548
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "attacks": {
+          "positive": 5,
+          "negative": 3,
+          "tied": 0,
+          "mean": 2.75,
+          "min": -11,
+          "max": 23,
+          "leaveOneOut": [
+            -1,
+            18,
+            14,
+            24,
+            31,
+            15,
+            33,
+            20
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "attackKills": {
+          "positive": 6,
+          "negative": 2,
+          "tied": 0,
+          "mean": 2.5,
+          "min": -8,
+          "max": 12,
+          "leaveOneOut": [
+            8,
+            28,
+            19,
+            18,
+            11,
+            17,
+            16,
+            23
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "wallDeaths": {
+          "positive": 0,
+          "negative": 0,
+          "tied": 8,
+          "mean": 0,
+          "min": 0,
+          "max": 0,
+          "leaveOneOut": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "direction": "INDISTINGUISHABLE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        },
+        "captureMean": {
+          "positive": 8,
+          "negative": 0,
+          "tied": 0,
+          "mean": 3.232196512891048,
+          "min": 1.2233045944836327,
+          "max": 5.199493742345814,
+          "leaveOneOut": [
+            22.552119458611756,
+            24.63426750864475,
+            22.420549934029808,
+            21.720666994819297,
+            20.658078360782568,
+            23.721760119682386,
+            21.99007482708499,
+            23.305487518243126
+          ],
+          "direction": "INCREASE",
+          "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+        }
+      },
+      "personality": [
+        {
+          "personality": "DEFEND",
+          "baseline": {
+            "captured": 36297,
+            "stolen": 7227,
+            "stolenShare": 0.19910736424497893
+          },
+          "candidate": {
+            "captured": 38389,
+            "stolen": 8186,
+            "stolenShare": 0.2132381671833077
+          },
+          "stolenShareSignal": {
+            "positive": 5,
+            "negative": 3,
+            "tied": 0,
+            "mean": 0.013048169245467277,
+            "min": -0.08411019891212623,
+            "max": 0.0923941086667533,
+            "leaveOneOut": [
+              0.03329318733203987,
+              0.13325321479881216,
+              0.09444870395224633,
+              0.01199124529698492,
+              0.11092963893459265,
+              0.08093356960742501,
+              0.07735236494820211,
+              0.18849555287586445
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "ATTACK",
+          "baseline": {
+            "captured": 32222,
+            "stolen": 6574,
+            "stolenShare": 0.2040220967041152
+          },
+          "candidate": {
+            "captured": 38805,
+            "stolen": 7800,
+            "stolenShare": 0.20100502512562815
+          },
+          "stolenShareSignal": {
+            "positive": 5,
+            "negative": 3,
+            "tied": 0,
+            "mean": -0.0024946883560413545,
+            "min": -0.14244260307921033,
+            "max": 0.06587095013450817,
+            "leaveOneOut": [
+              -0.085828456982839,
+              -0.020203565524155614,
+              -0.023506857576756718,
+              0.1224850962308795,
+              -0.06466930125176082,
+              -0.06731839483779031,
+              0.003753459393690317,
+              -0.0044145273895832005
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "EXPAND",
+          "baseline": {
+            "captured": 37484,
+            "stolen": 7477,
+            "stolenShare": 0.1994717746238395
+          },
+          "candidate": {
+            "captured": 39368,
+            "stolen": 7160,
+            "stolenShare": 0.1818736029262345
+          },
+          "stolenShareSignal": {
+            "positive": 2,
+            "negative": 6,
+            "tied": 0,
+            "mean": -0.016929521510360618,
+            "min": -0.0897790843160893,
+            "max": 0.06251549779548918,
+            "leaveOneOut": [
+              -0.13461921278593678,
+              -0.19795166987837412,
+              -0.07298426238700464,
+              -0.1686184581484866,
+              -0.0931091585035706,
+              -0.1091237153569111,
+              -0.1259896397531151,
+              -0.04565708776679564
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        },
+        {
+          "personality": "SEEK_POINT",
+          "baseline": {
+            "captured": 30818,
+            "stolen": 10039,
+            "stolenShare": 0.3257511843727692
+          },
+          "candidate": {
+            "captured": 35163,
+            "stolen": 11454,
+            "stolenShare": 0.32574012456275064
+          },
+          "stolenShareSignal": {
+            "positive": 5,
+            "negative": 3,
+            "tied": 0,
+            "mean": 0.000012664363345665092,
+            "min": -0.13838514951910252,
+            "max": 0.09208050311357266,
+            "leaveOneOut": [
+              0.04213440647268066,
+              -0.0691625901302951,
+              -0.09197918820680734,
+              -0.011349385064218148,
+              -0.0229835815841625,
+              0.017072723897841507,
+              -0.0015096454635496748,
+              0.13848646442586784
+            ],
+            "direction": "INDISTINGUISHABLE",
+            "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+          }
+        }
+      ]
+    }
+  ],
+  "captures": {
+    "baseline": {
+      "overall": {
+        "count": 9632,
+        "total": 136821,
+        "mean": 14.20483803986711,
+        "median": 10,
+        "p90": 32,
+        "max": 111
+      },
+      "byTime": [
+        {
+          "seconds": 30,
+          "count": 1086,
+          "total": 19547,
+          "mean": 17.999079189686924,
+          "median": 18,
+          "p90": 36,
+          "max": 73
+        },
+        {
+          "seconds": 60,
+          "count": 1290,
+          "total": 16818,
+          "mean": 13.037209302325582,
+          "median": 8,
+          "p90": 31,
+          "max": 92
+        },
+        {
+          "seconds": 90,
+          "count": 1244,
+          "total": 16602,
+          "mean": 13.345659163987138,
+          "median": 9,
+          "p90": 30,
+          "max": 90
+        },
+        {
+          "seconds": 120,
+          "count": 1230,
+          "total": 16478,
+          "mean": 13.396747967479675,
+          "median": 7,
+          "p90": 31,
+          "max": 111
+        },
+        {
+          "seconds": 150,
+          "count": 1175,
+          "total": 16732,
+          "mean": 14.24,
+          "median": 9,
+          "p90": 33,
+          "max": 90
+        },
+        {
+          "seconds": 180,
+          "count": 1213,
+          "total": 16976,
+          "mean": 13.995053586150041,
+          "median": 8,
+          "p90": 32,
+          "max": 85
+        },
+        {
+          "seconds": 210,
+          "count": 1166,
+          "total": 16895,
+          "mean": 14.489708404802744,
+          "median": 10,
+          "p90": 32,
+          "max": 76
+        },
+        {
+          "seconds": 240,
+          "count": 1228,
+          "total": 16773,
+          "mean": 13.658794788273616,
+          "median": 8,
+          "p90": 31,
+          "max": 100
+        }
+      ],
+      "selectedLargePlans": 0
+    },
+    "candidate": {
+      "overall": {
+        "count": 8701,
+        "total": 151725,
+        "mean": 17.43765084473049,
+        "median": 13,
+        "p90": 40,
+        "max": 138
+      },
+      "byTime": [
+        {
+          "seconds": 30,
+          "count": 986,
+          "total": 21083,
+          "mean": 21.38235294117647,
+          "median": 22,
+          "p90": 42,
+          "max": 64
+        },
+        {
+          "seconds": 60,
+          "count": 1178,
+          "total": 19081,
+          "mean": 16.19779286926995,
+          "median": 9,
+          "p90": 39,
+          "max": 88
+        },
+        {
+          "seconds": 90,
+          "count": 1076,
+          "total": 19111,
+          "mean": 17.76115241635688,
+          "median": 13,
+          "p90": 41,
+          "max": 80
+        },
+        {
+          "seconds": 120,
+          "count": 1136,
+          "total": 17941,
+          "mean": 15.793133802816902,
+          "median": 8,
+          "p90": 38,
+          "max": 101
+        },
+        {
+          "seconds": 150,
+          "count": 1093,
+          "total": 18232,
+          "mean": 16.680695333943277,
+          "median": 9,
+          "p90": 39,
+          "max": 136
+        },
+        {
+          "seconds": 180,
+          "count": 1133,
+          "total": 17785,
+          "mean": 15.697263901147396,
+          "median": 7,
+          "p90": 38,
+          "max": 96
+        },
+        {
+          "seconds": 210,
+          "count": 1055,
+          "total": 18992,
+          "mean": 18.001895734597156,
+          "median": 12,
+          "p90": 42,
+          "max": 138
+        },
+        {
+          "seconds": 240,
+          "count": 1044,
+          "total": 19500,
+          "mean": 18.67816091954023,
+          "median": 16,
+          "p90": 43,
+          "max": 117
+        }
+      ],
+      "selectedLargePlans": 3279
+    }
+  },
+  "deathAnalysis": {
+    "baseline": {
+      "byHorizon": [
+        {
+          "seconds": 120,
+          "deaths": 90,
+          "loss": 22348,
+          "bins": [
+            {
+              "bin": "0..63",
+              "count": 5,
+              "total": 259,
+              "mean": 51.8,
+              "median": 51,
+              "p90": 53,
+              "max": 63,
+              "deathFraction": 0.05555555555555555,
+              "lossFraction": 0.011589403973509934
+            },
+            {
+              "bin": "64..255",
+              "count": 48,
+              "total": 8161,
+              "mean": 170.02083333333334,
+              "median": 172,
+              "p90": 243,
+              "max": 255,
+              "deathFraction": 0.5333333333333333,
+              "lossFraction": 0.365178091999284
+            },
+            {
+              "bin": "256..1023",
+              "count": 37,
+              "total": 13928,
+              "mean": 376.43243243243245,
+              "median": 346,
+              "p90": 508,
+              "max": 560,
+              "deathFraction": 0.4111111111111111,
+              "lossFraction": 0.623232504027206
+            },
+            {
+              "bin": "1024+",
+              "count": 0,
+              "total": 0,
+              "mean": null,
+              "median": null,
+              "p90": null,
+              "max": null,
+              "deathFraction": 0,
+              "lossFraction": 0
+            }
+          ],
+          "killers": [
+            {
+              "name": "BOT/EXPAND",
+              "count": 22,
+              "total": 5566,
+              "mean": 253,
+              "median": 243,
+              "p90": 346,
+              "max": 560
+            },
+            {
+              "name": "BOT/DEFEND",
+              "count": 28,
+              "total": 6726,
+              "mean": 240.21428571428572,
+              "median": 190,
+              "p90": 412,
+              "max": 521
+            },
+            {
+              "name": "BOT/ATTACK",
+              "count": 31,
+              "total": 7630,
+              "mean": 246.1290322580645,
+              "median": 211,
+              "p90": 497,
+              "max": 516
+            },
+            {
+              "name": "BOT/SEEK_POINT",
+              "count": 9,
+              "total": 2426,
+              "mean": 269.55555555555554,
+              "median": 255,
+              "p90": 352,
+              "max": 486
+            }
+          ],
+          "causes": [
+            {
+              "name": "EXISTING_TRAIL_CONTACT",
+              "count": 81,
+              "total": 21062,
+              "mean": 260.0246913580247,
+              "median": 243,
+              "p90": 493,
+              "max": 560
+            },
+            {
+              "name": "PENDING_TRAIL_CONTACT",
+              "count": 3,
+              "total": 455,
+              "mean": 151.66666666666666,
+              "median": 159,
+              "p90": 159,
+              "max": 168
+            },
+            {
+              "name": "HOME_CAPTURE",
+              "count": 6,
+              "total": 831,
+              "mean": 138.5,
+              "median": 72,
+              "p90": 255,
+              "max": 286
+            }
+          ],
+          "goals": [
+            {
+              "name": "ESCAPE",
+              "count": 87,
+              "total": 22111,
+              "mean": 254.1494252873563,
+              "median": 240,
+              "p90": 486,
+              "max": 560
+            },
+            {
+              "name": "ATTACK",
+              "count": 1,
+              "total": 72,
+              "mean": 72,
+              "median": 72,
+              "p90": 72,
+              "max": 72
+            },
+            {
+              "name": "STEAL",
+              "count": 1,
+              "total": 102,
+              "mean": 102,
+              "median": 102,
+              "p90": 102,
+              "max": 102
+            },
+            {
+              "name": "REPOSITION",
+              "count": 1,
+              "total": 63,
+              "mean": 63,
+              "median": 63,
+              "p90": 63,
+              "max": 63
+            }
+          ],
+          "cross": [
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 9,
+              "total": 1647,
+              "mean": 183,
+              "median": 203,
+              "p90": 243,
+              "max": 252
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 2,
+              "total": 296,
+              "mean": 148,
+              "median": 128,
+              "p90": 128,
+              "max": 168
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 12,
+              "total": 1946,
+              "mean": 162.16666666666666,
+              "median": 146,
+              "p90": 190,
+              "max": 240
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 11,
+              "total": 4427,
+              "mean": 402.45454545454544,
+              "median": 405,
+              "p90": 511,
+              "max": 516
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 18,
+              "total": 3105,
+              "mean": 172.5,
+              "median": 172,
+              "p90": 223,
+              "max": 248
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 2,
+              "total": 98,
+              "mean": 49,
+              "median": 47,
+              "p90": 47,
+              "max": 51
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 9,
+              "total": 3274,
+              "mean": 363.77777777777777,
+              "median": 308,
+              "p90": 493,
+              "max": 560
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 12,
+              "total": 4508,
+              "mean": 375.6666666666667,
+              "median": 331,
+              "p90": 494,
+              "max": 521
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 3,
+              "total": 579,
+              "mean": 193,
+              "median": 211,
+              "p90": 211,
+              "max": 243
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/EXPAND",
+              "count": 1,
+              "total": 286,
+              "mean": 286,
+              "median": 286,
+              "p90": 286,
+              "max": 286
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 4,
+              "total": 1433,
+              "mean": 358.25,
+              "median": 321,
+              "p90": 352,
+              "max": 486
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 255,
+              "mean": 255,
+              "median": 255,
+              "p90": 255,
+              "max": 255
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/DEFEND",
+              "count": 2,
+              "total": 174,
+              "mean": 87,
+              "median": 72,
+              "p90": 72,
+              "max": 102
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 1,
+              "total": 45,
+              "mean": 45,
+              "median": 45,
+              "p90": 45,
+              "max": 45
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 1,
+              "total": 159,
+              "mean": 159,
+              "median": 159,
+              "p90": 159,
+              "max": 159
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/ATTACK",
+              "count": 1,
+              "total": 53,
+              "mean": 53,
+              "median": 53,
+              "p90": 53,
+              "max": 53
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/EXPAND",
+              "count": 1,
+              "total": 63,
+              "mean": 63,
+              "median": 63,
+              "p90": 63,
+              "max": 63
+            }
+          ],
+          "attackingDeaths": 1,
+          "actualExposure": {
+            "count": 90,
+            "total": 691,
+            "mean": 7.677777777777778,
+            "median": 5,
+            "p90": 15,
+            "max": 21
+          },
+          "lastPlannedCapture": {
+            "count": 90,
+            "total": 1488,
+            "mean": 16.533333333333335,
+            "median": 5,
+            "p90": 38,
+            "max": 57
+          },
+          "lastPlannedExternal": {
+            "count": 90,
+            "total": 807,
+            "mean": 8.966666666666667,
+            "median": 5,
+            "p90": 18,
+            "max": 20
+          },
+          "activeExpansionDeaths": 1,
+          "lastQuietLargeDeaths": 0,
+          "lastQuietLargeDeathLoss": 0,
+          "bySizePlan": [
+            {
+              "bin": "0..63",
+              "exposure": {
+                "count": 5,
+                "total": 51,
+                "mean": 10.2,
+                "median": 13,
+                "p90": 15,
+                "max": 18
+              },
+              "lastCapture": {
+                "count": 5,
+                "total": 137,
+                "mean": 27.4,
+                "median": 32,
+                "p90": 41,
+                "max": 57
+              },
+              "lastExternal": {
+                "count": 5,
+                "total": 56,
+                "mean": 11.2,
+                "median": 12,
+                "p90": 18,
+                "max": 19
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            },
+            {
+              "bin": "64..255",
+              "exposure": {
+                "count": 48,
+                "total": 377,
+                "mean": 7.854166666666667,
+                "median": 6,
+                "p90": 15,
+                "max": 19
+              },
+              "lastCapture": {
+                "count": 48,
+                "total": 763,
+                "mean": 15.895833333333334,
+                "median": 5,
+                "p90": 38,
+                "max": 55
+              },
+              "lastExternal": {
+                "count": 48,
+                "total": 416,
+                "mean": 8.666666666666666,
+                "median": 5,
+                "p90": 17,
+                "max": 20
+              },
+              "attacking": 1,
+              "activeExpansion": 1
+            },
+            {
+              "bin": "256..1023",
+              "exposure": {
+                "count": 37,
+                "total": 263,
+                "mean": 7.108108108108108,
+                "median": 5,
+                "p90": 14,
+                "max": 21
+              },
+              "lastCapture": {
+                "count": 37,
+                "total": 588,
+                "mean": 15.891891891891891,
+                "median": 5,
+                "p90": 37,
+                "max": 48
+              },
+              "lastExternal": {
+                "count": 37,
+                "total": 335,
+                "mean": 9.054054054054054,
+                "median": 5,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            },
+            {
+              "bin": "1024+",
+              "exposure": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastCapture": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastExternal": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            }
+          ]
+        },
+        {
+          "seconds": 240,
+          "deaths": 207,
+          "loss": 61715,
+          "bins": [
+            {
+              "bin": "0..63",
+              "count": 15,
+              "total": 629,
+              "mean": 41.93333333333333,
+              "median": 45,
+              "p90": 54,
+              "max": 63,
+              "deathFraction": 0.07246376811594203,
+              "lossFraction": 0.010192011666531638
+            },
+            {
+              "bin": "64..255",
+              "count": 93,
+              "total": 15200,
+              "mean": 163.44086021505376,
+              "median": 164,
+              "p90": 238,
+              "max": 255,
+              "deathFraction": 0.4492753623188406,
+              "lossFraction": 0.24629344567771205
+            },
+            {
+              "bin": "256..1023",
+              "count": 99,
+              "total": 45886,
+              "mean": 463.4949494949495,
+              "median": 449,
+              "p90": 679,
+              "max": 893,
+              "deathFraction": 0.4782608695652174,
+              "lossFraction": 0.7435145426557563
+            },
+            {
+              "bin": "1024+",
+              "count": 0,
+              "total": 0,
+              "mean": null,
+              "median": null,
+              "p90": null,
+              "max": null,
+              "deathFraction": 0,
+              "lossFraction": 0
+            }
+          ],
+          "killers": [
+            {
+              "name": "BOT/EXPAND",
+              "count": 42,
+              "total": 11996,
+              "mean": 285.6190476190476,
+              "median": 243,
+              "p90": 526,
+              "max": 782
+            },
+            {
+              "name": "BOT/DEFEND",
+              "count": 75,
+              "total": 24101,
+              "mean": 321.3466666666667,
+              "median": 276,
+              "p90": 621,
+              "max": 893
+            },
+            {
+              "name": "BOT/ATTACK",
+              "count": 59,
+              "total": 16240,
+              "mean": 275.2542372881356,
+              "median": 209,
+              "p90": 529,
+              "max": 861
+            },
+            {
+              "name": "BOT/SEEK_POINT",
+              "count": 31,
+              "total": 9378,
+              "mean": 302.51612903225805,
+              "median": 251,
+              "p90": 606,
+              "max": 750
+            }
+          ],
+          "causes": [
+            {
+              "name": "EXISTING_TRAIL_CONTACT",
+              "count": 179,
+              "total": 53097,
+              "mean": 296.63128491620114,
+              "median": 248,
+              "p90": 538,
+              "max": 893
+            },
+            {
+              "name": "PENDING_TRAIL_CONTACT",
+              "count": 14,
+              "total": 5671,
+              "mean": 405.07142857142856,
+              "median": 251,
+              "p90": 664,
+              "max": 887
+            },
+            {
+              "name": "HOME_CAPTURE",
+              "count": 14,
+              "total": 2947,
+              "mean": 210.5,
+              "median": 102,
+              "p90": 301,
+              "max": 672
+            }
+          ],
+          "goals": [
+            {
+              "name": "ESCAPE",
+              "count": 196,
+              "total": 59598,
+              "mean": 304.07142857142856,
+              "median": 252,
+              "p90": 580,
+              "max": 893
+            },
+            {
+              "name": "STEAL",
+              "count": 4,
+              "total": 355,
+              "mean": 88.75,
+              "median": 93,
+              "p90": 102,
+              "max": 145
+            },
+            {
+              "name": "ATTACK",
+              "count": 3,
+              "total": 910,
+              "mean": 303.3333333333333,
+              "median": 174,
+              "p90": 174,
+              "max": 664
+            },
+            {
+              "name": "RETURN",
+              "count": 3,
+              "total": 789,
+              "mean": 263,
+              "median": 259,
+              "p90": 259,
+              "max": 323
+            },
+            {
+              "name": "REPOSITION",
+              "count": 1,
+              "total": 63,
+              "mean": 63,
+              "median": 63,
+              "p90": 63,
+              "max": 63
+            }
+          ],
+          "cross": [
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 19,
+              "total": 3069,
+              "mean": 161.52631578947367,
+              "median": 158,
+              "p90": 238,
+              "max": 252
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 2,
+              "total": 296,
+              "mean": 148,
+              "median": 128,
+              "p90": 128,
+              "max": 168
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 22,
+              "total": 3740,
+              "mean": 170,
+              "median": 173,
+              "p90": 222,
+              "max": 255
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 21,
+              "total": 9800,
+              "mean": 466.6666666666667,
+              "median": 451,
+              "p90": 643,
+              "max": 861
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 2,
+              "total": 58,
+              "mean": 29,
+              "median": 26,
+              "p90": 26,
+              "max": 32
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 36,
+              "total": 16280,
+              "mean": 452.22222222222223,
+              "median": 412,
+              "p90": 667,
+              "max": 893
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 16,
+              "total": 6522,
+              "mean": 407.625,
+              "median": 355,
+              "p90": 535,
+              "max": 782
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 14,
+              "total": 6761,
+              "mean": 482.92857142857144,
+              "median": 486,
+              "p90": 624,
+              "max": 750
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/EXPAND",
+              "count": 3,
+              "total": 1560,
+              "mean": 520,
+              "median": 602,
+              "p90": 602,
+              "max": 672
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 3,
+              "total": 562,
+              "mean": 187.33333333333334,
+              "median": 207,
+              "p90": 207,
+              "max": 212
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 29,
+              "total": 4655,
+              "mean": 160.51724137931035,
+              "median": 154,
+              "p90": 222,
+              "max": 248
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 5,
+              "total": 230,
+              "mean": 46,
+              "median": 47,
+              "p90": 51,
+              "max": 54
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 11,
+              "total": 1801,
+              "mean": 163.72727272727272,
+              "median": 173,
+              "p90": 240,
+              "max": 243
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 4,
+              "total": 2654,
+              "mean": 663.5,
+              "median": 560,
+              "p90": 816,
+              "max": 887
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/ATTACK",
+              "count": 2,
+              "total": 82,
+              "mean": 41,
+              "median": 29,
+              "p90": 29,
+              "max": 53
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/DEFEND",
+              "count": 1,
+              "total": 15,
+              "mean": 15,
+              "median": 15,
+              "p90": 15,
+              "max": 15
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/DEFEND",
+              "count": 3,
+              "total": 319,
+              "mean": 106.33333333333333,
+              "median": 102,
+              "p90": 102,
+              "max": 145
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/SEEK_POINT",
+              "count": 2,
+              "total": 348,
+              "mean": 174,
+              "median": 93,
+              "p90": 93,
+              "max": 255
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/ATTACK",
+              "count": 2,
+              "total": 1263,
+              "mean": 631.5,
+              "median": 599,
+              "p90": 599,
+              "max": 664
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 2,
+              "total": 410,
+              "mean": 205,
+              "median": 159,
+              "p90": 159,
+              "max": 251
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/ATTACK",
+              "count": 1,
+              "total": 259,
+              "mean": 259,
+              "median": 259,
+              "p90": 259,
+              "max": 259
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 1,
+              "total": 486,
+              "mean": 486,
+              "median": 486,
+              "p90": 486,
+              "max": 486
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/DEFEND",
+              "count": 1,
+              "total": 301,
+              "mean": 301,
+              "median": 301,
+              "p90": 301,
+              "max": 301
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 4,
+              "total": 181,
+              "mean": 45.25,
+              "median": 45,
+              "p90": 46,
+              "max": 55
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/EXPAND",
+              "count": 1,
+              "total": 63,
+              "mean": 63,
+              "median": 63,
+              "p90": 63,
+              "max": 63
+            }
+          ],
+          "attackingDeaths": 3,
+          "actualExposure": {
+            "count": 207,
+            "total": 1531,
+            "mean": 7.396135265700483,
+            "median": 5,
+            "p90": 15,
+            "max": 21
+          },
+          "lastPlannedCapture": {
+            "count": 207,
+            "total": 3515,
+            "mean": 16.980676328502415,
+            "median": 5,
+            "p90": 39,
+            "max": 95
+          },
+          "lastPlannedExternal": {
+            "count": 207,
+            "total": 1848,
+            "mean": 8.927536231884059,
+            "median": 5,
+            "p90": 18,
+            "max": 20
+          },
+          "activeExpansionDeaths": 4,
+          "lastQuietLargeDeaths": 0,
+          "lastQuietLargeDeathLoss": 0,
+          "bySizePlan": [
+            {
+              "bin": "0..63",
+              "exposure": {
+                "count": 15,
+                "total": 139,
+                "mean": 9.266666666666667,
+                "median": 10,
+                "p90": 15,
+                "max": 18
+              },
+              "lastCapture": {
+                "count": 15,
+                "total": 349,
+                "mean": 23.266666666666666,
+                "median": 23,
+                "p90": 42,
+                "max": 57
+              },
+              "lastExternal": {
+                "count": 15,
+                "total": 167,
+                "mean": 11.133333333333333,
+                "median": 12,
+                "p90": 18,
+                "max": 19
+              },
+              "attacking": 0,
+              "activeExpansion": 1
+            },
+            {
+              "bin": "64..255",
+              "exposure": {
+                "count": 93,
+                "total": 687,
+                "mean": 7.387096774193548,
+                "median": 5,
+                "p90": 15,
+                "max": 19
+              },
+              "lastCapture": {
+                "count": 93,
+                "total": 1402,
+                "mean": 15.075268817204302,
+                "median": 5,
+                "p90": 37,
+                "max": 55
+              },
+              "lastExternal": {
+                "count": 93,
+                "total": 801,
+                "mean": 8.612903225806452,
+                "median": 5,
+                "p90": 16,
+                "max": 20
+              },
+              "attacking": 2,
+              "activeExpansion": 3
+            },
+            {
+              "bin": "256..1023",
+              "exposure": {
+                "count": 99,
+                "total": 705,
+                "mean": 7.121212121212121,
+                "median": 5,
+                "p90": 14,
+                "max": 21
+              },
+              "lastCapture": {
+                "count": 99,
+                "total": 1764,
+                "mean": 17.818181818181817,
+                "median": 5,
+                "p90": 43,
+                "max": 95
+              },
+              "lastExternal": {
+                "count": 99,
+                "total": 880,
+                "mean": 8.88888888888889,
+                "median": 5,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 1,
+              "activeExpansion": 0
+            },
+            {
+              "bin": "1024+",
+              "exposure": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastCapture": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastExternal": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            }
+          ]
+        }
+      ],
+      "rawDetails": "death-details.csv"
+    },
+    "candidate": {
+      "byHorizon": [
+        {
+          "seconds": 120,
+          "deaths": 108,
+          "loss": 28968,
+          "bins": [
+            {
+              "bin": "0..63",
+              "count": 6,
+              "total": 265,
+              "mean": 44.166666666666664,
+              "median": 40,
+              "p90": 50,
+              "max": 62,
+              "deathFraction": 0.05555555555555555,
+              "lossFraction": 0.009148025407346038
+            },
+            {
+              "bin": "64..255",
+              "count": 52,
+              "total": 8920,
+              "mean": 171.53846153846155,
+              "median": 179,
+              "p90": 246,
+              "max": 255,
+              "deathFraction": 0.48148148148148145,
+              "lossFraction": 0.307925987296327
+            },
+            {
+              "bin": "256..1023",
+              "count": 50,
+              "total": 19783,
+              "mean": 395.66,
+              "median": 372,
+              "p90": 586,
+              "max": 753,
+              "deathFraction": 0.46296296296296297,
+              "lossFraction": 0.682925987296327
+            },
+            {
+              "bin": "1024+",
+              "count": 0,
+              "total": 0,
+              "mean": null,
+              "median": null,
+              "p90": null,
+              "max": null,
+              "deathFraction": 0,
+              "lossFraction": 0
+            }
+          ],
+          "killers": [
+            {
+              "name": "BOT/EXPAND",
+              "count": 19,
+              "total": 5130,
+              "mean": 270,
+              "median": 225,
+              "p90": 410,
+              "max": 503
+            },
+            {
+              "name": "BOT/SEEK_POINT",
+              "count": 17,
+              "total": 4605,
+              "mean": 270.88235294117646,
+              "median": 232,
+              "p90": 412,
+              "max": 674
+            },
+            {
+              "name": "BOT/ATTACK",
+              "count": 38,
+              "total": 10661,
+              "mean": 280.55263157894734,
+              "median": 249,
+              "p90": 524,
+              "max": 753
+            },
+            {
+              "name": "BOT/DEFEND",
+              "count": 34,
+              "total": 8572,
+              "mean": 252.11764705882354,
+              "median": 267,
+              "p90": 392,
+              "max": 496
+            }
+          ],
+          "causes": [
+            {
+              "name": "EXISTING_TRAIL_CONTACT",
+              "count": 92,
+              "total": 24629,
+              "mean": 267.70652173913044,
+              "median": 246,
+              "p90": 433,
+              "max": 753
+            },
+            {
+              "name": "HOME_CAPTURE",
+              "count": 5,
+              "total": 1135,
+              "mean": 227,
+              "median": 116,
+              "p90": 378,
+              "max": 462
+            },
+            {
+              "name": "TRAIL_CAPTURE",
+              "count": 2,
+              "total": 662,
+              "mean": 331,
+              "median": 250,
+              "p90": 250,
+              "max": 412
+            },
+            {
+              "name": "PENDING_TRAIL_CONTACT",
+              "count": 9,
+              "total": 2542,
+              "mean": 282.44444444444446,
+              "median": 255,
+              "p90": 400,
+              "max": 479
+            }
+          ],
+          "goals": [
+            {
+              "name": "ESCAPE",
+              "count": 101,
+              "total": 27287,
+              "mean": 270.16831683168317,
+              "median": 250,
+              "p90": 474,
+              "max": 753
+            },
+            {
+              "name": "STEAL",
+              "count": 3,
+              "total": 641,
+              "mean": 213.66666666666666,
+              "median": 104,
+              "p90": 104,
+              "max": 462
+            },
+            {
+              "name": "ATTACK",
+              "count": 2,
+              "total": 650,
+              "mean": 325,
+              "median": 250,
+              "p90": 250,
+              "max": 400
+            },
+            {
+              "name": "RETURN",
+              "count": 2,
+              "total": 390,
+              "mean": 195,
+              "median": 141,
+              "p90": 141,
+              "max": 249
+            }
+          ],
+          "cross": [
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 9,
+              "total": 1555,
+              "mean": 172.77777777777777,
+              "median": 193,
+              "p90": 223,
+              "max": 225
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 7,
+              "total": 1212,
+              "mean": 173.14285714285714,
+              "median": 177,
+              "p90": 226,
+              "max": 232
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 16,
+              "total": 6895,
+              "mean": 430.9375,
+              "median": 360,
+              "p90": 635,
+              "max": 753
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 14,
+              "total": 4852,
+              "mean": 346.57142857142856,
+              "median": 320,
+              "p90": 433,
+              "max": 496
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 15,
+              "total": 2745,
+              "mean": 183,
+              "median": 184,
+              "p90": 246,
+              "max": 254
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/DEFEND",
+              "count": 2,
+              "total": 840,
+              "mean": 420,
+              "median": 378,
+              "p90": 378,
+              "max": 462
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 3,
+              "total": 127,
+              "mean": 42.333333333333336,
+              "median": 44,
+              "p90": 44,
+              "max": 50
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 12,
+              "total": 1879,
+              "mean": 156.58333333333334,
+              "median": 125,
+              "p90": 218,
+              "max": 246
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 2,
+              "total": 102,
+              "mean": 51,
+              "median": 40,
+              "p90": 40,
+              "max": 62
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 7,
+              "total": 2647,
+              "mean": 378.14285714285717,
+              "median": 388,
+              "p90": 410,
+              "max": 503
+            },
+            {
+              "name": "64..255/TRAIL_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 250,
+              "mean": 250,
+              "median": 250,
+              "p90": 250,
+              "max": 250
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 1,
+              "total": 36,
+              "mean": 36,
+              "median": 36,
+              "p90": 36,
+              "max": 36
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/ATTACK",
+              "count": 1,
+              "total": 400,
+              "mean": 400,
+              "median": 400,
+              "p90": 400,
+              "max": 400
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/ATTACK",
+              "count": 2,
+              "total": 390,
+              "mean": 195,
+              "median": 141,
+              "p90": 141,
+              "max": 249
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 2,
+              "total": 449,
+              "mean": 224.5,
+              "median": 194,
+              "p90": 194,
+              "max": 255
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 2,
+              "total": 679,
+              "mean": 339.5,
+              "median": 302,
+              "p90": 302,
+              "max": 377
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 116,
+              "mean": 116,
+              "median": 116,
+              "p90": 116,
+              "max": 116
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 6,
+              "total": 2579,
+              "mean": 429.8333333333333,
+              "median": 296,
+              "p90": 662,
+              "max": 674
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 1,
+              "total": 145,
+              "mean": 145,
+              "median": 145,
+              "p90": 145,
+              "max": 145
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/DEFEND",
+              "count": 1,
+              "total": 75,
+              "mean": 75,
+              "median": 75,
+              "p90": 75,
+              "max": 75
+            },
+            {
+              "name": "256..1023/TRAIL_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 412,
+              "mean": 412,
+              "median": 412,
+              "p90": 412,
+              "max": 412
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/ATTACK",
+              "count": 1,
+              "total": 104,
+              "mean": 104,
+              "median": 104,
+              "p90": 104,
+              "max": 104
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 1,
+              "total": 479,
+              "mean": 479,
+              "median": 479,
+              "p90": 479,
+              "max": 479
+            }
+          ],
+          "attackingDeaths": 2,
+          "actualExposure": {
+            "count": 108,
+            "total": 889,
+            "mean": 8.231481481481481,
+            "median": 6,
+            "p90": 16,
+            "max": 20
+          },
+          "lastPlannedCapture": {
+            "count": 108,
+            "total": 2314,
+            "mean": 21.425925925925927,
+            "median": 8,
+            "p90": 48,
+            "max": 99
+          },
+          "lastPlannedExternal": {
+            "count": 108,
+            "total": 1107,
+            "mean": 10.25,
+            "median": 5,
+            "p90": 18,
+            "max": 20
+          },
+          "activeExpansionDeaths": 2,
+          "lastQuietLargeDeaths": 29,
+          "lastQuietLargeDeathLoss": 7216,
+          "bySizePlan": [
+            {
+              "bin": "0..63",
+              "exposure": {
+                "count": 6,
+                "total": 65,
+                "mean": 10.833333333333334,
+                "median": 7,
+                "p90": 16,
+                "max": 18
+              },
+              "lastCapture": {
+                "count": 6,
+                "total": 124,
+                "mean": 20.666666666666668,
+                "median": 8,
+                "p90": 32,
+                "max": 48
+              },
+              "lastExternal": {
+                "count": 6,
+                "total": 65,
+                "mean": 10.833333333333334,
+                "median": 5,
+                "p90": 16,
+                "max": 20
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            },
+            {
+              "bin": "64..255",
+              "exposure": {
+                "count": 52,
+                "total": 439,
+                "mean": 8.442307692307692,
+                "median": 8,
+                "p90": 16,
+                "max": 19
+              },
+              "lastCapture": {
+                "count": 52,
+                "total": 1097,
+                "mean": 21.096153846153847,
+                "median": 17,
+                "p90": 46,
+                "max": 72
+              },
+              "lastExternal": {
+                "count": 52,
+                "total": 546,
+                "mean": 10.5,
+                "median": 11,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 1,
+              "activeExpansion": 2
+            },
+            {
+              "bin": "256..1023",
+              "exposure": {
+                "count": 50,
+                "total": 385,
+                "mean": 7.7,
+                "median": 6,
+                "p90": 15,
+                "max": 20
+              },
+              "lastCapture": {
+                "count": 50,
+                "total": 1093,
+                "mean": 21.86,
+                "median": 5,
+                "p90": 50,
+                "max": 99
+              },
+              "lastExternal": {
+                "count": 50,
+                "total": 496,
+                "mean": 9.92,
+                "median": 5,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 1,
+              "activeExpansion": 0
+            },
+            {
+              "bin": "1024+",
+              "exposure": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastCapture": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "lastExternal": {
+                "count": 0,
+                "total": 0,
+                "mean": null,
+                "median": null,
+                "p90": null,
+                "max": null
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            }
+          ]
+        },
+        {
+          "seconds": 240,
+          "deaths": 234,
+          "loss": 75353,
+          "bins": [
+            {
+              "bin": "0..63",
+              "count": 14,
+              "total": 625,
+              "mean": 44.642857142857146,
+              "median": 44,
+              "p90": 52,
+              "max": 63,
+              "deathFraction": 0.05982905982905983,
+              "lossFraction": 0.008294294852228844
+            },
+            {
+              "bin": "64..255",
+              "count": 95,
+              "total": 16660,
+              "mean": 175.3684210526316,
+              "median": 188,
+              "p90": 238,
+              "max": 255,
+              "deathFraction": 0.405982905982906,
+              "lossFraction": 0.22109272358101204
+            },
+            {
+              "bin": "256..1023",
+              "count": 123,
+              "total": 55756,
+              "mean": 453.3008130081301,
+              "median": 400,
+              "p90": 674,
+              "max": 1006,
+              "deathFraction": 0.5256410256410257,
+              "lossFraction": 0.7399307260493941
+            },
+            {
+              "bin": "1024+",
+              "count": 2,
+              "total": 2312,
+              "mean": 1156,
+              "median": 1026,
+              "p90": 1026,
+              "max": 1286,
+              "deathFraction": 0.008547008547008548,
+              "lossFraction": 0.030682255517364934
+            }
+          ],
+          "killers": [
+            {
+              "name": "BOT/EXPAND",
+              "count": 46,
+              "total": 16594,
+              "mean": 360.7391304347826,
+              "median": 286,
+              "p90": 638,
+              "max": 1026
+            },
+            {
+              "name": "BOT/SEEK_POINT",
+              "count": 44,
+              "total": 14943,
+              "mean": 339.6136363636364,
+              "median": 250,
+              "p90": 674,
+              "max": 1286
+            },
+            {
+              "name": "BOT/ATTACK",
+              "count": 60,
+              "total": 18158,
+              "mean": 302.6333333333333,
+              "median": 258,
+              "p90": 545,
+              "max": 1006
+            },
+            {
+              "name": "BOT/DEFEND",
+              "count": 84,
+              "total": 25658,
+              "mean": 305.45238095238096,
+              "median": 281,
+              "p90": 501,
+              "max": 972
+            }
+          ],
+          "causes": [
+            {
+              "name": "EXISTING_TRAIL_CONTACT",
+              "count": 199,
+              "total": 64486,
+              "mean": 324.0502512562814,
+              "median": 269,
+              "p90": 638,
+              "max": 1286
+            },
+            {
+              "name": "HOME_CAPTURE",
+              "count": 18,
+              "total": 5570,
+              "mean": 309.44444444444446,
+              "median": 287,
+              "p90": 501,
+              "max": 764
+            },
+            {
+              "name": "TRAIL_CAPTURE",
+              "count": 3,
+              "total": 1251,
+              "mean": 417,
+              "median": 412,
+              "p90": 412,
+              "max": 589
+            },
+            {
+              "name": "PENDING_TRAIL_CONTACT",
+              "count": 14,
+              "total": 4046,
+              "mean": 289,
+              "median": 255,
+              "p90": 388,
+              "max": 479
+            }
+          ],
+          "goals": [
+            {
+              "name": "ESCAPE",
+              "count": 216,
+              "total": 69340,
+              "mean": 321.01851851851853,
+              "median": 270,
+              "p90": 633,
+              "max": 1286
+            },
+            {
+              "name": "STEAL",
+              "count": 10,
+              "total": 3097,
+              "mean": 309.7,
+              "median": 287,
+              "p90": 501,
+              "max": 764
+            },
+            {
+              "name": "ATTACK",
+              "count": 3,
+              "total": 1019,
+              "mean": 339.6666666666667,
+              "median": 369,
+              "p90": 369,
+              "max": 400
+            },
+            {
+              "name": "RETURN",
+              "count": 4,
+              "total": 1230,
+              "mean": 307.5,
+              "median": 249,
+              "p90": 251,
+              "max": 589
+            },
+            {
+              "name": "REPOSITION",
+              "count": 1,
+              "total": 667,
+              "mean": 667,
+              "median": 667,
+              "p90": 667,
+              "max": 667
+            }
+          ],
+          "cross": [
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 19,
+              "total": 3389,
+              "mean": 178.3684210526316,
+              "median": 193,
+              "p90": 226,
+              "max": 238
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 14,
+              "total": 2663,
+              "mean": 190.21428571428572,
+              "median": 193,
+              "p90": 230,
+              "max": 247
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 27,
+              "total": 12089,
+              "mean": 447.74074074074076,
+              "median": 380,
+              "p90": 635,
+              "max": 1006
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 39,
+              "total": 17101,
+              "mean": 438.4871794871795,
+              "median": 392,
+              "p90": 693,
+              "max": 972
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 21,
+              "total": 3647,
+              "mean": 173.66666666666666,
+              "median": 179,
+              "p90": 246,
+              "max": 254
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/DEFEND",
+              "count": 6,
+              "total": 2272,
+              "mean": 378.6666666666667,
+              "median": 346,
+              "p90": 462,
+              "max": 501
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/ATTACK",
+              "count": 4,
+              "total": 178,
+              "mean": 44.5,
+              "median": 44,
+              "p90": 50,
+              "max": 51
+            },
+            {
+              "name": "64..255/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 28,
+              "total": 4501,
+              "mean": 160.75,
+              "median": 173,
+              "p90": 229,
+              "max": 246
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/DEFEND",
+              "count": 4,
+              "total": 198,
+              "mean": 49.5,
+              "median": 40,
+              "p90": 62,
+              "max": 63
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 20,
+              "total": 9612,
+              "mean": 480.6,
+              "median": 421,
+              "p90": 648,
+              "max": 817
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/DEFEND",
+              "count": 3,
+              "total": 543,
+              "mean": 181,
+              "median": 217,
+              "p90": 217,
+              "max": 251
+            },
+            {
+              "name": "256..1023/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 17,
+              "total": 8628,
+              "mean": 507.52941176470586,
+              "median": 464,
+              "p90": 702,
+              "max": 797
+            },
+            {
+              "name": "64..255/TRAIL_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 250,
+              "mean": 250,
+              "median": 250,
+              "p90": 250,
+              "max": 250
+            },
+            {
+              "name": "0..63/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 4,
+              "total": 168,
+              "mean": 42,
+              "median": 36,
+              "p90": 47,
+              "max": 52
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/ATTACK",
+              "count": 2,
+              "total": 769,
+              "mean": 384.5,
+              "median": 369,
+              "p90": 369,
+              "max": 400
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/ATTACK",
+              "count": 3,
+              "total": 634,
+              "mean": 211.33333333333334,
+              "median": 244,
+              "p90": 244,
+              "max": 249
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 2,
+              "total": 449,
+              "mean": 224.5,
+              "median": 194,
+              "p90": 194,
+              "max": 255
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 2,
+              "total": 679,
+              "mean": 339.5,
+              "median": 302,
+              "p90": 302,
+              "max": 377
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 116,
+              "mean": 116,
+              "median": 116,
+              "p90": 116,
+              "max": 116
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 2,
+              "total": 672,
+              "mean": 336,
+              "median": 284,
+              "p90": 284,
+              "max": 388
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/EXPAND",
+              "count": 2,
+              "total": 1050,
+              "mean": 525,
+              "median": 286,
+              "p90": 286,
+              "max": 764
+            },
+            {
+              "name": "0..63/HOME_CAPTURE/SEEK_POINT",
+              "count": 2,
+              "total": 81,
+              "mean": 40.5,
+              "median": 32,
+              "p90": 32,
+              "max": 49
+            },
+            {
+              "name": "64..255/PENDING_TRAIL_CONTACT/DEFEND",
+              "count": 2,
+              "total": 364,
+              "mean": 182,
+              "median": 145,
+              "p90": 145,
+              "max": 219
+            },
+            {
+              "name": "256..1023/TRAIL_CAPTURE/EXPAND",
+              "count": 1,
+              "total": 589,
+              "mean": 589,
+              "median": 589,
+              "p90": 589,
+              "max": 589
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/ATTACK",
+              "count": 2,
+              "total": 737,
+              "mean": 368.5,
+              "median": 340,
+              "p90": 340,
+              "max": 397
+            },
+            {
+              "name": "1024+/EXISTING_TRAIL_CONTACT/SEEK_POINT",
+              "count": 1,
+              "total": 1286,
+              "mean": 1286,
+              "median": 1286,
+              "p90": 1286,
+              "max": 1286
+            },
+            {
+              "name": "256..1023/HOME_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 667,
+              "mean": 667,
+              "median": 667,
+              "p90": 667,
+              "max": 667
+            },
+            {
+              "name": "1024+/EXISTING_TRAIL_CONTACT/EXPAND",
+              "count": 1,
+              "total": 1026,
+              "mean": 1026,
+              "median": 1026,
+              "p90": 1026,
+              "max": 1026
+            },
+            {
+              "name": "256..1023/TRAIL_CAPTURE/SEEK_POINT",
+              "count": 1,
+              "total": 412,
+              "mean": 412,
+              "median": 412,
+              "p90": 412,
+              "max": 412
+            },
+            {
+              "name": "64..255/HOME_CAPTURE/ATTACK",
+              "count": 1,
+              "total": 104,
+              "mean": 104,
+              "median": 104,
+              "p90": 104,
+              "max": 104
+            },
+            {
+              "name": "256..1023/PENDING_TRAIL_CONTACT/EXPAND",
+              "count": 1,
+              "total": 479,
+              "mean": 479,
+              "median": 479,
+              "p90": 479,
+              "max": 479
+            }
+          ],
+          "attackingDeaths": 3,
+          "actualExposure": {
+            "count": 234,
+            "total": 1903,
+            "mean": 8.132478632478632,
+            "median": 6,
+            "p90": 16,
+            "max": 20
+          },
+          "lastPlannedCapture": {
+            "count": 234,
+            "total": 4934,
+            "mean": 21.085470085470085,
+            "median": 12,
+            "p90": 48,
+            "max": 99
+          },
+          "lastPlannedExternal": {
+            "count": 234,
+            "total": 2343,
+            "mean": 10.012820512820513,
+            "median": 5,
+            "p90": 18,
+            "max": 20
+          },
+          "activeExpansionDeaths": 9,
+          "lastQuietLargeDeaths": 58,
+          "lastQuietLargeDeathLoss": 18069,
+          "bySizePlan": [
+            {
+              "bin": "0..63",
+              "exposure": {
+                "count": 14,
+                "total": 124,
+                "mean": 8.857142857142858,
+                "median": 6,
+                "p90": 16,
+                "max": 18
+              },
+              "lastCapture": {
+                "count": 14,
+                "total": 249,
+                "mean": 17.785714285714285,
+                "median": 5,
+                "p90": 36,
+                "max": 50
+              },
+              "lastExternal": {
+                "count": 14,
+                "total": 136,
+                "mean": 9.714285714285714,
+                "median": 5,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 0,
+              "activeExpansion": 1
+            },
+            {
+              "bin": "64..255",
+              "exposure": {
+                "count": 95,
+                "total": 844,
+                "mean": 8.884210526315789,
+                "median": 8,
+                "p90": 16,
+                "max": 19
+              },
+              "lastCapture": {
+                "count": 95,
+                "total": 2139,
+                "mean": 22.51578947368421,
+                "median": 21,
+                "p90": 48,
+                "max": 72
+              },
+              "lastExternal": {
+                "count": 95,
+                "total": 1018,
+                "mean": 10.715789473684211,
+                "median": 13,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 1,
+              "activeExpansion": 3
+            },
+            {
+              "bin": "256..1023",
+              "exposure": {
+                "count": 123,
+                "total": 916,
+                "mean": 7.4471544715447155,
+                "median": 6,
+                "p90": 15,
+                "max": 20
+              },
+              "lastCapture": {
+                "count": 123,
+                "total": 2447,
+                "mean": 19.89430894308943,
+                "median": 7,
+                "p90": 46,
+                "max": 99
+              },
+              "lastExternal": {
+                "count": 123,
+                "total": 1166,
+                "mean": 9.479674796747968,
+                "median": 5,
+                "p90": 18,
+                "max": 20
+              },
+              "attacking": 2,
+              "activeExpansion": 5
+            },
+            {
+              "bin": "1024+",
+              "exposure": {
+                "count": 2,
+                "total": 19,
+                "mean": 9.5,
+                "median": 4,
+                "p90": 4,
+                "max": 15
+              },
+              "lastCapture": {
+                "count": 2,
+                "total": 99,
+                "mean": 49.5,
+                "median": 3,
+                "p90": 3,
+                "max": 96
+              },
+              "lastExternal": {
+                "count": 2,
+                "total": 23,
+                "mean": 11.5,
+                "median": 3,
+                "p90": 3,
+                "max": 20
+              },
+              "attacking": 0,
+              "activeExpansion": 0
+            }
+          ]
+        }
+      ],
+      "rawDetails": "death-details.csv"
+    }
+  },
+  "human": {
+    "baseline": [
+      {
+        "seed": 4,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.057116007100344576,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 19,
+        "endSeconds": 50.7,
+        "human": {
+          "lifeState": "ELIMINATED",
+          "territory": 0,
+          "deaths": 1
+        },
+        "censoredBefore180": true,
+        "leaderAt180": null,
+        "meets20": null,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 73,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.06369426751592357,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 11,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 35,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.08280254777070063,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 31,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.09846507256969823,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 47,
+        "endSeconds": 101.06666666666666,
+        "human": {
+          "lifeState": "ELIMINATED",
+          "territory": 0,
+          "deaths": 1
+        },
+        "censoredBefore180": true,
+        "leaderAt180": null,
+        "meets20": null,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 101,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.0964811527618252,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 137,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.11078625874490967,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      }
+    ],
+    "candidate": [
+      {
+        "seed": 4,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.07142111308342905,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 19,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 35,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.09418398245797223,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 73,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.10399916466534405,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 11,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.07256969823535554,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 31,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.09700323692179179,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 47,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.10932442309700324,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 101,
+        "endSeconds": 240,
+        "human": {
+          "lifeState": "ALIVE",
+          "territory": 36,
+          "deaths": 0
+        },
+        "censoredBefore180": false,
+        "leaderAt180": 0.0639031011799102,
+        "meets20": false,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      },
+      {
+        "seed": 137,
+        "endSeconds": 81.56666666666666,
+        "human": {
+          "lifeState": "ELIMINATED",
+          "territory": 0,
+          "deaths": 1
+        },
+        "censoredBefore180": true,
+        "leaderAt180": null,
+        "meets20": null,
+        "deathDetails": "human-bot-death-details.csv",
+        "shares": "human-bot-shares.csv"
+      }
+    ]
+  },
+  "checks": {
+    "medium16": {
+      "cuts": 13,
+      "failures": [
+        5,
+        6,
+        14
+      ],
+      "newLosses": 0
+    },
+    "expanded": {
+      "cases": 1024,
+      "cuts": 155,
+      "changes": [],
+      "observerChecks": 44
+    },
+    "knownSeed1": {
+      "attackTicks": 0,
+      "human": {
+        "lifeState": "ALIVE",
+        "deaths": 0,
+        "deathReason": null
+      }
+    },
+    "pool": {
+      "checks": 128,
+      "originals": 3023,
+      "extras": 2620,
+      "originalPathScoreGeometryOrdinalAndOrderIdentical": true,
+      "randomGeometry": "Original generation and scoring draws finish before additional candidates; full gate-off eight-seed proof separately checks RNG"
+    },
+    "observerFreeEightSeeds": true,
+    "offEightSeeds": true
+  },
+  "cost": {
+    "summary": {
+      "baseline": {
+        "roundMsPerTick": [
+          3.3111184965277776,
+          3.2980668263888897,
+          3.317291482638886
+        ],
+        "medianMsPerTick": 3.3111184965277776,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.6705029166666674,
+              3.0762978055555545,
+              3.018693472222221
+            ],
+            "medianMsPerTick": 3.018693472222221
+          },
+          {
+            "seed": 19,
+            "samples": [
+              3.4760333611111127,
+              3.123048916666675,
+              3.117603833333334
+            ],
+            "medianMsPerTick": 3.123048916666675
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.4898047222222237,
+              3.628308944444434,
+              3.5448039444444457
+            ],
+            "medianMsPerTick": 3.5448039444444457
+          },
+          {
+            "seed": 11,
+            "samples": [
+              3.0708177222222206,
+              3.028380611111109,
+              3.0459853055555466
+            ],
+            "medianMsPerTick": 3.0459853055555466
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.4811808611111092,
+              3.6660988888888904,
+              3.616627527777778
+            ],
+            "medianMsPerTick": 3.616627527777778
+          },
+          {
+            "seed": 47,
+            "samples": [
+              3.118110999999998,
+              3.114623472222237,
+              3.0785237500000058
+            ],
+            "medianMsPerTick": 3.114623472222237
+          },
+          {
+            "seed": 101,
+            "samples": [
+              3.6379686111111127,
+              3.3466525555555484,
+              3.528892249999982
+            ],
+            "medianMsPerTick": 3.528892249999982
+          },
+          {
+            "seed": 137,
+            "samples": [
+              3.5445287777777734,
+              3.4011234166666693,
+              3.5872017777777767
+            ],
+            "medianMsPerTick": 3.5445287777777734
+          }
+        ]
+      },
+      "candidate": {
+        "roundMsPerTick": [
+          3.80853592013889,
+          3.8698989791666656,
+          3.853073947916667
+        ],
+        "medianMsPerTick": 3.853073947916667,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              3.1516609444444454,
+              3.7202470000000014,
+              3.771163305555561
+            ],
+            "medianMsPerTick": 3.7202470000000014
+          },
+          {
+            "seed": 19,
+            "samples": [
+              3.841172444444445,
+              3.9286645277777765,
+              3.896970555555551
+            ],
+            "medianMsPerTick": 3.896970555555551
+          },
+          {
+            "seed": 73,
+            "samples": [
+              4.0917148333333335,
+              3.8272719722222246,
+              3.7651289166666944
+            ],
+            "medianMsPerTick": 3.8272719722222246
+          },
+          {
+            "seed": 11,
+            "samples": [
+              3.4688691111111134,
+              3.497206249999985,
+              3.4529862499999906
+            ],
+            "medianMsPerTick": 3.4688691111111134
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.8435215277777752,
+              3.8077984166666607,
+              3.774125499999985
+            ],
+            "medianMsPerTick": 3.8077984166666607
+          },
+          {
+            "seed": 47,
+            "samples": [
+              3.691293972222225,
+              3.7073457499999978,
+              3.8015901666666547
+            ],
+            "medianMsPerTick": 3.7073457499999978
+          },
+          {
+            "seed": 101,
+            "samples": [
+              4.24464702777778,
+              4.189506999999996,
+              4.249640277777798
+            ],
+            "medianMsPerTick": 4.24464702777778
+          },
+          {
+            "seed": 137,
+            "samples": [
+              4.135407500000001,
+              4.2811509166666815,
+              4.112986611111102
+            ],
+            "medianMsPerTick": 4.135407500000001
+          }
+        ]
+      }
+    },
+    "percent": 16.367745580752068,
+    "seedRows": [
+      {
+        "seed": 4,
+        "baseline": 3.018693472222221,
+        "candidate": 3.7202470000000014,
+        "delta": 0.7015535277777802,
+        "percent": 23.240303602648638
+      },
+      {
+        "seed": 19,
+        "baseline": 3.123048916666675,
+        "candidate": 3.896970555555551,
+        "delta": 0.7739216388888761,
+        "percent": 24.78096435693702
+      },
+      {
+        "seed": 73,
+        "baseline": 3.5448039444444457,
+        "candidate": 3.8272719722222246,
+        "delta": 0.2824680277777789,
+        "percent": 7.96850918145906
+      },
+      {
+        "seed": 11,
+        "baseline": 3.0459853055555466,
+        "candidate": 3.4688691111111134,
+        "delta": 0.4228838055555668,
+        "percent": 13.88331732212471
+      },
+      {
+        "seed": 31,
+        "baseline": 3.616627527777778,
+        "candidate": 3.8077984166666607,
+        "delta": 0.19117088888888256,
+        "percent": 5.28588823207754
+      },
+      {
+        "seed": 47,
+        "baseline": 3.114623472222237,
+        "candidate": 3.7073457499999978,
+        "delta": 0.592722277777761,
+        "percent": 19.03030279788083
+      },
+      {
+        "seed": 101,
+        "baseline": 3.528892249999982,
+        "candidate": 4.24464702777778,
+        "delta": 0.7157547777777977,
+        "percent": 20.282704233256243
+      },
+      {
+        "seed": 137,
+        "baseline": 3.5445287777777734,
+        "candidate": 4.135407500000001,
+        "delta": 0.5908787222222278,
+        "percent": 16.670162926217703
+      }
+    ],
+    "signal": {
+      "positive": 8,
+      "negative": 0,
+      "tied": 0,
+      "mean": 0.533919208333334,
+      "min": 0.19117088888888256,
+      "max": 0.7739216388888761,
+      "leaveOneOut": [
+        3.5698001388888914,
+        3.4974320277777955,
+        3.9888856388888927,
+        3.848469861111105,
+        4.0801827777777895,
+        3.6786313888889106,
+        3.555598888888874,
+        3.680474944444444
+      ],
+      "direction": "INCREASE",
+      "meaning": "Indistinguishable is not no effect; paired 7/8 plus every leave-one-out same sign, exploratory only."
+    },
+    "resourceGuard": {
+      "recordBackground": false,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Check external Vitest/Playwright presence before/after every timing; exclude overlap regardless of elapsed value"
+    }
+  },
+  "definitions": {
+    "loss": "Pre-neutralization holdings; fatal capture may prune ownership before death, so captures/theft/other live loss are separately accounted. Bin attribution is descriptive, not a causal experiment.",
+    "plans": "Current goal and actual exposed cells at death; active expansion and same-life last expansion separately recorded. Last large loop does not imply it caused death.",
+    "TV": "Mean of seed-level EXPAND/SEEK_POINT alive-goal total variation. Steal/reclaim use historical tick-boundary definitions; exact same-life enemy/neutral recovery separately retained.",
+    "human": "Fixed existing four loops, stop at human elimination. Not a replay of a skilled player reaching30%. No180s value when eliminated earlier; missing is not zero."
+  },
+  "rawHashes": {
+    "protocol.json": "7696e04002522c0620196255379a3bc17c78b4762cda1679e23bb3a7215af9a6",
+    "pool-proof.json": "ee525f07ad868accd7b49c9f02370d60ed53c5a87fbb5b9d53b82696ace9458c",
+    "baseline-neutral.json": "2ab810379f7c46b7257d364b9580f311e1dd0f3638d9fa2650d7d408e677e381",
+    "candidate-neutral.json": "7c42ecd55068aaa5eeec3750125590361bb741162b40139b055319fa177e2f2d",
+    "baseline-seed-4.json": "eba391dc41e65fc0adc3bd5e96472e1e8b4aabc6b902808de887695b4bf3d801",
+    "candidate-seed-4.json": "0337262a002d7d637780f0009861a2944b086e9dd0e2ee99f585911061635de4",
+    "baseline-human-seed-4.json": "bfefb41bf86f135bc338626499a8416bb5751216d8d67d9dd0b1144f47182758",
+    "candidate-human-seed-4.json": "aa28c95aa296ebba1090777087a7bfe895b3da712d06455d2b344eb51b81b0e3",
+    "refactor-off-seed-4.json": "8f63b560598c2cd968d9770e3cf6181c80d6b0d2e814fa9a56baa7273555d82c",
+    "baseline-seed-19.json": "ee9a1ff51d39566e4b2847065ce947cfbba38847fc342e1ed28d1287cdf38208",
+    "candidate-seed-19.json": "63de8b7eb6151e59bfab641d9f04567417820bdc4c0e8ad803591b41dde97ee0",
+    "baseline-human-seed-19.json": "5dc8b53af8f8ab507647c28cb911ac8898620045f8ad750b8008a1a77a0bf8ca",
+    "candidate-human-seed-19.json": "c44d02e6af8f691da2a0f8e9fe359c915ceda35a4d8a08ff3b45027ce56f4b6f",
+    "refactor-off-seed-19.json": "4f7d655638b3debb779ed932dbea041d74b38ef1d4e74f7ea05254e684cb7e0d",
+    "baseline-seed-73.json": "5614262ba09a05d53667645d1ad6bc35ef86856309d8bf9b0345f2137ba906b1",
+    "candidate-seed-73.json": "08283c2e62474fbffcfbc23fd66de9ad4ffa5c00d47c8ab9f82cddfc022e0256",
+    "baseline-human-seed-73.json": "3137776109543355a34825fc8f0926091c5f1ef08fc4930f6249b0d3a793dbf5",
+    "candidate-human-seed-73.json": "a3410026332f461dc0c140720a302ded5c826cc24320d4180a51153160309cdd",
+    "refactor-off-seed-73.json": "c72568b31f91f2a3c83502afd451a9aef1ad3f5ab2283abc1b9838334cdb8e68",
+    "baseline-seed-11.json": "3aa4da78075d1c66478775df16d1e5360c4d05af782985f565ecd0edbbfacfe4",
+    "candidate-seed-11.json": "895ae60210ac77cabb8e7744bbf528cedba8040ffd99fec3bb171cc0f4a46ed3",
+    "baseline-human-seed-11.json": "d1c5bc891853d6de9434f90474e91bee975baba30bee2b3620fb7c330c70a9d5",
+    "candidate-human-seed-11.json": "5ca97c6545a80d6ee320a6b34f94c798e2b2396c6197bd1c93283d8293b08eb0",
+    "refactor-off-seed-11.json": "f30286b384e70abac7a4f60a8e3146048614ebce98a5a51550eca2f04e3ae853",
+    "baseline-seed-31.json": "88a85539c5ab0487ded638c1911e48eec180df657b77dd897e54dc165dfaab0f",
+    "candidate-seed-31.json": "97c16556f1a2c538305da4c956d8a034992039e66a7e0c440988ffe6888215db",
+    "baseline-human-seed-31.json": "d29829f32ad301411d512d401b34bfd97eebbbcd667e7d5e7811d127a0e9152f",
+    "candidate-human-seed-31.json": "d77704f6343dad0268aa75e7222585ce34cb2d13101145bc2a5cb9eb12d3a994",
+    "refactor-off-seed-31.json": "467c8a9d3ba95cd5a1a3c9e0096f7656b5066077ae371d30b6aa9d90768780ba",
+    "baseline-seed-47.json": "992bbde236ed523f23779247fc40ac63c5f81f6c9b3764d4a32472f7a4b2afe5",
+    "candidate-seed-47.json": "bc046841e052acd3ba3730ed9e043d80baefe5939d4f02627622fa4f111c052b",
+    "baseline-human-seed-47.json": "c54b087a587101603e752a899f6049d5966fff648dfb3bfbcd70cd7caa9d0761",
+    "candidate-human-seed-47.json": "b1b58be9ef2fb1325bd3ab02778abfee555752bfa0709d54901703d78849d48c",
+    "refactor-off-seed-47.json": "02794bd00b07889f2298d32dd669e804ea989c0a887623c4e677b3b17e80caa0",
+    "baseline-seed-101.json": "17cafc16633a7d94b30faf19697528ebd640d958c74c2d8c3e050eebb8f3a9a7",
+    "candidate-seed-101.json": "c585cb3fc952a87645a424c1362b867f26ec86bca215ffdd4f85984953be4a92",
+    "baseline-human-seed-101.json": "4f14fc22e9a3d3648c77ee0532525327473feacdd2c0f3bb783c2885a7fe63e0",
+    "candidate-human-seed-101.json": "02e2c2057098f0a37d1d626b33d7dcd413156afb89bc6352295125d8f4639388",
+    "refactor-off-seed-101.json": "333cdf461323027bcd743ae00d3881e7096fe3401ab823e79f2de3cf64ff1349",
+    "baseline-seed-137.json": "6145f2dfea989d6a1cf94c166177b4c6f563f6fa7e7ecf20d8d40a5cd42cf3e6",
+    "candidate-seed-137.json": "b72d0d1d9a67f8206b83be9c24eededfff57246cfef59e94a8665b579bbc79d7",
+    "baseline-human-seed-137.json": "08fd8ba27c058dabf48cfe404be4533c3b117271f7f88c740f613e2e82b05e21",
+    "candidate-human-seed-137.json": "53e1ec313b0c54b501a322a6e4393afbefb3cf9c95943477ed3841803ebfbfbf",
+    "refactor-off-seed-137.json": "2f2a296184cefb7cb449408066afcfb742ab37436c7190e27f253879e17f6600"
+  }
+}
