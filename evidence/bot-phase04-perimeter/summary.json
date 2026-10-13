@@ -1,0 +1,1365 @@
+{
+  "sourceCommit": "133ee1fed03197ba7f2d49f3fbce9f3654878239",
+  "sourceHashes": {
+    "bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+    "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+    "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+    "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+    "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+    "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+    "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+    "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+    "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+    "bot-immediate-safety.ts": "33e2c275aedab6e5fd3aa41712151ad2366c872d0a0d69531443f656eb4c619a",
+    "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+    "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+    "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+    "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+    "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+    "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+    "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+    "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+    "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+    "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+    "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+    "bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+    "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "bot-strategy.ts": "2e1c331c53ec947f4cf6476f775844a1ca61aef8bef3d84c8dd04862e9fe31b9",
+    "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+    "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+    "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+    "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+    "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+    "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+    "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+    "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+    "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+    "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+    "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+    "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+    "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+    "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+    "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+    "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+    "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+    "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+    "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+    "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+    "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+    "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+    "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+    "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+    "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+    "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+    "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+    "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+    "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+    "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+    "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+    "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+    "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+  },
+  "instrumentation": "Two optional observer calls and import only in frozen copy; repository src/tests/dist unchanged. No safety/candidate/steering/RNG/clock modification.",
+  "all8Equivalent": true,
+  "guardSummary": {
+    "categories": {
+      "SELECTION_DISCARDED": 242,
+      "ADOPTED_BEFORE_LAUNCH": 417,
+      "EXPOSED_EXPANSION": 383,
+      "NO_ACTIVE_EXPANSION": 362
+    },
+    "guardTicks": 1404,
+    "guardStops": 1042,
+    "selected": 5509,
+    "adopted": 5165,
+    "nearWallSelected": 1222,
+    "nearWallImmediateDiscardRate": 0.19803600654664485,
+    "repeatExactWithin2s": 133,
+    "repeatBoundaryDirectionWithin2s": 157,
+    "DStops": 48,
+    "wallDepths": {
+      "0": 0,
+      "1": 266,
+      "2": 1138
+    },
+    "projectionFirstWallSeconds": {
+      "median": 0.6366363938795981,
+      "p90": 0.662310027951705
+    },
+    "followups": {
+      "all": 1404,
+      "complete2s": 1390,
+      "diedWithin2s": 1,
+      "capturedWithin2s": 1176,
+      "anyGuardAgainWithin2s": 855
+    },
+    "planOutcomes": {
+      "CAPTURE": 2970,
+      "TACTICAL_ESCAPE": 343,
+      "PERIMETER_GUARD": 1042,
+      "TACTICAL_RETURN": 358,
+      "TACTICAL_ATTACK": 96,
+      "DEPARTURE_BLOCKED": 348,
+      "RESELECTED": 278,
+      "CENSORED": 68,
+      "TACTICAL_REPOSITION": 4,
+      "DEATH": 2
+    }
+  },
+  "repeatExpansionWithin2s": 29,
+  "repeatKeyDefinition": "Full expansion path signature when episode active; otherwise goal+remaining path. Boundary key means same anchor and first exterior cell, not a normalized bearing.",
+  "seedRows": [
+    {
+      "seed": 4,
+      "initialEdgeSpawns": 6,
+      "aliveMinutes": 27.564444444444444,
+      "nearWallMinutes": 2.1066666666666665,
+      "nearWallExpansionMinutes": 1.22,
+      "nearWallSelected": 126,
+      "selected": 672,
+      "adopted": 640,
+      "SELECTION_DISCARDED": 24,
+      "ADOPTED_BEFORE_LAUNCH": 40,
+      "EXPOSED_EXPANSION": 49,
+      "NO_ACTIVE_EXPANSION": 35,
+      "runningStopsPerNearExpansionMinute": 72.95081967213115,
+      "discardedPerNearWallSelection": 0.19047619047619047,
+      "guardStops": 113,
+      "guardTicks": 148,
+      "life1Guards": 132,
+      "laterLifeGuards": 16,
+      "guardsWithin2sOfSpawn": 1,
+      "guardsWithin30sOfSpawn": 49,
+      "guardsBornNearWall": 91,
+      "repeatExactWithin2s": 8,
+      "repeatBoundaryFirstExteriorWithin2s": 17,
+      "walls": 0,
+      "deaths": 9,
+      "holding": 3212.260277777778
+    },
+    {
+      "seed": 19,
+      "initialEdgeSpawns": 6,
+      "aliveMinutes": 27.6,
+      "nearWallMinutes": 3.195,
+      "nearWallExpansionMinutes": 1.8522222222222222,
+      "nearWallSelected": 218,
+      "selected": 679,
+      "adopted": 622,
+      "SELECTION_DISCARDED": 50,
+      "ADOPTED_BEFORE_LAUNCH": 80,
+      "EXPOSED_EXPANSION": 55,
+      "NO_ACTIVE_EXPANSION": 50,
+      "runningStopsPerNearExpansionMinute": 72.88542291541691,
+      "discardedPerNearWallSelection": 0.22935779816513763,
+      "guardStops": 185,
+      "guardTicks": 235,
+      "life1Guards": 226,
+      "laterLifeGuards": 9,
+      "guardsWithin2sOfSpawn": 13,
+      "guardsWithin30sOfSpawn": 53,
+      "guardsBornNearWall": 203,
+      "repeatExactWithin2s": 16,
+      "repeatBoundaryFirstExteriorWithin2s": 35,
+      "walls": 0,
+      "deaths": 8,
+      "holding": 3429.8983333333335
+    },
+    {
+      "seed": 73,
+      "initialEdgeSpawns": 7,
+      "aliveMinutes": 27.4,
+      "nearWallMinutes": 2.2594444444444446,
+      "nearWallExpansionMinutes": 1.245,
+      "nearWallSelected": 109,
+      "selected": 712,
+      "adopted": 672,
+      "SELECTION_DISCARDED": 12,
+      "ADOPTED_BEFORE_LAUNCH": 32,
+      "EXPOSED_EXPANSION": 60,
+      "NO_ACTIVE_EXPANSION": 42,
+      "runningStopsPerNearExpansionMinute": 73.89558232931726,
+      "discardedPerNearWallSelection": 0.11009174311926606,
+      "guardStops": 104,
+      "guardTicks": 146,
+      "life1Guards": 118,
+      "laterLifeGuards": 28,
+      "guardsWithin2sOfSpawn": 1,
+      "guardsWithin30sOfSpawn": 73,
+      "guardsBornNearWall": 103,
+      "repeatExactWithin2s": 18,
+      "repeatBoundaryFirstExteriorWithin2s": 5,
+      "walls": 0,
+      "deaths": 12,
+      "holding": 3122.4772222222223
+    },
+    {
+      "seed": 11,
+      "initialEdgeSpawns": 5,
+      "aliveMinutes": 27.5,
+      "nearWallMinutes": 1.99,
+      "nearWallExpansionMinutes": 1.136111111111111,
+      "nearWallSelected": 105,
+      "selected": 646,
+      "adopted": 612,
+      "SELECTION_DISCARDED": 21,
+      "ADOPTED_BEFORE_LAUNCH": 29,
+      "EXPOSED_EXPANSION": 34,
+      "NO_ACTIVE_EXPANSION": 33,
+      "runningStopsPerNearExpansionMinute": 55.45232273838631,
+      "discardedPerNearWallSelection": 0.2,
+      "guardStops": 84,
+      "guardTicks": 117,
+      "life1Guards": 86,
+      "laterLifeGuards": 31,
+      "guardsWithin2sOfSpawn": 5,
+      "guardsWithin30sOfSpawn": 61,
+      "guardsBornNearWall": 57,
+      "repeatExactWithin2s": 16,
+      "repeatBoundaryFirstExteriorWithin2s": 14,
+      "walls": 0,
+      "deaths": 10,
+      "holding": 3012.586388888889
+    },
+    {
+      "seed": 31,
+      "initialEdgeSpawns": 5,
+      "aliveMinutes": 27.5,
+      "nearWallMinutes": 3.0244444444444443,
+      "nearWallExpansionMinutes": 1.7327777777777778,
+      "nearWallSelected": 211,
+      "selected": 741,
+      "adopted": 680,
+      "SELECTION_DISCARDED": 50,
+      "ADOPTED_BEFORE_LAUNCH": 81,
+      "EXPOSED_EXPANSION": 43,
+      "NO_ACTIVE_EXPANSION": 60,
+      "runningStopsPerNearExpansionMinute": 71.56139788393716,
+      "discardedPerNearWallSelection": 0.23696682464454977,
+      "guardStops": 174,
+      "guardTicks": 234,
+      "life1Guards": 179,
+      "laterLifeGuards": 55,
+      "guardsWithin2sOfSpawn": 3,
+      "guardsWithin30sOfSpawn": 62,
+      "guardsBornNearWall": 162,
+      "repeatExactWithin2s": 20,
+      "repeatBoundaryFirstExteriorWithin2s": 29,
+      "walls": 0,
+      "deaths": 10,
+      "holding": 2969.0958333333333
+    },
+    {
+      "seed": 47,
+      "initialEdgeSpawns": 6,
+      "aliveMinutes": 27.61111111111111,
+      "nearWallMinutes": 2.3005555555555555,
+      "nearWallExpansionMinutes": 1.4455555555555555,
+      "nearWallSelected": 145,
+      "selected": 621,
+      "adopted": 587,
+      "SELECTION_DISCARDED": 23,
+      "ADOPTED_BEFORE_LAUNCH": 50,
+      "EXPOSED_EXPANSION": 38,
+      "NO_ACTIVE_EXPANSION": 38,
+      "runningStopsPerNearExpansionMinute": 60.876249039200616,
+      "discardedPerNearWallSelection": 0.15862068965517243,
+      "guardStops": 111,
+      "guardTicks": 149,
+      "life1Guards": 140,
+      "laterLifeGuards": 9,
+      "guardsWithin2sOfSpawn": 3,
+      "guardsWithin30sOfSpawn": 40,
+      "guardsBornNearWall": 120,
+      "repeatExactWithin2s": 10,
+      "repeatBoundaryFirstExteriorWithin2s": 14,
+      "walls": 0,
+      "deaths": 8,
+      "holding": 3706.8611111111113
+    },
+    {
+      "seed": 101,
+      "initialEdgeSpawns": 5,
+      "aliveMinutes": 27.3,
+      "nearWallMinutes": 1.981111111111111,
+      "nearWallExpansionMinutes": 1.1672222222222222,
+      "nearWallSelected": 100,
+      "selected": 691,
+      "adopted": 664,
+      "SELECTION_DISCARDED": 14,
+      "ADOPTED_BEFORE_LAUNCH": 28,
+      "EXPOSED_EXPANSION": 48,
+      "NO_ACTIVE_EXPANSION": 34,
+      "runningStopsPerNearExpansionMinute": 65.11185149928606,
+      "discardedPerNearWallSelection": 0.14,
+      "guardStops": 90,
+      "guardTicks": 124,
+      "life1Guards": 98,
+      "laterLifeGuards": 26,
+      "guardsWithin2sOfSpawn": 1,
+      "guardsWithin30sOfSpawn": 57,
+      "guardsBornNearWall": 64,
+      "repeatExactWithin2s": 10,
+      "repeatBoundaryFirstExteriorWithin2s": 8,
+      "walls": 0,
+      "deaths": 14,
+      "holding": 2809.251111111111
+    },
+    {
+      "seed": 137,
+      "initialEdgeSpawns": 7,
+      "aliveMinutes": 27.55,
+      "nearWallMinutes": 3.1055555555555556,
+      "nearWallExpansionMinutes": 1.8433333333333333,
+      "nearWallSelected": 208,
+      "selected": 747,
+      "adopted": 688,
+      "SELECTION_DISCARDED": 48,
+      "ADOPTED_BEFORE_LAUNCH": 77,
+      "EXPOSED_EXPANSION": 56,
+      "NO_ACTIVE_EXPANSION": 70,
+      "runningStopsPerNearExpansionMinute": 72.15189873417722,
+      "discardedPerNearWallSelection": 0.23076923076923078,
+      "guardStops": 181,
+      "guardTicks": 251,
+      "life1Guards": 216,
+      "laterLifeGuards": 35,
+      "guardsWithin2sOfSpawn": 7,
+      "guardsWithin30sOfSpawn": 87,
+      "guardsBornNearWall": 177,
+      "repeatExactWithin2s": 35,
+      "repeatBoundaryFirstExteriorWithin2s": 35,
+      "walls": 0,
+      "deaths": 9,
+      "holding": 2932.945
+    }
+  ],
+  "roleRows": [
+    {
+      "seed": 4,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 1,
+      "ADOPTED_BEFORE_LAUNCH": 1,
+      "EXPOSED_EXPANSION": 4,
+      "NO_ACTIVE_EXPANSION": 4,
+      "nearWallExpansionMinutes": 0.07388888888888889,
+      "nearWallMinutes": 0.13722222222222222,
+      "runningStops": 5,
+      "runningRate": 67.66917293233082,
+      "adopted": 122,
+      "nearWallSelected": 7
+    },
+    {
+      "seed": 4,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 3,
+      "ADOPTED_BEFORE_LAUNCH": 3,
+      "EXPOSED_EXPANSION": 7,
+      "NO_ACTIVE_EXPANSION": 10,
+      "nearWallExpansionMinutes": 0.17166666666666666,
+      "nearWallMinutes": 0.3466666666666667,
+      "runningStops": 10,
+      "runningRate": 58.25242718446602,
+      "adopted": 110,
+      "nearWallSelected": 18
+    },
+    {
+      "seed": 4,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 7,
+      "ADOPTED_BEFORE_LAUNCH": 23,
+      "EXPOSED_EXPANSION": 22,
+      "NO_ACTIVE_EXPANSION": 8,
+      "nearWallExpansionMinutes": 0.4216666666666667,
+      "nearWallMinutes": 0.7644444444444445,
+      "runningStops": 45,
+      "runningRate": 106.7193675889328,
+      "adopted": 194,
+      "nearWallSelected": 53
+    },
+    {
+      "seed": 4,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 13,
+      "ADOPTED_BEFORE_LAUNCH": 13,
+      "EXPOSED_EXPANSION": 16,
+      "NO_ACTIVE_EXPANSION": 13,
+      "nearWallExpansionMinutes": 0.5527777777777778,
+      "nearWallMinutes": 0.8583333333333333,
+      "runningStops": 29,
+      "runningRate": 52.462311557788944,
+      "adopted": 214,
+      "nearWallSelected": 48
+    },
+    {
+      "seed": 19,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 8,
+      "ADOPTED_BEFORE_LAUNCH": 5,
+      "EXPOSED_EXPANSION": 16,
+      "NO_ACTIVE_EXPANSION": 10,
+      "nearWallExpansionMinutes": 0.43,
+      "nearWallMinutes": 0.6933333333333334,
+      "runningStops": 21,
+      "runningRate": 48.83720930232558,
+      "adopted": 178,
+      "nearWallSelected": 33
+    },
+    {
+      "seed": 19,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 1,
+      "ADOPTED_BEFORE_LAUNCH": 8,
+      "EXPOSED_EXPANSION": 7,
+      "NO_ACTIVE_EXPANSION": 6,
+      "nearWallExpansionMinutes": 0.19055555555555556,
+      "nearWallMinutes": 0.4038888888888889,
+      "runningStops": 15,
+      "runningRate": 78.71720116618076,
+      "adopted": 101,
+      "nearWallSelected": 17
+    },
+    {
+      "seed": 19,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 22,
+      "ADOPTED_BEFORE_LAUNCH": 41,
+      "EXPOSED_EXPANSION": 17,
+      "NO_ACTIVE_EXPANSION": 21,
+      "nearWallExpansionMinutes": 0.675,
+      "nearWallMinutes": 1.1805555555555556,
+      "runningStops": 58,
+      "runningRate": 85.92592592592592,
+      "adopted": 210,
+      "nearWallSelected": 99
+    },
+    {
+      "seed": 19,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 19,
+      "ADOPTED_BEFORE_LAUNCH": 26,
+      "EXPOSED_EXPANSION": 15,
+      "NO_ACTIVE_EXPANSION": 13,
+      "nearWallExpansionMinutes": 0.5566666666666666,
+      "nearWallMinutes": 0.9172222222222223,
+      "runningStops": 41,
+      "runningRate": 73.65269461077844,
+      "adopted": 133,
+      "nearWallSelected": 69
+    },
+    {
+      "seed": 73,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 2,
+      "ADOPTED_BEFORE_LAUNCH": 9,
+      "EXPOSED_EXPANSION": 25,
+      "NO_ACTIVE_EXPANSION": 13,
+      "nearWallExpansionMinutes": 0.4444444444444444,
+      "nearWallMinutes": 0.8083333333333333,
+      "runningStops": 34,
+      "runningRate": 76.5,
+      "adopted": 219,
+      "nearWallSelected": 31
+    },
+    {
+      "seed": 73,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 0,
+      "ADOPTED_BEFORE_LAUNCH": 2,
+      "EXPOSED_EXPANSION": 8,
+      "NO_ACTIVE_EXPANSION": 6,
+      "nearWallExpansionMinutes": 0.21055555555555555,
+      "nearWallMinutes": 0.33111111111111113,
+      "runningStops": 10,
+      "runningRate": 47.4934036939314,
+      "adopted": 102,
+      "nearWallSelected": 11
+    },
+    {
+      "seed": 73,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 9,
+      "ADOPTED_BEFORE_LAUNCH": 16,
+      "EXPOSED_EXPANSION": 18,
+      "NO_ACTIVE_EXPANSION": 11,
+      "nearWallExpansionMinutes": 0.2877777777777778,
+      "nearWallMinutes": 0.575,
+      "runningStops": 34,
+      "runningRate": 118.14671814671814,
+      "adopted": 238,
+      "nearWallSelected": 40
+    },
+    {
+      "seed": 73,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 1,
+      "ADOPTED_BEFORE_LAUNCH": 5,
+      "EXPOSED_EXPANSION": 9,
+      "NO_ACTIVE_EXPANSION": 12,
+      "nearWallExpansionMinutes": 0.3022222222222222,
+      "nearWallMinutes": 0.545,
+      "runningStops": 14,
+      "runningRate": 46.3235294117647,
+      "adopted": 113,
+      "nearWallSelected": 27
+    },
+    {
+      "seed": 11,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 7,
+      "ADOPTED_BEFORE_LAUNCH": 8,
+      "EXPOSED_EXPANSION": 7,
+      "NO_ACTIVE_EXPANSION": 9,
+      "nearWallExpansionMinutes": 0.32,
+      "nearWallMinutes": 0.5038888888888889,
+      "runningStops": 15,
+      "runningRate": 46.875,
+      "adopted": 141,
+      "nearWallSelected": 30
+    },
+    {
+      "seed": 11,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 2,
+      "ADOPTED_BEFORE_LAUNCH": 5,
+      "EXPOSED_EXPANSION": 8,
+      "NO_ACTIVE_EXPANSION": 13,
+      "nearWallExpansionMinutes": 0.2594444444444444,
+      "nearWallMinutes": 0.5083333333333333,
+      "runningStops": 13,
+      "runningRate": 50.10706638115632,
+      "adopted": 101,
+      "nearWallSelected": 17
+    },
+    {
+      "seed": 11,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 10,
+      "ADOPTED_BEFORE_LAUNCH": 7,
+      "EXPOSED_EXPANSION": 4,
+      "NO_ACTIVE_EXPANSION": 3,
+      "nearWallExpansionMinutes": 0.19777777777777777,
+      "nearWallMinutes": 0.3388888888888889,
+      "runningStops": 11,
+      "runningRate": 55.61797752808989,
+      "adopted": 203,
+      "nearWallSelected": 30
+    },
+    {
+      "seed": 11,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 2,
+      "ADOPTED_BEFORE_LAUNCH": 9,
+      "EXPOSED_EXPANSION": 15,
+      "NO_ACTIVE_EXPANSION": 8,
+      "nearWallExpansionMinutes": 0.35888888888888887,
+      "nearWallMinutes": 0.6388888888888888,
+      "runningStops": 24,
+      "runningRate": 66.87306501547988,
+      "adopted": 167,
+      "nearWallSelected": 28
+    },
+    {
+      "seed": 31,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 16,
+      "ADOPTED_BEFORE_LAUNCH": 18,
+      "EXPOSED_EXPANSION": 11,
+      "NO_ACTIVE_EXPANSION": 11,
+      "nearWallExpansionMinutes": 0.5016666666666667,
+      "nearWallMinutes": 0.8711111111111111,
+      "runningStops": 29,
+      "runningRate": 57.80730897009966,
+      "adopted": 201,
+      "nearWallSelected": 60
+    },
+    {
+      "seed": 31,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 2,
+      "ADOPTED_BEFORE_LAUNCH": 5,
+      "EXPOSED_EXPANSION": 9,
+      "NO_ACTIVE_EXPANSION": 12,
+      "nearWallExpansionMinutes": 0.16944444444444445,
+      "nearWallMinutes": 0.4272222222222222,
+      "runningStops": 14,
+      "runningRate": 82.62295081967213,
+      "adopted": 112,
+      "nearWallSelected": 14
+    },
+    {
+      "seed": 31,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 32,
+      "ADOPTED_BEFORE_LAUNCH": 58,
+      "EXPOSED_EXPANSION": 21,
+      "NO_ACTIVE_EXPANSION": 35,
+      "nearWallExpansionMinutes": 0.9405555555555556,
+      "nearWallMinutes": 1.5538888888888889,
+      "runningStops": 79,
+      "runningRate": 83.99291199054932,
+      "adopted": 259,
+      "nearWallSelected": 132
+    },
+    {
+      "seed": 31,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 0,
+      "ADOPTED_BEFORE_LAUNCH": 0,
+      "EXPOSED_EXPANSION": 2,
+      "NO_ACTIVE_EXPANSION": 2,
+      "nearWallExpansionMinutes": 0.12111111111111111,
+      "nearWallMinutes": 0.17222222222222222,
+      "runningStops": 2,
+      "runningRate": 16.513761467889907,
+      "adopted": 108,
+      "nearWallSelected": 5
+    },
+    {
+      "seed": 47,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 2,
+      "ADOPTED_BEFORE_LAUNCH": 12,
+      "EXPOSED_EXPANSION": 11,
+      "NO_ACTIVE_EXPANSION": 18,
+      "nearWallExpansionMinutes": 0.4166666666666667,
+      "nearWallMinutes": 0.6677777777777778,
+      "runningStops": 23,
+      "runningRate": 55.199999999999996,
+      "adopted": 132,
+      "nearWallSelected": 40
+    },
+    {
+      "seed": 47,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 0,
+      "ADOPTED_BEFORE_LAUNCH": 0,
+      "EXPOSED_EXPANSION": 4,
+      "NO_ACTIVE_EXPANSION": 3,
+      "nearWallExpansionMinutes": 0.03722222222222222,
+      "nearWallMinutes": 0.09333333333333334,
+      "runningStops": 4,
+      "runningRate": 107.46268656716418,
+      "adopted": 139,
+      "nearWallSelected": 3
+    },
+    {
+      "seed": 47,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 14,
+      "ADOPTED_BEFORE_LAUNCH": 24,
+      "EXPOSED_EXPANSION": 14,
+      "NO_ACTIVE_EXPANSION": 11,
+      "nearWallExpansionMinutes": 0.5772222222222222,
+      "nearWallMinutes": 0.8944444444444445,
+      "runningStops": 38,
+      "runningRate": 65.832531280077,
+      "adopted": 153,
+      "nearWallSelected": 63
+    },
+    {
+      "seed": 47,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 7,
+      "ADOPTED_BEFORE_LAUNCH": 14,
+      "EXPOSED_EXPANSION": 9,
+      "NO_ACTIVE_EXPANSION": 6,
+      "nearWallExpansionMinutes": 0.41444444444444445,
+      "nearWallMinutes": 0.645,
+      "runningStops": 23,
+      "runningRate": 55.49597855227882,
+      "adopted": 163,
+      "nearWallSelected": 39
+    },
+    {
+      "seed": 101,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 7,
+      "ADOPTED_BEFORE_LAUNCH": 15,
+      "EXPOSED_EXPANSION": 19,
+      "NO_ACTIVE_EXPANSION": 16,
+      "nearWallExpansionMinutes": 0.6394444444444445,
+      "nearWallMinutes": 0.9294444444444444,
+      "runningStops": 34,
+      "runningRate": 53.17115551694179,
+      "adopted": 198,
+      "nearWallSelected": 56
+    },
+    {
+      "seed": 101,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 0,
+      "ADOPTED_BEFORE_LAUNCH": 0,
+      "EXPOSED_EXPANSION": 1,
+      "NO_ACTIVE_EXPANSION": 1,
+      "nearWallExpansionMinutes": 0.07555555555555556,
+      "nearWallMinutes": 0.1511111111111111,
+      "runningStops": 1,
+      "runningRate": 13.235294117647058,
+      "adopted": 104,
+      "nearWallSelected": 4
+    },
+    {
+      "seed": 101,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 3,
+      "ADOPTED_BEFORE_LAUNCH": 9,
+      "EXPOSED_EXPANSION": 16,
+      "NO_ACTIVE_EXPANSION": 3,
+      "nearWallExpansionMinutes": 0.24555555555555555,
+      "nearWallMinutes": 0.4988888888888889,
+      "runningStops": 25,
+      "runningRate": 101.80995475113122,
+      "adopted": 235,
+      "nearWallSelected": 20
+    },
+    {
+      "seed": 101,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 4,
+      "ADOPTED_BEFORE_LAUNCH": 4,
+      "EXPOSED_EXPANSION": 12,
+      "NO_ACTIVE_EXPANSION": 14,
+      "nearWallExpansionMinutes": 0.20666666666666667,
+      "nearWallMinutes": 0.40166666666666667,
+      "runningStops": 16,
+      "runningRate": 77.41935483870968,
+      "adopted": 127,
+      "nearWallSelected": 20
+    },
+    {
+      "seed": 137,
+      "personality": "ATTACK",
+      "SELECTION_DISCARDED": 12,
+      "ADOPTED_BEFORE_LAUNCH": 11,
+      "EXPOSED_EXPANSION": 10,
+      "NO_ACTIVE_EXPANSION": 16,
+      "nearWallExpansionMinutes": 0.4,
+      "nearWallMinutes": 0.6827777777777778,
+      "runningStops": 21,
+      "runningRate": 52.5,
+      "adopted": 183,
+      "nearWallSelected": 42
+    },
+    {
+      "seed": 137,
+      "personality": "EXPAND",
+      "SELECTION_DISCARDED": 3,
+      "ADOPTED_BEFORE_LAUNCH": 4,
+      "EXPOSED_EXPANSION": 5,
+      "NO_ACTIVE_EXPANSION": 4,
+      "nearWallExpansionMinutes": 0.15944444444444444,
+      "nearWallMinutes": 0.29055555555555557,
+      "runningStops": 9,
+      "runningRate": 56.44599303135889,
+      "adopted": 141,
+      "nearWallSelected": 11
+    },
+    {
+      "seed": 137,
+      "personality": "DEFEND",
+      "SELECTION_DISCARDED": 28,
+      "ADOPTED_BEFORE_LAUNCH": 54,
+      "EXPOSED_EXPANSION": 28,
+      "NO_ACTIVE_EXPANSION": 31,
+      "nearWallExpansionMinutes": 0.8377777777777777,
+      "nearWallMinutes": 1.4322222222222223,
+      "runningStops": 82,
+      "runningRate": 97.87798408488064,
+      "adopted": 216,
+      "nearWallSelected": 118
+    },
+    {
+      "seed": 137,
+      "personality": "SEEK_POINT",
+      "SELECTION_DISCARDED": 5,
+      "ADOPTED_BEFORE_LAUNCH": 8,
+      "EXPOSED_EXPANSION": 13,
+      "NO_ACTIVE_EXPANSION": 19,
+      "nearWallExpansionMinutes": 0.4461111111111111,
+      "nearWallMinutes": 0.7,
+      "runningStops": 21,
+      "runningRate": 47.073474470734745,
+      "adopted": 148,
+      "nearWallSelected": 37
+    }
+  ],
+  "standardization": [
+    {
+      "seed": 19,
+      "referenceSeeds": [
+        4,
+        73,
+        11,
+        31,
+        47,
+        101
+      ],
+      "cells": [
+        {
+          "personality": "ATTACK",
+          "exposureMinutes": 0.43,
+          "observed": 21,
+          "referenceRate": 58.42800834685833,
+          "expected": 25.124043589149082
+        },
+        {
+          "personality": "EXPAND",
+          "exposureMinutes": 0.19055555555555556,
+          "observed": 15,
+          "referenceRate": 56.28382441371016,
+          "expected": 10.725195429945881
+        },
+        {
+          "personality": "DEFEND",
+          "exposureMinutes": 0.675,
+          "observed": 58,
+          "referenceRate": 86.87330975660494,
+          "expected": 58.63948408570834
+        },
+        {
+          "personality": "SEEK_POINT",
+          "exposureMinutes": 0.5566666666666666,
+          "observed": 41,
+          "referenceRate": 55.21158761715422,
+          "expected": 30.73445044021585
+        }
+      ],
+      "observed": 135,
+      "expected": 125.22317354501916,
+      "ratio": 1.0780752170560983
+    },
+    {
+      "seed": 137,
+      "referenceSeeds": [
+        4,
+        73,
+        11,
+        31,
+        47,
+        101
+      ],
+      "cells": [
+        {
+          "personality": "ATTACK",
+          "exposureMinutes": 0.4,
+          "observed": 21,
+          "referenceRate": 58.42800834685833,
+          "expected": 23.37120333874333
+        },
+        {
+          "personality": "EXPAND",
+          "exposureMinutes": 0.15944444444444444,
+          "observed": 9,
+          "referenceRate": 56.28382441371016,
+          "expected": 8.974143114852675
+        },
+        {
+          "personality": "DEFEND",
+          "exposureMinutes": 0.8377777777777777,
+          "observed": 82,
+          "referenceRate": 86.87330975660494,
+          "expected": 72.78052839608903
+        },
+        {
+          "personality": "SEEK_POINT",
+          "exposureMinutes": 0.4461111111111111,
+          "observed": 21,
+          "referenceRate": 55.21158761715422,
+          "expected": 24.630502698097136
+        }
+      ],
+      "observed": 133,
+      "expected": 129.75637754778217,
+      "ratio": 1.024997788266888
+    }
+  ],
+  "preliminaryInference": "Current wall exposure and role-adjusted rates are descriptive; initial spawns and time near wall are not randomized interventions. No causal lost territory estimate.",
+  "recommendation": "One pending behavior proposal: apply the unchanged existing perimeter prediction to the actual first steering intent of expansion candidates before committing selection. Do not weaken the guard.",
+  "examples": [
+    {
+      "seed": 4,
+      "slot": 1,
+      "tick": 3450,
+      "episodeId": "4:1:1:645",
+      "wallDepth": 2,
+      "position": {
+        "x": 1811.4682884654612,
+        "y": 2052.654988326184
+      },
+      "heading": {
+        "x": 0.8283841663547362,
+        "y": 0.5601603992900327
+      },
+      "intent": {
+        "x": 0.9700291690140198,
+        "y": 0.24298850026692662
+      },
+      "escape": {
+        "x": 0.2839941191081368,
+        "y": 0.9588260219205534
+      },
+      "firstWallSeconds": 0.6268680724205093,
+      "path": [
+        8756,
+        8686,
+        8614,
+        8541,
+        8467
+      ]
+    },
+    {
+      "seed": 11,
+      "slot": 0,
+      "tick": 808,
+      "episodeId": "11:0:1:120",
+      "wallDepth": 1,
+      "position": {
+        "x": 2946.42666087143,
+        "y": -175.91567648723296
+      },
+      "heading": {
+        "x": -0.4828428219749202,
+        "y": -0.875707033925899
+      },
+      "intent": {
+        "x": 0.28211108809517765,
+        "y": -0.959381745695505
+      },
+      "escape": {
+        "x": -0.49574751746036544,
+        "y": -0.8684666941983926
+      },
+      "firstWallSeconds": 0.577194815441086,
+      "path": [
+        4289,
+        4181,
+        4074,
+        3968,
+        3967,
+        3966
+      ]
+    },
+    {
+      "seed": 19,
+      "slot": 1,
+      "tick": 937,
+      "episodeId": "19:1:1:152",
+      "wallDepth": 2,
+      "position": {
+        "x": 2779.5215064808203,
+        "y": 369.92387059004
+      },
+      "heading": {
+        "x": 0.5052033507805924,
+        "y": -0.8630003327693805
+      },
+      "intent": {
+        "x": 0.9582694737109391,
+        "y": 0.2858664299174705
+      },
+      "escape": {
+        "x": 0.29930837109850467,
+        "y": 0.9541564331860682
+      },
+      "firstWallSeconds": 0.6537690568316841,
+      "path": [
+        5711,
+        5606,
+        5500,
+        5393,
+        5285,
+        5176,
+        5065,
+        5175,
+        5284,
+        5392,
+        5499,
+        5605
+      ]
+    },
+    {
+      "seed": 31,
+      "slot": 2,
+      "tick": 254,
+      "episodeId": "31:2:1:45",
+      "wallDepth": 2,
+      "position": {
+        "x": 1601.76878492277,
+        "y": -2415.2215034449905
+      },
+      "heading": {
+        "x": -0.34388193982064186,
+        "y": -0.9390128920654883
+      },
+      "intent": {
+        "x": 0.712530117144547,
+        "y": -0.7016415268226207
+      },
+      "escape": {
+        "x": 0.9702490463585115,
+        "y": 0.24210904163289548
+      },
+      "firstWallSeconds": 0.6360709984003428,
+      "path": [
+        355,
+        417,
+        480,
+        544,
+        610,
+        677,
+        678,
+        679,
+        680,
+        613,
+        547,
+        482,
+        481
+      ]
+    },
+    {
+      "seed": 47,
+      "slot": 1,
+      "tick": 109,
+      "episodeId": "47:1:1:23",
+      "wallDepth": 2,
+      "position": {
+        "x": -2035.0022641795422,
+        "y": -1678.5359216610468
+      },
+      "heading": {
+        "x": -0.9735819918450465,
+        "y": 0.22833769981111743
+      },
+      "intent": {
+        "x": -0.9994330097487694,
+        "y": -0.03366985334860329
+      },
+      "escape": {
+        "x": -0.30333173261991364,
+        "y": -0.9528850192892117
+      },
+      "firstWallSeconds": 0.6036971637282808,
+      "path": [
+        1408,
+        1407,
+        1485,
+        1564,
+        1644,
+        1725,
+        1808,
+        1892,
+        1893,
+        1894,
+        1895,
+        1812
+      ]
+    },
+    {
+      "seed": 73,
+      "slot": 4,
+      "tick": 498,
+      "episodeId": "73:4:1:83",
+      "wallDepth": 2,
+      "position": {
+        "x": -1168.2320842013785,
+        "y": -2605.6268613231914
+      },
+      "heading": {
+        "x": -0.014084571286966331,
+        "y": -0.9999008075062559
+      },
+      "intent": {
+        "x": -0.5630518737058277,
+        "y": -0.826421555573399
+      },
+      "escape": {
+        "x": -0.9662737646650383,
+        "y": 0.25751701248665887
+      },
+      "firstWallSeconds": 0.5971356519114684,
+      "path": [
+        64,
+        6,
+        5,
+        62,
+        120
+      ]
+    },
+    {
+      "seed": 101,
+      "slot": 0,
+      "tick": 2894,
+      "episodeId": "101:0:1:539",
+      "wallDepth": 2,
+      "position": {
+        "x": 1102.4372778111222,
+        "y": -2601.1957537121684
+      },
+      "heading": {
+        "x": -0.15638553863168655,
+        "y": -0.9876960885347663
+      },
+      "intent": {
+        "x": -0.4870124181464914,
+        "y": -0.873395044965969
+      },
+      "escape": {
+        "x": 0.6566791210783662,
+        "y": -0.7541700948325546
+      },
+      "firstWallSeconds": 0.6076404855159818,
+      "path": [
+        105,
+        106,
+        107,
+        50,
+        49,
+        48,
+        105
+      ]
+    },
+    {
+      "seed": 137,
+      "slot": 1,
+      "tick": 973,
+      "episodeId": "137:1:1:168",
+      "wallDepth": 2,
+      "position": {
+        "x": -2495.1026511188584,
+        "y": -862.4349572471868
+      },
+      "heading": {
+        "x": -0.5186921903236817,
+        "y": 0.8549610585852558
+      },
+      "intent": {
+        "x": -0.9995875787196571,
+        "y": -0.02871711109031137
+      },
+      "escape": {
+        "x": -0.47512419606849554,
+        "y": -0.8799187452886009
+      },
+      "firstWallSeconds": 0.6625429834194089,
+      "path": [
+        2870,
+        2869,
+        2870,
+        2776,
+        2683,
+        2591,
+        2500,
+        2410,
+        2409,
+        2499,
+        2590,
+        2682,
+        2775,
+        2869
+      ]
+    }
+  ],
+  "rawFiles": [
+    {
+      "seed": 4,
+      "sha256": "e3d1f12f0c845f61f416c39ff5ccea61a3931da912e856c683b33597178d8873",
+      "trajectoryHash": "a006eec7b54b7821655332a754d70e554b132a7dd085b5e116e52bab51c78142",
+      "equivalenceProof": {
+        "traceHash": "610db917c4f56c3025a509c1ce9cff13cddd578eb17a3f2bd0679c6635baded3",
+        "memoryHash": "21a72ff6a647a561e1e217ad4669b9153c27dfee0dd29c22d355350fd5edfe0b",
+        "nextRng": {
+          "bot-0": 0.2776780177373439,
+          "bot-1": 0.7161779887974262,
+          "bot-2": 0.7879071063362062,
+          "bot-3": 0.22792596789076924,
+          "bot-4": 0.4687811166513711,
+          "bot-5": 0.9279824504628778,
+          "bot-6": 0.34092211606912315,
+          "bot-7": 0.04685292765498161,
+          "bot-8": 0.8481484618969262,
+          "bot-9": 0.604239183710888,
+          "bot-10": 0.287852362729609,
+          "bot-11": 0.9229815797880292,
+          "bot-12": 0.4120734909083694,
+          "bot-13": 0.413700460921973
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "sha256": "aa059ac7de61ebc6b4ba00680e72b7d81e239c80add512cbd29f01e0279849d9",
+      "trajectoryHash": "55185546c0793899f2c90be74f934275a7ab1293dcffe645c164ee1334045fac",
+      "equivalenceProof": {
+        "traceHash": "0628c7b70b1a6127e277e8e73b83830cfe6b129f3eafc2c51ce118b42ccb0f78",
+        "memoryHash": "21aeb4cf7059b0cbd3501413c222b25e5dc84a6ffe432597ac5be041f796f91b",
+        "nextRng": {
+          "bot-0": 0.14221267378889024,
+          "bot-1": 0.7142301560379565,
+          "bot-2": 0.29010486090555787,
+          "bot-3": 0.09536575200036168,
+          "bot-4": 0.7154552224092185,
+          "bot-5": 0.37620443967171013,
+          "bot-6": 0.5599456217605621,
+          "bot-7": 0.8089938773773611,
+          "bot-8": 0.21514703589491546,
+          "bot-9": 0.6501289850566536,
+          "bot-10": 0.31527199945412576,
+          "bot-11": 0.5325291946064681,
+          "bot-12": 0.21129761612974107,
+          "bot-13": 0.075302520301193
+        }
+      }
+    },
+    {
+      "seed": 73,
+      "sha256": "7a550c33fa810a6989bd3b127380d4dcb23f59728fe7deb77557acd8208afb66",
+      "trajectoryHash": "c5b5e642509449cf8035e4f39c25669e81affd8b2cb69a5a61e05eced75159db",
+      "equivalenceProof": {
+        "traceHash": "525fa86c61edf3278c8db0a843e28036a860589f05d0f6460b9a39bf903b2f47",
+        "memoryHash": "8ef3a25b96cc23f4ad280ab26369af2a5ed20d807d02930180c14b70a606ca58",
+        "nextRng": {
+          "bot-0": 0.5467049162834883,
+          "bot-1": 0.7187524458859116,
+          "bot-2": 0.08683295780792832,
+          "bot-3": 0.7685891122091562,
+          "bot-4": 0.38406305224634707,
+          "bot-5": 0.1154935248196125,
+          "bot-6": 0.1533997254446149,
+          "bot-7": 0.12832418945617974,
+          "bot-8": 0.24050975567661226,
+          "bot-9": 0.7370985695160925,
+          "bot-10": 0.012187229236587882,
+          "bot-11": 0.6168356072157621,
+          "bot-12": 0.5809457553550601,
+          "bot-13": 0.2944828295148909
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "sha256": "adb1e56d6622b5c1e071304c6339e96261018137874900770575d1274dfeabc8",
+      "trajectoryHash": "732b8bc7df871ade5f3395a29833908e876cb2ddc1952ee93be8bad27778fcba",
+      "equivalenceProof": {
+        "traceHash": "8c3a07ee412e867edd58348deabffc896b1a395dd84ba37e740a8e9f37c73bcc",
+        "memoryHash": "255bc1380199cc3cfad4e2aa68692c82706c1751c804f099e6668b526b6cff13",
+        "nextRng": {
+          "bot-0": 0.1762267213780433,
+          "bot-1": 0.6408954516518861,
+          "bot-2": 0.476009905571118,
+          "bot-3": 0.3118488173931837,
+          "bot-4": 0.34073946811258793,
+          "bot-5": 0.31667638989165425,
+          "bot-6": 0.47708071139641106,
+          "bot-7": 0.282831066288054,
+          "bot-8": 0.8895168995950371,
+          "bot-9": 0.34460745099931955,
+          "bot-10": 0.8350687827914953,
+          "bot-11": 0.49054828751832247,
+          "bot-12": 0.0542598229367286,
+          "bot-13": 0.8517207440454513
+        }
+      }
+    },
+    {
+      "seed": 31,
+      "sha256": "584d2087900e2eaebe6703ceb56fc8bfbb818821b9035167d9f74668f58da059",
+      "trajectoryHash": "4478506e21b4597648b4dad4b228fc571c7eba21235fa349ab4207f156a47295",
+      "equivalenceProof": {
+        "traceHash": "1a0f6b8a0cf4b442797512133293226af4592a11988908cd91556712085d1346",
+        "memoryHash": "775349d2c0dd1b52acf57f111c814d63b96e5aeb864f262164e12990b2471b0e",
+        "nextRng": {
+          "bot-0": 0.24415386212058365,
+          "bot-1": 0.044026036746799946,
+          "bot-2": 0.9080066077876836,
+          "bot-3": 0.977672724518925,
+          "bot-4": 0.5379988462664187,
+          "bot-5": 0.6881791949272156,
+          "bot-6": 0.990358074195683,
+          "bot-7": 0.7885458141099662,
+          "bot-8": 0.4273807390127331,
+          "bot-9": 0.7326291645877063,
+          "bot-10": 0.014655406819656491,
+          "bot-11": 0.9917369596660137,
+          "bot-12": 0.44371363148093224,
+          "bot-13": 0.2386087637860328
+        }
+      }
+    },
+    {
+      "seed": 47,
+      "sha256": "0a966a47d2bacee1e601812391f94b2cadd70ad203a342c85c53dd7584d25000",
+      "trajectoryHash": "080a092978bd101971dd5e78c7d37c96418757ba4b072f160381406dbd074252",
+      "equivalenceProof": {
+        "traceHash": "0295daee2b183a4d6182e245501aff9a0b2f013771c5d091ce6665131d35b841",
+        "memoryHash": "e09ef86e9888f9fea95a7b5a81d93907910e213e79f771a7923f17862e78c4d8",
+        "nextRng": {
+          "bot-0": 0.9093652374576777,
+          "bot-1": 0.7031423079315573,
+          "bot-2": 0.9241888604592532,
+          "bot-3": 0.864417367381975,
+          "bot-4": 0.4016382193658501,
+          "bot-5": 0.6679396349936724,
+          "bot-6": 0.2604141642805189,
+          "bot-7": 0.30643336614593863,
+          "bot-8": 0.7884234371595085,
+          "bot-9": 0.3720408084336668,
+          "bot-10": 0.26223732554353774,
+          "bot-11": 0.6041972008533776,
+          "bot-12": 0.26046447455883026,
+          "bot-13": 0.7086484574247152
+        }
+      }
+    },
+    {
+      "seed": 101,
+      "sha256": "c3f726c6ae794e8a7e226223bea04f6e047eb65138ba2195659b0fc57a3de50a",
+      "trajectoryHash": "fcd62b5eb30b7521b928bdb499d28b93495447406cdc30c5c54795cf4ac08b94",
+      "equivalenceProof": {
+        "traceHash": "7b2d69e670828e52189ed4e3e278fd3506e4063de1de75f95926a913786624f5",
+        "memoryHash": "f7edf1aebb4b9df766df6f9144a918433279fc0c95bd4c30611e257e16a8b59b",
+        "nextRng": {
+          "bot-0": 0.36527094105258584,
+          "bot-1": 0.36076496145688,
+          "bot-2": 0.6777682409156114,
+          "bot-3": 0.6698006885126233,
+          "bot-4": 0.7154705291613936,
+          "bot-5": 0.16859910800121725,
+          "bot-6": 0.5495880066882819,
+          "bot-7": 0.8433205890469253,
+          "bot-8": 0.22302762512117624,
+          "bot-9": 0.08250044984742999,
+          "bot-10": 0.5767717405688018,
+          "bot-11": 0.0012350347824394703,
+          "bot-12": 0.005994313629344106,
+          "bot-13": 0.03136598342098296
+        }
+      }
+    },
+    {
+      "seed": 137,
+      "sha256": "9ddae9f4e17a9b8988d98d6dc4afcece0b4bf289740c7f8d8932f53e76c89680",
+      "trajectoryHash": "1a7ef5912e5c92190c638e88f85b91750db9a7945af8c1e0b308e27a12b0cf33",
+      "equivalenceProof": {
+        "traceHash": "6bbfb7a63f719144bafb7932d750b81bf443ea3d450e084dff9a99f691c7bb58",
+        "memoryHash": "c6f83f157326b673f196e7ca64fd980d99b12734b3a3333bdf786cbc97f8ee15",
+        "nextRng": {
+          "bot-0": 0.4390679611824453,
+          "bot-1": 0.07324859919026494,
+          "bot-2": 0.18469743360765278,
+          "bot-3": 0.16164133977144957,
+          "bot-4": 0.5351381283253431,
+          "bot-5": 0.22555165435187519,
+          "bot-6": 0.3032935408409685,
+          "bot-7": 0.8330196908209473,
+          "bot-8": 0.11566268117167056,
+          "bot-9": 0.887950137257576,
+          "bot-10": 0.5716065738815814,
+          "bot-11": 0.9986541254911572,
+          "bot-12": 0.009195070015266538,
+          "bot-13": 0.34962458279915154
+        }
+      }
+    }
+  ]
+}

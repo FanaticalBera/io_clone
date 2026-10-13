@@ -1,0 +1,478 @@
+{
+  "status": "BASELINE_ONLY_NOT_AN_IMPROVEMENT_COMPARISON",
+  "total": {
+    "cases": 1024,
+    "cuts": 155,
+    "rate": 0.1513671875,
+    "activeAttackCuts": 138,
+    "withoutObservedTrail": 181,
+    "botDeaths": 1,
+    "simultaneousDeaths": 1
+  },
+  "near": {
+    "cases": 896,
+    "cuts": 155,
+    "rate": 0.17299107142857142,
+    "activeAttackCuts": 138,
+    "withoutObservedTrail": 72,
+    "botDeaths": 1,
+    "simultaneousDeaths": 1
+  },
+  "far": {
+    "cases": 128,
+    "cuts": 0,
+    "rate": 0,
+    "activeAttackCuts": 0,
+    "withoutObservedTrail": 109,
+    "botDeaths": 0,
+    "simultaneousDeaths": 0
+  },
+  "byLayout": [
+    {
+      "matchSeed": 13,
+      "distance": 5,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 0,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 17,
+      "distance": 5,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 0,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 44,
+      "distance": 5,
+      "cases": 128,
+      "cuts": 56,
+      "rate": 0.4375,
+      "activeAttackCuts": 39,
+      "withoutObservedTrail": 0,
+      "botDeaths": 1,
+      "simultaneousDeaths": 1
+    },
+    {
+      "matchSeed": 115,
+      "distance": 5,
+      "cases": 128,
+      "cuts": 99,
+      "rate": 0.7734375,
+      "activeAttackCuts": 99,
+      "withoutObservedTrail": 0,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 6,
+      "distance": 12,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 69,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 11,
+      "distance": 12,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 3,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 16,
+      "distance": 12,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 0,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "matchSeed": 2,
+      "distance": 17,
+      "cases": 128,
+      "cuts": 0,
+      "rate": 0,
+      "activeAttackCuts": 0,
+      "withoutObservedTrail": 109,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    }
+  ],
+  "byPersonality": [
+    {
+      "personality": "ATTACK",
+      "cases": 256,
+      "cuts": 40,
+      "rate": 0.15625,
+      "activeAttackCuts": 35,
+      "withoutObservedTrail": 50,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "personality": "EXPAND",
+      "cases": 256,
+      "cuts": 43,
+      "rate": 0.16796875,
+      "activeAttackCuts": 38,
+      "withoutObservedTrail": 32,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "personality": "DEFEND",
+      "cases": 256,
+      "cuts": 38,
+      "rate": 0.1484375,
+      "activeAttackCuts": 33,
+      "withoutObservedTrail": 54,
+      "botDeaths": 1,
+      "simultaneousDeaths": 1
+    },
+    {
+      "personality": "SEEK_POINT",
+      "cases": 256,
+      "cuts": 34,
+      "rate": 0.1328125,
+      "activeAttackCuts": 32,
+      "withoutObservedTrail": 45,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    }
+  ],
+  "byMemorySeed": [
+    {
+      "memorySeed": 1,
+      "cases": 128,
+      "cuts": 15,
+      "rate": 0.1171875,
+      "activeAttackCuts": 15,
+      "withoutObservedTrail": 24,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 2,
+      "cases": 128,
+      "cuts": 19,
+      "rate": 0.1484375,
+      "activeAttackCuts": 16,
+      "withoutObservedTrail": 27,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 3,
+      "cases": 128,
+      "cuts": 19,
+      "rate": 0.1484375,
+      "activeAttackCuts": 19,
+      "withoutObservedTrail": 20,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 4,
+      "cases": 128,
+      "cuts": 12,
+      "rate": 0.09375,
+      "activeAttackCuts": 12,
+      "withoutObservedTrail": 20,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 5,
+      "cases": 128,
+      "cuts": 23,
+      "rate": 0.1796875,
+      "activeAttackCuts": 19,
+      "withoutObservedTrail": 19,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 6,
+      "cases": 128,
+      "cuts": 24,
+      "rate": 0.1875,
+      "activeAttackCuts": 20,
+      "withoutObservedTrail": 15,
+      "botDeaths": 1,
+      "simultaneousDeaths": 1
+    },
+    {
+      "memorySeed": 7,
+      "cases": 128,
+      "cuts": 22,
+      "rate": 0.171875,
+      "activeAttackCuts": 19,
+      "withoutObservedTrail": 29,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "memorySeed": 8,
+      "cases": 128,
+      "cuts": 21,
+      "rate": 0.1640625,
+      "activeAttackCuts": 18,
+      "withoutObservedTrail": 27,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    }
+  ],
+  "byRoute": [
+    {
+      "route": 1,
+      "cases": 256,
+      "cuts": 41,
+      "rate": 0.16015625,
+      "activeAttackCuts": 41,
+      "withoutObservedTrail": 41,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "route": 2,
+      "cases": 256,
+      "cuts": 7,
+      "rate": 0.02734375,
+      "activeAttackCuts": 7,
+      "withoutObservedTrail": 45,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "route": 3,
+      "cases": 256,
+      "cuts": 49,
+      "rate": 0.19140625,
+      "activeAttackCuts": 49,
+      "withoutObservedTrail": 51,
+      "botDeaths": 0,
+      "simultaneousDeaths": 0
+    },
+    {
+      "route": 4,
+      "cases": 256,
+      "cuts": 58,
+      "rate": 0.2265625,
+      "activeAttackCuts": 41,
+      "withoutObservedTrail": 44,
+      "botDeaths": 1,
+      "simultaneousDeaths": 1
+    }
+  ],
+  "observerChecks": [
+    {
+      "id": "L13/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L13/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L13/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L13/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L17/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L17/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L17/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L17/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L44/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L44/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L44/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L44/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/DEFEND/R2",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/DEFEND/R3",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/DEFEND/R4",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/ATTACK/R2",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/ATTACK/R3",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/ATTACK/R4",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/EXPAND/R2",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/EXPAND/R3",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/EXPAND/R4",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/SEEK_POINT/R2",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/SEEK_POINT/R3",
+      "equal": true
+    },
+    {
+      "id": "L115/M7/SEEK_POINT/R4",
+      "equal": true
+    },
+    {
+      "id": "L6/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L6/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L6/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L6/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L11/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L11/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L11/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L11/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L16/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L16/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L16/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L16/M7/SEEK_POINT/R1",
+      "equal": true
+    },
+    {
+      "id": "L2/M7/DEFEND/R1",
+      "equal": true
+    },
+    {
+      "id": "L2/M7/ATTACK/R1",
+      "equal": true
+    },
+    {
+      "id": "L2/M7/EXPAND/R1",
+      "equal": true
+    },
+    {
+      "id": "L2/M7/SEEK_POINT/R1",
+      "equal": true
+    }
+  ],
+  "farFairness": {
+    "checks": 32,
+    "scope": "32 fixed t0 judgments: unobserved human intent/pose do not affect bot input, memory, action RNG or reservation state. Not a proof that complete future games stay identical when human motion differs."
+  },
+  "legacy16": {
+    "cuts": 13,
+    "failures": [
+      5,
+      6,
+      14
+    ]
+  },
+  "protocolSha256": "010f3773d1be6ba8cdad8204e8acb2128a45ec8a4e2731bd53d793c9f43fc77d",
+  "resultsSha256": "9b0ce40dd9547324c644ef43ab41b5a159a3bacc020483885d141a015e5417cb"
+}
