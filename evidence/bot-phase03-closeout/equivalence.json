@@ -1,0 +1,81 @@
+{
+  "localMaster": "960f678",
+  "remoteMaster": "960f678",
+  "integration": "Already ancestor of experiment; git merge master up to date",
+  "approvedGameplay": "b23f47b tactical-only",
+  "checkedFields": "trajectory, decision trace, full memory, next action RNG, director/order/reservations, deaths",
+  "checks": [
+    {
+      "seed": 4,
+      "trajectoryHash": true,
+      "traceHash": "610db917c4f56c3025a509c1ce9cff13cddd578eb17a3f2bd0679c6635baded3",
+      "memoryHash": "21a72ff6a647a561e1e217ad4669b9153c27dfee0dd29c22d355350fd5edfe0b",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 19,
+      "trajectoryHash": true,
+      "traceHash": "0628c7b70b1a6127e277e8e73b83830cfe6b129f3eafc2c51ce118b42ccb0f78",
+      "memoryHash": "21aeb4cf7059b0cbd3501413c222b25e5dc84a6ffe432597ac5be041f796f91b",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 73,
+      "trajectoryHash": true,
+      "traceHash": "525fa86c61edf3278c8db0a843e28036a860589f05d0f6460b9a39bf903b2f47",
+      "memoryHash": "8ef3a25b96cc23f4ad280ab26369af2a5ed20d807d02930180c14b70a606ca58",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 11,
+      "trajectoryHash": true,
+      "traceHash": "8c3a07ee412e867edd58348deabffc896b1a395dd84ba37e740a8e9f37c73bcc",
+      "memoryHash": "255bc1380199cc3cfad4e2aa68692c82706c1751c804f099e6668b526b6cff13",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 31,
+      "trajectoryHash": true,
+      "traceHash": "1a0f6b8a0cf4b442797512133293226af4592a11988908cd91556712085d1346",
+      "memoryHash": "775349d2c0dd1b52acf57f111c814d63b96e5aeb864f262164e12990b2471b0e",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 47,
+      "trajectoryHash": true,
+      "traceHash": "0295daee2b183a4d6182e245501aff9a0b2f013771c5d091ce6665131d35b841",
+      "memoryHash": "e09ef86e9888f9fea95a7b5a81d93907910e213e79f771a7923f17862e78c4d8",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 101,
+      "trajectoryHash": true,
+      "traceHash": "7b2d69e670828e52189ed4e3e278fd3506e4063de1de75f95926a913786624f5",
+      "memoryHash": "f7edf1aebb4b9df766df6f9144a918433279fc0c95bd4c30611e257e16a8b59b",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    },
+    {
+      "seed": 137,
+      "trajectoryHash": true,
+      "traceHash": "6bbfb7a63f719144bafb7932d750b81bf443ea3d450e084dff9a99f691c7bb58",
+      "memoryHash": "c6f83f157326b673f196e7ca64fd980d99b12734b3a3333bdf786cbc97f8ee15",
+      "equivalenceProof": true,
+      "director": true,
+      "deaths": true
+    }
+  ]
+}

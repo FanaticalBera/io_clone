@@ -3,7 +3,7 @@ import type {PublicParticipant,Personality} from './model.js';
 import {seededRandom} from './random.js';
 import {botOptions} from './bot-experiment.js';
 import {memoryVariants} from './bot-runtime.js';
-// Tactical-only spectator candidate. Personal strategy remains defined for
+// Adopted Phase 3 tactical cadence. Personal strategy remains defined for
 // reproducible historical experiments, but cannot be enabled by the HUD/URL.
 export const BOT_PHASE03B=Object.freeze({personalStrategy:false,tacticalTicks:3,fixedStrategyTicks:6,seedDomain:0x6c5e9d13,strategyTicks:{ATTACK:[5,8],EXPAND:[6,10],DEFEND:[4,7],SEEK_POINT:[5,9]} as const});
 export interface BotSchedule {seed:number;nextTacticalTick:number;profile?:Readonly<{personality:Personality;strategyTicks:number;strategyPhase:number;tacticalPhase:number}>}

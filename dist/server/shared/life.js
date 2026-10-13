@@ -1,8 +1,11 @@
+import { recordBotDeath } from './bot-events.js';
 import { queueRunDeath, settleUnbatchedRuns } from './run.js';
 import { slotBit } from './slots.js';
 import { clearTrail, neutralizeTerritory } from './territory.js';
 export function emitEvent(match, event) {
-    match.events.push({ ...event, eventId: match.matchId + ':' + (++match.eventCounter), tick: match.tick });
+    const emitted = { ...event, eventId: match.matchId + ':' + (++match.eventCounter), tick: match.tick };
+    match.events.push(emitted);
+    recordBotDeath(match, emitted);
     match.events = match.events.filter(e => e.tick >= match.tick - match.config.simulationHz).slice(-64);
 }
 const deathObservers = new WeakMap();

@@ -1,3 +1,5 @@
+import { prepareCaptureTransfers } from './capture-diagnostics.js';
+import { captureLosses, recordBotCapture } from './bot-events.js';
 import { beginRunResolution, endRunResolution, recordBestTerritories } from './run.js';
 import { slotBit } from './slots.js';
 import { moveSpeed } from './config.js';
@@ -73,6 +75,8 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
                     cutContexts.set(victim, contexts);
                 }
             }
+        const botLosses = captureLosses(match, winners);
+        const publishTransfers = prepareCaptureTransfers(match, winners, eventTick);
         const lostTerritory = new Set(), territoryAttackers = new Map();
         for (const [id, p] of winners) {
             if (match.owners[id] !== p.slot + 1) {
@@ -87,6 +91,7 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
             }
             setOwner(match, id, p.slot + 1);
         }
+        publishTransfers?.();
         // Prune only after all simultaneous winners have been applied. A surviving
         // excursion origin (or a head still at home) is the actual home component;
         // choosing a larger distant component must not manufacture a home cut.
@@ -144,6 +149,7 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
         for (const p of candidates.keys()) {
             clearTrail(match, p);
             emitEvent(match, { type: 'CAPTURE', participantId: p.participantId, amount: gained.get(p) ?? 0 });
+            recordBotCapture(match, p, botLosses.get(p) ?? new Map());
         }
         recordBestTerritories(match);
         // All simultaneous claims remain resolved against the same base state. One death

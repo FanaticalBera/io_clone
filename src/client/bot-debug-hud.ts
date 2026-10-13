@@ -12,7 +12,7 @@ export class BotDebugHud {
  private buttons=new Map<string,HTMLButtonElement>();private followButton:HTMLButtonElement|null=null;private collapseButton:HTMLButtonElement|null=null;private spectating=false;private following=false;private selected:string|null=null;private timer:number|null=null;private source:(()=>BotDebugSnapshot|null)|null=null;
  constructor(private follow:(id:string|null)=>void=()=>{},private spectate:()=>void=()=>{},private overlay:(data:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number;route?:number[];destination?:number|null}|null)=>void=()=>{}){
   this.root.id='bot-debug-hud';this.root.setAttribute('aria-label','봇 판단 디버그');this.root.hidden=true;
-  const title=document.createElement('strong');title.textContent='BOT AI · 3B 후보 (전술 100ms)';
+  const title=document.createElement('strong');title.textContent='BOT AI · 3단계 (전술 100ms)';
   const collapse=document.createElement('button');this.collapseButton=collapse;collapse.textContent='접기';collapse.type='button';collapse.onclick=()=>{const hidden=!this.rows.hidden;this.rows.hidden=hidden;this.detail.hidden=hidden;collapse.textContent=hidden?'펼치기':'접기';};
   const followButton=document.createElement('button');this.followButton=followButton;followButton.textContent='선택 봇 따라보기';followButton.type='button';followButton.onclick=()=>{this.following=!this.following;followButton.textContent=this.following?(this.spectating?'전체 판 보기':'내 화면으로'):'선택 봇 따라보기';this.follow(this.following?this.selected:null);};
   const spectator=document.createElement('button');spectator.type='button';spectator.textContent='14봇 관전 시작';spectator.onclick=()=>this.spectate();
