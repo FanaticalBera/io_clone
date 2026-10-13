@@ -1,0 +1,36 @@
+{
+  "medium16": {
+    "cuts": 13,
+    "failures": [
+      5,
+      6,
+      14
+    ]
+  },
+  "newLosses": 0,
+  "expandedCases": 1024,
+  "expandedCuts": 155,
+  "expandedChangedOutcomes": 0,
+  "observerChecks": 44,
+  "knownSeed1": {
+    "tick": 76,
+    "attackTicks": 0,
+    "humanAlive": true
+  },
+  "attack120": {
+    "starts": 200,
+    "kills": 76
+  },
+  "attack240": {
+    "starts": 440,
+    "kills": 176
+  },
+  "wallDeaths": 0,
+  "cost": {
+    "source": "evidence/bot-phase04-wall-fix/performance.json",
+    "newTiming": false,
+    "baselineMsPerTick": 3.1535636041666653,
+    "changeVersusPreWallPercent": 0.7613385780119719,
+    "scope": "Approved unchanged gameplay120s timing, observer/HUD off; not diagnostic elapsed time or a240s retiming"
+  }
+}

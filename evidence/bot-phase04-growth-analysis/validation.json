@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-13",
+  "status": "READ_ONLY_ANALYSIS_COMPLETE_ONE_PROPOSAL_NOT_IMPLEMENTED",
+  "sourceCommit": "a535bf7",
+  "referenceCorrection": "269c8c1 records baseline analysis; the actual wall selection fix is a535bf7",
+  "seeds": [4, 19, 73, 11, 31, 47, 101, 137],
+  "main": {"bots": 14, "radius": 56, "spawnRadius": 1, "safeRespawn": true, "ticks": 7200, "checkpointTicks": 3600, "nativeRuns": 8, "instrumentedRuns": 8},
+  "equivalence": "All eight full240s trajectory/native trace/memory/next RNG/reservation proofs identical. All120s checkpoints match approved wall-fix source. Capture/death/plan/holding/accounting rows also match.",
+  "shadowControlChecks": 10770,
+  "shadowControlScope": "Every real planExpansion entry: clone original memory and action RNG state; unchanged-size full candidate batch, selected index, draws and next RNG reproduce native",
+  "counterfactualScope": "Changed geometry only in frozen local shadow source, never native decisions. Original path/trail/proximity/departure/perimeter/return filters retained. Future completion not verified.",
+  "accounting": "Every actor and resolved tick reconciled exactly; neutral acquisition/stolen/theft/disconnected loss/death neutralization/spawn grants separated",
+  "human": {"seeds": 8, "configuration": "Human1 + BOT13 as native PracticeSession", "input": "Existing four medium-loop waypoint lists, cyclic reuse", "eliminationStopsPractice": true, "completed240s": 6, "censored": [{"seed":19,"seconds":50.7},{"seed":47,"seconds":101.06666666666666}], "limitation": "Fixed loop human reaches35–36 cells, not the observed skilled human30%; no claim of equivalent pressure environment"},
+  "mandatoryRegressions": {"medium": "Fresh13/16, unchanged failures5/6/14, new losses0", "knownSeed1": "Fresh original memory1 fixture preserved: attack0 ticks, human alive at76", "expanded": "Fresh1024 cases,155 cuts, every binary outcome unchanged;44 observer proofs"},
+  "typecheck": "Strict passed for three analysis scripts, observed shared strategy, shadow shared strategy",
+  "cost": "No new timing: gameplay unchanged; preserve approved native120s same-session48 samples at3.15356ms/tick, +0.76% versus pre-wall. Analysis wall-clock is not game performance.",
+  "notRerun": "Whole Vitest, PC E2E and game build; no app/source/test/dist changes",
+  "proposal": "Keep original candidates; when holdings>=64 and observed heads0, add at most one length+2/width+1 variant per original anchor/direction/shape. Existing score and safety thresholds retained. Approval pending.",
+  "deferred": ["Wall-parallel edge routes", "417 prefix perimeter interruptions", "NO_APPROACH and distance12/Hunter questions", "Population, spawn and respawn rule changes"],
+  "master": "133ee1f unchanged and clean; no remote push",
+  "rawRoots": [".local/bot-phase04-growth-analysis", ".local/bot-growth-expanded-check"]
+}
