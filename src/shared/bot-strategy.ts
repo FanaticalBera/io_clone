@@ -10,7 +10,7 @@ import {damageExpansionAnchors,expansionDamageBonus} from './bot-damage.js';
 import {emotionIndividual,memoryValuable,grudgeBonus,grudgeAmount} from './bot-emotion.js';
 import {survivalCounterAllowed} from './bot-policy.js';
 import {evaluateShadowOpportunities,shadowTravelSeconds} from './bot-opportunity.js';
-import {expansionSides,EXPANSION_SHAPES} from './bot-expansion.js';
+import {expansionSides,EXPANSION_SHAPES,crowdedExpansionShape} from './bot-expansion.js';
 import {evaluateDepartureSafety,recordDepartureSafety,expansionPerimeterBlocked} from './bot-immediate-safety.js';
 import {selectReposition,startReposition} from './bot-reposition.js';
 import {decisionTraces,attackPolicies} from './bot-runtime.js';
@@ -222,9 +222,10 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const widthSpan=quietLarge?(loopWidth+2)*BOT_LOOP_CEILING.dimensionScale-(loopWidth-1):3;
   let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*lengthSpan));
   let width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*widthSpan));
-  const bevel=crowded?0:Math.floor(memory.random()*3);
+  const crowdedShape=crowded?crowdedExpansionShape(obs.self.personality==='DEFEND',anchorIndex*6+d+memory.seq):null;
+  const bevel=crowded?(crowdedShape==='BEVEL'?1:0):Math.floor(memory.random()*3);
   const naturalClosure=!crowded&&memory.random()<.35;
-  const shape:ExpansionShape=obs.self.personality==='DEFEND'||crowded?(naturalClosure?'NATURAL':bevel?'BEVEL':'RHOMBUS'):EXPANSION_SHAPES[(anchorIndex*6+d+memory.seq)%EXPANSION_SHAPES.length];
+  const shape:ExpansionShape=crowdedShape??(obs.self.personality==='DEFEND'?(naturalClosure?'NATURAL':bevel?'BEVEL':'RHOMBUS'):EXPANSION_SHAPES[(anchorIndex*6+d+memory.seq)%EXPANSION_SHAPES.length]);
   // Observed pressure retains the original explorer downscale. Quiet plans
   // use their approved ceilings; head/proximity predicates are unchanged.
   const nearestHead=Math.min(...obs.others.map(p=>hexDistance(anchor,obs.map.cells[p.cellId])));

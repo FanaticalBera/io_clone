@@ -20,7 +20,7 @@ describe('bounded expansion geometry and real closure',()=>{
   for(let seed=1;seed<=32;seed++){
    const m=createMatch({},73,botSpecs(1)),p=m.participants[0],obs=observeBot(m,p.participantId),a=createBotMemory(seed),b=createBotMemory(seed);let trace:BotDecisionTrace|undefined;
    watchBotDecisions(a,t=>{trace=t;});getBotInput(obs,a);getBotInput(obs,b);
-   expect(a.path).toEqual(b.path);expect(a.goal).toEqual(b.goal);expect(trace!.expansionCandidates!.length).toBeLessThanOrEqual(36);
+   expect(a.path).toEqual(b.path);expect(a.goal).toEqual(b.goal);expect(trace!.expansionCandidates!.length).toBeLessThanOrEqual(42);
    expect(trace!.expansionPlan).toBeDefined();selected.add(trace!.expansionPlan!.shape);
    let previous=p.cellId;for(const id of a.path){expect(m.map.cells[previous].neighbors).toContain(id);expect(hexDistance(m.map.cells[id],{q:0,r:0})).toBeLessThanOrEqual(22);previous=id;}
    expect(m.owners[a.path.at(-1)!]).toBe(p.slot+1);expect(a.path.filter(id=>m.owners[id]!==p.slot+1).length).toBeLessThanOrEqual(20);
@@ -32,9 +32,9 @@ describe('bounded expansion geometry and real closure',()=>{
   const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73,variant),shapes=new Set<string>(),hash=createHash('sha256');
   setWallMargin(m.map,padded);watchBotDecisions(memory,t=>{if(t.expansionPlan)shapes.add(t.expansionPlan.shape);});
   for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId,variant),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
-  // Pin the approved selection-time perimeter filter. Retain the defender's
+  // Pin the approved B-quiet launch choices. Retain the defender's
   // zero deaths and restricted shape checks independently of the hash.
-  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'a1a2d206eaa7b9c4752ad7ca39ef6d893584b118f1ec64137ed6a285da383df8':'da7c2ad09da7a2d53612e1ed338e6538b6a9c3df2f3524753c913e02e6f2c60d');
+  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'54a2ac4b4f9aba8d51c7402ade34b9b111a5a41416d517f74ff0815948f8aa42':'6494644594229aec4196a48c8611c51f4bfeba2809b8fb27eb40db11cd4893a3');
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{

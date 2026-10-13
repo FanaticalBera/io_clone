@@ -4,8 +4,8 @@ import {createMatch} from '../baseline.js';
 import {createBotMemory,getBotInput,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {botSpecs} from '../bot-fixtures.js';
 
-// Frozen pre-experiment timing regression, explicitly baseline. Combined
-// scheduling is evaluated separately in experiment behavior evidence.
+// Assert the real expansion-to-interception transition, not a fixed tick.
+// Approved shape changes can begin that same interception earlier.
 // Production practice/room seeding, normal spawn and movement throughout.
 // No state, territory, trail, goal or position is injected.
 it.each(['baseline','combined'] as const)('seed 78 %s: thief intercepts a clear three-cell cut instead of turning into another expansion',variant=>{
@@ -14,8 +14,7 @@ it.each(['baseline','combined'] as const)('seed 78 %s: thief intercepts a clear 
  for(let tick=0;tick<150;tick++){
   trace=undefined;const inputs=new Map();m.participants.slice(1).forEach((bot,i)=>{const input=getBotInput(observeBot(m,bot.participantId,variant),mem[i]);if(input)inputs.set(bot.participantId,input);});
   const decided=trace as BotDecisionTrace|undefined;
-  if(variant==='combined'&&decided&&['EXPAND','STEAL'].includes(decided.from)&&decided.to==='ATTACK'&&decided.attackSlot===0){expect(human.trailCells.size).toBeGreaterThan(0);intercepted=true;}
-  if(variant==='baseline'&&m.tick===78){const t=trace as BotDecisionTrace|undefined;expect(human.trailCells.size).toBeGreaterThan(0);expect(t?.from).toBe('EXPAND');expect(t?.to).toBe('ATTACK');expect(t?.attackSlot).toBe(0);intercepted=true;}
+  if(decided&&['EXPAND','STEAL'].includes(decided.from)&&decided.to==='ATTACK'&&decided.attackSlot===0){expect(human.trailCells.size).toBeGreaterThan(0);intercepted=true;}
   stepMatch(m,inputs);
   if(intercepted&&human.lifeState==='ELIMINATED'&&p.trailCells.size===0&&m.owners[p.cellId]===p.slot+1)break;
  }
