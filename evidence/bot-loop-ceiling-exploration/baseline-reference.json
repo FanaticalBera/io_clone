@@ -1,0 +1,47 @@
+{
+  "commit": "c8f825d5e0eaf9a96a730a950945344380433307",
+  "ticks": 3600,
+  "definition": "sha256 JSON {trajectoryHash,equivalenceProof,director,holding}; verified against existing c8f825d accepted raw before saving",
+  "rows": [
+    {
+      "seed": 4,
+      "trajectoryHash": "7aacd18443d7f0dc4e71d0e2e4a84f8fa0046ae300eac750b316dac82906b34a",
+      "proofDigest": "bbe37c73e2d0f226969874ad47bc39a6b8dea3539fbf728f1da3ef8b6fef8cc6"
+    },
+    {
+      "seed": 19,
+      "trajectoryHash": "6a0a395b613ec64f012dfefee56a082db0a369bb1d7f69513da8c449101cd68d",
+      "proofDigest": "d2432963bfc9a25fadb677eecc6ae8364e547505040740939526bf3bd7304c1b"
+    },
+    {
+      "seed": 73,
+      "trajectoryHash": "d15b1d846ccd5b81bd129b06d12152da58bce6acb57d5619e88030322b31088e",
+      "proofDigest": "fe2533d6a1e2c0e37cb79ad2493bd99becf51dcf668431ddad8ead9e9b96acca"
+    },
+    {
+      "seed": 11,
+      "trajectoryHash": "f6802299093ccdc362dc78a7670ce1e6f8034bf780430cf841d0e58448eb506f",
+      "proofDigest": "3d598254d6a4fe9c25b190fa370c9e9c499096db9650c19f5bf34b93acdbb68f"
+    },
+    {
+      "seed": 31,
+      "trajectoryHash": "3a89c8b4373849c38dcaff71451c3e09032ef4623039117252d5b925be7734e3",
+      "proofDigest": "efe14bb40089fecf17379857eb5a8526d81164427239f5cc552c7b8a7ae8eee1"
+    },
+    {
+      "seed": 47,
+      "trajectoryHash": "88f897f840309f0de914faa53b2d1adbd07666d179c0934405845f0a2f976e61",
+      "proofDigest": "cfee459de861ebec584b98e6741ff71be6aa07219a1fe76431ee43c8f8b909a3"
+    },
+    {
+      "seed": 101,
+      "trajectoryHash": "e4ec0e6714de64a4df24c8946dbb9b2a8da3da4a2e524c6b203a5cd899ecf7cf",
+      "proofDigest": "4bae4f8224a3e0c3b54a1dff2db20720d8d6bcbf8229220cb861fb56fdf5556a"
+    },
+    {
+      "seed": 137,
+      "trajectoryHash": "24f1125b8ad3e231dfc91218ad6680321a014caa0f5008927b152cf1f02f4179",
+      "proofDigest": "3911ab4b5c1a20317ee9fb5ee09214eafcb9b8b69aa7384f75b7932796f266ce"
+    }
+  ]
+}

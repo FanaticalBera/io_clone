@@ -21,7 +21,9 @@ const copy=(v:any)=>structuredClone(v),add=(r:any,k:string,n=1)=>r[k]=(r[k]??0)+
 const memHash=(memories:Map<string,any>)=>createHash('sha256').update(JSON.stringify([...memories].map(([id,m])=>[id,{...m,random:undefined}]),(_k,v)=>v instanceof Map?[...v]:v instanceof Set?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v)).digest('hex');
 const old120=human||!['native','off'].includes(sourceKey)?null:JSON.parse(readFileSync('../bot-phase04-wall-fix/native-reference.json','utf8')).reports;
 const all=[];
+const loopAudit=process.argv.includes('--loop-ceiling-audit')?await load(source,'bot-loop-ceiling-audit'):null;
 for(const seed of seeds){
+ const loopCalls:any[]=[];const disposeLoop=loopAudit?.watchLoopCeilingAudit((row:any)=>loopCalls.push(row));
  const hspec={participantId:'local-human',slot:0,nickname:'FIXTURE',kind:'HUMAN'},specs=human?[hspec,...bot.botSpecs(13,1,'bot',{seed,existing:[hspec]})]:bot.botSpecs(14,0,'bot',{seed});
  const match=game.createMatch({mapRadius:56,spawnRadius:1,maxSlots:14},seed,specs);respawn.setSafeBotRespawn(match,true);
  const memories=new Map<string,any>(match.participants.filter((p:any)=>p.kind==='BOT').map((p:any)=>[p.participantId,bot.createBotMemory(identity.botSeed(seed,p.slot),'combined',identity.createBotIdentity(identity.botSeed(seed,p.slot),p.personality))]));
@@ -67,7 +69,7 @@ for(const seed of seeds){
   for(const p of match.participants)if(p.kind==='BOT'&&p.lifeState==='ALIVE'){const r:any=rows.get(p.participantId),escaping=memories.get(p.participantId)?.goal==='ESCAPE';if(escaping)r.escapeTicks++;if(p.territoryCount>=256){r.largeAliveTicks++;if(escaping)r.largeEscapeTicks++;}}
   trajectory.update(JSON.stringify([...inputs]));traceHash.update(JSON.stringify([...latest]));
   for(const p of match.participants.filter((p:any)=>p.kind==='BOT')){const tr=latest.get(p.participantId),m=memories.get(p.participantId);recovery.before(p.participantId,p.lifeId,tr);let e=active.get(p.participantId);
-   if(tr?.expansionPlan){finish(e,'RESELECTED');e={number:++sequence,id:p.participantId,slot:p.slot,life:p.lifeId,personality:p.personality,start:match.tick,end:null,outcome:'OPEN',predicted:tr.expansionPlan.captureSize,external:tr.expansionPlan.externalLength,path:tr.expansionPlan.pathLength,quietLarge:m.expansion?.quietLarge===true,early:false,captureGain:0};plans.push(e);active.set(p.participantId,e);lastExpansion.set(p.participantId,e);}
+   if(tr?.expansionPlan){finish(e,'RESELECTED');e={number:++sequence,id:p.participantId,slot:p.slot,life:p.lifeId,personality:p.personality,start:match.tick,end:null,outcome:'OPEN',predicted:tr.expansionPlan.captureSize,external:tr.expansionPlan.externalLength,path:tr.expansionPlan.pathLength,quietLarge:m.expansion?.quietLarge===true||m.expansion?.quietTrailLimit!==undefined,early:false,captureGain:0};plans.push(e);active.set(p.participantId,e);lastExpansion.set(p.participantId,e);}
    if(e&&tr?.earlyClosure)e.early=true;
    if(e&&(tr?.reason==='PERIMETER_GUARD'||tr?.departure||['ATTACK','REPOSITION','ESCAPE'].includes(m.goal)||m.goal==='RETURN'&&!e.early))finish(e,tr?.safetyOverride??tr?.reason??m.goal);
   }
@@ -84,6 +86,6 @@ for(const seed of seeds){
  for(const e of active.values())finish(e,'CENSORED');
  for(const p of match.participants){const r:any=rows.get(p.participantId);r.final=p.territoryCount;assert.equal(r.initial+r.gained-r.theftLoss-r.otherLiveLoss-r.deathLoss+r.spawnGrants,r.final);}
  const result={seed,arm,sourceKey,human,ticks:match.tick,requestedTicks:ticks,mapCells:match.map.cells.length,holding:holding.snapshot(),rows:[...rows.values()],captures,deaths,plans,planning,controlChecks,contextCalls,checkpoints,trajectoryHash:trajectory.digest('hex'),equivalenceProof:{traceHash:traceHash.digest('hex'),memoryHash:memHash(memories),nextRng:Object.fromEntries([...memories].map(([id])=>[id,nextRandom(id)]))},director:director.botDirector(match).snapshot(),attack:attack.snapshot(),recovery:recovery.snapshot(),humanState:humanActor?{lifeState:humanActor.lifeState,territory:humanActor.territoryCount,deaths:humanActor.deaths}:null};
- recovery.dispose();writeFileSync(resolve(root,name+'-seed-'+seed+'.json'),JSON.stringify(result)+'\n');all.push({seed,ticks:result.ticks,checks:controlChecks,captures:captures.length,deaths:deaths.length,holding:result.holding.total.timeAverageCells,file:name+'-seed-'+seed+'.json'});console.error(JSON.stringify(all.at(-1)));
+ recovery.dispose();disposeLoop?.();writeFileSync(resolve(root,name+'-seed-'+seed+'.json'),JSON.stringify({...result,loopCalls})+'\n');all.push({seed,ticks:result.ticks,checks:controlChecks,captures:captures.length,deaths:deaths.length,holding:result.holding.total.timeAverageCells,file:name+'-seed-'+seed+'.json'});console.error(JSON.stringify(all.at(-1)));
 }
 writeFileSync(resolve(root,name+'-index.json'),JSON.stringify({arm,human,seeds,ticks,reports:all},null,2)+'\n');

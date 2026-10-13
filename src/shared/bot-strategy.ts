@@ -16,7 +16,8 @@ import {selectReposition,startReposition} from './bot-reposition.js';
 import {decisionTraces,attackPolicies} from './bot-runtime.js';
 import {shortestPath,returnPath,travelSeconds,observedHeading,forecastHead} from './bot-navigation.js';
 import {holdingRiskMultiplier} from './bot-holding-risk.js';
-// Candidate enumeration, score arithmetic and RNG draw order are unchanged.
+import {BOT_LOOP_CEILING,quietLoopEligible} from './bot-loop-ceiling.js';
+// Anchor/shape enumeration and existing score terms remain intact.
 const behavior:Record<Personality,{length:number;width:number;attack:number;pointWeight:number;risk:number;trailLimit:number;steal:number;attackRange:number}>={
  EXPAND:{length:5,width:4,attack:0.08,pointWeight:4,risk:0.7,trailLimit:20,steal:0.3,attackRange:6},
  ATTACK:{length:3,width:2,attack:0.85,pointWeight:3,risk:0.4,trailLimit:18,steal:0.5,attackRange:9},
@@ -203,6 +204,8 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  // The explorer's extra reach is for quiet space. Visible opponents keep its
  // footprint at the Phase 1 size even before they enter the crowded radius.
  const cautiousExplorer=obs.self.personality==='EXPAND'&&obs.others.length>0;
+ const quietLarge=BOT_LOOP_CEILING.enabled&&quietLoopEligible(obs),pathLimit=quietLarge?BOT_LOOP_CEILING.pathLimit:24;
+ const trailLimit=quietLarge?settings.trailLimit*BOT_LOOP_CEILING.trailScale:settings.trailLimit;
  const loopLength=cautiousExplorer?Math.min(settings.length,4):settings.length;
  const loopWidth=cautiousExplorer?Math.min(settings.width,3):settings.width;
  const damageBoundary=damageExpansionAnchors(obs,memory.emotion.damage,boundary);
@@ -210,13 +213,15 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  for(const [anchorIndex,anchor] of damageBoundary.anchors.entries())for(let d=0;d<6;d++){
   const prefix=shortestPath(obs.map,obs.self.cellId,id=>id===anchor.id,id=>obs.owners[id]===owner,10);if(!prefix)continue;
   let current=anchor.id;const path=[...prefix];let valid=true,leftHome=false,closed=false;
-  let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*3));
-  let width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*3));
+  const lengthSpan=quietLarge?(loopLength+2)*BOT_LOOP_CEILING.dimensionScale-(loopLength-1):3;
+  const widthSpan=quietLarge?(loopWidth+2)*BOT_LOOP_CEILING.dimensionScale-(loopWidth-1):3;
+  let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*lengthSpan));
+  let width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*widthSpan));
   const bevel=crowded?0:Math.floor(memory.random()*3);
   const naturalClosure=!crowded&&memory.random()<.35;
   const shape:ExpansionShape=obs.self.personality==='DEFEND'||crowded?(naturalClosure?'NATURAL':bevel?'BEVEL':'RHOMBUS'):EXPANSION_SHAPES[(anchorIndex*6+d+memory.seq)%EXPANSION_SHAPES.length];
-  // Only an explorer near observed pressure scales down. Quiet-space reach
-  // and all hard path/trail/proximity limits remain intact.
+  // Observed pressure retains the original explorer downscale. Quiet plans
+  // use their approved ceilings; head/proximity predicates are unchanged.
   const nearestHead=Math.min(...obs.others.map(p=>hexDistance(anchor,obs.map.cells[p.cellId])));
   const downScaled=obs.self.personality==='EXPAND'&&!crowded&&nearestHead<2*(length+width)*.65;
   if(downScaled){length=Math.max(2,length-1);width=Math.max(1,width-1);}
@@ -229,17 +234,17 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   }
   }
   if(valid&&['NATURAL','HOOK','ASYMMETRIC'].includes(shape)&&leftHome&&!closed){
-   const used=new Set(path),back=shortestPath(obs.map,current,id=>obs.owners[id]===owner,id=>!used.has(id)&&!forbidden.has(id),24-path.length);
+   const used=new Set(path),back=shortestPath(obs.map,current,id=>obs.owners[id]===owner,id=>!used.has(id)&&!forbidden.has(id),pathLimit-path.length);
    if(back){path.push(...back);current=back.at(-1)??current;}else valid=false;
   }
   const reject=(reason:string)=>{if(trace){const reasons=trace.expansionRejected??={};reasons[reason]=(reasons[reason]??0)+1;}};
-  if(!valid||path.length>24){reject(!valid?'BLOCKED_PATH':'PATH_BUDGET');continue;}
+  if(!valid||path.length>pathLimit){reject(!valid?'BLOCKED_PATH':'PATH_BUDGET');continue;}
   if(!leftHome||obs.owners[current]!==owner){reject('NOT_CLOSED');continue;}
   const external=path.filter(id=>obs.owners[id]!==owner);
   // Any outside path cell is blocked from the capture flood, so these rejected
   // candidates cannot have zero gain. Keep the same guards/reason order/RNG,
   // but avoid a full-map flood whose result would immediately be discarded.
-  if(external.length>settings.trailLimit||(crowded&&external.length>6)){reject('TRAIL_BUDGET');continue;}
+  if(external.length>trailLimit||(crowded&&external.length>6)){reject('TRAIL_BUDGET');continue;}
   if(obs.others.some(enemy=>external.some(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId])<=2))){reject('NEAR_HEAD');continue;}
   const gain=plannedCapture(obs,path),stolen=gain.filter(id=>obs.owners[id]!==0).length;
   if(!gain.length){reject('NO_GAIN');continue;}
@@ -252,7 +257,7 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   if(trace)(trace.expansionAccepted??=[]).push(shape);
   const baseScore=gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk*holdingRisk-turn*2-excursionRisk*holdingRisk-repeatPenalty+memory.random()*0.5;
   const response=expansionDamageBonus(obs,memory.emotion,gain,baseScore,memory.identity);
-  candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
+  candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance,...(quietLarge?{quietTrailLimit:trailLimit}:{})}});
  }
  const candidateListener=botCandidateListener(memory),ordinals=candidateListener?new Map(candidates.map((c,i)=>[c,i])):undefined;
  candidates.sort((a,b)=>b.score-a.score);

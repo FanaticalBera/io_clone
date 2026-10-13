@@ -1,0 +1,6 @@
+import {readFileSync,writeFileSync,readdirSync,mkdirSync,copyFileSync,existsSync} from 'node:fs';import {resolve,dirname} from 'node:path';import {createHash} from 'node:crypto';
+const root=resolve('../bot-loop-ceiling-range-exploration'),p=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8')),disabled=resolve(root,'disabled-source');if(existsSync(disabled))throw Error('Preserve disabled proof source');
+for(const f of [...readdirSync('src/shared').filter(f=>f.endsWith('.ts')).map(f=>'src/shared/'+f),'package.json','tests/bot-growth-tracker.ts']){const dest=resolve(disabled,f);mkdirSync(dirname(dest),{recursive:true});copyFileSync(f,dest);}
+if(!readFileSync(resolve(disabled,'src/shared/bot-loop-ceiling.ts'),'utf8').includes('enabled:false'))throw Error('Regular experiment must remain disabled pending adoption');
+p.disabled=disabled;p.disabledHashes=Object.fromEntries(readdirSync(resolve(disabled,'src/shared')).filter(f=>f.endsWith('.ts')).sort().map(f=>[f,createHash('sha256').update(readFileSync(resolve(disabled,'src/shared',f))).digest('hex')]));p.runtime='Growth experiment disabled in fresh regular matches; run disabled vs accepted baseline8seed proof.';
+writeFileSync(resolve(root,'protocol.json'),JSON.stringify(p,null,2)+'\n');console.log(disabled);

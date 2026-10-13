@@ -1,7 +1,7 @@
 import {readFileSync,writeFileSync} from 'node:fs';import {resolve} from 'node:path';import {pathToFileURL} from 'node:url';
 const root=resolve(process.argv.find(v=>v.startsWith('--root='))?.slice(7)??'../bot-quiet-growth-review'),protocol=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8')),results=[];
-for(const arm of ['baseline','candidate'] as const){
- const source=arm==='baseline'?protocol.native:protocol.candidate,load=(f:string)=>import(pathToFileURL(resolve(source,'src/shared',f+'.ts')).href);
+for(const arm of protocol.arms??['baseline','candidate']){
+ const source=protocol.arms?protocol[arm]:arm==='baseline'?protocol.native:protocol.candidate,load=(f:string)=>import(pathToFileURL(resolve(source,'src/shared',f+'.ts')).href);
  const [game,bot,identity,territory,emotion,diagnostics]=await Promise.all(['game','bot','bot-identity','territory','bot-emotion','bot-reclaim-diagnostics'].map(load));
  const m=game.createMatch({mapRadius:28},19,bot.botSpecs(3)),[a,b,c]=m.participants,id=(q:number,r=0)=>m.map.byKey.get(q+','+r)!;
  for(const p of m.participants)territory.neutralizeTerritory(m,p);a.personality='DEFEND';a.cellId=id(0);b.cellId=id(25);c.cellId=id(-25);
