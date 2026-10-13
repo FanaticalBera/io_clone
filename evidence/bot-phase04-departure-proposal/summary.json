@@ -1,0 +1,836 @@
+{
+  "sourceCommit": "6c307e34184eaebbcd81a2dffc143f9b3a0af1fd",
+  "sourceManifestHash": "417f693ee74f94799fd17d9dd3e55cd4491ede71cbbc64004ddb815c825aa761",
+  "protocol": {
+    "seed": 115,
+    "memorySeed": 7,
+    "radius": 22,
+    "spawnRadius": 2,
+    "humanSlot": 0,
+    "botSlot": 1,
+    "identity": true,
+    "director": true,
+    "scenarios": 16
+  },
+  "window": {
+    "start": 4,
+    "end": 10,
+    "caseTicks": 28
+  },
+  "rawSha256": "157854100a6d3b536a9d7a4096a8ed5eb3489819d60ba6dc7b3bbb4b31b435c8",
+  "measuredBehavior": "Original 6c307e3 only; neither proposal implemented",
+  "cases": [
+    {
+      "id": 5,
+      "personality": "ATTACK",
+      "route": 1,
+      "allRecordedBlockTicks": [
+        4
+      ],
+      "firstActualExposedTrailTick": 21,
+      "firstRecordedAttackCandidate": {
+        "tick": 25,
+        "candidates": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4164774945333543,
+            "returnTime": 1.0666666666666667,
+            "returnSeconds": 0.23809523809523808,
+            "etaMargin": 0.25
+          }
+        ]
+      },
+      "t4": {
+        "tick": 4,
+        "decisionDue": false,
+        "nextDecisionTickBefore": 7,
+        "actualHumanTrailCells": [],
+        "observedHumanTrailCells": [],
+        "goalBefore": "EXPAND",
+        "pathBefore": [
+          743,
+          699,
+          700,
+          701,
+          658,
+          657,
+          656,
+          699
+        ],
+        "boundary": [
+          653,
+          654,
+          655,
+          696,
+          699,
+          740,
+          744,
+          785,
+          788,
+          829,
+          830,
+          831
+        ],
+        "originalFirstExteriorCell": 700,
+        "originalBoundaryAnchors": [
+          699,
+          744
+        ],
+        "actor": {
+          "cell": 743,
+          "q": -16,
+          "r": 0,
+          "owner": 2,
+          "boundary": false,
+          "nearestBoundaryDistance": 1,
+          "originalBoundaryAnchorDistance": 1
+        },
+        "fallbackCell744": {
+          "cell": 744,
+          "q": -15,
+          "r": 0,
+          "owner": 2,
+          "boundary": true,
+          "nearestBoundaryDistance": 0,
+          "originalBoundaryAnchorDistance": 0
+        },
+        "fallbackProjection": {
+          "seconds": 1,
+          "cells": [
+            {
+              "cell": 743,
+              "q": -16,
+              "r": 0,
+              "owner": 2,
+              "boundary": false,
+              "nearestBoundaryDistance": 1,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 744,
+              "q": -15,
+              "r": 0,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 699,
+              "q": -15,
+              "r": -1,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 655,
+              "q": -15,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 654,
+              "q": -16,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 2
+            }
+          ],
+          "maxOriginalBoundaryAnchorDistance": 2,
+          "allOwned": true
+        },
+        "nextDecisionTickAfter": 7,
+        "goalAfter": "RETURN",
+        "pathAfter": [
+          744
+        ],
+        "candidateEvaluationOccurred": false,
+        "recordedCandidates": [],
+        "reason": "LAUNCH_BLOCKED",
+        "events": [
+          {
+            "type": "tick",
+            "tick": 4,
+            "lifeId": 1,
+            "alive": true,
+            "outside": false
+          },
+          {
+            "type": "check",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            }
+          },
+          {
+            "type": "block",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            },
+            "fallback": [
+              744
+            ]
+          }
+        ]
+      },
+      "t7": {
+        "tick": 7,
+        "reason": "EXPANSION_SCORE",
+        "path": [
+          744,
+          789,
+          833,
+          834,
+          790,
+          745,
+          744
+        ],
+        "anchor": 744
+      },
+      "equivalence": {
+        "originalFrames": true,
+        "probeFrames": true,
+        "director": true,
+        "memory": true,
+        "nextActionRng": true,
+        "frameHash": "851b323bb60eae49c3ead74eed9325e8ff9bfe378642a0e2d7ab465d0aa9fdcd",
+        "memoryHash": "9bfec1f8ca6279df4afee7148b9731fd7c06fec8840b1f8977f7d4bf38891030"
+      }
+    },
+    {
+      "id": 6,
+      "personality": "ATTACK",
+      "route": 2,
+      "allRecordedBlockTicks": [
+        4
+      ],
+      "firstActualExposedTrailTick": 21,
+      "firstRecordedAttackCandidate": {
+        "tick": 25,
+        "candidates": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4164774945333543,
+            "returnTime": 0.9666666666666667,
+            "returnSeconds": 0.23809523809523808,
+            "etaMargin": 0.25
+          }
+        ]
+      },
+      "t4": {
+        "tick": 4,
+        "decisionDue": false,
+        "nextDecisionTickBefore": 7,
+        "actualHumanTrailCells": [],
+        "observedHumanTrailCells": [],
+        "goalBefore": "EXPAND",
+        "pathBefore": [
+          743,
+          699,
+          700,
+          701,
+          658,
+          657,
+          656,
+          699
+        ],
+        "boundary": [
+          653,
+          654,
+          655,
+          696,
+          699,
+          740,
+          744,
+          785,
+          788,
+          829,
+          830,
+          831
+        ],
+        "originalFirstExteriorCell": 700,
+        "originalBoundaryAnchors": [
+          699,
+          744
+        ],
+        "actor": {
+          "cell": 743,
+          "q": -16,
+          "r": 0,
+          "owner": 2,
+          "boundary": false,
+          "nearestBoundaryDistance": 1,
+          "originalBoundaryAnchorDistance": 1
+        },
+        "fallbackCell744": {
+          "cell": 744,
+          "q": -15,
+          "r": 0,
+          "owner": 2,
+          "boundary": true,
+          "nearestBoundaryDistance": 0,
+          "originalBoundaryAnchorDistance": 0
+        },
+        "fallbackProjection": {
+          "seconds": 1,
+          "cells": [
+            {
+              "cell": 743,
+              "q": -16,
+              "r": 0,
+              "owner": 2,
+              "boundary": false,
+              "nearestBoundaryDistance": 1,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 744,
+              "q": -15,
+              "r": 0,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 699,
+              "q": -15,
+              "r": -1,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 655,
+              "q": -15,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 654,
+              "q": -16,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 2
+            }
+          ],
+          "maxOriginalBoundaryAnchorDistance": 2,
+          "allOwned": true
+        },
+        "nextDecisionTickAfter": 7,
+        "goalAfter": "RETURN",
+        "pathAfter": [
+          744
+        ],
+        "candidateEvaluationOccurred": false,
+        "recordedCandidates": [],
+        "reason": "LAUNCH_BLOCKED",
+        "events": [
+          {
+            "type": "tick",
+            "tick": 4,
+            "lifeId": 1,
+            "alive": true,
+            "outside": false
+          },
+          {
+            "type": "check",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            }
+          },
+          {
+            "type": "block",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            },
+            "fallback": [
+              744
+            ]
+          }
+        ]
+      },
+      "t7": {
+        "tick": 7,
+        "reason": "EXPANSION_SCORE",
+        "path": [
+          744,
+          789,
+          833,
+          834,
+          790,
+          745,
+          744
+        ],
+        "anchor": 744
+      },
+      "equivalence": {
+        "originalFrames": true,
+        "probeFrames": true,
+        "director": true,
+        "memory": true,
+        "nextActionRng": true,
+        "frameHash": "ac357bc1b2ede481a5228d21ae5dd3b179af4b59e81590a713c6d31bde8b4ed3",
+        "memoryHash": "c0b6f14b31ffffa4fbc68633a7da3251afd4aff06728aa23075394ebbe883537"
+      }
+    },
+    {
+      "id": 13,
+      "personality": "SEEK_POINT",
+      "route": 1,
+      "allRecordedBlockTicks": [
+        4
+      ],
+      "firstActualExposedTrailTick": 21,
+      "firstRecordedAttackCandidate": {
+        "tick": 25,
+        "candidates": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4164774945333543,
+            "returnTime": 1.0666666666666667,
+            "returnSeconds": 0.23809523809523808,
+            "etaMargin": 0.1
+          }
+        ]
+      },
+      "t4": {
+        "tick": 4,
+        "decisionDue": false,
+        "nextDecisionTickBefore": 7,
+        "actualHumanTrailCells": [],
+        "observedHumanTrailCells": [],
+        "goalBefore": "EXPAND",
+        "pathBefore": [
+          743,
+          699,
+          700,
+          701,
+          658,
+          657,
+          656,
+          699
+        ],
+        "boundary": [
+          653,
+          654,
+          655,
+          696,
+          699,
+          740,
+          744,
+          785,
+          788,
+          829,
+          830,
+          831
+        ],
+        "originalFirstExteriorCell": 700,
+        "originalBoundaryAnchors": [
+          699,
+          744
+        ],
+        "actor": {
+          "cell": 743,
+          "q": -16,
+          "r": 0,
+          "owner": 2,
+          "boundary": false,
+          "nearestBoundaryDistance": 1,
+          "originalBoundaryAnchorDistance": 1
+        },
+        "fallbackCell744": {
+          "cell": 744,
+          "q": -15,
+          "r": 0,
+          "owner": 2,
+          "boundary": true,
+          "nearestBoundaryDistance": 0,
+          "originalBoundaryAnchorDistance": 0
+        },
+        "fallbackProjection": {
+          "seconds": 1,
+          "cells": [
+            {
+              "cell": 743,
+              "q": -16,
+              "r": 0,
+              "owner": 2,
+              "boundary": false,
+              "nearestBoundaryDistance": 1,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 744,
+              "q": -15,
+              "r": 0,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 699,
+              "q": -15,
+              "r": -1,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 655,
+              "q": -15,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 654,
+              "q": -16,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 2
+            }
+          ],
+          "maxOriginalBoundaryAnchorDistance": 2,
+          "allOwned": true
+        },
+        "nextDecisionTickAfter": 7,
+        "goalAfter": "RETURN",
+        "pathAfter": [
+          744
+        ],
+        "candidateEvaluationOccurred": false,
+        "recordedCandidates": [],
+        "reason": "LAUNCH_BLOCKED",
+        "events": [
+          {
+            "type": "tick",
+            "tick": 4,
+            "lifeId": 1,
+            "alive": true,
+            "outside": false
+          },
+          {
+            "type": "check",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            }
+          },
+          {
+            "type": "block",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            },
+            "fallback": [
+              744
+            ]
+          }
+        ]
+      },
+      "t7": {
+        "tick": 7,
+        "reason": "EXPANSION_SCORE",
+        "path": [
+          744,
+          789,
+          833,
+          834,
+          790,
+          745,
+          744
+        ],
+        "anchor": 744
+      },
+      "equivalence": {
+        "originalFrames": true,
+        "probeFrames": true,
+        "director": true,
+        "memory": true,
+        "nextActionRng": true,
+        "frameHash": "fceaaf9328842d75b27b8313187c393d26eb5f35cd729ec0d557baafd0a436ca",
+        "memoryHash": "4ed1ce280440d47c141c6aaf1fda36956383bccb5e0e6e1e07da0617adc3d4b4"
+      }
+    },
+    {
+      "id": 14,
+      "personality": "SEEK_POINT",
+      "route": 2,
+      "allRecordedBlockTicks": [
+        4
+      ],
+      "firstActualExposedTrailTick": 21,
+      "firstRecordedAttackCandidate": {
+        "tick": 25,
+        "candidates": [
+          {
+            "target": 612,
+            "slot": 0,
+            "distance": 5,
+            "interrupt": true,
+            "reason": "VICTIM_RETURNS_FIRST",
+            "seconds": 1.4164774945333543,
+            "returnTime": 0.9666666666666667,
+            "returnSeconds": 0.23809523809523808,
+            "etaMargin": 0.1
+          }
+        ]
+      },
+      "t4": {
+        "tick": 4,
+        "decisionDue": false,
+        "nextDecisionTickBefore": 7,
+        "actualHumanTrailCells": [],
+        "observedHumanTrailCells": [],
+        "goalBefore": "EXPAND",
+        "pathBefore": [
+          743,
+          699,
+          700,
+          701,
+          658,
+          657,
+          656,
+          699
+        ],
+        "boundary": [
+          653,
+          654,
+          655,
+          696,
+          699,
+          740,
+          744,
+          785,
+          788,
+          829,
+          830,
+          831
+        ],
+        "originalFirstExteriorCell": 700,
+        "originalBoundaryAnchors": [
+          699,
+          744
+        ],
+        "actor": {
+          "cell": 743,
+          "q": -16,
+          "r": 0,
+          "owner": 2,
+          "boundary": false,
+          "nearestBoundaryDistance": 1,
+          "originalBoundaryAnchorDistance": 1
+        },
+        "fallbackCell744": {
+          "cell": 744,
+          "q": -15,
+          "r": 0,
+          "owner": 2,
+          "boundary": true,
+          "nearestBoundaryDistance": 0,
+          "originalBoundaryAnchorDistance": 0
+        },
+        "fallbackProjection": {
+          "seconds": 1,
+          "cells": [
+            {
+              "cell": 743,
+              "q": -16,
+              "r": 0,
+              "owner": 2,
+              "boundary": false,
+              "nearestBoundaryDistance": 1,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 744,
+              "q": -15,
+              "r": 0,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 699,
+              "q": -15,
+              "r": -1,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 0
+            },
+            {
+              "cell": 655,
+              "q": -15,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 1
+            },
+            {
+              "cell": 654,
+              "q": -16,
+              "r": -2,
+              "owner": 2,
+              "boundary": true,
+              "nearestBoundaryDistance": 0,
+              "originalBoundaryAnchorDistance": 2
+            }
+          ],
+          "maxOriginalBoundaryAnchorDistance": 2,
+          "allOwned": true
+        },
+        "nextDecisionTickAfter": 7,
+        "goalAfter": "RETURN",
+        "pathAfter": [
+          744
+        ],
+        "candidateEvaluationOccurred": false,
+        "recordedCandidates": [],
+        "reason": "LAUNCH_BLOCKED",
+        "events": [
+          {
+            "type": "tick",
+            "tick": 4,
+            "lifeId": 1,
+            "alive": true,
+            "outside": false
+          },
+          {
+            "type": "check",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            }
+          },
+          {
+            "type": "block",
+            "tick": 4,
+            "result": {
+              "blocked": true,
+              "reason": "PREDICTED_OVERLAP",
+              "enemySlot": 0,
+              "firstCell": 700,
+              "entrySeconds": 0.3990360113882503,
+              "prefilterCells": 7,
+              "consideredHeads": 1,
+              "skipped": false
+            },
+            "fallback": [
+              744
+            ]
+          }
+        ]
+      },
+      "t7": {
+        "tick": 7,
+        "reason": "EXPANSION_SCORE",
+        "path": [
+          744,
+          789,
+          833,
+          834,
+          790,
+          745,
+          744
+        ],
+        "anchor": 744
+      },
+      "equivalence": {
+        "originalFrames": true,
+        "probeFrames": true,
+        "director": true,
+        "memory": true,
+        "nextActionRng": true,
+        "frameHash": "ce6b8db2c3676d1aada391fa8e3b8063f5d74674286ef907862bf9cebfde7191",
+        "memoryHash": "0b9ba234ec0063cba9864f08ed04c9a2c36794265cb1fe55d933384df3c67925"
+      }
+    }
+  ]
+}
