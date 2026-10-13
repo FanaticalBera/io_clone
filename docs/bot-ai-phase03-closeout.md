@@ -8,7 +8,9 @@
 
 origin/master를 fetch한 결과 로컬·원격 master는 모두960f678이었다. LAN 친구 대전·마커 변경은 이미 실험 브랜치의ddda67b에 통합되어 있어 `git merge master`는 up to date였다. 사용자 요청대로 최신 상태를 먼저 확인한 다음, 같은8시드에서 승인된 전술 단독 후보와 현재 소스를 재생 비교했다.
 
-4·19·73·11·31·47·101·137, R56·14봇·spawnRadius1·safeRespawn·classic·30Hz·3600tick이다. **8/8의 궤적, 판단 trace, 전체 메모리, 다음 행동 RNG, 디렉터 순서·예약, 사망이 동일**하다. [동일성 증거](../evidence/bot-phase03-closeout/equivalence.json)에 시드별 결과를 남겼다. 이 검증 소스와 아래 빌드를 master 병합 대상으로 한다. 원격 push는 이번 범위가 아니다.
+4·19·73·11·31·47·101·137, R56·14봇·spawnRadius1·safeRespawn·classic·30Hz·3600tick이다. **8/8의 궤적, 판단 trace, 전체 메모리, 다음 행동 RNG, 디렉터 순서·예약, 사망이 동일**하다. [동일성 증거](../evidence/bot-phase03-closeout/equivalence.json)에 시드별 결과를 남겼다.
+
+**master 병합 완료: `42d7213`**, 부모는 master960f678과 검증한 실험 소스7f5fa4d다. 병합 충돌은 없었고 전체 Git tree가 검증한 실험 소스와 동일함을 확인했다. LAN shared 소스·클라이언트 LAN·public 자산은 병합 전 master와 동일하다. production 빌드도 함께 반영했다. 원격 push는 하지 않았다.
 
 ## 승인한 결과와 남은 한계
 

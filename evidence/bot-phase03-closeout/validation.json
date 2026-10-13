@@ -253,5 +253,14 @@
     "all22MarkerAssetsServed": true,
     "port": "ephemeral",
     "serverClosed": true
+  },
+  "masterMerge": {
+    "commit": "42d7213195803959f35cc5cb9a76324b78da4630",
+    "previousMaster": "960f678d65abbbe9f39a92ea3f18e69e8393c161",
+    "verifiedExperiment": "7f5fa4dc372aca418a0677e6f45032d34e6fa650",
+    "wholeGitTreeEqual": true,
+    "lanSharedClientAndPublicUnchanged": true,
+    "conflicts": false,
+    "pushed": false
   }
 }
