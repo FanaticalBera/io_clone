@@ -15,6 +15,7 @@ import {evaluateDepartureSafety,recordDepartureSafety,expansionPerimeterBlocked}
 import {selectReposition,startReposition} from './bot-reposition.js';
 import {decisionTraces,attackPolicies} from './bot-runtime.js';
 import {shortestPath,returnPath,travelSeconds,observedHeading,forecastHead} from './bot-navigation.js';
+import {holdingRiskMultiplier} from './bot-holding-risk.js';
 // Candidate enumeration, score arithmetic and RNG draw order are unchanged.
 const behavior:Record<Personality,{length:number;width:number;attack:number;pointWeight:number;risk:number;trailLimit:number;steal:number;attackRange:number}>={
  EXPAND:{length:5,width:4,attack:0.08,pointWeight:4,risk:0.7,trailLimit:20,steal:0.3,attackRange:6},
@@ -188,6 +189,7 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const rank=(cell:typeof own[number])=>hexDistance(cell,obs.map.cells[obs.self.cellId])-(hexDistance(cell,obs.map.cells[obs.self.cellId])<obs.config.botObservationRange&&cell.neighbors.some(id=>id>=0&&obs.owners[id]!==0&&obs.owners[id]!==owner)?3:0);
   boundary.sort((a,b)=>rank(a)-rank(b));
  }
+ const holdingRisk=holdingRiskMultiplier(obs.self.territoryCount,obs.map.cells.length,obs.roster?.length??obs.config.maxSlots);
  const candidates:{path:number[];score:number;goal:BotGoal;target?:number;slot?:number;expansion?:ExpansionPlan}[]=[];
  memory.attackTarget=null;memory.attackSlot=null;
  const attack=planAttack(obs,memory);if(attack)candidates.push(attack);
@@ -203,16 +205,13 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  const cautiousExplorer=obs.self.personality==='EXPAND'&&obs.others.length>0;
  const loopLength=cautiousExplorer?Math.min(settings.length,4):settings.length;
  const loopWidth=cautiousExplorer?Math.min(settings.width,3):settings.width;
- const quietLarge=own.length>=64&&obs.others.length===0;
- const extraLoops:(()=>void)[]=[];
  const damageBoundary=damageExpansionAnchors(obs,memory.emotion.damage,boundary);
  const boundaryTrace=decisionTraces.get(memory);if(boundaryTrace)boundaryTrace.damageBoundary={anchors:damageBoundary.damageAnchors,unreachable:damageBoundary.unreachable};
  for(const [anchorIndex,anchor] of damageBoundary.anchors.entries())for(let d=0;d<6;d++){
   const prefix=shortestPath(obs.map,obs.self.cellId,id=>id===anchor.id,id=>obs.owners[id]===owner,10);if(!prefix)continue;
-  const rawLength=crowded?1+Math.floor(memory.random()*2):Math.floor(loopLength-1+memory.random()*3);
-  const rawWidth=crowded?1:Math.floor(loopWidth-1+memory.random()*3);
-  let length=crowded?rawLength:Math.max(2,rawLength);
-  let width=crowded?1:Math.max(1,rawWidth);
+  let current=anchor.id;const path=[...prefix];let valid=true,leftHome=false,closed=false;
+  let length=crowded?1+Math.floor(memory.random()*2):Math.max(2,Math.floor(loopLength-1+memory.random()*3));
+  let width=crowded?1:Math.max(1,Math.floor(loopWidth-1+memory.random()*3));
   const bevel=crowded?0:Math.floor(memory.random()*3);
   const naturalClosure=!crowded&&memory.random()<.35;
   const shape:ExpansionShape=obs.self.personality==='DEFEND'||crowded?(naturalClosure?'NATURAL':bevel?'BEVEL':'RHOMBUS'):EXPANSION_SHAPES[(anchorIndex*6+d+memory.seq)%EXPANSION_SHAPES.length];
@@ -221,8 +220,6 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const nearestHead=Math.min(...obs.others.map(p=>hexDistance(anchor,obs.map.cells[p.cellId])));
   const downScaled=obs.self.personality==='EXPAND'&&!crowded&&nearestHead<2*(length+width)*.65;
   if(downScaled){length=Math.max(2,length-1);width=Math.max(1,width-1);}
-  const evaluateLoop=(length:number,width:number,large=false)=>{
-  let current=anchor.id;const path=[...prefix];let valid=true,leftHome=false,closed=false;
   const trace=decisionTraces.get(memory);if(trace)(trace.expansionCandidates??=[]).push(shape);
   const sides=expansionSides(shape,d,length,width,bevel);
   for(const [direction,length]of sides){if(!valid||closed)break;for(let step=0;step<length;step++){
@@ -236,17 +233,16 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
    if(back){path.push(...back);current=back.at(-1)??current;}else valid=false;
   }
   const reject=(reason:string)=>{if(trace){const reasons=trace.expansionRejected??={};reasons[reason]=(reasons[reason]??0)+1;}};
-  if(!valid||path.length>24){reject(!valid?'BLOCKED_PATH':'PATH_BUDGET');return;}
-  if(!leftHome||obs.owners[current]!==owner){reject('NOT_CLOSED');return;}
+  if(!valid||path.length>24){reject(!valid?'BLOCKED_PATH':'PATH_BUDGET');continue;}
+  if(!leftHome||obs.owners[current]!==owner){reject('NOT_CLOSED');continue;}
   const external=path.filter(id=>obs.owners[id]!==owner);
   // Any outside path cell is blocked from the capture flood, so these rejected
   // candidates cannot have zero gain. Keep the same guards/reason order/RNG,
   // but avoid a full-map flood whose result would immediately be discarded.
-  if(external.length>settings.trailLimit||(crowded&&external.length>6)){reject('TRAIL_BUDGET');return;}
-  if(obs.others.some(enemy=>external.some(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId])<=2))){reject('NEAR_HEAD');return;}
-  if(large&&candidates.some(c=>c.expansion&&c.path.length===path.length&&c.path.every((id,i)=>id===path[i])))return;
+  if(external.length>settings.trailLimit||(crowded&&external.length>6)){reject('TRAIL_BUDGET');continue;}
+  if(obs.others.some(enemy=>external.some(id=>hexDistance(obs.map.cells[id],obs.map.cells[enemy.cellId])<=2))){reject('NEAR_HEAD');continue;}
   const gain=plannedCapture(obs,path),stolen=gain.filter(id=>obs.owners[id]!==0).length;
-  if(!gain.length){reject('NO_GAIN');return;}
+  if(!gain.length){reject('NO_GAIN');continue;}
   const risk=external.reduce((sum,id)=>sum+obs.others.reduce((danger,p)=>danger+Math.max(0,4-hexDistance(obs.map.cells[id],obs.map.cells[p.cellId])),0),0);
   const first=obs.map.cells[path[0]??anchor.id].center,heading=normalizeDirection(first.x-obs.self.position.x,first.y-obs.self.position.y);
   const turn=heading?1-(heading.x*obs.self.direction.x+heading.y*obs.self.direction.y):0;
@@ -254,16 +250,10 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
   const excursionRisk=obs.self.personality==='EXPAND'?Math.max(0,(external.length-threatDistance)/obs.config.moveCellsPerSecond)*settings.risk*2:0;
   const repeatPenalty=obs.self.personality!=='DEFEND'&&memory.lastExpansionShape===shape?1.5:0;
   if(trace)(trace.expansionAccepted??=[]).push(shape);
-  const baseScore=gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk-turn*2-excursionRisk-repeatPenalty+memory.random()*0.5;
+  const baseScore=gain.length*(obs.self.personality==='EXPAND'?1.25:1)+stolen*settings.steal-path.length*0.35-risk*settings.risk*holdingRisk-turn*2-excursionRisk*holdingRisk-repeatPenalty+memory.random()*0.5;
   const response=expansionDamageBonus(obs,memory.emotion,gain,baseScore,memory.identity);
-  candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance,...(large?{quietLarge:true}:{})}});
-  };
-  evaluateLoop(length,width);
-  if(quietLarge)extraLoops.push(()=>evaluateLoop(Math.max(2,rawLength+2),Math.max(1,rawWidth+1),true));
+  candidates.push({path,score:baseScore+response.bonus,goal:stolen>gain.length/2?'STEAL':'EXPAND',expansion:{response,anchor:anchor.id,shape,pathLength:path.length,externalLength:external.length,captureSize:gain.length,stolenCells:stolen,earlyClosed:false,downScaled,threatDistance}});
  }
- // Complete every original candidate and its RNG draws before adding variants.
- // Original paths/scores remain available even when all larger loops fail.
- for(const extra of extraLoops)extra();
  const candidateListener=botCandidateListener(memory),ordinals=candidateListener?new Map(candidates.map((c,i)=>[c,i])):undefined;
  candidates.sort((a,b)=>b.score-a.score);
  const evaluated=decisionTraces.get(memory);if(evaluated)evaluated.expansionScores=candidates.map(c=>({shape:c.expansion?.shape,goal:c.goal,score:c.score,response:c.expansion?.response,anchor:c.expansion?.anchor}));

@@ -1,0 +1,66 @@
+{
+  "allEightTrajectoryTraceMemoryRngDirectorEqual": true,
+  "primaryTicks": 3600,
+  "reference": {
+    "mapRadius": 56,
+    "mapCells": 9577,
+    "participants": 14,
+    "fairQuota": 684.0714285714286,
+    "startQuotaRatio": 0.3742299258640493
+  },
+  "onlyBehaviorFilesVersusA535": [
+    "bot-holding-risk.ts",
+    "bot-strategy.ts",
+    "bot-tactical.ts"
+  ],
+  "rows": [
+    {
+      "seed": 4,
+      "absolute": "7aacd18443d7f0dc4e71d0e2e4a84f8fa0046ae300eac750b316dac82906b34a",
+      "ratio": "7aacd18443d7f0dc4e71d0e2e4a84f8fa0046ae300eac750b316dac82906b34a",
+      "identical": true
+    },
+    {
+      "seed": 19,
+      "absolute": "6a0a395b613ec64f012dfefee56a082db0a369bb1d7f69513da8c449101cd68d",
+      "ratio": "6a0a395b613ec64f012dfefee56a082db0a369bb1d7f69513da8c449101cd68d",
+      "identical": true
+    },
+    {
+      "seed": 73,
+      "absolute": "d15b1d846ccd5b81bd129b06d12152da58bce6acb57d5619e88030322b31088e",
+      "ratio": "d15b1d846ccd5b81bd129b06d12152da58bce6acb57d5619e88030322b31088e",
+      "identical": true
+    },
+    {
+      "seed": 11,
+      "absolute": "f6802299093ccdc362dc78a7670ce1e6f8034bf780430cf841d0e58448eb506f",
+      "ratio": "f6802299093ccdc362dc78a7670ce1e6f8034bf780430cf841d0e58448eb506f",
+      "identical": true
+    },
+    {
+      "seed": 31,
+      "absolute": "3a89c8b4373849c38dcaff71451c3e09032ef4623039117252d5b925be7734e3",
+      "ratio": "3a89c8b4373849c38dcaff71451c3e09032ef4623039117252d5b925be7734e3",
+      "identical": true
+    },
+    {
+      "seed": 47,
+      "absolute": "88f897f840309f0de914faa53b2d1adbd07666d179c0934405845f0a2f976e61",
+      "ratio": "88f897f840309f0de914faa53b2d1adbd07666d179c0934405845f0a2f976e61",
+      "identical": true
+    },
+    {
+      "seed": 101,
+      "absolute": "e4ec0e6714de64a4df24c8946dbb9b2a8da3da4a2e524c6b203a5cd899ecf7cf",
+      "ratio": "e4ec0e6714de64a4df24c8946dbb9b2a8da3da4a2e524c6b203a5cd899ecf7cf",
+      "identical": true
+    },
+    {
+      "seed": 137,
+      "absolute": "24f1125b8ad3e231dfc91218ad6680321a014caa0f5008927b152cf1f02f4179",
+      "ratio": "24f1125b8ad3e231dfc91218ad6680321a014caa0f5008927b152cf1f02f4179",
+      "identical": true
+    }
+  ]
+}

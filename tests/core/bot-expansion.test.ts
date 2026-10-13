@@ -32,9 +32,9 @@ describe('bounded expansion geometry and real closure',()=>{
   const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73,variant),shapes=new Set<string>(),hash=createHash('sha256');
   setWallMargin(m.map,padded);watchBotDecisions(memory,t=>{if(t.expansionPlan)shapes.add(t.expansionPlan.shape);});
   for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId,variant),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
-  // Pin the approved quiet holdings>=64 larger-candidate experiment. Retain the defender's
+  // Pin the approved selection-time perimeter filter. Retain the defender's
   // zero deaths and restricted shape checks independently of the hash.
-  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'874ad3158e3aacf680413bd437bcf9b3f5a9836d4475891c8811ccde72aec732':'e4babce17355d20b0d8bbd80ac30de079f85d37d3e19d9d60437773c64f3c05c');
+  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'a1a2d206eaa7b9c4752ad7ca39ef6d893584b118f1ec64137ed6a285da383df8':'da7c2ad09da7a2d53612e1ed338e6538b6a9c3df2f3524753c913e02e6f2c60d');
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{

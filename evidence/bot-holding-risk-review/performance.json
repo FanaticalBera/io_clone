@@ -1,0 +1,815 @@
+{
+  "method": {
+    "sameSession": true,
+    "rounds": 3,
+    "ticks": 3600,
+    "warmup": "Discard one seed19 replay per arm",
+    "order": "Alternate arm order by round+seed index",
+    "aggregation": "Median of three complete8-seed rounds; all48 samples retained; observer/HUD off"
+  },
+  "resourceGuard": {
+    "recordBackground": false,
+    "idleWaits": 0,
+    "discardedOverlaps": 0,
+    "overlappingRows": 0,
+    "probe": "Check external Vitest/Playwright presence before/after every timing; exclude overlap regardless of elapsed value"
+  },
+  "warmup": {
+    "seed": 19,
+    "ticks": 3600,
+    "perArm": 1,
+    "discarded": true
+  },
+  "summary": {
+    "baseline": {
+      "roundMsPerTick": [
+        3.121183930555556,
+        3.1423145243055557,
+        3.099558770833339
+      ],
+      "medianMsPerTick": 3.121183930555556,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.604634666666666,
+            2.9116551666666703,
+            2.8795677500000036
+          ],
+          "medianMsPerTick": 2.8795677500000036
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.0766292777777804,
+            3.023799249999995,
+            2.9823441944444493
+          ],
+          "medianMsPerTick": 3.023799249999995
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.369863333333334,
+            3.437197222222231,
+            3.3242238888888904
+          ],
+          "medianMsPerTick": 3.369863333333334
+        },
+        {
+          "seed": 11,
+          "samples": [
+            2.928523500000002,
+            2.890313555555557,
+            2.846474944444441
+          ],
+          "medianMsPerTick": 2.890313555555557
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.349227666666666,
+            3.341785722222218,
+            3.3501947222222386
+          ],
+          "medianMsPerTick": 3.349227666666666
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.957178805555555,
+            2.939626305555559,
+            2.9373734444444484
+          ],
+          "medianMsPerTick": 2.939626305555559
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.19464980555556,
+            3.259107472222224,
+            3.1931311666666686
+          ],
+          "medianMsPerTick": 3.19464980555556
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.4887643888888853,
+            3.3350314999999924,
+            3.2831600555555713
+          ],
+          "medianMsPerTick": 3.3350314999999924
+        }
+      ]
+    },
+    "candidate": {
+      "roundMsPerTick": [
+        3.259258604166666,
+        3.3027133333333354,
+        3.259668555555553
+      ],
+      "medianMsPerTick": 3.259668555555553,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.5987420833333332,
+            2.8318065277777755,
+            2.8867135833333304
+          ],
+          "medianMsPerTick": 2.8318065277777755
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.179261388888889,
+            3.1522166666666696,
+            3.0986941111111084
+          ],
+          "medianMsPerTick": 3.1522166666666696
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.2692126111111106,
+            3.242322388888893,
+            3.2382984166666735
+          ],
+          "medianMsPerTick": 3.242322388888893
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.2353879166666673,
+            3.2988161388888937,
+            3.226863972222216
+          ],
+          "medianMsPerTick": 3.2353879166666673
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.1916626111111044,
+            3.184118472222213,
+            3.2113304166666543
+          ],
+          "medianMsPerTick": 3.1916626111111044
+        },
+        {
+          "seed": 47,
+          "samples": [
+            3.238028388888884,
+            3.1905755000000093,
+            3.1770151666666626
+          ],
+          "medianMsPerTick": 3.1905755000000093
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.6735813888888917,
+            3.591233666666667,
+            3.582232722222236
+          ],
+          "medianMsPerTick": 3.591233666666667
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.6881924444444465,
+            3.930617305555562,
+            3.656200055555544
+          ],
+          "medianMsPerTick": 3.6881924444444465
+        }
+      ]
+    }
+  },
+  "batches": [
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 9376.684799999999,
+      "msPerTick": 2.604634666666666,
+      "startedUtc": "2026-10-13T10:54:25.371Z",
+      "endedUtc": "2026-10-13T10:54:34.748Z",
+      "cpuUserMs": 9907,
+      "cpuSystemMs": 359
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 9355.4715,
+      "msPerTick": 2.5987420833333332,
+      "startedUtc": "2026-10-13T10:54:35.520Z",
+      "endedUtc": "2026-10-13T10:54:44.876Z",
+      "cpuUserMs": 11047,
+      "cpuSystemMs": 391
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11445.341,
+      "msPerTick": 3.179261388888889,
+      "startedUtc": "2026-10-13T10:54:45.688Z",
+      "endedUtc": "2026-10-13T10:54:57.133Z",
+      "cpuUserMs": 11671,
+      "cpuSystemMs": 156
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11075.86540000001,
+      "msPerTick": 3.0766292777777804,
+      "startedUtc": "2026-10-13T10:54:57.930Z",
+      "endedUtc": "2026-10-13T10:55:09.007Z",
+      "cpuUserMs": 11421,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 12131.508000000002,
+      "msPerTick": 3.369863333333334,
+      "startedUtc": "2026-10-13T10:55:09.795Z",
+      "endedUtc": "2026-10-13T10:55:21.926Z",
+      "cpuUserMs": 12531,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11769.165399999998,
+      "msPerTick": 3.2692126111111106,
+      "startedUtc": "2026-10-13T10:55:22.716Z",
+      "endedUtc": "2026-10-13T10:55:34.485Z",
+      "cpuUserMs": 12140,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 11647.396500000003,
+      "msPerTick": 3.2353879166666673,
+      "startedUtc": "2026-10-13T10:55:35.267Z",
+      "endedUtc": "2026-10-13T10:55:46.915Z",
+      "cpuUserMs": 11875,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 10542.684600000008,
+      "msPerTick": 2.928523500000002,
+      "startedUtc": "2026-10-13T10:55:47.695Z",
+      "endedUtc": "2026-10-13T10:55:58.238Z",
+      "cpuUserMs": 10906,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 12057.219599999997,
+      "msPerTick": 3.349227666666666,
+      "startedUtc": "2026-10-13T10:55:59.030Z",
+      "endedUtc": "2026-10-13T10:56:11.087Z",
+      "cpuUserMs": 12500,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11489.985399999976,
+      "msPerTick": 3.1916626111111044,
+      "startedUtc": "2026-10-13T10:56:11.895Z",
+      "endedUtc": "2026-10-13T10:56:23.385Z",
+      "cpuUserMs": 11781,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11656.902199999982,
+      "msPerTick": 3.238028388888884,
+      "startedUtc": "2026-10-13T10:56:24.169Z",
+      "endedUtc": "2026-10-13T10:56:35.826Z",
+      "cpuUserMs": 11875,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10645.843699999998,
+      "msPerTick": 2.957178805555555,
+      "startedUtc": "2026-10-13T10:56:36.630Z",
+      "endedUtc": "2026-10-13T10:56:47.276Z",
+      "cpuUserMs": 10859,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11500.739300000016,
+      "msPerTick": 3.19464980555556,
+      "startedUtc": "2026-10-13T10:56:48.067Z",
+      "endedUtc": "2026-10-13T10:56:59.568Z",
+      "cpuUserMs": 11656,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 13224.893000000011,
+      "msPerTick": 3.6735813888888917,
+      "startedUtc": "2026-10-13T10:57:00.356Z",
+      "endedUtc": "2026-10-13T10:57:13.580Z",
+      "cpuUserMs": 13500,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 7,
+      "elapsedMs": 13277.492800000007,
+      "msPerTick": 3.6881924444444465,
+      "startedUtc": "2026-10-13T10:57:14.386Z",
+      "endedUtc": "2026-10-13T10:57:27.663Z",
+      "cpuUserMs": 13640,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12559.551799999987,
+      "msPerTick": 3.4887643888888853,
+      "startedUtc": "2026-10-13T10:57:28.460Z",
+      "endedUtc": "2026-10-13T10:57:41.020Z",
+      "cpuUserMs": 12890,
+      "cpuSystemMs": 32
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 10194.503499999992,
+      "msPerTick": 2.8318065277777755,
+      "startedUtc": "2026-10-13T10:57:41.806Z",
+      "endedUtc": "2026-10-13T10:57:52.001Z",
+      "cpuUserMs": 10469,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10481.958600000013,
+      "msPerTick": 2.9116551666666703,
+      "startedUtc": "2026-10-13T10:57:52.785Z",
+      "endedUtc": "2026-10-13T10:58:03.267Z",
+      "cpuUserMs": 10547,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10885.677299999981,
+      "msPerTick": 3.023799249999995,
+      "startedUtc": "2026-10-13T10:58:04.042Z",
+      "endedUtc": "2026-10-13T10:58:14.928Z",
+      "cpuUserMs": 11000,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11347.98000000001,
+      "msPerTick": 3.1522166666666696,
+      "startedUtc": "2026-10-13T10:58:15.721Z",
+      "endedUtc": "2026-10-13T10:58:27.069Z",
+      "cpuUserMs": 11500,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11672.360600000015,
+      "msPerTick": 3.242322388888893,
+      "startedUtc": "2026-10-13T10:58:27.853Z",
+      "endedUtc": "2026-10-13T10:58:39.525Z",
+      "cpuUserMs": 11922,
+      "cpuSystemMs": 109
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 12373.910000000033,
+      "msPerTick": 3.437197222222231,
+      "startedUtc": "2026-10-13T10:58:40.317Z",
+      "endedUtc": "2026-10-13T10:58:52.691Z",
+      "cpuUserMs": 12671,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 10405.128800000006,
+      "msPerTick": 2.890313555555557,
+      "startedUtc": "2026-10-13T10:58:53.460Z",
+      "endedUtc": "2026-10-13T10:59:03.866Z",
+      "cpuUserMs": 10687,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 11875.738100000017,
+      "msPerTick": 3.2988161388888937,
+      "startedUtc": "2026-10-13T10:59:04.650Z",
+      "endedUtc": "2026-10-13T10:59:16.526Z",
+      "cpuUserMs": 12063,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11462.826499999966,
+      "msPerTick": 3.184118472222213,
+      "startedUtc": "2026-10-13T10:59:17.298Z",
+      "endedUtc": "2026-10-13T10:59:28.761Z",
+      "cpuUserMs": 11563,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 12030.428599999985,
+      "msPerTick": 3.341785722222218,
+      "startedUtc": "2026-10-13T10:59:29.551Z",
+      "endedUtc": "2026-10-13T10:59:41.581Z",
+      "cpuUserMs": 12266,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10582.654700000014,
+      "msPerTick": 2.939626305555559,
+      "startedUtc": "2026-10-13T10:59:42.371Z",
+      "endedUtc": "2026-10-13T10:59:52.954Z",
+      "cpuUserMs": 10813,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11486.071800000034,
+      "msPerTick": 3.1905755000000093,
+      "startedUtc": "2026-10-13T10:59:53.740Z",
+      "endedUtc": "2026-10-13T11:00:05.226Z",
+      "cpuUserMs": 11890,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 12928.441200000001,
+      "msPerTick": 3.591233666666667,
+      "startedUtc": "2026-10-13T11:00:06.012Z",
+      "endedUtc": "2026-10-13T11:00:18.940Z",
+      "cpuUserMs": 13375,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11732.786900000006,
+      "msPerTick": 3.259107472222224,
+      "startedUtc": "2026-10-13T11:00:19.732Z",
+      "endedUtc": "2026-10-13T11:00:31.464Z",
+      "cpuUserMs": 11860,
+      "cpuSystemMs": 140
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12006.113399999973,
+      "msPerTick": 3.3350314999999924,
+      "startedUtc": "2026-10-13T11:00:32.318Z",
+      "endedUtc": "2026-10-13T11:00:44.324Z",
+      "cpuUserMs": 12125,
+      "cpuSystemMs": 32
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 7,
+      "elapsedMs": 14150.222300000023,
+      "msPerTick": 3.930617305555562,
+      "startedUtc": "2026-10-13T11:00:45.109Z",
+      "endedUtc": "2026-10-13T11:00:59.259Z",
+      "cpuUserMs": 14531,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10366.443900000013,
+      "msPerTick": 2.8795677500000036,
+      "startedUtc": "2026-10-13T11:01:00.048Z",
+      "endedUtc": "2026-10-13T11:01:10.415Z",
+      "cpuUserMs": 10703,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 10392.16889999999,
+      "msPerTick": 2.8867135833333304,
+      "startedUtc": "2026-10-13T11:01:11.201Z",
+      "endedUtc": "2026-10-13T11:01:21.593Z",
+      "cpuUserMs": 10531,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11155.29879999999,
+      "msPerTick": 3.0986941111111084,
+      "startedUtc": "2026-10-13T11:01:22.361Z",
+      "endedUtc": "2026-10-13T11:01:33.516Z",
+      "cpuUserMs": 11312,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10736.439100000018,
+      "msPerTick": 2.9823441944444493,
+      "startedUtc": "2026-10-13T11:01:34.298Z",
+      "endedUtc": "2026-10-13T11:01:45.034Z",
+      "cpuUserMs": 10843,
+      "cpuSystemMs": 94
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11967.206000000006,
+      "msPerTick": 3.3242238888888904,
+      "startedUtc": "2026-10-13T11:01:45.827Z",
+      "endedUtc": "2026-10-13T11:01:57.794Z",
+      "cpuUserMs": 12234,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11657.874300000025,
+      "msPerTick": 3.2382984166666735,
+      "startedUtc": "2026-10-13T11:01:58.588Z",
+      "endedUtc": "2026-10-13T11:02:10.246Z",
+      "cpuUserMs": 11844,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 11616.710299999977,
+      "msPerTick": 3.226863972222216,
+      "startedUtc": "2026-10-13T11:02:11.028Z",
+      "endedUtc": "2026-10-13T11:02:22.645Z",
+      "cpuUserMs": 11812,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 10247.309799999988,
+      "msPerTick": 2.846474944444441,
+      "startedUtc": "2026-10-13T11:02:23.432Z",
+      "endedUtc": "2026-10-13T11:02:33.680Z",
+      "cpuUserMs": 10422,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 12060.70100000006,
+      "msPerTick": 3.3501947222222386,
+      "startedUtc": "2026-10-13T11:02:34.488Z",
+      "endedUtc": "2026-10-13T11:02:46.549Z",
+      "cpuUserMs": 12156,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11560.789499999955,
+      "msPerTick": 3.2113304166666543,
+      "startedUtc": "2026-10-13T11:02:47.328Z",
+      "endedUtc": "2026-10-13T11:02:58.889Z",
+      "cpuUserMs": 11703,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11437.254599999986,
+      "msPerTick": 3.1770151666666626,
+      "startedUtc": "2026-10-13T11:02:59.668Z",
+      "endedUtc": "2026-10-13T11:03:11.105Z",
+      "cpuUserMs": 11625,
+      "cpuSystemMs": 0
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10574.544400000013,
+      "msPerTick": 2.9373734444444484,
+      "startedUtc": "2026-10-13T11:03:11.887Z",
+      "endedUtc": "2026-10-13T11:03:22.462Z",
+      "cpuUserMs": 10828,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11495.272200000007,
+      "msPerTick": 3.1931311666666686,
+      "startedUtc": "2026-10-13T11:03:23.234Z",
+      "endedUtc": "2026-10-13T11:03:34.729Z",
+      "cpuUserMs": 11750,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 12896.03780000005,
+      "msPerTick": 3.582232722222236,
+      "startedUtc": "2026-10-13T11:03:35.494Z",
+      "endedUtc": "2026-10-13T11:03:48.390Z",
+      "cpuUserMs": 13156,
+      "cpuSystemMs": 46
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 7,
+      "elapsedMs": 13162.320199999958,
+      "msPerTick": 3.656200055555544,
+      "startedUtc": "2026-10-13T11:03:49.173Z",
+      "endedUtc": "2026-10-13T11:04:02.335Z",
+      "cpuUserMs": 13312,
+      "cpuSystemMs": 0
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11819.376200000057,
+      "msPerTick": 3.2831600555555713,
+      "startedUtc": "2026-10-13T11:04:03.115Z",
+      "endedUtc": "2026-10-13T11:04:14.935Z",
+      "cpuUserMs": 11907,
+      "cpuSystemMs": 78
+    }
+  ]
+}

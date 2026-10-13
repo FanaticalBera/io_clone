@@ -1,0 +1,20 @@
+{
+  "status": "QUANTITATIVE_RECHECK_THRESHOLDS_CLEAR_USER_REVIEW_PENDING",
+  "baseline": "a535bf7",
+  "riskImplemented": true,
+  "normalizationBehaviorIdenticalR56Fourteen": true,
+  "largeLoopsEnabled": false,
+  "masterChanged": false,
+  "remotePushed": false,
+  "primaryHoldingPercent": -0.35379749732893373,
+  "primaryDeathPercent": -12.222222222222223,
+  "costPercent": 4.436926117819251,
+  "holdingWithinMinus5": true,
+  "deathsWithinPlus20": true,
+  "costWithinPlus20": true,
+  "coreLargeDeathSignal": "INDISTINGUISHABLE",
+  "coreLargeLossSignal": "INDISTINGUISHABLE",
+  "overallDeathSignal": "DECREASE",
+  "newFunctionalRegression": false,
+  "automaticLargeLoopRetrial": false
+}
