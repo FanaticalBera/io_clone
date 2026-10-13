@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-12",
+  "unit": {
+    "full": {
+      "total": 617,
+      "passed": 615,
+      "failed": 2,
+      "failures": "Only old fixed trajectory hashes; all movement/capture/respawn/ownership assertions passed."
+    },
+    "refreshedSpawnFile": {
+      "passed": 7,
+      "unchangedAssertions": true
+    },
+    "additionalRejectedStartNoninterference": {
+      "passed": true,
+      "finalFocusedFiles": 2,
+      "finalFocusedTests": 40,
+      "totalUniqueTestsValidatedAcrossRuns": 618
+    }
+  },
+  "types": "client/server/tests and strict scripts passed",
+  "playwright": {
+    "pcOnly": true,
+    "passed": 9
+  },
+  "sourcesFrozen": true,
+  "archivedTrajectoryVerification": {
+    "base65034bd": 8,
+    "counterE4e2f08": 8,
+    "departure6c307e3": 8,
+    "definition": "Same complete 3600-tick input/owner/trail/pose/life/sequence trajectory hashes, not only equal deaths."
+  },
+  "caseRawHash": "c7973c054b8832af06657a4b885ea15fc558e4fae561acbab6252b719ff06dc4",
+  "long137": {
+    "ticks": 8800,
+    "previousDeaths": 34,
+    "currentDeaths": 36,
+    "wallDeaths": 0
+  },
+  "mainBranchUntouched": "master; isolated codex/bot-ai-phase01 worktree used",
+  "newSafetyStopped": true,
+  "6004": "Recorded only, no fix.",
+  "node": "24.21.0",
+  "cost": {
+    "fixedSamples": 144,
+    "warmupsExcluded": 6,
+    "sourceHashesVerifiedBeforeMeasurement": true,
+    "externalTestOverlapAtSampleBoundaries": 0,
+    "auditDeathsAnd3600TickEndMatchedEverySample": true
+  },
+  "logs": {
+    "vitest.log": "245451cf29c84a061f2f3030bc2e3cd43e583f353df37379be51aca8c774b482",
+    "spawn-validation.log": "e7da6903986d23ec0559f04903211eddc03d15785679bf7a089019c25f146a35",
+    "last-validation.log": "203995778f29f84ede6ef56a2018930f053bc73bd27bc9ef2f13e0a858a4694b",
+    "playwright.log": "8c3849831ca65e17897b1e834e059994ca5003a781e6c606341e3c9a7eb2406d",
+    "typecheck-last.log": "b504ad0fbc7dbf23da9b306133827c1eb1f20088dd3e26236720b69ef9d2fa84",
+    "script-types-last.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

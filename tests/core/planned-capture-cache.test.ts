@@ -1,6 +1,7 @@
 import {it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {botSpecs,observeBot,plannedCapture,type BotObservation} from '../../src/shared/bot.js';
+import {observeBot,plannedCapture,type BotObservation} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {seededRandom} from '../../src/shared/random.js';
 // Original full flood semantics, retained as an independent oracle for storage reuse.
 function reference(obs:BotObservation,path:number[]):number[]{

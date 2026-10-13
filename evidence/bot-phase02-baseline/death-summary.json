@@ -1,0 +1,531 @@
+{
+  "byKind": {
+    "HUMAN": {
+      "deaths": 11,
+      "causes": {
+        "WALL_HIT": 7,
+        "PENDING_TRAIL_CONTACT": 2,
+        "EXISTING_TRAIL_CONTACT": 2
+      }
+    },
+    "BOT": {
+      "deaths": 738,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 615,
+        "PENDING_TRAIL_CONTACT": 114,
+        "HOME_CAPTURE": 8,
+        "TRAIL_CAPTURE": 1
+      }
+    }
+  },
+  "games": 16,
+  "deaths": 749,
+  "causes": {
+    "EXISTING_TRAIL_CONTACT": 617,
+    "PENDING_TRAIL_CONTACT": 116,
+    "WALL_HIT": 7,
+    "HOME_CAPTURE": 8,
+    "TRAIL_CAPTURE": 1
+  },
+  "failureCount": 0,
+  "reports": [
+    {
+      "seed": 4,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 58,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 54,
+        "PENDING_TRAIL_CONTACT": 4
+      },
+      "failures": []
+    },
+    {
+      "seed": 4,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 48,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 38,
+        "PENDING_TRAIL_CONTACT": 8,
+        "HOME_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 19,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 51,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 41,
+        "PENDING_TRAIL_CONTACT": 10
+      },
+      "failures": []
+    },
+    {
+      "seed": 19,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 30,
+        "PENDING_TRAIL_CONTACT": 10,
+        "HOME_CAPTURE": 1,
+        "TRAIL_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 73,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 42,
+      "causes": {
+        "PENDING_TRAIL_CONTACT": 10,
+        "EXISTING_TRAIL_CONTACT": 31,
+        "HOME_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 73,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 35,
+        "PENDING_TRAIL_CONTACT": 7
+      },
+      "failures": []
+    },
+    {
+      "seed": 115,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 58,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 48,
+        "PENDING_TRAIL_CONTACT": 8,
+        "HOME_CAPTURE": 2
+      },
+      "failures": []
+    },
+    {
+      "seed": 115,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 36,
+        "PENDING_TRAIL_CONTACT": 7
+      },
+      "failures": []
+    },
+    {
+      "seed": 17,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 52,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 48,
+        "PENDING_TRAIL_CONTACT": 4
+      },
+      "failures": []
+    },
+    {
+      "seed": 17,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 42,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 35,
+        "PENDING_TRAIL_CONTACT": 6
+      },
+      "failures": []
+    },
+    {
+      "seed": 81,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 41,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 37,
+        "PENDING_TRAIL_CONTACT": 3,
+        "HOME_CAPTURE": 1
+      },
+      "failures": []
+    },
+    {
+      "seed": 81,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 43,
+      "causes": {
+        "WALL_HIT": 1,
+        "PENDING_TRAIL_CONTACT": 9,
+        "EXISTING_TRAIL_CONTACT": 33
+      },
+      "failures": []
+    },
+    {
+      "seed": 32,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 48,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 40,
+        "PENDING_TRAIL_CONTACT": 6,
+        "HOME_CAPTURE": 2
+      },
+      "failures": []
+    },
+    {
+      "seed": 32,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 41,
+      "causes": {
+        "WALL_HIT": 1,
+        "PENDING_TRAIL_CONTACT": 9,
+        "EXISTING_TRAIL_CONTACT": 31
+      },
+      "failures": []
+    },
+    {
+      "seed": 123,
+      "mixed": false,
+      "ticks": 3600,
+      "deaths": 48,
+      "causes": {
+        "EXISTING_TRAIL_CONTACT": 36,
+        "PENDING_TRAIL_CONTACT": 12
+      },
+      "failures": []
+    },
+    {
+      "seed": 123,
+      "mixed": true,
+      "ticks": 3600,
+      "deaths": 48,
+      "causes": {
+        "WALL_HIT": 1,
+        "EXISTING_TRAIL_CONTACT": 44,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "failures": []
+    }
+  ],
+  "representativeCases": {
+    "EXISTING_TRAIL_CONTACT": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 72,
+      "victimId": "bot-5",
+      "victimKind": "BOT",
+      "lifeId": 1,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "EXISTING_TRAIL_CONTACT",
+        "cellId": 1077,
+        "eventTick": 72.43761
+      },
+      "killerId": "bot-13",
+      "killerCell": 1077,
+      "victimCell": 1074,
+      "position": {
+        "x": -744.394362638496,
+        "y": 382.29522156102695
+      },
+      "trailCells": [
+        1110,
+        1111,
+        1112,
+        1113,
+        1077,
+        1076,
+        1075,
+        1074
+      ],
+      "territoryCount": 19,
+      "ownerCells": 19,
+      "trailMaskCells": [
+        1074,
+        1075,
+        1076,
+        1077,
+        1110,
+        1111,
+        1112,
+        1113
+      ],
+      "rootHomeNeighbors": [
+        1073,
+        1109
+      ],
+      "pendingContact": false,
+      "originCellId": 1073,
+      "originOwner": 6,
+      "diagnostic": {
+        "eventTick": 72.43761,
+        "iteration": 0,
+        "pendingTrails": [
+          {
+            "participantId": "bot-13",
+            "cellId": 1077
+          }
+        ],
+        "victimTrailBefore": [
+          1110,
+          1111,
+          1112,
+          1113,
+          1077,
+          1076,
+          1075,
+          1074
+        ],
+        "existingTrailContact": true,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "PENDING_TRAIL_CONTACT": {
+      "seed": 4,
+      "mixed": false,
+      "tick": 1162,
+      "victimId": "bot-6",
+      "victimKind": "BOT",
+      "lifeId": 3,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "PENDING_TRAIL_CONTACT",
+        "cellId": 1263,
+        "eventTick": 1162.87273
+      },
+      "killerId": "bot-10",
+      "killerCell": 1263,
+      "victimCell": 1263,
+      "position": {
+        "x": 212.32007366942344,
+        "y": 602.5829948602305
+      },
+      "trailCells": [
+        1231
+      ],
+      "territoryCount": 56,
+      "ownerCells": 56,
+      "trailMaskCells": [
+        1231
+      ],
+      "rootHomeNeighbors": [
+        1232
+      ],
+      "pendingContact": true,
+      "originCellId": 1232,
+      "originOwner": 7,
+      "diagnostic": {
+        "eventTick": 1162.87273,
+        "iteration": 0,
+        "pendingTrails": [
+          {
+            "participantId": "bot-6",
+            "cellId": 1263
+          }
+        ],
+        "victimTrailBefore": [
+          1231
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": true,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "WALL_HIT": {
+      "seed": 4,
+      "mixed": true,
+      "tick": 79,
+      "victimId": "human-1",
+      "victimKind": "HUMAN",
+      "lifeId": 1,
+      "reason": "WALL_HIT",
+      "context": {
+        "cause": "WALL_HIT",
+        "cellId": 275,
+        "eventTick": 79.91326
+      },
+      "victimCell": 275,
+      "position": {
+        "x": -928.379232551455,
+        "y": -587.714643056935
+      },
+      "trailCells": [
+        382,
+        347,
+        312,
+        279,
+        278,
+        245,
+        244,
+        212,
+        243,
+        275
+      ],
+      "territoryCount": 19,
+      "ownerCells": 19,
+      "trailMaskCells": [
+        212,
+        243,
+        244,
+        245,
+        275,
+        278,
+        279,
+        312,
+        347,
+        382
+      ],
+      "rootHomeNeighbors": [
+        381
+      ],
+      "pendingContact": false,
+      "originCellId": 381,
+      "originOwner": 2,
+      "diagnostic": {
+        "eventTick": 79.91326,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [
+          382,
+          347,
+          312,
+          279,
+          278,
+          245,
+          244,
+          212,
+          243,
+          275
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": true
+      }
+    },
+    "HOME_CAPTURE": {
+      "seed": 4,
+      "mixed": true,
+      "tick": 3130,
+      "victimId": "bot-1",
+      "victimKind": "BOT",
+      "lifeId": 2,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "HOME_CAPTURE",
+        "cellId": 146,
+        "eventTick": 3130.65046
+      },
+      "killerId": "bot-7",
+      "killerCell": 204,
+      "victimCell": 146,
+      "position": {
+        "x": 439.07352698721155,
+        "y": -823.3034635904227
+      },
+      "trailCells": [],
+      "territoryCount": 71,
+      "ownerCells": 71,
+      "trailMaskCells": [],
+      "rootHomeNeighbors": [],
+      "pendingContact": false,
+      "originCellId": null,
+      "originOwner": null,
+      "diagnostic": {
+        "eventTick": 3130.65046,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [],
+        "wallIntersection": false
+      }
+    },
+    "TRAIL_CAPTURE": {
+      "seed": 19,
+      "mixed": true,
+      "tick": 1823,
+      "victimId": "bot-5",
+      "victimKind": "BOT",
+      "lifeId": 2,
+      "reason": "TRAIL_CUT",
+      "context": {
+        "cause": "TRAIL_CAPTURE",
+        "cellId": 862,
+        "eventTick": 1823.26031
+      },
+      "killerId": "bot-8",
+      "killerCell": 1026,
+      "victimCell": 862,
+      "position": {
+        "x": 826.9732755320317,
+        "y": 105.17948493038998
+      },
+      "trailCells": [
+        1103,
+        1066,
+        1028,
+        988,
+        947,
+        905,
+        862
+      ],
+      "territoryCount": 189,
+      "ownerCells": 189,
+      "trailMaskCells": [
+        862,
+        905,
+        947,
+        988,
+        1028,
+        1066,
+        1103
+      ],
+      "rootHomeNeighbors": [
+        1139,
+        1140
+      ],
+      "pendingContact": false,
+      "originCellId": 1139,
+      "originOwner": 8,
+      "diagnostic": {
+        "eventTick": 1823.26031,
+        "iteration": 0,
+        "pendingTrails": [],
+        "victimTrailBefore": [
+          1103,
+          1066,
+          1028,
+          988,
+          947,
+          905,
+          862
+        ],
+        "existingTrailContact": false,
+        "pendingTrailContact": false,
+        "captureOverlapCells": [
+          905,
+          862
+        ],
+        "wallIntersection": false
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "seed": 137,
+  "ticks": 3600,
+  "frozenTrajectoryMatches": true,
+  "cases": [
+    {
+      "tick": 3591,
+      "slot": 9,
+      "originalLifeId": 1,
+      "goal": "ESCAPE",
+      "reason": "DANGER",
+      "danger": true,
+      "selectedNonSurvival": [
+        {
+          "slot": 4,
+          "target": 1368,
+          "seconds": 0.43333333333333335,
+          "survival": false
+        }
+      ],
+      "rngDrawsBefore": 7057,
+      "input": {
+        "matchId": "match-137",
+        "lifeId": 1,
+        "seq": 3592,
+        "dx": 0.07327147133293362,
+        "dy": -0.9973120331614909
+      }
+    },
+    {
+      "tick": 3592,
+      "slot": 4,
+      "originalLifeId": 2,
+      "goal": "ESCAPE",
+      "reason": "DANGER",
+      "danger": true,
+      "selectedNonSurvival": [
+        {
+          "slot": 9,
+          "target": 1444,
+          "seconds": 0.3,
+          "survival": false
+        }
+      ],
+      "rngDrawsBefore": 6107,
+      "input": {
+        "matchId": "match-137",
+        "lifeId": 2,
+        "seq": 902,
+        "dx": 0.9251693758506677,
+        "dy": -0.3795545099035001
+      }
+    }
+  ],
+  "notes": "New decision evaluated in the exact old state with cloned emotion/path and an independent action RNG advanced to the same draw count. The frozen production replay remains unchanged. Final life outcomes belong to the separate new trajectory."
+}

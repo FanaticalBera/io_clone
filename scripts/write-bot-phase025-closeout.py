@@ -1,0 +1,85 @@
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parent.parent
+s=json.loads((ROOT/'evidence/bot-phase025-closeout/summary.json').read_text(encoding='utf-8'))
+labels={'base':'65034bd','current':'c84fc7a (RP on)'}
+names={'EXPAND':'영역탐험가','ATTACK':'선사냥꾼','DEFEND':'안전지킴이','SEEK_POINT':'영역도둑'}
+metrics={'holdingMean':'보유 영토 시간 평균(칸)','finalHolding':'최종 보유 평균(칸)','deaths':'사망 합계','reclaimed':'되찾기 합계(칸)','tv':'탐험가–도둑 TV','tvWithoutReposition':'REPOSITION 제외·재정규화 TV','tickMs':'tick 비용(ms)'}
+def fmt(n,k):
+    if n is None:return '측정 중'
+    return f'{n:,.0f}' if k in ['deaths','reclaimed','netReference','captureReference'] else f'{n:,.4f}' if k in ['tv','tvWithoutReposition','tickMs'] else f'{n:,.3f}'
+def sig(v):return '측정 중' if not v else {'increase':'증가 신호','decrease':'감소 신호','inconclusive':'구분 불가'}[v['direction']]+f" (↑{v['up']} / ↓{v['down']} / ={v['ties']})"
+lines=['# 2.5단계 마감 비교와 seed 11 지연 재측정', '', '2026-10-12 · 비교 기준 65034bd → c84fc7a', '',
+'사용자 검토에 따라 **출발 안전·검사 순서 최적화·REPOSITION을 유지하고 경로 캐시는 보류**했다. 이번 작업은 측정과 문서에 한정되며 봇 행동을 바꾸지 않았다.', '',
+'## 마감 판정', '',
+'보유 시간 평균 −3.62%는 승인된 −5% 성장 재검토 기준 안이다. 사망 94→90회, 벽 사망 0회다. 실제 되찾기는 1,416→3,193칸(+125.49%)으로 8시드 모두 증가하고 모든 leave-one-out 합계도 증가하여 방향 신호를 충족했다. 최종 보유 +3.33%와 탐험가–도둑 TV 변화는 방향 신호에 미달했다.', '']
+if s['checks']['cost'] is True:
+    lines += [f"비용 중앙값은 {s['percent']['tickMs']:+.2f}%로 +20% 재검토 기준 안이며, 외부 테스트 겹침은 0/48이었다. **수치 재검토 기준을 통과했다. 사용자 관전 확인은 남아 있고 3단계는 착수하지 않았다.**", '']
+elif s['checks']['cost'] is False:
+    lines += ['비용은 +20% 재검토 기준을 넘었다. 수치 재검토가 필요하며 3단계는 착수하지 않았다.', '']
+else:
+    lines += ['비용 측정 완료 또는 외부 테스트 겹침 검토가 남아 있다. 마감 판정과 3단계는 보류한다.', '']
+lines += ['## 같은 세션의 비교 방법', '',
+'- 두 커밋의 shared 소스를 별도 `.local/bot-phase025-closeout/base`, `current` 스냅샷으로 추출했다. 현재 checkout을 바꾸지 않았고 친구 대전 작업에도 손대지 않았다. 소스·관측기 해시는 측정 전 프로토콜에 고정했다.',
+'- R56, 14봇, spawnRadius 1(7칸), safe respawn, Classic, combined, 30Hz, t1~3600(120초), 시드 4·19·73·11·31·47·101·137을 동일하게 사용했다.',
+'- 같은 실행 세션에서 양쪽 경기 audit을 새로 실행했다. 같은 보유·성장 관측기를 적용했으며, 슬롯·성격·닉네임 배정도 동일하다. 기존 결과를 복사하여 새 비교로 사용하지 않았다. 새 결과는 과거 같은 버전의 궤적과 모두 일치하고, 현재 갈래는 판단·메모리·RNG·보유량·성격 통계도 과거 c84fc7a 측정과 동일하다.',
+'- 보유 평균은 매 tick 이동·점령·사망 처리 후 실제 보유 칸의 평균이다. 초기 t0는 제외하고 죽은 시간의 0칸을 포함한다. 사망 손실을 더하거나 부활 지급을 빼는 보정은 하지 않는다.',
+'- 보유 평균·최종 보유·TV는 시드별 값의 8경기 평균, 사망·되찾기는 합계다. 되찾기는 기존 동일 생명·60초 손실 기억 정의를 사용하며 중립 칸과 부활 지급은 제외한다. tick 경계 관측이므로 같은 tick 안에 중립화된 전환은 누락될 수 있다.',
+'- 같은 시드 차이 7/8 이상 같은 부호와 모든 leave-one-out 합계의 같은 방향을 충족하면 방향 신호다. 나머지는 구분 불가이며 효과 없음이나 동등이 아니다. 검토를 위한 방향 규칙이며 통계적 유의성 검정은 아니다.',
+'- 재검토 기준은 보유 평균 −5%, 사망·비용 +20%, 벽 사망 0이다. 기존 seed 4의 사망 16회 대비 +25%(20회 이상) 개별 검토 기준도 보존했다. 이번 seed 4는 65034bd 14회→현재 12회다.', '',
+'## 전체 결과', '', '|지표|65034bd|c84fc7a|변화율|시드별 방향|', '|---|---:|---:|---:|---|']
+for metric,name in metrics.items():
+    percent=s['percent'][metric]
+    lines.append(f"|{name}|{fmt(s['totals']['base'][metric],metric)}|{fmt(s['totals']['current'][metric],metric)}|{'측정 중' if percent is None else format(percent,'+.2f')+'%'}|{sig(s['paired'].get(metric))}|")
+lines += ['', '**보유 평균이 같아졌다는 결론은 아니다.** 6/8시드에서 감소했고 합계 −3.62%를 그대로 기록한다. −5% 재검토 기준 안이라는 것과 성장 동등성은 별개다. 되찾기가 늘었어도 그 자체로 모든 성격이 잘 구분된다는 뜻은 아니다.', '',
+'|시드|보유 평균 Δ(%)|최종 보유 Δ(칸)|사망(기준→현재)|되찾기(기준→현재)|TV(기준→현재)|비용 Δ(%)|', '|---:|---:|---:|---:|---:|---:|---:|']
+for seed in s['bySeed']['base']:
+    a=s['bySeed']['base'][seed];b=s['bySeed']['current'][seed]
+    growth=100*(b['holdingMean']-a['holdingMean'])/a['holdingMean'];cost='측정 중' if b['tickMs'] is None else format(100*(b['tickMs']-a['tickMs'])/a['tickMs'],'+.2f')+'%'
+    lines.append(f"|{seed}|{growth:+.2f}%|{b['finalHolding']-a['finalHolding']:+.0f}|{a['deaths']}→{b['deaths']}|{a['reclaimed']}→{b['reclaimed']}|{a['tv']:.3f}→{b['tv']:.3f}|{cost}|")
+lines += ['', '절대 값과 해시는 [metrics-by-seed.csv](../evidence/bot-phase025-closeout/metrics-by-seed.csv), 봇별 보유 평균·최종 보유·최대 점유율은 [holding-by-bot.csv](../evidence/bot-phase025-closeout/holding-by-bot.csv)에 있다.', '',
+'## 성격별 탈취와 TV', '',
+'탈취 비중은 8시드의 성격별 탈취 칸 합÷그 성격의 총 점령 칸 합이다. 방향 신호는 같은 시드의 성격별 비중 차이를 사용한다. 비중의 상승은 탈취 칸의 절대 증가를 보장하지 않으므로 분자·분모도 함께 기록했다.', '',
+'|성격|65034bd 탈취/점령|현재 탈취/점령|비중(기준→현재)|차이(pp)|시드별 방향|', '|---|---:|---:|---:|---:|---|']
+for name in ['EXPAND','SEEK_POINT','DEFEND','ATTACK']:
+    a=s['personaTotals']['base'][name];b=s['personaTotals']['current'][name]
+    lines.append(f"|{names[name]}|{a['stolenCells']:,}/{a['totalCapture']:,}|{b['stolenCells']:,}/{b['totalCapture']:,}|{100*a['stolenShare']:.2f}%→{100*b['stolenShare']:.2f}%|{100*(b['stolenShare']-a['stolenShare']):+.2f}|{sig(s['personaSignals'][name])}|")
+lines += ['', '영역도둑의 전체 탈취 비중은 탐험가보다 높게 남았다. 다만 모든 성격의 비중 변화는 시드별 방향이 엇갈려 구분 불가이며 성격 차이 유지의 통계적 증명으로 해석하지 않는다.', '',
+'목표 분포 TV는 살아 있는 동안 각 goal을 선택한 프레임 비중의 총변동 거리다(0=같은 분포, 1=겹치지 않는 분포). 시드별 TV를 평균하며, 모든 시드를 합친 분포의 TV와 구별한다. REPOSITION 자체로 차이가 커 보일 가능성을 확인하기 위해 해당 프레임을 양쪽 분포에서 빼고 나머지를 재정규화한 값도 보고했다.', '',
+'|성격 쌍|65034bd TV|현재 TV|차이|시드별 방향|', '|---|---:|---:|---:|---|']
+for pair,r in s['pairwiseTV'].items():
+    label='·'.join(names[x] for x in pair.split('/'))
+    lines.append(f"|{label}|{r['base']:.4f}|{r['current']:.4f}|{r['current']-r['base']:+.4f}|{sig(r['signal'])}|")
+lines += ['', '탐험가–도둑의 REPOSITION 제외 TV는 0.1800→0.1669, −7.25%이며 4증가·4감소로 구분 불가다. 모든 쌍에서 성격 수렴이나 분리의 방향 신호를 충족하지 않았다. 각 쌍의 시드별 TV는 [tv-pairs-by-seed.csv](../evidence/bot-phase025-closeout/tv-pairs-by-seed.csv)에 있다. 시드별 성격 분자·분모는 [personality-by-seed.csv](../evidence/bot-phase025-closeout/personality-by-seed.csv)에 있다.', '',
+'## seed 11 지연 표본 원인 확인', '']
+d=s['outlierDiagnostic'];r=d['repeat'];old=d['original']
+lines += [f"원래 최적화 갈래 3회차 seed 11 표본 **{old['msPerTick']:.4f}ms/tick, {old['elapsedMs']/1000:.3f}초**는 그대로 보존했다. 별도의 원인 확인용 재측정은 seed 19 워밍업 1회를 제외하고 seed 11을 한 번 실행했다. 결과는 **{r['msPerTick']:.4f}ms/tick, 벽시계 {r['elapsedMs']/1000:.3f}초, CPU {r['cpuTotalMs']/1000:.3f}초**였다. CPU는 프로세스 여러 스레드 합계여서 벽시계보다 클 수 있다.", '',
+'3,600tick, 사망 13회와 14봇의 다음 RNG 값이 기존 seed 11 audit과 같다. 원인 확인용 실행은 tick별 시간·GC 관측의 작은 부가 비용이 있으며 마감 비용 표본에 포함하거나 기존 58ms 표본과 교체하지 않았다. GC 전달 기록 0건은 GC가 없었다는 증거로 사용하지 않는다.', '']
+if d['sleepSeconds'] is not None:
+    wake=next(q for q in d['powerEvents'] if q['id']==1 and 'SleepTime' in q['data'])
+    lines += [f"Windows System 로그의 Power-Troubleshooter 사건은 SleepTime `{wake['data']['SleepTime']}`, WakeTime `{wake['data']['WakeTime']}`를 기록했다. 한국 시각 **18:34:52~18:38:15, 약 {d['sleepSeconds']:.3f}초**의 절전·복귀 구간이다. 기존 측정 세션(18:23:11~18:41:09) 안에 있으며 큰 표본의 약 200초 추가 지연과 규모가 맞는다.", '',
+'**절전·복귀가 가장 유력한 설명이다(추정).** 원래 표본별 시작·종료 시각과 CPU·GC는 기록하지 않아 그 표본에 직접 대응시켜 확정할 수는 없다. 새 마감 비용에는 각 표본의 UTC 시작·종료와 CPU 시간을 추가했다. 시스템 전원 설정은 바꾸지 않았다.', '']
+lines += ['## 같은 프로세스의 비용 비교', '',
+'두 갈래를 같은 Node 프로세스에 로드하고 seed 19 워밍업을 갈래별 1회 제외했다. 3회×8시드×2갈래=48개 표본을 교대 측정했다. `(round+seedIndex)%2`로 선행 갈래를 바꿔 각 갈래가 첫째·둘째 위치에 각각 12회 놓이며 같은 시드도 회차마다 순서가 바뀐다. HUD·audit 관측기는 붙이지 않았다. 종료 tick·사망이 행동 audit과 일치하는지 검증했다.', '',
+'전체 비용은 회차별 8시드 평균의 3회 중앙값, 시드별 비용은 해당 시드 3회 중앙값이다. 과거 다른 세션의 값을 섞지 않았다. 표본 전후 외부 Vitest·Playwright 실행을 기록하고 표본은 값에 따라 제외·교체하지 않는다. 경계 확인이므로 PC 전체 부하를 완전히 배제하지는 못한다.', '']
+if s['cost']:
+    c=s['cost'];lines += [f"외부 테스트 겹침: {c['resourceGuard']['overlappingRows']}/48. 원인 확인용 seed 11은 아래 48개에 포함되지 않는다.", '', '|갈래|회차별 평균 ms/tick|중앙값|', '|---|---|---:|']
+    for arm,v in c['summary'].items():lines.append('|'+labels[arm]+'|'+', '.join(f'{x:.4f}' for x in v['roundMsPerTick'])+f"|{v['medianMsPerTick']:.4f}|")
+    lines += ['', '[전체 비용 표본·CPU·시각](../evidence/bot-phase025-closeout/cost-samples.csv). 서로 행동과 점령 부하가 다른 최종 조합 비교이므로 비용 차이를 특정 변경 하나의 알고리즘 효율로 주장하지 않는다.']
+else:lines += ['비용 측정 중.']
+lines += ['', '## 참고 성장 지표', '',
+f"순영토 {s['totals']['base']['netReference']:,.0f}→{s['totals']['current']['netReference']:,.0f}칸({s['percent']['netReference']:+.2f}%), 총 점령 {s['totals']['base']['captureReference']:,.0f}→{s['totals']['current']['captureReference']:,.0f}칸({s['percent']['captureReference']:+.2f}%)이다. 총 점령은 8/8 감소 신호를 충족한다. 순영토는 사망 중립화 손실을 더한 값이고 총 점령은 사망으로 생긴 중립 땅의 재점령도 포함하므로, 두 지표만으로 성장 실패를 판정하지 않는다. 실제 보유 평균 −3.62%를 주 지표로 사용한다.", '',
+'## 다음 관전에서 볼 점', '',
+'- **seed 19·137:** 보유 평균이 많이 줄어든 사례다. 안전한 확장 기회에도 재배치·출발 보류·자기 땅 순찰이 길어지는지, 안전해진 뒤 확장으로 돌아오는지 본다. 사망 증가가 있는 seed 137도 함께 확인한다.',
+'- **seed 47·137:** 탐험가–도둑 TV가 작아진 사례다. 서로 붙어 있는 장면뿐 아니라 중립 땅과 상대 땅을 함께 선택할 수 있는 상황에서 성격의 우선순위가 남는지 본다.',
+'- **seed 73:** 피해 색 표시와 현재 계획을 함께 보며 안전한 피해 대응→이동/되찾기→실제 되찾은 칸 증가가 연결되는지 본다. 매번 가해자 쪽으로 향하거나 무리하게 공격하는 것을 합격 조건으로 삼지 않는다.',
+'- 수치 기준 안이어도 피해 대응이 무한 왕복으로 보이거나 모든 성격이 비슷해 보이면 해당 봇·tick을 기록해 검토한다. 관전 확인을 받은 뒤 3단계로 넘어간다.', '',
+'## 증거와 검증', '',
+'- 커밋된 소스 스냅샷·관측기 고정: [protocol.json](../evidence/bot-phase025-closeout/protocol.json). 새 경기 결과의 과거 동일 버전 궤적 재현과 원래 지연 표본 보존 해시를 확인했다.',
+'- 새 TS 측정 스크립트 타입 검사를 통과했다. 게임 코드·HUD·안전 조건은 변경하지 않았다. c84fc7a의 전체 622개 테스트 통과 기록을 유지하며 이번 문서·측정 작업에서 전체 테스트를 다시 실행했다고 주장하지 않는다.',
+'- 원자료·큰 에피소드·계측 로그: 기본 저장소 `.local/bot-phase025-closeout/`. 저장소에는 요약·프로토콜·CSV·검증 기록만 둔다.',
+'- 행동: `scripts/bot-phase025-audit.ts --source=../bot-phase025-closeout/갈래 --holding --equivalence-proof --seeds=4,19,73,11,31,47,101,137 --ticks=3600 --out=../bot-phase025-closeout/갈래.json`.',
+'- 원인 확인: `scripts/bot-phase025-outlier-diagnostic.ts` (사전 배경 프로세스 JSON과 frozen current snapshot 사용). 기존 성능 JSON은 읽기만 한다.',
+'- 비용: `scripts/bot-phase025-closeout-performance.ts --local=../bot-phase025-closeout --protocol=evidence/bot-phase025-closeout/protocol.json --record-background`.',
+'- 집계·보고서: `python scripts/summarize-bot-phase025-closeout.py`, `python scripts/write-bot-phase025-closeout.py`.', '']
+(ROOT/'docs/bot-ai-phase025-closeout.md').write_text('\n'.join(lines),encoding='utf-8')

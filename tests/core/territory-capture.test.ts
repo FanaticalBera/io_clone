@@ -2,7 +2,7 @@ import {describe,it,expect} from 'vitest';
 import {TerritoryCaptureModel,captureAppearance,captureEdges,CAPTURE_DURATION,CAPTURE_WAVE,experimentalCaptureEffect} from '../../src/client/territory-capture-model.js';
 import {buildView} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {emitEvent} from '../../src/shared/life.js';
 import {indexRenderChunks} from '../../src/client/render-chunks.js';
 function setup(){

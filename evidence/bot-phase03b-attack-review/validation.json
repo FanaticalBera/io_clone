@@ -1,0 +1,136 @@
+{
+  "equivalence": [
+    {
+      "arm": "baseline",
+      "checks": [
+        {
+          "seed": 4,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 19,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 73,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 11,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 31,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 47,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 101,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 137,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        }
+      ]
+    },
+    {
+      "arm": "tactical",
+      "checks": [
+        {
+          "seed": 4,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 19,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 73,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 11,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 31,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 47,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 101,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        },
+        {
+          "seed": 137,
+          "trajectoryHash": true,
+          "equivalenceProof": true,
+          "director": true,
+          "deaths": true
+        }
+      ]
+    }
+  ],
+  "liveSharedSourceUnchanged": true,
+  "mediumAdapterEqualsUnmodified3A": true,
+  "tests": {
+    "normalPassed": 9,
+    "expectedFail": 1,
+    "originalSeed1Preserved": true,
+    "seed3Separate": true,
+    "typecheck": true,
+    "scriptStrictTypecheck": true
+  }
+}

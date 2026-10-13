@@ -1,0 +1,21 @@
+{
+  "seed": 19,
+  "ticks": 3600,
+  "accepted": 14343,
+  "rejected": {
+    "BLOCKED_PATH": 2818,
+    "TRAIL_BUDGET": 102,
+    "PATH_BUDGET": 74,
+    "NOT_CLOSED": 6877,
+    "NEAR_HEAD": 1496,
+    "LAUNCH_NEAR_HEAD": 12,
+    "LAUNCH_PREDICTED_OVERLAP": 7
+  },
+  "avoidable": 1598,
+  "floodCandidates": 15941,
+  "avoidableFraction": 0.1002446521548209,
+  "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832",
+  "verified": true,
+  "method": "Current existing decision traces, shadow disabled; inference from existing rejection ordering, not a new behavior variant or a timing speedup.",
+  "rawHash": "652aca6dbd10a5494e1cee0ab1aad8b81983ed930dcbee870b956a5566509ab1"
+}

@@ -2,11 +2,12 @@ import {describe,it,expect} from 'vitest';
 import {createHash} from 'node:crypto';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {inspectSpawnSpace,trySpawn,watchSpawnAttempts,type SpawnAttemptTrace} from '../../src/shared/spawn.js';
 import {markDead} from '../../src/shared/life.js';
 import {region} from '../../src/shared/hex.js';
-import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
+import {setOwner,addTrail,clearTrail,assertOwnershipCounts} from '../../src/shared/territory.js';
 import {setWallMargin} from '../../src/shared/wall-margin.js';
 import {experimentalMapConfig,experimentalSeed} from '../../src/shared/map-experiment.js';
 
@@ -30,19 +31,21 @@ describe('the same spawn zone scan for measurement and actual respawn',()=>{
   const human=structuredClone(m);human.participants[0].kind='HUMAN';expect(inspectSpawnSpace(human,human.participants[0])).toEqual(space);expect(trySpawn(m,p)).toBe(trySpawn(human,human.participants[0]));expect(p.cellId).toBe(human.participants[0].cellId);
  });
  it.each([false,true])('R22 / padding %s: actual movement/capture/respawn matches its fixed trajectory',padded=>{
-  // Frozen original AI timing hash; combined scheduler tested separately.
-  // The home-component fix changes later deaths/respawns, so the pre-fix
-  // trajectory is obsolete. Bot attack look-ahead/target locking also changes
-  // this gameplay hash; Phase 3 expansion/attack policy and plan memory update it again.
-  // Spawn safety and observer equivalence remain checked.
-  // Initial R22 anchors are checked separately.
-  // Preserve the old strict pin alongside the new shared-geometry pin.
-  const radius=22,expected=padded?'308cabda4d9defc48cb6d45024d3238fc0aa02c423ad6fc046c87edf78a5c15e':'f65590c51b0d1d416af62ce12501b98aae2c7f93e7211aff79f7d7f205eb7315';
-  const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,()=>{});setWallMargin(m.map,padded);
+  // Approved departure safety guard changes the movement trajectory.
+  // Keep real ownership, capture, wall and successful-spawn assertions intact.
+  // Ownership, real captures, wall safety and successful spawn evidence guard the new pin.
+  // Initial anchors and observer equivalence remain checked separately.
+  const radius=22,expected=padded?'e1898b0e77ee1ff17cc538bf611a173125b897ad2e3f42f05d8b0995a8acd752':'359ff58fe743bda0bfd6f3b3a3910ed0493eb96179a273fd961d3a348ff2594b';
+  const spawnTraces:SpawnAttemptTrace[]=[];let captures=0,walls=0;
+  const seed=4,m=createMatch({mapRadius:radius},seed,botSpecs(8),'spawn-equivalence'),memories=m.participants.map(p=>createBotMemory(seed+p.slot,'baseline')),hash=createHash('sha256');watchSpawnAttempts(m,t=>spawnTraces.push(t));setWallMargin(m.map,padded);
   for(let tick=0;tick<1200;tick++){
-   const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId,'baseline'),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);
+   const before=m.eventCounter;
+   const inputs=new Map(m.participants.flatMap((p,i)=>{const input=getBotInput(observeBot(m,p.participantId,'baseline'),memories[i]);return input?[[p.participantId,input] as const]:[];}));stepMatch(m,inputs);assertOwnershipCounts(m);
+   for(const e of m.events)if(Number(e.eventId.split(':').at(-1))>before){if(e.type==='CAPTURE'&&(e.amount??0)>0)captures++;if(e.type==='DEATH'&&e.reason==='WALL_HIT')walls++;}
    const {map,...state}=m;hash.update(JSON.stringify({state,memories},(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));
   }
+  expect(captures).toBeGreaterThan(20);expect(walls).toBe(0);expect(spawnTraces.some(t=>t.success)).toBe(true);
+  for(const t of spawnTraces)if(t.success){expect(t.validCenterCount).toBeGreaterThan(0);expect(t.center).not.toBeNull();}
   expect(hash.digest('hex')).toBe(expected);
  },20000);
  it('R36: the measurement observer does not alter the new scaled-anchor movement/capture/respawn trajectory',()=>{

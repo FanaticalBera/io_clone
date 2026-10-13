@@ -1,0 +1,637 @@
+{
+  "protocol": {
+    "seed": 115,
+    "memorySeed": 7,
+    "radius": 22,
+    "spawnRadius": 2,
+    "humanSlot": 0,
+    "botSlot": 1,
+    "identity": true,
+    "director": true,
+    "scenarios": 16
+  },
+  "auditScriptHash": "e32ad256797560a235f27676ac79853afbfc6796358ab5b1e873c134959f81d0",
+  "commits": 19,
+  "firstBrokenCommit": "6c307e34184eaebbcd81a2dffc143f9b3a0af1fd",
+  "immediateParent": "fafca327bb3615e9c7dc1c9a317c6337c0356c9c",
+  "matrix": [
+    {
+      "sha": "0384f9abc5a30930de34ed2513f22729bc0d4312",
+      "short": "0384f9a",
+      "title": "feat: implement phase 2 bot memory pressure and pursuit reservations",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "8485fe2062c655b06a652f9cc5cf105b0ac2290d",
+      "short": "8485fe2",
+      "title": "feat: show grudge causes and ignored capture losses in debug HUD",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "afad5b3a45c51684b7aba9400358b6850017c5ae",
+      "short": "afad5b3",
+      "title": "docs: propose phase 2.5 territory damage response",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "989b1a8552660342c68aa7a9982b1c25e03f5ffb",
+      "short": "989b1a8",
+      "title": "feat: add phase 2.5 damage aggregation and local reclamation",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "02c4e188f1d2dcf18ea2ee789c3cd47a1863450c",
+      "short": "02c4e18",
+      "title": "test: isolate phase 2.5 responses across eight seeds",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "65034bd757bb6bcfffa452a90bda820674cc0de7",
+      "short": "65034bd",
+      "title": "feat: preserve personality borders with reclaim-only responses",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "e78d4956644692fcd0ecd2f0838048f9f59e8eeb",
+      "short": "e78d495",
+      "title": "fix: render bot death effects during spectating",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "b819897749561e8b5eec44c09343ec3e328c7566",
+      "short": "b819897",
+      "title": "feat: trace expected and actual bot reclamation",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "ddb240dd0e2ed97781990725d52e42f28d3154e1",
+      "short": "ddb240d",
+      "title": "feat: add damage-driven bot repositioning with balance audit",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "be573881be09ac94e1ddf17dc0350def4615547e",
+      "short": "be57388",
+      "title": "docs: record seed73 damage-response candidate omission",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "cbcc9c788a9b9e27967269e1276c08d9f0a1a983",
+      "short": "cbcc9c7",
+      "title": "fix: filter reachable bot boundaries before destination cap",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "e4e2f088605521cb41b3e3a43718b9d868be6be5",
+      "short": "e4e2f08",
+      "title": "Require survival qualification for danger counters",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "c1f2df1b973dffa7fc850b8b9802a4efe60e3e8d",
+      "short": "c1f2df1",
+      "title": "Document spectator checks for danger counters",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "fafca327bb3615e9c7dc1c9a317c6337c0356c9c",
+      "short": "fafca32",
+      "title": "Propose pre-launch safety from seed137 replay",
+      "cuts": 16,
+      "failed": []
+    },
+    {
+      "sha": "6c307e34184eaebbcd81a2dffc143f9b3a0af1fd",
+      "short": "6c307e3",
+      "title": "Guard bot expansion departures with immediate safety",
+      "cuts": 12,
+      "failed": [
+        5,
+        6,
+        13,
+        14
+      ]
+    },
+    {
+      "sha": "71dd161112bc46f26d79356daac4a8f5b2869c27",
+      "short": "71dd161",
+      "title": "Propose physical steering check before bot reposition starts",
+      "cuts": 12,
+      "failed": [
+        5,
+        6,
+        13,
+        14
+      ]
+    },
+    {
+      "sha": "abfeedd600fd760410522c341b79d197b8960ca1",
+      "short": "abfeedd",
+      "title": "Guard reposition starts and separate cumulative bot safety effects",
+      "cuts": 12,
+      "failed": [
+        5,
+        6,
+        13,
+        14
+      ]
+    },
+    {
+      "sha": "99cf951050f658bd907eb240fc8f8763370b4ff1",
+      "short": "99cf951",
+      "title": "Measure actual bot holdings before safety rollback decisions",
+      "cuts": 12,
+      "failed": [
+        5,
+        6,
+        13,
+        14
+      ]
+    },
+    {
+      "sha": "c84fc7a29ed94bf5b6954bd04c6fd8bd8ba13085",
+      "short": "c84fc7a",
+      "title": "Optimize expansion guard order and audit reposition-only removal",
+      "cuts": 12,
+      "failed": [
+        5,
+        6,
+        13,
+        14
+      ]
+    }
+  ],
+  "details": [
+    {
+      "id": 5,
+      "personality": "ATTACK",
+      "route": 1,
+      "firstDifferenceTick": 4,
+      "firstExteriorCell": 700,
+      "guard": {
+        "blocked": true,
+        "reason": "PREDICTED_OVERLAP",
+        "enemySlot": 0,
+        "firstCell": 700,
+        "entrySeconds": 0.3990360113882503,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false,
+        "fallback": [
+          744
+        ]
+      },
+      "forecast": [
+        {
+          "cell": 700,
+          "start": 0.6476981788881833,
+          "end": 0.687017142545764
+        }
+      ],
+      "actual": [
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            611,
+            569
+          ]
+        },
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            611,
+            569
+          ]
+        }
+      ],
+      "parentAtAttack": {
+        "tick": 37,
+        "cell": 699,
+        "direction": {
+          "x": -0.5441160104854931,
+          "y": 0.8390099922726494
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 2,
+          "interrupt": false,
+          "reason": "SELECTABLE",
+          "seconds": 0.5,
+          "returnTime": 1,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1,
+          "counterTime": null,
+          "grudge": 0,
+          "grudgeBonus": 0,
+          "attackChance": 0.8109195009339601,
+          "survival": false,
+          "otherReservations": 0,
+          "reservationFactor": 1,
+          "qualityBonus": 15,
+          "score": 70.7
+        }
+      },
+      "childAtSameTick": {
+        "tick": 37,
+        "cell": 790,
+        "direction": {
+          "x": -0.27981100648277313,
+          "y": -0.9600551029243568
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 5,
+          "interrupt": true,
+          "reason": "VICTIM_RETURNS_FIRST",
+          "seconds": 1.334613547010544,
+          "returnTime": 1,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.25
+        }
+      },
+      "attackTicks": {
+        "parent": 15,
+        "child": 0
+      },
+      "parentOutcome": {
+        "tick": 52,
+        "cut": true,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      "childOutcome": {
+        "tick": 81,
+        "cut": false,
+        "humanState": "ALIVE"
+      }
+    },
+    {
+      "id": 6,
+      "personality": "ATTACK",
+      "route": 2,
+      "firstDifferenceTick": 4,
+      "firstExteriorCell": 700,
+      "guard": {
+        "blocked": true,
+        "reason": "PREDICTED_OVERLAP",
+        "enemySlot": 0,
+        "firstCell": 700,
+        "entrySeconds": 0.3990360113882503,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false,
+        "fallback": [
+          744
+        ]
+      },
+      "forecast": [
+        {
+          "cell": 700,
+          "start": 0.6476981788881833,
+          "end": 0.687017142545764
+        }
+      ],
+      "actual": [
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            570,
+            529
+          ]
+        },
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            570,
+            529
+          ]
+        }
+      ],
+      "parentAtAttack": {
+        "tick": 37,
+        "cell": 699,
+        "direction": {
+          "x": -0.5441160104854931,
+          "y": 0.8390099922726494
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 2,
+          "interrupt": false,
+          "reason": "SELECTABLE",
+          "seconds": 0.5,
+          "returnTime": 0.7333333333333334,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1,
+          "counterTime": null,
+          "grudge": 0,
+          "grudgeBonus": 0,
+          "attackChance": 0.8109195009339601,
+          "survival": false,
+          "otherReservations": 0,
+          "reservationFactor": 1,
+          "qualityBonus": 13.4,
+          "score": 69.10000000000001
+        }
+      },
+      "childAtSameTick": {
+        "tick": 37,
+        "cell": 790,
+        "direction": {
+          "x": -0.27981100648277313,
+          "y": -0.9600551029243568
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 5,
+          "interrupt": true,
+          "reason": "VICTIM_RETURNS_FIRST",
+          "seconds": 1.334613547010544,
+          "returnTime": 0.7333333333333334,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.25
+        }
+      },
+      "attackTicks": {
+        "parent": 15,
+        "child": 0
+      },
+      "parentOutcome": {
+        "tick": 52,
+        "cut": true,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      "childOutcome": {
+        "tick": 76,
+        "cut": false,
+        "humanState": "ALIVE"
+      }
+    },
+    {
+      "id": 13,
+      "personality": "SEEK_POINT",
+      "route": 1,
+      "firstDifferenceTick": 4,
+      "firstExteriorCell": 700,
+      "guard": {
+        "blocked": true,
+        "reason": "PREDICTED_OVERLAP",
+        "enemySlot": 0,
+        "firstCell": 700,
+        "entrySeconds": 0.3990360113882503,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false,
+        "fallback": [
+          744
+        ]
+      },
+      "forecast": [
+        {
+          "cell": 700,
+          "start": 0.6476981788881833,
+          "end": 0.687017142545764
+        }
+      ],
+      "actual": [
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            611,
+            569
+          ]
+        },
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            611,
+            569
+          ]
+        }
+      ],
+      "parentAtAttack": {
+        "tick": 37,
+        "cell": 699,
+        "direction": {
+          "x": -0.5441160104854931,
+          "y": 0.8390099922726494
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 2,
+          "interrupt": false,
+          "reason": "SELECTABLE",
+          "seconds": 0.5,
+          "returnTime": 1,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1,
+          "counterTime": null,
+          "grudge": 0,
+          "grudgeBonus": 0,
+          "attackChance": 0.12982755084056408,
+          "survival": false,
+          "otherReservations": 0,
+          "reservationFactor": 1,
+          "qualityBonus": 0,
+          "score": 55.7
+        }
+      },
+      "childAtSameTick": {
+        "tick": 37,
+        "cell": 790,
+        "direction": {
+          "x": -0.27981100648277313,
+          "y": -0.9600551029243568
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 5,
+          "interrupt": true,
+          "reason": "VICTIM_RETURNS_FIRST",
+          "seconds": 1.334613547010544,
+          "returnTime": 1,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1
+        }
+      },
+      "attackTicks": {
+        "parent": 15,
+        "child": 0
+      },
+      "parentOutcome": {
+        "tick": 52,
+        "cut": true,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      "childOutcome": {
+        "tick": 81,
+        "cut": false,
+        "humanState": "ALIVE"
+      }
+    },
+    {
+      "id": 14,
+      "personality": "SEEK_POINT",
+      "route": 2,
+      "firstDifferenceTick": 4,
+      "firstExteriorCell": 700,
+      "guard": {
+        "blocked": true,
+        "reason": "PREDICTED_OVERLAP",
+        "enemySlot": 0,
+        "firstCell": 700,
+        "entrySeconds": 0.3990360113882503,
+        "prefilterCells": 7,
+        "consideredHeads": 1,
+        "skipped": false,
+        "fallback": [
+          744
+        ]
+      },
+      "forecast": [
+        {
+          "cell": 700,
+          "start": 0.6476981788881833,
+          "end": 0.687017142545764
+        }
+      ],
+      "actual": [
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            570,
+            529
+          ]
+        },
+        {
+          "segmentsVerified": 30,
+          "firstExteriorCellVisited": false,
+          "visitedCells": [
+            573,
+            572,
+            613,
+            612,
+            570,
+            529
+          ]
+        }
+      ],
+      "parentAtAttack": {
+        "tick": 37,
+        "cell": 699,
+        "direction": {
+          "x": -0.5441160104854931,
+          "y": 0.8390099922726494
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 2,
+          "interrupt": false,
+          "reason": "SELECTABLE",
+          "seconds": 0.5,
+          "returnTime": 0.7333333333333334,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1,
+          "counterTime": null,
+          "grudge": 0,
+          "grudgeBonus": 0,
+          "attackChance": 0.12982755084056408,
+          "survival": false,
+          "otherReservations": 0,
+          "reservationFactor": 1,
+          "qualityBonus": 0,
+          "score": 55.7
+        }
+      },
+      "childAtSameTick": {
+        "tick": 37,
+        "cell": 790,
+        "direction": {
+          "x": -0.27981100648277313,
+          "y": -0.9600551029243568
+        },
+        "candidate": {
+          "target": 612,
+          "slot": 0,
+          "distance": 5,
+          "interrupt": true,
+          "reason": "VICTIM_RETURNS_FIRST",
+          "seconds": 1.334613547010544,
+          "returnTime": 0.7333333333333334,
+          "returnSeconds": 0.23809523809523808,
+          "etaMargin": 0.1
+        }
+      },
+      "attackTicks": {
+        "parent": 15,
+        "child": 0
+      },
+      "parentOutcome": {
+        "tick": 52,
+        "cut": true,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      "childOutcome": {
+        "tick": 76,
+        "cut": false,
+        "humanState": "ALIVE"
+      }
+    }
+  ],
+  "conclusion": "Launch guard t4 current-heading overlap forecast causes detour; t37 ETA fails VICTIM_RETURNS_FIRST. No attack/safety changes made.",
+  "limitation": "Post hoc actual-turn check establishes a conservative false positive in these four fixed trajectories only; it is not information available to the bot at t4."
+}

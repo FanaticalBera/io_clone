@@ -17,7 +17,7 @@ function online(publicRoom=false){
 for(const publicRoom of [false,true])it(`default ${publicRoom?'public':'friend'} online room keeps initial placement, HUMAN Retry and replacement spawn, and enables BOT death respawn`,()=>{
  const {rooms,member,m}=online(publicRoom),human=m.participants[0],bot=m.participants[13];
  expect(m.participants).toHaveLength(14);expect(m.participants.filter(p=>p.kind==='BOT')).toHaveLength(13);
- const initial=createMatch(m.config,m.seed,[{participantId:human.participantId,slot:0,nickname:'H',kind:'HUMAN'},...botSpecs(13,1,m.matchId)],m.matchId,m.gameMode);
+ const initial=createMatch(m.config,m.seed,[{participantId:human.participantId,slot:0,nickname:'H',kind:'HUMAN'},...botSpecs(13,1,m.matchId,{seed:m.seed,existing:[{participantId:human.participantId,slot:0,nickname:'H',kind:'HUMAN'}]})],m.matchId,m.gameMode);
  expect(m).toEqual(initial);expect(safeBotRespawn(m,bot)).toBe(false);
  markDead(m,human,'WALL_HIT');const retryResult=human.run!.result!;expect(rooms.retryRun(member,m.matchId,retryResult.runId).ok).toBe(true);expect(human.lifeState).toBe('ALIVE');expect(safeBotRespawn(m,human)).toBe(false);
  markDead(m,bot,'TRAIL_CUT');expect(safeBotRespawn(m,bot)).toBe(true);expect(inspectSpawnSpace(m,bot).edgeRejectedCount).toBe(1308);

@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,type BotObservation,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,type BotObservation,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import type {Personality} from '../../src/shared/model.js';
 
 // Controlled PUBLIC observations isolate scoring. Actual cuts and life/return
@@ -12,7 +13,7 @@ function window(personality:Personality,targets=[2,5],thirdParty=false){
  obs.others=[{...observeBot(m,m.participants[1].participantId).self,cellId:cell(7,3),position:{...m.map.cells[cell(7,3)].center},direction:{x:0,y:1},targetDirection:{x:0,y:1}}];
  if(thirdParty)obs.others.push({...obs.others[0],participantId:'third',slot:2,cellId:cell(3,2),position:{...m.map.cells[cell(3,2)].center}});
  obs.trails=targets.map(q=>({slot:1,cellId:cell(q)}));obs.ownTrail=[];
- const memory=createBotMemory(7);memory.plannedLifeId=obs.self.lifeId;memory.goal='STEAL';memory.path=[cell(0,-1),cell(-1)];memory.grievances.set(1,{amount:6,tick:obs.tick});let trace:BotDecisionTrace|undefined;
+ const memory=createBotMemory(7);memory.plannedLifeId=obs.self.lifeId;memory.goal='STEAL';memory.path=[cell(0,-1),cell(-1)];memory.emotion.matchId=obs.matchId;memory.emotion.lifeId=obs.self.lifeId;memory.emotion.grudge.set(obs.roster!.find(p=>p.slot===1)!.participantId,{amount:6,tick:obs.tick});let trace:BotDecisionTrace|undefined;
  watchBotDecisions(memory,t=>{trace=t;});getBotInput(obs,memory);return {obs,memory,trace:trace!,cell};
 }
 describe('personality-specific kill windows',()=>{

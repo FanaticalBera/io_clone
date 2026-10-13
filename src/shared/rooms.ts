@@ -6,6 +6,7 @@ import {trySpawn} from './spawn.js';
 import {validateConfig,type GameConfig} from './config.js';
 import {createMatch} from './game.js';
 import {botSpecs,createBotMemory,type BotMemory} from './bot.js';
+import {botSeed,createBotIdentity} from './bot-identity.js';
 import type {MatchState,DirectionInput} from './model.js';
 import type {Ack,RoomPhase,RoomView} from './protocol.js';
 import {normalizeNickname} from './names.js';
@@ -104,9 +105,9 @@ createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic'):Ack {
   if(!members.length){room.phase='WAITING';room.phaseDeadline=null;room.revision++;return;}
   const matchId=room.roomId+':round:'+ (++room.roundNumber);
   const humans=members.map((m,slot)=>({participantId:m.memberId,slot,nickname:m.nickname,kind:'HUMAN' as const}));
-  const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(this.config.maxSlots-humans.length,humans.length,matchId)],matchId,room.gameMode);
+  const seed=this.seed();room.match=createMatch(this.config,seed,[...humans,...botSpecs(this.config.maxSlots-humans.length,humans.length,matchId,{seed,existing:humans})],matchId,room.gameMode);
   setSafeBotRespawn(room.match,true);
-  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(seed^(p.slot*2654435761)));
+  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!)));
   room.snapshotSeq=0;room.accumulator=0;room.lastStepAt=at;room.phase='RUNNING';room.phaseDeadline=null;room.revision++;
   for(const member of members){member.session.highestReceivedSeq=0;}
  }
@@ -142,9 +143,10 @@ disconnected(session:S):void {
   if(room.phase!=='RUNNING'||!room.match)return;
   const match=room.match,old=match.participants.find(p=>p.participantId===participantId);if(!old)return;
   leaveParticipant(match,old);match.participants=match.participants.filter(p=>p!==old);room.bots.delete(participantId);
-  const template=botSpecs(4,0,match.matchId+'-replacement-'+randomUUID())[old.slot%4];
+  const assignmentSeed=botSeed(match.seed,old.slot)^match.tick;
+  const template=botSpecs(1,old.slot,match.matchId+'-replacement-'+randomUUID(),{seed:assignmentSeed,existing:match.participants})[0];
   const p=makeParticipant({...template,slot:old.slot});p.respawnAtTick=match.tick;match.participants.push(p);
-  room.bots.set(p.participantId,createBotMemory(match.seed^(p.slot*2654435761)^match.tick));trySpawn(match,p);
+  room.bots.set(p.participantId,createBotMemory(assignmentSeed,'combined',createBotIdentity(assignmentSeed,p.personality!)));trySpawn(match,p);
  }
  closeRoom(room:Room<S>):void {
   this.onClosed?.(room);
@@ -190,9 +192,3 @@ disconnected(session:S):void {
   return room&&member?{room,member}:null;
  }
 }
-
-
-
-
-
-

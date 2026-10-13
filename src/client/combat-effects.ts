@@ -24,7 +24,7 @@ export class CombatEffects {
   this.message.setResolution(ratio);for(const burst of this.bursts)burst.label.setResolution(ratio);
  }
  accept(view:MatchView,selfId:string|null,reset=false):void{
-  if(reset||this.matchId!==view.matchId||!selfId){
+  if(reset||this.matchId!==view.matchId){
    this.clear();this.matchId=view.matchId;this.played=0;this.kills=0;this.deaths=0;this.lastEventId='';
    this.cursor.accept(view,true);return;
   }
@@ -33,7 +33,7 @@ export class CombatEffects {
   for(const event of events){
    const victim=view.participants.find(p=>p.participantId===event.participantId),position=event.position??victim?.position;
    if(!position)continue;
-   const killed=event.killerId===selfId&&event.participantId!==selfId,dead=event.participantId===selfId;
+   const killed=!!selfId&&event.killerId===selfId&&event.participantId!==selfId,dead=!!selfId&&event.participantId===selfId;
    const color=this.colors[victim?.slot??0];
    const label=this.scene.add.text(position.x,position.y-35,killed?'처치!':dead?'탈락':event.reason==='WALL_HIT'?'벽 충돌':'선 절단',{
     fontFamily:'Jua, Gothic A1, sans-serif',fontSize:killed||dead?'24px':'16px',color:'#1f1b2d',stroke:'#ffffff',strokeThickness:6,resolution:this.pixelRatio

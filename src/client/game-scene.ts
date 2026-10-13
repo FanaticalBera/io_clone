@@ -21,7 +21,24 @@ export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
- private boundaryHighlight=true;
+ private boundaryHighlight=true;private botDebugFollowId:string|null=null;
+ setBotDebugFollow(id:string|null):void{this.botDebugFollowId=id;if(this.created&&this.view)this.drawView(this.view,false);}
+ isBotDebugFollowing():boolean{return this.botDebugFollowId!==null;}
+ private debugOverlay?:Phaser.GameObjects.Graphics;
+ private debugOverlayData:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number;route?:number[];destination?:number|null}|null=null;
+ setBotDebugOverlay(data:typeof this.debugOverlayData):void {
+  this.debugOverlayData=data;if(!this.created||!this.map)return;
+  if(!data||data.matchId!==this.view?.matchId){this.debugOverlay?.clear().setVisible(false);return;}
+  if(!this.debugOverlay){this.debugOverlay=this.add.graphics().setDepth(6);const clear=()=>{this.debugOverlay?.destroy();this.debugOverlay=undefined;this.debugOverlayData=null;};this.events.once(Phaser.Scenes.Events.SHUTDOWN,clear);}
+  const g=this.debugOverlay;g.clear().setVisible(true);
+  for(const [ids,color,width,fill]of [[data.damage,0xffd54a,2,0],[data.expected,0x42dbff,4,.15],[data.actual,0x61ff92,3,.20]] as const){
+   g.lineStyle(width,color,1);for(const id of ids){const cell=this.map.cells[id];if(!cell||(color===0x61ff92&&this.view?.owners[id]!==data.slot+1))continue;if(fill)g.fillStyle(color,fill).fillPoints(cell.vertices,true);g.strokePoints(cell.vertices,true);}
+  }
+  g.lineStyle(2,0xfb923c,1);for(const id of data.route??[]){const cell=this.map.cells[id];if(cell)g.strokePoints(cell.vertices,true);}
+  if(data.destination!=null){const cell=this.map.cells[data.destination];if(cell){g.fillStyle(0xfb923c,.35).fillPoints(cell.vertices,true);g.lineStyle(5,0xfb923c,1).strokePoints(cell.vertices,true);}}
+ }
+ botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0,route:this.debugOverlayData?.route?.length??0,destination:this.debugOverlayData?.destination??null};}
+
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
  private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
@@ -60,7 +77,7 @@ export class GameScene extends Phaser.Scene {
  constructor(){super('game');}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
  create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
- private cssZoom():number{return this.selfId?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
+ private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
   const fit=()=>{frame=0;const rect=parent.getBoundingClientRect(),width=Math.round(rect.width),height=Math.round(rect.height);if(width<1||height<1)return;
@@ -72,7 +89,7 @@ export class GameScene extends Phaser.Scene {
    if(this.scale.width!==backingWidth||this.scale.height!==backingHeight)this.scale.resize(backingWidth,backingHeight);
    Object.assign(this.game.canvas.style,{width:width+'px',height:height+'px',marginLeft:'0px',marginTop:'0px'});
    this.scale.updateBounds();
-   this.cameras.main.setZoom(this.cssZoom()*ratio);if(!this.selfId)this.cameras.main.centerOn(0,0);
+   this.cameras.main.setZoom(this.cssZoom()*ratio);if(!this.selfId&&!this.botDebugFollowId)this.cameras.main.centerOn(0,0);
    for(const avatar of this.avatars.values())avatar.label.setResolution(ratio).setScale(Math.max(1,.7/gameplayZoom(width)));
    for(const point of this.points)point.setResolution(ratio);
    this.combat?.setViewport(width,height,ratio);
@@ -81,7 +98,7 @@ export class GameScene extends Phaser.Scene {
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
   const cleanup=()=>{observer.disconnect();abort.abort();cancelAnimationFrame(frame);};this.events.once(Phaser.Scenes.Events.SHUTDOWN,cleanup);this.events.once(Phaser.Scenes.Events.DESTROY,cleanup);fit();
  }
- setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||!selfId,previous??undefined);this.combat?.accept(view,selfId,reset);}}
+ setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {
@@ -186,13 +203,13 @@ export class GameScene extends Phaser.Scene {
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
    avatar.shield.setVisible(p.protected);
-   if(p.participantId===this.selfId){
+   if(p.participantId===(this.botDebugFollowId??this.selfId)){
     // startFollow recenters immediately; restarting it for every snapshot causes camera shake.
     if(this.followTarget!==avatar.container){this.followTarget=avatar.container;this.cameras.main.startFollow(avatar.container,false,1,1);}
    }
   }
   for(const [i,cp]of this.map.controlPoints.entries()){const owner=view.owners[cp.cellId];this.points[i].setVisible(GAME_MODES[view.gameMode.id].usesControlPoints).setBackgroundColor(owner?cssColor(this.renderColors[owner-1]):'#ffce70');}
-  if(!this.selfId){this.followTarget=null;this.cameras.main.stopFollow();this.cameras.main.centerOn(0,0);}
+  if(!this.selfId&&!this.botDebugFollowId){this.followTarget=null;this.cameras.main.stopFollow();this.cameras.main.centerOn(0,0);}
   this.cameras.main.setZoom(this.cssZoom()*this.pixelRatio);
   document.querySelector('#field')?.setAttribute('data-chunks',String(this.chunks.size));
   document.querySelector('#field')?.setAttribute('data-avatars',String(this.avatars.size));
@@ -286,7 +303,7 @@ export class GameScene extends Phaser.Scene {
  setChunkCulling(enabled:boolean):void{this.cullChunks=enabled;}
  testCamera(x:number,y:number):void{this.cameras.main.stopFollow();this.followTarget=null;this.cameras.main.centerOn(x,y);}
  renderState():{renderedAt:number;camera:{x:number;y:number};zoom:number;pixelRatio:number;backing:{width:number;height:number};viewport:{width:number;height:number};centerError:number;tick:number;lifeId:number|null;lifeState:string|null} {
-  const self=this.view?.participants.find(p=>p.participantId===this.selfId),avatar=self&&this.avatars.get(self.participantId)?.container,camera=this.cameras.main;
+  const self=this.view?.participants.find(p=>p.participantId===(this.botDebugFollowId??this.selfId)),avatar=self&&this.avatars.get(self.participantId)?.container,camera=this.cameras.main;
   return {renderedAt:this.renderedAt,camera:{x:camera.scrollX,y:camera.scrollY},zoom:camera.zoom/this.pixelRatio,pixelRatio:this.pixelRatio,backing:{width:this.game.canvas.width,height:this.game.canvas.height},viewport:{width:this.viewportWidth,height:this.viewportHeight},centerError:avatar?Math.hypot(avatar.x-camera.midPoint.x,avatar.y-camera.midPoint.y):0,tick:this.view?.tick??0,lifeId:self?.lifeId??null,lifeState:self?.lifeState??null};
  }
  destroyGame():void {this.game.destroy(true);}

@@ -1,5 +1,7 @@
 import {buildView,stepMatch} from './game.js';
-import {getBotInput,observeBotForTick,createBotMemory} from './bot.js';
+import {createBotMemory} from './bot.js';
+import {getBotInputs} from './bot-director.js';
+import {botSeed,createBotIdentity} from './bot-identity.js';
 import {packSnapshot,type AppError,type ErrorCode,type RoomView,type WireSnapshot,type ServerEvents} from './protocol.js';
 import type {Room,Member,RoomManager,RoomSession} from './rooms.js';
 // Fixed-tick room loop shared by the online server (socket.io output) and the LAN host phone (frame output).
@@ -64,9 +66,11 @@ export class RoomLoop<S extends RoomSession> {
      const dt=1/room.match.config.simulationHz;let count=0;
      while(room.accumulator+1e-9>=dt&&count<5&&room.match.phase==='RUNNING'){
       const before=performance.now();const inputs=new Map(room.inputs);room.inputs.clear();
+      const selected=new Set<string>(),returnOnly=new Set<string>();
       for(const p of room.match.participants)if(p.lifeState==='ALIVE'&&(p.kind==='BOT'||room.members.get(p.participantId)?.session.background||room.members.get(p.participantId)?.session.connected===false)){
-       let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(room.match.seed^p.slot);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);const input=getBotInput(observeBotForTick(room.match,p.participantId,memory),memory,p.kind==='HUMAN');if(input)inputs.set(p.participantId,input);
+       let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(botSeed(room.match.seed,p.slot),'combined',p.kind==='BOT'?createBotIdentity(botSeed(room.match.seed,p.slot),p.personality!):undefined);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);selected.add(p.participantId);if(p.kind==='HUMAN')returnOnly.add(p.participantId);
       }
+      for(const [id,input]of getBotInputs(room.match,room.bots,selected,returnOnly))inputs.set(id,input);
       stepMatch(room.match,inputs);const duration=performance.now()-before;
       this.metrics.steps++;this.metrics.stepMs.push(duration);if(this.metrics.stepMs.length>30000)this.metrics.stepMs.splice(0,1000);
       room.accumulator-=dt;count++;

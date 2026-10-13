@@ -1,0 +1,1261 @@
+{
+  "runtime": "c84fc7a behavior, checked on a0272ba worktree; game code unchanged",
+  "method": "Deterministic headless replay of the human-selected windows; pre-step frames in [start,end), direct events and ownership transfers. First3600 input/world hashes equal the fixed closing audits. Additional137/73 observer passes explain ping-pong and exact HUD outcomes. Not a new 8-seed performance or balance comparison.",
+  "rows": [
+    {
+      "window": {
+        "slot": 5,
+        "start": 1000,
+        "end": 3900
+      },
+      "slot": 5,
+      "nickname": "나무그늘",
+      "personality": "EXPAND",
+      "trait": "Vengeful",
+      "aliveFrames": 2810,
+      "deadFrames": 90,
+      "goalFrames": {
+        "EXPAND": 1268,
+        "ESCAPE": 30,
+        "ATTACK": 114,
+        "RETURN": 182,
+        "REPOSITION": 506,
+        "STEAL": 710
+      },
+      "reasons": {
+        "PLAN_CONTINUE": 415,
+        "EXPANSION_SCORE": 32,
+        "DANGER": 5,
+        "ATTACK_SCORE": 2,
+        "HOME_ROUTE_LOST": 2,
+        "REPOSITION_START": 8,
+        "EARLY_CLOSURE": 2,
+        "LAUNCH_BLOCKED": 4,
+        "ATTACK_OPPORTUNITY": 2,
+        "EXPANSION_PRESSURE": 4,
+        "LAUNCH_NO_SAFE_OWNED_ROUTE": 1,
+        "NO_PATH": 1
+      },
+      "rejections": {
+        "NOT_CLOSED": 420,
+        "NEAR_HEAD": 152,
+        "BLOCKED_PATH": 38,
+        "LAUNCH_PREDICTED_OVERLAP": 1,
+        "PATH_BUDGET": 8,
+        "TRAIL_BUDGET": 6
+      },
+      "candidateCalls": 34,
+      "noSafeCandidates": 0,
+      "startHolding": 224,
+      "endHolding": 7,
+      "totalCapture": 452,
+      "stolenCells": 102,
+      "reclaimedCells": 77,
+      "lostToCapture": 329,
+      "kills": [
+        {
+          "tick": 1760,
+          "victimSlot": 10,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "HOME_CAPTURE",
+            "cellId": 4446,
+            "eventTick": 1760.49443
+          }
+        },
+        {
+          "tick": 3095,
+          "victimSlot": 3,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 4343,
+            "eventTick": 3095.13539
+          }
+        }
+      ],
+      "rpSelection": {
+        "NO_ACTIVE_DAMAGE": 2,
+        "NO_DISTANT_DESTINATION": 2,
+        "SELECTED": 8,
+        "COOLDOWN": 28,
+        "NEAR_HEAD": 1,
+        "PHYSICAL_START_UNSAFE": 1
+      },
+      "seed": 137,
+      "near6Percent": 26.690391459074732,
+      "near2Percent": 1.8149466192170818,
+      "stolenShare": 0.22566371681415928,
+      "newExpansionMeanExternalLength": 9.78125,
+      "repositionClosed": [
+        {
+          "sequence": 1,
+          "lifeId": 1,
+          "startedTick": 1337,
+          "endedTick": 1395,
+          "outcome": "ROUTE_LOST",
+          "target": 5442,
+          "attackerId": "bot-10",
+          "distance": 17,
+          "score": 3.4662644657517196,
+          "startCell": 4326,
+          "endCell": 4664,
+          "start": {
+            "x": -999.3461663375308,
+            "y": -198.7146083172995
+          },
+          "end": {
+            "x": -635.8739952980328,
+            "y": -41.68299575713013
+          },
+          "movedCells": 8,
+          "lastCell": 4664
+        },
+        {
+          "sequence": 2,
+          "lifeId": 1,
+          "startedTick": 1613,
+          "endedTick": 1625,
+          "outcome": "NEAR_HEAD",
+          "target": 4445,
+          "attackerId": "bot-10",
+          "distance": 11,
+          "score": 5.472559898120191,
+          "startCell": 4995,
+          "endCell": 4997,
+          "start": {
+            "x": -949.4077940673104,
+            "y": 104.52666941516229
+          },
+          "end": {
+            "x": -857.8197415332684,
+            "y": 97.0495397644634
+          },
+          "movedCells": 2,
+          "lastCell": 4997
+        },
+        {
+          "sequence": 3,
+          "lifeId": 1,
+          "startedTick": 1901,
+          "endedTick": 1967,
+          "outcome": "NEAR_HEAD",
+          "target": 4007,
+          "attackerId": "bot-11",
+          "distance": 13,
+          "score": 4.98890491162345,
+          "startCell": 3500,
+          "endCell": 3593,
+          "start": {
+            "x": -208.79392521145058,
+            "y": -575.3957139040187
+          },
+          "end": {
+            "x": -696.1508271342141,
+            "y": -503.71786392981437
+          },
+          "movedCells": 9,
+          "lastCell": 3593
+        },
+        {
+          "sequence": 4,
+          "lifeId": 1,
+          "startedTick": 2171,
+          "endedTick": 2248,
+          "outcome": "ARRIVED",
+          "target": 3899,
+          "attackerId": "bot-11",
+          "distance": 12,
+          "score": 1.934350740808748,
+          "startCell": 4554,
+          "endCell": 3899,
+          "start": {
+            "x": -547.383766627283,
+            "y": -112.97768271427884
+          },
+          "end": {
+            "x": -924.6523899153148,
+            "y": -402.52458359214006
+          },
+          "movedCells": 12,
+          "lastCell": 3899
+        },
+        {
+          "sequence": 5,
+          "lifeId": 1,
+          "startedTick": 2537,
+          "endedTick": 2627,
+          "outcome": "ARRIVED",
+          "target": 4330,
+          "attackerId": "bot-11",
+          "distance": 12,
+          "score": 2.5149115102630253,
+          "startCell": 4342,
+          "endCell": 4330,
+          "start": {
+            "x": -101.31451321614966,
+            "y": -209.32812514465644
+          },
+          "end": {
+            "x": -755.9309839280182,
+            "y": -192.02111873628783
+          },
+          "movedCells": 14,
+          "lastCell": 4330
+        },
+        {
+          "sequence": 6,
+          "lifeId": 1,
+          "startedTick": 2849,
+          "endedTick": 2897,
+          "outcome": "ATTACK",
+          "target": 4016,
+          "attackerId": "bot-3",
+          "distance": 13,
+          "score": 4.4176098330357565,
+          "startCell": 4548,
+          "endCell": 4554,
+          "start": {
+            "x": -866.947233368147,
+            "y": -102.1003560943968
+          },
+          "end": {
+            "x": -563.5387902604039,
+            "y": -94.45973963712395
+          },
+          "movedCells": 7,
+          "lastCell": 4554
+        },
+        {
+          "sequence": 7,
+          "lifeId": 1,
+          "startedTick": 3257,
+          "endedTick": 3334,
+          "outcome": "ARRIVED",
+          "target": 4333,
+          "attackerId": "bot-11",
+          "distance": 11,
+          "score": 6.519138584701024,
+          "startCell": 4344,
+          "endCell": 4333,
+          "start": {
+            "x": 8.896962989664672,
+            "y": -191.57697451794107
+          },
+          "end": {
+            "x": -588.5908520944018,
+            "y": -191.99936826304705
+          },
+          "movedCells": 11,
+          "lastCell": 4333
+        },
+        {
+          "sequence": 8,
+          "lifeId": 1,
+          "startedTick": 3617,
+          "endedTick": 3695,
+          "outcome": "ARRIVED",
+          "target": 3797,
+          "attackerId": "bot-11",
+          "distance": 11,
+          "score": 6.674100776529838,
+          "startCell": 3298,
+          "endCell": 3797,
+          "start": {
+            "x": -330.1618198197326,
+            "y": -667.5619880499206
+          },
+          "end": {
+            "x": -783.3048686555991,
+            "y": -433.56470721479513
+          },
+          "movedCells": 12,
+          "lastCell": 3797
+        }
+      ],
+      "repositionArrivals": 4,
+      "pingPongTriples": [
+        [
+          2537,
+          2849,
+          3257
+        ]
+      ],
+      "deaths": [
+        {
+          "tick": 3801,
+          "killerSlot": 11,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "HOME_CAPTURE",
+            "cellId": 3901,
+            "eventTick": 3801.24387
+          },
+          "goal": "STEAL"
+        }
+      ],
+      "hudExamples": [
+        {
+          "selectedTick": 2248,
+          "endedTick": 2394,
+          "outcome": "CAPTURE",
+          "dRaw": 2.5859390210318507,
+          "appliedBonus": 2.5859390210318507,
+          "interruptions": [
+            {
+              "tick": 2381,
+              "goal": "RETURN",
+              "reason": "EARLY_CLOSURE"
+            }
+          ],
+          "neutralCells": 1,
+          "ordinaryStolenCells": 30,
+          "expected": 7,
+          "actual": 7,
+          "otherRecovery": 7
+        },
+        {
+          "selectedTick": 2627,
+          "endedTick": 2712,
+          "outcome": "CAPTURE",
+          "dRaw": 1.4306087468263757,
+          "appliedBonus": 1.4306087468263757,
+          "interruptions": [
+            {
+              "tick": 2693,
+              "goal": "RETURN",
+              "reason": "EXPANSION_PRESSURE"
+            }
+          ],
+          "neutralCells": 4,
+          "ordinaryStolenCells": 0,
+          "expected": 6,
+          "actual": 0,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 3334,
+          "endedTick": 3468,
+          "outcome": "CAPTURE",
+          "dRaw": 3,
+          "appliedBonus": 3,
+          "interruptions": [],
+          "neutralCells": 16,
+          "ordinaryStolenCells": 0,
+          "expected": 16,
+          "actual": 16,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 3695,
+          "endedTick": 3720,
+          "outcome": "CAPTURE",
+          "dRaw": 2.2604800222118637,
+          "appliedBonus": 2.2604800222118637,
+          "interruptions": [
+            {
+              "tick": 3707,
+              "goal": "RETURN",
+              "reason": "EXPANSION_PRESSURE"
+            }
+          ],
+          "neutralCells": 0,
+          "ordinaryStolenCells": 0,
+          "expected": 6,
+          "actual": 3,
+          "otherRecovery": 0
+        }
+      ],
+      "pingPongContext": {
+        "first": 2537,
+        "second": 2849,
+        "third": 3257,
+        "attackStarted": 2897,
+        "attackTargetSlot": 3,
+        "targetKilledAt": 3095,
+        "losses2627to2849": {
+          "3": 38,
+          "11": 0
+        },
+        "losses2849to3257": {
+          "3": 20,
+          "11": 69
+        },
+        "cooldownViolation": false,
+        "alreadyInOriginal120sAudit": 1
+      },
+      "neutralReclaimExample": {
+        "selectedTick": 3334,
+        "captureTick": 3467,
+        "hudExpected": 16,
+        "hudActual": 16,
+        "allActualPreviousOwnersNeutral": true,
+        "existingAuditReclaimOnTick": 0
+      }
+    },
+    {
+      "window": {
+        "slot": 9,
+        "start": 1000,
+        "end": 2650
+      },
+      "slot": 9,
+      "nickname": "감자전",
+      "personality": "EXPAND",
+      "trait": "Gambler",
+      "aliveFrames": 1650,
+      "deadFrames": 0,
+      "goalFrames": {
+        "EXPAND": 835,
+        "RETURN": 99,
+        "ATTACK": 54,
+        "ESCAPE": 54,
+        "STEAL": 433,
+        "REPOSITION": 175
+      },
+      "reasons": {
+        "PLAN_CONTINUE": 238,
+        "EXPANSION_PRESSURE": 2,
+        "EXPANSION_SCORE": 22,
+        "LAUNCH_BLOCKED": 6,
+        "ATTACK_OPPORTUNITY": 2,
+        "DANGER": 9,
+        "REPOSITION_START": 3
+      },
+      "rejections": {
+        "NOT_CLOSED": 286,
+        "NEAR_HEAD": 97,
+        "BLOCKED_PATH": 36,
+        "PATH_BUDGET": 39,
+        "TRAIL_BUDGET": 5
+      },
+      "candidateCalls": 22,
+      "noSafeCandidates": 0,
+      "startHolding": 329,
+      "endHolding": 640,
+      "totalCapture": 397,
+      "stolenCells": 106,
+      "reclaimedCells": 52,
+      "lostToCapture": 85,
+      "kills": [
+        {
+          "tick": 1432,
+          "victimSlot": 2,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 7451,
+            "eventTick": 1432.24705
+          }
+        },
+        {
+          "tick": 1859,
+          "victimSlot": 7,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "HOME_CAPTURE",
+            "cellId": 7713,
+            "eventTick": 1859.91923
+          }
+        }
+      ],
+      "rpSelection": {
+        "NO_ACTIVE_DAMAGE": 12,
+        "SELECTED": 3,
+        "COOLDOWN": 8,
+        "NEAR_HEAD": 1,
+        "NO_DISTANT_DESTINATION": 1
+      },
+      "seed": 47,
+      "near6Percent": 22.848484848484848,
+      "near2Percent": 0.7878787878787878,
+      "stolenShare": 0.26700251889168763,
+      "newExpansionMeanExternalLength": 9.363636363636363,
+      "repositionClosed": [
+        {
+          "sequence": 1,
+          "lifeId": 1,
+          "startedTick": 1575,
+          "endedTick": 1600,
+          "outcome": "ROUTE_LOST",
+          "target": 7798,
+          "attackerId": "bot-7",
+          "distance": 11,
+          "score": 4.083963055254578,
+          "startCell": 8187,
+          "endCell": 8112,
+          "start": {
+            "x": -1172.9117604133028,
+            "y": 1744.8990028799371
+          },
+          "end": {
+            "x": -997.8847836729046,
+            "y": 1685.6177951158957
+          },
+          "movedCells": 3,
+          "lastCell": 8112
+        },
+        {
+          "sequence": 2,
+          "lifeId": 1,
+          "startedTick": 1965,
+          "endedTick": 2042,
+          "outcome": "ARRIVED",
+          "target": 8194,
+          "attackerId": "bot-7",
+          "distance": 11,
+          "score": 1.3507173992170594,
+          "startCell": 7805,
+          "endCell": 8194,
+          "start": {
+            "x": -288.90006942792246,
+            "y": 1485.1267561859277
+          },
+          "end": {
+            "x": -765.5950012115968,
+            "y": 1710.8456048868022
+          },
+          "movedCells": 11,
+          "lastCell": 8194
+        },
+        {
+          "sequence": 3,
+          "lifeId": 1,
+          "startedTick": 2343,
+          "endedTick": 2416,
+          "outcome": "ARRIVED",
+          "target": 7028,
+          "attackerId": "bot-8",
+          "distance": 11,
+          "score": 4.063049238037577,
+          "startCell": 7968,
+          "endCell": 7028,
+          "start": {
+            "x": -256.27116630955254,
+            "y": 1573.1241432065356
+          },
+          "end": {
+            "x": -232.93483282722565,
+            "y": 1077.6630655306697
+          },
+          "movedCells": 12,
+          "lastCell": 7028
+        }
+      ],
+      "repositionArrivals": 2,
+      "pingPongTriples": [],
+      "deaths": [],
+      "hudExamples": []
+    },
+    {
+      "window": {
+        "slot": 5,
+        "start": 2600,
+        "end": 5000
+      },
+      "slot": 5,
+      "nickname": "바람개비",
+      "personality": "SEEK_POINT",
+      "trait": "Opportunist",
+      "aliveFrames": 2378,
+      "deadFrames": 22,
+      "goalFrames": {
+        "STEAL": 944,
+        "REPOSITION": 359,
+        "RETURN": 182,
+        "ATTACK": 24,
+        "EXPAND": 858,
+        "ESCAPE": 11
+      },
+      "reasons": {
+        "PLAN_CONTINUE": 363,
+        "EXPANSION_SCORE": 25,
+        "REPOSITION_START": 5,
+        "LAUNCH_BLOCKED": 2,
+        "ATTACK_OPPORTUNITY": 1,
+        "PERIMETER_GUARD": 16,
+        "NO_PATH": 7,
+        "EXPANSION_PRESSURE": 1,
+        "DANGER": 2
+      },
+      "rejections": {
+        "NOT_CLOSED": 404,
+        "NEAR_HEAD": 41,
+        "BLOCKED_PATH": 216,
+        "PATH_BUDGET": 1
+      },
+      "candidateCalls": 28,
+      "noSafeCandidates": 0,
+      "startHolding": 336,
+      "endHolding": 0,
+      "totalCapture": 339,
+      "stolenCells": 154,
+      "reclaimedCells": 86,
+      "lostToCapture": 116,
+      "kills": [
+        {
+          "tick": 2825,
+          "victimSlot": 0,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 6310,
+            "eventTick": 2825.65388
+          }
+        }
+      ],
+      "rpSelection": {
+        "COOLDOWN": 23,
+        "SELECTED": 5,
+        "NO_DISTANT_DESTINATION": 5
+      },
+      "seed": 47,
+      "near6Percent": 9.083263246425568,
+      "near2Percent": 0.5046257359125316,
+      "stolenShare": 0.45427728613569324,
+      "newExpansionMeanExternalLength": 9.4,
+      "repositionClosed": [
+        {
+          "sequence": 4,
+          "lifeId": 1,
+          "startedTick": 2741,
+          "endedTick": 2760,
+          "outcome": "ROUTE_LOST",
+          "target": 6698,
+          "attackerId": "bot-0",
+          "distance": 11,
+          "score": 5.465556446413488,
+          "startCell": 6118,
+          "endCell": 6116,
+          "start": {
+            "x": 2570.080907681734,
+            "y": 573.0830237555253
+          },
+          "end": {
+            "x": 2431.630352852652,
+            "y": 569.5207767883825
+          },
+          "movedCells": 2,
+          "lastCell": 6116
+        },
+        {
+          "sequence": 5,
+          "lifeId": 1,
+          "startedTick": 2987,
+          "endedTick": 3062,
+          "outcome": "ARRIVED",
+          "target": 5494,
+          "attackerId": "bot-11",
+          "distance": 11,
+          "score": 5.114097469191279,
+          "startCell": 6608,
+          "endCell": 5494,
+          "start": {
+            "x": 2429.9398561825983,
+            "y": 820.1851487636067
+          },
+          "end": {
+            "x": 2559.799265343377,
+            "y": 310.33008694981123
+          },
+          "movedCells": 11,
+          "lastCell": 5494
+        },
+        {
+          "sequence": 6,
+          "lifeId": 1,
+          "startedTick": 3311,
+          "endedTick": 3384,
+          "outcome": "ARRIVED",
+          "target": 5917,
+          "attackerId": "bot-11",
+          "distance": 11,
+          "score": 2.242104070579958,
+          "startCell": 4835,
+          "endCell": 5917,
+          "start": {
+            "x": 2601.113502153111,
+            "y": 4.005948222932253
+          },
+          "end": {
+            "x": 2693.28341813124,
+            "y": 475.95238637027217
+          },
+          "movedCells": 11,
+          "lastCell": 5917
+        },
+        {
+          "sequence": 7,
+          "lifeId": 1,
+          "startedTick": 3665,
+          "endedTick": 3739,
+          "outcome": "ARRIVED",
+          "target": 5916,
+          "attackerId": "bot-11",
+          "distance": 11,
+          "score": 0.9396391282600463,
+          "startCell": 4725,
+          "endCell": 5916,
+          "start": {
+            "x": 2751.8856803570397,
+            "y": -32.12368651364939
+          },
+          "end": {
+            "x": 2650.928609582321,
+            "y": 461.782638040405
+          },
+          "movedCells": 12,
+          "lastCell": 5916
+        },
+        {
+          "sequence": 8,
+          "lifeId": 1,
+          "startedTick": 4565,
+          "endedTick": 4683,
+          "outcome": "ARRIVED",
+          "target": 6003,
+          "attackerId": "bot-13",
+          "distance": 17,
+          "score": 3.0742189792738905,
+          "startCell": 7601,
+          "endCell": 6003,
+          "start": {
+            "x": 2277.38053034907,
+            "y": 1336.075582682137
+          },
+          "end": {
+            "x": 1814.7911922111016,
+            "y": 551.3083032055397
+          },
+          "movedCells": 18,
+          "lastCell": 6003
+        }
+      ],
+      "repositionArrivals": 4,
+      "pingPongTriples": [],
+      "deaths": [
+        {
+          "tick": 4977,
+          "killerSlot": 13,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 5036,
+            "eventTick": 4977.50055
+          },
+          "goal": "ESCAPE"
+        }
+      ],
+      "hudExamples": []
+    },
+    {
+      "window": {
+        "slot": 13,
+        "start": 1300,
+        "end": 3750
+      },
+      "slot": 13,
+      "nickname": "별사탕",
+      "personality": "DEFEND",
+      "trait": "Opportunist",
+      "aliveFrames": 2360,
+      "deadFrames": 90,
+      "goalFrames": {
+        "EXPAND": 247,
+        "STEAL": 1492,
+        "REPOSITION": 438,
+        "ESCAPE": 60,
+        "RETURN": 108,
+        "ATTACK": 15
+      },
+      "reasons": {
+        "PLAN_CONTINUE": 339,
+        "EXPANSION_SCORE": 39,
+        "REPOSITION_START": 7,
+        "DANGER": 8,
+        "EXPANSION_PRESSURE": 5,
+        "PERIMETER_GUARD": 3,
+        "NO_PATH": 1,
+        "LAUNCH_BLOCKED": 3,
+        "ESCAPE_COMMITMENT": 1,
+        "ATTACK_OPPORTUNITY": 2,
+        "HOME_ROUTE_LOST": 1
+      },
+      "rejections": {
+        "NOT_CLOSED": 607,
+        "BLOCKED_PATH": 81,
+        "TRAIL_BUDGET": 14,
+        "NEAR_HEAD": 170,
+        "LAUNCH_PREDICTED_OVERLAP": 2
+      },
+      "candidateCalls": 39,
+      "noSafeCandidates": 0,
+      "startHolding": 242,
+      "endHolding": 7,
+      "totalCapture": 271,
+      "stolenCells": 193,
+      "reclaimedCells": 117,
+      "lostToCapture": 228,
+      "kills": [],
+      "rpSelection": {
+        "NO_ACTIVE_DAMAGE": 3,
+        "SELECTED": 7,
+        "COOLDOWN": 30,
+        "LOW_PRIORITY": 1,
+        "NO_DISTANT_DESTINATION": 3,
+        "NEAR_HEAD": 2
+      },
+      "seed": 73,
+      "near6Percent": 35.21186440677966,
+      "near2Percent": 1.8644067796610169,
+      "stolenShare": 0.7121771217712177,
+      "newExpansionMeanExternalLength": 6.538461538461538,
+      "repositionClosed": [
+        {
+          "sequence": 1,
+          "lifeId": 1,
+          "startedTick": 1441,
+          "endedTick": 1526,
+          "outcome": "ROUTE_LOST",
+          "target": 7084,
+          "attackerId": "bot-1",
+          "distance": 15,
+          "score": 3.2860115903079414,
+          "startCell": 5614,
+          "endCell": 6808,
+          "start": {
+            "x": -2544.555203832207,
+            "y": 385.31440312663983
+          },
+          "end": {
+            "x": -2218.5852908386387,
+            "y": 957.2646395716123
+          },
+          "movedCells": 12,
+          "lastCell": 6808
+        },
+        {
+          "sequence": 2,
+          "lifeId": 1,
+          "startedTick": 1723,
+          "endedTick": 1797,
+          "outcome": "ARRIVED",
+          "target": 6713,
+          "attackerId": "bot-1",
+          "distance": 11,
+          "score": 4.404030166610485,
+          "startCell": 7090,
+          "endCell": 6713,
+          "start": {
+            "x": -1783.3210141109248,
+            "y": 1082.9853156867066
+          },
+          "end": {
+            "x": -2277.2550456331146,
+            "y": 912.1693309929149
+          },
+          "movedCells": 12,
+          "lastCell": 6713
+        },
+        {
+          "sequence": 3,
+          "lifeId": 1,
+          "startedTick": 2083,
+          "endedTick": 2159,
+          "outcome": "ARRIVED",
+          "target": 6804,
+          "attackerId": "bot-1",
+          "distance": 11,
+          "score": 0.07729939427440158,
+          "startCell": 6721,
+          "endCell": 6804,
+          "start": {
+            "x": -1844.0926489555577,
+            "y": 914.4430901503948
+          },
+          "end": {
+            "x": -2421.9752819799937,
+            "y": 941.6180702705861
+          },
+          "movedCells": 11,
+          "lastCell": 6804
+        },
+        {
+          "sequence": 4,
+          "lifeId": 1,
+          "startedTick": 2341,
+          "endedTick": 2418,
+          "outcome": "ARRIVED",
+          "target": 5726,
+          "attackerId": "bot-7",
+          "distance": 11,
+          "score": 4.343247782858186,
+          "startCell": 6814,
+          "endCell": 5726,
+          "start": {
+            "x": -1898.0949746241718,
+            "y": 976.594492083315
+          },
+          "end": {
+            "x": -2121.4305000507916,
+            "y": 453.63921658197467
+          },
+          "movedCells": 11,
+          "lastCell": 5726
+        },
+        {
+          "sequence": 5,
+          "lifeId": 1,
+          "startedTick": 2731,
+          "endedTick": 2812,
+          "outcome": "ARRIVED",
+          "target": 6431,
+          "attackerId": "bot-7",
+          "distance": 12,
+          "score": 4.724322598073248,
+          "startCell": 5195,
+          "endCell": 6431,
+          "start": {
+            "x": -2053.7617886407015,
+            "y": 195.99690556663597
+          },
+          "end": {
+            "x": -2061.6807254482364,
+            "y": 748.4407133464811
+          },
+          "movedCells": 12,
+          "lastCell": 6431
+        },
+        {
+          "sequence": 6,
+          "lifeId": 1,
+          "startedTick": 3025,
+          "endedTick": 3040,
+          "outcome": "NEAR_HEAD",
+          "target": 6993,
+          "attackerId": "bot-7",
+          "distance": 11,
+          "score": 5.145230626827202,
+          "startCell": 6532,
+          "endCell": 6433,
+          "start": {
+            "x": -1812.2235279369786,
+            "y": 813.9864467006747
+          },
+          "end": {
+            "x": -1916.4316710900912,
+            "y": 774.219767923827
+          },
+          "movedCells": 3,
+          "lastCell": 6433
+        },
+        {
+          "sequence": 7,
+          "lifeId": 1,
+          "startedTick": 3403,
+          "endedTick": 3433,
+          "outcome": "NEAR_HEAD",
+          "target": 5935,
+          "attackerId": "bot-7",
+          "distance": 11,
+          "score": 5.790779358206458,
+          "startCell": 6530,
+          "endCell": 6332,
+          "start": {
+            "x": -1914.0940787823192,
+            "y": 815.9302675477036
+          },
+          "end": {
+            "x": -2112.6566133318156,
+            "y": 722.4065674872472
+          },
+          "movedCells": 5,
+          "lastCell": 6332
+        }
+      ],
+      "repositionArrivals": 4,
+      "pingPongTriples": [],
+      "deaths": [
+        {
+          "tick": 3657,
+          "killerSlot": 7,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "HOME_CAPTURE",
+            "cellId": 5830,
+            "eventTick": 3657.94815
+          },
+          "goal": "ATTACK"
+        }
+      ],
+      "hudExamples": [
+        {
+          "selectedTick": 1797,
+          "endedTick": 1842,
+          "outcome": "CAPTURE",
+          "dRaw": 3,
+          "appliedBonus": 3,
+          "interruptions": [
+            {
+              "tick": 1820,
+              "goal": "RETURN",
+              "reason": "PERIMETER_GUARD"
+            },
+            {
+              "tick": 1821,
+              "goal": "RETURN",
+              "reason": "NO_PATH"
+            }
+          ],
+          "neutralCells": 4,
+          "ordinaryStolenCells": 0,
+          "expected": 10,
+          "actual": 0,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 2159,
+          "endedTick": 2172,
+          "outcome": "REPLANNED",
+          "dRaw": 0.860529069635096,
+          "appliedBonus": 0.860529069635096,
+          "interruptions": [
+            {
+              "tick": 2171,
+              "goal": "RETURN",
+              "reason": "PERIMETER_GUARD"
+            },
+            {
+              "tick": 2172,
+              "goal": "EXPAND",
+              "reason": "NEW_EXPANSION"
+            }
+          ],
+          "neutralCells": 0,
+          "ordinaryStolenCells": 0,
+          "expected": 3,
+          "actual": 0,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 2172,
+          "endedTick": 2198,
+          "outcome": "CAPTURE",
+          "dRaw": 0.8477020419548671,
+          "appliedBonus": 0.8477020419548671,
+          "interruptions": [],
+          "neutralCells": 2,
+          "ordinaryStolenCells": 0,
+          "expected": 3,
+          "actual": 3,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 2418,
+          "endedTick": 2497,
+          "outcome": "CAPTURE",
+          "dRaw": 0.6957624220892082,
+          "appliedBonus": 0.6957624220892082,
+          "interruptions": [],
+          "neutralCells": 17,
+          "ordinaryStolenCells": 4,
+          "expected": 2,
+          "actual": 2,
+          "otherRecovery": 0
+        },
+        {
+          "selectedTick": 2812,
+          "endedTick": 2888,
+          "outcome": "CAPTURE",
+          "dRaw": 2.9648451852878144,
+          "appliedBonus": 2.9648451852878144,
+          "interruptions": [
+            {
+              "tick": 2857,
+              "goal": "RETURN",
+              "reason": "EXPANSION_PRESSURE"
+            },
+            {
+              "tick": 2863,
+              "goal": "ESCAPE",
+              "reason": "DANGER"
+            }
+          ],
+          "neutralCells": 0,
+          "ordinaryStolenCells": 9,
+          "expected": 7,
+          "actual": 7,
+          "otherRecovery": 0
+        }
+      ]
+    },
+    {
+      "window": {
+        "slot": 2,
+        "start": 0,
+        "end": 3600
+      },
+      "slot": 2,
+      "nickname": "모서리",
+      "personality": "DEFEND",
+      "trait": "Coward",
+      "aliveFrames": 3420,
+      "deadFrames": 180,
+      "goalFrames": {
+        "EXPAND": 2200,
+        "RETURN": 151,
+        "ATTACK": 60,
+        "ESCAPE": 114,
+        "STEAL": 758,
+        "REPOSITION": 137
+      },
+      "reasons": {
+        "EXPANSION_SCORE": 44,
+        "PLAN_CONTINUE": 502,
+        "PERIMETER_GUARD": 6,
+        "NO_PATH": 3,
+        "LAUNCH_BLOCKED": 5,
+        "ATTACK_OPPORTUNITY": 2,
+        "DANGER": 16,
+        "ESCAPE_COMMITMENT": 4,
+        "EXPANSION_PRESSURE": 2,
+        "REPOSITION_START": 2,
+        "TARGET_GONE": 1
+      },
+      "rejections": {
+        "BLOCKED_PATH": 99,
+        "NOT_CLOSED": 453,
+        "NEAR_HEAD": 80,
+        "TRAIL_BUDGET": 8
+      },
+      "candidateCalls": 44,
+      "noSafeCandidates": 0,
+      "startHolding": 7,
+      "endHolding": 210,
+      "totalCapture": 533,
+      "stolenCells": 91,
+      "reclaimedCells": 11,
+      "lostToCapture": 32,
+      "kills": [
+        {
+          "tick": 981,
+          "victimSlot": 11,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "PENDING_TRAIL_CONTACT",
+            "cellId": 450,
+            "eventTick": 981.11625
+          }
+        },
+        {
+          "tick": 3394,
+          "victimSlot": 13,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 1414,
+            "eventTick": 3394.60126
+          }
+        }
+      ],
+      "rpSelection": {
+        "NO_ACTIVE_DAMAGE": 39,
+        "SELECTED": 2,
+        "COOLDOWN": 5
+      },
+      "seed": 19,
+      "near6Percent": 11.08187134502924,
+      "near2Percent": 0.847953216374269,
+      "stolenShare": 0.17073170731707318,
+      "newExpansionMeanExternalLength": 8.159090909090908,
+      "repositionClosed": [
+        {
+          "sequence": 1,
+          "lifeId": 3,
+          "startedTick": 3080,
+          "endedTick": 3135,
+          "outcome": "NEAR_HEAD",
+          "target": 2157,
+          "attackerId": "bot-13",
+          "distance": 11,
+          "score": 4.094052470579485,
+          "startCell": 2689,
+          "endCell": 2421,
+          "start": {
+            "x": -2178.7921229404583,
+            "y": -960.3579072193952
+          },
+          "end": {
+            "x": -1816.4942989333001,
+            "y": -1083.2044113935274
+          },
+          "movedCells": 8,
+          "lastCell": 2421
+        },
+        {
+          "sequence": 2,
+          "lifeId": 3,
+          "startedTick": 3410,
+          "endedTick": 3492,
+          "outcome": "ARRIVED",
+          "target": 2516,
+          "attackerId": "bot-13",
+          "distance": 12,
+          "score": 3.6397490742920207,
+          "startCell": 1571,
+          "endCell": 2516,
+          "start": {
+            "x": -1798.0781470241068,
+            "y": -1594.6200148895782
+          },
+          "end": {
+            "x": -1576.1285343875807,
+            "y": -1061.2632294611813
+          },
+          "movedCells": 12,
+          "lastCell": 2516
+        }
+      ],
+      "repositionArrivals": 1,
+      "pingPongTriples": [],
+      "deaths": [
+        {
+          "tick": 981,
+          "killerSlot": 11,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 450,
+            "eventTick": 981.11625
+          },
+          "goal": "ESCAPE"
+        },
+        {
+          "tick": 1991,
+          "killerSlot": 10,
+          "reason": "TRAIL_CUT",
+          "context": {
+            "cause": "EXISTING_TRAIL_CONTACT",
+            "cellId": 4472,
+            "eventTick": 1991.49347
+          },
+          "goal": "ESCAPE"
+        }
+      ],
+      "hudExamples": []
+    }
+  ],
+  "rawHashes": {
+    "seed137.json": "ed8bb384a0aaae3b565bc1fa5079ae1306db69c96bca8f939689f44eb58b53d7",
+    "seed47.json": "39e5c73fcc5c2e27787bf7a46ea6fdc847065e3af66dc4c603678878e64819f8",
+    "seed73.json": "2520afa6f08b1d2fd7dbb315166e662e78741d7f9090180b41fd8e5d0960b3b9",
+    "seed19.json": "64b53090a2ede111a264dadeac87547beb6dd8ae6e8d8049d3a659f1cde73d1c"
+  },
+  "measurementLimits": [
+    "47 persona samples have different time windows, traits and surroundings; descriptive contrast, not an isolated personality effect.",
+    "19 has no user-specified window: inspect first3600 ticks only.",
+    "Audit reclaim counts enemy-owned to own tick-boundary transfers with same-life60s lost memory. HUD uses bounded damage regions and exact capture transfers, includes historically lost neutral cells. Do not equate or replace either metric.",
+    "No new safety tuning, RNG consumption during the match, or phase3 implementation."
+  ],
+  "next": "Manual observations support existing damage response and relative persona differences. Preserve137 ping-pong as a purposeful-new-damage/attack interruption fixture; record late deaths for phase3 planning proposal, no extra2.5 tuning approved."
+}

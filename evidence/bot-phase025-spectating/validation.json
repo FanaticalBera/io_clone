@@ -1,0 +1,85 @@
+{
+  "parentCommit": "a0272ba",
+  "productionSource": "All live shared files equal committed c84fc7a after newline normalization",
+  "productionChanged": false,
+  "phase3Started": false,
+  "requestedWindows": [
+    {
+      "seed": 137,
+      "slot": 5,
+      "window": {
+        "slot": 5,
+        "start": 1000,
+        "end": 3900
+      },
+      "nickname": "나무그늘",
+      "personality": "EXPAND"
+    },
+    {
+      "seed": 47,
+      "slot": 9,
+      "window": {
+        "slot": 9,
+        "start": 1000,
+        "end": 2650
+      },
+      "nickname": "감자전",
+      "personality": "EXPAND"
+    },
+    {
+      "seed": 47,
+      "slot": 5,
+      "window": {
+        "slot": 5,
+        "start": 2600,
+        "end": 5000
+      },
+      "nickname": "바람개비",
+      "personality": "SEEK_POINT"
+    },
+    {
+      "seed": 73,
+      "slot": 13,
+      "window": {
+        "slot": 13,
+        "start": 1300,
+        "end": 3750
+      },
+      "nickname": "별사탕",
+      "personality": "DEFEND"
+    },
+    {
+      "seed": 19,
+      "slot": 2,
+      "window": {
+        "slot": 2,
+        "start": 0,
+        "end": 3600
+      },
+      "nickname": "모서리",
+      "personality": "DEFEND"
+    }
+  ],
+  "replayCount": 8,
+  "firstPass": "four seeds, five windows",
+  "extraPasses": [
+    "137 loss timing/attack target",
+    "137 and73 same HUD reclaim observer",
+    "137 exact previous ownership for D16"
+  ],
+  "prefixProof": "All completed replay passes checked 3600-tick actual input/world hash against original c84fc7a closing audit; final stored seed137/47/73/19 prefixes match.",
+  "typecheck": "Strict TypeScript passed on final observer script",
+  "fullVitestRerun": false,
+  "pingPong": "One existing137 metric event with fresh damage and attack/kill between moves;6s whole-bot cooldown honored; not erased or declared a useless loop.",
+  "hudMetricDifference": "D16 exact capture gains confirmed previousOwner0 for all16; HUD counts historical damage-zone neutral recovery, original audit excludes it. Existing comparison metrics unchanged.",
+  "rawHashes": {
+    "seed137.json": "ed8bb384a0aaae3b565bc1fa5079ae1306db69c96bca8f939689f44eb58b53d7",
+    "seed47.json": "39e5c73fcc5c2e27787bf7a46ea6fdc847065e3af66dc4c603678878e64819f8",
+    "seed73.json": "2520afa6f08b1d2fd7dbb315166e662e78741d7f9090180b41fd8e5d0960b3b9",
+    "seed19.json": "64b53090a2ede111a264dadeac87547beb6dd8ae6e8d8049d3a659f1cde73d1c"
+  },
+  "scriptHashes": {
+    "scripts/bot-phase025-spectating.ts": "09e8af0fde86bcf7bfd9b4e4b7df1b64b8e0cea4990c51824f8c130b75504943",
+    "scripts/summarize-bot-phase025-spectating.py": "3c6bba0faa2254f3f4e5ec5eafff065aa12ee6ff4c3ee8f2c32b815baf8e135a"
+  }
+}

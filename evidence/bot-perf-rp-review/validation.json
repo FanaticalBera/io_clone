@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-12",
+  "branch": "codex/bot-ai-phase01",
+  "parentCommit": "99cf951050f658bd907eb240fc8f8763370b4ff1",
+  "live": {
+    "departureSafety": "maintained",
+    "reposition": "enabled; decision deferred to user",
+    "exactCaptureCache": "review only, not implemented",
+    "productionChange": "only hoist existing trail-length/crowded and nearby-head guards before plannedCapture in bot.ts"
+  },
+  "sourceProof": {
+    "frozenArmSourcesMatch": true,
+    "baselineMatchesAbfeeddNormalizedText": true,
+    "noRepositionOnlySelectionGate": true,
+    "otherLiveSharedSourceMatchesBaseline": true,
+    "measurementSourcesMatch": true,
+    "duplicateProbeSourcesMatch": "verified by summarizer"
+  },
+  "tests": {
+    "fullVitest": {
+      "files": 89,
+      "tests": 622,
+      "status": "passed",
+      "singleWorker": true
+    },
+    "targeted": {
+      "files": 2,
+      "tests": 21,
+      "status": "passed"
+    },
+    "projectTypes": "passed",
+    "auditAndDuplicateScriptTypes": "passed",
+    "offSnapshotTypes": "passed",
+    "pinnedHashesChanged": false
+  },
+  "equivalence": {
+    "fixedSeeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 3600,
+    "trajectoryTraceMemoryRngHoldingGrowthPersonaDeathDepartureRepositionDirector": "all equal for all 8 seeds",
+    "originalHoldingReviewTrajectoryHashes": "8/8 equal",
+    "longReplay": {
+      "seed": 137,
+      "ticks": 8800,
+      "trajectoryHash": "364935b755544c1fdc1c08f2fe43847e796c34720929de43b447c13d0e7d8895",
+      "deaths": 36,
+      "allChecksEqual": true
+    },
+    "duplicateProbeTrajectoryAndRng": "8/8 equal"
+  },
+  "noReposition": {
+    "repositionStarts": 0,
+    "wallDeaths": 0,
+    "behaviorMetricsDirection": "all four inconclusive, not equivalent/no effect",
+    "costDirection": "inconclusive"
+  },
+  "timing": {
+    "warmups": 3,
+    "discardedWarmupOnly": true,
+    "fixedSamples": 72,
+    "rounds": 3,
+    "externalOverlap": 0,
+    "allSamplesRetained": true,
+    "aggregation": "median of 3 round means overall; median of 3 samples per seed",
+    "outlier": {
+      "round": 2,
+      "arm": "optimized",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 13,
+      "elapsedMs": 209904.74300000002,
+      "msPerTick": 58.30687305555556,
+      "externalTestProcessesBefore": "",
+      "externalTestProcessesAfter": "",
+      "overlapped": false
+    },
+    "outlierCause": "unknown; no value-based exclusion/replacement"
+  },
+  "rawLogs": {
+    "baseline.json": "71f8eb71f43149a53d768e6c0b6959be5061978a05a18654fdfce89087c7e18f",
+    "optimized.json": "3969f9fa38c40804a9dc00056cf071d2f9d77a34bc96812c42d1b1665e5f9f18",
+    "no-reposition.json": "743de2fd4470cd0537d4b4643984e48b3e194a42626bf67b273ab88495687428",
+    "baseline-long.json": "fdba0c6b5364f361434f4d9bb3b16a1d866d909ca98e152e42f80141713353d6",
+    "optimized-long.json": "4ad0e1f6c15bb536a11b09c9daacc8cf2a944585c2ef2d3379fb4c60fb5bc0b0",
+    "duplicates.json": "6129e40d950c1c61fe46360542deeeced1f6fac03339a5e6615b5be0a50b6e9c",
+    "performance.json": "34bfe877b360150121651d6237c512d927d1464379713704e5daead35bcf8e42",
+    "vitest.log": "48f1cfa49a0003cb6b8e6982804ee446f8e07361c71844e7cddd8a11f2f155d6",
+    "targeted-tests-final.log": "7f0ff22b96070ce432693f79d64b9ce11225bf18fb888df7155ddfb359c43d25",
+    "typecheck.log": "b504ad0fbc7dbf23da9b306133827c1eb1f20088dd3e26236720b69ef9d2fa84",
+    "script-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "script-types-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

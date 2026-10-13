@@ -1,0 +1,578 @@
+[
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 57,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 56,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "DEFEND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 51,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 1,
+    "tick": 24,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "ATTACK",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 57,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 57,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 56,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "EXPAND",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 51,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -4,
+        0
+      ],
+      [
+        -2,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -3,
+        2
+      ],
+      [
+        -3,
+        0
+      ],
+      [
+        -1,
+        -2
+      ],
+      [
+        1,
+        -2
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 5,
+    "tick": 52,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        0,
+        2
+      ],
+      [
+        -2,
+        4
+      ],
+      [
+        -4,
+        4
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -2,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 1,
+    "tick": 24,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  },
+  {
+    "personality": "SEEK_POINT",
+    "route": [
+      [
+        -2,
+        2
+      ],
+      [
+        -4,
+        2
+      ],
+      [
+        -5,
+        3
+      ],
+      [
+        -5,
+        1
+      ],
+      [
+        -3,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "maxTrail": 6,
+    "tick": 57,
+    "humanState": "ELIMINATED",
+    "deaths": 1,
+    "killer": "bot",
+    "deathReason": "TRAIL_CUT",
+    "deathCause": "EXISTING_TRAIL_CONTACT",
+    "confirmedTrailCut": true
+  }
+]

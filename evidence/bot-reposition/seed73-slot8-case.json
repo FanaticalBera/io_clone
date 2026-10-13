@@ -1,0 +1,241 @@
+{
+  "date": "2026-10-10",
+  "sourceCommit": "ddb240d",
+  "seed": 73,
+  "window": [
+    6500,
+    7500
+  ],
+  "participants": [
+    {
+      "slot": 8,
+      "nickname": "고요한밤",
+      "personality": "ATTACK",
+      "trait": "Gambler",
+      "participantId": "bot-8"
+    },
+    {
+      "slot": 9,
+      "nickname": "물결",
+      "personality": "EXPAND",
+      "trait": "Gambler",
+      "participantId": "bot-9"
+    }
+  ],
+  "prefix3600MatchesFrozenAudit": true,
+  "lossesFrom9": [
+    {
+      "tick": 6530,
+      "cells": 22
+    },
+    {
+      "tick": 6707,
+      "cells": 29
+    },
+    {
+      "tick": 6790,
+      "cells": 16
+    },
+    {
+      "tick": 7090,
+      "cells": 22
+    },
+    {
+      "tick": 7178,
+      "cells": 5
+    }
+  ],
+  "totalLossFrom9": 94,
+  "deathOf8": [
+    {
+      "tick": 7263,
+      "killerId": "bot-3",
+      "reason": "TRAIL_CUT",
+      "cause": "EXISTING_TRAIL_CONTACT"
+    }
+  ],
+  "candidateAudit": [
+    {
+      "tick": 6794,
+      "goal": "STEAL",
+      "damageCellsFrom9": 32,
+      "grudge9": 19.958966762349874,
+      "selectedReclaimBonus": 0,
+      "selection": {
+        "reason": "NO_DISTANT_DESTINATION",
+        "nearBlocked": 0,
+        "examined": 8,
+        "within10": 0,
+        "beyond20OrDisconnected": 8
+      },
+      "firstEightOwnedDistances": [
+        33,
+        32,
+        34,
+        31,
+        33,
+        30,
+        30,
+        33
+      ],
+      "omittedEntryEligibleCandidates": [
+        {
+          "rank": 16,
+          "target": 3662,
+          "distance": 20,
+          "score": 3.9958966762349872,
+          "nearHead": false
+        },
+        {
+          "rank": 21,
+          "target": 3560,
+          "distance": 19,
+          "score": 3.6221729416015154,
+          "nearHead": false
+        },
+        {
+          "rank": 22,
+          "target": 3561,
+          "distance": 19,
+          "score": 3.6221729416015154,
+          "nearHead": false
+        },
+        {
+          "rank": 23,
+          "target": 3559,
+          "distance": 20,
+          "score": 2.517793564040428,
+          "nearHead": false
+        },
+        {
+          "rank": 24,
+          "target": 3562,
+          "distance": 19,
+          "score": 2.7177935640404276,
+          "nearHead": false
+        },
+        {
+          "rank": 28,
+          "target": 3458,
+          "distance": 19,
+          "score": 0.9090348089182512,
+          "nearHead": false
+        },
+        {
+          "rank": 30,
+          "target": 3563,
+          "distance": 19,
+          "score": 0.9090348089182512,
+          "nearHead": false
+        }
+      ]
+    },
+    {
+      "tick": 6932,
+      "goal": "STEAL",
+      "damageCellsFrom9": 32,
+      "grudge9": 18.593711999253735,
+      "selectedReclaimBonus": 0,
+      "selection": {
+        "reason": "NO_DISTANT_DESTINATION",
+        "nearBlocked": 0,
+        "examined": 8,
+        "within10": 0,
+        "beyond20OrDisconnected": 8
+      },
+      "firstEightOwnedDistances": [
+        35,
+        34,
+        36,
+        33,
+        35,
+        32,
+        32,
+        35
+      ],
+      "omittedEntryEligibleCandidates": [
+        {
+          "rank": 22,
+          "target": 3561,
+          "distance": 20,
+          "score": 2.4860036761491955,
+          "nearHead": false
+        },
+        {
+          "rank": 24,
+          "target": 3562,
+          "distance": 19,
+          "score": 1.9148982634452252,
+          "nearHead": false
+        },
+        {
+          "rank": 30,
+          "target": 3563,
+          "distance": 19,
+          "score": 0.3726874380372842,
+          "nearHead": false
+        }
+      ]
+    },
+    {
+      "tick": 7124,
+      "goal": "STEAL",
+      "damageCellsFrom9": 32,
+      "grudge9": 19.653889024213864,
+      "selectedReclaimBonus": 0,
+      "selection": {
+        "reason": "NO_DISTANT_DESTINATION",
+        "nearBlocked": 0,
+        "examined": 8,
+        "within10": 0,
+        "beyond20OrDisconnected": 8
+      },
+      "firstEightOwnedDistances": [
+        25,
+        24,
+        26,
+        23,
+        26,
+        27,
+        22,
+        27
+      ],
+      "omittedEntryEligibleCandidates": [
+        {
+          "rank": 9,
+          "target": 2971,
+          "distance": 20,
+          "score": 3.7342872173173047,
+          "nearHead": false
+        },
+        {
+          "rank": 12,
+          "target": 2875,
+          "distance": 20,
+          "score": 2.7728041648346515,
+          "nearHead": false
+        },
+        {
+          "rank": 14,
+          "target": 2876,
+          "distance": 19,
+          "score": 2.011321112351999,
+          "nearHead": false
+        },
+        {
+          "rank": 21,
+          "target": 2877,
+          "distance": 19,
+          "score": 0.08835500738669255,
+          "nearHead": false
+        }
+      ]
+    }
+  ],
+  "interpretation": "The eight-destination cap is applied before owned-route reachability filtering. Candidates that meet entry distance/score/current-and-next-three observed-head checks are omitted. This does not prove their later expansion would reclaim safely or prevent the death. No behavioral fix applied.",
+  "rawPath": ".local/bot-reposition/seed73-slot8-6500-7500.json",
+  "rawSHA256": "be248b0730d7b2778a49f49dc24e8bd552320c8a42fed1f3e7a4295149babf68",
+  "replayScriptPath": ".local/bot-reposition/seed73-slot8-6500-7500.ts",
+  "replayScriptSHA256": "f1baab3bd808e5d63d3c44f8d2300ffce1af11543d446b8bf48b648d63ccd527",
+  "implementationSHA256": "4bc2b2c69e03c563fb619438f2233e44d87c53d8f6da946630f7dcccac8c75ea"
+}

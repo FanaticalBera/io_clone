@@ -1,0 +1,174 @@
+{
+  "proposalOnly": true,
+  "runtimeBaseline": "6c307e3",
+  "seed": 137,
+  "slot": 7,
+  "tick": 5761,
+  "prefixMatchesAudit": true,
+  "prefixHash": "2db2106475096c456d69a4ec0ff1374100d1b492754dd44bd26f46ceb622d0db",
+  "original": {
+    "path": [
+      2634,
+      2542,
+      2541,
+      2540,
+      2539,
+      2538,
+      2537,
+      2536,
+      2535,
+      2626,
+      2718
+    ],
+    "owners": [
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8,
+      8
+    ],
+    "projection": {
+      "firstCell": 2726,
+      "entrySeconds": 0.11546021628424095,
+      "exposureEnd": 0.3850864673903711,
+      "blocked": false,
+      "allOwned": false
+    }
+  },
+  "prototype": {
+    "candidateDestinations": 8,
+    "candidates": [
+      {
+        "target": 3002,
+        "length": 15,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 3001,
+        "length": 14,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 2718,
+        "length": 11,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 2811,
+        "length": 12,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 2905,
+        "length": 13,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 3000,
+        "length": 14,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 3294,
+        "length": 18,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      },
+      {
+        "target": 3295,
+        "length": 19,
+        "allPathCellsOwned": true,
+        "projection": {
+          "firstCell": 2726,
+          "entrySeconds": 0.11546021628424095,
+          "exposureEnd": 0.3850864673903711,
+          "blocked": false,
+          "allOwned": false
+        }
+      }
+    ],
+    "unsafeCandidateRejected": true,
+    "filteredPlanPresent": false,
+    "decisionRngDelta": 0
+  },
+  "normalControl": {
+    "pathLength": 15,
+    "projection": {
+      "firstCell": null,
+      "entrySeconds": null,
+      "exposureEnd": 1,
+      "blocked": false,
+      "allOwned": true
+    },
+    "actualTicks": 30,
+    "maxTrail": 0,
+    "allOwned": true,
+    "alive": true
+  },
+  "limits": [
+    "Prototype is not integrated into game selection. No full-match modified balance/cost result.",
+    "Rejecting relocation does not guarantee the replacement action stays owned; at frozen5761 no safe owned-neighbor fallback exists.",
+    "Prediction holds current public ownership and observed environment fixed; future captures/new strategy/other inputs can change it."
+  ],
+  "sourceHashes": {
+    "src/shared/bot.ts": "fc5245385808fff4eb53e7e9ae46327a2819bf0337f1dd7babb5760e75154967",
+    "src/shared/bot-reposition.ts": "8c879f4762da6c768afd2eb8bbad8031211456f0fcd79b8bb7fa5ed8090f7310",
+    "src/shared/bot-immediate-safety.ts": "aa147d91216ab0dc3f2d24846f3a8f67ca80d9350bbfe1b22df21ea55eb1a2f9",
+    "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "src/shared/movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524"
+  }
+}

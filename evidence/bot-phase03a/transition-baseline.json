@@ -1,0 +1,1053 @@
+{
+  "behaviorBaseline": "4c66377 / c84fc7a behavior",
+  "master": "960f678",
+  "conditions": {
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 3600,
+    "bots": 14,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "simulationHz": 30,
+    "safeRespawn": true,
+    "variant": "combined",
+    "mode": "classic"
+  },
+  "definitions": {
+    "wouldBlock": "A still-valid unfinished active plan is replaced within <18 ticks (attack <9 ticks) by a different target at the same level, excluding safety, invalidation, completion, and existing allowed interrupt attack opportunities. Counterfactual eligibility only; not an enabled policy or causal outcome replay.",
+    "earlyValidTransitions": "Unfinished valid plan replaced before the 600ms/300ms threshold without safety; voluntary plus interrupt.",
+    "near": "At least one ALIVE opponent head within min(6, observationRange) hex cells; denominator is near ALIVE bot-time.",
+    "nearReplacements": "Unfinished selected plan replaced/interrupted during near time. Completed plans and failed candidates discarded in the same decision excluded. Safety/invalidity/interrupt causes included and voluntary subset separate.",
+    "targetABA": "Three consecutive distinct selected strategic target keys, same actor life, A to B to A within <=60 ticks. Expansion key=departure boundary id; attack key=victim slot+life (trail cell retarget does not change key); REPOSITION key=attacker id+destination; point key=control point cell. Shape or waypoint consumption does not create a target switch. May span a completed plan or forced return, classified separately.",
+    "modeABA": "Same 2-second rule for final per-tick BotGoal (EXPAND/STEAL/ATTACK/RETURN/ESCAPE/etc). Different from target ABA.",
+    "voluntaryABA": "Both B and final A transitions are voluntary valid-plan replacements, excluding completion, safety, invalidation and allowed interrupt attacks.",
+    "limits": "Fixed 8 seeds at 120 seconds, existing cadence; does not prove zero switches for all games or after cadence changes. Repeat before 3C after 3B if implemented."
+  },
+  "reports": [
+    {
+      "seed": 4,
+      "aliveFrames": 49320,
+      "nearFrames": 6745,
+      "planStarts": 686,
+      "nearPlanStarts": 198,
+      "discardedSelections": 18,
+      "replacements": 304,
+      "nearReplacements": 164,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 6,
+      "earlyInterruptExempt": 6,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 4,
+      "voluntaryTargetABA": 0,
+      "modeABA": 166,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 224.83333333333334,
+      "nearReplacementsPerNearMinute": 43.765752409192,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 2
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 57
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 61
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 26
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 18
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 3
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "aliveFrames": 49410,
+      "nearFrames": 5676,
+      "planStarts": 678,
+      "nearPlanStarts": 185,
+      "discardedSelections": 20,
+      "replacements": 266,
+      "nearReplacements": 148,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 7,
+      "earlyInterruptExempt": 7,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 9,
+      "voluntaryTargetABA": 0,
+      "modeABA": 173,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 189.2,
+      "nearReplacementsPerNearMinute": 46.93446088794926,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 52
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 3
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 63
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 33
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 21
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 5
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "INTERRUPT",
+          "lastChange": "COMPLETE",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "seed": 73,
+      "aliveFrames": 49500,
+      "nearFrames": 7328,
+      "planStarts": 733,
+      "nearPlanStarts": 236,
+      "discardedSelections": 35,
+      "replacements": 313,
+      "nearReplacements": 193,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 4,
+      "earlyInterruptExempt": 4,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 5,
+      "voluntaryTargetABA": 0,
+      "modeABA": 222,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 244.26666666666668,
+      "nearReplacementsPerNearMinute": 47.407205240174676,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 76
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 2
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 83
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "SAFETY",
+          "count": 2
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 36
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 23
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 4
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "aliveFrames": 49247,
+      "nearFrames": 4144,
+      "planStarts": 619,
+      "nearPlanStarts": 131,
+      "discardedSelections": 31,
+      "replacements": 218,
+      "nearReplacements": 108,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 5,
+      "earlyInterruptExempt": 5,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 2,
+      "voluntaryTargetABA": 0,
+      "modeABA": 110,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 138.13333333333333,
+      "nearReplacementsPerNearMinute": 46.91119691119691,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 41
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 3
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 40
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 18
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 8
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "INTERRUPT",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "aliveFrames": 49500,
+      "nearFrames": 5946,
+      "planStarts": 709,
+      "nearPlanStarts": 183,
+      "discardedSelections": 133,
+      "replacements": 314,
+      "nearReplacements": 150,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 7,
+      "earlyInterruptExempt": 7,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 7,
+      "voluntaryTargetABA": 0,
+      "modeABA": 256,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 198.2,
+      "nearReplacementsPerNearMinute": 45.40867810292634,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 3
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 108
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 104
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 23
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 17
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 4
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 47,
+      "aliveFrames": 49410,
+      "nearFrames": 5684,
+      "planStarts": 661,
+      "nearPlanStarts": 189,
+      "discardedSelections": 17,
+      "replacements": 253,
+      "nearReplacements": 151,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 7,
+      "earlyInterruptExempt": 7,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 6,
+      "voluntaryTargetABA": 0,
+      "modeABA": 120,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 189.46666666666667,
+      "nearReplacementsPerNearMinute": 47.81843771991555,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 36
+        },
+        {
+          "type": "MODE",
+          "middleChange": "INTERRUPT",
+          "lastChange": "SAFETY",
+          "count": 4
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 39
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 26
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 14
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 4
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "INTERRUPT",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "aliveFrames": 49500,
+      "nearFrames": 5885,
+      "planStarts": 683,
+      "nearPlanStarts": 195,
+      "discardedSelections": 29,
+      "replacements": 281,
+      "nearReplacements": 157,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 5,
+      "earlyInterruptExempt": 5,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 6,
+      "voluntaryTargetABA": 0,
+      "modeABA": 151,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 196.16666666666666,
+      "nearReplacementsPerNearMinute": 48.020390824129144,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "INVALID",
+          "count": 3
+        },
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 58
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 52
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 23
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 14
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 4
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 1
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "INTERRUPT",
+          "lastChange": "COMPLETE",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "seed": 137,
+      "aliveFrames": 49230,
+      "nearFrames": 4261,
+      "planStarts": 689,
+      "nearPlanStarts": 148,
+      "discardedSelections": 44,
+      "replacements": 299,
+      "nearReplacements": 132,
+      "nearVoluntaryReplacements": 0,
+      "earlyValidTransitions": 3,
+      "earlyInterruptExempt": 3,
+      "earlyDifferentLevel": 0,
+      "earlySameTarget": 0,
+      "wouldBlock": 0,
+      "targetABA": 5,
+      "voluntaryTargetABA": 0,
+      "modeABA": 240,
+      "voluntaryModeABA": 0,
+      "nearSeconds": 142.03333333333333,
+      "nearReplacementsPerNearMinute": 55.76155831964328,
+      "nearVoluntaryPerNearMinute": 0.0,
+      "abaTransitionClasses": [
+        {
+          "type": "MODE",
+          "middleChange": "COMPLETE",
+          "lastChange": "SAFETY",
+          "count": 98
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "COMPLETE",
+          "count": 102
+        },
+        {
+          "type": "MODE",
+          "middleChange": "SAFETY",
+          "lastChange": "VOLUNTARY",
+          "count": 19
+        },
+        {
+          "type": "MODE",
+          "middleChange": "VOLUNTARY",
+          "lastChange": "SAFETY",
+          "count": 21
+        },
+        {
+          "type": "TARGET",
+          "middleChange": "COMPLETE",
+          "lastChange": "COMPLETE",
+          "count": 5
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "aliveFrames": 395117,
+    "nearFrames": 45669,
+    "planStarts": 5458,
+    "nearPlanStarts": 1465,
+    "discardedSelections": 327,
+    "replacements": 2248,
+    "nearReplacements": 1203,
+    "nearVoluntaryReplacements": 0,
+    "earlyValidTransitions": 44,
+    "earlyInterruptExempt": 44,
+    "earlyDifferentLevel": 0,
+    "earlySameTarget": 0,
+    "wouldBlock": 0,
+    "targetABA": 44,
+    "voluntaryTargetABA": 0,
+    "modeABA": 1438,
+    "voluntaryModeABA": 0,
+    "nearSeconds": 1522.3,
+    "nearReplacementsPerNearMinute": 47.415095579058004,
+    "nearVoluntaryPerNearMinute": 0.0
+  },
+  "abaSafetyOverlap": [
+    {
+      "type": "MODE",
+      "category": "OTHER",
+      "count": 11
+    },
+    {
+      "type": "MODE",
+      "category": "SAFETY",
+      "count": 1427
+    },
+    {
+      "type": "TARGET",
+      "category": "OTHER",
+      "count": 34
+    },
+    {
+      "type": "TARGET",
+      "category": "SAFETY",
+      "count": 10
+    }
+  ],
+  "samples": [
+    {
+      "seed": 4,
+      "slot": 6,
+      "tick": 1254,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 1230,
+          "key": "BOUNDARY:800",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 1248,
+          "key": "BOUNDARY:799",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 1254,
+          "key": "BOUNDARY:800",
+          "change": "SAFETY"
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "slot": 3,
+      "tick": 162,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 159,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 161,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 162,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "slot": 2,
+      "tick": 722,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 662,
+          "key": "BOUNDARY:317",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 668,
+          "key": "VICTIM:11:1",
+          "change": "INTERRUPT"
+        },
+        {
+          "tick": 722,
+          "key": "BOUNDARY:317",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "slot": 7,
+      "tick": 4,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 0,
+          "key": "EXPAND",
+          "change": "INITIAL"
+        },
+        {
+          "tick": 3,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 4,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 73,
+      "slot": 4,
+      "tick": 514,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 490,
+          "key": "BOUNDARY:124",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 492,
+          "key": "BOUNDARY:123",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 514,
+          "key": "BOUNDARY:124",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 73,
+      "slot": 4,
+      "tick": 97,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 86,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 87,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 97,
+          "key": "RETURN",
+          "change": "SAFETY"
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "slot": 3,
+      "tick": 2289,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 2235,
+          "key": "VICTIM:4:2",
+          "change": "INTERRUPT"
+        },
+        {
+          "tick": 2283,
+          "key": "BOUNDARY:8885",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 2289,
+          "key": "VICTIM:4:2",
+          "change": "INTERRUPT"
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "slot": 3,
+      "tick": 7,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 0,
+          "key": "EXPAND",
+          "change": "INITIAL"
+        },
+        {
+          "tick": 5,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 7,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "slot": 1,
+      "tick": 852,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 799,
+          "key": "BOUNDARY:9460",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 829,
+          "key": "BOUNDARY:9401",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 852,
+          "key": "BOUNDARY:9460",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "slot": 8,
+      "tick": 8,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 0,
+          "key": "EXPAND",
+          "change": "INITIAL"
+        },
+        {
+          "tick": 7,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 8,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 47,
+      "slot": 2,
+      "tick": 1334,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 1280,
+          "key": "BOUNDARY:7787",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 1328,
+          "key": "BOUNDARY:7705",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 1334,
+          "key": "BOUNDARY:7787",
+          "change": "SAFETY"
+        }
+      ]
+    },
+    {
+      "seed": 47,
+      "slot": 5,
+      "tick": 7,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 0,
+          "key": "RETURN",
+          "change": "INITIAL"
+        },
+        {
+          "tick": 1,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 7,
+          "key": "RETURN",
+          "change": "SAFETY"
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "slot": 10,
+      "tick": 2338,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 2320,
+          "key": "BOUNDARY:7225",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 2326,
+          "key": "VICTIM:7:1",
+          "change": "INTERRUPT"
+        },
+        {
+          "tick": 2338,
+          "key": "BOUNDARY:7225",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "slot": 3,
+      "tick": 254,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 244,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 246,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 254,
+          "key": "RETURN",
+          "change": "SAFETY"
+        }
+      ]
+    },
+    {
+      "seed": 137,
+      "slot": 7,
+      "tick": 601,
+      "type": "TARGET",
+      "changes": [
+        {
+          "tick": 559,
+          "key": "BOUNDARY:7773",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 580,
+          "key": "BOUNDARY:7935",
+          "change": "COMPLETE"
+        },
+        {
+          "tick": 601,
+          "key": "BOUNDARY:7773",
+          "change": "COMPLETE"
+        }
+      ]
+    },
+    {
+      "seed": 137,
+      "slot": 12,
+      "tick": 5,
+      "type": "MODE",
+      "changes": [
+        {
+          "tick": 0,
+          "key": "EXPAND",
+          "change": "INITIAL"
+        },
+        {
+          "tick": 4,
+          "key": "RETURN",
+          "change": "SAFETY"
+        },
+        {
+          "tick": 5,
+          "key": "EXPAND",
+          "change": "COMPLETE"
+        }
+      ]
+    }
+  ],
+  "perBotFile": "transition-bots.csv"
+}

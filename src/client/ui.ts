@@ -183,20 +183,25 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   toast.classList.remove('pop');void toast.offsetWidth;toast.classList.add('pop');
   if(this.toastTimer!==null)clearTimeout(this.toastTimer);this.toastTimer=setTimeout(()=>{toast.hidden=true;this.toastTimer=null;},1400);
  }
- updateView(view:MatchView,selfId:string,init=false,colors:readonly number[]=SLOT_COLORS):void {
-  const self=view.participants.find(p=>p.participantId===selfId);if(!self)return;
-  this.controlsActive=view.phase==='RUNNING'&&self.lifeState==='ALIVE';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
-  this.activeMode=view.gameMode;this.totalCells=view.owners.length;
-  get('hud').dataset.matchId=view.matchId;get('hud').dataset.selfId=selfId;get('hud').dataset.lifeId=String(self.lifeId);get('hud').dataset.tick=String(view.tick);
-  get('score').textContent=territoryPercent(self.territoryCount,this.totalCells).toFixed(1)+'%';get('score-detail').textContent='영토 '+self.territoryCount+' / '+this.totalCells+'칸';
-  get('kill-count').textContent=String(self.run?Math.max(0,self.kills-self.run.initialKills):self.kills);
-  // The capture bubble wears my own colour; dark colours get white text.
-  const mine=colors[self.slot],toast=get('capture-toast'),luma=(0.299*(mine>>16&255)+0.587*(mine>>8&255)+0.114*(mine&255))/255;
-  toast.style.setProperty('--player',cssHex(mine));toast.style.color=luma<.55?'#ffffff':'#1f1b2d';
-  const life=view.matchId+':'+self.lifeId;
-  if(init||life!==this.toastLife||self.lifeState!=='ALIVE'){this.toastLife=life;this.toastCells=self.territoryCount;}
-  else if(self.territoryCount>this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((self.territoryCount-this.toastCells)*100/this.totalCells);this.toastCells=self.territoryCount;}
-  else if(self.territoryCount<this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((this.toastCells-self.territoryCount)*100/this.totalCells,true);this.toastCells=self.territoryCount;}
+ updateView(view:MatchView,selfId:string|null,init=false,colors:readonly number[]=SLOT_COLORS):void {
+  const self=view.participants.find(p=>p.participantId===selfId);if(selfId&&!self)return;
+  if(self){
+   this.controlsActive=view.phase==='RUNNING'&&self.lifeState==='ALIVE';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
+   this.activeMode=view.gameMode;this.totalCells=view.owners.length;
+   get('hud').dataset.matchId=view.matchId;get('hud').dataset.selfId=self.participantId;get('hud').dataset.lifeId=String(self.lifeId);get('hud').dataset.tick=String(view.tick);
+   get('score').textContent=territoryPercent(self.territoryCount,this.totalCells).toFixed(1)+'%';get('score-detail').textContent='영토 '+self.territoryCount+' / '+this.totalCells+'칸';
+   get('kill-count').textContent=String(self.run?Math.max(0,self.kills-self.run.initialKills):self.kills);
+   // The capture bubble wears my own colour; dark colours get white text.
+   const mine=colors[self.slot],toast=get('capture-toast'),luma=(0.299*(mine>>16&255)+0.587*(mine>>8&255)+0.114*(mine&255))/255;
+   toast.style.setProperty('--player',cssHex(mine));toast.style.color=luma<.55?'#ffffff':'#1f1b2d';
+   const life=view.matchId+':'+self.lifeId;
+   if(init||life!==this.toastLife||self.lifeState!=='ALIVE'){this.toastLife=life;this.toastCells=self.territoryCount;}
+   else if(self.territoryCount>this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((self.territoryCount-this.toastCells)*100/this.totalCells);this.toastCells=self.territoryCount;}
+   else if(self.territoryCount<this.toastCells){if(view.phase==='RUNNING')this.showCaptureGain((this.toastCells-self.territoryCount)*100/this.totalCells,true);this.toastCells=self.territoryCount;}
+  }else{this.controlsActive=false;this.refreshControls();get('joystick').hidden=true;get('capture-toast').hidden=true;get('death').hidden=true;this.clearRunResult();
+   this.activeMode=view.gameMode;this.totalCells=view.owners.length;const hud=get('hud');hud.dataset.matchId=view.matchId;hud.dataset.tick=String(view.tick);delete hud.dataset.selfId;delete hud.dataset.lifeId;
+   get('score').textContent='봇 관전';get('score-detail').textContent='사람 없이 14봇 진행';get('kill-count').textContent='—';
+  }
   get('population').textContent='사람 '+view.participants.filter(p=>p.kind==='HUMAN').length+' · 봇 '+view.participants.filter(p=>p.kind==='BOT').length;
   const ordered=[...view.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills);
   const key=JSON.stringify([colors,selfId,this.totalCells,view.gameMode.id,ordered.map(p=>[p.participantId,p.nickname,p.kind,p.slot,p.territoryCount,p.kills])]);
@@ -214,12 +219,13 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
      const n=document.createElement('span');n.className='mini-name';n.textContent=p.nickname;const pct=document.createElement('b');pct.textContent=percent;item.append(r,dot,n,pct);mini.append(item);}
    });
   }
+  if(!self)return;
   const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING'||this.hasRunResult;
   if(self.lifeState==='ELIMINATED')this.deathText=deathMessage(self.deathReason,self.deathContext);
   death.textContent=self.lifeState==='SPAWN_BLOCKED'?'안전한 '+(1+3*view.config.spawnRadius*(view.config.spawnRadius+1))+'칸을 찾고 있어요.':self.lifeState==='ELIMINATED'?this.deathText:'시작 위치를 준비하고 있어요.';
   if(self.run?.result&&self.lifeState!=='SPAWN_BLOCKED'&&self.lifeState!=='DEAD_WAIT')this.showRunResult(self.run.result,init);
   else if(self.lifeState==='ALIVE')this.clearRunResult();
-  else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],selfId,view.gameMode,view.outcome,view.owners.length);
+  else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],self.participantId,view.gameMode,view.outcome,view.owners.length);
  }
  setProfileBalance(coins:number|null):void {get('menu-coins').textContent=coins===null?'저장 불가':coins.toLocaleString();}
  showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';}

@@ -9,7 +9,9 @@ import {unpackSnapshot} from '../../src/shared/protocol.js';
 import {Presentation} from '../../src/client/presentation.js';
 
 it('shares default padding over real transport/reconnect and rejects old strict-rule clients',async()=>{
- let now=0;const f=await serverFixture({autoStart:false,now:()=>now,config:{mapRadius:5,maxSlots:2,spawnRadius:1}});
+ // R5's densely spaced initial anchors can overlap for random seed 13 even at 41980bd.
+ // This transport/wall fixture needs a known valid placement, not random spawn coverage.
+ let now=0;const f=await serverFixture({autoStart:false,now:()=>now,seed:()=>4,config:{mapRadius:5,maxSlots:2,spawnRadius:1}});
  try{
   await expect(f.client({protocolVersion:5})).rejects.toMatchObject({data:{code:'PROTOCOL_MISMATCH'}});
   const a=await f.client();await a.request('room:create',{nickname:'A'});await a.request('room:start');now=3000;f.loop.pump();

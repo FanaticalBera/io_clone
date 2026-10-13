@@ -1,0 +1,275 @@
+{
+  "conditions": {
+    "seed": 19,
+    "bots": 14,
+    "human": 0,
+    "mapRadius": 56,
+    "spawnRadius": 1,
+    "seconds": 240,
+    "safeBotRespawn": true,
+    "gameMode": "classic",
+    "baselineCommit": "0384f9a",
+    "scope": "Observed LOSS attacker IDs versus passive HUD events; pair numbers were approximate and the reported encounter was not reproduced."
+  },
+  "seed": 19,
+  "seconds": 240,
+  "mismatchCount": 0,
+  "mismatches": [],
+  "bots": [
+    {
+      "slot": 2,
+      "nickname": "모서리",
+      "personality": "DEFEND",
+      "trait": "Coward"
+    },
+    {
+      "slot": 8,
+      "nickname": "따뜻한차",
+      "personality": "ATTACK",
+      "trait": "Gambler"
+    }
+  ],
+  "pairEvents": [],
+  "otherAwardCauses": [
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 14,
+      "delta": 3,
+      "seconds": 42.93333333333333
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 11,
+      "delta": 3,
+      "seconds": 45.4
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 46.266666666666666
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 6,
+      "delta": 3,
+      "seconds": 48.93333333333333
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 73.86666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 3,
+      "seconds": 74.93333333333334
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "CAPTURE",
+      "cells": 11,
+      "delta": 3,
+      "seconds": 77.43333333333334
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 79.93333333333334
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 9,
+      "delta": 3,
+      "seconds": 137.73333333333332
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 17,
+      "delta": 3,
+      "seconds": 144.36666666666667
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 3,
+      "seconds": 147.06666666666666
+    },
+    {
+      "victimSlot": 8,
+      "targetSlot": 3,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 148.06666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 178.66666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "CAPTURE",
+      "cells": 8,
+      "delta": 3,
+      "seconds": 186.4
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 5,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 187.06666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 3,
+      "seconds": 190.9
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 3,
+      "seconds": 193.6
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 18,
+      "delta": 3.000000000000001,
+      "seconds": 196.36666666666667
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 197.46666666666667
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 6,
+      "delta": 3,
+      "seconds": 198.6
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 6,
+      "delta": 3,
+      "seconds": 202.53333333333333
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 1,
+      "seconds": 203.66666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 2.9999999999999982,
+      "seconds": 205.06666666666666
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 7,
+      "delta": 1.9285540481125132,
+      "seconds": 207.23333333333332
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 12,
+      "delta": 1.0885594932292477,
+      "seconds": 210.86666666666667
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 6,
+      "delta": 0.8245656216746333,
+      "seconds": 213.6
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "REPEAT_INTRUSION",
+      "delta": 0.20432605040234364,
+      "seconds": 214.26666666666668
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 19,
+      "delta": 3,
+      "seconds": 226.36666666666667
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "CAPTURE",
+      "cells": 40,
+      "delta": 1.4103930334248957,
+      "seconds": 229.8
+    },
+    {
+      "victimSlot": 2,
+      "targetSlot": 1,
+      "reason": "DEATH",
+      "delta": 0,
+      "seconds": 229.8
+    }
+  ],
+  "captures": {
+    "8 <- 3 AWARDED": 6,
+    "8 <- 3 COOLDOWN": 1,
+    "8 <- 3 BELOW_THRESHOLD": 3,
+    "2 <- 5 BELOW_THRESHOLD": 6,
+    "2 <- 5 AWARDED": 3,
+    "2 <- 1 BELOW_THRESHOLD": 6,
+    "2 <- 1 AWARDED": 11,
+    "2 <- 1 COOLDOWN": 3
+  }
+}

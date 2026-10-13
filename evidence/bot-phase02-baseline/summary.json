@@ -1,0 +1,566 @@
+{
+  "date": "2026-10-10",
+  "gameCommit": "41980bdcc94c38bd3c46151f6a2a2090833d4ecd",
+  "status": "phase01 user spectating complete; phase02 numbers proposed, implementation awaiting confirmation",
+  "gameCodeChanged": false,
+  "profiles": {
+    "runtime": {
+      "description": "botSeed(seed,slot), safe BOT respawn on, observeBotForTick; production spectator-equivalent R56/14 BOT",
+      "mapRadius": 56,
+      "spawnRadius": 1,
+      "participants": 14,
+      "humans": 0,
+      "seeds": [
+        4,
+        19,
+        73
+      ],
+      "simulationHz": 30,
+      "ticksPerSeed": 3600,
+      "secondsPerSeed": 120,
+      "aggregate": {
+        "captures": 1845,
+        "gained": 27559,
+        "deaths": 29,
+        "walls": 0,
+        "meanCapture": 14.937127371273712
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "captures": 592,
+          "gained": 9448,
+          "walls": 0,
+          "territory": [
+            245,
+            622,
+            316,
+            133,
+            110,
+            265,
+            190,
+            111,
+            330,
+            334,
+            99,
+            772,
+            647,
+            558
+          ],
+          "deaths": 10
+        },
+        {
+          "seed": 19,
+          "captures": 623,
+          "gained": 9108,
+          "walls": 0,
+          "territory": [
+            417,
+            547,
+            283,
+            212,
+            51,
+            234,
+            110,
+            363,
+            143,
+            205,
+            52,
+            0,
+            493,
+            399
+          ],
+          "deaths": 11
+        },
+        {
+          "seed": 73,
+          "captures": 630,
+          "gained": 9003,
+          "walls": 0,
+          "territory": [
+            48,
+            177,
+            76,
+            507,
+            162,
+            193,
+            439,
+            705,
+            282,
+            601,
+            193,
+            350,
+            379,
+            308
+          ],
+          "deaths": 8
+        }
+      ],
+      "feel": {
+        "ticksPerSeed": 900,
+        "secondsPerSeed": 30,
+        "byPersonality": {
+          "ATTACK": {
+            "samples": 11,
+            "captures": 105,
+            "gained": 1674,
+            "stolen": 39,
+            "kills": 0,
+            "deaths": 2,
+            "exposure": 47292,
+            "frames": 9720,
+            "attackAttempts": 6,
+            "successfulKills": 0,
+            "successfulCuts": 0,
+            "abortedAttack": 6,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 414,
+              "TRAIL_BUDGET": 142,
+              "SELECTABLE": 19,
+              "VICTIM_RETURNS_FIRST": 193,
+              "UNSAFE_RETURN": 6
+            },
+            "gainedPerBot": 152.1818181818182,
+            "meanTrailCellsWhileAlive": 4.8654320987654325,
+            "attackSuccessRate": 0
+          },
+          "SEEK_POINT": {
+            "samples": 10,
+            "captures": 87,
+            "gained": 1664,
+            "stolen": 0,
+            "kills": 0,
+            "deaths": 1,
+            "exposure": 51115,
+            "frames": 8910,
+            "attackAttempts": 0,
+            "successfulKills": 0,
+            "successfulCuts": 0,
+            "abortedAttack": 0,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 138,
+              "TRAIL_BUDGET": 25
+            },
+            "gainedPerBot": 166.4,
+            "meanTrailCellsWhileAlive": 5.736812570145903,
+            "attackSuccessRate": null
+          },
+          "EXPAND": {
+            "samples": 9,
+            "captures": 64,
+            "gained": 1908,
+            "stolen": 0,
+            "kills": 1,
+            "deaths": 1,
+            "exposure": 55415,
+            "frames": 8010,
+            "attackAttempts": 2,
+            "successfulKills": 1,
+            "successfulCuts": 1,
+            "abortedAttack": 0,
+            "unfinished": 1,
+            "reasons": {
+              "NO_APPROACH": 247,
+              "SELECTABLE": 14,
+              "VICTIM_RETURNS_FIRST": 128,
+              "COUNTER_CUT_FIRST": 3,
+              "TRAIL_BUDGET": 32
+            },
+            "gainedPerBot": 212,
+            "meanTrailCellsWhileAlive": 6.918227215980025,
+            "attackSuccessRate": 0.5
+          },
+          "DEFEND": {
+            "samples": 12,
+            "captures": 142,
+            "gained": 1897,
+            "stolen": 8,
+            "kills": 3,
+            "deaths": 0,
+            "exposure": 39995,
+            "frames": 10800,
+            "attackAttempts": 2,
+            "successfulKills": 2,
+            "successfulCuts": 2,
+            "abortedAttack": 0,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 459,
+              "TRAIL_BUDGET": 9,
+              "SELECTABLE": 14,
+              "VICTIM_RETURNS_FIRST": 16
+            },
+            "gainedPerBot": 158.08333333333334,
+            "meanTrailCellsWhileAlive": 3.703240740740741,
+            "attackSuccessRate": 1
+          }
+        }
+      },
+      "performance": {
+        "ticksPerRun": 1800,
+        "bots": 14,
+        "hud": false,
+        "runtime": true,
+        "msPerTick": [
+          3.050551722222222,
+          3.5673811666666664,
+          3.7029596666666658
+        ],
+        "medianMsPerTick": 3.5673811666666664
+      },
+      "performanceHud": {
+        "ticksPerRun": 1800,
+        "bots": 14,
+        "hud": true,
+        "runtime": true,
+        "msPerTick": [
+          3.515424222222222,
+          3.7678763333333327,
+          3.73166438888889
+        ],
+        "medianMsPerTick": 3.73166438888889
+      }
+    },
+    "historical": {
+      "description": "seed+slot, legacy respawn (safe switch off), full observation; compare only to same historical fixture",
+      "mapRadius": 56,
+      "spawnRadius": 1,
+      "participants": 14,
+      "humans": 0,
+      "seeds": [
+        4,
+        19,
+        73
+      ],
+      "simulationHz": 30,
+      "ticksPerSeed": 3600,
+      "aggregate": {
+        "captures": 1851,
+        "gained": 27316,
+        "deaths": 29,
+        "walls": 0,
+        "meanCapture": 14.757428417071853
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "captures": 607,
+          "gained": 9396,
+          "walls": 0,
+          "territory": [
+            17,
+            537,
+            182,
+            222,
+            172,
+            248,
+            331,
+            260,
+            272,
+            807,
+            83,
+            614,
+            638,
+            76
+          ],
+          "deaths": 7
+        },
+        {
+          "seed": 19,
+          "captures": 626,
+          "gained": 9220,
+          "walls": 0,
+          "territory": [
+            593,
+            110,
+            359,
+            266,
+            298,
+            223,
+            29,
+            89,
+            172,
+            7,
+            520,
+            699,
+            50,
+            395
+          ],
+          "deaths": 14
+        },
+        {
+          "seed": 73,
+          "captures": 618,
+          "gained": 8700,
+          "walls": 0,
+          "territory": [
+            0,
+            670,
+            114,
+            300,
+            83,
+            481,
+            181,
+            154,
+            501,
+            51,
+            636,
+            73,
+            55,
+            182
+          ],
+          "deaths": 8
+        }
+      ],
+      "feel": {
+        "ticksPerSeed": 900,
+        "byPersonality": {
+          "ATTACK": {
+            "samples": 11,
+            "captures": 127,
+            "gained": 1626,
+            "stolen": 1,
+            "kills": 1,
+            "deaths": 0,
+            "exposure": 42614,
+            "frames": 9900,
+            "attackAttempts": 3,
+            "successfulKills": 1,
+            "successfulCuts": 1,
+            "abortedAttack": 2,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 370,
+              "TRAIL_BUDGET": 120,
+              "VICTIM_RETURNS_FIRST": 160,
+              "SELECTABLE": 18
+            },
+            "gainedPerBot": 147.8181818181818,
+            "meanTrailCellsWhileAlive": 4.304444444444444,
+            "attackSuccessRate": 0.3333333333333333
+          },
+          "SEEK_POINT": {
+            "samples": 10,
+            "captures": 99,
+            "gained": 1660,
+            "stolen": 11,
+            "kills": 0,
+            "deaths": 0,
+            "exposure": 47491,
+            "frames": 9000,
+            "attackAttempts": 0,
+            "successfulKills": 0,
+            "successfulCuts": 0,
+            "abortedAttack": 0,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 67,
+              "VICTIM_RETURNS_FIRST": 62,
+              "TRAIL_BUDGET": 6,
+              "LOW_PRIORITY": 1
+            },
+            "gainedPerBot": 166,
+            "meanTrailCellsWhileAlive": 5.276777777777777,
+            "attackSuccessRate": null
+          },
+          "EXPAND": {
+            "samples": 9,
+            "captures": 61,
+            "gained": 1860,
+            "stolen": 19,
+            "kills": 0,
+            "deaths": 1,
+            "exposure": 57598,
+            "frames": 8010,
+            "attackAttempts": 0,
+            "successfulKills": 0,
+            "successfulCuts": 0,
+            "abortedAttack": 0,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 298,
+              "TRAIL_BUDGET": 16,
+              "VICTIM_RETURNS_FIRST": 32
+            },
+            "gainedPerBot": 206.66666666666666,
+            "meanTrailCellsWhileAlive": 7.190761548064919,
+            "attackSuccessRate": null
+          },
+          "DEFEND": {
+            "samples": 12,
+            "captures": 155,
+            "gained": 1851,
+            "stolen": 7,
+            "kills": 0,
+            "deaths": 0,
+            "exposure": 38781,
+            "frames": 10800,
+            "attackAttempts": 0,
+            "successfulKills": 0,
+            "successfulCuts": 0,
+            "abortedAttack": 0,
+            "unfinished": 0,
+            "reasons": {
+              "NO_APPROACH": 671,
+              "TRAIL_BUDGET": 12,
+              "COUNTER_CUT_FIRST": 2,
+              "VICTIM_RETURNS_FIRST": 45
+            },
+            "gainedPerBot": 154.25,
+            "meanTrailCellsWhileAlive": 3.5908333333333333,
+            "attackSuccessRate": null
+          }
+        }
+      },
+      "performance": {
+        "ticksPerRun": 1800,
+        "bots": 14,
+        "hud": false,
+        "msPerTick": [
+          2.9336508888888884,
+          3.2589901111111117,
+          3.267743166666666
+        ],
+        "medianMsPerTick": 3.2589901111111117
+      },
+      "performanceHud": {
+        "ticksPerRun": 1800,
+        "bots": 14,
+        "hud": true,
+        "msPerTick": [
+          3.131456555555556,
+          3.4435987222222217,
+          3.4462874444444442
+        ],
+        "medianMsPerTick": 3.4435987222222217
+      }
+    }
+  },
+  "denseDeathFixture": {
+    "mapRadius": 22,
+    "spawnRadius": 2,
+    "safeBotRespawn": false,
+    "memorySeed": "seed+slot",
+    "participants": 14,
+    "games": 16,
+    "seeds": [
+      4,
+      19,
+      73,
+      115,
+      17,
+      81,
+      32,
+      123
+    ],
+    "variants": [
+      "14 BOT",
+      "2 scripted HUMAN + 12 BOT"
+    ],
+    "ticksPerGame": 3600,
+    "totalDeaths": 749,
+    "byKind": {
+      "HUMAN": {
+        "deaths": 11,
+        "causes": {
+          "WALL_HIT": 7,
+          "PENDING_TRAIL_CONTACT": 2,
+          "EXISTING_TRAIL_CONTACT": 2
+        }
+      },
+      "BOT": {
+        "deaths": 738,
+        "causes": {
+          "EXISTING_TRAIL_CONTACT": 615,
+          "PENDING_TRAIL_CONTACT": 114,
+          "HOME_CAPTURE": 8,
+          "TRAIL_CAPTURE": 1
+        }
+      }
+    },
+    "failureCount": 0,
+    "causes": {
+      "EXISTING_TRAIL_CONTACT": 617,
+      "PENDING_TRAIL_CONTACT": 116,
+      "WALL_HIT": 7,
+      "HOME_CAPTURE": 8,
+      "TRAIL_CAPTURE": 1
+    }
+  },
+  "mediumFixture": {
+    "mapRadius": 22,
+    "spawnRadius": 2,
+    "participants": 2,
+    "cases": 16,
+    "confirmedTrailCuts": 16,
+    "casesWithAttackDecision": 14,
+    "note": "A bot-caused death is counted as a confirmed cut only when authoritative death cause is EXISTING_TRAIL_CONTACT or PENDING_TRAIL_CONTACT."
+  },
+  "definitions": {
+    "gained": "Gross positive CAPTURE amounts; repeated recaptures included, not net territory growth.",
+    "meanTrailCellsWhileAlive": "Sum of trail length over alive frames / alive frames; not seconds of exposure.",
+    "attackSuccessRate": "successfulKills / attackAttempts; null if no attempts, small sample warning.",
+    "performance": "Headless sequential simulation; seed19, 1 warm-up + 3 measured batches, 1800 ticks each. HUD collector + 8-tick snapshots; browser DOM/rendering and multi-room load excluded.",
+    "comparison": "Only compare within the same profile and fixtures. Historical 4d07624 figures use historical profile; runtime is the preferred phase02 baseline.",
+    "growthMetrics": "Time-normalized net growth, max share and cancellation ratios remain deferred until before phase4."
+  },
+  "validation": {
+    "typecheck": "passed",
+    "auditScriptTypes": "passed (tsc --ignoreConfig --types node --strict)",
+    "auditExitCodes": [
+      {
+        "name": "audit",
+        "status": 0
+      },
+      {
+        "name": "feel",
+        "status": 0
+      },
+      {
+        "name": "death",
+        "status": 0
+      },
+      {
+        "name": "medium",
+        "status": 0
+      },
+      {
+        "name": "performance",
+        "status": 0
+      },
+      {
+        "name": "performance-hud",
+        "status": 0
+      },
+      {
+        "name": "death-enriched",
+        "status": 0
+      },
+      {
+        "name": "medium-enriched",
+        "status": 0
+      },
+      {
+        "name": "runtime-audit",
+        "status": 0
+      },
+      {
+        "name": "runtime-feel",
+        "status": 0
+      },
+      {
+        "name": "runtime-performance",
+        "status": 0
+      },
+      {
+        "name": "runtime-performance-hud",
+        "status": 0
+      }
+    ],
+    "counts": "death kinds sum to total, all16 medium cases confirmed by actual death cause"
+  },
+  "rawOutputs": ".local/bot-phase02-baseline",
+  "sourceManifest": "manifest.json"
+}

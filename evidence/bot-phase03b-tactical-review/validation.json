@@ -1,0 +1,325 @@
+{
+  "date": "2026-10-13",
+  "tacticalMatchesPriorIsolatedArm": [
+    {
+      "seed": 4,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "a006eec7b54b7821655332a754d70e554b132a7dd085b5e116e52bab51c78142",
+      "traceHash": "610db917c4f56c3025a509c1ce9cff13cddd578eb17a3f2bd0679c6635baded3",
+      "memoryHash": "21a72ff6a647a561e1e217ad4669b9153c27dfee0dd29c22d355350fd5edfe0b"
+    },
+    {
+      "seed": 19,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "55185546c0793899f2c90be74f934275a7ab1293dcffe645c164ee1334045fac",
+      "traceHash": "0628c7b70b1a6127e277e8e73b83830cfe6b129f3eafc2c51ce118b42ccb0f78",
+      "memoryHash": "21aeb4cf7059b0cbd3501413c222b25e5dc84a6ffe432597ac5be041f796f91b"
+    },
+    {
+      "seed": 73,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "c5b5e642509449cf8035e4f39c25669e81affd8b2cb69a5a61e05eced75159db",
+      "traceHash": "525fa86c61edf3278c8db0a843e28036a860589f05d0f6460b9a39bf903b2f47",
+      "memoryHash": "8ef3a25b96cc23f4ad280ab26369af2a5ed20d807d02930180c14b70a606ca58"
+    },
+    {
+      "seed": 11,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "732b8bc7df871ade5f3395a29833908e876cb2ddc1952ee93be8bad27778fcba",
+      "traceHash": "8c3a07ee412e867edd58348deabffc896b1a395dd84ba37e740a8e9f37c73bcc",
+      "memoryHash": "255bc1380199cc3cfad4e2aa68692c82706c1751c804f099e6668b526b6cff13"
+    },
+    {
+      "seed": 31,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "4478506e21b4597648b4dad4b228fc571c7eba21235fa349ab4207f156a47295",
+      "traceHash": "1a0f6b8a0cf4b442797512133293226af4592a11988908cd91556712085d1346",
+      "memoryHash": "775349d2c0dd1b52acf57f111c814d63b96e5aeb864f262164e12990b2471b0e"
+    },
+    {
+      "seed": 47,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "080a092978bd101971dd5e78c7d37c96418757ba4b072f160381406dbd074252",
+      "traceHash": "0295daee2b183a4d6182e245501aff9a0b2f013771c5d091ce6665131d35b841",
+      "memoryHash": "e09ef86e9888f9fea95a7b5a81d93907910e213e79f771a7923f17862e78c4d8"
+    },
+    {
+      "seed": 101,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "fcd62b5eb30b7521b928bdb499d28b93495447406cdc30c5c54795cf4ac08b94",
+      "traceHash": "7b2d69e670828e52189ed4e3e278fd3506e4063de1de75f95926a913786624f5",
+      "memoryHash": "f7edf1aebb4b9df766df6f9144a918433279fc0c95bd4c30611e257e16a8b59b"
+    },
+    {
+      "seed": 137,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "cadenceNeutralProof": true,
+        "director": true,
+        "holding": true,
+        "personalities": true,
+        "safetyStopAudit": true,
+        "transitionAudit": true,
+        "supplementaryRecovery": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "1a7ef5912e5c92190c638e88f85b91750db9a7945af8c1e0b308e27a12b0cf33",
+      "traceHash": "6bbfb7a63f719144bafb7932d750b81bf443ea3d450e084dff9a99f691c7bb58",
+      "memoryHash": "c6f83f157326b673f196e7ca64fd980d99b12734b3a3333bdf786cbc97f8ee15"
+    }
+  ],
+  "baselineArchivedReferenceMatchesActual3A": [
+    {
+      "seed": 4,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "657bb36a730116c637fc952f8bce258063ee2460320d7b5afba61d3a1f921c9a",
+      "traceHash": "93f65920d1937e57de072bcc906be1e9e80e08a1871c0965ae29eef61cb7d153",
+      "memoryHash": "448ea60519560fe75ace774dbee0f4a0075395a80d766504c32045ca27cf43f2"
+    },
+    {
+      "seed": 19,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "a263f59448bef9d57d8a0888d96117893bddc39f933fcc3bf116fd9afdc78832",
+      "traceHash": "ac2bba00525788fed4ce04a30f581e5c20dcc768a36c94bcac1d4c470629cda6",
+      "memoryHash": "3ec5cd12ff974959c5c8f336100783a87ce45808170cfb3eb174f2a7839b69da"
+    },
+    {
+      "seed": 73,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "691ea82a70b9af7b0cda13fd60cf8b264fddb39eb2741624bf8ecd6d828ea033",
+      "traceHash": "4a1d1e20e7875a29bd051b1f5d3c753c76b884dc43b6d88579511153c69a2924",
+      "memoryHash": "1593a81e149dfbada9509151c6e2c02fd35e342b38c70c37715c1b7e4920035a"
+    },
+    {
+      "seed": 11,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "d1f64d187d23e0c51ed27b6ca018b6b2ea02914d0fba31cea96a7e4ed476d66c",
+      "traceHash": "8ceaadefd75d6993b366bf555732895a6db9d3ed472449bbe7b5e3529f995332",
+      "memoryHash": "311880ff9cd5241ab8c1b3ce71bb6952a4d1c0e328dcfa5b6b2e8b2b08031b54"
+    },
+    {
+      "seed": 31,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "e6e0f5bc0dea9718f3af88a5e9d06cc6a28d25c7f8b21884aa0060321d7933fd",
+      "traceHash": "5ec5e0fe778bfa8e811672c46e1609606278a29aa253a266c5f8f09aad5bd652",
+      "memoryHash": "fe4ef852231b2d27e38f99b65a9844a4c3d8f3e0f51312d6e9f2b95631e8f5f1"
+    },
+    {
+      "seed": 47,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "9c5096a2727d77ac2256468a4a3762fcad2fb28a14bad777e564ab2dd4024e9d",
+      "traceHash": "857f23022aa14680d7d9fd54e91c43ca79b84df801fbfaae2eccab65ae07436b",
+      "memoryHash": "c1a44ddc49717582ad28b9b560c619b590ee7e12b4bfc8c53d3f280c4dd39bab"
+    },
+    {
+      "seed": 101,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "498d261b36f8e5883aab2f2b7597cca01bdf9838cee0a8b1d807aee51db0234d",
+      "traceHash": "6673485b09f7094a4c56d1f3fbf2f11ccdc36051e74fbb22451f40f545eb6d54",
+      "memoryHash": "f082d50b03f183d2a932344ffccf8df7417e9f93f3e572d3e2ad13c487f4109f"
+    },
+    {
+      "seed": 137,
+      "checks": {
+        "trajectoryHash": true,
+        "equivalenceProof": true,
+        "director": true,
+        "holding": true,
+        "deaths": true,
+        "walls": true
+      },
+      "trajectoryHash": "7381353b4f6791a2fe6e99eb48cc6a9c99ee1b1f238f524bccb97ce0afba946a",
+      "traceHash": "cb38418cd7c8a98e01a5ac42517ef6eb2e87960c8bcb5ea0944d01ca52e25597",
+      "memoryHash": "1d8a7cd27e05a49606a1bc95377fbe2a66e72d909afd3f9041aa5e9fbf4944fa"
+    }
+  ],
+  "wallDeaths": 0,
+  "master": "960f678",
+  "personalStrategyEnabled": false,
+  "nearBImplemented": false,
+  "finalAdoption": "pending human spectating and same-session cost",
+  "timedSourceEqualsLiveSharedSource": true,
+  "tests": {
+    "fullSuite": {
+      "total": 674,
+      "passed": 673,
+      "failed": 1,
+      "reason": "Existing EXPAND forward-role memory seed1 no longer attacks under tactical-only cadence; preserve the legacy-versus-candidate case for Phase4 analysis"
+    },
+    "fixtureCorrection": {
+      "memorySeed": "EXPAND forward role 1 -> 3; reverse remains3",
+      "layoutAndHumanInputsUnchanged": true,
+      "attackSafetyUnchanged": true,
+      "realCutAndReturnAssertionsUnchanged": true
+    },
+    "targetedRerun": {
+      "files": 2,
+      "tests": 10,
+      "passed": 10
+    },
+    "hudE2E": {
+      "tests": 9,
+      "passed": 9,
+      "fixedStrategySlotPhase": true,
+      "personalStrategyOff": true,
+      "productionHudAbsent": true
+    },
+    "typecheck": true,
+    "productionClientBuild": true,
+    "testSpectatorBuild": true,
+    "serverBuild": true,
+    "scriptStrictTypecheck": true
+  },
+  "costWithinReconsiderationLimit": true,
+  "prepareSmoke": {
+    "sourceManifestsMatchTimedSources": true,
+    "existingOutputRejectedAndProtocolUnchanged": true
+  },
+  "frozenSpectator": {
+    "url": "http://127.0.0.1:5180/?debug=1&spectate=1&experimentSeed=73",
+    "seed": 73,
+    "bots": 14,
+    "tick": 21,
+    "fixedStrategy": true,
+    "slotPhase": true,
+    "personalStrategyOff": true,
+    "errors": [],
+    "hudFixedCadence": true
+  },
+  "originalAttackOpportunityCasePreserved": "medium-original-case.json"
+}

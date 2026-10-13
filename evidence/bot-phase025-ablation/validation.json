@@ -1,0 +1,42 @@
+{
+  "observerOnOff": {
+    "seed": 19,
+    "seconds": 120,
+    "trajectoryHash": "62e9bd8343ba5fe93086273b4bbcf7aa6f02cf8de94bab0098e6def743a17053",
+    "everyExistingAuditFieldIdentical": true,
+    "fields": {
+      "seed": true,
+      "trajectoryHash": true,
+      "seconds": true,
+      "requestedTicks": true,
+      "phase": true,
+      "mapRadius": true,
+      "spawnCells": true,
+      "bots": true,
+      "safeRespawn": true,
+      "classic": true,
+      "totalCapture": true,
+      "captures": true,
+      "walls": true,
+      "deaths": true,
+      "growth": true,
+      "personalities": true,
+      "goalDistances": true,
+      "boundary": true,
+      "memoryPeaks": true,
+      "deathDetails": true,
+      "director": true
+    }
+  },
+  "typecheck": "npm run typecheck + strict NodeNext script check passed",
+  "tests": {
+    "files": 4,
+    "passed": 78,
+    "includes": "phase02, phase025, growth, expansion provenance/territory distance"
+  },
+  "safety": {
+    "all40Runs120Seconds": true,
+    "wallDeaths": 0
+  },
+  "postprocessorSHA256": "f939754f3e26836e0fc1784c28f0234db05bb9eae24bfe5c89ab7d91eb8e5801"
+}

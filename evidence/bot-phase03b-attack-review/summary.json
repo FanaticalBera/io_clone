@@ -1,0 +1,1735 @@
+{
+  "date": "2026-10-13",
+  "status": "Review only; no game condition changes, no final adoption or master merge",
+  "source": {
+    "baseline": "5b714eaec087764eed54760dc79126691a0b5acb",
+    "candidate": "b23f47b",
+    "sourceManifestsUnchanged": true
+  },
+  "protocol": {
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 3600,
+    "hz": 30,
+    "radius": 56,
+    "bots": 14,
+    "spawnRadius": 1,
+    "safeRespawn": true,
+    "definitions": "Start = final ATTACK entry/re-entry or attacker/target life or target participant change; same target cell/path updates are continuation. Success = DEATH attributed to this attacker for the chosen target life while that episode is active after inputs and before step. Post-exit/unrelated kills excluded. All final open episodes censored at replay horizon."
+  },
+  "total": {
+    "baseline": {
+      "starts": 163,
+      "successes": 75,
+      "ordinaryStarts": 162,
+      "survivalStarts": 1,
+      "ordinarySuccesses": 75,
+      "survivalSuccesses": 0,
+      "attackFrames": 3266,
+      "decisions": 68587,
+      "candidateJudgments": 12760,
+      "candidateObservations": 34051,
+      "rejectedObservations": 33605,
+      "reasons": {
+        "NO_APPROACH": 20270,
+        "TRAIL_BUDGET": 1770,
+        "VICTIM_RETURNS_FIRST": 11390,
+        "SELECTABLE": 446,
+        "COUNTER_CUT_FIRST": 71,
+        "STEAL_DIVERSION_LIMIT": 78,
+        "LOW_PRIORITY": 17,
+        "UNSAFE_RETURN": 9
+      },
+      "layers": {
+        "STRATEGY": {
+          "judgments": 12760,
+          "reasons": {
+            "NO_APPROACH": 20270,
+            "TRAIL_BUDGET": 1770,
+            "VICTIM_RETURNS_FIRST": 11390,
+            "SELECTABLE": 446,
+            "COUNTER_CUT_FIRST": 71,
+            "STEAL_DIVERSION_LIMIT": 78,
+            "LOW_PRIORITY": 17,
+            "UNSAFE_RETURN": 9
+          },
+          "observations": 34051,
+          "rejected": 33605
+        },
+        "TACTICAL": {
+          "judgments": 0,
+          "reasons": {},
+          "observations": 0,
+          "rejected": 0
+        }
+      },
+      "aliveFrames": 395117,
+      "aliveBotMinutes": 219.50944444444445,
+      "startsPerAliveBotMinute": 0.7425648605349807,
+      "successesPerAliveBotMinute": 0.3416709480989175,
+      "successPerStart": 0.4601226993865031,
+      "rejectsPerCandidateJudgment": 2.6336206896551726,
+      "selectableShare": 0.013098000058735427,
+      "successCauses": {
+        "EXISTING_TRAIL_CONTACT": 72,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "openIncomplete": 1
+    },
+    "tactical": {
+      "starts": 179,
+      "successes": 73,
+      "ordinaryStarts": 178,
+      "survivalStarts": 1,
+      "ordinarySuccesses": 73,
+      "survivalSuccesses": 0,
+      "attackFrames": 3170,
+      "decisions": 148829,
+      "candidateJudgments": 28356,
+      "candidateObservations": 73207,
+      "rejectedObservations": 72230,
+      "reasons": {
+        "NO_APPROACH": 46862,
+        "TRAIL_BUDGET": 5366,
+        "VICTIM_RETURNS_FIRST": 19688,
+        "SELECTABLE": 977,
+        "STEAL_DIVERSION_LIMIT": 211,
+        "LOW_PRIORITY": 16,
+        "COUNTER_CUT_FIRST": 79,
+        "UNSAFE_RETURN": 8
+      },
+      "layers": {
+        "STRATEGY": {
+          "judgments": 12974,
+          "reasons": {
+            "NO_APPROACH": 21527,
+            "TRAIL_BUDGET": 2021,
+            "VICTIM_RETURNS_FIRST": 10837,
+            "SELECTABLE": 439,
+            "LOW_PRIORITY": 10,
+            "STEAL_DIVERSION_LIMIT": 112,
+            "COUNTER_CUT_FIRST": 26,
+            "UNSAFE_RETURN": 3
+          },
+          "observations": 34975,
+          "rejected": 34536
+        },
+        "TACTICAL": {
+          "judgments": 15382,
+          "reasons": {
+            "NO_APPROACH": 25335,
+            "TRAIL_BUDGET": 3345,
+            "VICTIM_RETURNS_FIRST": 8851,
+            "STEAL_DIVERSION_LIMIT": 99,
+            "LOW_PRIORITY": 6,
+            "SELECTABLE": 538,
+            "COUNTER_CUT_FIRST": 53,
+            "UNSAFE_RETURN": 5
+          },
+          "observations": 38232,
+          "rejected": 37694
+        }
+      },
+      "aliveFrames": 396046,
+      "aliveBotMinutes": 220.02555555555554,
+      "startsPerAliveBotMinute": 0.8135418612989401,
+      "successesPerAliveBotMinute": 0.3317796417587856,
+      "successPerStart": 0.40782122905027934,
+      "rejectsPerCandidateJudgment": 2.547256312596981,
+      "selectableShare": 0.013345718305626511,
+      "successCauses": {
+        "EXISTING_TRAIL_CONTACT": 70,
+        "PENDING_TRAIL_CONTACT": 3
+      },
+      "openIncomplete": 3
+    }
+  },
+  "byRole": {
+    "baseline": {
+      "ATTACK": {
+        "starts": 45,
+        "successes": 24,
+        "ordinaryStarts": 44,
+        "survivalStarts": 1,
+        "ordinarySuccesses": 24,
+        "survivalSuccesses": 0,
+        "attackFrames": 972,
+        "decisions": 17791,
+        "candidateJudgments": 2952,
+        "candidateObservations": 7650,
+        "rejectedObservations": 7496,
+        "reasons": {
+          "NO_APPROACH": 3003,
+          "TRAIL_BUDGET": 816,
+          "VICTIM_RETURNS_FIRST": 3648,
+          "SELECTABLE": 154,
+          "COUNTER_CUT_FIRST": 18,
+          "UNSAFE_RETURN": 9,
+          "LOW_PRIORITY": 2
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 2952,
+            "reasons": {
+              "NO_APPROACH": 3003,
+              "TRAIL_BUDGET": 816,
+              "VICTIM_RETURNS_FIRST": 3648,
+              "SELECTABLE": 154,
+              "COUNTER_CUT_FIRST": 18,
+              "UNSAFE_RETURN": 9,
+              "LOW_PRIORITY": 2
+            },
+            "observations": 7650,
+            "rejected": 7496
+          },
+          "TACTICAL": {
+            "judgments": 0,
+            "reasons": {},
+            "observations": 0,
+            "rejected": 0
+          }
+        },
+        "aliveFrames": 102510,
+        "aliveBotMinutes": 56.95,
+        "startsPerAliveBotMinute": 0.7901668129938543,
+        "successesPerAliveBotMinute": 0.4214223002633889,
+        "successPerStart": 0.5333333333333333,
+        "rejectsPerCandidateJudgment": 2.5392953929539295,
+        "selectableShare": 0.020130718954248367,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 23,
+          "PENDING_TRAIL_CONTACT": 1
+        },
+        "openIncomplete": 0
+      },
+      "EXPAND": {
+        "starts": 48,
+        "successes": 19,
+        "ordinaryStarts": 48,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 19,
+        "survivalSuccesses": 0,
+        "attackFrames": 1055,
+        "decisions": 15270,
+        "candidateJudgments": 2891,
+        "candidateObservations": 7637,
+        "rejectedObservations": 7517,
+        "reasons": {
+          "NO_APPROACH": 4258,
+          "VICTIM_RETURNS_FIRST": 2792,
+          "COUNTER_CUT_FIRST": 18,
+          "SELECTABLE": 120,
+          "TRAIL_BUDGET": 441,
+          "LOW_PRIORITY": 8
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 2891,
+            "reasons": {
+              "NO_APPROACH": 4258,
+              "VICTIM_RETURNS_FIRST": 2792,
+              "COUNTER_CUT_FIRST": 18,
+              "SELECTABLE": 120,
+              "TRAIL_BUDGET": 441,
+              "LOW_PRIORITY": 8
+            },
+            "observations": 7637,
+            "rejected": 7517
+          },
+          "TACTICAL": {
+            "judgments": 0,
+            "reasons": {},
+            "observations": 0,
+            "rejected": 0
+          }
+        },
+        "aliveFrames": 88577,
+        "aliveBotMinutes": 49.20944444444444,
+        "startsPerAliveBotMinute": 0.9754225137451031,
+        "successesPerAliveBotMinute": 0.38610474502410336,
+        "successPerStart": 0.3958333333333333,
+        "rejectsPerCandidateJudgment": 2.600138360428917,
+        "selectableShare": 0.015712976299594082,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 18,
+          "PENDING_TRAIL_CONTACT": 1
+        },
+        "openIncomplete": 0
+      },
+      "DEFEND": {
+        "starts": 42,
+        "successes": 19,
+        "ordinaryStarts": 42,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 19,
+        "survivalSuccesses": 0,
+        "attackFrames": 805,
+        "decisions": 19263,
+        "candidateJudgments": 4033,
+        "candidateObservations": 10921,
+        "rejectedObservations": 10815,
+        "reasons": {
+          "VICTIM_RETURNS_FIRST": 1580,
+          "TRAIL_BUDGET": 111,
+          "NO_APPROACH": 9110,
+          "COUNTER_CUT_FIRST": 12,
+          "SELECTABLE": 106,
+          "LOW_PRIORITY": 2
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 4033,
+            "reasons": {
+              "VICTIM_RETURNS_FIRST": 1580,
+              "TRAIL_BUDGET": 111,
+              "NO_APPROACH": 9110,
+              "COUNTER_CUT_FIRST": 12,
+              "SELECTABLE": 106,
+              "LOW_PRIORITY": 2
+            },
+            "observations": 10921,
+            "rejected": 10815
+          },
+          "TACTICAL": {
+            "judgments": 0,
+            "reasons": {},
+            "observations": 0,
+            "rejected": 0
+          }
+        },
+        "aliveFrames": 109620,
+        "aliveBotMinutes": 60.9,
+        "startsPerAliveBotMinute": 0.6896551724137931,
+        "successesPerAliveBotMinute": 0.31198686371100165,
+        "successPerStart": 0.4523809523809524,
+        "rejectsPerCandidateJudgment": 2.6816265807091497,
+        "selectableShare": 0.009706070872630711,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 18,
+          "PENDING_TRAIL_CONTACT": 1
+        },
+        "openIncomplete": 1
+      },
+      "SEEK_POINT": {
+        "starts": 28,
+        "successes": 13,
+        "ordinaryStarts": 28,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 13,
+        "survivalSuccesses": 0,
+        "attackFrames": 434,
+        "decisions": 16263,
+        "candidateJudgments": 2884,
+        "candidateObservations": 7843,
+        "rejectedObservations": 7777,
+        "reasons": {
+          "NO_APPROACH": 3899,
+          "VICTIM_RETURNS_FIRST": 3370,
+          "TRAIL_BUDGET": 402,
+          "COUNTER_CUT_FIRST": 23,
+          "STEAL_DIVERSION_LIMIT": 78,
+          "SELECTABLE": 66,
+          "LOW_PRIORITY": 5
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 2884,
+            "reasons": {
+              "NO_APPROACH": 3899,
+              "VICTIM_RETURNS_FIRST": 3370,
+              "TRAIL_BUDGET": 402,
+              "COUNTER_CUT_FIRST": 23,
+              "STEAL_DIVERSION_LIMIT": 78,
+              "SELECTABLE": 66,
+              "LOW_PRIORITY": 5
+            },
+            "observations": 7843,
+            "rejected": 7777
+          },
+          "TACTICAL": {
+            "judgments": 0,
+            "reasons": {},
+            "observations": 0,
+            "rejected": 0
+          }
+        },
+        "aliveFrames": 94410,
+        "aliveBotMinutes": 52.45,
+        "startsPerAliveBotMinute": 0.5338417540514776,
+        "successesPerAliveBotMinute": 0.24785510009532888,
+        "successPerStart": 0.4642857142857143,
+        "rejectsPerCandidateJudgment": 2.6966019417475726,
+        "selectableShare": 0.008415147265077139,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 13
+        },
+        "openIncomplete": 0
+      }
+    },
+    "tactical": {
+      "ATTACK": {
+        "starts": 46,
+        "successes": 23,
+        "ordinaryStarts": 45,
+        "survivalStarts": 1,
+        "ordinarySuccesses": 23,
+        "survivalSuccesses": 0,
+        "attackFrames": 929,
+        "decisions": 37940,
+        "candidateJudgments": 7567,
+        "candidateObservations": 19496,
+        "rejectedObservations": 19164,
+        "reasons": {
+          "NO_APPROACH": 8955,
+          "TRAIL_BUDGET": 2473,
+          "VICTIM_RETURNS_FIRST": 7714,
+          "SELECTABLE": 332,
+          "COUNTER_CUT_FIRST": 14,
+          "UNSAFE_RETURN": 8
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 3544,
+            "reasons": {
+              "NO_APPROACH": 4115,
+              "TRAIL_BUDGET": 932,
+              "VICTIM_RETURNS_FIRST": 4324,
+              "SELECTABLE": 146,
+              "COUNTER_CUT_FIRST": 4,
+              "UNSAFE_RETURN": 3
+            },
+            "observations": 9524,
+            "rejected": 9378
+          },
+          "TACTICAL": {
+            "judgments": 4023,
+            "reasons": {
+              "NO_APPROACH": 4840,
+              "TRAIL_BUDGET": 1541,
+              "VICTIM_RETURNS_FIRST": 3390,
+              "COUNTER_CUT_FIRST": 10,
+              "SELECTABLE": 186,
+              "UNSAFE_RETURN": 5
+            },
+            "observations": 9972,
+            "rejected": 9786
+          }
+        },
+        "aliveFrames": 102330,
+        "aliveBotMinutes": 56.85,
+        "startsPerAliveBotMinute": 0.8091468777484608,
+        "successesPerAliveBotMinute": 0.4045734388742304,
+        "successPerStart": 0.5,
+        "rejectsPerCandidateJudgment": 2.5325756574600238,
+        "selectableShare": 0.017029134181370538,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 23
+        },
+        "openIncomplete": 0
+      },
+      "EXPAND": {
+        "starts": 60,
+        "successes": 15,
+        "ordinaryStarts": 60,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 15,
+        "survivalSuccesses": 0,
+        "attackFrames": 1151,
+        "decisions": 35325,
+        "candidateJudgments": 7299,
+        "candidateObservations": 18175,
+        "rejectedObservations": 17931,
+        "reasons": {
+          "NO_APPROACH": 11151,
+          "VICTIM_RETURNS_FIRST": 5394,
+          "COUNTER_CUT_FIRST": 40,
+          "TRAIL_BUDGET": 1343,
+          "SELECTABLE": 244,
+          "LOW_PRIORITY": 3
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 3120,
+            "reasons": {
+              "NO_APPROACH": 4728,
+              "VICTIM_RETURNS_FIRST": 2723,
+              "COUNTER_CUT_FIRST": 13,
+              "TRAIL_BUDGET": 502,
+              "SELECTABLE": 121,
+              "LOW_PRIORITY": 2
+            },
+            "observations": 8089,
+            "rejected": 7968
+          },
+          "TACTICAL": {
+            "judgments": 4179,
+            "reasons": {
+              "NO_APPROACH": 6423,
+              "COUNTER_CUT_FIRST": 27,
+              "TRAIL_BUDGET": 841,
+              "VICTIM_RETURNS_FIRST": 2671,
+              "SELECTABLE": 123,
+              "LOW_PRIORITY": 1
+            },
+            "observations": 10086,
+            "rejected": 9963
+          }
+        },
+        "aliveFrames": 87950,
+        "aliveBotMinutes": 48.861111111111114,
+        "startsPerAliveBotMinute": 1.2279704377487208,
+        "successesPerAliveBotMinute": 0.3069926094371802,
+        "successPerStart": 0.25,
+        "rejectsPerCandidateJudgment": 2.456637895602137,
+        "selectableShare": 0.013425034387895461,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 13,
+          "PENDING_TRAIL_CONTACT": 2
+        },
+        "openIncomplete": 1
+      },
+      "DEFEND": {
+        "starts": 42,
+        "successes": 21,
+        "ordinaryStarts": 42,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 21,
+        "survivalSuccesses": 0,
+        "attackFrames": 693,
+        "decisions": 40909,
+        "candidateJudgments": 8139,
+        "candidateObservations": 21665,
+        "rejectedObservations": 21390,
+        "reasons": {
+          "NO_APPROACH": 18878,
+          "TRAIL_BUDGET": 401,
+          "VICTIM_RETURNS_FIRST": 2101,
+          "SELECTABLE": 275,
+          "COUNTER_CUT_FIRST": 9,
+          "LOW_PRIORITY": 1
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 3731,
+            "reasons": {
+              "NO_APPROACH": 8896,
+              "TRAIL_BUDGET": 145,
+              "VICTIM_RETURNS_FIRST": 1247,
+              "SELECTABLE": 109,
+              "COUNTER_CUT_FIRST": 2,
+              "LOW_PRIORITY": 1
+            },
+            "observations": 10400,
+            "rejected": 10291
+          },
+          "TACTICAL": {
+            "judgments": 4408,
+            "reasons": {
+              "NO_APPROACH": 9982,
+              "TRAIL_BUDGET": 256,
+              "VICTIM_RETURNS_FIRST": 854,
+              "SELECTABLE": 166,
+              "COUNTER_CUT_FIRST": 7
+            },
+            "observations": 11265,
+            "rejected": 11099
+          }
+        },
+        "aliveFrames": 110700,
+        "aliveBotMinutes": 61.5,
+        "startsPerAliveBotMinute": 0.6829268292682927,
+        "successesPerAliveBotMinute": 0.34146341463414637,
+        "successPerStart": 0.5,
+        "rejectsPerCandidateJudgment": 2.6280869885735347,
+        "selectableShare": 0.01269328409877683,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 20,
+          "PENDING_TRAIL_CONTACT": 1
+        },
+        "openIncomplete": 1
+      },
+      "SEEK_POINT": {
+        "starts": 31,
+        "successes": 14,
+        "ordinaryStarts": 31,
+        "survivalStarts": 0,
+        "ordinarySuccesses": 14,
+        "survivalSuccesses": 0,
+        "attackFrames": 397,
+        "decisions": 34655,
+        "candidateJudgments": 5351,
+        "candidateObservations": 13871,
+        "rejectedObservations": 13745,
+        "reasons": {
+          "NO_APPROACH": 7878,
+          "TRAIL_BUDGET": 1149,
+          "VICTIM_RETURNS_FIRST": 4479,
+          "STEAL_DIVERSION_LIMIT": 211,
+          "LOW_PRIORITY": 12,
+          "SELECTABLE": 126,
+          "COUNTER_CUT_FIRST": 16
+        },
+        "layers": {
+          "STRATEGY": {
+            "judgments": 2579,
+            "reasons": {
+              "NO_APPROACH": 3788,
+              "TRAIL_BUDGET": 442,
+              "VICTIM_RETURNS_FIRST": 2543,
+              "LOW_PRIORITY": 7,
+              "STEAL_DIVERSION_LIMIT": 112,
+              "SELECTABLE": 63,
+              "COUNTER_CUT_FIRST": 7
+            },
+            "observations": 6962,
+            "rejected": 6899
+          },
+          "TACTICAL": {
+            "judgments": 2772,
+            "reasons": {
+              "NO_APPROACH": 4090,
+              "TRAIL_BUDGET": 707,
+              "VICTIM_RETURNS_FIRST": 1936,
+              "STEAL_DIVERSION_LIMIT": 99,
+              "LOW_PRIORITY": 5,
+              "SELECTABLE": 63,
+              "COUNTER_CUT_FIRST": 9
+            },
+            "observations": 6909,
+            "rejected": 6846
+          }
+        },
+        "aliveFrames": 95066,
+        "aliveBotMinutes": 52.81444444444445,
+        "startsPerAliveBotMinute": 0.5869606378726359,
+        "successesPerAliveBotMinute": 0.2650789977489323,
+        "successPerStart": 0.45161290322580644,
+        "rejectsPerCandidateJudgment": 2.5686787516352085,
+        "selectableShare": 0.00908369980534929,
+        "successCauses": {
+          "EXISTING_TRAIL_CONTACT": 14
+        },
+        "openIncomplete": 1
+      }
+    }
+  },
+  "signals": {
+    "starts": {
+      "positive": 7,
+      "negative": 1,
+      "tied": 0,
+      "leaveOneOut": [
+        {
+          "excludedSeed": 4,
+          "delta": 15
+        },
+        {
+          "excludedSeed": 19,
+          "delta": 21
+        },
+        {
+          "excludedSeed": 73,
+          "delta": 12
+        },
+        {
+          "excludedSeed": 11,
+          "delta": 15
+        },
+        {
+          "excludedSeed": 31,
+          "delta": 15
+        },
+        {
+          "excludedSeed": 47,
+          "delta": 12
+        },
+        {
+          "excludedSeed": 101,
+          "delta": 10
+        },
+        {
+          "excludedSeed": 137,
+          "delta": 12
+        }
+      ],
+      "direction": "increase"
+    },
+    "successes": {
+      "positive": 3,
+      "negative": 4,
+      "tied": 1,
+      "leaveOneOut": [
+        {
+          "excludedSeed": 4,
+          "delta": -1
+        },
+        {
+          "excludedSeed": 19,
+          "delta": 1
+        },
+        {
+          "excludedSeed": 73,
+          "delta": -6
+        },
+        {
+          "excludedSeed": 11,
+          "delta": 2
+        },
+        {
+          "excludedSeed": 31,
+          "delta": -3
+        },
+        {
+          "excludedSeed": 47,
+          "delta": -2
+        },
+        {
+          "excludedSeed": 101,
+          "delta": -7
+        },
+        {
+          "excludedSeed": 137,
+          "delta": 2
+        }
+      ],
+      "direction": "indistinguishable"
+    },
+    "successPerStart": {
+      "positive": 3,
+      "negative": 5,
+      "tied": 0,
+      "leaveOneOut": [
+        {
+          "excludedSeed": 4,
+          "delta": -0.0507364975450082
+        },
+        {
+          "excludedSeed": 19,
+          "delta": -0.05138888888888887
+        },
+        {
+          "excludedSeed": 73,
+          "delta": -0.0747863247863248
+        },
+        {
+          "excludedSeed": 11,
+          "delta": -0.029167035496149407
+        },
+        {
+          "excludedSeed": 31,
+          "delta": -0.06072058453010837
+        },
+        {
+          "excludedSeed": 47,
+          "delta": -0.04975306383757089
+        },
+        {
+          "excludedSeed": 101,
+          "delta": -0.0808878295843885
+        },
+        {
+          "excludedSeed": 137,
+          "delta": -0.02120460184976314
+        }
+      ],
+      "direction": "indistinguishable"
+    },
+    "startsPerAliveBotMinute": {
+      "positive": 7,
+      "negative": 1,
+      "tied": 0,
+      "leaveOneOut": [
+        {
+          "excludedSeed": 4,
+          "delta": 0.07659673081039564
+        },
+        {
+          "excludedSeed": 19,
+          "delta": 0.10770659642009106
+        },
+        {
+          "excludedSeed": 73,
+          "delta": 0.0598982796548746
+        },
+        {
+          "excludedSeed": 11,
+          "delta": 0.07646001936069935
+        },
+        {
+          "excludedSeed": 31,
+          "delta": 0.07585939344359327
+        },
+        {
+          "excludedSeed": 47,
+          "delta": 0.06100128923908765
+        },
+        {
+          "excludedSeed": 101,
+          "delta": 0.049236075570989524
+        },
+        {
+          "excludedSeed": 137,
+          "delta": 0.06112338992195587
+        }
+      ],
+      "direction": "increase"
+    },
+    "successesPerAliveBotMinute": {
+      "positive": 3,
+      "negative": 5,
+      "tied": 0,
+      "leaveOneOut": [
+        {
+          "excludedSeed": 4,
+          "delta": -0.005814088821440744
+        },
+        {
+          "excludedSeed": 19,
+          "delta": 0.004552900957863593
+        },
+        {
+          "excludedSeed": 73,
+          "delta": -0.03228125815185212
+        },
+        {
+          "excludedSeed": 11,
+          "delta": 0.009748664407431384
+        },
+        {
+          "excludedSeed": 31,
+          "delta": -0.016517767759501256
+        },
+        {
+          "excludedSeed": 47,
+          "delta": -0.011037850470223598
+        },
+        {
+          "excludedSeed": 101,
+          "delta": -0.0376176404179161
+        },
+        {
+          "excludedSeed": 137,
+          "delta": 0.009852482832045761
+        }
+      ],
+      "direction": "indistinguishable"
+    }
+  },
+  "personalitySignals": {
+    "ATTACK": {
+      "starts": {
+        "positive": 3,
+        "negative": 3,
+        "tied": 2,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": 1
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 73,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 4
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 47,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 101,
+            "delta": 5
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 1
+          }
+        ],
+        "direction": "indistinguishable"
+      },
+      "successes": {
+        "positive": 4,
+        "negative": 4,
+        "tied": 0,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 73,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 31,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 47,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 101,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 1
+          }
+        ],
+        "direction": "indistinguishable"
+      }
+    },
+    "EXPAND": {
+      "starts": {
+        "positive": 5,
+        "negative": 2,
+        "tied": 1,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": 5
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 17
+          },
+          {
+            "excludedSeed": 73,
+            "delta": 11
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 11
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 9
+          },
+          {
+            "excludedSeed": 47,
+            "delta": 12
+          },
+          {
+            "excludedSeed": 101,
+            "delta": 5
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 14
+          }
+        ],
+        "direction": "indistinguishable"
+      },
+      "successes": {
+        "positive": 3,
+        "negative": 4,
+        "tied": 1,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": -6
+          },
+          {
+            "excludedSeed": 19,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 73,
+            "delta": -4
+          },
+          {
+            "excludedSeed": 11,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 31,
+            "delta": -5
+          },
+          {
+            "excludedSeed": 47,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 101,
+            "delta": -6
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 0
+          }
+        ],
+        "direction": "indistinguishable"
+      }
+    },
+    "DEFEND": {
+      "starts": {
+        "positive": 4,
+        "negative": 2,
+        "tied": 2,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": 10
+          },
+          {
+            "excludedSeed": 19,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 73,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 11,
+            "delta": -3
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 47,
+            "delta": -1
+          },
+          {
+            "excludedSeed": 101,
+            "delta": -6
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 0
+          }
+        ],
+        "direction": "indistinguishable"
+      },
+      "successes": {
+        "positive": 3,
+        "negative": 2,
+        "tied": 3,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": 7
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 73,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 47,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 101,
+            "delta": -2
+          },
+          {
+            "excludedSeed": 137,
+            "delta": 3
+          }
+        ],
+        "direction": "indistinguishable"
+      }
+    },
+    "SEEK_POINT": {
+      "starts": {
+        "positive": 2,
+        "negative": 5,
+        "tied": 1,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": -1
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 4
+          },
+          {
+            "excludedSeed": 73,
+            "delta": 4
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 3
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 4
+          },
+          {
+            "excludedSeed": 47,
+            "delta": 4
+          },
+          {
+            "excludedSeed": 101,
+            "delta": 6
+          },
+          {
+            "excludedSeed": 137,
+            "delta": -3
+          }
+        ],
+        "direction": "indistinguishable"
+      },
+      "successes": {
+        "positive": 2,
+        "negative": 3,
+        "tied": 3,
+        "leaveOneOut": [
+          {
+            "excludedSeed": 4,
+            "delta": 0
+          },
+          {
+            "excludedSeed": 19,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 73,
+            "delta": 1
+          },
+          {
+            "excludedSeed": 11,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 31,
+            "delta": 2
+          },
+          {
+            "excludedSeed": 47,
+            "delta": 1
+          },
+          {
+            "excludedSeed": 101,
+            "delta": 1
+          },
+          {
+            "excludedSeed": 137,
+            "delta": -2
+          }
+        ],
+        "direction": "indistinguishable"
+      }
+    }
+  },
+  "medium": {
+    "variants": [
+      {
+        "mode": "identity+director",
+        "baselineCuts": 12,
+        "tacticalCuts": 13,
+        "newLosses": 0,
+        "recoveries": 1
+      },
+      {
+        "mode": "-legacy",
+        "baselineCuts": 12,
+        "tacticalCuts": 13,
+        "newLosses": 0,
+        "recoveries": 1
+      },
+      {
+        "mode": "-identity-direct",
+        "baselineCuts": 12,
+        "tacticalCuts": 13,
+        "newLosses": 0,
+        "recoveries": 1
+      }
+    ],
+    "baselineScriptIdentityVerified": true,
+    "archivedPhase2Cuts": 16,
+    "baseline16of16ClaimReproduced": false
+  },
+  "original": {
+    "context": {
+      "matchSeed": 115,
+      "memorySeed": 1,
+      "personality": "EXPAND",
+      "humanSlot": 0,
+      "botSlot": 1,
+      "mapRadius": 22,
+      "spawnRadius": 2,
+      "directGetBotInput": true,
+      "identity": false
+    },
+    "firstInputDifferenceTick": 18,
+    "baseline": {
+      "attackTicks": 22,
+      "starts": 1,
+      "successes": 1,
+      "endedTick": 53
+    },
+    "tactical": {
+      "attackTicks": 0,
+      "starts": 0,
+      "successes": 0,
+      "endedTick": 76
+    },
+    "judgments": [
+      {
+        "tick": 17,
+        "baseline": {
+          "tick": 17,
+          "goal": "RETURN",
+          "reason": "LAUNCH_NO_SAFE_OWNED_ROUTE",
+          "cell": 653,
+          "position": {
+            "x": -984.095028390216,
+            "y": -89.62832347853647
+          },
+          "direction": {
+            "x": -0.6046799779026365,
+            "y": -0.7964685331660423
+          },
+          "path": [],
+          "ownTrail": 0,
+          "attacks": []
+        },
+        "tactical": {
+          "tick": 17,
+          "goal": "RETURN",
+          "reason": "LAUNCH_NO_SAFE_OWNED_ROUTE",
+          "cell": 653,
+          "position": {
+            "x": -984.095028390216,
+            "y": -89.62832347853647
+          },
+          "direction": {
+            "x": -0.6046799779026365,
+            "y": -0.7964685331660423
+          },
+          "path": [],
+          "ownTrail": 0,
+          "attacks": []
+        }
+      },
+      {
+        "tick": 18,
+        "baseline": {
+          "tick": 18,
+          "goal": "RETURN",
+          "reason": null,
+          "cell": 653,
+          "position": {
+            "x": -988.7870956595466,
+            "y": -95.8085908465455
+          },
+          "direction": {
+            "x": -0.6046799779026365,
+            "y": -0.7964685331660423
+          },
+          "path": [],
+          "ownTrail": 0,
+          "attacks": []
+        },
+        "tactical": {
+          "tick": 18,
+          "goal": "EXPAND",
+          "reason": "EXPANSION_SCORE",
+          "cell": 653,
+          "position": {
+            "x": -988.7870956595466,
+            "y": -95.8085908465455
+          },
+          "direction": {
+            "x": -0.6046799779026365,
+            "y": -0.7964685331660423
+          },
+          "path": [
+            696,
+            695,
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 0,
+          "attacks": []
+        }
+      },
+      {
+        "tick": 19,
+        "baseline": {
+          "tick": 19,
+          "goal": "EXPAND",
+          "reason": "EXPANSION_SCORE",
+          "cell": 653,
+          "position": {
+            "x": -993.4791629288771,
+            "y": -101.98885821455453
+          },
+          "direction": {
+            "x": -0.6046799779026365,
+            "y": -0.7964685331660423
+          },
+          "path": [
+            696,
+            695,
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 0,
+          "attacks": []
+        },
+        "tactical": {
+          "tick": 19,
+          "goal": "EXPAND",
+          "reason": "PLAN_CONTINUE",
+          "cell": 653,
+          "position": {
+            "x": -995.0959926211864,
+            "y": -100.32622508665533
+          },
+          "direction": {
+            "x": -0.8130453926545366,
+            "y": -0.5822003001401067
+          },
+          "path": [
+            696,
+            695,
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 0,
+          "attacks": []
+        }
+      },
+      {
+        "tick": 25,
+        "baseline": {
+          "tick": 25,
+          "goal": "EXPAND",
+          "reason": "PLAN_CONTINUE",
+          "cell": 652,
+          "position": {
+            "x": -1033.8177754477367,
+            "y": -96.773850675344
+          },
+          "direction": {
+            "x": -0.6382544364943328,
+            "y": 0.7698254830124173
+          },
+          "path": [
+            696,
+            695,
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 1,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "COUNTER_CUT_FIRST",
+              "distance": 3,
+              "seconds": 0.7,
+              "returnTime": 0.9666666666666667,
+              "etaMargin": 0.1,
+              "counterTime": 0.5666666666666667
+            }
+          ]
+        },
+        "tactical": {
+          "tick": 25,
+          "goal": "EXPAND",
+          "reason": "PLAN_CONTINUE",
+          "cell": 652,
+          "position": {
+            "x": -1032.0918009754241,
+            "y": -83.42326298537728
+          },
+          "direction": {
+            "x": -0.3822487666963429,
+            "y": 0.9240594571558288
+          },
+          "path": [
+            696,
+            695,
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 1,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "COUNTER_CUT_FIRST",
+              "distance": 3,
+              "seconds": 0.6666666666666666,
+              "returnTime": 0.9666666666666667,
+              "etaMargin": 0.1,
+              "counterTime": 0.5666666666666667
+            }
+          ]
+        }
+      },
+      {
+        "tick": 31,
+        "baseline": {
+          "tick": 31,
+          "goal": "ATTACK",
+          "reason": "ATTACK_OPPORTUNITY",
+          "cell": 696,
+          "position": {
+            "x": -1034.074085916322,
+            "y": -51.772351755394375
+          },
+          "direction": {
+            "x": -0.2174121593116708,
+            "y": 0.9760798906766991
+          },
+          "path": [
+            697,
+            654,
+            612,
+            654
+          ],
+          "ownTrail": 0,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "SELECTABLE",
+              "distance": 3,
+              "seconds": 0.7333333333333333,
+              "returnTime": 0.8666666666666667,
+              "etaMargin": 0.1,
+              "counterTime": null
+            },
+            {
+              "target": 570,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 3,
+              "seconds": 0.9,
+              "returnTime": 0.8666666666666667,
+              "etaMargin": 0.1
+            }
+          ]
+        },
+        "tactical": {
+          "tick": 31,
+          "goal": "EXPAND",
+          "reason": "PLAN_CONTINUE",
+          "cell": 695,
+          "position": {
+            "x": -1062.3618859033634,
+            "y": -55.27186338384788
+          },
+          "direction": {
+            "x": -0.9951887354644582,
+            "y": 0.09797642984234842
+          },
+          "path": [
+            694,
+            738,
+            739,
+            740
+          ],
+          "ownTrail": 1,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.1928106780627619,
+              "returnTime": 0.8666666666666667,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 570,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.1928106780627619,
+              "returnTime": 0.8666666666666667,
+              "etaMargin": 0.1
+            }
+          ]
+        }
+      },
+      {
+        "tick": 37,
+        "baseline": {
+          "tick": 37,
+          "goal": "ATTACK",
+          "reason": "PLAN_CONTINUE",
+          "cell": 741,
+          "position": {
+            "x": -1004.0362513140535,
+            "y": -24.34739129986266
+          },
+          "direction": {
+            "x": 0.9999495870907098,
+            "y": -0.01004107947976196
+          },
+          "path": [
+            697,
+            654,
+            612,
+            654
+          ],
+          "ownTrail": 0,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "SELECTABLE",
+              "distance": 3,
+              "seconds": 0.5333333333333333,
+              "returnTime": 0.7333333333333334,
+              "etaMargin": 0.1,
+              "counterTime": null
+            }
+          ]
+        },
+        "tactical": {
+          "tick": 37,
+          "goal": "RETURN",
+          "reason": "PLAN_CONTINUE",
+          "cell": 695,
+          "position": {
+            "x": -1102.83020730888,
+            "y": -38.473297918277694
+          },
+          "direction": {
+            "x": -0.5418716642706434,
+            "y": 0.8404612420930324
+          },
+          "path": [
+            696
+          ],
+          "ownTrail": 1,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.3012859124977736,
+              "returnTime": 0.7333333333333334,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 570,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.3012859124977736,
+              "returnTime": 0.7333333333333334,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 529,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.3744581600632089,
+              "returnTime": 0.7333333333333334,
+              "etaMargin": 0.1
+            }
+          ]
+        }
+      },
+      {
+        "tick": 43,
+        "baseline": {
+          "tick": 43,
+          "goal": "ATTACK",
+          "reason": "PLAN_CONTINUE",
+          "cell": 697,
+          "position": {
+            "x": -972.629459740803,
+            "y": -56.66759221195453
+          },
+          "direction": {
+            "x": 0.5539411633375159,
+            "y": -0.8325558164833633
+          },
+          "path": [
+            654,
+            612,
+            654
+          ],
+          "ownTrail": 0,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 2,
+              "seconds": 0.3333333333333333,
+              "returnTime": 0.16666666666666666,
+              "etaMargin": 0.1
+            }
+          ]
+        },
+        "tactical": {
+          "tick": 43,
+          "goal": "RETURN",
+          "reason": "PLAN_CONTINUE",
+          "cell": 739,
+          "position": {
+            "x": -1084.1437778961233,
+            "y": -2.3455064083779393
+          },
+          "direction": {
+            "x": 0.9415955666343644,
+            "y": 0.3367458817781003
+          },
+          "path": [
+            696
+          ],
+          "ownTrail": 2,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 5,
+              "seconds": 1.115960400515393,
+              "returnTime": 0.16666666666666666,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 570,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 5,
+              "seconds": 1.115960400515393,
+              "returnTime": 0.16666666666666666,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 529,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 5,
+              "seconds": 1.353598069578479,
+              "returnTime": 0.16666666666666666,
+              "etaMargin": 0.1
+            }
+          ]
+        }
+      },
+      {
+        "tick": 49,
+        "baseline": {
+          "tick": 49,
+          "goal": "ATTACK",
+          "reason": "PLAN_CONTINUE",
+          "cell": 654,
+          "position": {
+            "x": -946.839329788301,
+            "y": -95.42933104076695
+          },
+          "direction": {
+            "x": 0.5539411633375158,
+            "y": -0.8325558164833634
+          },
+          "path": [
+            612,
+            654
+          ],
+          "ownTrail": 0,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 1,
+              "seconds": 0.13333333333333333,
+              "returnTime": 0.2,
+              "etaMargin": 0.1
+            }
+          ]
+        },
+        "tactical": {
+          "tick": 49,
+          "goal": "EXPAND",
+          "reason": "PLAN_CONTINUE",
+          "cell": 740,
+          "position": {
+            "x": -1046.4914779360874,
+            "y": -25.166550482689665
+          },
+          "direction": {
+            "x": 0.6789806247633595,
+            "y": -0.7341561899187107
+          },
+          "path": [
+            696,
+            652,
+            609,
+            608,
+            651,
+            652
+          ],
+          "ownTrail": 0,
+          "attacks": [
+            {
+              "target": 612,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 1.0947475013660921,
+              "returnTime": 0.2,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 570,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 4,
+              "seconds": 0.8478908557114859,
+              "returnTime": 0.2,
+              "etaMargin": 0.1
+            },
+            {
+              "target": 529,
+              "reason": "VICTIM_RETURNS_FIRST",
+              "distance": 5,
+              "seconds": 1.0859860938067238,
+              "returnTime": 0.2,
+              "etaMargin": 0.1
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "rawDirectory": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase03b-attack-review"
+}

@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {stepMatch} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,plannedCapture,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,plannedCapture,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {expansionSides,EXPANSION_SHAPES} from '../../src/shared/bot-expansion.js';
 import {hexDistance} from '../../src/shared/hex.js';
 import {createHash} from 'node:crypto';
@@ -37,7 +38,9 @@ describe('bounded expansion geometry and real closure',()=>{
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{
+  // Fixed six-tick geometry witness; new cadence is covered by phase03 and paired movement audits.
   const m=createMatch({},4,botSpecs(8)),memories=m.participants.map(p=>createBotMemory(4+p.slot)),p=m.participants[4],memory=memories[4];
+  memories.forEach(m=>{m.schedule=undefined;}); // Pin only cadence; keep combined fairness/cache/geometry.
   let trace:BotDecisionTrace|undefined,closedAt=-1,oldLength=0,newLength=0,oldTerritory=0,lifeId=0,captures=0,sawTrail=false;
   watchBotDecisions(memory,t=>{trace=t;});
   for(let tick=0;tick<300;tick++){
@@ -64,4 +67,17 @@ describe('bounded expansion geometry and real closure',()=>{
   };
   expect(run(true)).toBe(run(false));
  },10000);
+});
+
+it('every non-owned path cell is included in planned gain, preserving NO_GAIN priority before early guards',()=>{
+ // Arbitrary ownership, repeated/reversed paths, and boundary cells; the
+ // blocked-path invariant is stronger than requiring a simple closed loop.
+ for(let seed=1;seed<=24;seed++){
+  const m=createMatch({mapRadius:22,spawnRadius:1},seed,botSpecs(2)),p=m.participants[0];
+  m.owners.forEach((_v,id)=>{m.owners[id]=(id*17+seed*7)%3;});
+  const obs=observeBot(m,p.participantId),outside=m.map.cells.filter(c=>obs.owners[c.id]!==p.slot+1).map(c=>c.id);
+  for(const path of [[outside[0]],[...outside.slice(-5)],...Array.from({length:8},(_,i)=>[outside[i],outside[i+1],outside[i],outside[i+2],outside[i+1]])]){
+   const before=[...path],owners=obs.owners.slice(),gain=plannedCapture(obs,path);expect(gain.length).toBeGreaterThan(0);for(const id of path)expect(gain).toContain(id);expect(gain).toEqual([...gain].sort((a,b)=>a-b));expect(path).toEqual(before);expect(obs.owners).toEqual(owners);
+  }
+ }
 });

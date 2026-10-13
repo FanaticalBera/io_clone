@@ -1,0 +1,1268 @@
+{
+  "date": "2026-10-10",
+  "scope": "Owned distance filter before destination cap only; phase3 and other tuning deferred",
+  "armLabels": {
+    "control": "b819897: no REPOSITION",
+    "before": "ddb240d: REPOSITION before reachability fix",
+    "after": "distance filter before cap"
+  },
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "bySeed": [
+    {
+      "seed": 4,
+      "control": {
+        "deaths": 14,
+        "walls": 0,
+        "net": 6792,
+        "totalCapture": 9100,
+        "captures": 593,
+        "reclaimed": 188,
+        "tv": 0.16759259259259265,
+        "tvWithoutReposition": 0.16759259259259265,
+        "pooledTV": 0.16759259259259265,
+        "pooledTVWithoutReposition": 0.16759259259259265
+      },
+      "before": {
+        "deaths": 15,
+        "walls": 0,
+        "net": 7130,
+        "totalCapture": 8863,
+        "captures": 592,
+        "reclaimed": 101,
+        "tv": 0.10973489061920651,
+        "tvWithoutReposition": 0.11004852022764976,
+        "pooledTV": 0.10973489061920651,
+        "pooledTVWithoutReposition": 0.11004852022764976
+      },
+      "after": {
+        "deaths": 15,
+        "walls": 0,
+        "net": 7615,
+        "totalCapture": 8710,
+        "captures": 576,
+        "reclaimed": 263,
+        "tv": 0.1230400825228412,
+        "tvWithoutReposition": 0.11638289904707894,
+        "pooledTV": 0.1230400825228412,
+        "pooledTVWithoutReposition": 0.11638289904707894
+      },
+      "relocation": {
+        "starts": 25,
+        "arrivals": 13,
+        "aborts": 12,
+        "censored": 0,
+        "executed": 25,
+        "unexecuted": 0,
+        "pingPong": 0,
+        "reasons": {
+          "ARRIVED": 13,
+          "NEAR_HEAD": 8,
+          "ROUTE_LOST": 3,
+          "ATTACK": 1
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "control": {
+        "deaths": 10,
+        "walls": 0,
+        "net": 7483,
+        "totalCapture": 9380,
+        "captures": 595,
+        "reclaimed": 198,
+        "tv": 0.22128060263653485,
+        "tvWithoutReposition": 0.22128060263653485,
+        "pooledTV": 0.22128060263653485,
+        "pooledTVWithoutReposition": 0.22128060263653485
+      },
+      "before": {
+        "deaths": 17,
+        "walls": 0,
+        "net": 7349,
+        "totalCapture": 8865,
+        "captures": 560,
+        "reclaimed": 86,
+        "tv": 0.24079261254328593,
+        "tvWithoutReposition": 0.24130680840859234,
+        "pooledTV": 0.24079261254328593,
+        "pooledTVWithoutReposition": 0.24130680840859234
+      },
+      "after": {
+        "deaths": 15,
+        "walls": 0,
+        "net": 7981,
+        "totalCapture": 9162,
+        "captures": 545,
+        "reclaimed": 156,
+        "tv": 0.18195704779189353,
+        "tvWithoutReposition": 0.17775099721597343,
+        "pooledTV": 0.18195704779189353,
+        "pooledTVWithoutReposition": 0.17775099721597343
+      },
+      "relocation": {
+        "starts": 19,
+        "arrivals": 8,
+        "aborts": 10,
+        "censored": 1,
+        "executed": 16,
+        "unexecuted": 2,
+        "pingPong": 0,
+        "reasons": {
+          "ROUTE_LOST": 6,
+          "ATTACK": 2,
+          "NEAR_HEAD": 1,
+          "ARRIVED": 8,
+          "TRAIL_EXPOSED": 1
+        }
+      }
+    },
+    {
+      "seed": 73,
+      "control": {
+        "deaths": 11,
+        "walls": 0,
+        "net": 6710,
+        "totalCapture": 9349,
+        "captures": 599,
+        "reclaimed": 237,
+        "tv": 0.1361435807519969,
+        "tvWithoutReposition": 0.1361435807519969,
+        "pooledTV": 0.1361435807519969,
+        "pooledTVWithoutReposition": 0.1361435807519969
+      },
+      "before": {
+        "deaths": 12,
+        "walls": 0,
+        "net": 7789,
+        "totalCapture": 9038,
+        "captures": 627,
+        "reclaimed": 247,
+        "tv": 0.06665180230397622,
+        "tvWithoutReposition": 0.06567088492937202,
+        "pooledTV": 0.06665180230397622,
+        "pooledTVWithoutReposition": 0.06567088492937202
+      },
+      "after": {
+        "deaths": 13,
+        "walls": 0,
+        "net": 7344,
+        "totalCapture": 8810,
+        "captures": 602,
+        "reclaimed": 229,
+        "tv": 0.035986676991174756,
+        "tvWithoutReposition": 0.025496061870261447,
+        "pooledTV": 0.035986676991174756,
+        "pooledTVWithoutReposition": 0.025496061870261447
+      },
+      "relocation": {
+        "starts": 24,
+        "arrivals": 11,
+        "aborts": 13,
+        "censored": 0,
+        "executed": 23,
+        "unexecuted": 1,
+        "pingPong": 0,
+        "reasons": {
+          "ARRIVED": 11,
+          "TRAIL_EXPOSED": 2,
+          "ROUTE_LOST": 3,
+          "NEAR_HEAD": 6,
+          "ATTACK": 2
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "control": {
+        "deaths": 13,
+        "walls": 0,
+        "net": 7127,
+        "totalCapture": 9214,
+        "captures": 583,
+        "reclaimed": 205,
+        "tv": 0.12874779541446213,
+        "tvWithoutReposition": 0.12874779541446213,
+        "pooledTV": 0.12874779541446213,
+        "pooledTVWithoutReposition": 0.12874779541446213
+      },
+      "before": {
+        "deaths": 14,
+        "walls": 0,
+        "net": 7943,
+        "totalCapture": 9061,
+        "captures": 586,
+        "reclaimed": 179,
+        "tv": 0.11583971583971586,
+        "tvWithoutReposition": 0.11604586985374683,
+        "pooledTV": 0.11583971583971586,
+        "pooledTVWithoutReposition": 0.11604586985374683
+      },
+      "after": {
+        "deaths": 12,
+        "walls": 0,
+        "net": 7374,
+        "totalCapture": 8957,
+        "captures": 589,
+        "reclaimed": 389,
+        "tv": 0.0748569345726262,
+        "tvWithoutReposition": 0.05520903406407266,
+        "pooledTV": 0.0748569345726262,
+        "pooledTVWithoutReposition": 0.05520903406407266
+      },
+      "relocation": {
+        "starts": 25,
+        "arrivals": 9,
+        "aborts": 15,
+        "censored": 1,
+        "executed": 23,
+        "unexecuted": 1,
+        "pingPong": 0,
+        "reasons": {
+          "ATTACK": 4,
+          "NEAR_HEAD": 6,
+          "DAMAGE_GONE": 1,
+          "TRAIL_EXPOSED": 2,
+          "ARRIVED": 9,
+          "ROUTE_LOST": 2
+        }
+      }
+    },
+    {
+      "seed": 31,
+      "control": {
+        "deaths": 9,
+        "walls": 0,
+        "net": 7330,
+        "totalCapture": 9126,
+        "captures": 615,
+        "reclaimed": 139,
+        "tv": 0.15367231638418077,
+        "tvWithoutReposition": 0.15367231638418077,
+        "pooledTV": 0.15367231638418077,
+        "pooledTVWithoutReposition": 0.15367231638418077
+      },
+      "before": {
+        "deaths": 15,
+        "walls": 0,
+        "net": 8407,
+        "totalCapture": 9233,
+        "captures": 579,
+        "reclaimed": 106,
+        "tv": 0.11270555305643024,
+        "tvWithoutReposition": 0.11304864760421061,
+        "pooledTV": 0.11270555305643024,
+        "pooledTVWithoutReposition": 0.11304864760421061
+      },
+      "after": {
+        "deaths": 14,
+        "walls": 0,
+        "net": 8049,
+        "totalCapture": 9169,
+        "captures": 595,
+        "reclaimed": 113,
+        "tv": 0.13720384821834097,
+        "tvWithoutReposition": 0.14014304982566575,
+        "pooledTV": 0.13720384821834097,
+        "pooledTVWithoutReposition": 0.14014304982566575
+      },
+      "relocation": {
+        "starts": 19,
+        "arrivals": 8,
+        "aborts": 10,
+        "censored": 1,
+        "executed": 18,
+        "unexecuted": 0,
+        "pingPong": 0,
+        "reasons": {
+          "NEAR_HEAD": 6,
+          "ATTACK": 2,
+          "ROUTE_LOST": 1,
+          "DEATH": 1,
+          "ARRIVED": 8
+        }
+      }
+    },
+    {
+      "seed": 47,
+      "control": {
+        "deaths": 18,
+        "walls": 0,
+        "net": 8027,
+        "totalCapture": 9404,
+        "captures": 565,
+        "reclaimed": 106,
+        "tv": 0.199462974783497,
+        "tvWithoutReposition": 0.199462974783497,
+        "pooledTV": 0.199462974783497,
+        "pooledTVWithoutReposition": 0.199462974783497
+      },
+      "before": {
+        "deaths": 16,
+        "walls": 0,
+        "net": 8330,
+        "totalCapture": 9276,
+        "captures": 541,
+        "reclaimed": 105,
+        "tv": 0.06724763979665939,
+        "tvWithoutReposition": 0.06205081020651774,
+        "pooledTV": 0.06724763979665939,
+        "pooledTVWithoutReposition": 0.06205081020651774
+      },
+      "after": {
+        "deaths": 14,
+        "walls": 0,
+        "net": 8170,
+        "totalCapture": 9445,
+        "captures": 526,
+        "reclaimed": 96,
+        "tv": 0.15799257024747224,
+        "tvWithoutReposition": 0.1554191439604713,
+        "pooledTV": 0.15799257024747224,
+        "pooledTVWithoutReposition": 0.1554191439604713
+      },
+      "relocation": {
+        "starts": 17,
+        "arrivals": 10,
+        "aborts": 7,
+        "censored": 0,
+        "executed": 17,
+        "unexecuted": 0,
+        "pingPong": 0,
+        "reasons": {
+          "NEAR_HEAD": 3,
+          "ROUTE_LOST": 3,
+          "ARRIVED": 10,
+          "ATTACK": 1
+        }
+      }
+    },
+    {
+      "seed": 101,
+      "control": {
+        "deaths": 10,
+        "walls": 0,
+        "net": 6981,
+        "totalCapture": 9117,
+        "captures": 588,
+        "reclaimed": 185,
+        "tv": 0.2888525635878513,
+        "tvWithoutReposition": 0.2888525635878513,
+        "pooledTV": 0.2888525635878513,
+        "pooledTVWithoutReposition": 0.2888525635878513
+      },
+      "before": {
+        "deaths": 13,
+        "walls": 0,
+        "net": 7636,
+        "totalCapture": 8925,
+        "captures": 583,
+        "reclaimed": 275,
+        "tv": 0.17062309240859796,
+        "tvWithoutReposition": 0.17314070827128003,
+        "pooledTV": 0.17062309240859796,
+        "pooledTVWithoutReposition": 0.17314070827128003
+      },
+      "after": {
+        "deaths": 13,
+        "walls": 0,
+        "net": 6834,
+        "totalCapture": 8636,
+        "captures": 595,
+        "reclaimed": 417,
+        "tv": 0.040951588680467624,
+        "tvWithoutReposition": 0.030290006866674556,
+        "pooledTV": 0.040951588680467624,
+        "pooledTVWithoutReposition": 0.030290006866674556
+      },
+      "relocation": {
+        "starts": 33,
+        "arrivals": 16,
+        "aborts": 16,
+        "censored": 1,
+        "executed": 32,
+        "unexecuted": 0,
+        "pingPong": 0,
+        "reasons": {
+          "NEAR_HEAD": 11,
+          "ROUTE_LOST": 3,
+          "ARRIVED": 16,
+          "ATTACK": 2
+        }
+      }
+    },
+    {
+      "seed": 137,
+      "control": {
+        "deaths": 9,
+        "walls": 0,
+        "net": 6559,
+        "totalCapture": 8899,
+        "captures": 625,
+        "reclaimed": 158,
+        "tv": 0.14421182266009852,
+        "tvWithoutReposition": 0.14421182266009852,
+        "pooledTV": 0.14421182266009852,
+        "pooledTVWithoutReposition": 0.14421182266009852
+      },
+      "before": {
+        "deaths": 11,
+        "walls": 0,
+        "net": 7537,
+        "totalCapture": 8668,
+        "captures": 606,
+        "reclaimed": 171,
+        "tv": 0.09292497625830957,
+        "tvWithoutReposition": 0.09209860113969703,
+        "pooledTV": 0.09292497625830957,
+        "pooledTVWithoutReposition": 0.09209860113969703
+      },
+      "after": {
+        "deaths": 19,
+        "walls": 0,
+        "net": 6716,
+        "totalCapture": 8529,
+        "captures": 598,
+        "reclaimed": 195,
+        "tv": 0.13977659057795047,
+        "tvWithoutReposition": 0.13969547471902272,
+        "pooledTV": 0.13977659057795047,
+        "pooledTVWithoutReposition": 0.13969547471902272
+      },
+      "relocation": {
+        "starts": 23,
+        "arrivals": 10,
+        "aborts": 13,
+        "censored": 0,
+        "executed": 23,
+        "unexecuted": 0,
+        "pingPong": 0,
+        "reasons": {
+          "ARRIVED": 10,
+          "ROUTE_LOST": 2,
+          "NEAR_HEAD": 8,
+          "ATTACK": 2,
+          "TRAIL_EXPOSED": 1
+        }
+      }
+    }
+  ],
+  "total": {
+    "control": {
+      "deaths": 94,
+      "walls": 0,
+      "net": 57009,
+      "totalCapture": 73589,
+      "captures": 4763,
+      "reclaimed": 1416,
+      "tv": 0.17999553110140176,
+      "tvWithoutReposition": 0.17999553110140176,
+      "pooledTV": 0.16759820028659278,
+      "pooledTVWithoutReposition": 0.16759820028659278,
+      "personalities": [
+        {
+          "personality": "EXPAND",
+          "deaths": 23,
+          "net": 16791,
+          "totalCapture": 20332,
+          "captures": 813,
+          "meanCapture": 25.008610086100862,
+          "stolen": 2247,
+          "stolenShare": 0.11051544363564823,
+          "reclaimed": 232,
+          "expansionPlans": 833,
+          "goalFrames": {
+            "EXPAND": 70043,
+            "ESCAPE": 1285,
+            "RETURN": 4714,
+            "STEAL": 10916,
+            "ATTACK": 1066
+          },
+          "meanExternalLength": 13.631452581032413,
+          "attackReasons": {
+            "NO_APPROACH": 4081,
+            "VICTIM_RETURNS_FIRST": 1666,
+            "COUNTER_CUT_FIRST": 25,
+            "TRAIL_BUDGET": 467,
+            "SELECTABLE": 159
+          }
+        },
+        {
+          "personality": "ATTACK",
+          "deaths": 19,
+          "net": 13539,
+          "totalCapture": 17338,
+          "captures": 1270,
+          "meanCapture": 13.651968503937008,
+          "stolen": 2647,
+          "stolenShare": 0.15267043488291615,
+          "reclaimed": 227,
+          "expansionPlans": 1281,
+          "goalFrames": {
+            "EXPAND": 77364,
+            "ESCAPE": 410,
+            "RETURN": 5634,
+            "ATTACK": 706,
+            "STEAL": 18576
+          },
+          "meanExternalLength": 9.931303669008587,
+          "attackReasons": {
+            "NO_APPROACH": 3679,
+            "TRAIL_BUDGET": 921,
+            "SELECTABLE": 136,
+            "VICTIM_RETURNS_FIRST": 2657,
+            "COUNTER_CUT_FIRST": 29,
+            "LOW_PRIORITY": 3,
+            "UNSAFE_RETURN": 6
+          }
+        },
+        {
+          "personality": "DEFEND",
+          "deaths": 20,
+          "net": 13162,
+          "totalCapture": 18970,
+          "captures": 1598,
+          "meanCapture": 11.871088861076345,
+          "stolen": 2545,
+          "stolenShare": 0.1341591987348445,
+          "reclaimed": 729,
+          "expansionPlans": 1684,
+          "goalFrames": {
+            "EXPAND": 84290,
+            "ESCAPE": 2285,
+            "RETURN": 7548,
+            "ATTACK": 551,
+            "STEAL": 15126
+          },
+          "meanExternalLength": 8.030878859857483,
+          "attackReasons": {
+            "NO_APPROACH": 9260,
+            "TRAIL_BUDGET": 122,
+            "SELECTABLE": 76,
+            "COUNTER_CUT_FIRST": 6,
+            "VICTIM_RETURNS_FIRST": 824,
+            "LOW_PRIORITY": 4
+          }
+        },
+        {
+          "personality": "SEEK_POINT",
+          "deaths": 32,
+          "net": 13517,
+          "totalCapture": 16949,
+          "captures": 1082,
+          "meanCapture": 15.664510166358594,
+          "stolen": 3962,
+          "stolenShare": 0.23376010384093457,
+          "reclaimed": 228,
+          "expansionPlans": 1038,
+          "goalFrames": {
+            "EXPAND": 60526,
+            "ESCAPE": 946,
+            "RETURN": 5140,
+            "STEAL": 27431,
+            "ATTACK": 321
+          },
+          "meanExternalLength": 11.236994219653178,
+          "attackReasons": {
+            "NO_APPROACH": 3906,
+            "TRAIL_BUDGET": 616,
+            "VICTIM_RETURNS_FIRST": 2242,
+            "SELECTABLE": 45,
+            "COUNTER_CUT_FIRST": 26,
+            "STEAL_DIVERSION_LIMIT": 102
+          }
+        }
+      ]
+    },
+    "before": {
+      "deaths": 113,
+      "walls": 0,
+      "net": 62121,
+      "totalCapture": 71929,
+      "captures": 4674,
+      "reclaimed": 1270,
+      "tv": 0.1220650353532727,
+      "tvWithoutReposition": 0.1216763563301333,
+      "pooledTV": 0.09627561967115653,
+      "pooledTVWithoutReposition": 0.09619380516590673,
+      "personalities": [
+        {
+          "personality": "EXPAND",
+          "deaths": 33,
+          "net": 16899,
+          "totalCapture": 19323,
+          "captures": 800,
+          "meanCapture": 24.15375,
+          "stolen": 1700,
+          "stolenShare": 0.087978057237489,
+          "reclaimed": 328,
+          "expansionPlans": 863,
+          "goalFrames": {
+            "EXPAND": 67298,
+            "ESCAPE": 1812,
+            "RETURN": 4700,
+            "REPOSITION": 2457,
+            "STEAL": 9593,
+            "ATTACK": 1170
+          },
+          "meanExternalLength": 12.764774044032444,
+          "attackReasons": {
+            "NO_APPROACH": 3369,
+            "VICTIM_RETURNS_FIRST": 1761,
+            "COUNTER_CUT_FIRST": 21,
+            "TRAIL_BUDGET": 384,
+            "SELECTABLE": 172,
+            "LOW_PRIORITY": 4
+          }
+        },
+        {
+          "personality": "ATTACK",
+          "deaths": 19,
+          "net": 15003,
+          "totalCapture": 17384,
+          "captures": 1244,
+          "meanCapture": 13.97427652733119,
+          "stolen": 1785,
+          "stolenShare": 0.1026806258628624,
+          "reclaimed": 254,
+          "expansionPlans": 1246,
+          "goalFrames": {
+            "EXPAND": 82355,
+            "ESCAPE": 503,
+            "RETURN": 5638,
+            "ATTACK": 1042,
+            "REPOSITION": 2064,
+            "STEAL": 11154
+          },
+          "meanExternalLength": 9.964686998394864,
+          "attackReasons": {
+            "NO_APPROACH": 2779,
+            "TRAIL_BUDGET": 786,
+            "SELECTABLE": 164,
+            "VICTIM_RETURNS_FIRST": 2168,
+            "COUNTER_CUT_FIRST": 24,
+            "UNSAFE_RETURN": 7
+          }
+        },
+        {
+          "personality": "DEFEND",
+          "deaths": 20,
+          "net": 15688,
+          "totalCapture": 18651,
+          "captures": 1577,
+          "meanCapture": 11.826886493341789,
+          "stolen": 1651,
+          "stolenShare": 0.08852072274945043,
+          "reclaimed": 495,
+          "expansionPlans": 1766,
+          "goalFrames": {
+            "EXPAND": 86820,
+            "ESCAPE": 2150,
+            "RETURN": 7176,
+            "ATTACK": 943,
+            "STEAL": 9331,
+            "REPOSITION": 3380
+          },
+          "meanExternalLength": 7.648357870894677,
+          "attackReasons": {
+            "NO_APPROACH": 7624,
+            "TRAIL_BUDGET": 101,
+            "SELECTABLE": 134,
+            "COUNTER_CUT_FIRST": 17,
+            "VICTIM_RETURNS_FIRST": 871,
+            "LOW_PRIORITY": 3
+          }
+        },
+        {
+          "personality": "SEEK_POINT",
+          "deaths": 41,
+          "net": 14531,
+          "totalCapture": 16571,
+          "captures": 1053,
+          "meanCapture": 15.736942070275404,
+          "stolen": 2625,
+          "stolenShare": 0.15840926920523807,
+          "reclaimed": 193,
+          "expansionPlans": 1050,
+          "goalFrames": {
+            "EXPAND": 66347,
+            "ESCAPE": 1342,
+            "RETURN": 4815,
+            "STEAL": 19310,
+            "ATTACK": 304,
+            "REPOSITION": 1392
+          },
+          "meanExternalLength": 11.245714285714286,
+          "attackReasons": {
+            "NO_APPROACH": 3700,
+            "TRAIL_BUDGET": 536,
+            "VICTIM_RETURNS_FIRST": 2251,
+            "SELECTABLE": 46,
+            "STEAL_DIVERSION_LIMIT": 60,
+            "COUNTER_CUT_FIRST": 28,
+            "LOW_PRIORITY": 6
+          }
+        }
+      ]
+    },
+    "after": {
+      "deaths": 115,
+      "walls": 0,
+      "net": 60083,
+      "totalCapture": 71418,
+      "captures": 4626,
+      "reclaimed": 1858,
+      "tv": 0.11147066745034588,
+      "tvWithoutReposition": 0.10504833344615261,
+      "pooledTV": 0.09390595851149883,
+      "pooledTVWithoutReposition": 0.0936624906014097,
+      "personalities": [
+        {
+          "personality": "EXPAND",
+          "deaths": 30,
+          "net": 16670,
+          "totalCapture": 19151,
+          "captures": 815,
+          "meanCapture": 23.498159509202456,
+          "stolen": 1980,
+          "stolenShare": 0.10338885697874785,
+          "reclaimed": 630,
+          "expansionPlans": 884,
+          "goalFrames": {
+            "EXPAND": 66634,
+            "ESCAPE": 1584,
+            "RETURN": 4448,
+            "REPOSITION": 3065,
+            "STEAL": 10455,
+            "ATTACK": 1158
+          },
+          "meanExternalLength": 12.374434389140271,
+          "attackReasons": {
+            "NO_APPROACH": 3826,
+            "VICTIM_RETURNS_FIRST": 2119,
+            "COUNTER_CUT_FIRST": 19,
+            "TRAIL_BUDGET": 399,
+            "SELECTABLE": 158,
+            "LOW_PRIORITY": 2
+          }
+        },
+        {
+          "personality": "ATTACK",
+          "deaths": 23,
+          "net": 14084,
+          "totalCapture": 16939,
+          "captures": 1237,
+          "meanCapture": 13.693613581244948,
+          "stolen": 1983,
+          "stolenShare": 0.11706712320680088,
+          "reclaimed": 341,
+          "expansionPlans": 1265,
+          "goalFrames": {
+            "EXPAND": 79096,
+            "ESCAPE": 513,
+            "RETURN": 6069,
+            "ATTACK": 1190,
+            "REPOSITION": 2828,
+            "STEAL": 12803
+          },
+          "meanExternalLength": 9.957312252964426,
+          "attackReasons": {
+            "NO_APPROACH": 3129,
+            "TRAIL_BUDGET": 817,
+            "SELECTABLE": 198,
+            "VICTIM_RETURNS_FIRST": 2637,
+            "UNSAFE_RETURN": 12,
+            "COUNTER_CUT_FIRST": 19
+          }
+        },
+        {
+          "personality": "DEFEND",
+          "deaths": 23,
+          "net": 14616,
+          "totalCapture": 18830,
+          "captures": 1546,
+          "meanCapture": 12.179818887451487,
+          "stolen": 1825,
+          "stolenShare": 0.0969198088157196,
+          "reclaimed": 595,
+          "expansionPlans": 1617,
+          "goalFrames": {
+            "EXPAND": 85510,
+            "ESCAPE": 2181,
+            "RETURN": 6406,
+            "ATTACK": 833,
+            "STEAL": 10626,
+            "REPOSITION": 4201
+          },
+          "meanExternalLength": 8.0995670995671,
+          "attackReasons": {
+            "NO_APPROACH": 7923,
+            "TRAIL_BUDGET": 117,
+            "SELECTABLE": 130,
+            "COUNTER_CUT_FIRST": 9,
+            "VICTIM_RETURNS_FIRST": 912,
+            "LOW_PRIORITY": 2
+          }
+        },
+        {
+          "personality": "SEEK_POINT",
+          "deaths": 39,
+          "net": 14713,
+          "totalCapture": 16498,
+          "captures": 1028,
+          "meanCapture": 16.04863813229572,
+          "stolen": 2692,
+          "stolenShare": 0.16317129349012002,
+          "reclaimed": 292,
+          "expansionPlans": 1006,
+          "goalFrames": {
+            "EXPAND": 65775,
+            "ESCAPE": 1335,
+            "RETURN": 4422,
+            "STEAL": 20018,
+            "ATTACK": 396,
+            "REPOSITION": 1769
+          },
+          "meanExternalLength": 11.480119284294235,
+          "attackReasons": {
+            "NO_APPROACH": 3505,
+            "TRAIL_BUDGET": 505,
+            "VICTIM_RETURNS_FIRST": 2155,
+            "SELECTABLE": 54,
+            "LOW_PRIORITY": 4,
+            "STEAL_DIVERSION_LIMIT": 99,
+            "COUNTER_CUT_FIRST": 9
+          }
+        }
+      ]
+    }
+  },
+  "relocation": {
+    "reasons": {
+      "ARRIVED": 85,
+      "NEAR_HEAD": 49,
+      "ROUTE_LOST": 23,
+      "ATTACK": 16,
+      "TRAIL_EXPOSED": 6,
+      "DAMAGE_GONE": 1,
+      "DEATH": 1
+    },
+    "starts": 185,
+    "arrivals": 85,
+    "aborts": 96,
+    "censored": 4,
+    "executed": 177,
+    "unexecuted": 4,
+    "pingPong": 0
+  },
+  "performance": {
+    "baseline": {
+      "roundMsPerTick": [
+        3.7311722152777778,
+        2.992926815972221,
+        2.9455949513888804
+      ],
+      "medianMsPerTick": 2.992926815972221,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            3.4068738888888888,
+            3.3534450000000007,
+            2.994387138888883
+          ],
+          "medianMsPerTick": 3.3534450000000007
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.4927273055555554,
+            2.9115373055555556,
+            3.0308333888888916
+          ],
+          "medianMsPerTick": 3.0308333888888916
+        },
+        {
+          "seed": 73,
+          "samples": [
+            4.580064361111112,
+            3.2671003888888905,
+            3.155420527777767
+          ],
+          "medianMsPerTick": 3.2671003888888905
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.4455652777777788,
+            2.9918926111111066,
+            2.885421555555545
+          ],
+          "medianMsPerTick": 2.9918926111111066
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.1763746666666703,
+            2.750769305555554,
+            2.733201749999991
+          ],
+          "medianMsPerTick": 2.750769305555554
+        },
+        {
+          "seed": 47,
+          "samples": [
+            3.8451908611111056,
+            2.8248823888888808,
+            2.9158441388888687
+          ],
+          "medianMsPerTick": 2.9158441388888687
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.510204222222221,
+            2.8302356944444345,
+            2.8105496388888827
+          ],
+          "medianMsPerTick": 2.8302356944444345
+        },
+        {
+          "seed": 137,
+          "samples": [
+            4.39237713888889,
+            3.0135518333333473,
+            3.039101472222214
+          ],
+          "medianMsPerTick": 3.039101472222214
+        }
+      ]
+    },
+    "reposition": {
+      "roundMsPerTick": [
+        4.36383548263889,
+        3.0462665277777807,
+        2.9524403854166685
+      ],
+      "medianMsPerTick": 3.0462665277777807,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            5.059635111111111,
+            3.428622694444445,
+            3.1010003333333267
+          ],
+          "medianMsPerTick": 3.428622694444445
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.6646041666666678,
+            2.922778305555548,
+            2.784457194444452
+          ],
+          "medianMsPerTick": 2.922778305555548
+        },
+        {
+          "seed": 73,
+          "samples": [
+            7.182169888888889,
+            3.3263421666666786,
+            3.0070626666666715
+          ],
+          "medianMsPerTick": 3.3263421666666786
+        },
+        {
+          "seed": 11,
+          "samples": [
+            4.768906583333333,
+            3.014621611111118,
+            3.0089609722222184
+          ],
+          "medianMsPerTick": 3.014621611111118
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.1000794166666714,
+            2.841797666666664,
+            2.7905369444444337
+          ],
+          "medianMsPerTick": 2.841797666666664
+        },
+        {
+          "seed": 47,
+          "samples": [
+            3.0815462777777753,
+            2.6040320555555487,
+            2.7839399166666814
+          ],
+          "medianMsPerTick": 2.7839399166666814
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.769562916666667,
+            3.105834250000011,
+            3.056238027777775
+          ],
+          "medianMsPerTick": 3.105834250000011
+        },
+        {
+          "seed": 137,
+          "samples": [
+            4.284179500000003,
+            3.126103472222231,
+            3.0873270277777918
+          ],
+          "medianMsPerTick": 3.126103472222231
+        }
+      ]
+    }
+  },
+  "review": {
+    "vsControl": {
+      "deaths": {
+        "increased": 6,
+        "decreased": 2,
+        "tied": 0,
+        "totalDelta": 21,
+        "percent": 22.340425531914892,
+        "leaveOneOut": [
+          20,
+          16,
+          19,
+          22,
+          16,
+          25,
+          18,
+          11
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "net": {
+        "increased": 7,
+        "decreased": 1,
+        "tied": 0,
+        "totalDelta": 3074,
+        "percent": 5.392131067024505,
+        "leaveOneOut": [
+          2251,
+          2576,
+          2440,
+          2827,
+          2355,
+          2931,
+          3221,
+          2917
+        ],
+        "signal": "INCREASE_SIGNAL"
+      },
+      "totalCapture": {
+        "increased": 2,
+        "decreased": 6,
+        "tied": 0,
+        "totalDelta": -2171,
+        "percent": -2.9501691828941827,
+        "leaveOneOut": [
+          -1781,
+          -1953,
+          -1632,
+          -1914,
+          -2214,
+          -2212,
+          -1690,
+          -1801
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "reclaimed": {
+        "increased": 4,
+        "decreased": 4,
+        "tied": 0,
+        "totalDelta": 442,
+        "percent": 31.214689265536723,
+        "leaveOneOut": [
+          367,
+          484,
+          450,
+          258,
+          468,
+          452,
+          210,
+          405
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "tv": {
+        "increased": 0,
+        "decreased": 8,
+        "tied": 0,
+        "totalDelta": -0.548198909208447,
+        "percent": -38.070313874877215,
+        "leaveOneOut": [
+          -0.5036463991386956,
+          -0.5088753543638057,
+          -0.4480420054476249,
+          -0.49430804836661113,
+          -0.5317304410426072,
+          -0.5067285046724223,
+          -0.3002979343010634,
+          -0.543763677126299
+        ],
+        "signal": "DECREASE_SIGNAL"
+      },
+      "tvWithoutReposition": {
+        "increased": 0,
+        "decreased": 8,
+        "tied": 0,
+        "totalDelta": -0.5995775812419933,
+        "percent": -41.63836579533028,
+        "leaveOneOut": [
+          -0.5483678876964796,
+          -0.556047975821432,
+          -0.4889300623602579,
+          -0.5260388198916038,
+          -0.5860483146834783,
+          -0.5555337504189677,
+          -0.3410150245208166,
+          -0.5950612333009175
+        ],
+        "signal": "DECREASE_SIGNAL"
+      }
+    },
+    "vsBefore": {
+      "deaths": {
+        "increased": 2,
+        "decreased": 4,
+        "tied": 2,
+        "totalDelta": 2,
+        "percent": 1.7699115044247788,
+        "leaveOneOut": [
+          2,
+          4,
+          1,
+          4,
+          3,
+          4,
+          2,
+          -6
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "net": {
+        "increased": 2,
+        "decreased": 6,
+        "tied": 0,
+        "totalDelta": -2038,
+        "percent": -3.2806941291994653,
+        "leaveOneOut": [
+          -2523,
+          -2670,
+          -1593,
+          -1469,
+          -1680,
+          -1878,
+          -1236,
+          -1217
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "totalCapture": {
+        "increased": 2,
+        "decreased": 6,
+        "tied": 0,
+        "totalDelta": -511,
+        "percent": -0.7104227780172114,
+        "leaveOneOut": [
+          -358,
+          -808,
+          -283,
+          -407,
+          -447,
+          -680,
+          -222,
+          -372
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "reclaimed": {
+        "increased": 6,
+        "decreased": 2,
+        "tied": 0,
+        "totalDelta": 588,
+        "percent": 46.2992125984252,
+        "leaveOneOut": [
+          426,
+          518,
+          606,
+          378,
+          581,
+          597,
+          446,
+          564
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "tv": {
+        "increased": 4,
+        "decreased": 4,
+        "tied": 0,
+        "totalDelta": -0.08475494322341472,
+        "percent": -8.679281394762466,
+        "leaveOneOut": [
+          -0.0980601351270494,
+          -0.025919378472022317,
+          -0.05408981791061326,
+          -0.04377216195632505,
+          -0.10925323838532545,
+          -0.17549987367422756,
+          0.04491656050471564,
+          -0.1316065575430556
+        ],
+        "signal": "INCONCLUSIVE"
+      },
+      "tvWithoutReposition": {
+        "increased": 4,
+        "decreased": 4,
+        "tied": 0,
+        "totalDelta": -0.13302418307184558,
+        "percent": -13.665779766502373,
+        "leaveOneOut": [
+          -0.13935856189127477,
+          -0.06946837187922666,
+          -0.092849360012735,
+          -0.07218734728217141,
+          -0.1601185852933007,
+          -0.22639251682579914,
+          0.00982651833275991,
+          -0.18062105665117126
+        ],
+        "signal": "INCONCLUSIVE"
+      }
+    },
+    "costPercent": 1.7821923182653159,
+    "reasons": [
+      "Death increase >=20% against original control"
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "rawHashes": {
+    "control": "ac0eb5823eb176cbd68348c87d6777457dd0766cd870b91dc16ee186b2c31842",
+    "baseline": "1aa723ccf80143f4ecbf7c44d8345515602c3a75db5a72455df98dd92b4f2b4c",
+    "reposition": "8d0af6d4fce25328d50f96127f3841fbb33b7da29ebbf447f93e6fa53dfcb66a",
+    "performance": "a87d132d8e43813ced13ba62271be2dbfd701c2c847c287276291d038357b2df",
+    "seed73-case": "5eaf53567ff69bec967f0a5ae8a0d2e90e2e9fdbca8646533ebac332d3dc1442"
+  },
+  "notes": "Paired 7/8 and leave-one-out rule is exploratory, not statistical significance. Inconclusive is not no effect. TV primary is mean of seed TV; excludes RP variant also reported. Reclaim uses unchanged tick-boundary audit definition, separate from exact HUD events."
+}

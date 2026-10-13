@@ -1,0 +1,257 @@
+{
+  "date": "2026-10-13",
+  "approvedGameplay": "b23f47b tactical-only",
+  "masterIntegrated": "960f678",
+  "vitest": {
+    "files": 98,
+    "passed": 678,
+    "knownRegressionExpectedFail": 1,
+    "total": 679,
+    "logSha256": "0a2f401f6744e673736745b9a7d084132b8cabe25b0162c747cad0d3367ddedf"
+  },
+  "pcE2E": {
+    "passed": 9,
+    "total": 9,
+    "logSha256": "e5ee0ec5d8fc8707ae2ab7e057824af922eaabfb55186c2f82007f0afaaac942"
+  },
+  "build": {
+    "passed": true,
+    "typecheck": [
+      "client",
+      "server",
+      "tests"
+    ],
+    "logSha256": "bf719bf30a5b5b1a6e7e148ff375b815ca29e722b4674ed72f245d1aa576de7b",
+    "preservedMarkerPNG": 22
+  },
+  "auditStrictTypecheck": {
+    "passed": true,
+    "scripts": [
+      "medium-attack-audit.ts",
+      "bot-phase04-medium-history.ts",
+      "summarize-bot-phase04-medium-history.ts"
+    ]
+  },
+  "replay": {
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "all8Equal": true,
+    "rawSha256": "346306534d5eed5805f1a79c573b770b9e6523500d5c0d8c71cb7c82b3ffddb5",
+    "proof": "equivalence.json"
+  },
+  "medium": {
+    "cuts": 13,
+    "total": 16,
+    "wholeRawJSONMatchesApproved": true,
+    "rawSha256": "f58edd10b80f388595606a9e701041321438f3ec1c5e9d34d54e233f2c60a885",
+    "cases": [
+      {
+        "id": 1,
+        "personality": "DEFEND",
+        "route": 1,
+        "cut": true,
+        "tick": 48,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 2,
+        "personality": "DEFEND",
+        "route": 2,
+        "cut": true,
+        "tick": 48,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 3,
+        "personality": "DEFEND",
+        "route": 3,
+        "cut": true,
+        "tick": 56,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 4,
+        "personality": "DEFEND",
+        "route": 4,
+        "cut": true,
+        "tick": 48,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 5,
+        "personality": "ATTACK",
+        "route": 1,
+        "cut": false,
+        "tick": 81,
+        "cause": null
+      },
+      {
+        "id": 6,
+        "personality": "ATTACK",
+        "route": 2,
+        "cut": false,
+        "tick": 76,
+        "cause": null
+      },
+      {
+        "id": 7,
+        "personality": "ATTACK",
+        "route": 3,
+        "cut": true,
+        "tick": 52,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 8,
+        "personality": "ATTACK",
+        "route": 4,
+        "cut": true,
+        "tick": 71,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 9,
+        "personality": "EXPAND",
+        "route": 1,
+        "cut": true,
+        "tick": 47,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 10,
+        "personality": "EXPAND",
+        "route": 2,
+        "cut": true,
+        "tick": 47,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 11,
+        "personality": "EXPAND",
+        "route": 3,
+        "cut": true,
+        "tick": 56,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 12,
+        "personality": "EXPAND",
+        "route": 4,
+        "cut": true,
+        "tick": 47,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 13,
+        "personality": "SEEK_POINT",
+        "route": 1,
+        "cut": true,
+        "tick": 62,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 14,
+        "personality": "SEEK_POINT",
+        "route": 2,
+        "cut": false,
+        "tick": 76,
+        "cause": null
+      },
+      {
+        "id": 15,
+        "personality": "SEEK_POINT",
+        "route": 3,
+        "cut": true,
+        "tick": 48,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      },
+      {
+        "id": 16,
+        "personality": "SEEK_POINT",
+        "route": 4,
+        "cut": true,
+        "tick": 59,
+        "cause": "EXISTING_TRAIL_CONTACT"
+      }
+    ]
+  },
+  "performance": {
+    "reusedApprovedSameSessionEvidence": true,
+    "percent": 6.659712714068666,
+    "newTimingMeasurement": false
+  },
+  "sharedSourceHashes": {
+    "bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+    "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+    "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+    "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+    "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+    "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+    "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+    "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+    "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+    "bot-immediate-safety.ts": "33e2c275aedab6e5fd3aa41712151ad2366c872d0a0d69531443f656eb4c619a",
+    "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+    "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+    "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+    "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+    "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+    "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+    "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+    "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+    "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+    "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+    "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+    "bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+    "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "bot-strategy.ts": "2e1c331c53ec947f4cf6476f775844a1ca61aef8bef3d84c8dd04862e9fe31b9",
+    "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+    "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+    "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+    "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+    "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+    "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+    "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+    "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+    "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+    "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+    "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+    "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+    "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+    "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+    "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+    "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+    "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+    "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+    "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+    "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+    "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+    "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+    "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+    "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+    "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+    "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+    "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+    "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+    "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+    "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+    "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+    "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+    "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+  },
+  "compiledServerSmoke": {
+    "health": true,
+    "index": true,
+    "all22MarkerAssetsServed": true,
+    "port": "ephemeral",
+    "serverClosed": true
+  }
+}

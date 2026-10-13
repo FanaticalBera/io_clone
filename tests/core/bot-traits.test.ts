@@ -1,6 +1,7 @@
 import {it,expect} from 'vitest';
 import {createMatch} from '../baseline.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,botLookAhead,type BotGoal} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,botLookAhead,type BotGoal} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {seededRandom} from '../../src/shared/random.js';
 
 it('assigns bounded stable traits without consuming the decision random stream',()=>{

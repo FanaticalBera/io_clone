@@ -19,7 +19,9 @@ function makeHost(){
  const host=new LanHost({code:CODE,now:()=>clock,seed:()=>7,autoStart:false,onClosed:e=>errors.push(e)});hosts.push(host);
  // Frames arrive asynchronously, so deliver pending ones before stepping, as a live host would between ticks.
  const advance=async(ms:number)=>{await flush();for(let t=0;t<ms;t+=1000/30){clock+=1000/30;host.pump();}await flush();};
- return{host,advance,closedWith:errors};
+ // Deadline-only tests must not depend on whether unsteered humans survive the bots.
+ const elapse=async(ms:number,keepAlive:()=>void)=>{for(let left=ms;left>0;left-=1000){clock+=Math.min(left,1000);keepAlive();await flush();(host as unknown as {heartbeat():void}).heartbeat();await flush();}};
+ return{host,advance,elapse,closedWith:errors};
 }
 /** A FrameTransport client recording what it hears, as NetworkSession would. */
 async function client(host:LanHost,{local=false,channel={},sentFrames,reconnect=false}:{local?:boolean;channel?:MemoryChannelOptions;sentFrames?:{e:string;replaceKey?:string}[];reconnect?:boolean}={}){
@@ -107,13 +109,17 @@ describe('L08–L10: LAN host over frame channels',()=>{
  });
  it('hands the seat of a guest who stays in the background past the away grace to a bot',async()=>{
   const f=await running(1);const g=f.guests[0]!,self=g.inits[0]!.selfParticipantId!;
+  const match=f.room.match!,slot=match.participants.find(p=>p.participantId===self)!.slot;
+  // Both ends use real heartbeat timers; drive the foreground client's ping as well as the host clock.
+  const elapse=(ms:number)=>f.elapse(ms,()=>{(f.hostClient.t as unknown as {tick():void}).tick();});
   expect(await g.cmd('control:background')).toMatchObject({ok:true});
-  await f.advance(20000);expect(f.room.match!.participants.find(p=>p.participantId===self)?.kind).toBe('HUMAN');
-  // The heartbeat runs on real timers in the host; drive it directly through the shared clock.
-  (f.host as unknown as {heartbeat():void}).heartbeat();await f.advance(100);
-  expect(f.room.match!.participants.some(p=>p.participantId===self)).toBe(true);
-  await f.advance(11000);(f.host as unknown as {heartbeat():void}).heartbeat();await f.advance(100);
-  expect(f.room.match!.participants.some(p=>p.participantId===self)).toBe(false);
+  await elapse(10000);await elapse(10000);
+  expect(f.room.match).toBe(match);expect(match.participants.find(p=>p.participantId===self)?.kind).toBe('HUMAN');
+  await elapse(10000);expect(match.participants.some(p=>p.participantId===self)).toBe(true);
+  await elapse(1000);
+  expect(match.participants.some(p=>p.participantId===self)).toBe(false);
+  expect(match.participants.find(p=>p.slot===slot)?.kind).toBe('BOT');
+  expect(f.room.phase).toBe('RUNNING');expect(f.closedWith).toEqual([]);
  },60000);
  it('freezes the room while the host app is away and shifts deadlines on return',async()=>{
   const f=await running(1);const g=f.guests[0]!,tick=f.room.match!.tick;

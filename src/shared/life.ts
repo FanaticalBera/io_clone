@@ -1,9 +1,10 @@
+import {recordBotDeath} from './bot-events.js';
 import {queueRunDeath,settleUnbatchedRuns} from './run.js';
 import {slotBit} from './slots.js';
 import type {MatchState,Participant,GameEvent,ResultRow,DeathContext,Vec} from './model.js';
 import {clearTrail,neutralizeTerritory} from './territory.js';
 export function emitEvent(match:MatchState,event:Omit<GameEvent,'eventId'|'tick'>):void {
- match.events.push({...event,eventId:match.matchId+':'+(++match.eventCounter),tick:match.tick});
+ const emitted={...event,eventId:match.matchId+':'+(++match.eventCounter),tick:match.tick};match.events.push(emitted);recordBotDeath(match,emitted);
  match.events=match.events.filter(e=>e.tick>=match.tick-match.config.simulationHz).slice(-64);
 }
 export interface ResolutionDeathDiagnostic {eventTick:number;iteration:number;ownersBefore:number[];trailMasksBefore:number[];pendingTrails:{participantId:string;cellId:number}[];victimTrailBefore:number[];existingTrailContact:boolean;pendingTrailContact:boolean;captureOverlapCells:number[];wallIntersection:boolean}

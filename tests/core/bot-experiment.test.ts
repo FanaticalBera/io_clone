@@ -1,6 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch,stepMatch} from '../../src/shared/game.js';
-import {botSpecs,createBotMemory,getBotInput,observeBot,observeBotForTick,botLookAhead,watchBotTicks,type BotMemory,type BotTickMetric} from '../../src/shared/bot.js';
+import {createBotMemory,getBotInput,observeBot,observeBotForTick,botLookAhead,watchBotTicks,type BotMemory,type BotTickMetric} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {BOT_VARIANTS,type BotVariant} from '../../src/shared/bot-experiment.js';
 import {traceMovement,setMovementNormalCaching} from '../../src/shared/movement.js';
 import type {MatchState} from '../../src/shared/model.js';

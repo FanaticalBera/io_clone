@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createMap,region,hexDistance,START_ANCHORS,scaledStartAnchors} from '../../src/shared/hex.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {DEFAULT_CONFIG} from '../../src/shared/config.js';
 import {createMode} from '../../src/shared/modes.js';
 

@@ -1,0 +1,20 @@
+{
+  "seed": 19,
+  "ticks": 3600,
+  "deaths": 11,
+  "warmupDiscarded": 1,
+  "samples": 6421,
+  "method": "Fraction of sampled call stacks containing each function, inclusive descendants; nested percentages must not be added. Single function attribution, not a benchmark delta.",
+  "selectedInclusivePercent": {
+    "plannedCapture": 70.4718891138452,
+    "planExpansion": 76.3588226133001,
+    "getBotInput": 86.10808285313814,
+    "evaluateDepartureSafety": 2.9123189534340446,
+    "projectDeparture": 2.2582152312723873,
+    "headVisits": 0.6696776203083632,
+    "selectOwnedDepartureFallback": 0.04672169444011836,
+    "evaluateRepositionStartSafety": 0.0,
+    "stepSteering": 3.691013860769351
+  },
+  "rawHash": "ebfcf3b71bafc3d307d6b1307c13c271ee9a613f270bdf7ec78509d05c682e4a"
+}

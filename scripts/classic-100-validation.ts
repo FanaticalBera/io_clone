@@ -37,7 +37,7 @@ interface Episode {
 }
 export interface RunOptions {seed:number;minutes:number;instrument?:boolean;sampleSeconds?:number;retainTickTiming?:boolean;variant?:'production'|'no-respawn'}
 export function logicalHash(m:MatchState,memories:ReturnType<typeof createBotMemory>[]) {
- return createHash('sha256').update(JSON.stringify({tick:m.tick,owners:[...m.owners],trails:[...m.trailMasks],participants:m.participants.map(p=>({...p,trailCells:[...p.trailCells],spawnCells:[...p.spawnCells]})),events:m.events,outcome:m.outcome,memories:memories.map(x=>({...x,knownHome:[...x.knownHome],grievances:[...x.grievances],random:undefined}))})).digest('hex');
+ return createHash('sha256').update(JSON.stringify({tick:m.tick,owners:[...m.owners],trails:[...m.trailMasks],participants:m.participants.map(p=>({...p,trailCells:[...p.trailCells],spawnCells:[...p.spawnCells]})),events:m.events,outcome:m.outcome,memories:memories.map(x=>({...x,emotion:{...x.emotion,grudge:[...x.emotion.grudge],captureAward:[...x.emotion.captureAward],repeatAward:[...x.emotion.repeatAward],entryAwards:[...x.emotion.entryAwards],approaches:[...x.emotion.approaches],intrusions:[...x.emotion.intrusions]},random:undefined}))})).digest('hex');
 }
 export function runSeed(options:RunOptions) {
  const {seed,minutes,instrument=true,sampleSeconds=5,variant='production'}=options;

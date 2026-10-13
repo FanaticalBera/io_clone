@@ -1,0 +1,540 @@
+{
+  "seed": 137,
+  "slot": 7,
+  "source": "c1f2df1",
+  "prefixMatchesAudit": true,
+  "originalDeath": [
+    {
+      "tick": 6801,
+      "cause": "PENDING_TRAIL_CONTACT",
+      "killer": 9,
+      "oldTrail": 0
+    }
+  ],
+  "rows": [
+    {
+      "tick": 6775,
+      "cell": 208,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.8854462464365993
+      },
+      "headsNearFirst": [],
+      "predictedHeads": [],
+      "ownedNeighbors": [
+        {
+          "cell": 209,
+          "safeForecast": true
+        },
+        {
+          "cell": 149,
+          "safeForecast": true
+        },
+        {
+          "cell": 148,
+          "safeForecast": true
+        },
+        {
+          "cell": 207,
+          "safeForecast": true
+        },
+        {
+          "cell": 268,
+          "safeForecast": true
+        },
+        {
+          "cell": 269,
+          "safeForecast": true
+        }
+      ],
+      "branches": [
+        {
+          "cell": 209,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 149,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 148,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 207,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 268,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 269,
+          "endTick": 6835,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        }
+      ]
+    },
+    {
+      "tick": 6781,
+      "cell": 148,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.6854462464365993
+      },
+      "headsNearFirst": [],
+      "predictedHeads": [],
+      "ownedNeighbors": [
+        {
+          "cell": 149,
+          "safeForecast": true
+        },
+        {
+          "cell": 90,
+          "safeForecast": true
+        },
+        {
+          "cell": 89,
+          "safeForecast": true
+        },
+        {
+          "cell": 147,
+          "safeForecast": true
+        },
+        {
+          "cell": 207,
+          "safeForecast": true
+        },
+        {
+          "cell": 208,
+          "safeForecast": true
+        }
+      ],
+      "branches": [
+        {
+          "cell": 149,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 90,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 89,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 147,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 207,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 208,
+          "endTick": 6841,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        }
+      ]
+    },
+    {
+      "tick": 6787,
+      "cell": 207,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.4849031318984094
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0.36666666666666664,
+          "end": 0.5666666666666667,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 208,
+          "safeForecast": true
+        },
+        {
+          "cell": 148,
+          "safeForecast": true
+        },
+        {
+          "cell": 147,
+          "safeForecast": true
+        },
+        {
+          "cell": 206,
+          "safeForecast": true
+        },
+        {
+          "cell": 267,
+          "safeForecast": true
+        },
+        {
+          "cell": 268,
+          "safeForecast": true
+        }
+      ],
+      "branches": [
+        {
+          "cell": 208,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 148,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 147,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 206,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 1,
+          "atHome": false
+        },
+        {
+          "cell": 267,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 268,
+          "endTick": 6847,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        }
+      ]
+    },
+    {
+      "tick": 6793,
+      "cell": 267,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.28411998925217213
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0.16666666666666666,
+          "end": 0.36666666666666664,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 268,
+          "safeForecast": false
+        },
+        {
+          "cell": 207,
+          "safeForecast": true
+        },
+        {
+          "cell": 206,
+          "safeForecast": true
+        },
+        {
+          "cell": 266,
+          "safeForecast": true
+        },
+        {
+          "cell": 328,
+          "safeForecast": true
+        }
+      ],
+      "branches": [
+        {
+          "cell": 207,
+          "endTick": 6853,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 206,
+          "endTick": 6853,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 266,
+          "endTick": 6853,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 328,
+          "endTick": 6853,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        }
+      ]
+    },
+    {
+      "tick": 6795,
+      "cell": 267,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.21745332258550545
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0.1,
+          "end": 0.3,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 268,
+          "safeForecast": false
+        },
+        {
+          "cell": 207,
+          "safeForecast": true
+        },
+        {
+          "cell": 206,
+          "safeForecast": true
+        },
+        {
+          "cell": 266,
+          "safeForecast": true
+        },
+        {
+          "cell": 328,
+          "safeForecast": true
+        }
+      ],
+      "branches": [
+        {
+          "cell": 207,
+          "endTick": 6855,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 206,
+          "endTick": 6855,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 266,
+          "endTick": 6855,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        },
+        {
+          "cell": 328,
+          "endTick": 6855,
+          "alive": true,
+          "maxTrail": 0,
+          "atHome": true
+        }
+      ]
+    },
+    {
+      "tick": 6797,
+      "cell": 328,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.1507866559188388
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0.03333333333333333,
+          "end": 0.23333333333333334,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 267,
+          "safeForecast": false
+        },
+        {
+          "cell": 266,
+          "safeForecast": false
+        }
+      ],
+      "branches": []
+    },
+    {
+      "tick": 6799,
+      "cell": 328,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.08411998925217214
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0,
+          "end": 0.16666666666666666,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 267,
+          "safeForecast": false
+        },
+        {
+          "cell": 266,
+          "safeForecast": false
+        }
+      ],
+      "branches": []
+    },
+    {
+      "tick": 6800,
+      "cell": 328,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.05078665591883879
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0,
+          "end": 0.13333333333333333,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 267,
+          "safeForecast": false
+        },
+        {
+          "cell": 266,
+          "safeForecast": false
+        }
+      ],
+      "branches": []
+    },
+    {
+      "tick": 6801,
+      "cell": 328,
+      "oldTrail": 0,
+      "firstExposure": {
+        "cell": 391,
+        "seconds": 0.017453322585505457
+      },
+      "headsNearFirst": [
+        9
+      ],
+      "predictedHeads": [
+        {
+          "slot": 9,
+          "start": 0,
+          "end": 0.1,
+          "conflict": true
+        }
+      ],
+      "ownedNeighbors": [
+        {
+          "cell": 267,
+          "safeForecast": false
+        },
+        {
+          "cell": 266,
+          "safeForecast": false
+        }
+      ],
+      "branches": []
+    }
+  ],
+  "method": "Read-only normal AI replay and frozen actual input tape. Branch changes only #7 input; normal engine movement/turning/collision/ownership. Candidate forecast uses public heading and ownership only; taped future enemy inputs are validation-only, never production policy. 60-tick survival is a controlled counterfactual, not natural AI reaction or global balance.",
+  "sourceBotSHA256": "ff74b87c2074b9fa7e26e05efb5c0bb9a4f55c6e166986d619cec08c6a05674a",
+  "proposalOnly": true,
+  "prefixHash": "9997b1c4ba70693aef35fa85ada863b6320efca84f11984ee1982d21d31b13d7"
+}

@@ -1,5 +1,5 @@
 import {createMatch} from '../src/shared/game.js';
-import {botSpecs} from '../src/shared/bot.js';
+import {botSpecs} from './bot-fixtures.js';
 import {setOwner} from '../src/shared/territory.js';
 import {markDead} from '../src/shared/life.js';
 import {hexDistance,region} from '../src/shared/hex.js';

@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-12",
+  "behaviorParent": "abfeedd",
+  "productionChanges": false,
+  "trajectoryHashesVerified": 48,
+  "requestedGames": 48,
+  "legacyDeathsWallsCaptureAndGrowthUnchanged": true,
+  "unitTests": {
+    "files": 2,
+    "passed": 4,
+    "covers": [
+      "dead time and real spawn grants",
+      "simultaneous total peak",
+      "real input/RNG/movement/reservation noninterference"
+    ]
+  },
+  "types": {
+    "projects": true,
+    "audit": true,
+    "cpuProfile": true,
+    "rejectionProfile": true
+  },
+  "departureDecision": "benefit_signal",
+  "furtherVariants": "Loss condition not met; no removal/light safety variant measured.",
+  "optimization": "Proposal only; no behavior or performance implementation.",
+  "rawLogHashes": {
+    "base.log": "c01e7f9698f3d752e03a23ad47ce2762e1258fb6881c452137d455c82f8ee709",
+    "counter.log": "eddd7f4839ff9c64b9b46c0ac6e4612a745afbc7c81b7eaeae7606f26e76740e",
+    "departure.log": "186701da750aea0de880d2a2fff4534ae18d4493b7c8dde58149b36af351bc74",
+    "profile-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "profile.log": "ddc8077e57679ef7e051b412fbcfd17f3f479964a9ae35ff887a38d9798740f4",
+    "reachable.log": "d54354eeaf9405cda86f22883fc500b0fdfcbf211c2fa4d9abff751400496a85",
+    "rejection-profile.log": "173806f36289bd829f9392710a5b07fcbe7c4ae3cc5d244da14bee784a8ff1da",
+    "rejection-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rp.log": "bd8ab1e3b941fd4294c25dba43bb689e3e7c82595e0e8259fb008bb158e0b862",
+    "script-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "start.log": "d70abdaffdf6b8f64b290bf26c8e956ff57aabf6debbec11d8c2475236e3ab60",
+    "summary.log": "c051d9b28d2f4cfab54e3a8a2b3b61838318e2199a7091043491fb635923c67f"
+  },
+  "sharedDiff": []
+}

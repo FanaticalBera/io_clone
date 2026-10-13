@@ -1,0 +1,28 @@
+{
+  "parent": "afad5b3",
+  "baseline": "0384f9a",
+  "bundle1Isolation": "Copy of current source with original nearest-six anchors and zero response bonus; public damage/aggregation retained. No production feature switch.",
+  "audit": "node node_modules/tsx/dist/cli.mjs scripts/bot-phase025-audit.ts [--source=pristine source root]",
+  "hashes": {
+    "src/shared/bot-damage.ts": "d79e4f7730b6eb97f8002fdb4d451682f30ff87ea631efd147f8ca2fdb030d10",
+    "src/shared/bot-director.ts": "b40d2997eb773f7ce1d55bd54e446e15ff652ed481d28cb04e94f77013985f0a",
+    "src/shared/bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+    "src/shared/bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+    "src/shared/bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+    "src/shared/bot-experiment.ts": "3c8b84bdd9e6dea45637f2bb9fea263c1098590fb1118a8b6b989584e6d1eff8",
+    "src/shared/bot-identity.ts": "5bece711f5c098fd7b6d228d7baf366d0454f6ea7f736cf99cd4752676b6df7b",
+    "src/shared/bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+    "src/shared/bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+    "src/shared/bot-phase025-config.ts": "9f9e46f7030396a5f839a5789d2cf50d11976ae3bfd4afb2f3af1b60b0c5cc9d",
+    "src/shared/bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+    "src/shared/bot-roster.ts": "a2429b1bf8ce8e6d10bf81c41855da483e8981e9f4c874f48211d5892682583f",
+    "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "src/shared/bot.ts": "eb283f4f6bee0c7ec12852ff741e086cbc2f53e7847c98f3ec7eddcb898b08f0",
+    "src/shared/engine.ts": "4d31997135816d7cbb244544f09d4750e32337c405a2c4f28dfff483bf703ada",
+    "src/client/bot-debug-model.ts": "71159772a723163284f44844489b7be255e09ea00b80af01fb8ccf67dc8c0852",
+    "src/client/bot-debug-hud.ts": "b0675d918d842070375f66fc17b74fd187b039694a739739b25a1ea7b7673e91",
+    "scripts/bot-phase025-audit.ts": "194d1f74a2da39a061ddd15b1b0a56130ee38c19130c511ad6e9daf29c8e852a",
+    "tests/bot-damage-fixture.ts": "89dcecbd097eb72c84255d2f941efd9a6009c6622164879a9c76a00746883b08",
+    "tests/core/bot-phase025.test.ts": "e471ad695f46845888258ce030c51fc966da58858aa70d42a32a1404afe7e12d"
+  }
+}

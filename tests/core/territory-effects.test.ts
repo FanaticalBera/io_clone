@@ -3,7 +3,7 @@ import {TerritoryEffectModel,collapseOrigin,collapseDelays,collapseAppearance,ex
 import {indexRenderChunks} from '../../src/client/render-chunks.js';
 import {buildView} from '../../src/shared/game.js';
 import {createMatch} from '../baseline.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {markDead,emitEvent} from '../../src/shared/life.js';
 import {prepareTerritorySteal} from '../capture-feedback-fixture.js';
 import {applySimultaneousCaptures} from '../../src/shared/engine.js';

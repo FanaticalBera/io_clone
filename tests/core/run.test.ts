@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {createMatch,stepMatch,buildView} from '../../src/shared/game.js';
-import {botSpecs} from '../../src/shared/bot.js';
+import {botSpecs} from '../bot-fixtures.js';
 import {markDead} from '../../src/shared/life.js';
 import {setOwner,addTrail} from '../../src/shared/territory.js';
 import {resolveAtTime} from '../../src/shared/engine.js';

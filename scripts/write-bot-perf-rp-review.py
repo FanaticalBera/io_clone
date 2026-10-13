@@ -1,0 +1,81 @@
+import json
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
+s = json.loads((ROOT/'evidence/bot-perf-rp-review/summary.json').read_text(encoding='utf-8'))
+labels = {'baseline':'abfeedd 기준(RP on)', 'optimized':'검사 순서 최적화(RP on)', 'no-reposition':'abfeedd에서 RP만 off'}
+metrics = {'timeAverageCells':'보유 시간 평균', 'finalCells':'최종 보유 평균', 'deaths':'사망 합계', 'reclaimed':'되찾기 합계', 'tickMs':'tick 비용'}
+def number(value, metric, signed=False):
+    if value is None: return '측정 중'
+    places = 4 if metric == 'tickMs' else 3 if metric in ['timeAverageCells','finalCells'] else 0
+    return format(value, ('+' if signed else ',') + f'.{places}f')
+def signal(value):
+    if not value: return '측정 중'
+    return {'increase':'증가 신호','decrease':'감소 신호','inconclusive':'구분 불가'}[value['direction']] + f" (↑{value['up']} / ↓{value['down']} / ={value['ties']})"
+lines = ['# 확장 후보 계산 최적화와 현재 REPOSITION off 비교', '',
+'2026-10-12 · 구현 기준 abfeedd', '',
+'**출발 안전과 라이브 REPOSITION은 유지했다. 승인된 검사 순서 최적화만 적용했다. 추가 캐시는 중복률을 측정한 뒤 보류했다.**', '',
+'## 구현과 동작 보존', '',
+'`planExpansion`의 기존 선 길이·밀집 시 외부 6칸·근접 머리 2칸 검사를 `plannedCapture` 앞으로 옮겼다. 조건, 후보와 동률 처리 순서, RNG 소비, 점령 flood 규칙은 동일하다. 이 검사에 걸리는 후보에는 비소유 경로 칸이 최소 1개 있고, 그 칸은 flood에서 막혀 항상 점령 결과에 포함된다. 따라서 기존 `NO_GAIN` 거절 이유의 우선순위도 보존한다.', '',
+'새 속성 테스트는 24가지 소유 배치와 경계 칸·반복 경로를 사용해 이 전제, 결과 오름차순, 입력 경로와 소유권의 비변경을 확인한다. 기존 고정 hash를 갱신하지 않았다.', '',
+'**고정 8시드에서 궤적, 모든 판단 trace, 최종 봇 메모리, 다음 RNG 값, 보유량, 성장·성격 통계, 사망 기록, 출발·재배치 집계, 디렉터 결과가 모두 동일했다.** seed 137을 8,800tick까지 실행한 비교도 동일했고, 사망 36회였다. 궤적 해시에는 입력·소유권·선·위치·방향·생명·seq가 포함된다.', '',
+'전체 Vitest 89파일·622테스트가 단일 워커에서 통과했다. 관련 21테스트와 프로젝트·측정 스크립트 타입 검사도 통과했다. 테스트가 생성한 무관한 T35 자원 증거는 원복했다.', '',
+'## 비교 설계', '',
+'- 세 갈래는 abfeedd 원본, 원본에 검사 순서 변경만 적용한 코드, **원본에서 REPOSITION 시작만 끈 코드**다. 마지막 갈래는 별도 `.local/` 소스 스냅샷이며 라이브 설정을 바꾸지 않았다.',
+'- REPOSITION off는 `selectReposition` 앞에 `Boolean(false)` 조건 하나만 추가했다. 출발 안전, 원한·피해 기억, D 가산점, 공격 조건, 예약과 나머지 상태 코드는 보존했다. 재배치 시작은 모든 시드에서 0회다. RP 코드 전체 삭제의 비용 효과를 측정한 것은 아니다.',
+'- 시드 4·19·73·11·31·47·101·137, R56, 14봇, spawnRadius 1, safe respawn, Classic, combined, 30Hz, 3,600tick(120초)을 고정했다.',
+'- 보유 평균은 매 tick 처리가 끝난 실제 소유 칸의 평균이다. 사망 대기 중 0칸도 포함하고, 사망 손실·부활 지급을 보정하지 않는다. 최종 보유는 t3600 값이다. 전체 보유 평균과 최종 보유는 8경기 평균, 사망과 되찾기는 8경기 합계로 보고한다.',
+'- 되찾기는 기존 audit과 동일하게 같은 생명에서 최근 60초 내 잃은 칸의 재획득을 tick 경계에서 집계한다. 중립 칸·부활 지급은 제외하며, 같은 tick 안에 중립화된 소유권 전환은 누락될 수 있다.',
+'- **원본→최적화**는 동작 보존 성능 비교, **원본→RP off**는 현재 조합에서 재배치의 효과 비교다. 최적화→RP off의 비용 차이를 RP 효과로 섞지 않는다.',
+'- 같은 시드 안의 차이가 7/8 이상 같은 방향이고 어느 한 시드를 빼도 합계 방향이 유지되면 방향 신호로 표시한다. 나머지는 **구분 불가**이며, 효과 없음이나 동등을 뜻하지 않는다.', '',
+'## 세 갈래 결과', '',
+'|갈래|보유 시간 평균(칸)|최종 보유 평균(칸)|사망|되찾기(칸)|tick(ms)|',
+'|---|---:|---:|---:|---:|---:|']
+for arm, values in s['totals'].items():
+    lines.append('|'+labels[arm]+'|'+'|'.join(number(values[k],k) for k in metrics)+'|')
+lines += ['', '모든 갈래의 벽 사망은 0회다. 시드별 절대 값은 [metrics-by-seed.csv](../evidence/bot-perf-rp-review/metrics-by-seed.csv)에 있다.', '']
+for contrast in s['contrasts']:
+    lines += [f"## {labels[contrast['before']]} → {labels[contrast['after']]}", '',
+              '|지표|차이|변화율|시드별 방향|', '|---|---:|---:|---|']
+    for metric, name in metrics.items():
+        percent = contrast['percent'][metric]
+        interpretation = '검증 구간에서 완전 동일 (8/8 동률)' if contrast['after']=='optimized' and metric!='tickMs' else signal(contrast['signals'].get(metric))
+        lines.append(f"|{name}|{number(contrast['delta'][metric],metric,True)}|{'측정 중' if percent is None else format(percent,'+.2f')+'%'}|{interpretation}|")
+    lines += ['', '|시드|보유 평균 Δ|최종 보유 Δ|사망 Δ|되찾기 Δ|비용 Δ(ms)|', '|---:|---:|---:|---:|---:|---:|']
+    for row in contrast['bySeed']:
+        lines.append('|'+str(row['seed'])+'|'+'|'.join(number(row['delta'][k],k,True) for k in metrics)+'|')
+    lines += ['']
+lines += ['## REPOSITION 판단에 필요한 해석', '',
+'현재에서 RP만 끄면 보유 평균 +2.54%(5/8 증가), 최종 보유 −2.49%(5/8 감소), 사망 90→85(4개 감소·3개 증가·1개 동률), 되찾기 3,193→2,400(6/8 감소)이다. **네 행동 지표 모두 사전 방향 신호에 미달했다.** 합계 −24.84%인 되찾기 감소는 작지 않으며, 구분 불가를 손실이 없다는 뜻으로 해석하지 않는다.', '',
+'초기 REPOSITION 추가 때의 보유 평균 −6.26%·사망 +20%와, 이후 출발 안전·후보 누락 수정·시작 검사를 포함한 현재 조합에서 RP만 끄는 효과는 같지 않았다. 이번 결과는 사용자가 요청한 현재 조합의 단일 off 실험이다. **이 결과만으로 원복하지 않으며, 유지 여부는 사용자 검토 후 정한다.**', '',
+'## 정확한 동일 경로 캐시 검토', '',
+'최적화된 검사 순서에서 실제 `plannedCapture`를 호출한 후보를 측정했다. 동일 `planExpansion` 호출 안에서 **배열 길이·모든 cell ID·순서가 같은 전체 경로**를 중복으로 셌다. 다른 봇·판단·tick·소유권 스냅샷 간 재사용은 포함하지 않는다. 비소유 부분만 같거나 순서가 다른 경로도 포함하지 않는다.', '',
+'측정기는 캐시를 사용하지 않고 원래 함수를 매번 호출했다. 모든 8시드의 궤적과 다음 RNG 값이 최적화 갈래와 동일했다.', '',
+'|시드|점령 계산 호출|재사용 가능한 정확 중복|비율|', '|---:|---:|---:|---:|']
+for row in s['duplicateReview']['bySeed']:
+    lines.append(f"|{row['seed']}|{row['queries']:,}|{row['hits']:,}|{100*row['hitRatio']:.3f}%|")
+d = s['duplicateReview']
+lines += [f"|합계|{d['queries']:,}|{d['hits']:,}|{100*d['hitRatio']:.3f}%|", '',
+'**권고: 이번에는 추가 캐시를 넣지 않는다.** 같은 판단 안에서 소유권 스냅샷은 고정되어 있고 반환 배열을 읽기만 하므로 정확 재사용은 가능하다. 다만 0.83%의 중복을 줄이기 위해 모든 호출에 키 생성·Map 조회·배열 보존 비용을 추가해야 한다. 중복률이 시간 절감률은 아니며, 실제 캐시 성능 개선은 측정하지 않았다. 이번에는 승인된 순서 변경만 적용하고 캐시는 검토 결과로 남긴다.', '',
+'## 비용 검증', '',
+'같은 PC에서 갈래별 seed 19 워밍업 1회를 제외한 뒤, 3회×8시드×3갈래=72개 표본을 새로 측정했다. 시드 블록마다 갈래 순서를 순환하고 3개 블록 단위로 역순을 적용하여 각 갈래가 각 위치에 같은 횟수 놓인다. HUD·audit·중복 관측기는 붙이지 않았다. 종료 tick·사망 수는 해당 행동 audit과 일치했다.', '',
+'전체 비용은 회차별 8시드 평균의 3회 중앙값, 시드 비용은 해당 시드의 3회 중앙값이다. 따라서 시드 비용 차이의 합과 전체 집계 차이는 정의가 다르다. 이전 실험의 측정 시간과 섞지 않았다. 시드별 방향은 시드 중앙값으로 판정했다.', '']
+if s['cost']:
+    p = s['cost']
+    lines += [f"표본 전후에 관측한 외부 Vitest·Playwright 겹침은 {p['resourceGuard']['overlappingRows']}/72였다. 다른 작업의 프로세스를 중지하지 않았다. 경계 확인이므로 PC 전체 부하나 실행 중 잠깐의 겹침까지 배제할 수는 없다.", '',
+              '|갈래|회차별 평균 ms/tick|중앙값|', '|---|---|---:|']
+    for arm, row in p['summary'].items():
+        lines.append('|'+labels[arm]+'|'+', '.join(f'{x:.4f}' for x in row['roundMsPerTick'])+f"|{row['medianMsPerTick']:.4f}|")
+    lines += ['', '**큰 지연 표본:** 최적화 갈래의 3회차 seed 11은 58.3069ms/tick(209.905초)로 앞선 두 번 2.7098·2.6460ms/tick과 크게 달랐다. 원인은 확인하지 못했다. 해당 표본을 사후 제외하거나 교체하지 않고, 사전 중앙값 집계와 원본 72개 표본을 그대로 보존했다. [cost-samples.csv](../evidence/bot-perf-rp-review/cost-samples.csv)에 전부 기록했다.', '',
+'최적화는 집계 중앙값 −8.96%, 시드별 중앙값 8/8 감소이며 모든 leave-one-out 감소로 방향 신호를 충족했다. 정확한 절감률은 이 PC의 측정값이다. RP off는 중앙값 −4.20%지만 시드별 4개 증가·4개 감소로 비용 효과도 구분 불가다.']
+else:
+    lines += ['비용 측정 중. 완료 후 집계한다.']
+lines += ['', '## PRD와 재실행', '',
+'PRD 7절의 **성장 재검토 주 지표를 보유 영토 시간 평균**으로 바꿨다. 기존 −5% 기준은 이 지표에 적용한다. 최종 보유·최대 점유율은 보조 지표, 순영토·총 점령은 참고 지표다. 사망·성능·성격 정체성은 함께 검토한다. 과거 실험의 수치를 소급해서 바꾸지 않는다.', '',
+'- 소스는 abfeedd의 shared 코드로 스냅샷을 만들고 같은 성장 관측기를 사용한다. RP off는 selection 조건에 `Boolean(false)` 하나만 추가한다. 소스·측정 해시는 [protocol.json](../evidence/bot-perf-rp-review/protocol.json)에 있다.',
+'- 행동 audit: `scripts/bot-phase025-audit.ts --source=갈래 --holding --equivalence-proof --seeds=4,19,73,11,31,47,101,137 --ticks=3600`. proof는 모든 trace와 마지막 메모리를 해시하고 경기 종료 후 다음 RNG 값을 읽는다.',
+'- 중복 관측: `scripts/bot-capture-duplicate-audit.ts`. 별도 duplicate-source의 hook은 `path.join` 키의 정확 일치만 세며 원래 점령 함수를 생략하지 않는다.',
+'- 비용: `scripts/bot-safety-separation-performance.ts --local=../bot-perf-rp-review --protocol=evidence/bot-perf-rp-review/protocol.json --record-background`.',
+'- 요약·보고서: `python scripts/summarize-bot-perf-rp-review.py`, `python scripts/write-bot-perf-rp-review.py`.',
+'- 큰 원본·계측 소스·로그는 기본 저장소의 `.local/bot-perf-rp-review/`에 보존했다. 저장소에는 요약·CSV·프로토콜·검증 기록만 남겼다.', '',
+'다음 결정은 REPOSITION 유지 여부다. 현재 라이브는 RP on이고, 출발 안전을 유지하며, 승인된 성능 최적화를 적용한 상태다.', '']
+(ROOT/'docs/bot-ai-phase025-perf-rp-review.md').write_text('\n'.join(lines),encoding='utf-8')

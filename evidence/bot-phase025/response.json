@@ -1,0 +1,2520 @@
+{
+  "source": "phase025 bundles1+2 workspace",
+  "measurement": "Real movement. Steal/recapture cells sampled at tick boundaries, excluding neutral ownership and respawn grants; transfers neutralized within the same tick may be omitted. Grudge/candidate counts distinguish plan creation and continuation; within-decision identical slot/cell/interrupt/reason is counted once. No behavior tuning.",
+  "reposition": "DEFERRED; no relocation or ping-pong measurements claimed",
+  "reports": [
+    {
+      "seed": 4,
+      "trajectoryHash": "6f314963a4e70d2dcdd9f232f556bf6d24981e548f2b6afd48bd9cd1aad2a24c",
+      "seconds": 120,
+      "mapRadius": 56,
+      "spawnCells": 7,
+      "bots": 14,
+      "safeRespawn": true,
+      "classic": true,
+      "totalCapture": 9165,
+      "captures": 597,
+      "walls": 0,
+      "deaths": 15,
+      "growth": {
+        "seconds": 120,
+        "maximumSampling": "tick boundary plus immediately before death neutralization",
+        "participants": [
+          {
+            "participantId": "bot-0",
+            "netTerritoryChange": 385,
+            "netCellsPerMinute": 192.5,
+            "netCellsPerHour": 11550,
+            "deathResetLoss": 283,
+            "spawnGrants": 7,
+            "actualHoldingChange": 109,
+            "maximumShare": 0.03466638822178135,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.03466638822178135
+              },
+              {
+                "lifeId": 2,
+                "share": 0.012112352511224809
+              }
+            ],
+            "expansionPlans": 53,
+            "cancelledExpansions": 23,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.4339622641509434,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-1",
+            "netTerritoryChange": 557,
+            "netCellsPerMinute": 278.5,
+            "netCellsPerHour": 16710,
+            "deathResetLoss": 361,
+            "spawnGrants": 7,
+            "actualHoldingChange": 203,
+            "maximumShare": 0.03769447634958755,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.03769447634958755
+              },
+              {
+                "lifeId": 2,
+                "share": 0.02192753471859664
+              }
+            ],
+            "expansionPlans": 42,
+            "cancelledExpansions": 15,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.35714285714285715,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-2",
+            "netTerritoryChange": 637,
+            "netCellsPerMinute": 318.5,
+            "netCellsPerHour": 19110,
+            "deathResetLoss": 432,
+            "spawnGrants": 7,
+            "actualHoldingChange": 212,
+            "maximumShare": 0.04510807142111308,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04510807142111308
+              },
+              {
+                "lifeId": 2,
+                "share": 0.022867286206536493
+              }
+            ],
+            "expansionPlans": 38,
+            "cancelledExpansions": 17,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.4473684210526316,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-3",
+            "netTerritoryChange": 16,
+            "netCellsPerMinute": 8,
+            "netCellsPerHour": 480,
+            "deathResetLoss": 23,
+            "spawnGrants": 0,
+            "actualHoldingChange": -7,
+            "maximumShare": 0.07267411506734886,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.07267411506734886
+              }
+            ],
+            "expansionPlans": 43,
+            "cancelledExpansions": 19,
+            "earlyReturns": 1,
+            "cancellationRatio": 0.4418604651162791,
+            "earlyReturnRatio": 0.023255813953488372
+          },
+          {
+            "participantId": "bot-4",
+            "netTerritoryChange": 310,
+            "netCellsPerMinute": 155,
+            "netCellsPerHour": 9300,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 310,
+            "maximumShare": 0.04834499321290592,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04834499321290592
+              }
+            ],
+            "expansionPlans": 36,
+            "cancelledExpansions": 3,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.08333333333333333,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-5",
+            "netTerritoryChange": 497,
+            "netCellsPerMinute": 248.5,
+            "netCellsPerHour": 14910,
+            "deathResetLoss": 172,
+            "spawnGrants": 7,
+            "actualHoldingChange": 332,
+            "maximumShare": 0.03539730604573457,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.020778949566670146
+              },
+              {
+                "lifeId": 2,
+                "share": 0.03539730604573457
+              }
+            ],
+            "expansionPlans": 54,
+            "cancelledExpansions": 29,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5370370370370371,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-6",
+            "netTerritoryChange": 426,
+            "netCellsPerMinute": 213,
+            "netCellsPerHour": 12780,
+            "deathResetLoss": 433,
+            "spawnGrants": 7,
+            "actualHoldingChange": 0,
+            "maximumShare": 0.04991124569280568,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04991124569280568
+              },
+              {
+                "lifeId": 2,
+                "share": 0.0007309178239532213
+              }
+            ],
+            "expansionPlans": 77,
+            "cancelledExpansions": 48,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.6233766233766234,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-7",
+            "netTerritoryChange": 382,
+            "netCellsPerMinute": 191,
+            "netCellsPerHour": 11460,
+            "deathResetLoss": 265,
+            "spawnGrants": 14,
+            "actualHoldingChange": 131,
+            "maximumShare": 0.022762869374543176,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.00584734259162577
+              },
+              {
+                "lifeId": 2,
+                "share": 0.022762869374543176
+              },
+              {
+                "lifeId": 3,
+                "share": 0.014409522815077791
+              }
+            ],
+            "expansionPlans": 60,
+            "cancelledExpansions": 34,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5666666666666667,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-8",
+            "netTerritoryChange": 523,
+            "netCellsPerMinute": 261.5,
+            "netCellsPerHour": 15690,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 523,
+            "maximumShare": 0.059413177404197555,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.059413177404197555
+              }
+            ],
+            "expansionPlans": 46,
+            "cancelledExpansions": 17,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.3695652173913043,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-9",
+            "netTerritoryChange": 728,
+            "netCellsPerMinute": 364,
+            "netCellsPerHour": 21840,
+            "deathResetLoss": 584,
+            "spawnGrants": 21,
+            "actualHoldingChange": 165,
+            "maximumShare": 0.0343531377258014,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.0343531377258014
+              },
+              {
+                "lifeId": 2,
+                "share": 0.014722773311057742
+              },
+              {
+                "lifeId": 3,
+                "share": 0.011903518847238176
+              },
+              {
+                "lifeId": 4,
+                "share": 0.01795969510285058
+              }
+            ],
+            "expansionPlans": 28,
+            "cancelledExpansions": 9,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.32142857142857145,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-10",
+            "netTerritoryChange": 715,
+            "netCellsPerMinute": 357.5,
+            "netCellsPerHour": 21450,
+            "deathResetLoss": 178,
+            "spawnGrants": 7,
+            "actualHoldingChange": 544,
+            "maximumShare": 0.057533674428317846,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.018586196094810485
+              },
+              {
+                "lifeId": 2,
+                "share": 0.057533674428317846
+              }
+            ],
+            "expansionPlans": 29,
+            "cancelledExpansions": 4,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.13793103448275862,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-11",
+            "netTerritoryChange": 556,
+            "netCellsPerMinute": 278,
+            "netCellsPerHour": 16680,
+            "deathResetLoss": 388,
+            "spawnGrants": 7,
+            "actualHoldingChange": 175,
+            "maximumShare": 0.04249765062128015,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04249765062128015
+              },
+              {
+                "lifeId": 2,
+                "share": 0.019003863422783752
+              }
+            ],
+            "expansionPlans": 41,
+            "cancelledExpansions": 12,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.2926829268292683,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-12",
+            "netTerritoryChange": 679,
+            "netCellsPerMinute": 339.5,
+            "netCellsPerHour": 20370,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 679,
+            "maximumShare": 0.07162994674741568,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.07162994674741568
+              }
+            ],
+            "expansionPlans": 46,
+            "cancelledExpansions": 20,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.43478260869565216,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-13",
+            "netTerritoryChange": 509,
+            "netCellsPerMinute": 254.5,
+            "netCellsPerHour": 15270,
+            "deathResetLoss": 521,
+            "spawnGrants": 14,
+            "actualHoldingChange": 2,
+            "maximumShare": 0.03685914169364102,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.02150986739062337
+              },
+              {
+                "lifeId": 2,
+                "share": 0.03685914169364102
+              },
+              {
+                "lifeId": 3,
+                "share": 0.0009397514879398559
+              }
+            ],
+            "expansionPlans": 39,
+            "cancelledExpansions": 21,
+            "earlyReturns": 2,
+            "cancellationRatio": 0.5384615384615384,
+            "earlyReturnRatio": 0.05128205128205128
+          }
+        ]
+      },
+      "personalities": [
+        {
+          "aliveFrames": 10337,
+          "goalFrames": {
+            "EXPAND": 7632,
+            "ESCAPE": 208,
+            "RETURN": 660,
+            "STEAL": 1743,
+            "ATTACK": 94
+          },
+          "decisions": 1786,
+          "newPlanDecisions": 190,
+          "continuationDecisions": 1596,
+          "noAttackCandidates": 1518,
+          "attackCandidateObservations": 718,
+          "attackReasons": {
+            "NO_APPROACH": 391,
+            "VICTIM_RETURNS_FIRST": 264,
+            "COUNTER_CUT_FIRST": 13,
+            "TRAIL_BUDGET": 37,
+            "SELECTABLE": 13
+          },
+          "newPlanAttackReasons": {
+            "TRAIL_BUDGET": 7,
+            "NO_APPROACH": 54,
+            "COUNTER_CUT_FIRST": 10,
+            "VICTIM_RETURNS_FIRST": 102,
+            "SELECTABLE": 11
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 337,
+            "VICTIM_RETURNS_FIRST": 162,
+            "COUNTER_CUT_FIRST": 3,
+            "TRAIL_BUDGET": 30,
+            "SELECTABLE": 2
+          },
+          "selectableAttackCandidates": 13,
+          "selectedAttackDecisions": 16,
+          "selectableButNotSelected": 4,
+          "expansionPlans": 110,
+          "shapes": {
+            "DEEP": 7,
+            "NATURAL": 21,
+            "WIDE": 19,
+            "HOOK": 19,
+            "ASYMMETRIC": 9,
+            "RHOMBUS": 35
+          },
+          "externalLengthSum": 1352,
+          "crowdedPlans": 20,
+          "crowdedSmallPlans": 20,
+          "bonusedPlans": 18,
+          "reclaimPlans": 12,
+          "vengeancePlans": 17,
+          "captures": 99,
+          "totalCapture": 2120,
+          "stolenCells": 301,
+          "reclaimedCells": 15,
+          "revengeCells": 49,
+          "actualReclaimCaptures": 5,
+          "internalCellMoves": 451,
+          "externalCellMoves": 1099,
+          "deaths": 6,
+          "personality": "EXPAND",
+          "meanExternalLength": 12.290909090909091,
+          "stolenShare": 0.1419811320754717,
+          "meanCapture": 21.414141414141415,
+          "meanReclaimSeconds": 5.808888888888889
+        },
+        {
+          "aliveFrames": 10530,
+          "goalFrames": {
+            "EXPAND": 7283,
+            "ESCAPE": 155,
+            "RETURN": 663,
+            "ATTACK": 198,
+            "STEAL": 2231
+          },
+          "decisions": 1813,
+          "newPlanDecisions": 242,
+          "continuationDecisions": 1571,
+          "noAttackCandidates": 1435,
+          "attackCandidateObservations": 979,
+          "attackReasons": {
+            "NO_APPROACH": 371,
+            "TRAIL_BUDGET": 88,
+            "SELECTABLE": 19,
+            "VICTIM_RETURNS_FIRST": 497,
+            "UNSAFE_RETURN": 3,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "newPlanAttackReasons": {
+            "SELECTABLE": 16,
+            "TRAIL_BUDGET": 21,
+            "NO_APPROACH": 70,
+            "VICTIM_RETURNS_FIRST": 174,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 301,
+            "TRAIL_BUDGET": 67,
+            "VICTIM_RETURNS_FIRST": 323,
+            "SELECTABLE": 3,
+            "UNSAFE_RETURN": 3
+          },
+          "selectableAttackCandidates": 19,
+          "selectedAttackDecisions": 33,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 149,
+          "shapes": {
+            "NATURAL": 28,
+            "WIDE": 15,
+            "HOOK": 18,
+            "ASYMMETRIC": 11,
+            "DEEP": 12,
+            "RHOMBUS": 65
+          },
+          "externalLengthSum": 1307,
+          "crowdedPlans": 49,
+          "crowdedSmallPlans": 49,
+          "bonusedPlans": 31,
+          "reclaimPlans": 30,
+          "vengeancePlans": 37,
+          "captures": 143,
+          "totalCapture": 1703,
+          "stolenCells": 286,
+          "reclaimedCells": 75,
+          "revengeCells": 119,
+          "actualReclaimCaptures": 25,
+          "internalCellMoves": 540,
+          "externalCellMoves": 1089,
+          "deaths": 3,
+          "personality": "ATTACK",
+          "meanExternalLength": 8.771812080536913,
+          "stolenShare": 0.16793893129770993,
+          "meanCapture": 11.909090909090908,
+          "meanReclaimSeconds": 5.27733333333333
+        },
+        {
+          "aliveFrames": 14220,
+          "goalFrames": {
+            "EXPAND": 11941,
+            "ESCAPE": 313,
+            "RETURN": 558,
+            "ATTACK": 192,
+            "STEAL": 1216
+          },
+          "decisions": 2444,
+          "newPlanDecisions": 297,
+          "continuationDecisions": 2147,
+          "noAttackCandidates": 2143,
+          "attackCandidateObservations": 761,
+          "attackReasons": {
+            "NO_APPROACH": 671,
+            "TRAIL_BUDGET": 10,
+            "SELECTABLE": 33,
+            "COUNTER_CUT_FIRST": 2,
+            "VICTIM_RETURNS_FIRST": 44,
+            "LOW_PRIORITY": 1
+          },
+          "newPlanAttackReasons": {
+            "TRAIL_BUDGET": 2,
+            "NO_APPROACH": 138,
+            "SELECTABLE": 13,
+            "VICTIM_RETURNS_FIRST": 15
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 533,
+            "SELECTABLE": 20,
+            "TRAIL_BUDGET": 8,
+            "COUNTER_CUT_FIRST": 2,
+            "VICTIM_RETURNS_FIRST": 29,
+            "LOW_PRIORITY": 1
+          },
+          "selectableAttackCandidates": 33,
+          "selectedAttackDecisions": 32,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 187,
+          "shapes": {
+            "BEVEL": 88,
+            "NATURAL": 81,
+            "RHOMBUS": 18
+          },
+          "externalLengthSum": 1662,
+          "crowdedPlans": 14,
+          "crowdedSmallPlans": 14,
+          "bonusedPlans": 20,
+          "reclaimPlans": 18,
+          "vengeancePlans": 17,
+          "captures": 201,
+          "totalCapture": 2775,
+          "stolenCells": 218,
+          "reclaimedCells": 66,
+          "revengeCells": 151,
+          "actualReclaimCaptures": 7,
+          "internalCellMoves": 764,
+          "externalCellMoves": 1420,
+          "deaths": 2,
+          "personality": "DEFEND",
+          "meanExternalLength": 8.88770053475936,
+          "stolenShare": 0.07855855855855856,
+          "meanCapture": 13.805970149253731,
+          "meanReclaimSeconds": 11.475252525252527
+        },
+        {
+          "aliveFrames": 14040,
+          "goalFrames": {
+            "EXPAND": 9219,
+            "ESCAPE": 173,
+            "RETURN": 708,
+            "STEAL": 3895,
+            "ATTACK": 45
+          },
+          "decisions": 2437,
+          "newPlanDecisions": 276,
+          "continuationDecisions": 2161,
+          "noAttackCandidates": 2194,
+          "attackCandidateObservations": 630,
+          "attackReasons": {
+            "NO_APPROACH": 307,
+            "TRAIL_BUDGET": 62,
+            "VICTIM_RETURNS_FIRST": 250,
+            "SELECTABLE": 8,
+            "COUNTER_CUT_FIRST": 3
+          },
+          "newPlanAttackReasons": {
+            "TRAIL_BUDGET": 10,
+            "VICTIM_RETURNS_FIRST": 79,
+            "NO_APPROACH": 18,
+            "SELECTABLE": 5,
+            "COUNTER_CUT_FIRST": 3
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 289,
+            "TRAIL_BUDGET": 52,
+            "VICTIM_RETURNS_FIRST": 171,
+            "SELECTABLE": 3
+          },
+          "selectableAttackCandidates": 8,
+          "selectedAttackDecisions": 8,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 186,
+          "shapes": {
+            "DEEP": 25,
+            "NATURAL": 28,
+            "HOOK": 35,
+            "WIDE": 22,
+            "ASYMMETRIC": 28,
+            "RHOMBUS": 48
+          },
+          "externalLengthSum": 1860,
+          "crowdedPlans": 23,
+          "crowdedSmallPlans": 23,
+          "bonusedPlans": 23,
+          "reclaimPlans": 14,
+          "vengeancePlans": 17,
+          "captures": 154,
+          "totalCapture": 2567,
+          "stolenCells": 605,
+          "reclaimedCells": 41,
+          "revengeCells": 76,
+          "actualReclaimCaptures": 8,
+          "internalCellMoves": 670,
+          "externalCellMoves": 1478,
+          "deaths": 4,
+          "personality": "SEEK_POINT",
+          "meanExternalLength": 10,
+          "stolenShare": 0.23568367744448773,
+          "meanCapture": 16.66883116883117,
+          "meanReclaimSeconds": 4.499186991869916
+        }
+      ],
+      "goalDistances": [
+        {
+          "a": "EXPAND",
+          "b": "ATTACK",
+          "totalVariation": 0.052963129248963306
+        },
+        {
+          "a": "EXPAND",
+          "b": "DEFEND",
+          "totalVariation": 0.10771203140521661
+        },
+        {
+          "a": "EXPAND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.1088040651139229
+        },
+        {
+          "a": "ATTACK",
+          "b": "DEFEND",
+          "totalVariation": 0.15538124947407644
+        },
+        {
+          "a": "ATTACK",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.06555080721747389
+        },
+        {
+          "a": "DEFEND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.20309513505716037
+        }
+      ],
+      "boundary": {
+        "decisionsWithDamage": 231,
+        "unreachableBoundaryObservations": 2927
+      },
+      "memoryPeaks": {
+        "regions": 64,
+        "perOpponent": 32
+      },
+      "deathDetails": [
+        {
+          "slot": 7,
+          "personality": "ATTACK",
+          "tick": 391,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 10,
+          "personality": "SEEK_POINT",
+          "tick": 810,
+          "reason": "TRAIL_CUT",
+          "cause": "PENDING_TRAIL_CONTACT",
+          "goal": "STEAL",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 13,
+          "personality": "EXPAND",
+          "tick": 854,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 9,
+          "personality": "EXPAND",
+          "tick": 1436,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 6.1629963255947295,
+          "responseBonus": 0.9383173314048928
+        },
+        {
+          "slot": 5,
+          "personality": "DEFEND",
+          "tick": 1909,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 12.5510472100548,
+          "responseBonus": 0.09045798127462323
+        },
+        {
+          "slot": 9,
+          "personality": "EXPAND",
+          "tick": 2139,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 7.780763212143211,
+          "responseBonus": 0
+        },
+        {
+          "slot": 1,
+          "personality": "SEEK_POINT",
+          "tick": 2227,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 2,
+          "personality": "SEEK_POINT",
+          "tick": 2451,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0.49667373802018616,
+          "responseBonus": 0.9603729450510042
+        },
+        {
+          "slot": 0,
+          "personality": "ATTACK",
+          "tick": 2473,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 18.047379352148532,
+          "responseBonus": 1.7747631062370437
+        },
+        {
+          "slot": 11,
+          "personality": "DEFEND",
+          "tick": 2636,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 15.568738361875212,
+          "responseBonus": 6
+        },
+        {
+          "slot": 7,
+          "personality": "ATTACK",
+          "tick": 2774,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 7.10034358860281,
+          "responseBonus": 0.5624350141473652
+        },
+        {
+          "slot": 9,
+          "personality": "EXPAND",
+          "tick": 2848,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 3.474349551427312,
+          "responseBonus": 0
+        },
+        {
+          "slot": 13,
+          "personality": "EXPAND",
+          "tick": 3389,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 5.474325362845293,
+          "responseBonus": 1.9151570987448872
+        },
+        {
+          "slot": 6,
+          "personality": "SEEK_POINT",
+          "tick": 3458,
+          "reason": "TRAIL_CUT",
+          "cause": "HOME_CAPTURE",
+          "goal": "ATTACK",
+          "grudge": 19.513119621975044,
+          "responseBonus": 1.4877278607632953
+        },
+        {
+          "slot": 3,
+          "personality": "EXPAND",
+          "tick": 3586,
+          "reason": "TRAIL_CUT",
+          "cause": "HOME_CAPTURE",
+          "goal": "RETURN",
+          "grudge": 6.4416701039780575,
+          "responseBonus": 3.688291654704738
+        }
+      ],
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 0,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 8385
+        },
+        "reservations": []
+      }
+    },
+    {
+      "seed": 19,
+      "trajectoryHash": "62e9bd8343ba5fe93086273b4bbcf7aa6f02cf8de94bab0098e6def743a17053",
+      "seconds": 120,
+      "mapRadius": 56,
+      "spawnCells": 7,
+      "bots": 14,
+      "safeRespawn": true,
+      "classic": true,
+      "totalCapture": 9079,
+      "captures": 603,
+      "walls": 0,
+      "deaths": 14,
+      "growth": {
+        "seconds": 120,
+        "maximumSampling": "tick boundary plus immediately before death neutralization",
+        "participants": [
+          {
+            "participantId": "bot-0",
+            "netTerritoryChange": 795,
+            "netCellsPerMinute": 397.5,
+            "netCellsPerHour": 23850,
+            "deathResetLoss": 113,
+            "spawnGrants": 7,
+            "actualHoldingChange": 689,
+            "maximumShare": 0.07267411506734886,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.011799102015244858
+              },
+              {
+                "lifeId": 2,
+                "share": 0.07267411506734886
+              }
+            ],
+            "expansionPlans": 27,
+            "cancelledExpansions": 12,
+            "earlyReturns": 3,
+            "cancellationRatio": 0.4444444444444444,
+            "earlyReturnRatio": 0.1111111111111111
+          },
+          {
+            "participantId": "bot-1",
+            "netTerritoryChange": 506,
+            "netCellsPerMinute": 253,
+            "netCellsPerHour": 15180,
+            "deathResetLoss": 503,
+            "spawnGrants": 7,
+            "actualHoldingChange": 10,
+            "maximumShare": 0.05252166649263861,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.05252166649263861
+              },
+              {
+                "lifeId": 2,
+                "share": 0.0017750861438863945
+              }
+            ],
+            "expansionPlans": 52,
+            "cancelledExpansions": 26,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-2",
+            "netTerritoryChange": 537,
+            "netCellsPerMinute": 268.5,
+            "netCellsPerHour": 16110,
+            "deathResetLoss": 451,
+            "spawnGrants": 14,
+            "actualHoldingChange": 100,
+            "maximumShare": 0.024851206014409523,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.024851206014409523
+              },
+              {
+                "lifeId": 2,
+                "share": 0.022240785214576588
+              },
+              {
+                "lifeId": 3,
+                "share": 0.011172601023284953
+              }
+            ],
+            "expansionPlans": 53,
+            "cancelledExpansions": 29,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5471698113207547,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-3",
+            "netTerritoryChange": 431,
+            "netCellsPerMinute": 215.5,
+            "netCellsPerHour": 12930,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 431,
+            "maximumShare": 0.04604782290905294,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04604782290905294
+              }
+            ],
+            "expansionPlans": 35,
+            "cancelledExpansions": 4,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.11428571428571428,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-4",
+            "netTerritoryChange": 836,
+            "netCellsPerMinute": 418,
+            "netCellsPerHour": 25080,
+            "deathResetLoss": 702,
+            "spawnGrants": 7,
+            "actualHoldingChange": 141,
+            "maximumShare": 0.07330061605930877,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.07330061605930877
+              },
+              {
+                "lifeId": 2,
+                "share": 0.015453691135010965
+              }
+            ],
+            "expansionPlans": 26,
+            "cancelledExpansions": 8,
+            "earlyReturns": 1,
+            "cancellationRatio": 0.3076923076923077,
+            "earlyReturnRatio": 0.038461538461538464
+          },
+          {
+            "participantId": "bot-5",
+            "netTerritoryChange": 480,
+            "netCellsPerMinute": 240,
+            "netCellsPerHour": 14400,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 480,
+            "maximumShare": 0.05085099718074554,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.05085099718074554
+              }
+            ],
+            "expansionPlans": 77,
+            "cancelledExpansions": 35,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.45454545454545453,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-6",
+            "netTerritoryChange": 455,
+            "netCellsPerMinute": 227.5,
+            "netCellsPerHour": 13650,
+            "deathResetLoss": 413,
+            "spawnGrants": 14,
+            "actualHoldingChange": 56,
+            "maximumShare": 0.027983710974209042,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.020256865406703562
+              },
+              {
+                "lifeId": 2,
+                "share": 0.027983710974209042
+              },
+              {
+                "lifeId": 3,
+                "share": 0.006578260415578991
+              }
+            ],
+            "expansionPlans": 62,
+            "cancelledExpansions": 30,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.4838709677419355,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-7",
+            "netTerritoryChange": 253,
+            "netCellsPerMinute": 126.5,
+            "netCellsPerHour": 7590,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 253,
+            "maximumShare": 0.04249765062128015,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04249765062128015
+              }
+            ],
+            "expansionPlans": 38,
+            "cancelledExpansions": 16,
+            "earlyReturns": 1,
+            "cancellationRatio": 0.42105263157894735,
+            "earlyReturnRatio": 0.02631578947368421
+          },
+          {
+            "participantId": "bot-8",
+            "netTerritoryChange": 343,
+            "netCellsPerMinute": 171.5,
+            "netCellsPerHour": 10290,
+            "deathResetLoss": 331,
+            "spawnGrants": 14,
+            "actualHoldingChange": 26,
+            "maximumShare": 0.031325049597995196,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.024015871358462983
+              },
+              {
+                "lifeId": 2,
+                "share": 0.031325049597995196
+              },
+              {
+                "lifeId": 3,
+                "share": 0.0034457554557794715
+              }
+            ],
+            "expansionPlans": 42,
+            "cancelledExpansions": 11,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.2619047619047619,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-9",
+            "netTerritoryChange": 266,
+            "netCellsPerMinute": 133,
+            "netCellsPerHour": 7980,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 266,
+            "maximumShare": 0.04730082489297275,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.04730082489297275
+              }
+            ],
+            "expansionPlans": 59,
+            "cancelledExpansions": 30,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5084745762711864,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-10",
+            "netTerritoryChange": 420,
+            "netCellsPerMinute": 210,
+            "netCellsPerHour": 12600,
+            "deathResetLoss": 251,
+            "spawnGrants": 7,
+            "actualHoldingChange": 176,
+            "maximumShare": 0.03988722982144722,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.03988722982144722
+              },
+              {
+                "lifeId": 2,
+                "share": 0.01910828025477707
+              }
+            ],
+            "expansionPlans": 41,
+            "cancelledExpansions": 12,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.2926829268292683,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-11",
+            "netTerritoryChange": 574,
+            "netCellsPerMinute": 287,
+            "netCellsPerHour": 17220,
+            "deathResetLoss": 588,
+            "spawnGrants": 14,
+            "actualHoldingChange": 0,
+            "maximumShare": 0.04813615954891928,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.015662524798997598
+              },
+              {
+                "lifeId": 2,
+                "share": 0.04813615954891928
+              },
+              {
+                "lifeId": 3,
+                "share": 0.0007309178239532213
+              }
+            ],
+            "expansionPlans": 42,
+            "cancelledExpansions": 14,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.3333333333333333,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-12",
+            "netTerritoryChange": 683,
+            "netCellsPerMinute": 341.5,
+            "netCellsPerHour": 20490,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 683,
+            "maximumShare": 0.07204761407538895,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.07204761407538895
+              }
+            ],
+            "expansionPlans": 39,
+            "cancelledExpansions": 9,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.23076923076923078,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-13",
+            "netTerritoryChange": 363,
+            "netCellsPerMinute": 181.5,
+            "netCellsPerHour": 10890,
+            "deathResetLoss": 377,
+            "spawnGrants": 7,
+            "actualHoldingChange": -7,
+            "maximumShare": 0.03289130207789496,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.03289130207789496
+              },
+              {
+                "lifeId": 2,
+                "share": 0.016289025790957503
+              }
+            ],
+            "expansionPlans": 45,
+            "cancelledExpansions": 14,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.3111111111111111,
+            "earlyReturnRatio": 0
+          }
+        ]
+      },
+      "personalities": [
+        {
+          "aliveFrames": 10620,
+          "goalFrames": {
+            "EXPAND": 8307,
+            "RETURN": 786,
+            "ESCAPE": 208,
+            "STEAL": 1295,
+            "ATTACK": 24
+          },
+          "decisions": 1811,
+          "newPlanDecisions": 159,
+          "continuationDecisions": 1652,
+          "noAttackCandidates": 1467,
+          "attackCandidateObservations": 916,
+          "attackReasons": {
+            "NO_APPROACH": 717,
+            "VICTIM_RETURNS_FIRST": 133,
+            "TRAIL_BUDGET": 64,
+            "SELECTABLE": 2
+          },
+          "newPlanAttackReasons": {
+            "NO_APPROACH": 104,
+            "TRAIL_BUDGET": 7,
+            "VICTIM_RETURNS_FIRST": 23,
+            "SELECTABLE": 1
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 613,
+            "VICTIM_RETURNS_FIRST": 110,
+            "TRAIL_BUDGET": 57,
+            "SELECTABLE": 1
+          },
+          "selectableAttackCandidates": 2,
+          "selectedAttackDecisions": 4,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 91,
+          "shapes": {
+            "NATURAL": 19,
+            "RHOMBUS": 14,
+            "WIDE": 13,
+            "DEEP": 12,
+            "HOOK": 21,
+            "ASYMMETRIC": 12
+          },
+          "externalLengthSum": 1390,
+          "crowdedPlans": 4,
+          "crowdedSmallPlans": 4,
+          "bonusedPlans": 5,
+          "reclaimPlans": 2,
+          "vengeancePlans": 4,
+          "captures": 93,
+          "totalCapture": 2523,
+          "stolenCells": 260,
+          "reclaimedCells": 3,
+          "revengeCells": 49,
+          "actualReclaimCaptures": 1,
+          "internalCellMoves": 389,
+          "externalCellMoves": 1202,
+          "deaths": 2,
+          "personality": "EXPAND",
+          "meanExternalLength": 15.274725274725276,
+          "stolenShare": 0.10305192231470471,
+          "meanCapture": 27.129032258064516,
+          "meanReclaimSeconds": 1.1777777777777778
+        },
+        {
+          "aliveFrames": 14128,
+          "goalFrames": {
+            "EXPAND": 10287,
+            "RETURN": 889,
+            "ATTACK": 282,
+            "ESCAPE": 91,
+            "STEAL": 2579
+          },
+          "decisions": 2455,
+          "newPlanDecisions": 342,
+          "continuationDecisions": 2113,
+          "noAttackCandidates": 1792,
+          "attackCandidateObservations": 1820,
+          "attackReasons": {
+            "NO_APPROACH": 755,
+            "TRAIL_BUDGET": 215,
+            "VICTIM_RETURNS_FIRST": 781,
+            "SELECTABLE": 47,
+            "COUNTER_CUT_FIRST": 5,
+            "UNSAFE_RETURN": 17
+          },
+          "newPlanAttackReasons": {
+            "VICTIM_RETURNS_FIRST": 195,
+            "SELECTABLE": 29,
+            "TRAIL_BUDGET": 10,
+            "NO_APPROACH": 103,
+            "COUNTER_CUT_FIRST": 5,
+            "UNSAFE_RETURN": 5
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 652,
+            "TRAIL_BUDGET": 205,
+            "VICTIM_RETURNS_FIRST": 586,
+            "SELECTABLE": 18,
+            "UNSAFE_RETURN": 12
+          },
+          "selectableAttackCandidates": 47,
+          "selectedAttackDecisions": 47,
+          "selectableButNotSelected": 1,
+          "expansionPlans": 223,
+          "shapes": {
+            "HOOK": 34,
+            "NATURAL": 39,
+            "WIDE": 29,
+            "RHOMBUS": 64,
+            "ASYMMETRIC": 30,
+            "DEEP": 27
+          },
+          "externalLengthSum": 1843,
+          "crowdedPlans": 38,
+          "crowdedSmallPlans": 38,
+          "bonusedPlans": 33,
+          "reclaimPlans": 31,
+          "vengeancePlans": 27,
+          "captures": 196,
+          "totalCapture": 2248,
+          "stolenCells": 357,
+          "reclaimedCells": 70,
+          "revengeCells": 138,
+          "actualReclaimCaptures": 16,
+          "internalCellMoves": 743,
+          "externalCellMoves": 1442,
+          "deaths": 4,
+          "personality": "ATTACK",
+          "meanExternalLength": 8.26457399103139,
+          "stolenShare": 0.15880782918149466,
+          "meanCapture": 11.46938775510204,
+          "meanReclaimSeconds": 6.463809523809525
+        },
+        {
+          "aliveFrames": 13950,
+          "goalFrames": {
+            "EXPAND": 11360,
+            "RETURN": 544,
+            "ESCAPE": 282,
+            "ATTACK": 72,
+            "STEAL": 1692
+          },
+          "decisions": 2402,
+          "newPlanDecisions": 303,
+          "continuationDecisions": 2099,
+          "noAttackCandidates": 1918,
+          "attackCandidateObservations": 1374,
+          "attackReasons": {
+            "NO_APPROACH": 1234,
+            "TRAIL_BUDGET": 17,
+            "SELECTABLE": 9,
+            "VICTIM_RETURNS_FIRST": 113,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "newPlanAttackReasons": {
+            "NO_APPROACH": 220,
+            "SELECTABLE": 4,
+            "VICTIM_RETURNS_FIRST": 29,
+            "TRAIL_BUDGET": 2,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 1014,
+            "TRAIL_BUDGET": 15,
+            "SELECTABLE": 5,
+            "VICTIM_RETURNS_FIRST": 84
+          },
+          "selectableAttackCandidates": 9,
+          "selectedAttackDecisions": 12,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 195,
+          "shapes": {
+            "BEVEL": 88,
+            "NATURAL": 79,
+            "RHOMBUS": 28
+          },
+          "externalLengthSum": 1695,
+          "crowdedPlans": 21,
+          "crowdedSmallPlans": 21,
+          "bonusedPlans": 26,
+          "reclaimPlans": 12,
+          "vengeancePlans": 28,
+          "captures": 190,
+          "totalCapture": 2475,
+          "stolenCells": 291,
+          "reclaimedCells": 93,
+          "revengeCells": 245,
+          "actualReclaimCaptures": 13,
+          "internalCellMoves": 766,
+          "externalCellMoves": 1383,
+          "deaths": 5,
+          "personality": "DEFEND",
+          "meanExternalLength": 8.692307692307692,
+          "stolenShare": 0.11757575757575757,
+          "meanCapture": 13.026315789473685,
+          "meanReclaimSeconds": 11.866666666666665
+        },
+        {
+          "aliveFrames": 10530,
+          "goalFrames": {
+            "EXPAND": 6119,
+            "RETURN": 599,
+            "ESCAPE": 99,
+            "STEAL": 3683,
+            "ATTACK": 30
+          },
+          "decisions": 1806,
+          "newPlanDecisions": 188,
+          "continuationDecisions": 1618,
+          "noAttackCandidates": 1484,
+          "attackCandidateObservations": 863,
+          "attackReasons": {
+            "NO_APPROACH": 516,
+            "TRAIL_BUDGET": 50,
+            "VICTIM_RETURNS_FIRST": 292,
+            "SELECTABLE": 5
+          },
+          "newPlanAttackReasons": {
+            "TRAIL_BUDGET": 2,
+            "NO_APPROACH": 70,
+            "VICTIM_RETURNS_FIRST": 73,
+            "SELECTABLE": 2
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 446,
+            "TRAIL_BUDGET": 48,
+            "VICTIM_RETURNS_FIRST": 219,
+            "SELECTABLE": 3
+          },
+          "selectableAttackCandidates": 5,
+          "selectedAttackDecisions": 5,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 129,
+          "shapes": {
+            "DEEP": 10,
+            "NATURAL": 33,
+            "HOOK": 26,
+            "ASYMMETRIC": 11,
+            "RHOMBUS": 38,
+            "WIDE": 11
+          },
+          "externalLengthSum": 1359,
+          "crowdedPlans": 15,
+          "crowdedSmallPlans": 15,
+          "bonusedPlans": 13,
+          "reclaimPlans": 9,
+          "vengeancePlans": 9,
+          "captures": 124,
+          "totalCapture": 1833,
+          "stolenCells": 530,
+          "reclaimedCells": 11,
+          "revengeCells": 50,
+          "actualReclaimCaptures": 2,
+          "internalCellMoves": 498,
+          "externalCellMoves": 1112,
+          "deaths": 3,
+          "personality": "SEEK_POINT",
+          "meanExternalLength": 10.534883720930232,
+          "stolenShare": 0.28914348063284234,
+          "meanCapture": 14.78225806451613,
+          "meanReclaimSeconds": 6.02121212121212
+        }
+      ],
+      "goalDistances": [
+        {
+          "a": "EXPAND",
+          "b": "ATTACK",
+          "totalVariation": 0.0783060391619906
+        },
+        {
+          "a": "EXPAND",
+          "b": "DEFEND",
+          "totalVariation": 0.035664297430289725
+        },
+        {
+          "a": "EXPAND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.22841196259275356
+        },
+        {
+          "a": "ATTACK",
+          "b": "DEFEND",
+          "totalVariation": 0.09998232240204255
+        },
+        {
+          "a": "ATTACK",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.17017788253160088
+        },
+        {
+          "a": "DEFEND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.24636093496308548
+        }
+      ],
+      "boundary": {
+        "decisionsWithDamage": 229,
+        "unreachableBoundaryObservations": 3400
+      },
+      "memoryPeaks": {
+        "regions": 74,
+        "perOpponent": 32
+      },
+      "deathDetails": [
+        {
+          "slot": 0,
+          "personality": "EXPAND",
+          "tick": 503,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0.4956547314438482,
+          "responseBonus": 0
+        },
+        {
+          "slot": 11,
+          "personality": "SEEK_POINT",
+          "tick": 701,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 6,
+          "personality": "DEFEND",
+          "tick": 1286,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 1.4192668603749676,
+          "responseBonus": 0
+        },
+        {
+          "slot": 8,
+          "personality": "ATTACK",
+          "tick": 1594,
+          "reason": "TRAIL_CUT",
+          "cause": "HOME_CAPTURE",
+          "goal": "ESCAPE",
+          "grudge": 12.887434821180708,
+          "responseBonus": 6
+        },
+        {
+          "slot": 2,
+          "personality": "DEFEND",
+          "tick": 1714,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 10,
+          "personality": "DEFEND",
+          "tick": 2516,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 17.986684561462447,
+          "responseBonus": 1.2435818364345665
+        },
+        {
+          "slot": 13,
+          "personality": "ATTACK",
+          "tick": 2535,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 11.15610453175728,
+          "responseBonus": 0
+        },
+        {
+          "slot": 4,
+          "personality": "EXPAND",
+          "tick": 2971,
+          "reason": "TRAIL_CUT",
+          "cause": "PENDING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 15.222212083602795,
+          "responseBonus": 0
+        },
+        {
+          "slot": 2,
+          "personality": "DEFEND",
+          "tick": 2971,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 2.622271353382811,
+          "responseBonus": 0
+        },
+        {
+          "slot": 6,
+          "personality": "DEFEND",
+          "tick": 3192,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 9.13324995946378,
+          "responseBonus": 0
+        },
+        {
+          "slot": 8,
+          "personality": "ATTACK",
+          "tick": 3314,
+          "reason": "TRAIL_CUT",
+          "cause": "PENDING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 5.291992607790922,
+          "responseBonus": 0
+        },
+        {
+          "slot": 1,
+          "personality": "SEEK_POINT",
+          "tick": 3314,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 11,
+          "personality": "SEEK_POINT",
+          "tick": 3502,
+          "reason": "TRAIL_CUT",
+          "cause": "PENDING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 11.64545231862216,
+          "responseBonus": 0
+        },
+        {
+          "slot": 13,
+          "personality": "ATTACK",
+          "tick": 3597,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 9.365401297859957,
+          "responseBonus": 0
+        }
+      ],
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 0,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 8376
+        },
+        "reservations": []
+      }
+    },
+    {
+      "seed": 73,
+      "trajectoryHash": "f0c6b03490c80e1fc609a2f5246541ee007975d0942f6766663420397f698bef",
+      "seconds": 120,
+      "mapRadius": 56,
+      "spawnCells": 7,
+      "bots": 14,
+      "safeRespawn": true,
+      "classic": true,
+      "totalCapture": 8909,
+      "captures": 636,
+      "walls": 0,
+      "deaths": 14,
+      "growth": {
+        "seconds": 120,
+        "maximumSampling": "tick boundary plus immediately before death neutralization",
+        "participants": [
+          {
+            "participantId": "bot-0",
+            "netTerritoryChange": 480,
+            "netCellsPerMinute": 240,
+            "netCellsPerHour": 14400,
+            "deathResetLoss": 453,
+            "spawnGrants": 7,
+            "actualHoldingChange": 34,
+            "maximumShare": 0.051999582332672024,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.051999582332672024
+              },
+              {
+                "lifeId": 2,
+                "share": 0.00428109011172601
+              }
+            ],
+            "expansionPlans": 38,
+            "cancelledExpansions": 1,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.02631578947368421,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-1",
+            "netTerritoryChange": 487,
+            "netCellsPerMinute": 243.5,
+            "netCellsPerHour": 14610,
+            "deathResetLoss": 459,
+            "spawnGrants": 14,
+            "actualHoldingChange": 42,
+            "maximumShare": 0.03518847238174794,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.03518847238174794
+              },
+              {
+                "lifeId": 2,
+                "share": 0.022867286206536493
+              },
+              {
+                "lifeId": 3,
+                "share": 0.005116424767672548
+              }
+            ],
+            "expansionPlans": 32,
+            "cancelledExpansions": 7,
+            "earlyReturns": 1,
+            "cancellationRatio": 0.21875,
+            "earlyReturnRatio": 0.03125
+          },
+          {
+            "participantId": "bot-2",
+            "netTerritoryChange": 440,
+            "netCellsPerMinute": 220,
+            "netCellsPerHour": 13200,
+            "deathResetLoss": 240,
+            "spawnGrants": 7,
+            "actualHoldingChange": 207,
+            "maximumShare": 0.025060039678396158,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.025060039678396158
+              },
+              {
+                "lifeId": 2,
+                "share": 0.022345202046569906
+              }
+            ],
+            "expansionPlans": 48,
+            "cancelledExpansions": 18,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.375,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-3",
+            "netTerritoryChange": 764,
+            "netCellsPerMinute": 382,
+            "netCellsPerHour": 22920,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 764,
+            "maximumShare": 0.08144512895478752,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.08144512895478752
+              }
+            ],
+            "expansionPlans": 30,
+            "cancelledExpansions": 7,
+            "earlyReturns": 1,
+            "cancellationRatio": 0.23333333333333334,
+            "earlyReturnRatio": 0.03333333333333333
+          },
+          {
+            "participantId": "bot-4",
+            "netTerritoryChange": 316,
+            "netCellsPerMinute": 158,
+            "netCellsPerHour": 9480,
+            "deathResetLoss": 199,
+            "spawnGrants": 7,
+            "actualHoldingChange": 124,
+            "maximumShare": 0.037485642685600916,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.037485642685600916
+              },
+              {
+                "lifeId": 2,
+                "share": 0.01367860499112457
+              }
+            ],
+            "expansionPlans": 67,
+            "cancelledExpansions": 41,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.6119402985074627,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-5",
+            "netTerritoryChange": 537,
+            "netCellsPerMinute": 268.5,
+            "netCellsPerHour": 16110,
+            "deathResetLoss": 262,
+            "spawnGrants": 7,
+            "actualHoldingChange": 282,
+            "maximumShare": 0.030176464446068706,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.027774877310222407
+              },
+              {
+                "lifeId": 2,
+                "share": 0.030176464446068706
+              }
+            ],
+            "expansionPlans": 45,
+            "cancelledExpansions": 19,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.4222222222222222,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-6",
+            "netTerritoryChange": 488,
+            "netCellsPerMinute": 244,
+            "netCellsPerHour": 14640,
+            "deathResetLoss": 414,
+            "spawnGrants": 7,
+            "actualHoldingChange": 81,
+            "maximumShare": 0.044481570429153176,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.044481570429153176
+              },
+              {
+                "lifeId": 2,
+                "share": 0.009188681215411925
+              }
+            ],
+            "expansionPlans": 56,
+            "cancelledExpansions": 28,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-7",
+            "netTerritoryChange": 600,
+            "netCellsPerMinute": 300,
+            "netCellsPerHour": 18000,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 600,
+            "maximumShare": 0.06338101701994361,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.06338101701994361
+              }
+            ],
+            "expansionPlans": 50,
+            "cancelledExpansions": 13,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.26,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-8",
+            "netTerritoryChange": 263,
+            "netCellsPerMinute": 131.5,
+            "netCellsPerHour": 7890,
+            "deathResetLoss": 119,
+            "spawnGrants": 7,
+            "actualHoldingChange": 151,
+            "maximumShare": 0.035292889213741255,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.035292889213741255
+              },
+              {
+                "lifeId": 2,
+                "share": 0.016497859454944138
+              }
+            ],
+            "expansionPlans": 36,
+            "cancelledExpansions": 7,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.19444444444444445,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-9",
+            "netTerritoryChange": 773,
+            "netCellsPerMinute": 386.5,
+            "netCellsPerHour": 23190,
+            "deathResetLoss": 609,
+            "spawnGrants": 7,
+            "actualHoldingChange": 171,
+            "maximumShare": 0.06358985068393025,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.06358985068393025
+              },
+              {
+                "lifeId": 2,
+                "share": 0.018586196094810485
+              }
+            ],
+            "expansionPlans": 42,
+            "cancelledExpansions": 22,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5238095238095238,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-10",
+            "netTerritoryChange": 703,
+            "netCellsPerMinute": 351.5,
+            "netCellsPerHour": 21090,
+            "deathResetLoss": 0,
+            "spawnGrants": 0,
+            "actualHoldingChange": 703,
+            "maximumShare": 0.0741359507152553,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.0741359507152553
+              }
+            ],
+            "expansionPlans": 37,
+            "cancelledExpansions": 7,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.1891891891891892,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-11",
+            "netTerritoryChange": 576,
+            "netCellsPerMinute": 288,
+            "netCellsPerHour": 17280,
+            "deathResetLoss": 594,
+            "spawnGrants": 21,
+            "actualHoldingChange": 3,
+            "maximumShare": 0.026626292158295917,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.02537329017437611
+              },
+              {
+                "lifeId": 2,
+                "share": 0.01096376735929832
+              },
+              {
+                "lifeId": 3,
+                "share": 0.026626292158295917
+              },
+              {
+                "lifeId": 4,
+                "share": 0.0010441683199331733
+              }
+            ],
+            "expansionPlans": 45,
+            "cancelledExpansions": 23,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5111111111111111,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-12",
+            "netTerritoryChange": 549,
+            "netCellsPerMinute": 274.5,
+            "netCellsPerHour": 16470,
+            "deathResetLoss": 145,
+            "spawnGrants": 7,
+            "actualHoldingChange": 411,
+            "maximumShare": 0.04364623577320664,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.015140440639031012
+              },
+              {
+                "lifeId": 2,
+                "share": 0.04364623577320664
+              }
+            ],
+            "expansionPlans": 50,
+            "cancelledExpansions": 21,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.42,
+            "earlyReturnRatio": 0
+          },
+          {
+            "participantId": "bot-13",
+            "netTerritoryChange": 358,
+            "netCellsPerMinute": 179,
+            "netCellsPerHour": 10740,
+            "deathResetLoss": 302,
+            "spawnGrants": 7,
+            "actualHoldingChange": 63,
+            "maximumShare": 0.032995718909888276,
+            "lifeMaximumShares": [
+              {
+                "lifeId": 1,
+                "share": 0.032995718909888276
+              },
+              {
+                "lifeId": 2,
+                "share": 0.007309178239532213
+              }
+            ],
+            "expansionPlans": 77,
+            "cancelledExpansions": 46,
+            "earlyReturns": 0,
+            "cancellationRatio": 0.5974025974025974,
+            "earlyReturnRatio": 0
+          }
+        ]
+      },
+      "personalities": [
+        {
+          "aliveFrames": 10530,
+          "goalFrames": {
+            "EXPAND": 7895,
+            "RETURN": 658,
+            "ESCAPE": 174,
+            "STEAL": 1701,
+            "ATTACK": 102
+          },
+          "decisions": 1802,
+          "newPlanDecisions": 177,
+          "continuationDecisions": 1625,
+          "noAttackCandidates": 1522,
+          "attackCandidateObservations": 731,
+          "attackReasons": {
+            "NO_APPROACH": 352,
+            "TRAIL_BUDGET": 91,
+            "VICTIM_RETURNS_FIRST": 263,
+            "COUNTER_CUT_FIRST": 7,
+            "SELECTABLE": 18
+          },
+          "newPlanAttackReasons": {
+            "NO_APPROACH": 31,
+            "VICTIM_RETURNS_FIRST": 91,
+            "SELECTABLE": 7,
+            "TRAIL_BUDGET": 7,
+            "COUNTER_CUT_FIRST": 3
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 321,
+            "TRAIL_BUDGET": 84,
+            "VICTIM_RETURNS_FIRST": 172,
+            "COUNTER_CUT_FIRST": 4,
+            "SELECTABLE": 11
+          },
+          "selectableAttackCandidates": 18,
+          "selectedAttackDecisions": 17,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 104,
+          "shapes": {
+            "DEEP": 13,
+            "WIDE": 13,
+            "NATURAL": 16,
+            "HOOK": 17,
+            "ASYMMETRIC": 11,
+            "RHOMBUS": 34
+          },
+          "externalLengthSum": 1279,
+          "crowdedPlans": 20,
+          "crowdedSmallPlans": 20,
+          "bonusedPlans": 13,
+          "reclaimPlans": 9,
+          "vengeancePlans": 13,
+          "captures": 106,
+          "totalCapture": 2312,
+          "stolenCells": 352,
+          "reclaimedCells": 18,
+          "revengeCells": 48,
+          "actualReclaimCaptures": 6,
+          "internalCellMoves": 468,
+          "externalCellMoves": 1123,
+          "deaths": 3,
+          "personality": "EXPAND",
+          "meanExternalLength": 12.298076923076923,
+          "stolenShare": 0.1522491349480969,
+          "meanCapture": 21.81132075471698,
+          "meanReclaimSeconds": 4.36851851851852
+        },
+        {
+          "aliveFrames": 14040,
+          "goalFrames": {
+            "EXPAND": 11371,
+            "RETURN": 873,
+            "ATTACK": 84,
+            "STEAL": 1650,
+            "ESCAPE": 62
+          },
+          "decisions": 2419,
+          "newPlanDecisions": 276,
+          "continuationDecisions": 2143,
+          "noAttackCandidates": 2047,
+          "attackCandidateObservations": 978,
+          "attackReasons": {
+            "NO_APPROACH": 422,
+            "TRAIL_BUDGET": 142,
+            "VICTIM_RETURNS_FIRST": 397,
+            "SELECTABLE": 15,
+            "COUNTER_CUT_FIRST": 2
+          },
+          "newPlanAttackReasons": {
+            "NO_APPROACH": 51,
+            "VICTIM_RETURNS_FIRST": 116,
+            "SELECTABLE": 12,
+            "TRAIL_BUDGET": 9,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 371,
+            "TRAIL_BUDGET": 133,
+            "VICTIM_RETURNS_FIRST": 281,
+            "SELECTABLE": 3,
+            "COUNTER_CUT_FIRST": 1
+          },
+          "selectableAttackCandidates": 15,
+          "selectedAttackDecisions": 14,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 178,
+          "shapes": {
+            "HOOK": 27,
+            "NATURAL": 40,
+            "WIDE": 24,
+            "ASYMMETRIC": 24,
+            "RHOMBUS": 48,
+            "DEEP": 15
+          },
+          "externalLengthSum": 1776,
+          "crowdedPlans": 29,
+          "crowdedSmallPlans": 29,
+          "bonusedPlans": 19,
+          "reclaimPlans": 16,
+          "vengeancePlans": 15,
+          "captures": 176,
+          "totalCapture": 2293,
+          "stolenCells": 215,
+          "reclaimedCells": 16,
+          "revengeCells": 44,
+          "actualReclaimCaptures": 5,
+          "internalCellMoves": 679,
+          "externalCellMoves": 1485,
+          "deaths": 4,
+          "personality": "ATTACK",
+          "meanExternalLength": 9.97752808988764,
+          "stolenShare": 0.09376362843436546,
+          "meanCapture": 13.028409090909092,
+          "meanReclaimSeconds": 3.639583333333333
+        },
+        {
+          "aliveFrames": 14130,
+          "goalFrames": {
+            "EXPAND": 10738,
+            "RETURN": 1066,
+            "ESCAPE": 431,
+            "STEAL": 1799,
+            "ATTACK": 96
+          },
+          "decisions": 2480,
+          "newPlanDecisions": 415,
+          "continuationDecisions": 2065,
+          "noAttackCandidates": 1953,
+          "attackCandidateObservations": 1384,
+          "attackReasons": {
+            "NO_APPROACH": 1162,
+            "VICTIM_RETURNS_FIRST": 192,
+            "TRAIL_BUDGET": 18,
+            "SELECTABLE": 10,
+            "COUNTER_CUT_FIRST": 2
+          },
+          "newPlanAttackReasons": {
+            "NO_APPROACH": 205,
+            "TRAIL_BUDGET": 2,
+            "VICTIM_RETURNS_FIRST": 67,
+            "SELECTABLE": 8,
+            "COUNTER_CUT_FIRST": 2
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 957,
+            "VICTIM_RETURNS_FIRST": 125,
+            "TRAIL_BUDGET": 16,
+            "SELECTABLE": 2
+          },
+          "selectableAttackCandidates": 10,
+          "selectedAttackDecisions": 16,
+          "selectableButNotSelected": 1,
+          "expansionPlans": 244,
+          "shapes": {
+            "BEVEL": 107,
+            "NATURAL": 84,
+            "RHOMBUS": 53
+          },
+          "externalLengthSum": 1836,
+          "crowdedPlans": 42,
+          "crowdedSmallPlans": 42,
+          "bonusedPlans": 37,
+          "reclaimPlans": 26,
+          "vengeancePlans": 37,
+          "captures": 229,
+          "totalCapture": 2375,
+          "stolenCells": 322,
+          "reclaimedCells": 125,
+          "revengeCells": 226,
+          "actualReclaimCaptures": 20,
+          "internalCellMoves": 843,
+          "externalCellMoves": 1370,
+          "deaths": 3,
+          "personality": "DEFEND",
+          "meanExternalLength": 7.524590163934426,
+          "stolenShare": 0.13557894736842105,
+          "meanCapture": 10.37117903930131,
+          "meanReclaimSeconds": 7.413599999999998
+        },
+        {
+          "aliveFrames": 10440,
+          "goalFrames": {
+            "EXPAND": 7664,
+            "RETURN": 592,
+            "ESCAPE": 187,
+            "STEAL": 1919,
+            "ATTACK": 78
+          },
+          "decisions": 1787,
+          "newPlanDecisions": 200,
+          "continuationDecisions": 1587,
+          "noAttackCandidates": 1520,
+          "attackCandidateObservations": 644,
+          "attackReasons": {
+            "NO_APPROACH": 255,
+            "VICTIM_RETURNS_FIRST": 315,
+            "TRAIL_BUDGET": 55,
+            "LOW_PRIORITY": 2,
+            "STEAL_DIVERSION_LIMIT": 5,
+            "SELECTABLE": 10,
+            "COUNTER_CUT_FIRST": 2
+          },
+          "newPlanAttackReasons": {
+            "VICTIM_RETURNS_FIRST": 102,
+            "NO_APPROACH": 13,
+            "TRAIL_BUDGET": 7,
+            "STEAL_DIVERSION_LIMIT": 1,
+            "SELECTABLE": 5,
+            "COUNTER_CUT_FIRST": 2
+          },
+          "continuationAttackReasons": {
+            "NO_APPROACH": 242,
+            "VICTIM_RETURNS_FIRST": 213,
+            "TRAIL_BUDGET": 48,
+            "LOW_PRIORITY": 2,
+            "STEAL_DIVERSION_LIMIT": 4,
+            "SELECTABLE": 5
+          },
+          "selectableAttackCandidates": 10,
+          "selectedAttackDecisions": 13,
+          "selectableButNotSelected": 0,
+          "expansionPlans": 127,
+          "shapes": {
+            "HOOK": 12,
+            "NATURAL": 29,
+            "DEEP": 12,
+            "RHOMBUS": 51,
+            "WIDE": 17,
+            "ASYMMETRIC": 6
+          },
+          "externalLengthSum": 1397,
+          "crowdedPlans": 25,
+          "crowdedSmallPlans": 25,
+          "bonusedPlans": 28,
+          "reclaimPlans": 16,
+          "vengeancePlans": 25,
+          "captures": 125,
+          "totalCapture": 1929,
+          "stolenCells": 306,
+          "reclaimedCells": 23,
+          "revengeCells": 83,
+          "actualReclaimCaptures": 10,
+          "internalCellMoves": 488,
+          "externalCellMoves": 1107,
+          "deaths": 4,
+          "personality": "SEEK_POINT",
+          "meanExternalLength": 11,
+          "stolenShare": 0.15863141524105753,
+          "meanCapture": 15.432,
+          "meanReclaimSeconds": 5.039130434782609
+        }
+      ],
+      "goalDistances": [
+        {
+          "a": "EXPAND",
+          "b": "ATTACK",
+          "totalVariation": 0.060137701804368435
+        },
+        {
+          "a": "EXPAND",
+          "b": "DEFEND",
+          "totalVariation": 0.03711325239987659
+        },
+        {
+          "a": "EXPAND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.023661459868356438
+        },
+        {
+          "a": "ATTACK",
+          "b": "DEFEND",
+          "totalVariation": 0.049956902026965705
+        },
+        {
+          "a": "ATTACK",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.08127517437862265
+        },
+        {
+          "a": "DEFEND",
+          "b": "SEEK_POINT",
+          "totalVariation": 0.05717170607901994
+        }
+      ],
+      "boundary": {
+        "decisionsWithDamage": 256,
+        "unreachableBoundaryObservations": 3823
+      },
+      "memoryPeaks": {
+        "regions": 64,
+        "perOpponent": 32
+      },
+      "deathDetails": [
+        {
+          "slot": 12,
+          "personality": "DEFEND",
+          "tick": 732,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 0,
+          "responseBonus": 0
+        },
+        {
+          "slot": 11,
+          "personality": "SEEK_POINT",
+          "tick": 1303,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 4.2874717241292215,
+          "responseBonus": 2.024473484275867
+        },
+        {
+          "slot": 11,
+          "personality": "SEEK_POINT",
+          "tick": 1890,
+          "reason": "TRAIL_CUT",
+          "cause": "PENDING_TRAIL_CONTACT",
+          "goal": "STEAL",
+          "grudge": 6.870766709650397,
+          "responseBonus": 0
+        },
+        {
+          "slot": 5,
+          "personality": "SEEK_POINT",
+          "tick": 1966,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 12.337375544894298,
+          "responseBonus": 1.420504405545408
+        },
+        {
+          "slot": 2,
+          "personality": "ATTACK",
+          "tick": 2036,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 6.699765837184539,
+          "responseBonus": 2.080624160112993
+        },
+        {
+          "slot": 1,
+          "personality": "EXPAND",
+          "tick": 2232,
+          "reason": "TRAIL_CUT",
+          "cause": "HOME_CAPTURE",
+          "goal": "STEAL",
+          "grudge": 16.996003899694802,
+          "responseBonus": 1.7300065628872678
+        },
+        {
+          "slot": 4,
+          "personality": "DEFEND",
+          "tick": 2716,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 10.557304288747885,
+          "responseBonus": 0.8683478307257488
+        },
+        {
+          "slot": 9,
+          "personality": "EXPAND",
+          "tick": 2786,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 2.6880586665384305,
+          "responseBonus": 0
+        },
+        {
+          "slot": 8,
+          "personality": "ATTACK",
+          "tick": 2797,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 15.150314513809649,
+          "responseBonus": 3.306259666754862
+        },
+        {
+          "slot": 13,
+          "personality": "DEFEND",
+          "tick": 2814,
+          "reason": "TRAIL_CUT",
+          "cause": "HOME_CAPTURE",
+          "goal": "STEAL",
+          "grudge": 9.232089569578136,
+          "responseBonus": 0.12924440840739237
+        },
+        {
+          "slot": 6,
+          "personality": "ATTACK",
+          "tick": 3092,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 6.739243226924984,
+          "responseBonus": 0
+        },
+        {
+          "slot": 1,
+          "personality": "EXPAND",
+          "tick": 3282,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 4.956583026435593,
+          "responseBonus": 0
+        },
+        {
+          "slot": 0,
+          "personality": "ATTACK",
+          "tick": 3321,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 14.433547265751457,
+          "responseBonus": 4.3879605543706255
+        },
+        {
+          "slot": 11,
+          "personality": "SEEK_POINT",
+          "tick": 3440,
+          "reason": "TRAIL_CUT",
+          "cause": "EXISTING_TRAIL_CONTACT",
+          "goal": "ESCAPE",
+          "grudge": 3.938852624217301,
+          "responseBonus": 0.651920598570342
+        }
+      ],
+      "director": {
+        "version": "phase02-v1",
+        "seedDomain": 3900079,
+        "stats": {
+          "denied": 0,
+          "nonPositive": 0,
+          "survival": 1,
+          "survivalOverCap": 0,
+          "maxPlanned": 1,
+          "decisions": 8372
+        },
+        "reservations": []
+      }
+    }
+  ]
+}

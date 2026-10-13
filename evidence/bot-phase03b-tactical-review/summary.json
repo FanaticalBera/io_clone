@@ -1,0 +1,311 @@
+{
+  "date": "2026-10-13",
+  "status": "Tactical-only spectator candidate; human review pending; no final adoption or master merge",
+  "baseline": "5b714eaec087764eed54760dc79126691a0b5acb",
+  "candidateParent": "d1101bd",
+  "personalStrategy": false,
+  "nearB": false,
+  "sourceManifests": [
+    {
+      "name": "baseline",
+      "manifestSha256": "b365d8e8db9a78b63181aa3f4e3683445e564fd836d3fe7ac030ffe55284bfe8",
+      "schedulerSha256": "cdb12b553720217f58b2e785603def55243aea4f2886d844a11487a6dc76aee6"
+    },
+    {
+      "name": "tactical",
+      "manifestSha256": "751ac1aac71623cbc7077a58eb3b881534cbe75430dc5f5846a9109352619618",
+      "schedulerSha256": "8171c9a0e3f1ceccc71ab15591fe93d3df9e30084746e07d22baf569a24cd460"
+    }
+  ],
+  "cost": {
+    "baseline": {
+      "roundMsPerTick": [
+        3.012488711805557,
+        3.036026590277775,
+        2.9733132013888888
+      ],
+      "medianMsPerTick": 3.012488711805557,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.7394098611111115,
+            3.1415380000000006,
+            3.046376277777777
+          ],
+          "medianMsPerTick": 3.046376277777777
+        },
+        {
+          "seed": 19,
+          "samples": [
+            2.8056811388888914,
+            2.952500999999999,
+            2.8687454999999966
+          ],
+          "medianMsPerTick": 2.8687454999999966
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.3707641944444426,
+            3.2358181111110995,
+            3.1232002222222217
+          ],
+          "medianMsPerTick": 3.2358181111110995
+        },
+        {
+          "seed": 11,
+          "samples": [
+            2.891167777777777,
+            2.8054033888888887,
+            2.815292861111116
+          ],
+          "medianMsPerTick": 2.815292861111116
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.186603861111111,
+            3.1993105833333297,
+            3.1053900000000105
+          ],
+          "medianMsPerTick": 3.186603861111111
+        },
+        {
+          "seed": 47,
+          "samples": [
+            3.0101715000000047,
+            2.9366509999999995,
+            2.8705231666666804
+          ],
+          "medianMsPerTick": 2.9366509999999995
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.0302810833333367,
+            3.0587778611111087,
+            3.0271005555555326
+          ],
+          "medianMsPerTick": 3.0302810833333367
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.065830277777778,
+            2.9582127777777756,
+            2.9298770277777737
+          ],
+          "medianMsPerTick": 2.9582127777777756
+        }
+      ]
+    },
+    "tactical": {
+      "roundMsPerTick": [
+        3.213111805555555,
+        3.2142885937499988,
+        3.152066486111109
+      ],
+      "medianMsPerTick": 3.213111805555555,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            3.0280741388888885,
+            3.412725277777774,
+            3.238042361111115
+          ],
+          "medianMsPerTick": 3.238042361111115
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.0526858611111107,
+            3.0130786111111068,
+            3.0498771666666693
+          ],
+          "medianMsPerTick": 3.0498771666666693
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.3200328055555532,
+            3.3805051944444453,
+            3.299017638888876
+          ],
+          "medianMsPerTick": 3.3200328055555532
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.1221990833333337,
+            3.231101638888892,
+            3.1684090000000045
+          ],
+          "medianMsPerTick": 3.1684090000000045
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.307563277777776,
+            3.2760146944444406,
+            3.227407111111097
+          ],
+          "medianMsPerTick": 3.2760146944444406
+        },
+        {
+          "seed": 47,
+          "samples": [
+            3.0396395833333374,
+            2.9361751111111114,
+            2.8195231111110965
+          ],
+          "medianMsPerTick": 2.9361751111111114
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.2662471666666613,
+            3.175882555555549,
+            3.2252863055555565
+          ],
+          "medianMsPerTick": 3.2252863055555565
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.5684525277777803,
+            3.2888256666666713,
+            3.188969194444459
+          ],
+          "medianMsPerTick": 3.2888256666666713
+        }
+      ]
+    },
+    "deltaPercent": 6.659712714068666,
+    "positive": 7,
+    "negative": 1,
+    "tied": 0,
+    "direction": "increase",
+    "leaveOneOut": [
+      {
+        "excludedSeed": 4,
+        "deltaPercent": 5.461420129503236
+      },
+      {
+        "excludedSeed": 19,
+        "deltaPercent": 6.377221058912141
+      },
+      {
+        "excludedSeed": 73,
+        "deltaPercent": 7.741071891050844
+      },
+      {
+        "excludedSeed": 11,
+        "deltaPercent": 6.009150375123817
+      },
+      {
+        "excludedSeed": 31,
+        "deltaPercent": 7.096082011902505
+      },
+      {
+        "excludedSeed": 47,
+        "deltaPercent": 7.470536865562805
+      },
+      {
+        "excludedSeed": 101,
+        "deltaPercent": 6.497592776479744
+      },
+      {
+        "excludedSeed": 137,
+        "deltaPercent": 5.240840248641976
+      }
+    ],
+    "reconsiderationLimitPercent": 20,
+    "withinLimit": true,
+    "resourceGuard": {
+      "recordBackground": false,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Check external Vitest/Playwright presence before/after every timing; exclude overlap regardless of elapsed value"
+    },
+    "warmup": {
+      "seed": 19,
+      "ticks": 3600,
+      "perArm": 1,
+      "discarded": true
+    },
+    "method": {
+      "sameSession": true,
+      "rounds": 3,
+      "pairedSeedOrder": "4,19,73,11,31,47,101,137; alternate arm order by round+seed index",
+      "warmup": "one full seed19 replay per arm; discard warmups",
+      "timed": "getBotInputs+stepMatch only; observers/HUD off; immutable source snapshots; check source SHA256 before timing",
+      "aggregation": "per-seed median of three samples; overall median of three complete eight-seed rounds; preserve every sample",
+      "externalTests": "before/after probe excludes overlaps independent of value; never stop other work",
+      "baselineSource": "Unmodified actual 3A 5b714ea shared source, not the hook-augmented separation replay snapshot. Archived behavior reference already verified identical to actual 3A."
+    },
+    "samples": 48
+  },
+  "aggregate": {
+    "baseline": {
+      "holding": 2972.2828124999996,
+      "final": 4324,
+      "deaths": 90,
+      "reclaim": 3193,
+      "tv": 0.1776323888341682,
+      "tvWithoutRP": 0.16693902650211348,
+      "nearRate": 47.415095579058004,
+      "nearStops": 1203,
+      "nearFrames": 45669,
+      "targetABA": 44,
+      "modeABA": 1438,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1427,
+      "share_ATTACK": 0.13434355534259704,
+      "share_EXPAND": 0.12945887559934666,
+      "share_DEFEND": 0.1520128639522196,
+      "share_SEEK_POINT": 0.24081398315896912,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 78,
+        "PENDING_TRAIL_CONTACT": 7,
+        "HOME_CAPTURE": 5
+      }
+    },
+    "tactical": {
+      "holding": 3149.4219097222226,
+      "final": 4467.625,
+      "deaths": 80,
+      "reclaim": 3233,
+      "tv": 0.11335811296106665,
+      "tvWithoutRP": 0.10550685285771035,
+      "nearRate": 50.163582089552236,
+      "nearStops": 1167,
+      "nearFrames": 41875,
+      "targetABA": 44,
+      "modeABA": 1501,
+      "voluntaryTargetABA": 0,
+      "voluntaryModeABA": 0,
+      "nearVoluntary": 0,
+      "walls": 0,
+      "wouldBlockHold": 0,
+      "modeABAWithSafety": 1491,
+      "share_ATTACK": 0.14478094326071342,
+      "share_EXPAND": 0.15725231175693527,
+      "share_DEFEND": 0.13974471830985916,
+      "share_SEEK_POINT": 0.23360732885737592,
+      "deathCauses": {
+        "EXISTING_TRAIL_CONTACT": 73,
+        "HOME_CAPTURE": 4,
+        "PENDING_TRAIL_CONTACT": 3
+      }
+    }
+  },
+  "gameplayEvidence": "Existing 3A reference verified identical to actual 3A; fresh candidate eight-seed replay matches archived isolated tactical arm in trajectory, trace, memory, action RNG, director, holdings, personality and transition statistics. Only cost samples are measured afresh in this single session.",
+  "rawDirectory": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase03b-tactical-review"
+}

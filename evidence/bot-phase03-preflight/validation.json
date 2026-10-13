@@ -1,0 +1,65 @@
+{
+  "mergeCommit": "ddda67b",
+  "aiParent": "fba4106",
+  "master": "960f678",
+  "masterUnchanged": true,
+  "goldenBehavior": "c84fc7a",
+  "goldenSeedsMatched": 8,
+  "goldenChecks": [
+    "trajectory",
+    "judgment trace",
+    "memory",
+    "next action RNG",
+    "holding",
+    "growth",
+    "personality distribution",
+    "deaths",
+    "departure",
+    "reposition",
+    "director"
+  ],
+  "typecheck": "client,server,tests passed after merge and parity test",
+  "auditTypecheck": "passed separately with --ignoreConfig",
+  "vitest": {
+    "fullSuite": {
+      "files": 92,
+      "passed": 644,
+      "log": "vitest-final.log"
+    },
+    "addedSharedLoopParity": {
+      "fileTestsPassed": 4,
+      "newTests": 1,
+      "framesPerContext": 90,
+      "contexts": [
+        "foreground HUMAN",
+        "background HUMAN returnOnly"
+      ],
+      "checks": [
+        "all-tick public view",
+        "final bot memory",
+        "next action RNG"
+      ],
+      "log": "room-loop-parity-final.log"
+    },
+    "recoveryDefinitionRetest": {
+      "passed": 2,
+      "log": "recovery-tests-final.log"
+    }
+  },
+  "hudE2E": {
+    "passed": 9,
+    "log": "hud-e2e-final.log",
+    "testConfig": "same test match and options as playwright.bot-ai.config.ts; temporary explicit cwd and preview 5183 because Windows reserves 5312"
+  },
+  "builds": {
+    "serverTsc": "passed",
+    "web": "passed",
+    "apkWebBundle": "passed",
+    "nativeAndroid": "not run; web bundle only"
+  },
+  "notes": [
+    "LAN background-expiry test now drives both real heartbeat timers using its manual clock, independently of the gameplay simulation; 30-second seat grace and BOT replacement assertions preserved.",
+    "No phase 3 AI implementation. PERIMETER_GUARD observed only. Raw diagnostics in main .local/bot-phase03-preflight.",
+    "Build outputs and test-generated T35 report are not included as source changes."
+  ]
+}
