@@ -1,0 +1,103 @@
+{
+  "sourceCommit": "133ee1fed03197ba7f2d49f3fbce9f3654878239",
+  "seeds": [
+    {
+      "seed": 4,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 19,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 73,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 11,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 31,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 47,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 101,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    },
+    {
+      "seed": 137,
+      "trajectory": true,
+      "allNativeDecisionTraces": true,
+      "fullMemory": true,
+      "nextRng": true,
+      "director": true,
+      "legacyCounters": true,
+      "walls": 0
+    }
+  ],
+  "totals": {
+    "deaths": 80,
+    "holdingMean": 3149.4219097222226,
+    "wallDeaths": 0,
+    "guardTicks": 1404,
+    "expansionStops": 1042
+  },
+  "captureFollowup": {
+    "eventLifeIdOptional": true,
+    "associatedWithResolvedParticipantLife": true,
+    "overlappingWindowsNotCausalBenefit": true
+  },
+  "observerHooksOnlyInFrozenCopy": true,
+  "productionSourceUnchanged": true,
+  "newBehaviorImplemented": false,
+  "performanceMeasurement": false,
+  "auditScriptsStrictTypecheck": true,
+  "humanPlayAfterFix": "Not done; fix not approved/implemented"
+}

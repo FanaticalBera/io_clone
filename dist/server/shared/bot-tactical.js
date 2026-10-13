@@ -4,12 +4,14 @@ import { endReposition } from './bot-reposition.js';
 import { settingsFor, planAttack, earlyClosurePath } from './bot-strategy.js';
 import { returnPath, travelSeconds } from './bot-navigation.js';
 import { botPlanValidity } from './bot-plan-validity.js';
+import { holdingDangerDistance } from './bot-holding-risk.js';
 // Existing due-decision order, including interrupt attack evaluation, stays intact.
 export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
     rememberBotEntries(obs, memory.emotion);
     let settings = settingsFor(obs, memory);
     const home = returnPath(obs), atHome = obs.owners[obs.self.cellId] === obs.self.slot + 1;
-    const danger = obs.ownTrail.length && (obs.ownTrail.length >= settings.trailLimit || obs.others.some(p => obs.ownTrail.some(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]) <= Math.max(2, Math.min(5, (home?.length ?? 4) * settings.risk)))));
+    const dangerDistance = holdingDangerDistance(Math.max(2, Math.min(5, (home?.length ?? 4) * settings.risk)), obs.self.territoryCount, obs.map.cells.length, obs.roster?.length ?? obs.config.maxSlots);
+    const danger = obs.ownTrail.length && (obs.ownTrail.length >= settings.trailLimit || obs.others.some(p => obs.ownTrail.some(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]) <= dangerDistance)));
     updatePressure(obs, memory.emotion, !!danger);
     settings = settingsFor(obs, memory);
     if (trace)

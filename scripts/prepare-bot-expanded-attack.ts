@@ -1,0 +1,14 @@
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+const root=resolve(process.argv.find(v=>v.startsWith('--out='))?.slice(6)??'../bot-expanded-attack-baseline');
+if(existsSync(root))throw Error('Preserve existing evidence: choose a new directory');mkdirSync(root,{recursive:true});
+const candidates=JSON.parse(readFileSync(process.argv.find(v=>v.startsWith('--candidates='))?.slice(13)??'../bot-expanded-spawn-candidates.json','utf8'));
+const native=JSON.parse(readFileSync(process.argv.find(v=>v.startsWith('--source-protocol='))?.slice(18)??'../bot-phase04-perimeter-analysis-v2/protocol.json','utf8'));
+const layouts=[...candidates.rows.filter((r:any)=>r.distance===5).sort((a:any,b:any)=>a.minimumMatchSeed-b.minimumMatchSeed),...candidates.rows.filter((r:any)=>r.distance===12).sort((a:any,b:any)=>a.minimumMatchSeed-b.minimumMatchSeed).slice(0,3),candidates.rows.filter((r:any)=>r.distance>=17).sort((a:any,b:any)=>a.distance-b.distance||a.minimumMatchSeed-b.minimumMatchSeed)[0]];
+if(layouts.length!==8)throw Error('Unexpected layout coverage');
+const memorySeeds=[1,2,3,4,5,6,7,8],personalities=['DEFEND','ATTACK','EXPAND','SEEK_POINT'];
+const routes=[[[-2,2],[-4,2],[-4,0],[-2,-2],[0,0]],[[-2,2],[-3,2],[-3,0],[-1,-2],[1,-2],[0,0]],[[0,2],[-2,4],[-4,4],[-4,2],[-2,0],[0,0]],[[-2,2],[-4,2],[-5,3],[-5,1],[-3,-1],[0,0]]];
+const caseIDs=layouts.flatMap((l:any)=>memorySeeds.flatMap(m=>personalities.flatMap(p=>routes.map((_r,i)=>`L${l.minimumMatchSeed}/M${m}/${p}/R${i+1}`))));
+const protocol={version:2,recordedBeforeAttackResults:true,approval:'User approved keeping native R22 spawn geometry, near distances 5 and 12',selectionRule:{scan:'Integers 0..4095 ascending; first seed per unique ordered human/bot anchor pair; verify via native createMatch',requestedDistances:[5,7,9,11],nativeDistanceSet:candidates.distanceSet,unavailable:[7,9],near:'All four distance5 pairs plus first three distance12 pairs by minimum seed',far:'Smallest available distance>=17, then minimum seed; diagnostic fairness control',noAttackOutcomeSelection:true},candidateList:candidates.rows,axes:{layouts,memorySeeds,personalities,routes},source:native.source,sourceCommit:native.commit,sourceHashes:native.nativeHashes,config:{radius:22,maxSlots:8,spawnRadius:2,humanSlot:0,botSlot:1,simulationHz:30,maximumTicks:500,waypointReachWorldUnits:18},cases:caseIDs.length,caseIDHash:createHash('sha256').update(JSON.stringify(caseIDs)).digest('hex'),nearCases:896,farCases:128,legacy16:{cuts:13,failures:[5,6,14],unchanged:true},status:'FROZEN_BEFORE_PHYSICAL_PREFLIGHT_AND_ATTACK_RUN'};
+writeFileSync(resolve(root,'protocol.json'),JSON.stringify(protocol,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({root,layouts:layouts.map((l:any)=>({seed:l.minimumMatchSeed,distance:l.distance})),cases:protocol.cases}));

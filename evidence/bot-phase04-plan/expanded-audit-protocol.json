@@ -1,0 +1,274 @@
+{
+  "status": "PROPOSAL_ONLY_NOT_EXECUTED",
+  "baselineGameplay": "133ee1f",
+  "axes": {
+    "layouts": [
+      {
+        "matchSeed": 115,
+        "human": {
+          "q": -12,
+          "r": -5,
+          "cell": 532
+        },
+        "bot": {
+          "q": -17,
+          "r": 0,
+          "cell": 742
+        },
+        "hexDistance": 5,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 17,
+        "human": {
+          "q": -17,
+          "r": 0,
+          "cell": 742
+        },
+        "bot": {
+          "q": -12,
+          "r": -5,
+          "cell": 532
+        },
+        "hexDistance": 5,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 4,
+        "human": {
+          "q": 17,
+          "r": -17,
+          "cell": 147
+        },
+        "bot": {
+          "q": 17,
+          "r": 0,
+          "cell": 776
+        },
+        "hexDistance": 17,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 19,
+        "human": {
+          "q": 17,
+          "r": 0,
+          "cell": 776
+        },
+        "bot": {
+          "q": 0,
+          "r": 17,
+          "cell": 1388
+        },
+        "hexDistance": 17,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 73,
+        "human": {
+          "q": 17,
+          "r": 0,
+          "cell": 776
+        },
+        "bot": {
+          "q": -17,
+          "r": 17,
+          "cell": 1371
+        },
+        "hexDistance": 34,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 47,
+        "human": {
+          "q": 12,
+          "r": 5,
+          "cell": 986
+        },
+        "bot": {
+          "q": 0,
+          "r": -17,
+          "cell": 130
+        },
+        "hexDistance": 34,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 101,
+        "human": {
+          "q": -17,
+          "r": 0,
+          "cell": 742
+        },
+        "bot": {
+          "q": -17,
+          "r": 17,
+          "cell": 1371
+        },
+        "hexDistance": 17,
+        "waypointsWithinMap": true
+      },
+      {
+        "matchSeed": 137,
+        "human": {
+          "q": -12,
+          "r": -5,
+          "cell": 532
+        },
+        "bot": {
+          "q": -17,
+          "r": 17,
+          "cell": 1371
+        },
+        "hexDistance": 22,
+        "waypointsWithinMap": true
+      }
+    ],
+    "memorySeeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "personalities": [
+      "DEFEND",
+      "ATTACK",
+      "EXPAND",
+      "SEEK_POINT"
+    ],
+    "routes": [
+      [
+        [
+          -2,
+          2
+        ],
+        [
+          -4,
+          2
+        ],
+        [
+          -4,
+          0
+        ],
+        [
+          -2,
+          -2
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          -2,
+          2
+        ],
+        [
+          -3,
+          2
+        ],
+        [
+          -3,
+          0
+        ],
+        [
+          -1,
+          -2
+        ],
+        [
+          1,
+          -2
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          2
+        ],
+        [
+          -2,
+          4
+        ],
+        [
+          -4,
+          4
+        ],
+        [
+          -4,
+          2
+        ],
+        [
+          -2,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          -2,
+          2
+        ],
+        [
+          -4,
+          2
+        ],
+        [
+          -5,
+          3
+        ],
+        [
+          -5,
+          1
+        ],
+        [
+          -3,
+          -1
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    ]
+  },
+  "config": {
+    "radius": 22,
+    "maxSlots": 8,
+    "spawnRadius": 2,
+    "simulationHz": 30,
+    "gameMode": "classic",
+    "humanSlot": 0,
+    "botSlot": 1,
+    "maximumTicks": 500,
+    "waypointReachWorldUnits": 18
+  },
+  "identity": "createBotIdentity(memorySeed, personality)",
+  "runtime": "combined via native getBotInputs/director",
+  "cases": 1024,
+  "caseIDHash": "4ec0c34d7e1a54f227a2844a44f09114e9eff1e3159731a79db4eaa090d70d3b",
+  "validation": "Static spawn uniqueness and waypoint inclusion only; human physical loop and attack outcomes not run.",
+  "legacy16": {
+    "cuts": 13,
+    "failures": [
+      5,
+      6,
+      14
+    ],
+    "accepted": "Known cost of departure safety; preserve existing successful case mask",
+    "unchanged": true
+  },
+  "definition": "Fixed-case actual cut rate: attributed EXISTING_TRAIL_CONTACT/PENDING_TRAIL_CONTACT; do not divide only by cases that attack or observe a trail.",
+  "threshold": "No expanded absolute success floor set before baseline measurement."
+}

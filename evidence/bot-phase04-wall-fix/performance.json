@@ -1,0 +1,1032 @@
+{
+  "protocol": {
+    "arms": [
+      {
+        "source": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase04-perimeter-analysis-v4\\native-source",
+        "name": "baseline",
+        "sourceHashes": {
+          "src/shared/bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+          "src/shared/state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+          "src/shared/bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+          "src/shared/bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+          "src/shared/room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+          "src/shared/bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+          "src/shared/lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+          "src/shared/spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+          "src/shared/names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+          "src/shared/map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+          "src/shared/bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+          "src/shared/bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+          "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+          "src/shared/movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+          "src/shared/bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+          "src/shared/bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+          "src/shared/bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+          "src/shared/room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+          "src/shared/random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+          "src/shared/legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+          "src/shared/wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3",
+          "src/shared/bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+          "src/shared/safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+          "src/shared/bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+          "src/shared/bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+          "src/shared/rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+          "src/shared/game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+          "src/shared/model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+          "src/shared/bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+          "src/shared/territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+          "src/shared/starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+          "src/shared/bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+          "src/shared/bot-strategy.ts": "2e1c331c53ec947f4cf6476f775844a1ca61aef8bef3d84c8dd04862e9fe31b9",
+          "src/shared/life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+          "src/shared/capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+          "src/shared/lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+          "src/shared/bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+          "src/shared/bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+          "src/shared/hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+          "src/shared/bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+          "src/shared/capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+          "src/shared/lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+          "src/shared/slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+          "src/shared/engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+          "src/shared/retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+          "src/shared/bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+          "src/shared/bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+          "src/shared/config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+          "src/shared/run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+          "src/shared/bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+          "src/shared/modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+          "src/shared/bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+          "src/shared/bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+          "src/shared/protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+          "src/shared/scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+          "src/shared/bot-immediate-safety.ts": "33e2c275aedab6e5fd3aa41712151ad2366c872d0a0d69531443f656eb4c619a",
+          "src/shared/bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706"
+        }
+      },
+      {
+        "source": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase04-wall-fix\\native-source",
+        "name": "candidate",
+        "sourceHashes": {
+          "src/shared/bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+          "src/shared/state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+          "src/shared/bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+          "src/shared/bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+          "src/shared/room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+          "src/shared/bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+          "src/shared/lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+          "src/shared/spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+          "src/shared/names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+          "src/shared/map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+          "src/shared/bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+          "src/shared/bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+          "src/shared/bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+          "src/shared/movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+          "src/shared/bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+          "src/shared/bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+          "src/shared/bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+          "src/shared/room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+          "src/shared/random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+          "src/shared/legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+          "src/shared/wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3",
+          "src/shared/bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+          "src/shared/safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+          "src/shared/bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+          "src/shared/bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+          "src/shared/rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+          "src/shared/game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+          "src/shared/model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+          "src/shared/bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+          "src/shared/territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+          "src/shared/starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+          "src/shared/bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+          "src/shared/bot-strategy.ts": "6a0ac5dcefda4242e5ce844d028f136d7fcc574e11f426bd8ec8089757d328e8",
+          "src/shared/life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+          "src/shared/capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+          "src/shared/lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+          "src/shared/bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+          "src/shared/bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+          "src/shared/hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+          "src/shared/bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+          "src/shared/capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+          "src/shared/lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+          "src/shared/slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+          "src/shared/engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+          "src/shared/retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+          "src/shared/bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+          "src/shared/bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+          "src/shared/config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+          "src/shared/run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+          "src/shared/bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+          "src/shared/modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+          "src/shared/bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+          "src/shared/bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+          "src/shared/protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+          "src/shared/scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+          "src/shared/bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+          "src/shared/bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706"
+        }
+      }
+    ],
+    "cost": {
+      "warmup": "discard one complete seed19 per arm",
+      "timed": "native getBotInputs+stepMatch only; all observers off",
+      "sameSession": true,
+      "seedOrder": [
+        4,
+        19,
+        73,
+        11,
+        31,
+        47,
+        101,
+        137
+      ],
+      "aggregation": "median of three complete eight-seed rounds",
+      "externalTests": "exclude any overlapping test run independent of elapsed value",
+      "rounds": 3,
+      "armOrder": "alternate by seed+round"
+    },
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ]
+  },
+  "summary": {
+    "baseline": {
+      "roundMsPerTick": [
+        3.1297357187500014,
+        3.3731537777777763,
+        3.119355468749998
+      ],
+      "medianMsPerTick": 3.1297357187500014,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.831166305555557,
+            3.446140388888889,
+            3.5197420555555596
+          ],
+          "medianMsPerTick": 3.446140388888889
+        },
+        {
+          "seed": 19,
+          "samples": [
+            2.919106166666667,
+            3.0374019444444436,
+            2.948247666666656
+          ],
+          "medianMsPerTick": 2.948247666666656
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.292762194444444,
+            3.2582534166666703,
+            3.196904944444444
+          ],
+          "medianMsPerTick": 3.2582534166666703
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.179657527777777,
+            3.103099388888885,
+            3.0261545277777864
+          ],
+          "medianMsPerTick": 3.103099388888885
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.3522382222222222,
+            3.6287686944444433,
+            3.158497111111097
+          ],
+          "medianMsPerTick": 3.3522382222222222
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.8621606666666697,
+            3.257165222222215,
+            2.7297976666666606
+          ],
+          "medianMsPerTick": 2.8621606666666697
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.2017940555555593,
+            3.5234630555555566,
+            3.11364872222223
+          ],
+          "medianMsPerTick": 3.2017940555555593
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.399000611111114,
+            3.730938111111108,
+            3.26185105555555
+          ],
+          "medianMsPerTick": 3.399000611111114
+        }
+      ]
+    },
+    "candidate": {
+      "roundMsPerTick": [
+        3.1535636041666653,
+        3.381090083333333,
+        3.14595740972222
+      ],
+      "medianMsPerTick": 3.1535636041666653,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.4718962499999986,
+            3.03768963888889,
+            3.0159429444444443
+          ],
+          "medianMsPerTick": 3.0159429444444443
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.0300735277777777,
+            3.0829201666666552,
+            3.5091375555555473
+          ],
+          "medianMsPerTick": 3.0829201666666552
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.50694397222222,
+            3.3938210833333304,
+            3.2082122500000048
+          ],
+          "medianMsPerTick": 3.3938210833333304
+        },
+        {
+          "seed": 11,
+          "samples": [
+            2.940916055555556,
+            3.059832638888895,
+            2.7619730000000144
+          ],
+          "medianMsPerTick": 2.940916055555556
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.431392027777773,
+            4.013856444444439,
+            3.2261845833333145
+          ],
+          "medianMsPerTick": 3.431392027777773
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.994967972222221,
+            3.3440674166666575,
+            2.8554606666666547
+          ],
+          "medianMsPerTick": 2.994967972222221
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.294592916666669,
+            3.5235018055555702,
+            3.244639166666667
+          ],
+          "medianMsPerTick": 3.294592916666669
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.5577261111111067,
+            3.5930314722222265,
+            3.346109111111113
+          ],
+          "medianMsPerTick": 3.5577261111111067
+        }
+      ]
+    }
+  },
+  "resourceGuard": {
+    "recordBackground": false,
+    "idleWaits": 0,
+    "discardedOverlaps": 0,
+    "overlappingRows": 0,
+    "probe": "Check external Vitest/Playwright presence before/after every timing; exclude overlap regardless of elapsed value"
+  },
+  "samples": [
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 10192.198700000004,
+      "msPerTick": 2.831166305555557,
+      "startedUtc": "2026-10-13T07:03:27.710Z",
+      "endedUtc": "2026-10-13T07:03:37.902Z",
+      "cpuUserMs": 10844,
+      "cpuSystemMs": 500
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 8898.826499999996,
+      "msPerTick": 2.4718962499999986,
+      "startedUtc": "2026-10-13T07:03:38.608Z",
+      "endedUtc": "2026-10-13T07:03:47.507Z",
+      "cpuUserMs": 9531,
+      "cpuSystemMs": 359
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10908.2647,
+      "msPerTick": 3.0300735277777777,
+      "startedUtc": "2026-10-13T07:03:48.206Z",
+      "endedUtc": "2026-10-13T07:03:59.114Z",
+      "cpuUserMs": 11156,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10508.782200000001,
+      "msPerTick": 2.919106166666667,
+      "startedUtc": "2026-10-13T07:03:59.864Z",
+      "endedUtc": "2026-10-13T07:04:10.373Z",
+      "cpuUserMs": 10781,
+      "cpuSystemMs": 32
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 11853.943899999998,
+      "msPerTick": 3.292762194444444,
+      "startedUtc": "2026-10-13T07:04:11.072Z",
+      "endedUtc": "2026-10-13T07:04:22.926Z",
+      "cpuUserMs": 12421,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 12624.998299999992,
+      "msPerTick": 3.50694397222222,
+      "startedUtc": "2026-10-13T07:04:23.633Z",
+      "endedUtc": "2026-10-13T07:04:36.258Z",
+      "cpuUserMs": 12750,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 10587.2978,
+      "msPerTick": 2.940916055555556,
+      "startedUtc": "2026-10-13T07:04:36.982Z",
+      "endedUtc": "2026-10-13T07:04:47.570Z",
+      "cpuUserMs": 10797,
+      "cpuSystemMs": 125
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 11446.767099999997,
+      "msPerTick": 3.179657527777777,
+      "startedUtc": "2026-10-13T07:04:48.268Z",
+      "endedUtc": "2026-10-13T07:04:59.715Z",
+      "cpuUserMs": 11625,
+      "cpuSystemMs": 79
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 12068.0576,
+      "msPerTick": 3.3522382222222222,
+      "startedUtc": "2026-10-13T07:05:00.447Z",
+      "endedUtc": "2026-10-13T07:05:12.515Z",
+      "cpuUserMs": 12250,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 12353.011299999984,
+      "msPerTick": 3.431392027777773,
+      "startedUtc": "2026-10-13T07:05:13.239Z",
+      "endedUtc": "2026-10-13T07:05:25.592Z",
+      "cpuUserMs": 12656,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10781.884699999995,
+      "msPerTick": 2.994967972222221,
+      "startedUtc": "2026-10-13T07:05:26.303Z",
+      "endedUtc": "2026-10-13T07:05:37.085Z",
+      "cpuUserMs": 11016,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10303.77840000001,
+      "msPerTick": 2.8621606666666697,
+      "startedUtc": "2026-10-13T07:05:37.816Z",
+      "endedUtc": "2026-10-13T07:05:48.120Z",
+      "cpuUserMs": 10437,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11526.458600000013,
+      "msPerTick": 3.2017940555555593,
+      "startedUtc": "2026-10-13T07:05:48.870Z",
+      "endedUtc": "2026-10-13T07:06:00.396Z",
+      "cpuUserMs": 11781,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11860.534500000009,
+      "msPerTick": 3.294592916666669,
+      "startedUtc": "2026-10-13T07:06:01.105Z",
+      "endedUtc": "2026-10-13T07:06:12.966Z",
+      "cpuUserMs": 12234,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 0,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12807.813999999984,
+      "msPerTick": 3.5577261111111067,
+      "startedUtc": "2026-10-13T07:06:13.700Z",
+      "endedUtc": "2026-10-13T07:06:26.508Z",
+      "cpuUserMs": 13093,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 0,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12236.402200000011,
+      "msPerTick": 3.399000611111114,
+      "startedUtc": "2026-10-13T07:06:27.273Z",
+      "endedUtc": "2026-10-13T07:06:39.510Z",
+      "cpuUserMs": 12328,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10935.682700000005,
+      "msPerTick": 3.03768963888889,
+      "startedUtc": "2026-10-13T07:06:40.252Z",
+      "endedUtc": "2026-10-13T07:06:51.188Z",
+      "cpuUserMs": 11109,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12406.1054,
+      "msPerTick": 3.446140388888889,
+      "startedUtc": "2026-10-13T07:06:51.978Z",
+      "endedUtc": "2026-10-13T07:07:04.384Z",
+      "cpuUserMs": 12609,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10934.646999999997,
+      "msPerTick": 3.0374019444444436,
+      "startedUtc": "2026-10-13T07:07:05.067Z",
+      "endedUtc": "2026-10-13T07:07:16.002Z",
+      "cpuUserMs": 10969,
+      "cpuSystemMs": 63
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11098.512599999958,
+      "msPerTick": 3.0829201666666552,
+      "startedUtc": "2026-10-13T07:07:16.684Z",
+      "endedUtc": "2026-10-13T07:07:27.782Z",
+      "cpuUserMs": 11157,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 12217.75589999999,
+      "msPerTick": 3.3938210833333304,
+      "startedUtc": "2026-10-13T07:07:28.470Z",
+      "endedUtc": "2026-10-13T07:07:40.688Z",
+      "cpuUserMs": 12766,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 11729.712300000014,
+      "msPerTick": 3.2582534166666703,
+      "startedUtc": "2026-10-13T07:07:41.385Z",
+      "endedUtc": "2026-10-13T07:07:53.115Z",
+      "cpuUserMs": 11875,
+      "cpuSystemMs": 46
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 11171.157799999986,
+      "msPerTick": 3.103099388888885,
+      "startedUtc": "2026-10-13T07:07:53.806Z",
+      "endedUtc": "2026-10-13T07:08:04.978Z",
+      "cpuUserMs": 11312,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 11015.397500000021,
+      "msPerTick": 3.059832638888895,
+      "startedUtc": "2026-10-13T07:08:05.679Z",
+      "endedUtc": "2026-10-13T07:08:16.694Z",
+      "cpuUserMs": 11344,
+      "cpuSystemMs": 63
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 14449.883199999982,
+      "msPerTick": 4.013856444444439,
+      "startedUtc": "2026-10-13T07:08:17.411Z",
+      "endedUtc": "2026-10-13T07:08:31.861Z",
+      "cpuUserMs": 14563,
+      "cpuSystemMs": 125
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 13063.567299999995,
+      "msPerTick": 3.6287686944444433,
+      "startedUtc": "2026-10-13T07:08:32.661Z",
+      "endedUtc": "2026-10-13T07:08:45.724Z",
+      "cpuUserMs": 13235,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 11725.794799999974,
+      "msPerTick": 3.257165222222215,
+      "startedUtc": "2026-10-13T07:08:46.575Z",
+      "endedUtc": "2026-10-13T07:08:58.300Z",
+      "cpuUserMs": 11657,
+      "cpuSystemMs": 171
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 12038.642699999968,
+      "msPerTick": 3.3440674166666575,
+      "startedUtc": "2026-10-13T07:08:59.103Z",
+      "endedUtc": "2026-10-13T07:09:11.142Z",
+      "cpuUserMs": 12187,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 12684.606500000053,
+      "msPerTick": 3.5235018055555702,
+      "startedUtc": "2026-10-13T07:09:11.912Z",
+      "endedUtc": "2026-10-13T07:09:24.597Z",
+      "cpuUserMs": 12765,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 12684.467000000004,
+      "msPerTick": 3.5234630555555566,
+      "startedUtc": "2026-10-13T07:09:25.403Z",
+      "endedUtc": "2026-10-13T07:09:38.087Z",
+      "cpuUserMs": 12969,
+      "cpuSystemMs": 94
+    },
+    {
+      "round": 1,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 13431.377199999988,
+      "msPerTick": 3.730938111111108,
+      "startedUtc": "2026-10-13T07:09:38.858Z",
+      "endedUtc": "2026-10-13T07:09:52.290Z",
+      "cpuUserMs": 13390,
+      "cpuSystemMs": 94
+    },
+    {
+      "round": 1,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12934.913300000015,
+      "msPerTick": 3.5930314722222265,
+      "startedUtc": "2026-10-13T07:09:53.030Z",
+      "endedUtc": "2026-10-13T07:10:05.965Z",
+      "cpuUserMs": 13078,
+      "cpuSystemMs": 15
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12671.071400000015,
+      "msPerTick": 3.5197420555555596,
+      "startedUtc": "2026-10-13T07:10:06.755Z",
+      "endedUtc": "2026-10-13T07:10:19.426Z",
+      "cpuUserMs": 12891,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 4,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10857.3946,
+      "msPerTick": 3.0159429444444443,
+      "startedUtc": "2026-10-13T07:10:20.243Z",
+      "endedUtc": "2026-10-13T07:10:31.100Z",
+      "cpuUserMs": 10984,
+      "cpuSystemMs": 63
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 12632.89519999997,
+      "msPerTick": 3.5091375555555473,
+      "startedUtc": "2026-10-13T07:10:31.907Z",
+      "endedUtc": "2026-10-13T07:10:44.540Z",
+      "cpuUserMs": 12656,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 19,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 10613.691599999962,
+      "msPerTick": 2.948247666666656,
+      "startedUtc": "2026-10-13T07:10:45.331Z",
+      "endedUtc": "2026-10-13T07:10:55.945Z",
+      "cpuUserMs": 10672,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 12,
+      "elapsedMs": 11508.857799999998,
+      "msPerTick": 3.196904944444444,
+      "startedUtc": "2026-10-13T07:10:56.649Z",
+      "endedUtc": "2026-10-13T07:11:08.158Z",
+      "cpuUserMs": 11609,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 73,
+      "ticks": 3600,
+      "deaths": 11,
+      "elapsedMs": 11549.564100000018,
+      "msPerTick": 3.2082122500000048,
+      "startedUtc": "2026-10-13T07:11:08.854Z",
+      "endedUtc": "2026-10-13T07:11:20.403Z",
+      "cpuUserMs": 11687,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 9943.102800000052,
+      "msPerTick": 2.7619730000000144,
+      "startedUtc": "2026-10-13T07:11:21.098Z",
+      "endedUtc": "2026-10-13T07:11:31.042Z",
+      "cpuUserMs": 10141,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 11,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 10894.156300000031,
+      "msPerTick": 3.0261545277777864,
+      "startedUtc": "2026-10-13T07:11:31.745Z",
+      "endedUtc": "2026-10-13T07:11:42.639Z",
+      "cpuUserMs": 11031,
+      "cpuSystemMs": 47
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 11370.589599999948,
+      "msPerTick": 3.158497111111097,
+      "startedUtc": "2026-10-13T07:11:43.324Z",
+      "endedUtc": "2026-10-13T07:11:54.695Z",
+      "cpuUserMs": 11594,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 31,
+      "ticks": 3600,
+      "deaths": 10,
+      "elapsedMs": 11614.264499999932,
+      "msPerTick": 3.2261845833333145,
+      "startedUtc": "2026-10-13T07:11:55.389Z",
+      "endedUtc": "2026-10-13T07:12:07.003Z",
+      "cpuUserMs": 11907,
+      "cpuSystemMs": 62
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 10279.658399999957,
+      "msPerTick": 2.8554606666666547,
+      "startedUtc": "2026-10-13T07:12:07.691Z",
+      "endedUtc": "2026-10-13T07:12:17.970Z",
+      "cpuUserMs": 10515,
+      "cpuSystemMs": 32
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 47,
+      "ticks": 3600,
+      "deaths": 8,
+      "elapsedMs": 9827.271599999978,
+      "msPerTick": 2.7297976666666606,
+      "startedUtc": "2026-10-13T07:12:18.660Z",
+      "endedUtc": "2026-10-13T07:12:28.487Z",
+      "cpuUserMs": 10109,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11209.135400000028,
+      "msPerTick": 3.11364872222223,
+      "startedUtc": "2026-10-13T07:12:29.184Z",
+      "endedUtc": "2026-10-13T07:12:40.392Z",
+      "cpuUserMs": 11360,
+      "cpuSystemMs": 16
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 101,
+      "ticks": 3600,
+      "deaths": 14,
+      "elapsedMs": 11680.701000000001,
+      "msPerTick": 3.244639166666667,
+      "startedUtc": "2026-10-13T07:12:41.111Z",
+      "endedUtc": "2026-10-13T07:12:52.792Z",
+      "cpuUserMs": 11875,
+      "cpuSystemMs": 78
+    },
+    {
+      "round": 2,
+      "arm": "candidate",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 12045.992800000007,
+      "msPerTick": 3.346109111111113,
+      "startedUtc": "2026-10-13T07:12:53.468Z",
+      "endedUtc": "2026-10-13T07:13:05.514Z",
+      "cpuUserMs": 12375,
+      "cpuSystemMs": 31
+    },
+    {
+      "round": 2,
+      "arm": "baseline",
+      "seed": 137,
+      "ticks": 3600,
+      "deaths": 9,
+      "elapsedMs": 11742.66379999998,
+      "msPerTick": 3.26185105555555,
+      "startedUtc": "2026-10-13T07:13:06.236Z",
+      "endedUtc": "2026-10-13T07:13:17.979Z",
+      "cpuUserMs": 11906,
+      "cpuSystemMs": 16
+    }
+  ],
+  "percentChange": 0.7613385780119719,
+  "paired": [
+    {
+      "seed": 4,
+      "before": 3.446140388888889,
+      "after": 3.0159429444444443,
+      "delta": -0.4301974444444445,
+      "percent": -12.483456734133503
+    },
+    {
+      "seed": 19,
+      "before": 2.948247666666656,
+      "after": 3.0829201666666552,
+      "delta": 0.1346724999999993,
+      "percent": 4.567882865562067
+    },
+    {
+      "seed": 73,
+      "before": 3.2582534166666703,
+      "after": 3.3938210833333304,
+      "delta": 0.1355676666666601,
+      "percent": 4.160746551302674
+    },
+    {
+      "seed": 11,
+      "before": 3.103099388888885,
+      "after": 2.940916055555556,
+      "delta": -0.16218333333332913,
+      "percent": -5.226494965454576
+    },
+    {
+      "seed": 31,
+      "before": 3.3522382222222222,
+      "after": 3.431392027777773,
+      "delta": 0.07915380555555096,
+      "percent": 2.3612225715593516
+    },
+    {
+      "seed": 47,
+      "before": 2.8621606666666697,
+      "after": 2.994967972222221,
+      "delta": 0.1328073055555512,
+      "percent": 4.64010658459022
+    },
+    {
+      "seed": 101,
+      "before": 3.2017940555555593,
+      "after": 3.294592916666669,
+      "delta": 0.09279886111110969,
+      "percent": 2.898339477834022
+    },
+    {
+      "seed": 137,
+      "before": 3.399000611111114,
+      "after": 3.5577261111111067,
+      "delta": 0.15872549999999253,
+      "percent": 4.669769681156555
+    }
+  ],
+  "increases": 6,
+  "decreases": 2,
+  "leaveOneOut": [
+    0.5715423055555346,
+    0.006672361111090819,
+    0.005777194444430034,
+    0.30352819444441925,
+    0.062191055555539165,
+    0.008537555555538923,
+    0.04854599999998044,
+    -0.0173806388889024
+  ],
+  "direction": "INDISTINGUISHABLE"
+}

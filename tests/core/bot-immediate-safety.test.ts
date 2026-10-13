@@ -1,7 +1,11 @@
 import {it,expect} from 'vitest';
 import {createMatch} from '../../src/shared/game.js';
 import {botSpecs,observeBot,createBotMemory,getBotInput,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
-import {evaluateDepartureSafety,selectOwnedDepartureFallback,projectDeparture,departurePrefilterCells,recordDepartureSafety} from '../../src/shared/bot-immediate-safety.js';
+import {evaluateDepartureSafety,selectOwnedDepartureFallback,projectDeparture,departurePrefilterCells,recordDepartureSafety,expansionPerimeterBlocked} from '../../src/shared/bot-immediate-safety.js';
+import {stepMatch} from '../../src/shared/game.js';
+import {getBotInputs} from '../../src/shared/bot-director.js';
+import {botSeed,createBotIdentity} from '../../src/shared/bot-identity.js';
+import {watchBotCandidates} from '../../src/shared/bot-candidate-diagnostics.js';
 import {BotDepartureDiagnostics} from '../../src/shared/bot-departure-diagnostics.js';
 function fixture(){const m=createMatch({mapRadius:22},73,botSpecs(3)),p=m.participants[0],id=(q:number,r=0)=>m.map.byKey.get(q+','+r)!;
  m.owners.fill(0);for(const c of m.map.cells)if(c.q<=0)m.owners[c.id]=p.slot+1;
@@ -9,6 +13,29 @@ function fixture(){const m=createMatch({mapRadius:22},73,botSpecs(3)),p=m.partic
  const e=m.participants[1];e.cellId=id(4);e.position={...m.map.cells[e.cellId].center};e.direction={x:-1,y:0};m.participants[2].lifeState='DEAD_WAIT';
  return {m,p,e,id,path:[id(1),id(2),id(2,-1),id(1,-1),id(0)],obs:()=>observeBot(m,p.participantId)};
 }
+it('predicts the recorded seed 4 wall override without consuming waypoints, and leaves other goals alone',()=>{
+ const m=createMatch({mapRadius:56},4,botSpecs(1)),p=m.participants[0];
+ p.position={x:1811.4682884654612,y:2052.654988326184};p.direction={x:.8283841663547362,y:.5601603992900327};
+ p.cellId=m.map.cells.reduce((best,c)=>Math.hypot(c.center.x-p.position.x,c.center.y-p.position.y)<Math.hypot(best.center.x-p.position.x,best.center.y-p.position.y)?c:best).id;
+ m.owners.fill(p.slot+1);const path=[8756,8686,8614,8541,8467],o=observeBot(m,p.participantId),before=[...path];
+ expect(expansionPerimeterBlocked(o,path,'EXPAND')).toBe(true);expect(path).toEqual(before);
+ for(const goal of ['ATTACK','RETURN','REPOSITION'] as const)expect(expansionPerimeterBlocked(o,path,goal)).toBe(false);
+ const memory=createBotMemory(1);memory.plannedLifeId=p.lifeId;memory.path=[...path];memory.goal='EXPAND';memory.nextDecisionTick=100;memory.schedule!.nextTacticalTick=100;memory.random=()=>{throw Error('RNG');};
+ let trace:BotDecisionTrace|undefined;watchBotDecisions(memory,t=>trace=t,{shadow:false});getBotInput(o,memory);expect(trace?.reason).toBe('PERIMETER_GUARD');expect(memory.goal).toBe('RETURN');
+ const interior=fixture().obs();expect(expansionPerimeterBlocked(interior,[], 'EXPAND')).toBe(false);
+});
+it('selects a different executable expansion when the launch-safe top candidate would immediately hit the wall guard',()=>{
+ const seed=19,m=createMatch({mapRadius:56,spawnRadius:1},seed,botSpecs(14,0,'bot',{seed}));
+ const memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!))]));
+ let replacements=0;const pending=new Set<string>();
+ for(const [id,memory] of memories)watchBotCandidates(memory,(obs,batch)=>{
+  if(batch.kind!=='STRATEGY')return;const old=batch.candidates.find(c=>!evaluateDepartureSafety(obs,c.path,c.goal).blocked),chosen=batch.candidates[batch.selectedIndex];
+  if(chosen)expect(expansionPerimeterBlocked(obs,chosen.path,chosen.goal)).toBe(false);
+  if(old&&expansionPerimeterBlocked(obs,old.path,old.goal)&&chosen?.expansion)pending.add(id);
+ });
+ for(let t=0;t<60;t++){pending.clear();const inputs=getBotInputs(m,memories);for(const id of pending){expect(['EXPAND','STEAL']).toContain(memories.get(id)!.goal);expect(inputs.has(id)).toBe(true);replacements++;}stepMatch(m,inputs);}
+ expect(replacements).toBeGreaterThan(0);
+});
 it('uses a speed-scaled 7-cell filter and catches public one-second overlap beyond the current 2-cell gate',()=>{const {obs,path}=fixture(),o=obs(),r=evaluateDepartureSafety(o,path,'STEAL');expect(departurePrefilterCells(o)).toBe(7);expect(r.blocked).toBe(true);expect(r.reason).toBe('PREDICTED_OVERLAP');expect(r.enemySlot).toBe(1);});
 it('uses swept physical exposure, not a nominal path cell, and predicts an owned fallback',()=>{const {obs,path}=fixture(),o=obs(),r=projectDeparture(o,path,'STEAL');expect(r.firstCell).not.toBeNull();const fallback=selectOwnedDepartureFallback(o);expect(fallback).not.toBeNull();expect(projectDeparture(o,fallback!,'RETURN',true).allOwned).toBe(true);});
 it('retains all visible heads on light observations and ignores hidden inputs and out-of-range heads',()=>{const {m,p,e,path,id}=fixture(),before=evaluateDepartureSafety(observeBot(m,p.participantId,'combined',true),path,'STEAL');e.targetDirection={x:0,y:1};e.lastAppliedInputSeq=999;expect(evaluateDepartureSafety(observeBot(m,p.participantId,'combined',true),path,'STEAL')).toEqual(before);e.cellId=id(15);e.position={...m.map.cells[e.cellId].center};expect(evaluateDepartureSafety(observeBot(m,p.participantId,'combined',true),path,'STEAL').blocked).toBe(false);});

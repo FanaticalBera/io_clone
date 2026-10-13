@@ -1,0 +1,41 @@
+{
+  "humanPhysicalPreflight": {
+    "cases": 32,
+    "allComplete": true,
+    "allWallClear": true,
+    "sha256": "5cacea5155b74379567dc229cab8f159bc402fdde14d412b188ba95e4e1e43a6"
+  },
+  "observerEquivalence": {
+    "cases": 44,
+    "trajectory": true,
+    "memory": true,
+    "nextActionRng": true,
+    "director": true
+  },
+  "farFairness": {
+    "cases": 32,
+    "hiddenIntent": true,
+    "hiddenUnobservedPose": true,
+    "scope": "Current t0 judgment only"
+  },
+  "legacy16": {
+    "cuts": 13,
+    "failures": [
+      5,
+      6,
+      14
+    ]
+  },
+  "knownSeed1": {
+    "attackTicks": 0,
+    "humanAlive": true,
+    "captures": 1,
+    "tick": 76,
+    "expectedFailureTestPreserved": true,
+    "sha256": "792b82a23a6d46ce66537feba3e55b3eb47617bfa9cf37869a0700f14613fc3c"
+  },
+  "auditScriptsStrictTypecheck": true,
+  "productionSourceUnchanged": true,
+  "newBehaviorImplemented": false,
+  "performanceMeasurement": false
+}

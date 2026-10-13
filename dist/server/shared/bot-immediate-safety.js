@@ -153,6 +153,13 @@ export function evaluateRepositionStartSafety(obs, path) {
     return { safe: p.allOwned && !p.blocked, reason: p.blocked ? 'WALL' : p.allOwned ? null : 'LEAVES_HOME', firstCell: p.firstCell, entrySeconds: p.entrySeconds, blocked: p.blocked };
 }
 // Same 0.65 s perimeter steering check, extracted without changing turn geometry.
+// Candidate check only: match the immediate intent after waypoint consumption.
+// Do not simulate the prefix or reject goals handled by other safety layers.
+export function expansionPerimeterBlocked(obs, path, goal) {
+    if ((goal !== 'EXPAND' && goal !== 'STEAL') || hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) < obs.map.radius - 2)
+        return false;
+    return perimeterEscapeDirection(obs, departureIntent(obs, [...path], goal)) !== null;
+}
 export function perimeterEscapeDirection(obs, direction) {
     if (hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) < obs.map.radius - 2)
         return null;

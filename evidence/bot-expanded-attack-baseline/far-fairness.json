@@ -1,0 +1,231 @@
+{
+  "matchSeed": 2,
+  "initialDistance": 17,
+  "checks": [
+    {
+      "memorySeed": 1,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "a676aa3431679b0ed00e0cae8b965a850a0cc1c0c69ada35efd35a0189477669"
+    },
+    {
+      "memorySeed": 1,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "aa882f1b0dd9be71f559e9ee842caa1cc48bad5cfde466b2274847b90aaa59c5"
+    },
+    {
+      "memorySeed": 1,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "87f73d5062496ead3fae59ed4c164a53abcdec165ae206a4db76a3445c38c29b"
+    },
+    {
+      "memorySeed": 1,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "186fe442f9c6f7257db7b97c4ff90ead5209d89e30e52a657fb531e51f74fe57"
+    },
+    {
+      "memorySeed": 2,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "5154de821072bec8a5552a646252cbc77f6b928fe26ff3dc1eb6cc4216911ded"
+    },
+    {
+      "memorySeed": 2,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "99edc618e39be52ff3bde9ff4ea05102019a93ee6d702bd23e40e4edfa3ab398"
+    },
+    {
+      "memorySeed": 2,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "a4402264fd13073d8f0791f5bd78b9b13cd76873e2818685bd93e7e3e3e43677"
+    },
+    {
+      "memorySeed": 2,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "867976e219dc91ca3d6c244757c89a0bfc46125d8a611f885e52ed2dfb6448a5"
+    },
+    {
+      "memorySeed": 3,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "5a617d48ec32856bbe175a93718e93eabc64ddc12cf1e6d8f274e7a0defb6189"
+    },
+    {
+      "memorySeed": 3,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "cefe9f5f098311b3cb9dba94247073dcb71a90bb32e5bb2fa83d4aeefdeb9a9f"
+    },
+    {
+      "memorySeed": 3,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "37a09cfe1f7a7b0ee4750f35c8cf87b71d21b2407e7725f276dcfecbcc610724"
+    },
+    {
+      "memorySeed": 3,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "07453783b255fd8b1196e9b7d2e6b9b21a8fe4169a3b215728666310568d28c9"
+    },
+    {
+      "memorySeed": 4,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "58021b45eb29648412e65eb4c92b22c10baa7495b283d1b440e103e0affc39ed"
+    },
+    {
+      "memorySeed": 4,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "04c886c1f92c6614b5701844d410c4c44abf6a5beb52e70a32f6bd79ecac91a8"
+    },
+    {
+      "memorySeed": 4,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "6472831b9a9f74bab795c5e2e84ef41624e9f8ed540d51e0b163f999137002a7"
+    },
+    {
+      "memorySeed": 4,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "aa5c0fbb77ce5053f043ad25dc53e6e5b679842ade16c6ed416691dab038e1b0"
+    },
+    {
+      "memorySeed": 5,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "04acc61d52f9d41e6c800326677b0fb489fca8cb6159cfc4a385a9b4e497764f"
+    },
+    {
+      "memorySeed": 5,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "c280ad9a1eabbeb6d48e366dc020023c20c0e344f8b48c6e7741cc9abc9b9190"
+    },
+    {
+      "memorySeed": 5,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "53b8aa4ea9cccf9b12c3ade1594c266f102537805df6516bbbc3255764d1abda"
+    },
+    {
+      "memorySeed": 5,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "a480b41147bf1be24ce4c5d57162fe062a9e7077da58ee2fa0b528fe63b89eb3"
+    },
+    {
+      "memorySeed": 6,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "40e1ee07e01c4d424f6cbd0a0ae2343b0fb79a58d7d572c1fa1c6031eb45045e"
+    },
+    {
+      "memorySeed": 6,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "19bfc36b0012e6b3b1cde78c422c9129c5f8bfee5d6c895547b6e30c3aacf235"
+    },
+    {
+      "memorySeed": 6,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "19a2db0cd3c11d5833dc55020a25834d5e84300cb6a0dd078487e80b083dc88f"
+    },
+    {
+      "memorySeed": 6,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "190ed02dea7904969822b0ec3f087b1dd8d324e3e2498450bae75c8c977c69e6"
+    },
+    {
+      "memorySeed": 7,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "49df4ca3439274e93f8be6b0275dee7480800352befee8597b7b18ae0ab6816a"
+    },
+    {
+      "memorySeed": 7,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "8f1748cadf253a8f9db219c7758ef80a42fe92e3c375d2f32add910251d67d38"
+    },
+    {
+      "memorySeed": 7,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "e3182bea485152b0bb238cb0f56b661d88fa1dfff310649901a16ddccf5e9940"
+    },
+    {
+      "memorySeed": 7,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "1a5e73971f5962189e68eac7c2ea4e12d8094488c86e6663a11f4294e59c4295"
+    },
+    {
+      "memorySeed": 8,
+      "personality": "DEFEND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "1a7fceac474430e189a7a4d50f0f63b1832398a90922eb6102d73feace3fac51"
+    },
+    {
+      "memorySeed": 8,
+      "personality": "ATTACK",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "e1dbeb0081d5e0d903ec401addeb213f9530babd1fda4bd867f1e45937400f5a"
+    },
+    {
+      "memorySeed": 8,
+      "personality": "EXPAND",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "0af3f086cf7fe5dc44447ab60e7c1fd919331f0d95833fd2b87fd9caec4b9eb8"
+    },
+    {
+      "memorySeed": 8,
+      "personality": "SEEK_POINT",
+      "hiddenIntentEqual": true,
+      "hiddenPoseEqual": true,
+      "memoryHash": "8df55511111eee51a558542819e1f01d5b88b4fd71581f2fdcd79495c46e35a0"
+    }
+  ],
+  "scope": "32 fixed t0 judgments: unobserved human intent/pose do not affect bot input, memory, action RNG or reservation state. Not a proof that complete future games stay identical when human motion differs."
+}

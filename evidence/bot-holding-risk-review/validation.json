@@ -1,0 +1,15 @@
+{
+  "typecheckBuild": "client/server/tests 타입 검사와 production build 통과; 새 audit scripts strict 타입 검사도 통과",
+  "vitest": "전체683개 중682통과, known seed1 기대실패1. 최초2개 R22 궤적pin 불일치는 승인 quota 위험 동작으로 갱신 후 전체재실행 통과. 실제회수/소유권/점령/벽0/부활 assertions 유지",
+  "pc": "PC Playwright9/9통과, production debug 비노출 및 관전/HUD/회수/재배치/출발안전 확인",
+  "riskOnly": true,
+  "quietLargerCandidatesEnabled": false,
+  "normalizationEightSeedsIdentical": true,
+  "allObserverFreeEightSeedChecksPassed": true,
+  "recoveryFixture": { "baselineActualRecovered": 5, "candidateActualRecovered": 5, "baselineDeaths": 0, "candidateDeaths": 0 },
+  "sourceChangesVersusBaseline": [ "bot-holding-risk.ts", "bot-strategy.ts", "bot-tactical.ts" ],
+  "wallOrMapBoundaryRefactorImplemented": false,
+  "masterChanged": false,
+  "remotePushed": false,
+  "finalAdoption": "사용자 검토/관전 대기; 큰 루프 자동 재시험 안함"
+}

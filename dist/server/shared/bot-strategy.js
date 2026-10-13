@@ -7,10 +7,11 @@ import { emotionIndividual, memoryValuable, grudgeBonus, grudgeAmount } from './
 import { survivalCounterAllowed } from './bot-policy.js';
 import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
 import { expansionSides, EXPANSION_SHAPES } from './bot-expansion.js';
-import { evaluateDepartureSafety, recordDepartureSafety } from './bot-immediate-safety.js';
+import { evaluateDepartureSafety, recordDepartureSafety, expansionPerimeterBlocked } from './bot-immediate-safety.js';
 import { selectReposition, startReposition } from './bot-reposition.js';
 import { decisionTraces, attackPolicies } from './bot-runtime.js';
 import { shortestPath, returnPath, travelSeconds, observedHeading, forecastHead } from './bot-navigation.js';
+import { holdingRiskMultiplier } from './bot-holding-risk.js';
 // Candidate enumeration, score arithmetic and RNG draw order are unchanged.
 const behavior = {
     EXPAND: { length: 5, width: 4, attack: 0.08, pointWeight: 4, risk: 0.7, trailLimit: 20, steal: 0.3, attackRange: 6 },
@@ -278,6 +279,7 @@ export function planExpansion(obs, memory) {
         const rank = (cell) => hexDistance(cell, obs.map.cells[obs.self.cellId]) - (hexDistance(cell, obs.map.cells[obs.self.cellId]) < obs.config.botObservationRange && cell.neighbors.some(id => id >= 0 && obs.owners[id] !== 0 && obs.owners[id] !== owner) ? 3 : 0);
         boundary.sort((a, b) => rank(a) - rank(b));
     }
+    const holdingRisk = holdingRiskMultiplier(obs.self.territoryCount, obs.map.cells.length, obs.roster?.length ?? obs.config.maxSlots);
     const candidates = [];
     memory.attackTarget = null;
     memory.attackSlot = null;
@@ -392,7 +394,7 @@ export function planExpansion(obs, memory) {
             const repeatPenalty = obs.self.personality !== 'DEFEND' && memory.lastExpansionShape === shape ? 1.5 : 0;
             if (trace)
                 (trace.expansionAccepted ??= []).push(shape);
-            const baseScore = gain.length * (obs.self.personality === 'EXPAND' ? 1.25 : 1) + stolen * settings.steal - path.length * 0.35 - risk * settings.risk - turn * 2 - excursionRisk - repeatPenalty + memory.random() * 0.5;
+            const baseScore = gain.length * (obs.self.personality === 'EXPAND' ? 1.25 : 1) + stolen * settings.steal - path.length * 0.35 - risk * settings.risk * holdingRisk - turn * 2 - excursionRisk * holdingRisk - repeatPenalty + memory.random() * 0.5;
             const response = expansionDamageBonus(obs, memory.emotion, gain, baseScore, memory.identity);
             candidates.push({ path, score: baseScore + response.bonus, goal: stolen > gain.length / 2 ? 'STEAL' : 'EXPAND', expansion: { response, anchor: anchor.id, shape, pathLength: path.length, externalLength: external.length, captureSize: gain.length, stolenCells: stolen, earlyClosed: false, downScaled, threatDistance } });
         }
@@ -417,6 +419,8 @@ export function planExpansion(obs, memory) {
             }
             continue;
         }
+        if (expansionPerimeterBlocked(obs, candidate.path, candidate.goal))
+            continue;
         selected = candidate;
         break;
     }

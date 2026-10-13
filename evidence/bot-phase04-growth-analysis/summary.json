@@ -1,0 +1,5289 @@
+{
+  "sourceCommit": "a535bf72dbdc7671b4cf4b84e888cf7b4ea13fe9",
+  "protocol": {
+    "createdAt": "2026-10-13T08:02:39.055Z",
+    "status": "READ_ONLY_ANALYSIS_BEHAVIOR_FROZEN",
+    "commit": "a535bf72dbdc7671b4cf4b84e888cf7b4ea13fe9",
+    "correctedUserReference": "269c8c1 is analysis documentation; wall fix is a535bf7 on top of133ee1f",
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "ticks": 7200,
+    "checkpointTicks": [
+      900,
+      1800,
+      2700,
+      3600,
+      4500,
+      5400,
+      6300,
+      7200
+    ],
+    "primaryComparisonTick": 3600,
+    "config": {
+      "mapRadius": 56,
+      "spawnRadius": 1,
+      "maxSlots": 14,
+      "simulationHz": 30,
+      "safeRespawn": true,
+      "classic": true
+    },
+    "native": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase04-growth-analysis\\native-source",
+    "observed": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase04-growth-analysis\\observed-source",
+    "shadow": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-phase04-growth-analysis\\shadow-source",
+    "nativeHashes": {
+      "bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "6a0ac5dcefda4242e5ce844d028f136d7fcc574e11f426bd8ec8089757d328e8",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "observedHashes": {
+      "bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-growth-audit-hook.ts": "692a2bb1a41501a3b7d283e9e493948c33ebb477b694a4a28432e4af571cf3c5",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "20a488b86b39dd416901c7c8a10906edaa48224b94fc3ce7c2efcce15f86176c",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "shadowHashes": {
+      "bot-candidate-diagnostics.ts": "5a7cc137df7533e116e02adb0eb7997a963d311475ab7442c408dd03af195b24",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-growth-audit-hook.ts": "692a2bb1a41501a3b7d283e9e493948c33ebb477b694a4a28432e4af571cf3c5",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "d338faa6ff8b0a648f6356f1cca6023966e615d40c6455eb3a4ad68427ec7841",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "d1e98a0d0dc5b285dca85dae8517a8ad24110fc4a3cf528741ceeb856857d80e",
+      "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+      "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    },
+    "shadowProtocol": {
+      "sampling": "Every actual planExpansion call; clone memory and RNG at function entry; native selection remains authoritative",
+      "contexts": "Mutually exclusive: no observed heads ->quiet_large; observed heads but none within6 ->visible_large; any head within6 ->crowded_large",
+      "quietLarge": "length settings+2, width settings+1; existing downScaled and all hard path/trail/proximity/departure/perimeter conditions retained",
+      "visibleLarge": "same+2/+1 geometry; Explorer4/3 visible cap bypassed only in shadow; existing downScaled retained",
+      "crowdedLarge": "length2..4,width1..2; original crowded external6 cap retained",
+      "control": "Unmodified-size shadow must reproduce full candidate batch, selected index and next RNG of the actual native planning call",
+      "rng": "Clone current action RNG by seededRandom((seed+draws*0x6d2b79f5)>>>0); tracked native calls return original values. No diagnostic calls on native RNG.",
+      "policy": "Pure clone of reservation count/factors at same judgment; never invoke native policy.evaluate, whose counters mutate.",
+      "scope": "Passing current native candidate/launch/perimeter filters is not proof of future dynamic safety or completion"
+    },
+    "humanFixture": {
+      "slots": "Human0+BOT1..13 as native PracticeSession",
+      "routes": [
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -4,
+            0
+          ],
+          [
+            -2,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -3,
+            2
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            -1,
+            -2
+          ],
+          [
+            1,
+            -2
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            -2,
+            4
+          ],
+          [
+            -4,
+            4
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2
+          ],
+          [
+            -4,
+            2
+          ],
+          [
+            -5,
+            3
+          ],
+          [
+            -5,
+            1
+          ],
+          [
+            -3,
+            -1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "source": "Existing medium-attack audit four relative loops, reused unchanged, cyclic order1..4 then repeat; waypoint reach18 world units",
+      "duration": 7200,
+      "stop": "Stop at human ELIMINATED exactly like practice; no immunity, human respawn, input or rule changes",
+      "comparison": "Mechanical repeated input is not the observed skilled human30%; report death-censored horizons rather than inventing2–3min figures"
+    },
+    "deferred": [
+      "Wall-parallel edge-line routes",
+      "417 prefix perimeter stops",
+      "NO_APPROACH including distance12 zero cuts and Hunter15.6%<Explorer16.8%"
+    ],
+    "proposalLimit": 1
+  },
+  "allEightNeutral": true,
+  "allEight120sMatchApprovedWallFix": true,
+  "shadowControlChecks": 10770,
+  "stage": {
+    "captures": 9632,
+    "captureSize": {
+      "count": 9632,
+      "total": 136821,
+      "mean": 14.20483803986711,
+      "p50": 10,
+      "p90": 32,
+      "max": 111,
+      "zero": 0,
+      "histogram": {
+        "0": 0,
+        "1..3": 2572,
+        "4..7": 1907,
+        "8..15": 1125,
+        "16..31": 3020,
+        "32+": 1008
+      }
+    },
+    "exposure": {
+      "aliveTicks": 787936,
+      "crowdedTicks": 98370,
+      "crowdedFraction": 0.12484516508955042,
+      "observedTicks": 263294,
+      "observedFraction": 0.3341565812451773,
+      "quietTicks": 524642,
+      "quietFraction": 0.6658434187548228
+    },
+    "accounting": {
+      "initial": 784,
+      "gained": 136821,
+      "neutral": 105606,
+      "stolen": 31215,
+      "theftLoss": 31215,
+      "otherLiveLoss": 10723,
+      "deathLoss": 61715,
+      "spawnGrants": 1421,
+      "final": 35373,
+      "liveNet": 94883,
+      "deathLossShareOfAllLoss": 0.5954000366607817
+    },
+    "planOutcomes": {
+      "CAPTURE": 5857,
+      "DANGER": 723,
+      "PERIMETER_GUARD": 1388,
+      "EXPANSION_PRESSURE": 843,
+      "ATTACK_OPPORTUNITY": 203,
+      "RESELECTED": 676,
+      "LAUNCH_BLOCKED": 539,
+      "LAUNCH_NO_SAFE_OWNED_ROUTE": 64,
+      "NO_PATH": 11,
+      "HOME_ROUTE_LOST": 16,
+      "REPOSITION_START": 5,
+      "CENSORED": 72,
+      "DEATH": 4
+    },
+    "earlyPlans": 49,
+    "geometryFirstRejections": {
+      "total": 444672,
+      "counts": {
+        "ELIGIBLE_BEFORE_LAUNCH": 248270,
+        "PERSONALITY_TRAIL_LIMIT": 1499,
+        "PATH_BUDGET": 1349,
+        "BLOCKED_PATH": 42192,
+        "NOT_CLOSED": 119331,
+        "NEAR_HEAD": 32031
+      },
+      "shares": {
+        "ELIGIBLE_BEFORE_LAUNCH": 0.5583216393206678,
+        "PERSONALITY_TRAIL_LIMIT": 0.0033710240356937247,
+        "PATH_BUDGET": 0.0030336967472654,
+        "BLOCKED_PATH": 0.09488341968911918,
+        "NOT_CLOSED": 0.26835735103626945,
+        "NEAR_HEAD": 0.07203286917098446
+      }
+    },
+    "planningJudgments": 10770,
+    "crowdedJudgments": 3418,
+    "observedJudgments": 5136,
+    "rawCandidates": 444672,
+    "contextCounterfactual": [
+      {
+        "kind": "quiet_large",
+        "judgments": 5634,
+        "withBaselineSafe": 5621,
+        "withShadowSafe": 5604,
+        "novelLargerThanAllBaselineCandidates": 4569,
+        "novelLargerFraction": 0.8109691160809371,
+        "physicallyLargerExternal8": 5199,
+        "shadowSelectsLargerThanActual": 4468,
+        "allPassingGains": {
+          "count": 120270,
+          "total": 1585128,
+          "mean": 13.179745572461961,
+          "p50": 11,
+          "p90": 28,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 29297,
+            "4..7": 17936,
+            "8..15": 29275,
+            "16..31": 35993,
+            "32+": 7769
+          }
+        },
+        "novelLargerGains": {
+          "count": 20146,
+          "total": 533388,
+          "mean": 26.476124292663556,
+          "p50": 25,
+          "p90": 39,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 64,
+            "4..7": 237,
+            "8..15": 1703,
+            "16..31": 13237,
+            "32+": 4905
+          }
+        },
+        "allPassingExternal": {
+          "count": 120270,
+          "total": 933398,
+          "mean": 7.760854743493805,
+          "p50": 7,
+          "p90": 15,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 34516,
+            "4..7": 26384,
+            "8..15": 48699,
+            "16..31": 10671,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 20146,
+          "total": 268126,
+          "mean": 13.309143254244018,
+          "p50": 13,
+          "p90": 18,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 96,
+            "4..7": 1009,
+            "8..15": 12979,
+            "16..31": 6062,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 213150,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 121572,
+            "PERSONALITY_TRAIL_LIMIT": 11963,
+            "BLOCKED_PATH": 46311,
+            "PATH_BUDGET": 7404,
+            "NOT_CLOSED": 25900
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5703589021815623,
+            "PERSONALITY_TRAIL_LIMIT": 0.0561247947454844,
+            "BLOCKED_PATH": 0.2172695285010556,
+            "PATH_BUDGET": 0.03473610133708656,
+            "NOT_CLOSED": 0.12151067323481117
+          }
+        }
+      },
+      {
+        "kind": "visible_large",
+        "judgments": 1718,
+        "withBaselineSafe": 1718,
+        "withShadowSafe": 1718,
+        "novelLargerThanAllBaselineCandidates": 1513,
+        "novelLargerFraction": 0.880675203725262,
+        "physicallyLargerExternal8": 1678,
+        "shadowSelectsLargerThanActual": 1470,
+        "allPassingGains": {
+          "count": 43954,
+          "total": 547604,
+          "mean": 12.458570323520044,
+          "p50": 10,
+          "p90": 28,
+          "max": 97,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 12706,
+            "4..7": 6630,
+            "8..15": 9611,
+            "16..31": 12318,
+            "32+": 2689
+          }
+        },
+        "novelLargerGains": {
+          "count": 7538,
+          "total": 217092,
+          "mean": 28.79968161315999,
+          "p50": 27,
+          "p90": 40,
+          "max": 97,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 0,
+            "4..7": 12,
+            "8..15": 246,
+            "16..31": 5005,
+            "32+": 2275
+          }
+        },
+        "allPassingExternal": {
+          "count": 43954,
+          "total": 312982,
+          "mean": 7.120671611229922,
+          "p50": 6,
+          "p90": 15,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 15504,
+            "4..7": 9119,
+            "8..15": 15845,
+            "16..31": 3486,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 7538,
+          "total": 104600,
+          "mean": 13.876359777129212,
+          "p50": 14,
+          "p90": 18,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 4,
+            "4..7": 240,
+            "8..15": 4619,
+            "16..31": 2675,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 74178,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 44137,
+            "BLOCKED_PATH": 10045,
+            "NEAR_HEAD": 4930,
+            "NOT_CLOSED": 8820,
+            "PERSONALITY_TRAIL_LIMIT": 4249,
+            "PATH_BUDGET": 1997
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5950146943837795,
+            "BLOCKED_PATH": 0.13541750923454393,
+            "NEAR_HEAD": 0.06646175415891505,
+            "NOT_CLOSED": 0.11890317884008736,
+            "PERSONALITY_TRAIL_LIMIT": 0.05728113456820082,
+            "PATH_BUDGET": 0.026921728814473293
+          }
+        }
+      },
+      {
+        "kind": "crowded_large",
+        "judgments": 3418,
+        "withBaselineSafe": 3342,
+        "withShadowSafe": 3353,
+        "novelLargerThanAllBaselineCandidates": 2938,
+        "novelLargerFraction": 0.8595669982445875,
+        "physicallyLargerExternal8": 0,
+        "shadowSelectsLargerThanActual": 2595,
+        "allPassingGains": {
+          "count": 54907,
+          "total": 187305,
+          "mean": 3.411313675851895,
+          "p50": 3,
+          "p90": 6,
+          "max": 37,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 31047,
+            "4..7": 21859,
+            "8..15": 1833,
+            "16..31": 164,
+            "32+": 4
+          }
+        },
+        "novelLargerGains": {
+          "count": 9464,
+          "total": 64344,
+          "mean": 6.798816568047338,
+          "p50": 6,
+          "p90": 8,
+          "max": 37,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 83,
+            "4..7": 7756,
+            "8..15": 1501,
+            "16..31": 120,
+            "32+": 4
+          }
+        },
+        "allPassingExternal": {
+          "count": 54907,
+          "total": 161120,
+          "mean": 2.9344163767825595,
+          "p50": 3,
+          "p90": 6,
+          "max": 6,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 34203,
+            "4..7": 20704,
+            "8..15": 0,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 9464,
+          "total": 50307,
+          "mean": 5.31561707523246,
+          "p50": 6,
+          "p90": 6,
+          "max": 6,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 510,
+            "4..7": 8954,
+            "8..15": 0,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 157344,
+          "counts": {
+            "NOT_CLOSED": 34769,
+            "ELIGIBLE_BEFORE_LAUNCH": 58560,
+            "CROWDED_EXTERNAL_CAP": 30963,
+            "NEAR_HEAD": 22129,
+            "BLOCKED_PATH": 10923
+          },
+          "shares": {
+            "NOT_CLOSED": 0.2209744254626805,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.37217815741305676,
+            "CROWDED_EXTERNAL_CAP": 0.1967853874313606,
+            "NEAR_HEAD": 0.14064088875330485,
+            "BLOCKED_PATH": 0.06942114093959731
+          }
+        }
+      }
+    ],
+    "byTime": [
+      {
+        "fromSeconds": 0,
+        "toSeconds": 30,
+        "count": 1086,
+        "total": 19547,
+        "mean": 17.999079189686924,
+        "p50": 18,
+        "p90": 36,
+        "max": 73,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 241,
+          "4..7": 59,
+          "8..15": 149,
+          "16..31": 471,
+          "32+": 166
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 179,
+            "total": 5400,
+            "mean": 30.16759776536313,
+            "p50": 36,
+            "p90": 50,
+            "max": 73,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 34,
+              "4..7": 7,
+              "8..15": 4,
+              "16..31": 24,
+              "32+": 110
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 303,
+            "total": 4718,
+            "mean": 15.570957095709572,
+            "p50": 16,
+            "p90": 29,
+            "max": 46,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 67,
+              "4..7": 17,
+              "8..15": 65,
+              "16..31": 132,
+              "32+": 22
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 362,
+            "total": 4928,
+            "mean": 13.613259668508288,
+            "p50": 16,
+            "p90": 23,
+            "max": 30,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 95,
+              "4..7": 22,
+              "8..15": 48,
+              "16..31": 197,
+              "32+": 0
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 242,
+            "total": 4501,
+            "mean": 18.59917355371901,
+            "p50": 19,
+            "p90": 33,
+            "max": 51,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 45,
+              "4..7": 13,
+              "8..15": 32,
+              "16..31": 118,
+              "32+": 34
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 30,
+        "toSeconds": 60,
+        "count": 1290,
+        "total": 16818,
+        "mean": 13.037209302325582,
+        "p50": 8,
+        "p90": 31,
+        "max": 92,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 382,
+          "4..7": 262,
+          "8..15": 171,
+          "16..31": 357,
+          "32+": 118
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 228,
+            "total": 4665,
+            "mean": 20.460526315789473,
+            "p50": 12,
+            "p90": 45,
+            "max": 92,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 57,
+              "4..7": 47,
+              "8..15": 18,
+              "16..31": 33,
+              "32+": 73
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 339,
+            "total": 4075,
+            "mean": 12.020648967551622,
+            "p50": 10,
+            "p90": 27,
+            "max": 43,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 88,
+              "4..7": 67,
+              "8..15": 67,
+              "16..31": 100,
+              "32+": 17
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 420,
+            "total": 4534,
+            "mean": 10.795238095238096,
+            "p50": 7,
+            "p90": 23,
+            "max": 42,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 139,
+              "4..7": 79,
+              "8..15": 53,
+              "16..31": 143,
+              "32+": 6
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 303,
+            "total": 3544,
+            "mean": 11.696369636963697,
+            "p50": 6,
+            "p90": 27,
+            "max": 49,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 98,
+              "4..7": 69,
+              "8..15": 33,
+              "16..31": 81,
+              "32+": 22
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 60,
+        "toSeconds": 90,
+        "count": 1244,
+        "total": 16602,
+        "mean": 13.345659163987138,
+        "p50": 9,
+        "p90": 30,
+        "max": 90,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 327,
+          "4..7": 279,
+          "8..15": 143,
+          "16..31": 390,
+          "32+": 105
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 234,
+            "total": 4293,
+            "mean": 18.346153846153847,
+            "p50": 7,
+            "p90": 45,
+            "max": 90,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 60,
+              "4..7": 60,
+              "8..15": 9,
+              "16..31": 39,
+              "32+": 66
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 325,
+            "total": 4156,
+            "mean": 12.787692307692307,
+            "p50": 10,
+            "p90": 26,
+            "max": 47,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 77,
+              "4..7": 68,
+              "8..15": 51,
+              "16..31": 112,
+              "32+": 17
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 407,
+            "total": 4536,
+            "mean": 11.144963144963144,
+            "p50": 7,
+            "p90": 24,
+            "max": 44,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 129,
+              "4..7": 78,
+              "8..15": 49,
+              "16..31": 142,
+              "32+": 9
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 278,
+            "total": 3617,
+            "mean": 13.010791366906474,
+            "p50": 9,
+            "p90": 29,
+            "max": 57,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 61,
+              "4..7": 73,
+              "8..15": 34,
+              "16..31": 97,
+              "32+": 13
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 90,
+        "toSeconds": 120,
+        "count": 1230,
+        "total": 16478,
+        "mean": 13.396747967479675,
+        "p50": 7,
+        "p90": 31,
+        "max": 111,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 339,
+          "4..7": 278,
+          "8..15": 151,
+          "16..31": 343,
+          "32+": 119
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 235,
+            "total": 4454,
+            "mean": 18.953191489361704,
+            "p50": 6,
+            "p90": 47,
+            "max": 111,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 63,
+              "4..7": 61,
+              "8..15": 15,
+              "16..31": 27,
+              "32+": 69
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 327,
+            "total": 3736,
+            "mean": 11.425076452599388,
+            "p50": 8,
+            "p90": 24,
+            "max": 79,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 84,
+              "4..7": 76,
+              "8..15": 68,
+              "16..31": 85,
+              "32+": 14
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 381,
+            "total": 4525,
+            "mean": 11.876640419947506,
+            "p50": 9,
+            "p90": 24,
+            "max": 54,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 119,
+              "4..7": 65,
+              "8..15": 42,
+              "16..31": 141,
+              "32+": 14
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 287,
+            "total": 3763,
+            "mean": 13.111498257839722,
+            "p50": 7,
+            "p90": 29,
+            "max": 57,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 73,
+              "4..7": 76,
+              "8..15": 26,
+              "16..31": 90,
+              "32+": 22
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 120,
+        "toSeconds": 150,
+        "count": 1175,
+        "total": 16732,
+        "mean": 14.24,
+        "p50": 9,
+        "p90": 33,
+        "max": 90,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 307,
+          "4..7": 255,
+          "8..15": 130,
+          "16..31": 351,
+          "32+": 132
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 209,
+            "total": 4694,
+            "mean": 22.45933014354067,
+            "p50": 17,
+            "p90": 49,
+            "max": 90,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 44,
+              "4..7": 39,
+              "8..15": 14,
+              "16..31": 35,
+              "32+": 77
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 335,
+            "total": 3835,
+            "mean": 11.447761194029852,
+            "p50": 7,
+            "p90": 25,
+            "max": 48,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 102,
+              "4..7": 70,
+              "8..15": 53,
+              "16..31": 94,
+              "32+": 16
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 381,
+            "total": 4367,
+            "mean": 11.461942257217848,
+            "p50": 6,
+            "p90": 24,
+            "max": 59,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 112,
+              "4..7": 85,
+              "8..15": 40,
+              "16..31": 130,
+              "32+": 14
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 250,
+            "total": 3836,
+            "mean": 15.344,
+            "p50": 14,
+            "p90": 31,
+            "max": 72,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 49,
+              "4..7": 61,
+              "8..15": 23,
+              "16..31": 92,
+              "32+": 25
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 150,
+        "toSeconds": 180,
+        "count": 1213,
+        "total": 16976,
+        "mean": 13.995053586150041,
+        "p50": 8,
+        "p90": 32,
+        "max": 85,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 341,
+          "4..7": 262,
+          "8..15": 116,
+          "16..31": 367,
+          "32+": 127
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 222,
+            "total": 4783,
+            "mean": 21.545045045045047,
+            "p50": 17,
+            "p90": 51,
+            "max": 73,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 55,
+              "4..7": 41,
+              "8..15": 12,
+              "16..31": 34,
+              "32+": 80
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 325,
+            "total": 3641,
+            "mean": 11.203076923076923,
+            "p50": 6,
+            "p90": 26,
+            "max": 76,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 95,
+              "4..7": 79,
+              "8..15": 49,
+              "16..31": 88,
+              "32+": 14
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 385,
+            "total": 4730,
+            "mean": 12.285714285714286,
+            "p50": 7,
+            "p90": 26,
+            "max": 85,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 111,
+              "4..7": 82,
+              "8..15": 38,
+              "16..31": 141,
+              "32+": 13
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 281,
+            "total": 3822,
+            "mean": 13.601423487544483,
+            "p50": 8,
+            "p90": 28,
+            "max": 58,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 80,
+              "4..7": 60,
+              "8..15": 17,
+              "16..31": 104,
+              "32+": 20
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 180,
+        "toSeconds": 210,
+        "count": 1166,
+        "total": 16895,
+        "mean": 14.489708404802744,
+        "p50": 10,
+        "p90": 32,
+        "max": 76,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 300,
+          "4..7": 243,
+          "8..15": 119,
+          "16..31": 386,
+          "32+": 118
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 189,
+            "total": 4547,
+            "mean": 24.058201058201057,
+            "p50": 23,
+            "p90": 50,
+            "max": 72,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 34,
+              "4..7": 32,
+              "8..15": 11,
+              "16..31": 43,
+              "32+": 69
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 323,
+            "total": 3973,
+            "mean": 12.30030959752322,
+            "p50": 8,
+            "p90": 27,
+            "max": 65,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 81,
+              "4..7": 77,
+              "8..15": 46,
+              "16..31": 102,
+              "32+": 17
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 369,
+            "total": 4330,
+            "mean": 11.734417344173442,
+            "p50": 8,
+            "p90": 24,
+            "max": 76,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 113,
+              "4..7": 66,
+              "8..15": 45,
+              "16..31": 137,
+              "32+": 8
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 285,
+            "total": 4045,
+            "mean": 14.192982456140351,
+            "p50": 8,
+            "p90": 31,
+            "max": 53,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 72,
+              "4..7": 68,
+              "8..15": 17,
+              "16..31": 104,
+              "32+": 24
+            }
+          }
+        ]
+      },
+      {
+        "fromSeconds": 210,
+        "toSeconds": 240,
+        "count": 1228,
+        "total": 16773,
+        "mean": 13.658794788273616,
+        "p50": 8,
+        "p90": 31,
+        "max": 100,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 335,
+          "4..7": 269,
+          "8..15": 146,
+          "16..31": 355,
+          "32+": 123
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 221,
+            "total": 4648,
+            "mean": 21.031674208144796,
+            "p50": 13,
+            "p90": 46,
+            "max": 75,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 55,
+              "4..7": 44,
+              "8..15": 17,
+              "16..31": 25,
+              "32+": 80
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 327,
+            "total": 4088,
+            "mean": 12.501529051987768,
+            "p50": 10,
+            "p90": 28,
+            "max": 55,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 81,
+              "4..7": 72,
+              "8..15": 51,
+              "16..31": 109,
+              "32+": 14
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 385,
+            "total": 4347,
+            "mean": 11.290909090909091,
+            "p50": 8,
+            "p90": 24,
+            "max": 42,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 112,
+              "4..7": 79,
+              "8..15": 50,
+              "16..31": 135,
+              "32+": 9
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 295,
+            "total": 3690,
+            "mean": 12.508474576271187,
+            "p50": 6,
+            "p90": 27,
+            "max": 100,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 87,
+              "4..7": 74,
+              "8..15": 28,
+              "16..31": 86,
+              "32+": 20
+            }
+          }
+        ]
+      }
+    ],
+    "byHolding": [
+      {
+        "holdingBand": "0..31",
+        "count": 540,
+        "total": 11892,
+        "mean": 22.022222222222222,
+        "p50": 22,
+        "p90": 40,
+        "max": 54,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 85,
+          "4..7": 33,
+          "8..15": 21,
+          "16..31": 274,
+          "32+": 127
+        },
+        "selectedPredicted": {
+          "count": 306,
+          "total": 7525,
+          "mean": 24.591503267973856,
+          "p50": 24,
+          "p90": 37,
+          "max": 54,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 3,
+            "4..7": 18,
+            "8..15": 15,
+            "16..31": 207,
+            "32+": 63
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 94,
+            "total": 3394,
+            "mean": 36.1063829787234,
+            "p50": 41,
+            "p90": 47,
+            "max": 54,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 9,
+              "4..7": 3,
+              "8..15": 1,
+              "16..31": 4,
+              "32+": 77
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 147,
+            "total": 2776,
+            "mean": 18.8843537414966,
+            "p50": 22,
+            "p90": 32,
+            "max": 42,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 24,
+              "4..7": 17,
+              "8..15": 10,
+              "16..31": 79,
+              "32+": 17
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 150,
+            "total": 2439,
+            "mean": 16.26,
+            "p50": 19,
+            "p90": 22,
+            "max": 28,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 26,
+              "4..7": 3,
+              "8..15": 9,
+              "16..31": 112,
+              "32+": 0
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 149,
+            "total": 3283,
+            "mean": 22.033557046979865,
+            "p50": 25,
+            "p90": 36,
+            "max": 49,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 26,
+              "4..7": 10,
+              "8..15": 1,
+              "16..31": 79,
+              "32+": 33
+            }
+          }
+        ]
+      },
+      {
+        "holdingBand": "32..63",
+        "count": 687,
+        "total": 11450,
+        "mean": 16.666666666666668,
+        "p50": 14,
+        "p90": 38,
+        "max": 61,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 140,
+          "4..7": 130,
+          "8..15": 90,
+          "16..31": 225,
+          "32+": 102
+        },
+        "selectedPredicted": {
+          "count": 430,
+          "total": 8768,
+          "mean": 20.390697674418604,
+          "p50": 19,
+          "p90": 39,
+          "max": 56,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 18,
+            "4..7": 79,
+            "8..15": 62,
+            "16..31": 194,
+            "32+": 77
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 99,
+            "total": 3246,
+            "mean": 32.78787878787879,
+            "p50": 40,
+            "p90": 51,
+            "max": 61,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 16,
+              "4..7": 8,
+              "8..15": 1,
+              "16..31": 5,
+              "32+": 69
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 210,
+            "total": 2701,
+            "mean": 12.861904761904762,
+            "p50": 11,
+            "p90": 29,
+            "max": 40,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 49,
+              "4..7": 44,
+              "8..15": 42,
+              "16..31": 64,
+              "32+": 11
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 144,
+            "total": 1870,
+            "mean": 12.98611111111111,
+            "p50": 15,
+            "p90": 24,
+            "max": 29,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 33,
+              "4..7": 20,
+              "8..15": 22,
+              "16..31": 69,
+              "32+": 0
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 234,
+            "total": 3633,
+            "mean": 15.525641025641026,
+            "p50": 13,
+            "p90": 31,
+            "max": 53,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 42,
+              "4..7": 58,
+              "8..15": 25,
+              "16..31": 87,
+              "32+": 22
+            }
+          }
+        ]
+      },
+      {
+        "holdingBand": "64..127",
+        "count": 1373,
+        "total": 19803,
+        "mean": 14.423160961398398,
+        "p50": 14,
+        "p90": 30,
+        "max": 63,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 334,
+          "4..7": 232,
+          "8..15": 174,
+          "16..31": 518,
+          "32+": 115
+        },
+        "selectedPredicted": {
+          "count": 874,
+          "total": 16579,
+          "mean": 18.969107551487415,
+          "p50": 19,
+          "p90": 33,
+          "max": 67,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 35,
+            "4..7": 137,
+            "8..15": 135,
+            "16..31": 466,
+            "32+": 101
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 167,
+            "total": 3880,
+            "mean": 23.233532934131738,
+            "p50": 24,
+            "p90": 46,
+            "max": 63,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 39,
+              "4..7": 18,
+              "8..15": 10,
+              "16..31": 35,
+              "32+": 65
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 372,
+            "total": 4747,
+            "mean": 12.760752688172044,
+            "p50": 11,
+            "p90": 27,
+            "max": 47,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 95,
+              "4..7": 62,
+              "8..15": 70,
+              "16..31": 124,
+              "32+": 21
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 381,
+            "total": 4666,
+            "mean": 12.246719160104988,
+            "p50": 14,
+            "p90": 22,
+            "max": 32,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 100,
+              "4..7": 60,
+              "8..15": 44,
+              "16..31": 175,
+              "32+": 2
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 453,
+            "total": 6510,
+            "mean": 14.370860927152318,
+            "p50": 14,
+            "p90": 29,
+            "max": 52,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 100,
+              "4..7": 92,
+              "8..15": 50,
+              "16..31": 184,
+              "32+": 27
+            }
+          }
+        ]
+      },
+      {
+        "holdingBand": "128..255",
+        "count": 2697,
+        "total": 35296,
+        "mean": 13.087133852428625,
+        "p50": 8,
+        "p90": 29,
+        "max": 111,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 738,
+          "4..7": 604,
+          "8..15": 326,
+          "16..31": 797,
+          "32+": 232
+        },
+        "selectedPredicted": {
+          "count": 1639,
+          "total": 29291,
+          "mean": 17.871262965222698,
+          "p50": 17,
+          "p90": 34,
+          "max": 85,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 105,
+            "4..7": 358,
+            "8..15": 252,
+            "16..31": 721,
+            "32+": 203
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 418,
+            "total": 8931,
+            "mean": 21.36602870813397,
+            "p50": 17,
+            "p90": 48,
+            "max": 111,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 88,
+              "4..7": 90,
+              "8..15": 24,
+              "16..31": 73,
+              "32+": 143
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 687,
+            "total": 8323,
+            "mean": 12.114992721979622,
+            "p50": 10,
+            "p90": 26,
+            "max": 46,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 163,
+              "4..7": 148,
+              "8..15": 130,
+              "16..31": 219,
+              "32+": 27
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 800,
+            "total": 8826,
+            "mean": 11.0325,
+            "p50": 7,
+            "p90": 23,
+            "max": 44,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 248,
+              "4..7": 163,
+              "8..15": 90,
+              "16..31": 287,
+              "32+": 12
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 792,
+            "total": 9216,
+            "mean": 11.636363636363637,
+            "p50": 6,
+            "p90": 27,
+            "max": 73,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 239,
+              "4..7": 203,
+              "8..15": 82,
+              "16..31": 218,
+              "32+": 50
+            }
+          }
+        ]
+      },
+      {
+        "holdingBand": "256..511",
+        "count": 3061,
+        "total": 40168,
+        "mean": 13.122508983992159,
+        "p50": 7,
+        "p90": 31,
+        "max": 100,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 911,
+          "4..7": 641,
+          "8..15": 368,
+          "16..31": 855,
+          "32+": 286
+        },
+        "selectedPredicted": {
+          "count": 1836,
+          "total": 34191,
+          "mean": 18.622549019607842,
+          "p50": 18,
+          "p90": 35,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 133,
+            "4..7": 367,
+            "8..15": 270,
+            "16..31": 802,
+            "32+": 264
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 566,
+            "total": 11166,
+            "mean": 19.72791519434629,
+            "p50": 10,
+            "p90": 47,
+            "max": 92,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 156,
+              "4..7": 116,
+              "8..15": 29,
+              "16..31": 93,
+              "32+": 172
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 883,
+            "total": 9777,
+            "mean": 11.072480181200453,
+            "p50": 7,
+            "p90": 24,
+            "max": 61,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 256,
+              "4..7": 193,
+              "8..15": 154,
+              "16..31": 246,
+              "32+": 34
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 1101,
+            "total": 12227,
+            "mean": 11.105358764759309,
+            "p50": 6,
+            "p90": 25,
+            "max": 85,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 366,
+              "4..7": 211,
+              "8..15": 140,
+              "16..31": 346,
+              "32+": 38
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 511,
+            "total": 6998,
+            "mean": 13.694716242661448,
+            "p50": 8,
+            "p90": 29,
+            "max": 100,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 133,
+              "4..7": 121,
+              "8..15": 45,
+              "16..31": 170,
+              "32+": 42
+            }
+          }
+        ]
+      },
+      {
+        "holdingBand": "512+",
+        "count": 1274,
+        "total": 18212,
+        "mean": 14.29513343799058,
+        "p50": 8,
+        "p90": 34,
+        "max": 110,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 364,
+          "4..7": 267,
+          "8..15": 146,
+          "16..31": 351,
+          "32+": 146
+        },
+        "selectedPredicted": {
+          "count": 772,
+          "total": 15375,
+          "mean": 19.91580310880829,
+          "p50": 18,
+          "p90": 40,
+          "max": 110,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 65,
+            "4..7": 163,
+            "8..15": 103,
+            "16..31": 299,
+            "32+": 142
+          }
+        },
+        "roles": [
+          {
+            "personality": "EXPAND",
+            "count": 373,
+            "total": 6867,
+            "mean": 18.410187667560322,
+            "p50": 7,
+            "p90": 48,
+            "max": 110,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 94,
+              "4..7": 96,
+              "8..15": 35,
+              "16..31": 50,
+              "32+": 98
+            }
+          },
+          {
+            "personality": "ATTACK",
+            "count": 305,
+            "total": 3898,
+            "mean": 12.780327868852458,
+            "p50": 8,
+            "p90": 28,
+            "max": 79,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 88,
+              "4..7": 62,
+              "8..15": 44,
+              "16..31": 90,
+              "32+": 21
+            }
+          },
+          {
+            "personality": "DEFEND",
+            "count": 514,
+            "total": 6269,
+            "mean": 12.196498054474707,
+            "p50": 8,
+            "p90": 26,
+            "max": 59,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 157,
+              "4..7": 99,
+              "8..15": 60,
+              "16..31": 177,
+              "32+": 21
+            }
+          },
+          {
+            "personality": "SEEK_POINT",
+            "count": 82,
+            "total": 1178,
+            "mean": 14.365853658536585,
+            "p50": 13,
+            "p90": 27,
+            "max": 58,
+            "zero": 0,
+            "histogram": {
+              "0": 0,
+              "1..3": 25,
+              "4..7": 10,
+              "8..15": 7,
+              "16..31": 34,
+              "32+": 6
+            }
+          }
+        ]
+      }
+    ],
+    "proposedQuietHolding64": {
+      "judgments": 4740,
+      "withBaselineSafe": 4727,
+      "withShadowSafe": 4730,
+      "novelLargerThanAllBaselineCandidates": 3892,
+      "novelLargerFraction": 0.8210970464135021,
+      "physicallyLargerExternal8": 4327,
+      "shadowSelectsLargerThanActual": 3802,
+      "allPassingGains": {
+        "count": 102931,
+        "total": 1264882,
+        "mean": 12.288639962693455,
+        "p50": 10,
+        "p90": 27,
+        "max": 138,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 28057,
+          "4..7": 16502,
+          "8..15": 24803,
+          "16..31": 27649,
+          "32+": 5920
+        }
+      },
+      "novelLargerGains": {
+        "count": 16626,
+        "total": 435154,
+        "mean": 26.173102369782267,
+        "p50": 25,
+        "p90": 39,
+        "max": 138,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 64,
+          "4..7": 237,
+          "8..15": 1590,
+          "16..31": 10880,
+          "32+": 3855
+        }
+      },
+      "allPassingExternal": {
+        "count": 102931,
+        "total": 738517,
+        "mean": 7.174874430443695,
+        "p50": 7,
+        "p90": 15,
+        "max": 20,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 33204,
+          "4..7": 23992,
+          "8..15": 38823,
+          "16..31": 6912,
+          "32+": 0
+        }
+      },
+      "novelLargerExternal": {
+        "count": 16626,
+        "total": 215713,
+        "mean": 12.974437627811861,
+        "p50": 13,
+        "p90": 17,
+        "max": 20,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 96,
+          "4..7": 999,
+          "8..15": 11176,
+          "16..31": 4355,
+          "32+": 0
+        }
+      },
+      "shadowFirstRejections": {
+        "total": 180912,
+        "counts": {
+          "ELIGIBLE_BEFORE_LAUNCH": 103937,
+          "BLOCKED_PATH": 37739,
+          "PATH_BUDGET": 5856,
+          "PERSONALITY_TRAIL_LIMIT": 7942,
+          "NOT_CLOSED": 25438
+        },
+        "shares": {
+          "ELIGIBLE_BEFORE_LAUNCH": 0.5745168921906784,
+          "BLOCKED_PATH": 0.2086041832493146,
+          "PATH_BUDGET": 0.03236932873441231,
+          "PERSONALITY_TRAIL_LIMIT": 0.04389979658618555,
+          "NOT_CLOSED": 0.14060979923940922
+        }
+      }
+    },
+    "proposedQuietHolding64Roles": [
+      {
+        "personality": "EXPAND",
+        "judgments": 766,
+        "withBaselineSafe": 763,
+        "withShadowSafe": 763,
+        "novelLargerThanAllBaselineCandidates": 535,
+        "novelLargerFraction": 0.6984334203655352,
+        "physicallyLargerExternal8": 725,
+        "shadowSelectsLargerThanActual": 527,
+        "allPassingGains": {
+          "count": 13967,
+          "total": 244831,
+          "mean": 17.529247511992555,
+          "p50": 14,
+          "p90": 39,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 3238,
+            "4..7": 1874,
+            "8..15": 2376,
+            "16..31": 3772,
+            "32+": 2707
+          }
+        },
+        "novelLargerGains": {
+          "count": 1519,
+          "total": 61845,
+          "mean": 40.714285714285715,
+          "p50": 40,
+          "p90": 56,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 4,
+            "4..7": 12,
+            "8..15": 42,
+            "16..31": 264,
+            "32+": 1197
+          }
+        },
+        "allPassingExternal": {
+          "count": 13967,
+          "total": 120685,
+          "mean": 8.640724565046181,
+          "p50": 8,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 3969,
+            "4..7": 2739,
+            "8..15": 4884,
+            "16..31": 2375,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 1519,
+          "total": 24249,
+          "mean": 15.963791968400264,
+          "p50": 17,
+          "p90": 20,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 6,
+            "4..7": 54,
+            "8..15": 479,
+            "16..31": 980,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 29112,
+          "counts": {
+            "PATH_BUDGET": 4845,
+            "ELIGIBLE_BEFORE_LAUNCH": 14103,
+            "BLOCKED_PATH": 8056,
+            "PERSONALITY_TRAIL_LIMIT": 480,
+            "NOT_CLOSED": 1628
+          },
+          "shares": {
+            "PATH_BUDGET": 0.1664262159934048,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.484439406430338,
+            "BLOCKED_PATH": 0.2767243748282495,
+            "PERSONALITY_TRAIL_LIMIT": 0.016488046166529265,
+            "NOT_CLOSED": 0.05592195658147843
+          }
+        }
+      },
+      {
+        "personality": "ATTACK",
+        "judgments": 1372,
+        "withBaselineSafe": 1366,
+        "withShadowSafe": 1367,
+        "novelLargerThanAllBaselineCandidates": 1248,
+        "novelLargerFraction": 0.9096209912536443,
+        "physicallyLargerExternal8": 1276,
+        "shadowSelectsLargerThanActual": 1221,
+        "allPassingGains": {
+          "count": 32815,
+          "total": 392274,
+          "mean": 11.954106353801615,
+          "p50": 10,
+          "p90": 26,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 8729,
+            "4..7": 5135,
+            "8..15": 8279,
+            "16..31": 9404,
+            "32+": 1268
+          }
+        },
+        "novelLargerGains": {
+          "count": 6998,
+          "total": 169470,
+          "mean": 24.2169191197485,
+          "p50": 23,
+          "p90": 34,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 30,
+            "4..7": 77,
+            "8..15": 735,
+            "16..31": 5075,
+            "32+": 1081
+          }
+        },
+        "allPassingExternal": {
+          "count": 32815,
+          "total": 244821,
+          "mean": 7.460642998628676,
+          "p50": 7,
+          "p90": 15,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10246,
+            "4..7": 7065,
+            "8..15": 13414,
+            "16..31": 2090,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 6998,
+          "total": 91882,
+          "mean": 13.129751357530724,
+          "p50": 13,
+          "p90": 17,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 40,
+            "4..7": 329,
+            "8..15": 4969,
+            "16..31": 1660,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 52482,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 33105,
+            "NOT_CLOSED": 8749,
+            "PERSONALITY_TRAIL_LIMIT": 693,
+            "BLOCKED_PATH": 9648,
+            "PATH_BUDGET": 287
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.6307876986395335,
+            "NOT_CLOSED": 0.16670477497046607,
+            "PERSONALITY_TRAIL_LIMIT": 0.013204527266491368,
+            "BLOCKED_PATH": 0.18383445752829541,
+            "PATH_BUDGET": 0.005468541595213597
+          }
+        }
+      },
+      {
+        "personality": "DEFEND",
+        "judgments": 1619,
+        "withBaselineSafe": 1617,
+        "withShadowSafe": 1617,
+        "novelLargerThanAllBaselineCandidates": 1220,
+        "novelLargerFraction": 0.7535515750463249,
+        "physicallyLargerExternal8": 1389,
+        "shadowSelectsLargerThanActual": 1203,
+        "allPassingGains": {
+          "count": 31902,
+          "total": 287629,
+          "mean": 9.016017804526362,
+          "p50": 7,
+          "p90": 20,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10470,
+            "4..7": 6203,
+            "8..15": 8796,
+            "16..31": 6139,
+            "32+": 294
+          }
+        },
+        "novelLargerGains": {
+          "count": 3520,
+          "total": 74478,
+          "mean": 21.15852272727273,
+          "p50": 21,
+          "p90": 30,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 22,
+            "4..7": 120,
+            "8..15": 593,
+            "16..31": 2523,
+            "32+": 262
+          }
+        },
+        "allPassingExternal": {
+          "count": 31902,
+          "total": 174879,
+          "mean": 5.48175662967839,
+          "p50": 5,
+          "p90": 11,
+          "max": 12,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 12365,
+            "4..7": 9265,
+            "8..15": 10272,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 3520,
+          "total": 34831,
+          "mean": 9.895170454545454,
+          "p50": 10,
+          "p90": 12,
+          "max": 12,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 35,
+            "4..7": 480,
+            "8..15": 3005,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 62670,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 32322,
+            "PERSONALITY_TRAIL_LIMIT": 5706,
+            "NOT_CLOSED": 11454,
+            "BLOCKED_PATH": 12892,
+            "PATH_BUDGET": 296
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5157491622786022,
+            "PERSONALITY_TRAIL_LIMIT": 0.09104834849210149,
+            "NOT_CLOSED": 0.18276687410244136,
+            "BLOCKED_PATH": 0.2057124621030796,
+            "PATH_BUDGET": 0.004723153023775331
+          }
+        }
+      },
+      {
+        "personality": "SEEK_POINT",
+        "judgments": 983,
+        "withBaselineSafe": 981,
+        "withShadowSafe": 983,
+        "novelLargerThanAllBaselineCandidates": 889,
+        "novelLargerFraction": 0.9043743641912513,
+        "physicallyLargerExternal8": 937,
+        "shadowSelectsLargerThanActual": 851,
+        "allPassingGains": {
+          "count": 24247,
+          "total": 340148,
+          "mean": 14.028457128716955,
+          "p50": 12,
+          "p90": 29,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 5620,
+            "4..7": 3290,
+            "8..15": 5352,
+            "16..31": 8334,
+            "32+": 1651
+          }
+        },
+        "novelLargerGains": {
+          "count": 4589,
+          "total": 129361,
+          "mean": 28.189365874918284,
+          "p50": 27,
+          "p90": 38,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 8,
+            "4..7": 28,
+            "8..15": 220,
+            "16..31": 3018,
+            "32+": 1315
+          }
+        },
+        "allPassingExternal": {
+          "count": 24247,
+          "total": 198132,
+          "mean": 8.171402647750238,
+          "p50": 8,
+          "p90": 16,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 6624,
+            "4..7": 4923,
+            "8..15": 10253,
+            "16..31": 2447,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4589,
+          "total": 64751,
+          "mean": 14.110045761603836,
+          "p50": 15,
+          "p90": 17,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 15,
+            "4..7": 136,
+            "8..15": 2723,
+            "16..31": 1715,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 36648,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 24407,
+            "BLOCKED_PATH": 7143,
+            "PATH_BUDGET": 428,
+            "PERSONALITY_TRAIL_LIMIT": 1063,
+            "NOT_CLOSED": 3607
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.6659845012006113,
+            "BLOCKED_PATH": 0.19490831696136215,
+            "PATH_BUDGET": 0.011678672778869243,
+            "PERSONALITY_TRAIL_LIMIT": 0.029005675616677582,
+            "NOT_CLOSED": 0.0984228334424798
+          }
+        }
+      }
+    ],
+    "safeBaselineCandidateCount": 242670,
+    "selectedPlanCount": 10401,
+    "earlyCaptures": 38,
+    "worldDeathShareOfNonRedistributionLoss": 0.8519699605179601,
+    "meanTerritoryLostPerDeath": 298.14009661835746
+  },
+  "roleRows": [
+    {
+      "personality": "EXPAND",
+      "exposure": {
+        "aliveTicks": 174998,
+        "crowdedTicks": 18684,
+        "crowdedFraction": 0.10676693447925119,
+        "observedTicks": 56207,
+        "observedFraction": 0.3211865278460325,
+        "quietTicks": 118791,
+        "quietFraction": 0.6788134721539675
+      },
+      "accounting": {
+        "initial": 175,
+        "gained": 37484,
+        "neutral": 30061,
+        "stolen": 7423,
+        "theftLoss": 7757,
+        "otherLiveLoss": 2362,
+        "deathLoss": 19996,
+        "spawnGrants": 385,
+        "final": 7929,
+        "liveNet": 27365,
+        "deathLossShareOfAllLoss": 0.66398804582434
+      },
+      "captureSize": {
+        "count": 1717,
+        "total": 37484,
+        "mean": 21.831100757134536,
+        "p50": 17,
+        "p90": 48,
+        "max": 111,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 402,
+          "4..7": 331,
+          "8..15": 100,
+          "16..31": 260,
+          "32+": 624
+        }
+      },
+      "candidateGeometry": {
+        "judgments": 1944,
+        "crowded": 637,
+        "cautious": 1010,
+        "downScaledCandidates": 9691,
+        "firstRejections": {
+          "total": 80850,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 44225,
+            "PERSONALITY_TRAIL_LIMIT": 656,
+            "PATH_BUDGET": 1298,
+            "BLOCKED_PATH": 8974,
+            "NOT_CLOSED": 19679,
+            "NEAR_HEAD": 6018
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5470006184291899,
+            "PERSONALITY_TRAIL_LIMIT": 0.008113790970933827,
+            "PATH_BUDGET": 0.016054421768707482,
+            "BLOCKED_PATH": 0.110995670995671,
+            "NOT_CLOSED": 0.24340136054421768,
+            "NEAR_HEAD": 0.07443413729128015
+          }
+        },
+        "selectedGain": {
+          "count": 1910,
+          "total": 48284,
+          "mean": 25.27958115183246,
+          "p50": 24,
+          "p90": 48,
+          "max": 111,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 112,
+            "4..7": 474,
+            "8..15": 146,
+            "16..31": 383,
+            "32+": 795
+          }
+        }
+      },
+      "planOutcomes": {
+        "DANGER": 179,
+        "CAPTURE": 1035,
+        "PERIMETER_GUARD": 177,
+        "EXPANSION_PRESSURE": 140,
+        "LAUNCH_BLOCKED": 109,
+        "ATTACK_OPPORTUNITY": 56,
+        "RESELECTED": 133,
+        "LAUNCH_NO_SAFE_OWNED_ROUTE": 13,
+        "HOME_ROUTE_LOST": 4,
+        "CENSORED": 16,
+        "NO_PATH": 3
+      },
+      "earlyPlans": 49,
+      "counterfactual": {
+        "judgments": 1944,
+        "withBaselineSafe": 1918,
+        "withShadowSafe": 1901,
+        "novelLargerThanAllBaselineCandidates": 1500,
+        "novelLargerFraction": 0.7716049382716049,
+        "physicallyLargerExternal8": 1236,
+        "shadowSelectsLargerThanActual": 1447,
+        "allPassingGains": {
+          "count": 34146,
+          "total": 462165,
+          "mean": 13.534967492532068,
+          "p50": 6,
+          "p90": 35,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 11154,
+            "4..7": 7104,
+            "8..15": 4334,
+            "16..31": 6790,
+            "32+": 4764
+          }
+        },
+        "novelLargerGains": {
+          "count": 5756,
+          "total": 160827,
+          "mean": 27.940757470465602,
+          "p50": 29,
+          "p90": 48,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 13,
+            "4..7": 1344,
+            "8..15": 353,
+            "16..31": 1492,
+            "32+": 2554
+          }
+        },
+        "allPassingExternal": {
+          "count": 34146,
+          "total": 244636,
+          "mean": 7.164411644116441,
+          "p50": 5,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 13226,
+            "4..7": 8071,
+            "8..15": 8049,
+            "16..31": 4800,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 5756,
+          "total": 73062,
+          "mean": 12.693189715079917,
+          "p50": 14,
+          "p90": 19,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 119,
+            "4..7": 1651,
+            "8..15": 1574,
+            "16..31": 2412,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 80850,
+          "counts": {
+            "PATH_BUDGET": 7616,
+            "BLOCKED_PATH": 15772,
+            "ELIGIBLE_BEFORE_LAUNCH": 34981,
+            "PERSONALITY_TRAIL_LIMIT": 1035,
+            "NOT_CLOSED": 10766,
+            "NEAR_HEAD": 5339,
+            "CROWDED_EXTERNAL_CAP": 5341
+          },
+          "shares": {
+            "PATH_BUDGET": 0.0941991341991342,
+            "BLOCKED_PATH": 0.19507730364873221,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.4326654298082869,
+            "PERSONALITY_TRAIL_LIMIT": 0.012801484230055659,
+            "NOT_CLOSED": 0.13316017316017317,
+            "NEAR_HEAD": 0.06603586889301175,
+            "CROWDED_EXTERNAL_CAP": 0.06606060606060606
+          }
+        }
+      }
+    },
+    {
+      "personality": "ATTACK",
+      "exposure": {
+        "aliveTicks": 204570,
+        "crowdedTicks": 25065,
+        "crowdedFraction": 0.12252529696436427,
+        "observedTicks": 62710,
+        "observedFraction": 0.30654543676980983,
+        "quietTicks": 141860,
+        "quietFraction": 0.6934545632301902
+      },
+      "accounting": {
+        "initial": 203,
+        "gained": 32222,
+        "neutral": 25658,
+        "stolen": 6564,
+        "theftLoss": 7512,
+        "otherLiveLoss": 3075,
+        "deathLoss": 12501,
+        "spawnGrants": 329,
+        "final": 9666,
+        "liveNet": 21635,
+        "deathLossShareOfAllLoss": 0.541450103950104
+      },
+      "captureSize": {
+        "count": 2604,
+        "total": 32222,
+        "mean": 12.374039938556068,
+        "p50": 10,
+        "p90": 27,
+        "max": 79,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 675,
+          "4..7": 526,
+          "8..15": 450,
+          "16..31": 822,
+          "32+": 131
+        }
+      },
+      "candidateGeometry": {
+        "judgments": 2911,
+        "crowded": 905,
+        "cautious": 0,
+        "downScaledCandidates": 0,
+        "firstRejections": {
+          "total": 119886,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 66264,
+            "BLOCKED_PATH": 10830,
+            "PERSONALITY_TRAIL_LIMIT": 15,
+            "NOT_CLOSED": 34198,
+            "NEAR_HEAD": 8566,
+            "PATH_BUDGET": 13
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5527250888343926,
+            "BLOCKED_PATH": 0.09033581902807668,
+            "PERSONALITY_TRAIL_LIMIT": 0.0001251188629197738,
+            "NOT_CLOSED": 0.28525432494202824,
+            "NEAR_HEAD": 0.07145121198471882,
+            "PATH_BUDGET": 0.00010843634786380394
+          }
+        },
+        "selectedGain": {
+          "count": 2868,
+          "total": 42714,
+          "mean": 14.893305439330543,
+          "p50": 14,
+          "p90": 28,
+          "max": 77,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 220,
+            "4..7": 737,
+            "8..15": 608,
+            "16..31": 1120,
+            "32+": 183
+          }
+        }
+      },
+      "planOutcomes": {
+        "CAPTURE": 1674,
+        "PERIMETER_GUARD": 403,
+        "EXPANSION_PRESSURE": 225,
+        "ATTACK_OPPORTUNITY": 55,
+        "RESELECTED": 166,
+        "LAUNCH_BLOCKED": 152,
+        "DANGER": 85,
+        "HOME_ROUTE_LOST": 6,
+        "LAUNCH_NO_SAFE_OWNED_ROUTE": 14,
+        "CENSORED": 20,
+        "NO_PATH": 2,
+        "DEATH": 1,
+        "REPOSITION_START": 1
+      },
+      "earlyPlans": 0,
+      "counterfactual": {
+        "judgments": 2911,
+        "withBaselineSafe": 2887,
+        "withShadowSafe": 2891,
+        "novelLargerThanAllBaselineCandidates": 2593,
+        "novelLargerFraction": 0.8907591892820337,
+        "physicallyLargerExternal8": 1894,
+        "shadowSelectsLargerThanActual": 2473,
+        "allPassingGains": {
+          "count": 63894,
+          "total": 675598,
+          "mean": 10.573731492784924,
+          "p50": 7,
+          "p90": 25,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 20598,
+            "4..7": 12712,
+            "8..15": 12716,
+            "16..31": 15766,
+            "32+": 2102
+          }
+        },
+        "novelLargerGains": {
+          "count": 13039,
+          "total": 279401,
+          "mean": 21.42810031444129,
+          "p50": 22,
+          "p90": 33,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 61,
+            "4..7": 2091,
+            "8..15": 1337,
+            "16..31": 7756,
+            "32+": 1794
+          }
+        },
+        "allPassingExternal": {
+          "count": 63894,
+          "total": 433909,
+          "mean": 6.791075844367233,
+          "p50": 5,
+          "p90": 15,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 23461,
+            "4..7": 15051,
+            "8..15": 21329,
+            "16..31": 4053,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 13039,
+          "total": 155898,
+          "mean": 11.956284991180306,
+          "p50": 13,
+          "p90": 17,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 157,
+            "4..7": 2732,
+            "8..15": 7161,
+            "16..31": 2989,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 119886,
+          "counts": {
+            "BLOCKED_PATH": 17360,
+            "PERSONALITY_TRAIL_LIMIT": 1465,
+            "ELIGIBLE_BEFORE_LAUNCH": 65351,
+            "NOT_CLOSED": 19905,
+            "PATH_BUDGET": 461,
+            "NEAR_HEAD": 7213,
+            "CROWDED_EXTERNAL_CAP": 8131
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.14480423068581819,
+            "PERSONALITY_TRAIL_LIMIT": 0.012219942278497906,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5451095207113424,
+            "NOT_CLOSED": 0.1660327310945398,
+            "PATH_BUDGET": 0.0038453197204010477,
+            "NEAR_HEAD": 0.06016549054935522,
+            "CROWDED_EXTERNAL_CAP": 0.06782276496004537
+          }
+        }
+      }
+    },
+    {
+      "personality": "DEFEND",
+      "exposure": {
+        "aliveTicks": 220176,
+        "crowdedTicks": 27786,
+        "crowdedFraction": 0.12619904076738608,
+        "observedTicks": 80311,
+        "observedFraction": 0.3647581934452438,
+        "quietTicks": 139865,
+        "quietFraction": 0.6352418065547563
+      },
+      "accounting": {
+        "initial": 217,
+        "gained": 36297,
+        "neutral": 29094,
+        "stolen": 7203,
+        "theftLoss": 9749,
+        "otherLiveLoss": 2005,
+        "deathLoss": 14224,
+        "spawnGrants": 231,
+        "final": 10767,
+        "liveNet": 24543,
+        "deathLossShareOfAllLoss": 0.5475402263453691
+      },
+      "captureSize": {
+        "count": 3090,
+        "total": 36297,
+        "mean": 11.746601941747572,
+        "p50": 9,
+        "p90": 24,
+        "max": 85,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 930,
+          "4..7": 556,
+          "8..15": 365,
+          "16..31": 1166,
+          "32+": 73
+        }
+      },
+      "candidateGeometry": {
+        "judgments": 3397,
+        "crowded": 971,
+        "cautious": 0,
+        "downScaledCandidates": 0,
+        "firstRejections": {
+          "total": 140418,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 77658,
+            "PERSONALITY_TRAIL_LIMIT": 719,
+            "BLOCKED_PATH": 13496,
+            "NOT_CLOSED": 40722,
+            "NEAR_HEAD": 7806,
+            "PATH_BUDGET": 17
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5530487544331923,
+            "PERSONALITY_TRAIL_LIMIT": 0.005120426156190802,
+            "BLOCKED_PATH": 0.09611303394151748,
+            "NOT_CLOSED": 0.29000555484339613,
+            "NEAR_HEAD": 0.05559116352604367,
+            "PATH_BUDGET": 0.0001210670996595878
+          }
+        },
+        "selectedGain": {
+          "count": 3367,
+          "total": 48807,
+          "mean": 14.495693495693496,
+          "p50": 15,
+          "p90": 25,
+          "max": 77,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 337,
+            "4..7": 795,
+            "8..15": 554,
+            "16..31": 1582,
+            "32+": 99
+          }
+        }
+      },
+      "planOutcomes": {
+        "CAPTURE": 1753,
+        "DANGER": 333,
+        "PERIMETER_GUARD": 580,
+        "EXPANSION_PRESSURE": 226,
+        "RESELECTED": 195,
+        "LAUNCH_BLOCKED": 124,
+        "ATTACK_OPPORTUNITY": 50,
+        "NO_PATH": 3,
+        "REPOSITION_START": 4,
+        "LAUNCH_NO_SAFE_OWNED_ROUTE": 22,
+        "CENSORED": 21,
+        "HOME_ROUTE_LOST": 3
+      },
+      "earlyPlans": 0,
+      "counterfactual": {
+        "judgments": 3397,
+        "withBaselineSafe": 3380,
+        "withShadowSafe": 3380,
+        "novelLargerThanAllBaselineCandidates": 2657,
+        "novelLargerFraction": 0.7821607300559317,
+        "physicallyLargerExternal8": 2181,
+        "shadowSelectsLargerThanActual": 2549,
+        "allPassingGains": {
+          "count": 66018,
+          "total": 525133,
+          "mean": 7.95439122663516,
+          "p50": 5,
+          "p90": 19,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 24562,
+            "4..7": 15540,
+            "8..15": 14922,
+            "16..31": 10541,
+            "32+": 453
+          }
+        },
+        "novelLargerGains": {
+          "count": 7918,
+          "total": 133825,
+          "mean": 16.901363980803232,
+          "p50": 18,
+          "p90": 28,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 34,
+            "4..7": 2260,
+            "8..15": 1116,
+            "16..31": 4105,
+            "32+": 403
+          }
+        },
+        "allPassingExternal": {
+          "count": 66018,
+          "total": 331793,
+          "mean": 5.025795995031658,
+          "p50": 4,
+          "p90": 11,
+          "max": 12,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 28475,
+            "4..7": 19958,
+            "8..15": 17585,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 7918,
+          "total": 67529,
+          "mean": 8.528542561252841,
+          "p50": 9,
+          "p90": 12,
+          "max": 12,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 179,
+            "4..7": 3067,
+            "8..15": 4672,
+            "16..31": 0,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 140418,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 67391,
+            "PERSONALITY_TRAIL_LIMIT": 10959,
+            "BLOCKED_PATH": 19893,
+            "NOT_CLOSED": 26511,
+            "PATH_BUDGET": 515,
+            "NEAR_HEAD": 6942,
+            "CROWDED_EXTERNAL_CAP": 8207
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.4799313478328989,
+            "PERSONALITY_TRAIL_LIMIT": 0.0780455497158484,
+            "BLOCKED_PATH": 0.1416698713840106,
+            "NOT_CLOSED": 0.18880058112207837,
+            "PATH_BUDGET": 0.003667620960275748,
+            "NEAR_HEAD": 0.04943810622569756,
+            "CROWDED_EXTERNAL_CAP": 0.05844692275919042
+          }
+        }
+      }
+    },
+    {
+      "personality": "SEEK_POINT",
+      "exposure": {
+        "aliveTicks": 188192,
+        "crowdedTicks": 26835,
+        "crowdedFraction": 0.14259373405883352,
+        "observedTicks": 64066,
+        "observedFraction": 0.34042892365244004,
+        "quietTicks": 124126,
+        "quietFraction": 0.65957107634756
+      },
+      "accounting": {
+        "initial": 189,
+        "gained": 30818,
+        "neutral": 20793,
+        "stolen": 10025,
+        "theftLoss": 6197,
+        "otherLiveLoss": 3281,
+        "deathLoss": 14994,
+        "spawnGrants": 476,
+        "final": 7011,
+        "liveNet": 21340,
+        "deathLossShareOfAllLoss": 0.6127002288329519
+      },
+      "captureSize": {
+        "count": 2221,
+        "total": 30818,
+        "mean": 13.875731652408826,
+        "p50": 10,
+        "p90": 30,
+        "max": 100,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 565,
+          "4..7": 494,
+          "8..15": 210,
+          "16..31": 772,
+          "32+": 180
+        }
+      },
+      "candidateGeometry": {
+        "judgments": 2518,
+        "crowded": 905,
+        "cautious": 0,
+        "downScaledCandidates": 0,
+        "firstRejections": {
+          "total": 103518,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 60123,
+            "BLOCKED_PATH": 8892,
+            "PERSONALITY_TRAIL_LIMIT": 109,
+            "NOT_CLOSED": 24732,
+            "NEAR_HEAD": 9641,
+            "PATH_BUDGET": 21
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5807975424563844,
+            "BLOCKED_PATH": 0.0858981046774474,
+            "PERSONALITY_TRAIL_LIMIT": 0.0010529569736664156,
+            "NOT_CLOSED": 0.2389149713093375,
+            "NEAR_HEAD": 0.09313356131300836,
+            "PATH_BUDGET": 0.0002028632701559149
+          }
+        },
+        "selectedGain": {
+          "count": 2486,
+          "total": 41536,
+          "mean": 16.707964601769913,
+          "p50": 16,
+          "p90": 32,
+          "max": 100,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 138,
+            "4..7": 778,
+            "8..15": 274,
+            "16..31": 1035,
+            "32+": 261
+          }
+        }
+      },
+      "planOutcomes": {
+        "CAPTURE": 1395,
+        "DANGER": 126,
+        "PERIMETER_GUARD": 228,
+        "EXPANSION_PRESSURE": 252,
+        "LAUNCH_BLOCKED": 154,
+        "RESELECTED": 182,
+        "LAUNCH_NO_SAFE_OWNED_ROUTE": 15,
+        "ATTACK_OPPORTUNITY": 42,
+        "NO_PATH": 3,
+        "CENSORED": 15,
+        "HOME_ROUTE_LOST": 3,
+        "DEATH": 3
+      },
+      "earlyPlans": 0,
+      "counterfactual": {
+        "judgments": 2518,
+        "withBaselineSafe": 2496,
+        "withShadowSafe": 2503,
+        "novelLargerThanAllBaselineCandidates": 2270,
+        "novelLargerFraction": 0.9015091342335186,
+        "physicallyLargerExternal8": 1566,
+        "shadowSelectsLargerThanActual": 2064,
+        "allPassingGains": {
+          "count": 55073,
+          "total": 657141,
+          "mean": 11.932180923501534,
+          "p50": 7,
+          "p90": 28,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 16736,
+            "4..7": 11069,
+            "8..15": 8747,
+            "16..31": 15378,
+            "32+": 3143
+          }
+        },
+        "novelLargerGains": {
+          "count": 10435,
+          "total": 240771,
+          "mean": 23.073406804024916,
+          "p50": 25,
+          "p90": 37,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 39,
+            "4..7": 2310,
+            "8..15": 644,
+            "16..31": 5009,
+            "32+": 2433
+          }
+        },
+        "allPassingExternal": {
+          "count": 55073,
+          "total": 397162,
+          "mean": 7.211555571695749,
+          "p50": 6,
+          "p90": 15,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 19061,
+            "4..7": 13127,
+            "8..15": 17581,
+            "16..31": 5304,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 10435,
+          "total": 126544,
+          "mean": 12.126880689985626,
+          "p50": 14,
+          "p90": 17,
+          "max": 18,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 155,
+            "4..7": 2753,
+            "8..15": 4191,
+            "16..31": 3336,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 103518,
+          "counts": {
+            "BLOCKED_PATH": 14254,
+            "ELIGIBLE_BEFORE_LAUNCH": 56546,
+            "PERSONALITY_TRAIL_LIMIT": 2753,
+            "PATH_BUDGET": 809,
+            "NOT_CLOSED": 12307,
+            "NEAR_HEAD": 7565,
+            "CROWDED_EXTERNAL_CAP": 9284
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.13769585965725767,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5462431654398269,
+            "PERSONALITY_TRAIL_LIMIT": 0.026594408701868275,
+            "PATH_BUDGET": 0.00781506597886358,
+            "NOT_CLOSED": 0.11888753646708784,
+            "NEAR_HEAD": 0.07307907803473793,
+            "CROWDED_EXTERNAL_CAP": 0.08968488572035781
+          }
+        }
+      }
+    }
+  ],
+  "seedRows": [
+    {
+      "seed": 4,
+      "primary120": {
+        "holding": 3121.2083333333335,
+        "deaths": 8,
+        "final": 5168
+      },
+      "full240": {
+        "holding": 3529.6119444444444,
+        "deaths": 21,
+        "final": 4043,
+        "neutralShare": 0.5778427482510181,
+        "leadingBotShare": 0.06776652396366294
+      },
+      "exposure": {
+        "aliveTicks": 98910,
+        "crowdedTicks": 12592,
+        "crowdedFraction": 0.1273076534223031,
+        "observedTicks": 32398,
+        "observedFraction": 0.3275502982509352,
+        "quietTicks": 66512,
+        "quietFraction": 0.6724497017490648
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 16937,
+        "neutral": 12993,
+        "stolen": 3944,
+        "theftLoss": 3944,
+        "otherLiveLoss": 2638,
+        "deathLoss": 6557,
+        "spawnGrants": 147,
+        "final": 4043,
+        "liveNet": 10355,
+        "deathLossShareOfAllLoss": 0.49904863383819165
+      },
+      "captureSize": {
+        "count": 1171,
+        "total": 16937,
+        "mean": 14.463706233988045,
+        "p50": 11,
+        "p90": 32,
+        "max": 90,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 288,
+          "4..7": 248,
+          "8..15": 115,
+          "16..31": 394,
+          "32+": 126
+        }
+      },
+      "counterfactual": {
+        "judgments": 1334,
+        "withBaselineSafe": 1329,
+        "withShadowSafe": 1327,
+        "novelLargerThanAllBaselineCandidates": 1122,
+        "novelLargerFraction": 0.841079460269865,
+        "physicallyLargerExternal8": 829,
+        "shadowSelectsLargerThanActual": 1068,
+        "allPassingGains": {
+          "count": 26603,
+          "total": 267115,
+          "mean": 10.040784873886404,
+          "p50": 6,
+          "p90": 25,
+          "max": 110,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 9522,
+            "4..7": 5853,
+            "8..15": 4569,
+            "16..31": 5474,
+            "32+": 1185
+          }
+        },
+        "novelLargerGains": {
+          "count": 4265,
+          "total": 90757,
+          "mean": 21.279484173505274,
+          "p50": 22,
+          "p90": 37,
+          "max": 110,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10,
+            "4..7": 1091,
+            "8..15": 436,
+            "16..31": 1866,
+            "32+": 862
+          }
+        },
+        "allPassingExternal": {
+          "count": 26603,
+          "total": 163405,
+          "mean": 6.14235236627448,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10785,
+            "4..7": 6953,
+            "8..15": 7234,
+            "16..31": 1631,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4265,
+          "total": 46978,
+          "mean": 11.014771395076203,
+          "p50": 11,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 73,
+            "4..7": 1357,
+            "8..15": 1842,
+            "16..31": 993,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 55638,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 27276,
+            "PERSONALITY_TRAIL_LIMIT": 2156,
+            "BLOCKED_PATH": 8141,
+            "PATH_BUDGET": 1440,
+            "NOT_CLOSED": 8386,
+            "NEAR_HEAD": 3789,
+            "CROWDED_EXTERNAL_CAP": 4450
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.4902404831230454,
+            "PERSONALITY_TRAIL_LIMIT": 0.0387504942665085,
+            "BLOCKED_PATH": 0.1463208598439915,
+            "PATH_BUDGET": 0.02588159171789065,
+            "NOT_CLOSED": 0.1507243251015493,
+            "NEAR_HEAD": 0.06810093820769977,
+            "CROWDED_EXTERNAL_CAP": 0.07998130773931486
+          }
+        }
+      },
+      "shadowChecks": 1334,
+      "trajectoryHash": "2205ba7bb513b242e1cedea84ef5fe44056a33fcb232886a97f540e6ee1f6246"
+    },
+    {
+      "seed": 19,
+      "primary120": {
+        "holding": 3209.010277777778,
+        "deaths": 14,
+        "final": 4964
+      },
+      "full240": {
+        "holding": 4041.8393055555557,
+        "deaths": 27,
+        "final": 5275,
+        "neutralShare": 0.44920121123525114,
+        "leadingBotShare": 0.07998329330688107
+      },
+      "exposure": {
+        "aliveTicks": 98370,
+        "crowdedTicks": 10372,
+        "crowdedFraction": 0.10543864999491714,
+        "observedTicks": 28724,
+        "observedFraction": 0.291999593371963,
+        "quietTicks": 69646,
+        "quietFraction": 0.708000406628037
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 17582,
+        "neutral": 13974,
+        "stolen": 3608,
+        "theftLoss": 3608,
+        "otherLiveLoss": 414,
+        "deathLoss": 8572,
+        "spawnGrants": 189,
+        "final": 5275,
+        "liveNet": 13560,
+        "deathLossShareOfAllLoss": 0.6806415753533429
+      },
+      "captureSize": {
+        "count": 1170,
+        "total": 17582,
+        "mean": 15.027350427350427,
+        "p50": 13,
+        "p90": 32,
+        "max": 92,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 286,
+          "4..7": 204,
+          "8..15": 153,
+          "16..31": 402,
+          "32+": 125
+        }
+      },
+      "counterfactual": {
+        "judgments": 1294,
+        "withBaselineSafe": 1285,
+        "withShadowSafe": 1286,
+        "novelLargerThanAllBaselineCandidates": 1073,
+        "novelLargerFraction": 0.8292117465224111,
+        "physicallyLargerExternal8": 868,
+        "shadowSelectsLargerThanActual": 1016,
+        "allPassingGains": {
+          "count": 26342,
+          "total": 284951,
+          "mean": 10.817363905550073,
+          "p50": 7,
+          "p90": 25,
+          "max": 100,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 8361,
+            "4..7": 5387,
+            "8..15": 5342,
+            "16..31": 6048,
+            "32+": 1204
+          }
+        },
+        "novelLargerGains": {
+          "count": 4545,
+          "total": 101135,
+          "mean": 22.251925192519252,
+          "p50": 23,
+          "p90": 36,
+          "max": 100,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 17,
+            "4..7": 865,
+            "8..15": 405,
+            "16..31": 2438,
+            "32+": 820
+          }
+        },
+        "allPassingExternal": {
+          "count": 26342,
+          "total": 172585,
+          "mean": 6.551704502315694,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 9650,
+            "4..7": 6768,
+            "8..15": 8344,
+            "16..31": 1580,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4545,
+          "total": 52758,
+          "mean": 11.607920792079208,
+          "p50": 12,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 65,
+            "4..7": 1104,
+            "8..15": 2312,
+            "16..31": 1064,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 52176,
+          "counts": {
+            "BLOCKED_PATH": 7602,
+            "ELIGIBLE_BEFORE_LAUNCH": 26854,
+            "PERSONALITY_TRAIL_LIMIT": 2034,
+            "PATH_BUDGET": 1400,
+            "NOT_CLOSED": 8388,
+            "NEAR_HEAD": 2701,
+            "CROWDED_EXTERNAL_CAP": 3197
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.14569917203311866,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5146810794234897,
+            "PERSONALITY_TRAIL_LIMIT": 0.038983440662373504,
+            "PATH_BUDGET": 0.026832260042931617,
+            "NOT_CLOSED": 0.1607635694572217,
+            "NEAR_HEAD": 0.05176709598282735,
+            "CROWDED_EXTERNAL_CAP": 0.06127338239803741
+          }
+        }
+      },
+      "shadowChecks": 1294,
+      "trajectoryHash": "9e879881e205babb75f3ca4f68210cf19bb74fc0da407d17798266dc949934d7"
+    },
+    {
+      "seed": 73,
+      "primary120": {
+        "holding": 3143.195277777778,
+        "deaths": 11,
+        "final": 4431
+      },
+      "full240": {
+        "holding": 3773.004027777778,
+        "deaths": 27,
+        "final": 4243,
+        "neutralShare": 0.5569593818523546,
+        "leadingBotShare": 0.09930040722564477
+      },
+      "exposure": {
+        "aliveTicks": 98370,
+        "crowdedTicks": 13854,
+        "crowdedFraction": 0.14083562061604146,
+        "observedTicks": 36268,
+        "observedFraction": 0.36868964115075736,
+        "quietTicks": 62102,
+        "quietFraction": 0.6313103588492426
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 16969,
+        "neutral": 13510,
+        "stolen": 3459,
+        "theftLoss": 3459,
+        "otherLiveLoss": 1510,
+        "deathLoss": 8044,
+        "spawnGrants": 189,
+        "final": 4243,
+        "liveNet": 12000,
+        "deathLossShareOfAllLoss": 0.6181510796895412
+      },
+      "captureSize": {
+        "count": 1276,
+        "total": 16969,
+        "mean": 13.29858934169279,
+        "p50": 7,
+        "p90": 31,
+        "max": 100,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 374,
+          "4..7": 277,
+          "8..15": 145,
+          "16..31": 359,
+          "32+": 121
+        }
+      },
+      "counterfactual": {
+        "judgments": 1465,
+        "withBaselineSafe": 1448,
+        "withShadowSafe": 1444,
+        "novelLargerThanAllBaselineCandidates": 1206,
+        "novelLargerFraction": 0.8232081911262799,
+        "physicallyLargerExternal8": 874,
+        "shadowSelectsLargerThanActual": 1144,
+        "allPassingGains": {
+          "count": 28097,
+          "total": 278632,
+          "mean": 9.916788269210237,
+          "p50": 6,
+          "p90": 25,
+          "max": 120,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10007,
+            "4..7": 6221,
+            "8..15": 5130,
+            "16..31": 5505,
+            "32+": 1234
+          }
+        },
+        "novelLargerGains": {
+          "count": 4741,
+          "total": 100418,
+          "mean": 21.180763551993252,
+          "p50": 21,
+          "p90": 37,
+          "max": 120,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 21,
+            "4..7": 1076,
+            "8..15": 543,
+            "16..31": 2237,
+            "32+": 864
+          }
+        },
+        "allPassingExternal": {
+          "count": 28097,
+          "total": 170350,
+          "mean": 6.062924867423568,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 11508,
+            "4..7": 7384,
+            "8..15": 7639,
+            "16..31": 1566,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4741,
+          "total": 52189,
+          "mean": 11.008015186669478,
+          "p50": 11,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 108,
+            "4..7": 1403,
+            "8..15": 2220,
+            "16..31": 1010,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 60732,
+          "counts": {
+            "PERSONALITY_TRAIL_LIMIT": 2053,
+            "ELIGIBLE_BEFORE_LAUNCH": 28981,
+            "PATH_BUDGET": 1287,
+            "BLOCKED_PATH": 9905,
+            "NOT_CLOSED": 9751,
+            "NEAR_HEAD": 4343,
+            "CROWDED_EXTERNAL_CAP": 4412
+          },
+          "shares": {
+            "PERSONALITY_TRAIL_LIMIT": 0.0338042547586116,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.4771948890206152,
+            "PATH_BUDGET": 0.02119146413752223,
+            "BLOCKED_PATH": 0.16309359151682803,
+            "NOT_CLOSED": 0.16055786076532966,
+            "NEAR_HEAD": 0.07151090034907462,
+            "CROWDED_EXTERNAL_CAP": 0.07264703945201871
+          }
+        }
+      },
+      "shadowChecks": 1465,
+      "trajectoryHash": "943bd5ecc1b63f717dfd820a81dad8b282df0ccd870ab5de360b45269bb42788"
+    },
+    {
+      "seed": 11,
+      "primary120": {
+        "holding": 3366.6944444444443,
+        "deaths": 10,
+        "final": 4609
+      },
+      "full240": {
+        "holding": 3918.1894444444442,
+        "deaths": 26,
+        "final": 3879,
+        "neutralShare": 0.5949671086979221,
+        "leadingBotShare": 0.08102746162681425
+      },
+      "exposure": {
+        "aliveTicks": 98588,
+        "crowdedTicks": 11417,
+        "crowdedFraction": 0.11580516898608349,
+        "observedTicks": 30938,
+        "observedFraction": 0.31381101148212764,
+        "quietTicks": 67650,
+        "quietFraction": 0.6861889885178724
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 17291,
+        "neutral": 12900,
+        "stolen": 4391,
+        "theftLoss": 4391,
+        "otherLiveLoss": 694,
+        "deathLoss": 8586,
+        "spawnGrants": 161,
+        "final": 3879,
+        "liveNet": 12206,
+        "deathLossShareOfAllLoss": 0.6280447662936142
+      },
+      "captureSize": {
+        "count": 1200,
+        "total": 17291,
+        "mean": 14.409166666666666,
+        "p50": 12,
+        "p90": 31,
+        "max": 110,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 314,
+          "4..7": 224,
+          "8..15": 128,
+          "16..31": 428,
+          "32+": 106
+        }
+      },
+      "counterfactual": {
+        "judgments": 1305,
+        "withBaselineSafe": 1280,
+        "withShadowSafe": 1284,
+        "novelLargerThanAllBaselineCandidates": 1072,
+        "novelLargerFraction": 0.821455938697318,
+        "physicallyLargerExternal8": 851,
+        "shadowSelectsLargerThanActual": 1021,
+        "allPassingGains": {
+          "count": 26102,
+          "total": 287154,
+          "mean": 11.001225959696574,
+          "p50": 7,
+          "p90": 26,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 8154,
+            "4..7": 5521,
+            "8..15": 4911,
+            "16..31": 6281,
+            "32+": 1235
+          }
+        },
+        "novelLargerGains": {
+          "count": 4469,
+          "total": 99043,
+          "mean": 22.16222868650705,
+          "p50": 23,
+          "p90": 36,
+          "max": 129,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 21,
+            "4..7": 943,
+            "8..15": 350,
+            "16..31": 2299,
+            "32+": 856
+          }
+        },
+        "allPassingExternal": {
+          "count": 26102,
+          "total": 173471,
+          "mean": 6.645889203892422,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 9410,
+            "4..7": 6845,
+            "8..15": 8086,
+            "16..31": 1761,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4469,
+          "total": 51155,
+          "mean": 11.446632356231818,
+          "p50": 12,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 69,
+            "4..7": 1193,
+            "8..15": 2163,
+            "16..31": 1044,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 53304,
+          "counts": {
+            "BLOCKED_PATH": 7772,
+            "PERSONALITY_TRAIL_LIMIT": 2230,
+            "ELIGIBLE_BEFORE_LAUNCH": 26852,
+            "PATH_BUDGET": 1069,
+            "NOT_CLOSED": 8316,
+            "NEAR_HEAD": 3094,
+            "CROWDED_EXTERNAL_CAP": 3971
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.14580519285607083,
+            "PERSONALITY_TRAIL_LIMIT": 0.041835509530241635,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5037520636349992,
+            "PATH_BUDGET": 0.020054780129070988,
+            "NOT_CLOSED": 0.1560108059432688,
+            "NEAR_HEAD": 0.058044424433438394,
+            "CROWDED_EXTERNAL_CAP": 0.0744972234729101
+          }
+        }
+      },
+      "shadowChecks": 1305,
+      "trajectoryHash": "12ebcf8f4fdca9b03f671efd3d060b3f91bc3a8b3bedaee27a8ef9ac1994cf98"
+    },
+    {
+      "seed": 31,
+      "primary120": {
+        "holding": 2937.1175,
+        "deaths": 10,
+        "final": 3584
+      },
+      "full240": {
+        "holding": 3509.750972222222,
+        "deaths": 23,
+        "final": 4868,
+        "neutralShare": 0.4916988618565313,
+        "leadingBotShare": 0.08833663986634646
+      },
+      "exposure": {
+        "aliveTicks": 98730,
+        "crowdedTicks": 11893,
+        "crowdedFraction": 0.12045983996758837,
+        "observedTicks": 34990,
+        "observedFraction": 0.354400891319761,
+        "quietTicks": 63740,
+        "quietFraction": 0.6455991086802391
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 17182,
+        "neutral": 13318,
+        "stolen": 3864,
+        "theftLoss": 3864,
+        "otherLiveLoss": 1377,
+        "deathLoss": 7332,
+        "spawnGrants": 161,
+        "final": 4868,
+        "liveNet": 11941,
+        "deathLossShareOfAllLoss": 0.583154378429969
+      },
+      "captureSize": {
+        "count": 1266,
+        "total": 17182,
+        "mean": 13.571879936808847,
+        "p50": 7,
+        "p90": 32,
+        "max": 111,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 382,
+          "4..7": 253,
+          "8..15": 150,
+          "16..31": 347,
+          "32+": 134
+        }
+      },
+      "counterfactual": {
+        "judgments": 1401,
+        "withBaselineSafe": 1390,
+        "withShadowSafe": 1391,
+        "novelLargerThanAllBaselineCandidates": 1163,
+        "novelLargerFraction": 0.8301213418986438,
+        "physicallyLargerExternal8": 898,
+        "shadowSelectsLargerThanActual": 1102,
+        "allPassingGains": {
+          "count": 28508,
+          "total": 295591,
+          "mean": 10.368703521818437,
+          "p50": 6,
+          "p90": 25,
+          "max": 114,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 9834,
+            "4..7": 6025,
+            "8..15": 5285,
+            "16..31": 5990,
+            "32+": 1374
+          }
+        },
+        "novelLargerGains": {
+          "count": 4493,
+          "total": 99185,
+          "mean": 22.075450701090585,
+          "p50": 22,
+          "p90": 38,
+          "max": 114,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 39,
+            "4..7": 990,
+            "8..15": 440,
+            "16..31": 2091,
+            "32+": 933
+          }
+        },
+        "allPassingExternal": {
+          "count": 28508,
+          "total": 178373,
+          "mean": 6.256945418829802,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 11472,
+            "4..7": 7212,
+            "8..15": 7982,
+            "16..31": 1842,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4493,
+          "total": 50711,
+          "mean": 11.286668150456265,
+          "p50": 12,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 102,
+            "4..7": 1260,
+            "8..15": 2003,
+            "16..31": 1128,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 58140,
+          "counts": {
+            "BLOCKED_PATH": 10055,
+            "ELIGIBLE_BEFORE_LAUNCH": 29111,
+            "PERSONALITY_TRAIL_LIMIT": 2195,
+            "PATH_BUDGET": 1011,
+            "NOT_CLOSED": 9109,
+            "NEAR_HEAD": 3145,
+            "CROWDED_EXTERNAL_CAP": 3514
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.17294461644306847,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5007051943584452,
+            "PERSONALITY_TRAIL_LIMIT": 0.037753697970416236,
+            "PATH_BUDGET": 0.0173890608875129,
+            "NOT_CLOSED": 0.1566735466116271,
+            "NEAR_HEAD": 0.054093567251461985,
+            "CROWDED_EXTERNAL_CAP": 0.06044031647746818
+          }
+        }
+      },
+      "shadowChecks": 1401,
+      "trajectoryHash": "8f60dbce9242a6fd9fd3439242b7774004c377a614f6e14fd6328d4633cf91ff"
+    },
+    {
+      "seed": 47,
+      "primary120": {
+        "holding": 3167.012777777778,
+        "deaths": 14,
+        "final": 3789
+      },
+      "full240": {
+        "holding": 3771.6244444444446,
+        "deaths": 32,
+        "final": 3562,
+        "neutralShare": 0.6280672444398037,
+        "leadingBotShare": 0.07946120914691449
+      },
+      "exposure": {
+        "aliveTicks": 97920,
+        "crowdedTicks": 8736,
+        "crowdedFraction": 0.0892156862745098,
+        "observedTicks": 27161,
+        "observedFraction": 0.2773794934640523,
+        "quietTicks": 70759,
+        "quietFraction": 0.7226205065359477
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 18199,
+        "neutral": 14245,
+        "stolen": 3954,
+        "theftLoss": 3954,
+        "otherLiveLoss": 1454,
+        "deathLoss": 9551,
+        "spawnGrants": 224,
+        "final": 3562,
+        "liveNet": 12791,
+        "deathLossShareOfAllLoss": 0.6384785079216525
+      },
+      "captureSize": {
+        "count": 1106,
+        "total": 18199,
+        "mean": 16.45479204339964,
+        "p50": 14,
+        "p90": 39,
+        "max": 83,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 288,
+          "4..7": 166,
+          "8..15": 118,
+          "16..31": 362,
+          "32+": 172
+        }
+      },
+      "counterfactual": {
+        "judgments": 1220,
+        "withBaselineSafe": 1209,
+        "withShadowSafe": 1206,
+        "novelLargerThanAllBaselineCandidates": 987,
+        "novelLargerFraction": 0.809016393442623,
+        "physicallyLargerExternal8": 863,
+        "shadowSelectsLargerThanActual": 927,
+        "allPassingGains": {
+          "count": 24048,
+          "total": 286484,
+          "mean": 11.913007318695941,
+          "p50": 8,
+          "p90": 28,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 7295,
+            "4..7": 4604,
+            "8..15": 4523,
+            "16..31": 6090,
+            "32+": 1536
+          }
+        },
+        "novelLargerGains": {
+          "count": 4072,
+          "total": 98702,
+          "mean": 24.23919449901768,
+          "p50": 24,
+          "p90": 39,
+          "max": 138,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 12,
+            "4..7": 701,
+            "8..15": 296,
+            "16..31": 2066,
+            "32+": 997
+          }
+        },
+        "allPassingExternal": {
+          "count": 24048,
+          "total": 167292,
+          "mean": 6.956586826347305,
+          "p50": 6,
+          "p90": 15,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 8482,
+            "4..7": 5806,
+            "8..15": 7815,
+            "16..31": 1945,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 4072,
+          "total": 49115,
+          "mean": 12.06164047151277,
+          "p50": 13,
+          "p90": 18,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 30,
+            "4..7": 925,
+            "8..15": 1996,
+            "16..31": 1121,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 49404,
+          "counts": {
+            "PERSONALITY_TRAIL_LIMIT": 1862,
+            "ELIGIBLE_BEFORE_LAUNCH": 24512,
+            "BLOCKED_PATH": 8716,
+            "PATH_BUDGET": 1738,
+            "NOT_CLOSED": 7303,
+            "NEAR_HEAD": 2591,
+            "CROWDED_EXTERNAL_CAP": 2682
+          },
+          "shares": {
+            "PERSONALITY_TRAIL_LIMIT": 0.037689255930693874,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.49615415755809245,
+            "BLOCKED_PATH": 0.1764229617035058,
+            "PATH_BUDGET": 0.035179337705448954,
+            "NOT_CLOSED": 0.14782203870131974,
+            "NEAR_HEAD": 0.052445146142012795,
+            "CROWDED_EXTERNAL_CAP": 0.054287102258926405
+          }
+        }
+      },
+      "shadowChecks": 1220,
+      "trajectoryHash": "2fabd0ab2f72c8a18f5f494c5b7c649c3d12927749d9ea4c58305cc53be0561f"
+    },
+    {
+      "seed": 101,
+      "primary120": {
+        "holding": 2872.8730555555558,
+        "deaths": 14,
+        "final": 4213
+      },
+      "full240": {
+        "holding": 3709.29875,
+        "deaths": 26,
+        "final": 5379,
+        "neutralShare": 0.4383418607079461,
+        "leadingBotShare": 0.10650516863318367
+      },
+      "exposure": {
+        "aliveTicks": 98460,
+        "crowdedTicks": 14896,
+        "crowdedFraction": 0.1512898639041235,
+        "observedTicks": 36182,
+        "observedFraction": 0.36747917936217755,
+        "quietTicks": 62278,
+        "quietFraction": 0.6325208206378224
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 16572,
+        "neutral": 12963,
+        "stolen": 3609,
+        "theftLoss": 3609,
+        "otherLiveLoss": 1012,
+        "deathLoss": 6852,
+        "spawnGrants": 182,
+        "final": 5379,
+        "liveNet": 11951,
+        "deathLossShareOfAllLoss": 0.597228275080624
+      },
+      "captureSize": {
+        "count": 1254,
+        "total": 16572,
+        "mean": 13.21531100478469,
+        "p50": 8,
+        "p90": 30,
+        "max": 79,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 340,
+          "4..7": 276,
+          "8..15": 152,
+          "16..31": 376,
+          "32+": 110
+        }
+      },
+      "counterfactual": {
+        "judgments": 1394,
+        "withBaselineSafe": 1387,
+        "withShadowSafe": 1386,
+        "novelLargerThanAllBaselineCandidates": 1219,
+        "novelLargerFraction": 0.8744619799139168,
+        "physicallyLargerExternal8": 856,
+        "shadowSelectsLargerThanActual": 1154,
+        "allPassingGains": {
+          "count": 30238,
+          "total": 319028,
+          "mean": 10.550565513592169,
+          "p50": 6,
+          "p90": 26,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10076,
+            "4..7": 6574,
+            "8..15": 5461,
+            "16..31": 6668,
+            "32+": 1459
+          }
+        },
+        "novelLargerGains": {
+          "count": 5345,
+          "total": 114426,
+          "mean": 21.408044901777362,
+          "p50": 22,
+          "p90": 36,
+          "max": 93,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 10,
+            "4..7": 1206,
+            "8..15": 504,
+            "16..31": 2654,
+            "32+": 971
+          }
+        },
+        "allPassingExternal": {
+          "count": 30238,
+          "total": 194878,
+          "mean": 6.444804550565514,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 11672,
+            "4..7": 7762,
+            "8..15": 8798,
+            "16..31": 2006,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 5345,
+          "total": 60558,
+          "mean": 11.329840972871843,
+          "p50": 12,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 74,
+            "4..7": 1550,
+            "8..15": 2545,
+            "16..31": 1176,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 58302,
+          "counts": {
+            "BLOCKED_PATH": 7571,
+            "ELIGIBLE_BEFORE_LAUNCH": 30871,
+            "PERSONALITY_TRAIL_LIMIT": 1838,
+            "PATH_BUDGET": 702,
+            "NOT_CLOSED": 9232,
+            "NEAR_HEAD": 3610,
+            "CROWDED_EXTERNAL_CAP": 4478
+          },
+          "shares": {
+            "BLOCKED_PATH": 0.1298583238996947,
+            "ELIGIBLE_BEFORE_LAUNCH": 0.5295015608383932,
+            "PERSONALITY_TRAIL_LIMIT": 0.03152550512846901,
+            "PATH_BUDGET": 0.012040753318925594,
+            "NOT_CLOSED": 0.15834791259304998,
+            "NEAR_HEAD": 0.06191897362011595,
+            "CROWDED_EXTERNAL_CAP": 0.07680697060135158
+          }
+        }
+      },
+      "shadowChecks": 1394,
+      "trajectoryHash": "6fcc3428c18836863838bd1faff96d87e9dde805febf76b22d876971553e05bb"
+    },
+    {
+      "seed": 137,
+      "primary120": {
+        "holding": 2854.173333333333,
+        "deaths": 9,
+        "final": 4078
+      },
+      "full240": {
+        "holding": 3548.5870833333333,
+        "deaths": 25,
+        "final": 4124,
+        "neutralShare": 0.5693849848595594,
+        "leadingBotShare": 0.07810379033100136
+      },
+      "exposure": {
+        "aliveTicks": 98588,
+        "crowdedTicks": 14610,
+        "crowdedFraction": 0.14819247778634317,
+        "observedTicks": 36633,
+        "observedFraction": 0.3715766624741348,
+        "quietTicks": 61955,
+        "quietFraction": 0.6284233375258652
+      },
+      "accounting": {
+        "initial": 98,
+        "gained": 16089,
+        "neutral": 11703,
+        "stolen": 4386,
+        "theftLoss": 4386,
+        "otherLiveLoss": 1624,
+        "deathLoss": 6221,
+        "spawnGrants": 168,
+        "final": 4124,
+        "liveNet": 10079,
+        "deathLossShareOfAllLoss": 0.5086256234159104
+      },
+      "captureSize": {
+        "count": 1189,
+        "total": 16089,
+        "mean": 13.531539108494533,
+        "p50": 10,
+        "p90": 31,
+        "max": 65,
+        "zero": 0,
+        "histogram": {
+          "0": 0,
+          "1..3": 300,
+          "4..7": 259,
+          "8..15": 164,
+          "16..31": 352,
+          "32+": 114
+        }
+      },
+      "counterfactual": {
+        "judgments": 1357,
+        "withBaselineSafe": 1353,
+        "withShadowSafe": 1351,
+        "novelLargerThanAllBaselineCandidates": 1178,
+        "novelLargerFraction": 0.8680913780397936,
+        "physicallyLargerExternal8": 838,
+        "shadowSelectsLargerThanActual": 1101,
+        "allPassingGains": {
+          "count": 29193,
+          "total": 301082,
+          "mean": 10.313499811598671,
+          "p50": 6,
+          "p90": 25,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 9801,
+            "4..7": 6240,
+            "8..15": 5498,
+            "16..31": 6419,
+            "32+": 1235
+          }
+        },
+        "novelLargerGains": {
+          "count": 5218,
+          "total": 111158,
+          "mean": 21.302798006899195,
+          "p50": 22,
+          "p90": 36,
+          "max": 89,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 17,
+            "4..7": 1133,
+            "8..15": 476,
+            "16..31": 2711,
+            "32+": 881
+          }
+        },
+        "allPassingExternal": {
+          "count": 29193,
+          "total": 187146,
+          "mean": 6.4106463878327,
+          "p50": 5,
+          "p90": 14,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 11244,
+            "4..7": 7477,
+            "8..15": 8646,
+            "16..31": 1826,
+            "32+": 0
+          }
+        },
+        "novelLargerExternal": {
+          "count": 5218,
+          "total": 59569,
+          "mean": 11.416059793024147,
+          "p50": 12,
+          "p90": 17,
+          "max": 20,
+          "zero": 0,
+          "histogram": {
+            "0": 0,
+            "1..3": 89,
+            "4..7": 1411,
+            "8..15": 2517,
+            "16..31": 1201,
+            "32+": 0
+          }
+        },
+        "shadowFirstRejections": {
+          "total": 56976,
+          "counts": {
+            "ELIGIBLE_BEFORE_LAUNCH": 29812,
+            "PATH_BUDGET": 754,
+            "PERSONALITY_TRAIL_LIMIT": 1844,
+            "BLOCKED_PATH": 7517,
+            "NOT_CLOSED": 9004,
+            "NEAR_HEAD": 3786,
+            "CROWDED_EXTERNAL_CAP": 4259
+          },
+          "shares": {
+            "ELIGIBLE_BEFORE_LAUNCH": 0.523237854535243,
+            "PATH_BUDGET": 0.013233642235327156,
+            "PERSONALITY_TRAIL_LIMIT": 0.03236450435270991,
+            "BLOCKED_PATH": 0.13193274361134513,
+            "NOT_CLOSED": 0.15803145183937095,
+            "NEAR_HEAD": 0.06644903117101937,
+            "CROWDED_EXTERNAL_CAP": 0.07475077225498455
+          }
+        }
+      },
+      "shadowChecks": 1357,
+      "trajectoryHash": "a5c60ec55866e6253a8fe24c6f0a402aad63c002e4cdf6f8a4166db814344c14"
+    }
+  ],
+  "humanRows": [
+    {
+      "seed": 4,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 36,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.01786331033485675,
+          "botMedianShare": 0.018168528766837215,
+          "botMaxShare": 0.023284953534509763,
+          "botCombinedShare": 0.23222303435313774,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.029839117758090297,
+          "botMedianShare": 0.032578051581915006,
+          "botMaxShare": 0.04573457241307299,
+          "botCombinedShare": 0.38790853085517385,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.037742668733584464,
+          "botMedianShare": 0.03936514566148063,
+          "botMaxShare": 0.06181476454004386,
+          "botCombinedShare": 0.4906546935365981,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03977478092545442,
+          "botMedianShare": 0.04615223974104626,
+          "botMaxShare": 0.07664195468309491,
+          "botCombinedShare": 0.5170721520309074,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.032481666813921166,
+          "botMedianShare": 0.028192544638195677,
+          "botMaxShare": 0.060248512060144095,
+          "botCombinedShare": 0.4222616685809752,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03167846041397258,
+          "botMedianShare": 0.03330896940586823,
+          "botMaxShare": 0.057116007100344576,
+          "botCombinedShare": 0.4118199853816435,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.028778885310158153,
+          "botMedianShare": 0.03090738227002193,
+          "botMaxShare": 0.06766210713166962,
+          "botCombinedShare": 0.374125509032056,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03962217170946418,
+          "botMedianShare": 0.03581497337370784,
+          "botMaxShare": 0.08468205074658035,
+          "botCombinedShare": 0.5150882322230343,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "ticks": 1521,
+      "seconds": 50.7,
+      "censored": true,
+      "human": {
+        "lifeState": "ELIMINATED",
+        "territory": 0,
+        "deaths": 1
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.01682717407892306,
+          "botMedianShare": 0.017019943614910722,
+          "botMaxShare": 0.024224705022449618,
+          "botCombinedShare": 0.21875326302599976,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 73,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 36,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.018626356414807914,
+          "botMedianShare": 0.017228777278897357,
+          "botMaxShare": 0.027983710974209042,
+          "botCombinedShare": 0.24214263339250286,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.030875254014023985,
+          "botMedianShare": 0.02767046047822909,
+          "botMaxShare": 0.05377466847655842,
+          "botCombinedShare": 0.4013783021823118,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.027525883326238346,
+          "botMedianShare": 0.024642372350422888,
+          "botMaxShare": 0.06620027148376319,
+          "botCombinedShare": 0.3578364832410985,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.02705199155026868,
+          "botMedianShare": 0.016706693118930773,
+          "botMaxShare": 0.09209564581810588,
+          "botCombinedShare": 0.3516758901534928,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03412823993381579,
+          "botMedianShare": 0.032578051581915006,
+          "botMaxShare": 0.09940482405763809,
+          "botCombinedShare": 0.4436671191396053,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.026401394366310314,
+          "botMedianShare": 0.020778949566670146,
+          "botMaxShare": 0.06369426751592357,
+          "botCombinedShare": 0.34321812676203406,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03039333017405483,
+          "botMedianShare": 0.02735720998224914,
+          "botMaxShare": 0.0663046883157565,
+          "botCombinedShare": 0.3951132922627128,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.026513843262303112,
+          "botMedianShare": 0.026730708990289235,
+          "botMaxShare": 0.0663046883157565,
+          "botCombinedShare": 0.3446799624099405,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 35,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.018120336382840295,
+          "botMedianShare": 0.018481779262817168,
+          "botMaxShare": 0.0210922000626501,
+          "botCombinedShare": 0.23556437297692384,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.029309001534124225,
+          "botMedianShare": 0.03142946642998851,
+          "botMaxShare": 0.044585987261146494,
+          "botCombinedShare": 0.3810170199436149,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.03469851647777929,
+          "botMedianShare": 0.04239323378928683,
+          "botMaxShare": 0.05868225958024433,
+          "botCombinedShare": 0.4510807142111307,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.030337105726058432,
+          "botMedianShare": 0.025790957502349377,
+          "botMaxShare": 0.07570220319515505,
+          "botCombinedShare": 0.3943823744387596,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.03820049638155517,
+          "botMedianShare": 0.03466638822178135,
+          "botMaxShare": 0.06985486060352929,
+          "botCombinedShare": 0.4966064529602172,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.03168649247797207,
+          "botMedianShare": 0.02391145452646967,
+          "botMaxShare": 0.08280254777070063,
+          "botCombinedShare": 0.41192440221363685,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.030007791102079497,
+          "botMedianShare": 0.030594131774041976,
+          "botMaxShare": 0.08656155372246006,
+          "botCombinedShare": 0.39010128432703345,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0036545891197661065,
+          "humanAlive": true,
+          "botMeanShare": 0.032923430333892896,
+          "botMedianShare": 0.036545891197661065,
+          "botMaxShare": 0.06526051999582333,
+          "botCombinedShare": 0.42800459434060767,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 31,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 36,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.016602276286937452,
+          "botMedianShare": 0.0186906129268038,
+          "botMaxShare": 0.026313041662315965,
+          "botCombinedShare": 0.2158295917301869,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.023156440510517982,
+          "botMedianShare": 0.027983710974209042,
+          "botMaxShare": 0.04124464863736034,
+          "botCombinedShare": 0.3010337266367338,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.025991759102336528,
+          "botMedianShare": 0.028296961470188994,
+          "botMaxShare": 0.05356583481257179,
+          "botCombinedShare": 0.33789286833037485,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.02523674508638485,
+          "botMedianShare": 0.014305105983084473,
+          "botMaxShare": 0.057638091260311164,
+          "botCombinedShare": 0.32807768612300303,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.035863165757704756,
+          "botMedianShare": 0.032578051581915006,
+          "botMaxShare": 0.0771640388430615,
+          "botCombinedShare": 0.46622115485016186,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03133308166199468,
+          "botMedianShare": 0.02767046047822909,
+          "botMaxShare": 0.09846507256969823,
+          "botCombinedShare": 0.4073300616059309,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.032417410301925284,
+          "botMedianShare": 0.0349796387177613,
+          "botMaxShare": 0.05742925759632453,
+          "botCombinedShare": 0.4214263339250287,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.02712428012626405,
+          "botMedianShare": 0.016706693118930773,
+          "botMaxShare": 0.06714002297170305,
+          "botCombinedShare": 0.3526156416414326,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 47,
+      "ticks": 3032,
+      "seconds": 101.06666666666666,
+      "censored": true,
+      "human": {
+        "lifeState": "ELIMINATED",
+        "territory": 0,
+        "deaths": 1
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.019341210110762168,
+          "botMedianShare": 0.019630364414743657,
+          "botMaxShare": 0.025790957502349377,
+          "botCombinedShare": 0.25143573143990816,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.029365225982120623,
+          "botMedianShare": 0.0319515505899551,
+          "botMaxShare": 0.053670251644565105,
+          "botCombinedShare": 0.3817479377675681,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.034947510461763365,
+          "botMedianShare": 0.03988722982144722,
+          "botMaxShare": 0.06056176255612405,
+          "botCombinedShare": 0.45431763600292374,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 36,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.018859286270793005,
+          "botMedianShare": 0.017855278270857262,
+          "botMaxShare": 0.02767046047822909,
+          "botCombinedShare": 0.24517072152030905,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.02285122207853752,
+          "botMedianShare": 0.027983710974209042,
+          "botMaxShare": 0.03779889318158087,
+          "botCombinedShare": 0.2970658870209878,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.031043927358013187,
+          "botMedianShare": 0.031220632766001878,
+          "botMaxShare": 0.05346141798057847,
+          "botCombinedShare": 0.40357105565417145,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03808001542156288,
+          "botMedianShare": 0.038007726845567504,
+          "botMaxShare": 0.07037694476349587,
+          "botCombinedShare": 0.4950402004803174,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03997558252544156,
+          "botMedianShare": 0.036128223869687795,
+          "botMaxShare": 0.08697922105043333,
+          "botCombinedShare": 0.5196825728307403,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03800772684556751,
+          "botMedianShare": 0.04114023180536702,
+          "botMaxShare": 0.0964811527618252,
+          "botCombinedShare": 0.4941004489923776,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.023807037694476348,
+          "botMedianShare": 0.011903518847238176,
+          "botMaxShare": 0.07455361804322856,
+          "botCombinedShare": 0.30949149002819254,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.030473650814049687,
+          "botMedianShare": 0.024015871358462983,
+          "botMaxShare": 0.07194319724339564,
+          "botCombinedShare": 0.39615746058264595,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    },
+    {
+      "seed": 137,
+      "ticks": 7200,
+      "seconds": 240,
+      "censored": false,
+      "human": {
+        "lifeState": "ALIVE",
+        "territory": 36,
+        "deaths": 0
+      },
+      "checkpoints": [
+        {
+          "seconds": 30,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.01849784339081614,
+          "botMedianShare": 0.018899446590790434,
+          "botMaxShare": 0.02453795551842957,
+          "botCombinedShare": 0.24047196408060983,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 60,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.021252841342639814,
+          "botMedianShare": 0.022867286206536493,
+          "botMaxShare": 0.04594340607705962,
+          "botCombinedShare": 0.2762869374543176,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 90,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.030176464446068713,
+          "botMedianShare": 0.03038529811005534,
+          "botMaxShare": 0.06296334969197034,
+          "botCombinedShare": 0.39229403779889327,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 120,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.028971654846145816,
+          "botMedianShare": 0.028714628798162264,
+          "botMaxShare": 0.08186279628276077,
+          "botCombinedShare": 0.3766315129998956,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 150,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.031517819133982855,
+          "botMedianShare": 0.02767046047822909,
+          "botMaxShare": 0.09961365772162473,
+          "botCombinedShare": 0.40973164874177714,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 180,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03959807551746572,
+          "botMedianShare": 0.03811214367756082,
+          "botMaxShare": 0.11078625874490967,
+          "botCombinedShare": 0.5147749817270544,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 210,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03587922988570373,
+          "botMedianShare": 0.019839198078730292,
+          "botMaxShare": 0.11684243500052209,
+          "botCombinedShare": 0.46642998851414846,
+          "botSharesFile": "human-bot-shares.csv"
+        },
+        {
+          "seconds": 240,
+          "humanShare": 0.0037590059517594236,
+          "humanAlive": true,
+          "botMeanShare": 0.03587922988570372,
+          "botMedianShare": 0.027879294142215724,
+          "botMaxShare": 0.08885872402631304,
+          "botCombinedShare": 0.46642998851414835,
+          "botSharesFile": "human-bot-shares.csv"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "capture": "CAPTURE.amount is newly won cells, same as exact transfers; zero amounts included and reported. No spawn grants in capture size.",
+    "exposure": "Per alive BOT tick before input: public-range alive opponents<=12; crowded if one<=6. Does not use light steering observation subsets.",
+    "firstRejection": "Mutually exclusive geometry first failures. Crowded/cautious activation fractions have different denominators and must not be summed with rejection fractions.",
+    "accounting": "Final=initial+neutral/stolen acquisition-theft-other live losses-death neutralization+spawn grants; exact per-tick reconciliation asserted.",
+    "counterfactual": "Every actual expansion judgment, cloned action RNG and memory. Native selected inputs stay authoritative. All baseline safety filters retained. Future completion/risks not proved.",
+    "human": "Repeated existing four fixed loops; stop on elimination as in practice. Not a skilled human30% replay; report censored sample horizons."
+  },
+  "rawHashes": {
+    "protocol.json": "831d6d7672f15c61f6d0e8a0e81d3bbf95a16d2185324bfdc54bc35f96c5a0a4",
+    "native-seed-4.json": "c1e3417351e18d15f498b697a07c4ce05d4ecd3e160ab742a4f08c33c64ed955",
+    "observed-seed-4.json": "a49d25f82b895ad8eab5f1fa9aad7b99f5cb5d130180d14575c035db564ba477",
+    "human-seed-4.json": "c1969b4a8f6645b573b07f1d4bddfcb3558e9a9ca4ea845c5f7eefa83c86c27f",
+    "native-seed-19.json": "3b7c5e7b893966eb472378b7545d937587bc79a9ced35277563a20c6800141c9",
+    "observed-seed-19.json": "092c6edce39ba6748ff704b11d1d0ba17cdeefdbdb2062c89de500d37e283fde",
+    "human-seed-19.json": "e7c96f463cec22a9af6b37a0903b3f2dba2cc7010501f68427d237945a56e39d",
+    "native-seed-73.json": "be18552fe3d2ebed61af55bfa6226544af779ac660fdcff528279eb62b285946",
+    "observed-seed-73.json": "ecf907f3947188afd4c3071946d1850de439311600cdd774505a04cdc0818047",
+    "human-seed-73.json": "bba95114018f28bb8e18893718e02e5e147e7a44de9c308c62410ab8f829eb6d",
+    "native-seed-11.json": "c5040116d8abd7095862fabcc276e67dd85a73072eca5db0d17a96e6418c540c",
+    "observed-seed-11.json": "763567f16ee45ddd734ca7c9b673c09fb2b18223062342b5990d2c2a9553c13f",
+    "human-seed-11.json": "d8dff46e5d218963c84930d0c34486f675d24219d1cde3cb33f65fef3795d292",
+    "native-seed-31.json": "0864424c9360fb7a713904545dc1da58e73a17a4a721bdfe0792422dec64d74d",
+    "observed-seed-31.json": "9e61e5295e33d3ab81f0d170bd51c2f9e6021d52795df08fdc12a0807951285f",
+    "human-seed-31.json": "2d05559a51278cc1250937e07613073942bfc618c1261f3c661bc2978f4280bd",
+    "native-seed-47.json": "1a23738ecb139acc6425a20cd223f0f8b8e5860f48a3c2f77cff86575f023fea",
+    "observed-seed-47.json": "e11974c8cffd544045bccbc1b4fc535d0a3315a3c15a9bc3120fad3173824b5a",
+    "human-seed-47.json": "02e781a25242833f74e280dcb9c99c7787c7b170c8a12c0595bafed5064e4103",
+    "native-seed-101.json": "432b1791b4dc5116d84f0cb168f33afa3e24e783ba1dc0d5bd0d205867d16ad5",
+    "observed-seed-101.json": "e45f80877c56333638847856e306885aa40fa62a02d16337a37cb5e2af5640e9",
+    "human-seed-101.json": "a6fb14ceadea8b0778d263a55c35c258448fb271eb4b4dfe5673b499fe0e27dc",
+    "native-seed-137.json": "b457478ab139c0e912dfb09f133013e6d62647f2122a2358fc1e90503735c926",
+    "observed-seed-137.json": "40987527c81996ba16f7fa7df813601a8749ceddf153ccaa1acee4af6bbf7c34",
+    "human-seed-137.json": "d3bf114492fdcae192298bb147f1ba157db235be3fdf3f7f0618193e3d4d1700"
+  },
+  "behaviorModified": false
+}
