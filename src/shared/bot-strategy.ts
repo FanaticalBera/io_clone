@@ -17,6 +17,7 @@ import {decisionTraces,attackPolicies} from './bot-runtime.js';
 import {shortestPath,returnPath,travelSeconds,observedHeading,forecastHead} from './bot-navigation.js';
 import {holdingRiskMultiplier} from './bot-holding-risk.js';
 import {BOT_LOOP_CEILING,quietLoopEligible} from './bot-loop-ceiling.js';
+import {openSpaceExpansionAnchor} from './bot-open-space.js';
 // Anchor/shape enumeration and existing score terms remain intact.
 const behavior:Record<Personality,{length:number;width:number;attack:number;pointWeight:number;risk:number;trailLimit:number;steal:number;attackRange:number}>={
  EXPAND:{length:5,width:4,attack:0.08,pointWeight:4,risk:0.7,trailLimit:20,steal:0.3,attackRange:6},
@@ -209,6 +210,10 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  const loopLength=cautiousExplorer?Math.min(settings.length,4):settings.length;
  const loopWidth=cautiousExplorer?Math.min(settings.width,3):settings.width;
  const damageBoundary=damageExpansionAnchors(obs,memory.emotion.damage,boundary);
+ // Preserve the complete original anchor order and its RNG/shape enumeration.
+ // Only the appended anchor generates extra candidates; all filters below apply.
+ const openBoundary=openSpaceExpansionAnchor(obs,damageBoundary.anchors.map(c=>c.id));
+ if(openBoundary)damageBoundary.anchors.push(obs.map.cells[openBoundary.id]);
  const boundaryTrace=decisionTraces.get(memory);if(boundaryTrace)boundaryTrace.damageBoundary={anchors:damageBoundary.damageAnchors,unreachable:damageBoundary.unreachable};
  for(const [anchorIndex,anchor] of damageBoundary.anchors.entries())for(let d=0;d<6;d++){
   const prefix=shortestPath(obs.map,obs.self.cellId,id=>id===anchor.id,id=>obs.owners[id]===owner,10);if(!prefix)continue;
