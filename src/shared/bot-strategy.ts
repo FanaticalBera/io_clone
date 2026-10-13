@@ -11,7 +11,7 @@ import {emotionIndividual,memoryValuable,grudgeBonus,grudgeAmount} from './bot-e
 import {survivalCounterAllowed} from './bot-policy.js';
 import {evaluateShadowOpportunities,shadowTravelSeconds} from './bot-opportunity.js';
 import {expansionSides,EXPANSION_SHAPES} from './bot-expansion.js';
-import {evaluateDepartureSafety,recordDepartureSafety} from './bot-immediate-safety.js';
+import {evaluateDepartureSafety,recordDepartureSafety,expansionPerimeterBlocked} from './bot-immediate-safety.js';
 import {selectReposition,startReposition} from './bot-reposition.js';
 import {decisionTraces,attackPolicies} from './bot-runtime.js';
 import {shortestPath,returnPath,travelSeconds,observedHeading,forecastHead} from './bot-navigation.js';
@@ -259,7 +259,9 @@ export function planExpansion(obs:BotObservation,memory:BotMemory):number[] {
  // one-second predicate as the per-tick immediate guard, no additional RNG.
  let selected:typeof candidates[number]|undefined;
  for(const candidate of candidates){const safety=evaluateDepartureSafety(obs,candidate.path,candidate.goal);
-  if(safety.blocked){recordDepartureSafety(memory,{type:'candidate',tick:obs.tick,result:safety});if(evaluated){const score=evaluated.expansionScores?.[candidates.indexOf(candidate)];if(score)score.departureBlocked=safety.reason??'UNKNOWN';const counts=evaluated.expansionRejected??={};counts['LAUNCH_'+safety.reason]=(counts['LAUNCH_'+safety.reason]??0)+1;}continue;}selected=candidate;break;
+  if(safety.blocked){recordDepartureSafety(memory,{type:'candidate',tick:obs.tick,result:safety});if(evaluated){const score=evaluated.expansionScores?.[candidates.indexOf(candidate)];if(score)score.departureBlocked=safety.reason??'UNKNOWN';const counts=evaluated.expansionRejected??={};counts['LAUNCH_'+safety.reason]=(counts['LAUNCH_'+safety.reason]??0)+1;}continue;}
+  if(expansionPerimeterBlocked(obs,candidate.path,candidate.goal))continue;
+  selected=candidate;break;
  }memory.attackSurvival=selected?.goal==='ATTACK'&&'survival' in selected?!!selected.survival:false;memory.goal=selected?.goal??'RETURN';memory.attackTarget=selected?.target??null;memory.attackSlot=selected?.slot??null;
  const trace=decisionTraces.get(memory);if(trace){trace.reason=selected?.expansion?'EXPANSION_SCORE':selected?.goal==='ATTACK'?'ATTACK_SCORE':selected?'POINT_SCORE':'NO_EXPANSION';trace.expansionPlan=selected?.expansion;if(selected?.expansion)trace.expansionPath=[...selected.path];}
  memory.expansion=selected?.expansion;if(selected?.expansion)memory.lastExpansionShape=selected.expansion.shape;

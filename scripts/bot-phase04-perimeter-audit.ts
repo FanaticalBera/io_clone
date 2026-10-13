@@ -10,8 +10,10 @@ const protocol=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8'));
 const source=protocol.instrumented,load=(name:string)=>import(pathToFileURL(resolve(source,'src/shared',name+'.ts')).href);
 const [game,bot,identity,director,respawn,hex,movement,capture,hook]=await Promise.all(['game','bot','bot-identity','bot-director','safe-bot-respawn','hex','movement','capture-diagnostics','bot-perimeter-audit-hook'].map(load));
 for(const [file,hash] of Object.entries(protocol.instrumentedHashes))assert.equal(createHash('sha256').update(readFileSync(resolve(source,'src/shared',file))).digest('hex'),hash);
-const reference=JSON.parse(readFileSync(resolve(root,'../bot-phase03-closeout/post-master.json'),'utf8'));
-const prior=JSON.parse(readFileSync(resolve(root,'../bot-phase03b-tactical-review/tactical.json'),'utf8'));
+const referencePath=process.argv.find(v=>v.startsWith('--reference='))?.slice(12);
+const reference=JSON.parse(readFileSync(referencePath??resolve(root,'../bot-phase03-closeout/post-master.json'),'utf8'));
+const prior=referencePath?undefined:JSON.parse(readFileSync(resolve(root,'../bot-phase03b-tactical-review/tactical.json'),'utf8'));
+const candidateModule=await load('bot-candidate-diagnostics'),safety=await load('bot-immediate-safety');
 const clone=(v:any)=>JSON.parse(JSON.stringify(v)),inc=(r:any,k:string,n=1)=>r[k]=(r[k]??0)+n;
 const memoryHash=(memories:Map<string,any>)=>createHash('sha256').update(JSON.stringify([...memories].map(([id,m])=>[id,{...m,random:undefined}]),(_k,v)=>v instanceof Map?[...v]:v instanceof Set?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v)).digest('hex');
 const depth=(map:any,id:number)=>map.radius-hex.hexDistance(map.cells[id],{q:0,r:0});
@@ -28,7 +30,7 @@ const reports=[];
 for(const seed of protocol.seeds){
  const match=game.createMatch({mapRadius:56,spawnRadius:1},seed,bot.botSpecs(14,0,'bot',{seed}));respawn.setSafeBotRespawn(match,true);
  const memories=new Map<string,any>(match.participants.map((p:any)=>[p.participantId,bot.createBotMemory(identity.botSeed(seed,p.slot),'combined',identity.createBotIdentity(identity.botSeed(seed,p.slot),p.personality))]));
- const latest=new Map<string,any>(),preludes=new Map<string,any>(),immediates=new Map<string,any>();
+ const latest=new Map<string,any>(),preludes=new Map<string,any>(),immediates=new Map<string,any>(),alternatives=new Map<string,any>(),alternativeSelections:any[]=[];
  const holding=new BotHoldingTracker(match),legacy=new BotRecoveryBaselineTracker(match,capture.watchCaptureTransfers);
  const trajectory=createHash('sha256'),traceHash=createHash('sha256'),episodes:any[]=[],guards:any[]=[],active=new Map<string,any>(),pending:any[]=[];
  let sequence=0;
@@ -36,6 +38,11 @@ for(const seed of protocol.seeds){
  const lifeSpawns=new Map<string,any>(match.participants.map((p:any)=>[p.participantId,{life:p.lifeId,cell:p.cellId,depth:depth(match.map,p.cellId),tick:0}])),spawnRecords=match.participants.map((p:any)=>({participantId:p.participantId,slot:p.slot,personality:p.personality,...lifeSpawns.get(p.participantId)}));
  for(const [id,memory] of memories){
   bot.watchBotDecisions(memory,(t:any)=>latest.set(id,t),{shadow:false});
+  if(referencePath)candidateModule.watchBotCandidates(memory,(obs:any,batch:any)=>{
+   if(batch.kind!=='STRATEGY')return;
+   const oldIndex=batch.candidates.findIndex((c:any)=>!safety.evaluateDepartureSafety(obs,c.path,c.goal).blocked),old=batch.candidates[oldIndex],chosen=batch.candidates[batch.selectedIndex];
+   if(old&&safety.expansionPerimeterBlocked(obs,old.path,old.goal))alternatives.set(id,{seed,slot:obs.self.slot,tick:obs.tick,oldIndex,selectedIndex:batch.selectedIndex,oldGoal:old.goal,selectedGoal:chosen?.goal??'RETURN',oldPath:[...old.path],selectedPath:chosen?[...chosen.path]:[],executedExpansion:false});
+  });
   hook.watchPerimeterAudit(memory,{prelude:(obs:any,trace:any)=>preludes.set(id,clone(trace)),immediate:(obs:any,m:any,intent:any,escape:any)=>{
    const wallDepth=depth(obs.map,obs.self.cellId);immediates.set(id,{tick:obs.tick,life:obs.self.lifeId,goal:m.goal,path:[...m.path],expansion:m.expansion?clone(m.expansion):null,position:{...obs.self.position},heading:{...obs.self.direction},cell:obs.self.cellId,wallDepth,line:[...match.participants.find((p:any)=>p.participantId===id).trailCells],intent:{...intent},escape:escape?{...escape}:null,
     projection:escape?forecast(obs,intent):null,escapeProjection:escape?forecast(obs,escape):null});
@@ -43,11 +50,12 @@ for(const seed of protocol.seeds){
  }
  const close=(episode:any,reason:string,tick:number)=>{if(episode.ended===null){episode.ended=tick;episode.outcome=reason;active.delete(episode.participantId);}};
  for(let t=0;t<protocol.ticks;t++){
-  latest.clear();preludes.clear();immediates.clear();const beforeCounter=match.eventCounter;
+  latest.clear();preludes.clear();immediates.clear();alternatives.clear();const beforeCounter=match.eventCounter;
   const inputs=director.getBotInputs(match,memories);
   trajectory.update(JSON.stringify([...inputs]));traceHash.update(JSON.stringify([...latest]));
   for(const p of match.participants){
    const id=p.participantId,row=rows.get(id),m=memories.get(id),pre=preludes.get(id),im=immediates.get(id),trace=latest.get(id);
+   const alternative=alternatives.get(id);if(alternative){alternative.executedExpansion=['EXPAND','STEAL'].includes(m.goal)&&!im?.escape;alternativeSelections.push(alternative);}
    legacy.before(id,p.lifeId,trace);
    let episode=active.get(id);if(episode&&episode.life!==p.lifeId){close(episode,'LIFE_CHANGE',t);episode=undefined;}
    if(p.lifeState!=='ALIVE')continue;
@@ -110,9 +118,9 @@ for(const seed of protocol.seeds){
  const equivalenceProof={traceHash:traceHash.digest('hex'),memoryHash:memoryHash(memories),nextRng:Object.fromEntries([...memories].map(([id,m])=>[id,m.random()]))};
  const trajectoryHash=trajectory.digest('hex'),direct=director.botDirector(match).snapshot(),expected=reference.reports.find((r:any)=>r.seed===seed);
  assert.equal(trajectoryHash,expected.trajectoryHash);assert.deepEqual(equivalenceProof,expected.equivalenceProof);assert.deepEqual(direct,expected.director);
- const old=prior.reports.find((r:any)=>r.seed===seed),legacyCounts=legacy.snapshot();assert.deepEqual(legacyCounts,old.supplementaryRecovery);
+ const legacyCounts=legacy.snapshot();if(prior){const old=prior.reports.find((r:any)=>r.seed===seed);assert.deepEqual(legacyCounts,old.supplementaryRecovery);}
  assert.equal(guards.length,legacyCounts.reduce((n:number,p:any)=>n+p.guardTicks,0));
- const result={seed,ticks:match.tick,trajectoryHash,equivalenceProof,director:direct,holding:holding.snapshot(),deaths:match.participants.reduce((n:number,p:any)=>n+p.deaths,0),wallDeaths:match.events.filter((e:any)=>e.type==='DEATH'&&e.reason==='WALL_HIT').length,rows:[...rows.values()],spawnRecords,legacy:legacyCounts,episodes,guards,verification:'Trajectory, all native final traces, full memory, next RNG, reservations and legacy recovery/guard counters identical to approved source.'};
+ const result={seed,ticks:match.tick,trajectoryHash,equivalenceProof,director:direct,holding:holding.snapshot(),deaths:match.participants.reduce((n:number,p:any)=>n+p.deaths,0),wallDeaths:match.events.filter((e:any)=>e.type==='DEATH'&&e.reason==='WALL_HIT').length,rows:[...rows.values()],spawnRecords,legacy:legacyCounts,episodes,guards,alternativeSelections,verification:'Trajectory, all native final traces, full memory, next RNG and reservations identical to the same-arm native source. Guard counters cross-checked.'};
  legacy.dispose();writeFileSync(resolve(root,'seed-'+seed+'.json'),JSON.stringify(result,null,2));reports.push({seed,result:'seed-'+seed+'.json',guards:guards.length,episodes:episodes.length,allEquivalent:true});console.error('Finished perimeter seed '+seed+' guards='+guards.length+' episodes='+episodes.length);
 }
 writeFileSync(resolve(root,'index.json'),JSON.stringify({protocol:resolve(root,'protocol.json'),reports},null,2)+'\n');

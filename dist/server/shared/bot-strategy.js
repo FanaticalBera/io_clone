@@ -7,7 +7,7 @@ import { emotionIndividual, memoryValuable, grudgeBonus, grudgeAmount } from './
 import { survivalCounterAllowed } from './bot-policy.js';
 import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
 import { expansionSides, EXPANSION_SHAPES } from './bot-expansion.js';
-import { evaluateDepartureSafety, recordDepartureSafety } from './bot-immediate-safety.js';
+import { evaluateDepartureSafety, recordDepartureSafety, expansionPerimeterBlocked } from './bot-immediate-safety.js';
 import { selectReposition, startReposition } from './bot-reposition.js';
 import { decisionTraces, attackPolicies } from './bot-runtime.js';
 import { shortestPath, returnPath, travelSeconds, observedHeading, forecastHead } from './bot-navigation.js';
@@ -417,6 +417,8 @@ export function planExpansion(obs, memory) {
             }
             continue;
         }
+        if (expansionPerimeterBlocked(obs, candidate.path, candidate.goal))
+            continue;
         selected = candidate;
         break;
     }

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-13",
+  "status": "AUTOMATIC_CHECKS_COMPLETE_HUMAN_PLAY_PENDING",
+  "baseline": "133ee1f",
+  "workingParent": "269c8c1",
+  "gameplayChange": "EXPAND/STEAL candidate rejection using unchanged immediate PERIMETER_GUARD; first intent only",
+  "legacy16": {"cuts": 13, "failures": [5, 6, 14], "newLosses": 0},
+  "knownSeed1": "Preserved original expected-failure test: ATTACK 0 ticks, human alive at t76 with one capture",
+  "expanded": {"cases": 1024, "cutsBefore": 155, "cutsAfter": 155, "changedBinaryResults": 0, "observerProofs": 44},
+  "farFairness": {"checks": 32, "scope": "Initial decision only, outside-range pose and hidden intent; same input, memory, next RNG, reservations"},
+  "naturalSeeds": [4, 19, 73, 11, 31, 47, 101, 137],
+  "naturalObserverProofs": "All eight: native versus perimeter/candidate instrumentation, and native versus growth metrics; trajectory, full final traces, memory, next RNG, reservations equal within candidate arm",
+  "performance": {"sameSession": true, "rounds": 3, "pairedSamples": 48, "warmupsDiscarded": 2, "externalTestOverlap": 0, "percentChange": 0.7613385780119719},
+  "vitestFirstFullRun": {"files": 98, "filesPassed": 96, "passed": 676, "expectedFailures": 1, "failures": 4, "failureReason": "Historical trajectory pins intentionally change under approved candidate wall filtering"},
+  "vitestAfterPinRefresh": {"targetFiles": 2, "passed": 16, "failed": 0, "allOtherAssertionsRetained": true, "wholeSuiteRerunAfterRefresh": false},
+  "aggregateTestCoverage": {"files": 98, "passedTests": 680, "expectedFailures": 1, "unresolvedFailures": 0},
+  "historicalPins": {
+    "spawnSpaceUnpadded": {"old": "359ff58fe743bda0bfd6f3b3a3910ed0493eb96179a273fd961d3a348ff2594b", "new": "ffc8592245e073dbcad2db3423e0661b8b4d085459b8e59558035de64be752bb"},
+    "spawnSpacePadded": {"old": "e1898b0e77ee1ff17cc538bf611a173125b897ad2e3f42f05d8b0995a8acd752", "new": "7299341d1b88039250e47ecc0819ed09e14161a0d6ca7252bce3b3fda3dfb69c"},
+    "isolatedDefenderUnpadded": {"old": "ff9a620501417eaf7ce7c9d188cd37aa6860a94273dc85d85d811baf9b48c9de", "new": "da7c2ad09da7a2d53612e1ed338e6538b6a9c3df2f3524753c913e02e6f2c60d"},
+    "isolatedDefenderPadded": {"old": "9cab7a54acecec7c8a9c64bcb649e57e1eedf33df9f137a7be0c170c8dfaa50a", "new": "a1a2d206eaa7b9c4752ad7ca39ef6d893584b118f1ec64137ed6a285da383df8"}
+  },
+  "pcE2E": {"passed": 9, "failed": 0},
+  "typecheck": "Project client/server/tests and changed audit scripts strict checks passed",
+  "build": "Production build passed; all 22 tracked marker PNG assets preserved",
+  "testServer": {"url": "http://127.0.0.1:5180/?debug=1&experimentSeed=19", "mode": "test", "httpStatus": 200, "humanPractice": "Enter nickname and choose practice; keep own camera and spectate flag absent"},
+  "notImplemented": ["Prefix-wide perimeter check for baseline 417 movement interruptions", "NO_APPROACH analysis", "Other safety or scoring changes"],
+  "master": "133ee1f unchanged and clean; no remote push",
+  "rawDirectories": [".local/bot-phase04-wall-fix", ".local/bot-phase04-wall-fix-expanded"],
+  "logs": ["vitest.log", "vitest-pins.log", "build.log", "e2e.log", "performance.log", "preview.stdout.log"]
+}

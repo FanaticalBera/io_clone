@@ -32,9 +32,9 @@ describe('bounded expansion geometry and real closure',()=>{
   const m=createMatch({},73,[{...botSpecs(1)[0],personality:'DEFEND'}],'isolated-defender'),p=m.participants[0],memory=createBotMemory(73,variant),shapes=new Set<string>(),hash=createHash('sha256');
   setWallMargin(m.map,padded);watchBotDecisions(memory,t=>{if(t.expansionPlan)shapes.add(t.expansionPlan.shape);});
   for(let tick=0;tick<900;tick++){const input=getBotInput(observeBot(m,p.participantId,variant),memory);stepMatch(m,new Map(input?[[p.participantId,input]]:[]));const {map,...state}=m;hash.update(JSON.stringify(state,(_k,v)=>_k==='run'?undefined:v instanceof Set?[...v]:v instanceof Map?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v));}
-  // Keep the historical strict hash and pin the adopted geometry separately.
-  // Wall look-ahead shares movement geometry, so new padding changes plans.
-  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'9cab7a54acecec7c8a9c64bcb649e57e1eedf33df9f137a7be0c170c8dfaa50a':'ff9a620501417eaf7ce7c9d188cd37aa6860a94273dc85d85d811baf9b48c9de');
+  // Pin the approved selection-time perimeter filter. Retain the defender's
+  // zero deaths and restricted shape checks independently of the hash.
+  if(variant==='baseline')expect(hash.digest('hex')).toBe(padded?'a1a2d206eaa7b9c4752ad7ca39ef6d893584b118f1ec64137ed6a285da383df8':'da7c2ad09da7a2d53612e1ed338e6538b6a9c3df2f3524753c913e02e6f2c60d');
   expect(p.deaths).toBe(0);expect([...shapes].every(s=>['RHOMBUS','BEVEL','NATURAL'].includes(s))).toBe(true);
  });
  it('shortens a real exposed excursion and survives the resulting capture when observed pressure grows',()=>{

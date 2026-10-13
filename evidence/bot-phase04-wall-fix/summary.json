@@ -1,0 +1,1280 @@
+{
+  "baseline": "133ee1f (same behavior as approved tactical-only)",
+  "candidateSourceHashes": {
+    "bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+    "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+    "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+    "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+    "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+    "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+    "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+    "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+    "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+    "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+    "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+    "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+    "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+    "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+    "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+    "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+    "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+    "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+    "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+    "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+    "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+    "bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+    "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+    "bot-strategy.ts": "6a0ac5dcefda4242e5ce844d028f136d7fcc574e11f426bd8ec8089757d328e8",
+    "bot-tactical.ts": "5ef4168a7de43b5f8c85a450775af36e3b56304af49a4130fdf5a1093b1e40bf",
+    "bot.ts": "c1014deb9e2827e947853be5b4ee1fe5967e65ef444ee732b74405539a0d2b57",
+    "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+    "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+    "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+    "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+    "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+    "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+    "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+    "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+    "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+    "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+    "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+    "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+    "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+    "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+    "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+    "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+    "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+    "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+    "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+    "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+    "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+    "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+    "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+    "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+    "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+    "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+    "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+    "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+    "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+    "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+    "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+  },
+  "scope": "Only same-tick expansion perimeter rejection; first intent after native waypoint consumption; existing guard unchanged. No prefix-wide prediction.",
+  "totalBefore": {
+    "holding": 3149.4219097222226,
+    "final": 4467.625,
+    "deaths": 80,
+    "net": 53638,
+    "totalCapture": 69746,
+    "reclaim": 3233,
+    "TV": 0.11335811296106667,
+    "wallDeaths": 0
+  },
+  "totalAfter": {
+    "holding": 3083.910625,
+    "final": 4354.5,
+    "deaths": 90,
+    "net": 55791,
+    "totalCapture": 69445,
+    "reclaim": 3234,
+    "TV": 0.1140598695176553,
+    "wallDeaths": 0
+  },
+  "directions": {
+    "holding": {
+      "positive": 3,
+      "negative": 5,
+      "tied": 0,
+      "leaveOneOut": [
+        -433.03833333333387,
+        -303.20222222222264,
+        -544.8083333333338,
+        -878.1983333333337,
+        -492.1119444444448,
+        15.758055555555075,
+        -587.7122222222229,
+        -445.3186111111113
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "final": {
+      "positive": 5,
+      "negative": 3,
+      "tied": 0,
+      "leaveOneOut": [
+        -1076,
+        -400,
+        -624,
+        -1172,
+        -971,
+        611,
+        -1761,
+        -942
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "deaths": {
+      "positive": 2,
+      "negative": 2,
+      "tied": 4,
+      "leaveOneOut": [
+        11,
+        4,
+        11,
+        10,
+        10,
+        4,
+        10,
+        10
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "totalCapture": {
+      "positive": 3,
+      "negative": 5,
+      "tied": 0,
+      "leaveOneOut": [
+        -116,
+        -588,
+        50,
+        -439,
+        -25,
+        -288,
+        -491,
+        -210
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "net": {
+      "positive": 6,
+      "negative": 2,
+      "tied": 0,
+      "leaveOneOut": [
+        1737,
+        1025,
+        2657,
+        1780,
+        1804,
+        2795,
+        1440,
+        1833
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "reclaim": {
+      "positive": 3,
+      "negative": 5,
+      "tied": 0,
+      "leaveOneOut": [
+        154,
+        10,
+        -78,
+        -66,
+        14,
+        111,
+        34,
+        -172
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "TV": {
+      "positive": 4,
+      "negative": 4,
+      "tied": 0,
+      "leaveOneOut": [
+        -0.01437696967361566,
+        -0.025984281540266392,
+        0.11063091723968888,
+        0.021199275672340992,
+        0.10025084482961447,
+        -0.07110459864528662,
+        0.15200064323289258,
+        -0.23331746394640454
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    },
+    "wallDeaths": {
+      "positive": 0,
+      "negative": 0,
+      "tied": 8,
+      "leaveOneOut": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "direction": "INDISTINGUISHABLE",
+      "meaning": "Indistinguishable is not evidence of no effect. Prespecified paired 7/8 sign + every leave-one-out same direction."
+    }
+  },
+  "wallBefore": {
+    "nearSelected": 1222,
+    "nearExecuted": 974,
+    "nearExecutedRatio": 0.7970540098199672,
+    "nearLaunched": 611,
+    "nearLaunchedRatio": 0.5,
+    "sameTickDiscarded": 242,
+    "prefixStops": 417,
+    "exposedStops": 383,
+    "alternativeDecisions": 0,
+    "alternativeExpansionsExecuted": 0
+  },
+  "wallAfter": {
+    "nearSelected": 851,
+    "nearExecuted": 850,
+    "nearExecutedRatio": 0.9988249118683902,
+    "nearLaunched": 556,
+    "nearLaunchedRatio": 0.6533490011750881,
+    "sameTickDiscarded": 0,
+    "prefixStops": 332,
+    "exposedStops": 385,
+    "alternativeDecisions": 114,
+    "alternativeExpansionsExecuted": 112
+  },
+  "executionDefinition": "Executed means selected episode survived final immediate safety and emitted its expansion steering that tick (adopted). Launched additionally requires an actual exposed trail or exterior position, reported separately.",
+  "alternativeDefinition": "Same candidate batch and observation: old launch-only first eligible candidate would trigger unchanged perimeter guard and RETURN; new selection emits another EXPAND/STEAL without final guard. Not a cross-world tick comparison.",
+  "personalities": [
+    {
+      "personality": "DEFEND",
+      "before": {
+        "captured": 18176,
+        "stolen": 2540,
+        "stolenShare": 0.13974471830985916
+      },
+      "after": {
+        "captured": 18523,
+        "stolen": 2352,
+        "stolenShare": 0.12697727150029692
+      }
+    },
+    {
+      "personality": "ATTACK",
+      "before": {
+        "captured": 16708,
+        "stolen": 2419,
+        "stolenShare": 0.14478094326071342
+      },
+      "after": {
+        "captured": 16685,
+        "stolen": 2167,
+        "stolenShare": 0.12987713515133353
+      }
+    },
+    {
+      "personality": "EXPAND",
+      "before": {
+        "captured": 18925,
+        "stolen": 2976,
+        "stolenShare": 0.15725231175693527
+      },
+      "after": {
+        "captured": 18812,
+        "stolen": 2743,
+        "stolenShare": 0.14581118435041462
+      }
+    },
+    {
+      "personality": "SEEK_POINT",
+      "before": {
+        "captured": 15937,
+        "stolen": 3723,
+        "stolenShare": 0.23360732885737592
+      },
+      "after": {
+        "captured": 15425,
+        "stolen": 3420,
+        "stolenShare": 0.22171799027552674
+      }
+    }
+  ],
+  "attack": {
+    "legacy16": {
+      "cuts": 13,
+      "failures": [
+        5,
+        6,
+        14
+      ]
+    },
+    "newLegacyLosses": 0,
+    "beforeCuts": 155,
+    "afterCuts": 155,
+    "cases": 1024,
+    "changed": [],
+    "observerChecks": 44,
+    "knownSeed1": {
+      "attackTicks": 0,
+      "humanState": "ALIVE",
+      "tick": 76,
+      "status": "PRESERVED_KNOWN_REGRESSION"
+    }
+  },
+  "seedRows": [
+    {
+      "seed": 4,
+      "before": {
+        "holding": 3212.260277777778,
+        "final": 4997,
+        "deaths": 9,
+        "totalCapture": 8893,
+        "net": 6575,
+        "reclaim": 423,
+        "TV": 0.05413688660880261,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 3121.2083333333335,
+        "final": 5168,
+        "deaths": 8,
+        "totalCapture": 8708,
+        "net": 6991,
+        "reclaim": 270,
+        "TV": 0.07412790873512737,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": -91.05194444444442,
+        "final": 171,
+        "deaths": -1,
+        "totalCapture": -185,
+        "net": 416,
+        "reclaim": -153,
+        "TV": 0.01999102212632476,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 126,
+        "nearExecuted": 102,
+        "nearExecutedRatio": 0.8095238095238095,
+        "nearLaunched": 67,
+        "nearLaunchedRatio": 0.5317460317460317,
+        "sameTickDiscarded": 24,
+        "prefixStops": 40,
+        "exposedStops": 49,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 101,
+        "nearExecuted": 101,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 69,
+        "nearLaunchedRatio": 0.6831683168316832,
+        "sameTickDiscarded": 0,
+        "prefixStops": 35,
+        "exposedStops": 52,
+        "alternativeDecisions": 7,
+        "alternativeExpansionsExecuted": 7
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 9
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 7,
+        "PENDING_TRAIL_CONTACT": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "f8d218287e06d7b41e39b949a158f1e1470a5f1964cbe02809344106498dd16e",
+        "traceHash": "f1639cf81454f522db4c72448b3359dadc88c3208b2014f20d3b94db3d02edea",
+        "memoryHash": "a630a43b59dc1b37a534cbf151949a51615f83617b601c34546a46bb8bb73bf6",
+        "nextRng": {
+          "bot-0": 0.2885147479828447,
+          "bot-1": 0.8318951555993408,
+          "bot-2": 0.49713884061202407,
+          "bot-3": 0.24522238108329475,
+          "bot-4": 0.2695576853584498,
+          "bot-5": 0.19928772887215018,
+          "bot-6": 0.16103779757395387,
+          "bot-7": 0.15138588706031442,
+          "bot-8": 0.33010171283967793,
+          "bot-9": 0.851910165278241,
+          "bot-10": 0.5729688338469714,
+          "bot-11": 0.853735102340579,
+          "bot-12": 0.10071702254936099,
+          "bot-13": 0.1530213204678148
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "before": {
+        "holding": 3429.8983333333335,
+        "final": 5469,
+        "deaths": 8,
+        "totalCapture": 8602,
+        "net": 6529,
+        "reclaim": 357,
+        "TV": 0.04995090701305387,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 3209.010277777778,
+        "final": 4964,
+        "deaths": 14,
+        "totalCapture": 8889,
+        "net": 7657,
+        "reclaim": 348,
+        "TV": 0.08154924100602937,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": -220.88805555555564,
+        "final": -505,
+        "deaths": 6,
+        "totalCapture": 287,
+        "net": 1128,
+        "reclaim": -9,
+        "TV": 0.03159833399297549,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 218,
+        "nearExecuted": 168,
+        "nearExecutedRatio": 0.7706422018348624,
+        "nearLaunched": 99,
+        "nearLaunchedRatio": 0.4541284403669725,
+        "sameTickDiscarded": 50,
+        "prefixStops": 80,
+        "exposedStops": 55,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 125,
+        "nearExecuted": 125,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 75,
+        "nearLaunchedRatio": 0.6,
+        "sameTickDiscarded": 0,
+        "prefixStops": 58,
+        "exposedStops": 46,
+        "alternativeDecisions": 18,
+        "alternativeExpansionsExecuted": 17
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 7,
+        "HOME_CAPTURE": 1
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 13,
+        "HOME_CAPTURE": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "0095918d3f0373dca774f1c6754d6900a7fd4f9b0d803ac7fe794716bc28f6b3",
+        "traceHash": "62d58107dc64bdfc88ae471a7033a937d6b026df75bd3eaed999f07a678a6821",
+        "memoryHash": "6e06819b2c88b6d0fc4051e154090c6c4fec3a36589cd7b1252723b8789d4ff1",
+        "nextRng": {
+          "bot-0": 0.16213159658946097,
+          "bot-1": 0.5428501884452999,
+          "bot-2": 0.33737282105721533,
+          "bot-3": 0.9381202659569681,
+          "bot-4": 0.5532419227529317,
+          "bot-5": 0.9306985680013895,
+          "bot-6": 0.939712913474068,
+          "bot-7": 0.3874135159421712,
+          "bot-8": 0.13774714851751924,
+          "bot-9": 0.9808023502118886,
+          "bot-10": 0.666931361425668,
+          "bot-11": 0.9290984694380313,
+          "bot-12": 0.6237729550339282,
+          "bot-13": 0.3398097804747522
+        }
+      }
+    },
+    {
+      "seed": 73,
+      "before": {
+        "holding": 3122.4772222222223,
+        "final": 4712,
+        "deaths": 12,
+        "totalCapture": 8849,
+        "net": 7684,
+        "reclaim": 256,
+        "TV": 0.16617545927890756,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 3143.195277777778,
+        "final": 4431,
+        "deaths": 11,
+        "totalCapture": 8498,
+        "net": 7180,
+        "reclaim": 335,
+        "TV": 0.06115859449192779,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": 20.718055555555566,
+        "final": -281,
+        "deaths": -1,
+        "totalCapture": -351,
+        "net": -504,
+        "reclaim": 79,
+        "TV": -0.10501686478697977,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 109,
+        "nearExecuted": 94,
+        "nearExecutedRatio": 0.8623853211009175,
+        "nearLaunched": 63,
+        "nearLaunchedRatio": 0.5779816513761468,
+        "sameTickDiscarded": 12,
+        "prefixStops": 32,
+        "exposedStops": 60,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 136,
+        "nearExecuted": 136,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 81,
+        "nearLaunchedRatio": 0.5955882352941176,
+        "sameTickDiscarded": 0,
+        "prefixStops": 60,
+        "exposedStops": 53,
+        "alternativeDecisions": 20,
+        "alternativeExpansionsExecuted": 20
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 12
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 11
+      },
+      "observerProof": {
+        "trajectoryHash": "4a7e24742f1783f7813827ffe569cc0644924c19fb74b3b8fde94e77cad321db",
+        "traceHash": "93b78906cf9edf5198fe593660285c519dc839ca0f7a6e3f31c0aa3624ec62f2",
+        "memoryHash": "0a38540fc15b48459f56406819308ba0cea9f483ab3251e87351df1e123659aa",
+        "nextRng": {
+          "bot-0": 0.2539399154484272,
+          "bot-1": 0.7429000504780561,
+          "bot-2": 0.0445237725507468,
+          "bot-3": 0.8599136827979237,
+          "bot-4": 0.8868899315129966,
+          "bot-5": 0.15356801776215434,
+          "bot-6": 0.38050984567962587,
+          "bot-7": 0.367015709169209,
+          "bot-8": 0.7888510986231267,
+          "bot-9": 0.7481760699301958,
+          "bot-10": 0.3701755995862186,
+          "bot-11": 0.6289452868513763,
+          "bot-12": 0.2261087652295828,
+          "bot-13": 0.17874279781244695
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "before": {
+        "holding": 3012.586388888889,
+        "final": 4342,
+        "deaths": 10,
+        "totalCapture": 8731,
+        "net": 6800,
+        "reclaim": 578,
+        "TV": 0.08049049715716386,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 3366.6944444444443,
+        "final": 4609,
+        "deaths": 10,
+        "totalCapture": 8869,
+        "net": 7173,
+        "reclaim": 645,
+        "TV": 0.06490527393753197,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": 354.10805555555544,
+        "final": 267,
+        "deaths": 0,
+        "totalCapture": 138,
+        "net": 373,
+        "reclaim": 67,
+        "TV": -0.015585223219631891,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 105,
+        "nearExecuted": 83,
+        "nearExecutedRatio": 0.7904761904761904,
+        "nearLaunched": 54,
+        "nearLaunchedRatio": 0.5142857142857142,
+        "sameTickDiscarded": 21,
+        "prefixStops": 29,
+        "exposedStops": 34,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 90,
+        "nearExecuted": 90,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 65,
+        "nearLaunchedRatio": 0.7222222222222222,
+        "sameTickDiscarded": 0,
+        "prefixStops": 26,
+        "exposedStops": 47,
+        "alternativeDecisions": 6,
+        "alternativeExpansionsExecuted": 6
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 9,
+        "HOME_CAPTURE": 1
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 9,
+        "HOME_CAPTURE": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "7db6887358e7a41c4e56f36d5cc682d3f858084a3f08b1d69b981b5830a41d93",
+        "traceHash": "783a99655fc4bac7c665d704bc6a6f84255e0503917c869b1ec85b5c18a735e0",
+        "memoryHash": "916ffe0767740a0f1420b354cc9313329b1a7f97366e42a4f2b83fbd4e22e870",
+        "nextRng": {
+          "bot-0": 0.4984597712755203,
+          "bot-1": 0.4011673100758344,
+          "bot-2": 0.3096654962282628,
+          "bot-3": 0.2953303810209036,
+          "bot-4": 0.4543440279085189,
+          "bot-5": 0.2651437483727932,
+          "bot-6": 0.49290446494705975,
+          "bot-7": 0.35010108607821167,
+          "bot-8": 0.21658808179199696,
+          "bot-9": 0.38716881652362645,
+          "bot-10": 0.2161398173775524,
+          "bot-11": 0.9420082136057317,
+          "bot-12": 0.33217745344154537,
+          "bot-13": 0.5964501758571714
+        }
+      }
+    },
+    {
+      "seed": 31,
+      "before": {
+        "holding": 2969.0958333333333,
+        "final": 3518,
+        "deaths": 10,
+        "totalCapture": 8802,
+        "net": 5807,
+        "reclaim": 466,
+        "TV": 0.19038904180147118,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 2937.1175,
+        "final": 3584,
+        "deaths": 10,
+        "totalCapture": 8526,
+        "net": 6156,
+        "reclaim": 453,
+        "TV": 0.09575224942456581,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": -31.978333333333467,
+        "final": 66,
+        "deaths": 0,
+        "totalCapture": -276,
+        "net": 349,
+        "reclaim": -13,
+        "TV": -0.09463679237690537,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 211,
+        "nearExecuted": 159,
+        "nearExecutedRatio": 0.7535545023696683,
+        "nearLaunched": 90,
+        "nearLaunchedRatio": 0.4265402843601896,
+        "sameTickDiscarded": 50,
+        "prefixStops": 81,
+        "exposedStops": 43,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 150,
+        "nearExecuted": 150,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 90,
+        "nearLaunchedRatio": 0.6,
+        "sameTickDiscarded": 0,
+        "prefixStops": 70,
+        "exposedStops": 58,
+        "alternativeDecisions": 29,
+        "alternativeExpansionsExecuted": 28
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 9,
+        "HOME_CAPTURE": 1
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 9,
+        "HOME_CAPTURE": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "21e131ff9039732325b284d94a43ae1ca7196c8009feb58ba907be8279e7a27e",
+        "traceHash": "7288a3c5d8e7229a0c52febc740e63a3cb3931f02ccc033e7743ce8d73613869",
+        "memoryHash": "40a3aba8a2e77e3a7a7cbfc7e7fd8eff151769129882fb751b05c51b7b2406d9",
+        "nextRng": {
+          "bot-0": 0.5361514734104276,
+          "bot-1": 0.6704364076722413,
+          "bot-2": 0.7752740192227066,
+          "bot-3": 0.055720632430166006,
+          "bot-4": 0.8843882328364998,
+          "bot-5": 0.37011248245835304,
+          "bot-6": 0.34251703694462776,
+          "bot-7": 0.9668965041637421,
+          "bot-8": 0.14993162755854428,
+          "bot-9": 0.35150761320255697,
+          "bot-10": 0.13733190740458667,
+          "bot-11": 0.7994548205751926,
+          "bot-12": 0.2283707393798977,
+          "bot-13": 0.40054258960299194
+        }
+      }
+    },
+    {
+      "seed": 47,
+      "before": {
+        "holding": 3706.8611111111113,
+        "final": 5305,
+        "deaths": 8,
+        "totalCapture": 9255,
+        "net": 7606,
+        "reclaim": 445,
+        "TV": 0.03222795784861322,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 3167.012777777778,
+        "final": 3789,
+        "deaths": 14,
+        "totalCapture": 9242,
+        "net": 6964,
+        "reclaim": 335,
+        "TV": 0.10894660894660894,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": -539.8483333333334,
+        "final": -1516,
+        "deaths": 6,
+        "totalCapture": -13,
+        "net": -642,
+        "reclaim": -110,
+        "TV": 0.07671865109799572,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 145,
+        "nearExecuted": 122,
+        "nearExecutedRatio": 0.8413793103448276,
+        "nearLaunched": 80,
+        "nearLaunchedRatio": 0.5517241379310345,
+        "sameTickDiscarded": 23,
+        "prefixStops": 50,
+        "exposedStops": 38,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 76,
+        "nearExecuted": 76,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 55,
+        "nearLaunchedRatio": 0.7236842105263158,
+        "sameTickDiscarded": 0,
+        "prefixStops": 22,
+        "exposedStops": 30,
+        "alternativeDecisions": 11,
+        "alternativeExpansionsExecuted": 11
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 8
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 12,
+        "PENDING_TRAIL_CONTACT": 1,
+        "HOME_CAPTURE": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "ff6408fc89b4e4b1e81177185e2f754a3d7ff88ea135c1a3484545c049571413",
+        "traceHash": "fa8e59de8daf0c19bc2dcb074760627894fee5867a30e9ff4d000eb2e4252ac4",
+        "memoryHash": "7eaf0e1500966501f965f813ebd1d92a0bcbadbac3d74b2606c40c0bc5dc2975",
+        "nextRng": {
+          "bot-0": 0.5507613467052579,
+          "bot-1": 0.41766208643093705,
+          "bot-2": 0.9155769452918321,
+          "bot-3": 0.08571953885257244,
+          "bot-4": 0.1350771621800959,
+          "bot-5": 0.49958699266426265,
+          "bot-6": 0.5323934324551374,
+          "bot-7": 0.6667027694638819,
+          "bot-8": 0.8074877036269754,
+          "bot-9": 0.940219355514273,
+          "bot-10": 0.5930603113956749,
+          "bot-11": 0.10522040724754333,
+          "bot-12": 0.012636927887797356,
+          "bot-13": 0.9884826841298491
+        }
+      }
+    },
+    {
+      "seed": 101,
+      "before": {
+        "holding": 2809.251111111111,
+        "final": 3357,
+        "deaths": 14,
+        "totalCapture": 8371,
+        "net": 6771,
+        "reclaim": 252,
+        "TV": 0.2788802180106528,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 2872.8730555555558,
+        "final": 4213,
+        "deaths": 14,
+        "totalCapture": 8561,
+        "net": 7484,
+        "reclaim": 219,
+        "TV": 0.13249362723046934,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": 63.62194444444458,
+        "final": 856,
+        "deaths": 0,
+        "totalCapture": 190,
+        "net": 713,
+        "reclaim": -33,
+        "TV": -0.14638659078018348,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 100,
+        "nearExecuted": 86,
+        "nearExecutedRatio": 0.86,
+        "nearLaunched": 65,
+        "nearLaunchedRatio": 0.65,
+        "sameTickDiscarded": 14,
+        "prefixStops": 28,
+        "exposedStops": 48,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 72,
+        "nearExecuted": 71,
+        "nearExecutedRatio": 0.9861111111111112,
+        "nearLaunched": 47,
+        "nearLaunchedRatio": 0.6527777777777778,
+        "sameTickDiscarded": 0,
+        "prefixStops": 20,
+        "exposedStops": 54,
+        "alternativeDecisions": 8,
+        "alternativeExpansionsExecuted": 8
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 11,
+        "HOME_CAPTURE": 1,
+        "PENDING_TRAIL_CONTACT": 2
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 12,
+        "HOME_CAPTURE": 1,
+        "PENDING_TRAIL_CONTACT": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "06e97924718560b527395624b624a267032d4282bfba6cd9e2039191de847f67",
+        "traceHash": "82dd35fd036aa34ed88b599535d6c85b9712d803dd8337122d721375a48cf655",
+        "memoryHash": "aede9ad06d6afdf32f72798104bf5b3be454ecb0c36378839ce5dbff9e7d9cc2",
+        "nextRng": {
+          "bot-0": 0.2941281965468079,
+          "bot-1": 0.9493251785170287,
+          "bot-2": 0.009074963629245758,
+          "bot-3": 0.6590005380567163,
+          "bot-4": 0.5365777076222003,
+          "bot-5": 0.16729471017606556,
+          "bot-6": 0.07742971600964665,
+          "bot-7": 0.1295084150042385,
+          "bot-8": 0.39740272611379623,
+          "bot-9": 0.47106640762649477,
+          "bot-10": 0.016128530725836754,
+          "bot-11": 0.08665846078656614,
+          "bot-12": 0.6096865022554994,
+          "bot-13": 0.3516969718039036
+        }
+      }
+    },
+    {
+      "seed": 137,
+      "before": {
+        "holding": 2932.945,
+        "final": 4041,
+        "deaths": 9,
+        "totalCapture": 8243,
+        "net": 5866,
+        "reclaim": 456,
+        "TV": 0.054613935969868146,
+        "wallDeaths": 0
+      },
+      "after": {
+        "holding": 2854.173333333333,
+        "final": 4078,
+        "deaths": 9,
+        "totalCapture": 8152,
+        "net": 6186,
+        "reclaim": 629,
+        "TV": 0.2935454523689818,
+        "wallDeaths": 0
+      },
+      "delta": {
+        "holding": -78.77166666666699,
+        "final": 37,
+        "deaths": 0,
+        "totalCapture": -91,
+        "net": 320,
+        "reclaim": 173,
+        "TV": 0.23893151639911364,
+        "wallDeaths": 0
+      },
+      "wallBefore": {
+        "nearSelected": 208,
+        "nearExecuted": 160,
+        "nearExecutedRatio": 0.7692307692307693,
+        "nearLaunched": 93,
+        "nearLaunchedRatio": 0.44711538461538464,
+        "sameTickDiscarded": 48,
+        "prefixStops": 77,
+        "exposedStops": 56,
+        "alternativeDecisions": 0,
+        "alternativeExpansionsExecuted": 0
+      },
+      "wallAfter": {
+        "nearSelected": 101,
+        "nearExecuted": 101,
+        "nearExecutedRatio": 1,
+        "nearLaunched": 74,
+        "nearLaunchedRatio": 0.7326732673267327,
+        "sameTickDiscarded": 0,
+        "prefixStops": 41,
+        "exposedStops": 45,
+        "alternativeDecisions": 15,
+        "alternativeExpansionsExecuted": 15
+      },
+      "deathCausesBefore": {
+        "EXISTING_TRAIL_CONTACT": 8,
+        "PENDING_TRAIL_CONTACT": 1
+      },
+      "deathCausesAfter": {
+        "EXISTING_TRAIL_CONTACT": 8,
+        "HOME_CAPTURE": 1
+      },
+      "observerProof": {
+        "trajectoryHash": "0b5b4a16c2654eb3b578cf4aa88e13006a6b4bc39c9804b8b5fb44c1dd5b23cf",
+        "traceHash": "8abba0091245459f914578c302ba044abb7edeaa790f286444b05c5b33676ace",
+        "memoryHash": "a66c0e72671861c36e8eadc581033e871b00e164f5f6d4f23ba7d1671a95299d",
+        "nextRng": {
+          "bot-0": 0.7730407293420285,
+          "bot-1": 0.8425975884310901,
+          "bot-2": 0.2550432092975825,
+          "bot-3": 0.43540534493513405,
+          "bot-4": 0.5451557070482522,
+          "bot-5": 0.16653823875822127,
+          "bot-6": 0.718580566579476,
+          "bot-7": 0.7598694702610373,
+          "bot-8": 0.2836426617577672,
+          "bot-9": 0.6327443111222237,
+          "bot-10": 0.502629391849041,
+          "bot-11": 0.26211627782322466,
+          "bot-12": 0.8062400473281741,
+          "bot-13": 0.9561556850094348
+        }
+      }
+    }
+  ],
+  "allEightObserverProofs": true,
+  "rawHashes": {
+    "protocol.json": "71a83b785bfa59049ba81323be5d95792d605592bd5cff341edd9ccdce6952f2",
+    "metrics.json": "f6aed6d912b3e1d4d648b5b28412c6d3624be15d0c6f06015ba376a22be2dce0",
+    "native-reference.json": "e7bbbb825b2df4a89dee6159107da28a726931a59fa9595d5448235bf3f9a47f",
+    "seed-4.json": "fe0bb28668740c5d58287f8e281be1b40c5eb63966a10d41535bb5ddb9eadd69",
+    "seed-19.json": "316041bf61ed4d32a645e92e0f72934fc2ac8ddef3b8f903fcd151c8274e425c",
+    "seed-73.json": "54cfb53703a731d5a9ab8268c9ff189397f5fad725dccb2b4d2cfd89ea1e5e7f",
+    "seed-11.json": "1d4e969396d4a17005e016ba400d80103c0c4d2cf2770e3dd688f0273b8d6bb9",
+    "seed-31.json": "7852f7cdbfacb20fc3b9d75292dcbab90ae50940ecb418ac974f8a9ca9953aaa",
+    "seed-47.json": "0b74530d5688dd79698b4f76432ddd261f6411305402c3da036659f520f0c98b",
+    "seed-101.json": "05217bdb091e5deaa2c6013aa5b90d098fa64964496a73487e86b3726a0a39a9",
+    "seed-137.json": "3dee7311ad6afd2be8887bb677a2fbd9832e2a7ef9399e8ffdc687c57b3ede5b"
+  },
+  "pendingHumanPlay": true,
+  "nextCandidates": [
+    "417 baseline adopted-before-launch stops: prefix-wide extension recorded only, not implemented.",
+    "Why observed human trail in distance12 layouts still yields zero cuts.",
+    "Why Hunter15.6% is lower than Explorer16.8% in baseline expanded corpus."
+  ],
+  "cost": {
+    "percentChange": 0.7613385780119719,
+    "baseline": {
+      "roundMsPerTick": [
+        3.1297357187500014,
+        3.3731537777777763,
+        3.119355468749998
+      ],
+      "medianMsPerTick": 3.1297357187500014,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.831166305555557,
+            3.446140388888889,
+            3.5197420555555596
+          ],
+          "medianMsPerTick": 3.446140388888889
+        },
+        {
+          "seed": 19,
+          "samples": [
+            2.919106166666667,
+            3.0374019444444436,
+            2.948247666666656
+          ],
+          "medianMsPerTick": 2.948247666666656
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.292762194444444,
+            3.2582534166666703,
+            3.196904944444444
+          ],
+          "medianMsPerTick": 3.2582534166666703
+        },
+        {
+          "seed": 11,
+          "samples": [
+            3.179657527777777,
+            3.103099388888885,
+            3.0261545277777864
+          ],
+          "medianMsPerTick": 3.103099388888885
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.3522382222222222,
+            3.6287686944444433,
+            3.158497111111097
+          ],
+          "medianMsPerTick": 3.3522382222222222
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.8621606666666697,
+            3.257165222222215,
+            2.7297976666666606
+          ],
+          "medianMsPerTick": 2.8621606666666697
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.2017940555555593,
+            3.5234630555555566,
+            3.11364872222223
+          ],
+          "medianMsPerTick": 3.2017940555555593
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.399000611111114,
+            3.730938111111108,
+            3.26185105555555
+          ],
+          "medianMsPerTick": 3.399000611111114
+        }
+      ]
+    },
+    "candidate": {
+      "roundMsPerTick": [
+        3.1535636041666653,
+        3.381090083333333,
+        3.14595740972222
+      ],
+      "medianMsPerTick": 3.1535636041666653,
+      "bySeed": [
+        {
+          "seed": 4,
+          "samples": [
+            2.4718962499999986,
+            3.03768963888889,
+            3.0159429444444443
+          ],
+          "medianMsPerTick": 3.0159429444444443
+        },
+        {
+          "seed": 19,
+          "samples": [
+            3.0300735277777777,
+            3.0829201666666552,
+            3.5091375555555473
+          ],
+          "medianMsPerTick": 3.0829201666666552
+        },
+        {
+          "seed": 73,
+          "samples": [
+            3.50694397222222,
+            3.3938210833333304,
+            3.2082122500000048
+          ],
+          "medianMsPerTick": 3.3938210833333304
+        },
+        {
+          "seed": 11,
+          "samples": [
+            2.940916055555556,
+            3.059832638888895,
+            2.7619730000000144
+          ],
+          "medianMsPerTick": 2.940916055555556
+        },
+        {
+          "seed": 31,
+          "samples": [
+            3.431392027777773,
+            4.013856444444439,
+            3.2261845833333145
+          ],
+          "medianMsPerTick": 3.431392027777773
+        },
+        {
+          "seed": 47,
+          "samples": [
+            2.994967972222221,
+            3.3440674166666575,
+            2.8554606666666547
+          ],
+          "medianMsPerTick": 2.994967972222221
+        },
+        {
+          "seed": 101,
+          "samples": [
+            3.294592916666669,
+            3.5235018055555702,
+            3.244639166666667
+          ],
+          "medianMsPerTick": 3.294592916666669
+        },
+        {
+          "seed": 137,
+          "samples": [
+            3.5577261111111067,
+            3.5930314722222265,
+            3.346109111111113
+          ],
+          "medianMsPerTick": 3.5577261111111067
+        }
+      ]
+    },
+    "paired": [
+      {
+        "seed": 4,
+        "before": 3.446140388888889,
+        "after": 3.0159429444444443,
+        "delta": -0.4301974444444445,
+        "percent": -12.483456734133503
+      },
+      {
+        "seed": 19,
+        "before": 2.948247666666656,
+        "after": 3.0829201666666552,
+        "delta": 0.1346724999999993,
+        "percent": 4.567882865562067
+      },
+      {
+        "seed": 73,
+        "before": 3.2582534166666703,
+        "after": 3.3938210833333304,
+        "delta": 0.1355676666666601,
+        "percent": 4.160746551302674
+      },
+      {
+        "seed": 11,
+        "before": 3.103099388888885,
+        "after": 2.940916055555556,
+        "delta": -0.16218333333332913,
+        "percent": -5.226494965454576
+      },
+      {
+        "seed": 31,
+        "before": 3.3522382222222222,
+        "after": 3.431392027777773,
+        "delta": 0.07915380555555096,
+        "percent": 2.3612225715593516
+      },
+      {
+        "seed": 47,
+        "before": 2.8621606666666697,
+        "after": 2.994967972222221,
+        "delta": 0.1328073055555512,
+        "percent": 4.64010658459022
+      },
+      {
+        "seed": 101,
+        "before": 3.2017940555555593,
+        "after": 3.294592916666669,
+        "delta": 0.09279886111110969,
+        "percent": 2.898339477834022
+      },
+      {
+        "seed": 137,
+        "before": 3.399000611111114,
+        "after": 3.5577261111111067,
+        "delta": 0.15872549999999253,
+        "percent": 4.669769681156555
+      }
+    ],
+    "increases": 6,
+    "decreases": 2,
+    "direction": "INDISTINGUISHABLE",
+    "details": "performance.json"
+  },
+  "changedSharedFiles": [
+    "bot-candidate-diagnostics.ts",
+    "bot-immediate-safety.ts",
+    "bot-scheduler.ts",
+    "bot-strategy.ts"
+  ],
+  "changedSharedCode": [
+    "bot-immediate-safety.ts",
+    "bot-strategy.ts"
+  ],
+  "naturalAttackBefore": {
+    "starts": 179,
+    "successes": 73
+  },
+  "naturalAttackAfter": {
+    "starts": 200,
+    "successes": 76
+  },
+  "standaloneMedium16Verified": true
+}
