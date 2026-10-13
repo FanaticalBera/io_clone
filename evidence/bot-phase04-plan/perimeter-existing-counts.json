@@ -1,0 +1,126 @@
+{
+  "measurement": "Reaggregation of prior immutable eight-seed data; no new simulations",
+  "counter": "supplementaryRecovery.guardInterruptedPlans",
+  "tracker": "tests/bot-recovery-baseline-tracker.ts",
+  "sameTickDiscardMayBeIncluded": true,
+  "reports": [
+    {
+      "arm": "baseline",
+      "rawSHA256": "47d9798e1d339852e3bcd81b8905293c86168793c9157728ce80c6f5f85af2cf",
+      "rows": [
+        {
+          "seed": 4,
+          "guardTicks": 153,
+          "guardInterruptedPlans": 103,
+          "guardInterruptedDPlans": 10
+        },
+        {
+          "seed": 19,
+          "guardTicks": 153,
+          "guardInterruptedPlans": 97,
+          "guardInterruptedDPlans": 1
+        },
+        {
+          "seed": 73,
+          "guardTicks": 192,
+          "guardInterruptedPlans": 140,
+          "guardInterruptedDPlans": 6
+        },
+        {
+          "seed": 11,
+          "guardTicks": 132,
+          "guardInterruptedPlans": 103,
+          "guardInterruptedDPlans": 2
+        },
+        {
+          "seed": 31,
+          "guardTicks": 314,
+          "guardInterruptedPlans": 269,
+          "guardInterruptedDPlans": 7
+        },
+        {
+          "seed": 47,
+          "guardTicks": 122,
+          "guardInterruptedPlans": 84,
+          "guardInterruptedDPlans": 1
+        },
+        {
+          "seed": 101,
+          "guardTicks": 180,
+          "guardInterruptedPlans": 124,
+          "guardInterruptedDPlans": 6
+        },
+        {
+          "seed": 137,
+          "guardTicks": 253,
+          "guardInterruptedPlans": 193,
+          "guardInterruptedDPlans": 8
+        }
+      ],
+      "total": {
+        "guardTicks": 1499,
+        "guardInterruptedPlans": 1113,
+        "guardInterruptedDPlans": 41
+      }
+    },
+    {
+      "arm": "tactical",
+      "rawSHA256": "e7f9084f8f2228139d105f6c71731b9f2646ca8cc5961c6132aed9c817cf0d2b",
+      "rows": [
+        {
+          "seed": 4,
+          "guardTicks": 148,
+          "guardInterruptedPlans": 113,
+          "guardInterruptedDPlans": 4
+        },
+        {
+          "seed": 19,
+          "guardTicks": 235,
+          "guardInterruptedPlans": 185,
+          "guardInterruptedDPlans": 6
+        },
+        {
+          "seed": 73,
+          "guardTicks": 146,
+          "guardInterruptedPlans": 104,
+          "guardInterruptedDPlans": 16
+        },
+        {
+          "seed": 11,
+          "guardTicks": 117,
+          "guardInterruptedPlans": 84,
+          "guardInterruptedDPlans": 6
+        },
+        {
+          "seed": 31,
+          "guardTicks": 234,
+          "guardInterruptedPlans": 174,
+          "guardInterruptedDPlans": 3
+        },
+        {
+          "seed": 47,
+          "guardTicks": 149,
+          "guardInterruptedPlans": 111,
+          "guardInterruptedDPlans": 5
+        },
+        {
+          "seed": 101,
+          "guardTicks": 124,
+          "guardInterruptedPlans": 90,
+          "guardInterruptedDPlans": 8
+        },
+        {
+          "seed": 137,
+          "guardTicks": 251,
+          "guardInterruptedPlans": 181,
+          "guardInterruptedDPlans": 0
+        }
+      ],
+      "total": {
+        "guardTicks": 1404,
+        "guardInterruptedPlans": 1042,
+        "guardInterruptedDPlans": 48
+      }
+    }
+  ]
+}
