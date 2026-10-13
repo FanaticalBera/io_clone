@@ -1,23 +1,23 @@
 import {it,expect} from 'vitest';
 import {createMatch,stepMatch} from '../../src/shared/game.js';
 import {createBotMemory,botSpecs,observeBot,getBotInput,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
-import {botDecisionDue,scheduleBotDecision,scheduleBotTactics,BOT_PHASE03B} from '../../src/shared/bot-scheduler.js';
+import {botDecisionDue,scheduleBotDecision,scheduleBotTactics,BOT_PHASE03B,personalBotCadence} from '../../src/shared/bot-scheduler.js';
 import {getBotInputs,botDirector} from '../../src/shared/bot-director.js';
 import {addTrail,setOwner,neutralizeTerritory} from '../../src/shared/territory.js';
 import {botSpecs as fixedSpecs} from '../bot-fixtures.js';
 import {createMatch as testMatch} from '../baseline.js';
 
-it('draws reproducible, bounded personal cadences without consuming action RNG',()=>{
+it('keeps personal strategy inactive and preserves the isolated tactical phase without consuming action RNG',()=>{
  const match=createMatch({mapRadius:22},19,botSpecs(14)),profiles=[];
  for(const p of match.participants){const m=createBotMemory(19+p.slot),control=createBotMemory(19+p.slot);m.plannedLifeId=p.lifeId;
   const a=botDecisionDue(m,0,p,match.owners,0),b=botDecisionDue(control,0,p,match.owners,0),range=BOT_PHASE03B.strategyTicks[p.personality!];
-  expect(a.profile).toEqual(b.profile);expect(a.strategyTicks).toBeGreaterThanOrEqual(range[0]);expect(a.strategyTicks).toBeLessThanOrEqual(range[1]);
+  expect(a.profile).toEqual(b.profile);expect(BOT_PHASE03B.personalStrategy).toBe(false);expect(a.strategyTicks).toBe(6);expect(a.profile!.strategyPhase).toBe(p.slot%6);const dormant=personalBotCadence(19+p.slot,p.personality!);expect(dormant.strategyTicks).toBeGreaterThanOrEqual(range[0]);expect(dormant.strategyTicks).toBeLessThanOrEqual(range[1]);expect(a.profile!.tacticalPhase).toBe(dormant.tacticalPhase);
   expect(a.profile!.strategyPhase).toBeLessThan(a.strategyTicks!);expect(a.profile!.tacticalPhase).toBeLessThan(3);profiles.push(a.profile);
   const untouched=createBotMemory(19+p.slot);expect(Array.from({length:5},()=>m.random())).toEqual(Array.from({length:5},()=>untouched.random()));
  }
  expect(new Set(profiles.map(p=>JSON.stringify(p))).size).toBeGreaterThan(4);
 });
-it('uses fixed personal phases and retains the profile across lives',()=>{
+it('uses fixed strategy slot phases and retains the tactical profile across lives',()=>{
  const match=createMatch({mapRadius:22},4,botSpecs(2)),p=match.participants[0],m=createBotMemory(9),obs=observeBot(match,p.participantId);
  const profile=botDecisionDue(m,0,p,match.owners,0).profile!;
  for(let tick=0;tick<30;tick++){obs.tick=tick;scheduleBotDecision(obs,m);scheduleBotTactics(obs,m);

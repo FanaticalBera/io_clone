@@ -12,7 +12,7 @@ export class BotDebugHud {
  private buttons=new Map<string,HTMLButtonElement>();private followButton:HTMLButtonElement|null=null;private collapseButton:HTMLButtonElement|null=null;private spectating=false;private following=false;private selected:string|null=null;private timer:number|null=null;private source:(()=>BotDebugSnapshot|null)|null=null;
  constructor(private follow:(id:string|null)=>void=()=>{},private spectate:()=>void=()=>{},private overlay:(data:{matchId:string;damage:number[];expected:number[];actual:number[];slot:number;route?:number[];destination?:number|null}|null)=>void=()=>{}){
   this.root.id='bot-debug-hud';this.root.setAttribute('aria-label','봇 판단 디버그');this.root.hidden=true;
-  const title=document.createElement('strong');title.textContent='BOT AI · 3B (전술·전략 주기)';
+  const title=document.createElement('strong');title.textContent='BOT AI · 3B 후보 (전술 100ms)';
   const collapse=document.createElement('button');this.collapseButton=collapse;collapse.textContent='접기';collapse.type='button';collapse.onclick=()=>{const hidden=!this.rows.hidden;this.rows.hidden=hidden;this.detail.hidden=hidden;collapse.textContent=hidden?'펼치기':'접기';};
   const followButton=document.createElement('button');this.followButton=followButton;followButton.textContent='선택 봇 따라보기';followButton.type='button';followButton.onclick=()=>{this.following=!this.following;followButton.textContent=this.following?(this.spectating?'전체 판 보기':'내 화면으로'):'선택 봇 따라보기';this.follow(this.following?this.selected:null);};
   const spectator=document.createElement('button');spectator.type='button';spectator.textContent='14봇 관전 시작';spectator.onclick=()=>this.spectate();
@@ -37,7 +37,7 @@ export class BotDebugHud {
   if(reclaim)lines.push('예상 되찾기 '+reclaim.expectedCellIds.length+'칸 → 실제 '+reclaim.actualCellIds.length+'칸 · 예상 밖 회수 '+reclaim.otherReclaimCellIds.length+'칸 · 종료 시 유지 '+reclaim.retainedCells+'칸',
    'D 계획 #'+reclaim.id+' · t'+reclaim.selectedTick+' · '+reclaim.outcome+' · D raw +'+reclaim.dRaw.toFixed(2)+' · 적용 +'+reclaim.appliedBonus.toFixed(2));
   if(bot.identity){const i=bot.identity.individual;lines.push('개인차: 확장 '+i.expansionScale.toFixed(2)+' / 위험 가중 '+i.riskScale.toFixed(2)+' / 탈취 '+i.stealScale.toFixed(2)+' / 공격 '+i.attackChance.toFixed(2)+' / 방어 '+i.defenseBonus);}
-  if(bot.cadence)lines.push('전략 주기 '+(bot.cadence.strategyTicks*1000/snapshot.simulationHz).toFixed(0)+'ms · 전술 100ms · 다음 전략 t'+bot.cadence.nextStrategyTick+' / 전술 t'+bot.cadence.nextTacticalTick);
+  if(bot.cadence)lines.push('전략 주기 '+(bot.cadence.strategyTicks*1000/snapshot.simulationHz).toFixed(0)+'ms 고정 · 전술 100ms · 개인별 전략 OFF · 다음 전략 t'+bot.cadence.nextStrategyTick+' / 전술 t'+bot.cadence.nextTacticalTick);
   lines.push('pressure '+bot.emotion.pressure.toFixed(2)+' · 선 위협 '+Number(bot.emotion.lineThreat)+' · 최근 피해 '+bot.emotion.recentDamage.toFixed(2),'1위 점유율 격차 '+(bot.shareGap*100).toFixed(1)+'%p (표시 전용)', '계획 추격 예약: '+snapshot.director.reservations.map(r=>'#'+snapshot.bots.find(b=>b.participantId===r.attackerId)?.slot+' → '+r.targetId).join(', '),'생존 역공 '+(bot.attackSurvival?'예':'아니오')+' · 예외 '+snapshot.director.stats.survival+' / 상한 중 예외 '+snapshot.director.stats.survivalOverCap);
   const age=(event:BotGrudgeTrace)=>Math.max(0,(snapshot.tick-event.tick)/snapshot.simulationHz).toFixed(1)+'초 전';
   lines.push('원한:');

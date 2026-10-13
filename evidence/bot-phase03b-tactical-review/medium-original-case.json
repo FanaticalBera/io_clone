@@ -1,0 +1,70 @@
+{
+  "context": {
+    "mapRadius": 22,
+    "spawnRadius": 2,
+    "matchSeed": 115,
+    "humanSlot": 0,
+    "botSlot": 1,
+    "personality": "EXPAND",
+    "memorySeed": 1
+  },
+  "legacy3A": {
+    "attackTicks": 22,
+    "maxTrail": 5,
+    "captures": 0,
+    "tick": 53,
+    "human": {
+      "lifeState": "ELIMINATED",
+      "deathReason": "TRAIL_CUT",
+      "deaths": 1
+    },
+    "bot": {
+      "kills": 1,
+      "deaths": 0
+    },
+    "attackReasons": {
+      "COUNTER_CUT_FIRST": 1,
+      "SELECTABLE": 2,
+      "VICTIM_RETURNS_FIRST": 3
+    }
+  },
+  "tacticalOnlyOriginalSeed": {
+    "attackTicks": 0,
+    "maxTrail": 5,
+    "captures": 1,
+    "tick": 76,
+    "human": {
+      "lifeState": "ALIVE",
+      "deathReason": null,
+      "deaths": 0
+    },
+    "bot": {
+      "kills": 0,
+      "deaths": 0
+    },
+    "attackReasons": {
+      "COUNTER_CUT_FIRST": 2,
+      "VICTIM_RETURNS_FIRST": 28
+    }
+  },
+  "tacticalOnlyPositiveFixture": {
+    "attackTicks": 22,
+    "maxTrail": 4,
+    "captures": 0,
+    "tick": 47,
+    "human": {
+      "lifeState": "ELIMINATED",
+      "deathReason": "TRAIL_CUT",
+      "deaths": 1
+    },
+    "bot": {
+      "kills": 1,
+      "deaths": 0
+    },
+    "attackReasons": {
+      "SELECTABLE": 9,
+      "VICTIM_RETURNS_FIRST": 2
+    }
+  },
+  "scope": "Read-only comparison. Preserve the missed original attack opportunity for Phase4; no safety or attack rule adjustment."
+}

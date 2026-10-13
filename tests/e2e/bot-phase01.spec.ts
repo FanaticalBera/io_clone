@@ -39,6 +39,7 @@ test('14-bot spectator survives deaths, follows bots, pauses cleanly and dispose
  expect(combat.played).toBeGreaterThan(0);expect(combat).toMatchObject({kills:0,deaths:0,feedback:null});
  await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.showPracticeView());
  expect(await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getCombatState().played)).toBe(combat.played);
+ const schedules=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().botDiagnostics().bots.map((b:any)=>({slot:b.slot,cadence:b.cadence})));expect(schedules.every((b:any)=>b.cadence?.strategyTicks===6&&b.cadence.strategyPhase===b.slot%6)).toBe(true);await expect(hud).toContainText('3B 후보 (전술 100ms)');await expect(hud.locator('pre')).toContainText('전략 주기 200ms 고정 · 전술 100ms · 개인별 전략 OFF');
  expect(advanced.ticks).toBe(1800);expect(advanced.phase).toBe('RUNNING');expect(advanced.enabled).toBe(false);expect(advanced.following).toBe(true);await expect(page.locator('#death')).toBeHidden();await expect(hud.locator('pre')).toContainText('현재 계획을 세운 판단');
  await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState().centerError)).toBeLessThan(1);
  const bounds=await hud.boundingBox();expect(bounds!.x).toBeGreaterThan(640);
