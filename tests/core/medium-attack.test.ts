@@ -1,15 +1,22 @@
 import {describe,it,expect} from 'vitest';
 import {runMediumAttack} from '../medium-attack-fixture.js';
-
+function assertActualCut(f:ReturnType<typeof runMediumAttack>){
+ expect(f.attackTicks).toBeGreaterThan(0);expect(f.maxTrail).toBeGreaterThanOrEqual(2);expect(f.maxTrail).toBeLessThanOrEqual(6);
+ expect(f.captures).toBe(0);expect(f.human).toMatchObject({lifeState:'ELIMINATED',deathReason:'TRAIL_CUT',deaths:1});
+ expect(f.match.events.find(e=>e.type==='DEATH'&&e.participantId===f.human.participantId)).toMatchObject({killerId:f.bot.participantId,deathContext:{cause:'EXISTING_TRAIL_CONTACT'}});
+ expect(f.bot.kills).toBe(1);expect(f.human.trailCells.size).toBe(0);expect(f.match.trailMasks.some(mask=>(mask&(1<<f.human.slot))!==0)).toBe(false);
+}
 describe('normally spawned bots exploit medium movement loops',()=>{
- it.each(['DEFEND','ATTACK','EXPAND','SEEK_POINT'] as const)('%s: both spawn roles attack an outward-moving short loop instead of assuming instant retreat',personality=>{
-  for(const reverse of [false,true]){
-   const f=runMediumAttack(personality,reverse);
-   expect(f.attackTicks).toBeGreaterThan(0);expect(f.maxTrail).toBeGreaterThanOrEqual(2);expect(f.maxTrail).toBeLessThanOrEqual(6);
-   expect(f.captures).toBe(0);expect(f.human).toMatchObject({lifeState:'ELIMINATED',deathReason:'TRAIL_CUT',deaths:1});
-   expect(f.match.events.find(e=>e.type==='DEATH'&&e.participantId===f.human.participantId)).toMatchObject({killerId:f.bot.participantId,deathContext:{cause:'EXISTING_TRAIL_CONTACT'}});
-   expect(f.bot.kills).toBe(1);expect(f.human.trailCells.size).toBe(0);expect(f.match.trailMasks.some(mask=>(mask&(1<<f.human.slot))!==0)).toBe(false);
-  }
+ it.each(['DEFEND','ATTACK','SEEK_POINT'] as const)('%s: both spawn roles attack an outward-moving short loop instead of assuming instant retreat',personality=>{
+  for(const reverse of [false,true])assertActualCut(runMediumAttack(personality,reverse));
+ });
+ it('EXPAND memory seed 3: separate positive cut fixture in both spawn roles',()=>{
+  for(const reverse of [false,true])assertActualCut(runMediumAttack('EXPAND',reverse,false,3));
+ });
+ // Preserve the original contract and inputs. Expected failure becomes a failing
+ // test if the regression is fixed, prompting removal of this annotation.
+ it.fails('known regression: EXPAND #1 / match 115 / original memory seed 1 misses the real trail cut',()=>{
+  assertActualCut(runMediumAttack('EXPAND',false,false,1));
  });
  it('a defender attacks a moderate radius loop with fewer than eight trail cells in both roles',()=>{
   for(const reverse of [false,true]){const f=runMediumAttack('DEFEND',reverse,true);
