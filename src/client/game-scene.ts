@@ -53,6 +53,11 @@ export class GameScene extends Phaser.Scene {
  private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
  private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
  private chunks=new Map<string,Phaser.GameObjects.Graphics>();
+ // Captured land is drawn from prebuilt tiles (performance PRD G1): Phaser re-triangulates every
+ // Graphics path each frame, and territory Graphics were ~2/3 of render time. Per chunk: open-ground
+ // trails (Graphics, under) -> land tiles (Blitter) -> trails over land (Graphics, above).
+ private landChunks=new Map<string,Phaser.GameObjects.Blitter>();private trailTops=new Map<string,Phaser.GameObjects.Graphics>();
+ private landKey='';private landAtlasKey='';private landBox={minX:0,minY:0,width:0,height:0};
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
@@ -128,6 +133,32 @@ export class GameScene extends Phaser.Scene {
   if(alpha){g.fillStyle(fill,alpha);g.fillPoints(vertices,true);}
   if(outline!==undefined){g.lineStyle(1,outline,0.8);g.strokePoints(vertices,true);}
  }
+ /**
+  * Builds the land tile atlas: per player colour a top (fill + edge line) and the two lower sides.
+  * One texel per world unit, like the ground tiles: Phaser's Blitter renderer ignores object scale.
+  * A colour change rebuilds it and redraws every chunk. Returns whether it changed.
+  */
+ private ensureLandAtlas():boolean {
+  const map=this.map!;
+  const wanted=map.mapId+':'+this.renderColors.join(',');if(wanted===this.landAtlasKey)return false;
+  const side=map.side,d=side*FIELD.lipDepth,minX=Math.floor(-Math.sqrt(3)*side/2)-2,minY=-Math.ceil(side)-2;
+  const width=Math.ceil(Math.sqrt(3)*side/2)-minX+2,height=Math.ceil(side+d)-minY+2,w=width,h=height;
+  const c0=map.cells[0],v=c0.vertices.map(p=>({x:p.x-c0.center.x-minX,y:p.y-c0.center.y-minY}));
+  const g=this.add.graphics().setVisible(false),faces:Record<string,[number,number]>={se:[1,2],sw:[2,3]};
+  this.renderColors.forEach((color,slot)=>{
+   const oy=slot*h,at=(col:number,p:{x:number;y:number})=>({x:p.x+col*w,y:p.y+oy});
+   g.fillStyle(color,1).fillPoints(v.map(p=>at(0,p)),true).lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1).strokePoints(v.map(p=>at(0,p)),true);
+   Object.values(faces).forEach(([a,b],i)=>{const va=at(i+1,v[a]),vb=at(i+1,v[b]);g.fillStyle(mixColor(color,INK,FIELD.lipShade),1).fillPoints([va,vb,{x:vb.x,y:vb.y+d},{x:va.x,y:va.y+d}],true);});
+  });
+  const key='land-'+(++this.landAtlasSerial);g.generateTexture(key,w*3,h*this.renderColors.length);g.destroy();
+  const texture=this.textures.get(key);
+  this.renderColors.forEach((_,slot)=>{texture.add('top'+slot,0,0,slot*h,w,h);texture.add('se'+slot,0,w,slot*h,w,h);texture.add('sw'+slot,0,2*w,slot*h,w,h);});
+  for(const land of this.landChunks.values()){land.clear();land.setTexture(key);}
+  if(this.landKey)this.textures.remove(this.landKey);
+  this.landKey=key;this.landAtlasKey=wanted;this.landBox={minX,minY,width,height};
+  return true;
+ }
+ private landAtlasSerial=0;
  // Raised-tile side: only the lower faces whose neighbour is not land show it.
  // Owned neighbours draw their own top over this area, so they are skipped.
  private lip(g:Phaser.GameObjects.Graphics,id:number,fill:number,owners:ArrayLike<number>):void {
@@ -155,6 +186,8 @@ export class GameScene extends Phaser.Scene {
    for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();this.boundary?.destroy();
    if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
+   for(const g of this.landChunks.values())g.destroy();this.landChunks.clear();for(const g of this.trailTops.values())g.destroy();this.trailTops.clear();
+   if(this.landKey)this.textures.remove(this.landKey);this.landKey='';this.landAtlasKey='';
    for(const text of this.points)text.destroy();this.points=[];
    const index=indexRenderChunks(this.map);this.chunkIndex=index.chunks;this.cellChunkKeys=index.keys;this.territoryEffects?.setMap(this.map,this.chunkIndex);this.captureEffects?.setMap(this.map,this.chunkIndex);reset=true;
    const groundAt=performance.now();
@@ -170,6 +203,7 @@ export class GameScene extends Phaser.Scene {
     const ground=this.add.blitter(0,0,this.groundKey).setDepth(0);for(const id of chunk.cells){const c=this.map.cells[id];ground.create(c.center.x+minX,c.center.y+minY);}
     ground.getRenderList();
     this.groundChunks.set(key,ground);this.chunks.set(key,this.add.graphics().setDepth(1));
+    this.landChunks.set(key,this.add.blitter(0,0,'__DEFAULT').setDepth(1.001));this.trailTops.set(key,this.add.graphics().setDepth(1.002));
    }
    this.boundary=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);
    for(const e of this.map.boundaryEdges)this.boundary.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
@@ -181,7 +215,8 @@ export class GameScene extends Phaser.Scene {
    this.metrics.mapInitMs=performance.now()-initAt;
   }
   const redrawAt=performance.now();
-  const dirty=new Set<string>();if(colorsChanged||reset)for(const key of this.chunkIndex.keys())dirty.add(key);
+  const atlasChanged=this.ensureLandAtlas();
+  const dirty=new Set<string>();if(colorsChanged||reset||atlasChanged)for(const key of this.chunkIndex.keys())dirty.add(key);
   for(let id=0;id<view.owners.length;id++){
    if(this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
    if(this.lastOwners[id]===view.owners[id])continue;dirty.add(this.chunkKey(id));
@@ -194,11 +229,15 @@ export class GameScene extends Phaser.Scene {
    const cells=this.chunkIndex.get(key)!.cells;
    // Trails on open ground go under raised land so neighbouring tile sides overlap them.
    for(const id of cells)if(view.trailMasks[id]&&!view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,false);
-   for(const id of cells){const owner=view.owners[id];if(!owner)continue;const color=this.renderColors[owner-1];
-    this.lip(g,id,mixColor(color,INK,FIELD.lipShade),view.owners);this.hex(g,id,color,1);g.lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1);this.strokeHex(g,id);
+   // Same per-cell order as the former Graphics: the lower sides that face open ground, then the top.
+   const land=this.landChunks.get(key)!,{minX,minY}=this.landBox;land.clear();
+   for(const id of cells){const owner=view.owners[id];if(!owner)continue;const c:MapDefinition['cells'][number]=this.map.cells[id],x=c.center.x+minX,y=c.center.y+minY;
+    for(const [n,face]of [[5,'se'],[4,'sw']] as const){const next=c.neighbors[n];if(next<0||!view.owners[next])land.create(x,y,face+(owner-1));}
+    land.create(x,y,'top'+(owner-1));
    }
    // A trail crossing someone's land must stay visible on top of that land.
-   for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,true);
+   const top=this.trailTops.get(key)!;top.clear();
+   for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(top,id,view.trailMasks[id],view.config.maxSlots,true);
   }
   this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
   this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous,view.participants.find(p=>p.participantId===this.selfId)?.slot??-1);
@@ -265,7 +304,7 @@ export class GameScene extends Phaser.Scene {
   // covers normal movement before the next camera pre-render.
   const rect=camera.worldView;
   for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
-   this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);
+   this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);this.landChunks.get(key)!.setVisible(visible);this.trailTops.get(key)!.setVisible(visible);
   }
   perfAdd('step.cull',span);span=perfNow();
   if(this.online){
