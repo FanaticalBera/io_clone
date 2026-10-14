@@ -1,0 +1,3058 @@
+{
+  "date": "2026-10-13",
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "durationSeconds": 120,
+  "baseline": "master6578389",
+  "arms": [
+    {
+      "name": "master",
+      "holding": 3072.999826388889,
+      "deaths": 79,
+      "capture": {
+        "count": 4982,
+        "total": 68901,
+        "mean": 13.829987956643919,
+        "median": 10,
+        "p90": 32,
+        "max": 105,
+        "bins": [
+          {
+            "from": 0,
+            "to": 4,
+            "count": 1373
+          },
+          {
+            "from": 4,
+            "to": 8,
+            "count": 984
+          },
+          {
+            "from": 8,
+            "to": 16,
+            "count": 601
+          },
+          {
+            "from": 16,
+            "to": 32,
+            "count": 1515
+          },
+          {
+            "from": 32,
+            "to": 64,
+            "count": 490
+          },
+          {
+            "from": 64,
+            "to": 128,
+            "count": 19
+          },
+          {
+            "from": 128,
+            "to": null,
+            "count": 0
+          }
+        ]
+      },
+      "movement": {
+        "departures": 5007,
+        "directions": [
+          864,
+          909,
+          811,
+          785,
+          766,
+          872
+        ],
+        "pairs": 4818,
+        "sameShape": 2229,
+        "sameShapeRate": 0.462640099626401,
+        "sameShapeSize": 1339,
+        "sameShapeSizeRate": 0.27791614777916146,
+        "sameLegsIgnoringNameRate": 0.2808219178082192,
+        "actualPathComparablePairs": 0,
+        "sameActualPathRate": null,
+        "reconstructedPaths": 0,
+        "launchShift": {
+          "count": 4818,
+          "mean": 3.8816936488169365,
+          "median": 3,
+          "p90": 8,
+          "max": 26
+        },
+        "shapes": {
+          "DEEP": 291,
+          "HOOK": 499,
+          "WIDE": 426,
+          "BEVEL": 642,
+          "NATURAL": 1302,
+          "ASYMMETRIC": 259,
+          "RHOMBUS": 1588
+        }
+      },
+      "crowded": {
+        "departures": 1175,
+        "directions": [
+          214,
+          211,
+          204,
+          160,
+          173,
+          213
+        ],
+        "pairs": 821,
+        "sameShape": 821,
+        "sameShapeRate": 1,
+        "sameShapeSize": 650,
+        "sameShapeSizeRate": 0.7917174177831913,
+        "sameLegsIgnoringNameRate": 0.7917174177831913,
+        "actualPathComparablePairs": 0,
+        "sameActualPathRate": null,
+        "reconstructedPaths": 0,
+        "launchShift": {
+          "count": 821,
+          "mean": 2.6833130328867236,
+          "median": 2,
+          "p90": 5,
+          "max": 20
+        },
+        "shapes": {
+          "RHOMBUS": 1175
+        }
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 2781.083888888889,
+          "deaths": 12,
+          "capture": {
+            "count": 566,
+            "mean": 15.823321554770319,
+            "median": 15,
+            "p90": 35,
+            "max": 69
+          },
+          "crowded": {
+            "departures": 94,
+            "directions": [
+              14,
+              11,
+              16,
+              15,
+              14,
+              24
+            ],
+            "pairs": 61,
+            "sameShape": 61,
+            "sameShapeRate": 1,
+            "sameShapeSize": 52,
+            "sameShapeSizeRate": 0.8524590163934426,
+            "sameLegsIgnoringNameRate": 0.8524590163934426,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 61,
+              "mean": 2.6721311475409837,
+              "median": 2,
+              "p90": 5,
+              "max": 9
+            },
+            "shapes": {
+              "RHOMBUS": 94
+            }
+          },
+          "trajectoryHash": "7aacd18443d7f0dc4e71d0e2e4a84f8fa0046ae300eac750b316dac82906b34a"
+        },
+        {
+          "seed": 19,
+          "holding": 3357.8591666666666,
+          "deaths": 11,
+          "capture": {
+            "count": 607,
+            "mean": 14.036243822075782,
+            "median": 12,
+            "p90": 31,
+            "max": 105
+          },
+          "crowded": {
+            "departures": 110,
+            "directions": [
+              20,
+              17,
+              20,
+              21,
+              15,
+              17
+            ],
+            "pairs": 77,
+            "sameShape": 77,
+            "sameShapeRate": 1,
+            "sameShapeSize": 56,
+            "sameShapeSizeRate": 0.7272727272727273,
+            "sameLegsIgnoringNameRate": 0.7272727272727273,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 77,
+              "mean": 2.896103896103896,
+              "median": 3,
+              "p90": 5,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 110
+            }
+          },
+          "trajectoryHash": "6a0a395b613ec64f012dfefee56a082db0a369bb1d7f69513da8c449101cd68d"
+        },
+        {
+          "seed": 73,
+          "holding": 3204.2794444444444,
+          "deaths": 9,
+          "capture": {
+            "count": 638,
+            "mean": 13.46551724137931,
+            "median": 9,
+            "p90": 31,
+            "max": 73
+          },
+          "crowded": {
+            "departures": 134,
+            "directions": [
+              22,
+              23,
+              24,
+              22,
+              21,
+              22
+            ],
+            "pairs": 87,
+            "sameShape": 87,
+            "sameShapeRate": 1,
+            "sameShapeSize": 72,
+            "sameShapeSizeRate": 0.8275862068965517,
+            "sameLegsIgnoringNameRate": 0.8275862068965517,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 87,
+              "mean": 2.839080459770115,
+              "median": 2,
+              "p90": 6,
+              "max": 17
+            },
+            "shapes": {
+              "RHOMBUS": 134
+            }
+          },
+          "trajectoryHash": "d15b1d846ccd5b81bd129b06d12152da58bce6acb57d5619e88030322b31088e"
+        },
+        {
+          "seed": 11,
+          "holding": 3262.2444444444445,
+          "deaths": 8,
+          "capture": {
+            "count": 628,
+            "mean": 14.047770700636942,
+            "median": 11,
+            "p90": 31,
+            "max": 77
+          },
+          "crowded": {
+            "departures": 125,
+            "directions": [
+              19,
+              21,
+              23,
+              19,
+              20,
+              23
+            ],
+            "pairs": 84,
+            "sameShape": 84,
+            "sameShapeRate": 1,
+            "sameShapeSize": 67,
+            "sameShapeSizeRate": 0.7976190476190477,
+            "sameLegsIgnoringNameRate": 0.7976190476190477,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 84,
+              "mean": 2.738095238095238,
+              "median": 2,
+              "p90": 5,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 125
+            }
+          },
+          "trajectoryHash": "f6802299093ccdc362dc78a7670ce1e6f8034bf780430cf841d0e58448eb506f"
+        },
+        {
+          "seed": 31,
+          "holding": 2967.166388888889,
+          "deaths": 9,
+          "capture": {
+            "count": 630,
+            "mean": 13.534920634920635,
+            "median": 8,
+            "p90": 32,
+            "max": 57
+          },
+          "crowded": {
+            "departures": 141,
+            "directions": [
+              27,
+              32,
+              20,
+              19,
+              24,
+              19
+            ],
+            "pairs": 102,
+            "sameShape": 102,
+            "sameShapeRate": 1,
+            "sameShapeSize": 79,
+            "sameShapeSizeRate": 0.7745098039215687,
+            "sameLegsIgnoringNameRate": 0.7745098039215687,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 102,
+              "mean": 2.8823529411764706,
+              "median": 2,
+              "p90": 6,
+              "max": 17
+            },
+            "shapes": {
+              "RHOMBUS": 141
+            }
+          },
+          "trajectoryHash": "3a89c8b4373849c38dcaff71451c3e09032ef4623039117252d5b925be7734e3"
+        },
+        {
+          "seed": 47,
+          "holding": 3258.431111111111,
+          "deaths": 11,
+          "capture": {
+            "count": 599,
+            "mean": 15.193656093489148,
+            "median": 10,
+            "p90": 36,
+            "max": 93
+          },
+          "crowded": {
+            "departures": 174,
+            "directions": [
+              32,
+              29,
+              29,
+              23,
+              22,
+              39
+            ],
+            "pairs": 125,
+            "sameShape": 125,
+            "sameShapeRate": 1,
+            "sameShapeSize": 107,
+            "sameShapeSizeRate": 0.856,
+            "sameLegsIgnoringNameRate": 0.856,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 125,
+              "mean": 2.488,
+              "median": 2,
+              "p90": 5,
+              "max": 19
+            },
+            "shapes": {
+              "RHOMBUS": 174
+            }
+          },
+          "trajectoryHash": "88f897f840309f0de914faa53b2d1adbd07666d179c0934405845f0a2f976e61"
+        },
+        {
+          "seed": 101,
+          "holding": 2714.5244444444443,
+          "deaths": 12,
+          "capture": {
+            "count": 643,
+            "mean": 12.870917573872473,
+            "median": 7,
+            "p90": 30,
+            "max": 75
+          },
+          "crowded": {
+            "departures": 201,
+            "directions": [
+              40,
+              48,
+              35,
+              22,
+              27,
+              29
+            ],
+            "pairs": 147,
+            "sameShape": 147,
+            "sameShapeRate": 1,
+            "sameShapeSize": 110,
+            "sameShapeSizeRate": 0.7482993197278912,
+            "sameLegsIgnoringNameRate": 0.7482993197278912,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 147,
+              "mean": 2.564625850340136,
+              "median": 2,
+              "p90": 5,
+              "max": 12
+            },
+            "shapes": {
+              "RHOMBUS": 201
+            }
+          },
+          "trajectoryHash": "e4ec0e6714de64a4df24c8946dbb9b2a8da3da4a2e524c6b203a5cd899ecf7cf"
+        },
+        {
+          "seed": 137,
+          "holding": 3038.409722222222,
+          "deaths": 7,
+          "capture": {
+            "count": 671,
+            "mean": 12.083457526080476,
+            "median": 6,
+            "p90": 26,
+            "max": 78
+          },
+          "crowded": {
+            "departures": 196,
+            "directions": [
+              40,
+              30,
+              37,
+              19,
+              30,
+              40
+            ],
+            "pairs": 138,
+            "sameShape": 138,
+            "sameShapeRate": 1,
+            "sameShapeSize": 107,
+            "sameShapeSizeRate": 0.7753623188405797,
+            "sameLegsIgnoringNameRate": 0.7753623188405797,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 138,
+              "mean": 2.5942028985507246,
+              "median": 2,
+              "p90": 5,
+              "max": 12
+            },
+            "shapes": {
+              "RHOMBUS": 196
+            }
+          },
+          "trajectoryHash": "24f1125b8ad3e231dfc91218ad6680321a014caa0f5008927b152cf1f02f4179"
+        }
+      ],
+      "byRole": [
+        {
+          "role": "EXPAND",
+          "movement": {
+            "departures": 918,
+            "directions": [
+              147,
+              168,
+              166,
+              147,
+              141,
+              149
+            ],
+            "pairs": 866,
+            "sameShape": 355,
+            "sameShapeRate": 0.40993071593533487,
+            "sameShapeSize": 237,
+            "sameShapeSizeRate": 0.27367205542725176,
+            "sameLegsIgnoringNameRate": 0.27713625866050806,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 866,
+              "mean": 4.452655889145497,
+              "median": 3,
+              "p90": 9,
+              "max": 20
+            },
+            "shapes": {
+              "NATURAL": 178,
+              "DEEP": 80,
+              "WIDE": 114,
+              "ASYMMETRIC": 68,
+              "HOOK": 137,
+              "RHOMBUS": 341
+            }
+          },
+          "crowded": {
+            "departures": 241,
+            "directions": [
+              39,
+              40,
+              45,
+              36,
+              38,
+              43
+            ],
+            "pairs": 162,
+            "sameShape": 162,
+            "sameShapeRate": 1,
+            "sameShapeSize": 124,
+            "sameShapeSizeRate": 0.7654320987654321,
+            "sameLegsIgnoringNameRate": 0.7654320987654321,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 162,
+              "mean": 2.6728395061728394,
+              "median": 2,
+              "p90": 5,
+              "max": 17
+            },
+            "shapes": {
+              "RHOMBUS": 241
+            }
+          }
+        },
+        {
+          "role": "ATTACK",
+          "movement": {
+            "departures": 1332,
+            "directions": [
+              225,
+              251,
+              205,
+              186,
+              207,
+              258
+            ],
+            "pairs": 1291,
+            "sameShape": 506,
+            "sameShapeRate": 0.3919442292796282,
+            "sameShapeSize": 340,
+            "sameShapeSizeRate": 0.26336173508907823,
+            "sameLegsIgnoringNameRate": 0.2664601084430674,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1291,
+              "mean": 3.686289697908598,
+              "median": 3,
+              "p90": 7,
+              "max": 26
+            },
+            "shapes": {
+              "WIDE": 204,
+              "NATURAL": 312,
+              "HOOK": 185,
+              "RHOMBUS": 451,
+              "ASYMMETRIC": 93,
+              "DEEP": 87
+            }
+          },
+          "crowded": {
+            "departures": 311,
+            "directions": [
+              59,
+              62,
+              39,
+              38,
+              49,
+              64
+            ],
+            "pairs": 222,
+            "sameShape": 222,
+            "sameShapeRate": 1,
+            "sameShapeSize": 179,
+            "sameShapeSizeRate": 0.8063063063063063,
+            "sameLegsIgnoringNameRate": 0.8063063063063063,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 222,
+              "mean": 2.5945945945945947,
+              "median": 2,
+              "p90": 5,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 311
+            }
+          }
+        },
+        {
+          "role": "DEFEND",
+          "movement": {
+            "departures": 1579,
+            "directions": [
+              279,
+              262,
+              249,
+              277,
+              240,
+              272
+            ],
+            "pairs": 1534,
+            "sameShape": 878,
+            "sameShapeRate": 0.5723598435462842,
+            "sameShapeSize": 422,
+            "sameShapeSizeRate": 0.27509778357235987,
+            "sameLegsIgnoringNameRate": 0.27509778357235987,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1534,
+              "mean": 3.957627118644068,
+              "median": 3,
+              "p90": 7,
+              "max": 22
+            },
+            "shapes": {
+              "BEVEL": 642,
+              "NATURAL": 578,
+              "RHOMBUS": 359
+            }
+          },
+          "crowded": {
+            "departures": 323,
+            "directions": [
+              60,
+              51,
+              65,
+              46,
+              46,
+              55
+            ],
+            "pairs": 220,
+            "sameShape": 220,
+            "sameShapeRate": 1,
+            "sameShapeSize": 155,
+            "sameShapeSizeRate": 0.7045454545454546,
+            "sameLegsIgnoringNameRate": 0.7045454545454546,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 220,
+              "mean": 2.768181818181818,
+              "median": 2,
+              "p90": 5,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 323
+            }
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "movement": {
+            "departures": 1178,
+            "directions": [
+              213,
+              228,
+              191,
+              175,
+              178,
+              193
+            ],
+            "pairs": 1127,
+            "sameShape": 490,
+            "sameShapeRate": 0.43478260869565216,
+            "sameShapeSize": 340,
+            "sameShapeSizeRate": 0.30168589174800353,
+            "sameLegsIgnoringNameRate": 0.30789707187222715,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1127,
+              "mean": 3.5634427684117127,
+              "median": 3,
+              "p90": 7,
+              "max": 21
+            },
+            "shapes": {
+              "DEEP": 124,
+              "HOOK": 177,
+              "NATURAL": 234,
+              "WIDE": 108,
+              "ASYMMETRIC": 98,
+              "RHOMBUS": 437
+            }
+          },
+          "crowded": {
+            "departures": 300,
+            "directions": [
+              56,
+              58,
+              55,
+              40,
+              40,
+              51
+            ],
+            "pairs": 217,
+            "sameShape": 217,
+            "sameShapeRate": 1,
+            "sameShapeSize": 192,
+            "sameShapeSizeRate": 0.8847926267281107,
+            "sameLegsIgnoringNameRate": 0.8847926267281107,
+            "actualPathComparablePairs": 0,
+            "sameActualPathRate": null,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 217,
+              "mean": 2.695852534562212,
+              "median": 2,
+              "p90": 5,
+              "max": 17
+            },
+            "shapes": {
+              "RHOMBUS": 300
+            }
+          }
+        }
+      ],
+      "medium": {
+        "cuts": 13,
+        "failed": [
+          5,
+          6,
+          14
+        ]
+      }
+    },
+    {
+      "name": "B-quiet",
+      "holding": 3205.079236111111,
+      "deaths": 82,
+      "capture": {
+        "count": 4754,
+        "total": 70955,
+        "mean": 14.92532604122844,
+        "median": 12,
+        "p90": 34,
+        "max": 97,
+        "bins": [
+          {
+            "from": 0,
+            "to": 4,
+            "count": 1182
+          },
+          {
+            "from": 4,
+            "to": 8,
+            "count": 921
+          },
+          {
+            "from": 8,
+            "to": 16,
+            "count": 543
+          },
+          {
+            "from": 16,
+            "to": 32,
+            "count": 1550
+          },
+          {
+            "from": 32,
+            "to": 64,
+            "count": 537
+          },
+          {
+            "from": 64,
+            "to": 128,
+            "count": 21
+          },
+          {
+            "from": 128,
+            "to": null,
+            "count": 0
+          }
+        ]
+      },
+      "movement": {
+        "departures": 4782,
+        "directions": [
+          814,
+          924,
+          781,
+          743,
+          720,
+          800
+        ],
+        "pairs": 4592,
+        "sameShape": 2154,
+        "sameShapeRate": 0.4690766550522648,
+        "sameShapeSize": 1274,
+        "sameShapeSizeRate": 0.2774390243902439,
+        "sameLegsIgnoringNameRate": 0.28005226480836237,
+        "actualPathComparablePairs": 4545,
+        "sameActualPathRate": 0.20462046204620463,
+        "reconstructedPaths": 233,
+        "launchShift": {
+          "count": 4592,
+          "mean": 4.013719512195122,
+          "median": 3,
+          "p90": 8,
+          "max": 29
+        },
+        "shapes": {
+          "DEEP": 301,
+          "HOOK": 529,
+          "WIDE": 389,
+          "BEVEL": 592,
+          "NATURAL": 1306,
+          "ASYMMETRIC": 240,
+          "RHOMBUS": 1425
+        }
+      },
+      "crowded": {
+        "departures": 1106,
+        "directions": [
+          191,
+          210,
+          200,
+          176,
+          160,
+          169
+        ],
+        "pairs": 793,
+        "sameShape": 793,
+        "sameShapeRate": 1,
+        "sameShapeSize": 611,
+        "sameShapeSizeRate": 0.7704918032786885,
+        "sameLegsIgnoringNameRate": 0.7704918032786885,
+        "actualPathComparablePairs": 793,
+        "sameActualPathRate": 0.44388398486759145,
+        "reconstructedPaths": 132,
+        "launchShift": {
+          "count": 793,
+          "mean": 2.7667087011349305,
+          "median": 2,
+          "p90": 5,
+          "max": 20
+        },
+        "shapes": {
+          "RHOMBUS": 1106
+        }
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3400.7608333333333,
+          "deaths": 10,
+          "capture": {
+            "count": 582,
+            "mean": 15.587628865979381,
+            "median": 14,
+            "p90": 35,
+            "max": 94
+          },
+          "crowded": {
+            "departures": 125,
+            "directions": [
+              27,
+              27,
+              24,
+              19,
+              15,
+              13
+            ],
+            "pairs": 100,
+            "sameShape": 100,
+            "sameShapeRate": 1,
+            "sameShapeSize": 71,
+            "sameShapeSizeRate": 0.71,
+            "sameLegsIgnoringNameRate": 0.71,
+            "actualPathComparablePairs": 100,
+            "sameActualPathRate": 0.32,
+            "reconstructedPaths": 13,
+            "launchShift": {
+              "count": 100,
+              "mean": 3.04,
+              "median": 2,
+              "p90": 6,
+              "max": 13
+            },
+            "shapes": {
+              "RHOMBUS": 125
+            }
+          },
+          "trajectoryHash": "af71b2b79ec589579751ed99821376e9ed38db8b89c80e6e3145073971fbcc2f"
+        },
+        {
+          "seed": 19,
+          "holding": 3181.8655555555556,
+          "deaths": 9,
+          "capture": {
+            "count": 606,
+            "mean": 14.463696369636963,
+            "median": 11,
+            "p90": 32,
+            "max": 76
+          },
+          "crowded": {
+            "departures": 154,
+            "directions": [
+              25,
+              31,
+              30,
+              26,
+              23,
+              19
+            ],
+            "pairs": 121,
+            "sameShape": 121,
+            "sameShapeRate": 1,
+            "sameShapeSize": 93,
+            "sameShapeSizeRate": 0.768595041322314,
+            "sameLegsIgnoringNameRate": 0.768595041322314,
+            "actualPathComparablePairs": 121,
+            "sameActualPathRate": 0.4628099173553719,
+            "reconstructedPaths": 20,
+            "launchShift": {
+              "count": 121,
+              "mean": 2.5454545454545454,
+              "median": 2,
+              "p90": 5,
+              "max": 9
+            },
+            "shapes": {
+              "RHOMBUS": 154
+            }
+          },
+          "trajectoryHash": "431c66687f58ff426cbd0be93207410431d91ce8a9c32f5871de1a54d25b9be3"
+        },
+        {
+          "seed": 73,
+          "holding": 3208.8597222222224,
+          "deaths": 9,
+          "capture": {
+            "count": 586,
+            "mean": 15.419795221843003,
+            "median": 13,
+            "p90": 35,
+            "max": 73
+          },
+          "crowded": {
+            "departures": 122,
+            "directions": [
+              23,
+              22,
+              23,
+              11,
+              20,
+              23
+            ],
+            "pairs": 89,
+            "sameShape": 89,
+            "sameShapeRate": 1,
+            "sameShapeSize": 73,
+            "sameShapeSizeRate": 0.8202247191011236,
+            "sameLegsIgnoringNameRate": 0.8202247191011236,
+            "actualPathComparablePairs": 89,
+            "sameActualPathRate": 0.4606741573033708,
+            "reconstructedPaths": 8,
+            "launchShift": {
+              "count": 89,
+              "mean": 2.7865168539325844,
+              "median": 3,
+              "p90": 5,
+              "max": 19
+            },
+            "shapes": {
+              "RHOMBUS": 122
+            }
+          },
+          "trajectoryHash": "890975f6549bb02d670ea1ae93ae830f6f667690d3170d17e346437ec0c5414a"
+        },
+        {
+          "seed": 11,
+          "holding": 3048.938611111111,
+          "deaths": 12,
+          "capture": {
+            "count": 564,
+            "mean": 15.370567375886525,
+            "median": 15,
+            "p90": 32,
+            "max": 63
+          },
+          "crowded": {
+            "departures": 123,
+            "directions": [
+              16,
+              23,
+              23,
+              15,
+              23,
+              23
+            ],
+            "pairs": 78,
+            "sameShape": 78,
+            "sameShapeRate": 1,
+            "sameShapeSize": 64,
+            "sameShapeSizeRate": 0.8205128205128205,
+            "sameLegsIgnoringNameRate": 0.8205128205128205,
+            "actualPathComparablePairs": 78,
+            "sameActualPathRate": 0.41025641025641024,
+            "reconstructedPaths": 10,
+            "launchShift": {
+              "count": 78,
+              "mean": 3.08974358974359,
+              "median": 2,
+              "p90": 7,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 123
+            }
+          },
+          "trajectoryHash": "8e2155cc59149bea56344fabcbd5d63a88938ca76bfc2a930ea4ddacac887855"
+        },
+        {
+          "seed": 31,
+          "holding": 3178.545833333333,
+          "deaths": 11,
+          "capture": {
+            "count": 628,
+            "mean": 13.902866242038217,
+            "median": 9,
+            "p90": 34,
+            "max": 67
+          },
+          "crowded": {
+            "departures": 146,
+            "directions": [
+              26,
+              25,
+              28,
+              26,
+              18,
+              23
+            ],
+            "pairs": 89,
+            "sameShape": 89,
+            "sameShapeRate": 1,
+            "sameShapeSize": 66,
+            "sameShapeSizeRate": 0.7415730337078652,
+            "sameLegsIgnoringNameRate": 0.7415730337078652,
+            "actualPathComparablePairs": 89,
+            "sameActualPathRate": 0.5056179775280899,
+            "reconstructedPaths": 18,
+            "launchShift": {
+              "count": 89,
+              "mean": 2.595505617977528,
+              "median": 2,
+              "p90": 6,
+              "max": 15
+            },
+            "shapes": {
+              "RHOMBUS": 146
+            }
+          },
+          "trajectoryHash": "c0fed03870e0d3c3bcbafae3673d242c3e611286a59c7794729aa9003f061fd1"
+        },
+        {
+          "seed": 47,
+          "holding": 3237.782777777778,
+          "deaths": 12,
+          "capture": {
+            "count": 589,
+            "mean": 15.837011884550085,
+            "median": 10,
+            "p90": 39,
+            "max": 97
+          },
+          "crowded": {
+            "departures": 149,
+            "directions": [
+              20,
+              26,
+              27,
+              34,
+              16,
+              26
+            ],
+            "pairs": 104,
+            "sameShape": 104,
+            "sameShapeRate": 1,
+            "sameShapeSize": 85,
+            "sameShapeSizeRate": 0.8173076923076923,
+            "sameLegsIgnoringNameRate": 0.8173076923076923,
+            "actualPathComparablePairs": 104,
+            "sameActualPathRate": 0.40384615384615385,
+            "reconstructedPaths": 18,
+            "launchShift": {
+              "count": 104,
+              "mean": 2.5576923076923075,
+              "median": 2,
+              "p90": 5,
+              "max": 11
+            },
+            "shapes": {
+              "RHOMBUS": 149
+            }
+          },
+          "trajectoryHash": "fbbd76df3f2511017682412d784735e59bba05d2d179126e410fd5a8a2a010e7"
+        },
+        {
+          "seed": 101,
+          "holding": 3193.8033333333333,
+          "deaths": 9,
+          "capture": {
+            "count": 607,
+            "mean": 14.243822075782537,
+            "median": 11,
+            "p90": 32,
+            "max": 88
+          },
+          "crowded": {
+            "departures": 162,
+            "directions": [
+              32,
+              33,
+              24,
+              27,
+              23,
+              23
+            ],
+            "pairs": 119,
+            "sameShape": 119,
+            "sameShapeRate": 1,
+            "sameShapeSize": 84,
+            "sameShapeSizeRate": 0.7058823529411765,
+            "sameLegsIgnoringNameRate": 0.7058823529411765,
+            "actualPathComparablePairs": 119,
+            "sameActualPathRate": 0.4789915966386555,
+            "reconstructedPaths": 29,
+            "launchShift": {
+              "count": 119,
+              "mean": 3.008403361344538,
+              "median": 3,
+              "p90": 6,
+              "max": 15
+            },
+            "shapes": {
+              "RHOMBUS": 162
+            }
+          },
+          "trajectoryHash": "85176254679a4a1cf1c75280fc50a698eb59a57a9e6494ad482262dc087065b3"
+        },
+        {
+          "seed": 137,
+          "holding": 3190.077222222222,
+          "deaths": 10,
+          "capture": {
+            "count": 592,
+            "mean": 14.70945945945946,
+            "median": 13,
+            "p90": 32,
+            "max": 92
+          },
+          "crowded": {
+            "departures": 125,
+            "directions": [
+              22,
+              23,
+              21,
+              18,
+              22,
+              19
+            ],
+            "pairs": 93,
+            "sameShape": 93,
+            "sameShapeRate": 1,
+            "sameShapeSize": 75,
+            "sameShapeSizeRate": 0.8064516129032258,
+            "sameLegsIgnoringNameRate": 0.8064516129032258,
+            "actualPathComparablePairs": 93,
+            "sameActualPathRate": 0.5053763440860215,
+            "reconstructedPaths": 16,
+            "launchShift": {
+              "count": 93,
+              "mean": 2.5591397849462365,
+              "median": 2,
+              "p90": 4,
+              "max": 9
+            },
+            "shapes": {
+              "RHOMBUS": 125
+            }
+          },
+          "trajectoryHash": "1a946900b2220b2be3ba586358dd737b590bc3b7d2478e25cf68c68c3e6455fa"
+        }
+      ],
+      "byRole": [
+        {
+          "role": "EXPAND",
+          "movement": {
+            "departures": 862,
+            "directions": [
+              135,
+              167,
+              146,
+              127,
+              142,
+              145
+            ],
+            "pairs": 817,
+            "sameShape": 309,
+            "sameShapeRate": 0.37821297429620565,
+            "sameShapeSize": 210,
+            "sameShapeSizeRate": 0.25703794369645044,
+            "sameLegsIgnoringNameRate": 0.26193390452876375,
+            "actualPathComparablePairs": 805,
+            "sameActualPathRate": 0.1813664596273292,
+            "reconstructedPaths": 28,
+            "launchShift": {
+              "count": 817,
+              "mean": 4.996328029375765,
+              "median": 4,
+              "p90": 10,
+              "max": 29
+            },
+            "shapes": {
+              "NATURAL": 170,
+              "DEEP": 86,
+              "WIDE": 110,
+              "ASYMMETRIC": 64,
+              "RHOMBUS": 244,
+              "HOOK": 188
+            }
+          },
+          "crowded": {
+            "departures": 171,
+            "directions": [
+              24,
+              29,
+              34,
+              36,
+              21,
+              27
+            ],
+            "pairs": 109,
+            "sameShape": 109,
+            "sameShapeRate": 1,
+            "sameShapeSize": 86,
+            "sameShapeSizeRate": 0.7889908256880734,
+            "sameLegsIgnoringNameRate": 0.7889908256880734,
+            "actualPathComparablePairs": 109,
+            "sameActualPathRate": 0.3486238532110092,
+            "reconstructedPaths": 9,
+            "launchShift": {
+              "count": 109,
+              "mean": 2.770642201834862,
+              "median": 2,
+              "p90": 5,
+              "max": 10
+            },
+            "shapes": {
+              "RHOMBUS": 171
+            }
+          }
+        },
+        {
+          "role": "ATTACK",
+          "movement": {
+            "departures": 1248,
+            "directions": [
+              230,
+              234,
+              179,
+              180,
+              197,
+              228
+            ],
+            "pairs": 1201,
+            "sameShape": 462,
+            "sameShapeRate": 0.38467943380516234,
+            "sameShapeSize": 296,
+            "sameShapeSizeRate": 0.24646128226477934,
+            "sameLegsIgnoringNameRate": 0.2514571190674438,
+            "actualPathComparablePairs": 1185,
+            "sameActualPathRate": 0.18059071729957807,
+            "reconstructedPaths": 63,
+            "launchShift": {
+              "count": 1201,
+              "mean": 3.686094920899251,
+              "median": 3,
+              "p90": 7,
+              "max": 21
+            },
+            "shapes": {
+              "WIDE": 163,
+              "NATURAL": 292,
+              "HOOK": 188,
+              "RHOMBUS": 385,
+              "DEEP": 116,
+              "ASYMMETRIC": 104
+            }
+          },
+          "crowded": {
+            "departures": 288,
+            "directions": [
+              59,
+              52,
+              43,
+              40,
+              52,
+              42
+            ],
+            "pairs": 208,
+            "sameShape": 208,
+            "sameShapeRate": 1,
+            "sameShapeSize": 159,
+            "sameShapeSizeRate": 0.7644230769230769,
+            "sameLegsIgnoringNameRate": 0.7644230769230769,
+            "actualPathComparablePairs": 208,
+            "sameActualPathRate": 0.4326923076923077,
+            "reconstructedPaths": 39,
+            "launchShift": {
+              "count": 208,
+              "mean": 3,
+              "median": 2,
+              "p90": 6,
+              "max": 20
+            },
+            "shapes": {
+              "RHOMBUS": 288
+            }
+          }
+        },
+        {
+          "role": "DEFEND",
+          "movement": {
+            "departures": 1567,
+            "directions": [
+              292,
+              316,
+              248,
+              248,
+              204,
+              259
+            ],
+            "pairs": 1522,
+            "sameShape": 934,
+            "sameShapeRate": 0.6136662286465178,
+            "sameShapeSize": 477,
+            "sameShapeSizeRate": 0.31340341655716164,
+            "sameLegsIgnoringNameRate": 0.31340341655716164,
+            "actualPathComparablePairs": 1508,
+            "sameActualPathRate": 0.22214854111405835,
+            "reconstructedPaths": 72,
+            "launchShift": {
+              "count": 1522,
+              "mean": 3.938239159001314,
+              "median": 3,
+              "p90": 7,
+              "max": 23
+            },
+            "shapes": {
+              "BEVEL": 592,
+              "NATURAL": 586,
+              "RHOMBUS": 389
+            }
+          },
+          "crowded": {
+            "departures": 374,
+            "directions": [
+              69,
+              73,
+              69,
+              56,
+              48,
+              59
+            ],
+            "pairs": 276,
+            "sameShape": 276,
+            "sameShapeRate": 1,
+            "sameShapeSize": 199,
+            "sameShapeSizeRate": 0.7210144927536232,
+            "sameLegsIgnoringNameRate": 0.7210144927536232,
+            "actualPathComparablePairs": 276,
+            "sameActualPathRate": 0.37318840579710144,
+            "reconstructedPaths": 49,
+            "launchShift": {
+              "count": 276,
+              "mean": 2.818840579710145,
+              "median": 2,
+              "p90": 6,
+              "max": 19
+            },
+            "shapes": {
+              "RHOMBUS": 374
+            }
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "movement": {
+            "departures": 1105,
+            "directions": [
+              157,
+              207,
+              208,
+              188,
+              177,
+              168
+            ],
+            "pairs": 1052,
+            "sameShape": 449,
+            "sameShapeRate": 0.4268060836501901,
+            "sameShapeSize": 291,
+            "sameShapeSizeRate": 0.27661596958174905,
+            "sameLegsIgnoringNameRate": 0.2785171102661597,
+            "actualPathComparablePairs": 1047,
+            "sameActualPathRate": 0.224450811843362,
+            "reconstructedPaths": 70,
+            "launchShift": {
+              "count": 1052,
+              "mean": 3.7338403041825097,
+              "median": 3,
+              "p90": 7,
+              "max": 23
+            },
+            "shapes": {
+              "DEEP": 99,
+              "HOOK": 153,
+              "NATURAL": 258,
+              "WIDE": 116,
+              "ASYMMETRIC": 72,
+              "RHOMBUS": 407
+            }
+          },
+          "crowded": {
+            "departures": 273,
+            "directions": [
+              39,
+              56,
+              54,
+              44,
+              39,
+              41
+            ],
+            "pairs": 200,
+            "sameShape": 200,
+            "sameShapeRate": 1,
+            "sameShapeSize": 167,
+            "sameShapeSizeRate": 0.835,
+            "sameLegsIgnoringNameRate": 0.835,
+            "actualPathComparablePairs": 200,
+            "sameActualPathRate": 0.605,
+            "reconstructedPaths": 35,
+            "launchShift": {
+              "count": 200,
+              "mean": 2.45,
+              "median": 2,
+              "p90": 5,
+              "max": 15
+            },
+            "shapes": {
+              "RHOMBUS": 273
+            }
+          }
+        }
+      ],
+      "medium": {
+        "cuts": 13,
+        "failed": [
+          5,
+          6,
+          14
+        ]
+      }
+    },
+    {
+      "name": "B-quiet+C",
+      "holding": 3160.134722222222,
+      "deaths": 75,
+      "capture": {
+        "count": 4832,
+        "total": 70916,
+        "mean": 14.676324503311259,
+        "median": 12,
+        "p90": 33,
+        "max": 149,
+        "bins": [
+          {
+            "from": 0,
+            "to": 4,
+            "count": 1428
+          },
+          {
+            "from": 4,
+            "to": 8,
+            "count": 632
+          },
+          {
+            "from": 8,
+            "to": 16,
+            "count": 676
+          },
+          {
+            "from": 16,
+            "to": 32,
+            "count": 1535
+          },
+          {
+            "from": 32,
+            "to": 64,
+            "count": 541
+          },
+          {
+            "from": 64,
+            "to": 128,
+            "count": 19
+          },
+          {
+            "from": 128,
+            "to": null,
+            "count": 1
+          }
+        ]
+      },
+      "movement": {
+        "departures": 4870,
+        "directions": [
+          841,
+          977,
+          786,
+          749,
+          715,
+          802
+        ],
+        "pairs": 4684,
+        "sameShape": 1780,
+        "sameShapeRate": 0.38001707941929974,
+        "sameShapeSize": 886,
+        "sameShapeSizeRate": 0.1891545687446627,
+        "sameLegsIgnoringNameRate": 0.19150298889837747,
+        "actualPathComparablePairs": 4684,
+        "sameActualPathRate": 0.15649017933390263,
+        "reconstructedPaths": 0,
+        "launchShift": {
+          "count": 4684,
+          "mean": 4.1061058923996585,
+          "median": 3,
+          "p90": 8,
+          "max": 26
+        },
+        "shapes": {
+          "DEEP": 309,
+          "HOOK": 655,
+          "WIDE": 397,
+          "BEVEL": 1044,
+          "NATURAL": 1783,
+          "ASYMMETRIC": 259,
+          "RHOMBUS": 423
+        }
+      },
+      "crowded": {
+        "departures": 1115,
+        "directions": [
+          206,
+          228,
+          205,
+          166,
+          131,
+          179
+        ],
+        "pairs": 766,
+        "sameShape": 263,
+        "sameShapeRate": 0.3433420365535248,
+        "sameShapeSize": 190,
+        "sameShapeSizeRate": 0.24804177545691905,
+        "sameLegsIgnoringNameRate": 0.24804177545691905,
+        "actualPathComparablePairs": 766,
+        "sameActualPathRate": 0.1422976501305483,
+        "reconstructedPaths": 0,
+        "launchShift": {
+          "count": 766,
+          "mean": 2.975195822454308,
+          "median": 2,
+          "p90": 6,
+          "max": 16
+        },
+        "shapes": {
+          "NATURAL": 436,
+          "BEVEL": 420,
+          "HOOK": 158,
+          "RHOMBUS": 101
+        }
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3426.2716666666665,
+          "deaths": 10,
+          "capture": {
+            "count": 565,
+            "mean": 16.84070796460177,
+            "median": 16,
+            "p90": 35,
+            "max": 100
+          },
+          "crowded": {
+            "departures": 73,
+            "directions": [
+              13,
+              18,
+              13,
+              14,
+              7,
+              8
+            ],
+            "pairs": 46,
+            "sameShape": 16,
+            "sameShapeRate": 0.34782608695652173,
+            "sameShapeSize": 14,
+            "sameShapeSizeRate": 0.30434782608695654,
+            "sameLegsIgnoringNameRate": 0.30434782608695654,
+            "actualPathComparablePairs": 46,
+            "sameActualPathRate": 0.1956521739130435,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 46,
+              "mean": 3.0869565217391304,
+              "median": 2,
+              "p90": 7,
+              "max": 16
+            },
+            "shapes": {
+              "NATURAL": 28,
+              "BEVEL": 32,
+              "HOOK": 8,
+              "RHOMBUS": 5
+            }
+          },
+          "trajectoryHash": "4adc9f04860e9124a5f7ef048d2ce16d3d4d6ef2073c25de884e5c1fcefb8e9c"
+        },
+        {
+          "seed": 19,
+          "holding": 3377.507777777778,
+          "deaths": 8,
+          "capture": {
+            "count": 593,
+            "mean": 14.929173693086003,
+            "median": 14,
+            "p90": 32,
+            "max": 76
+          },
+          "crowded": {
+            "departures": 127,
+            "directions": [
+              22,
+              32,
+              20,
+              21,
+              13,
+              19
+            ],
+            "pairs": 86,
+            "sameShape": 36,
+            "sameShapeRate": 0.4186046511627907,
+            "sameShapeSize": 26,
+            "sameShapeSizeRate": 0.3023255813953488,
+            "sameLegsIgnoringNameRate": 0.3023255813953488,
+            "actualPathComparablePairs": 86,
+            "sameActualPathRate": 0.16279069767441862,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 86,
+              "mean": 3.0813953488372094,
+              "median": 3,
+              "p90": 7,
+              "max": 10
+            },
+            "shapes": {
+              "HOOK": 17,
+              "BEVEL": 48,
+              "NATURAL": 50,
+              "RHOMBUS": 12
+            }
+          },
+          "trajectoryHash": "5407e3144d97d5732fb4e933f574889511c60eee1773a210d017036b6c24c086"
+        },
+        {
+          "seed": 73,
+          "holding": 3255.1736111111113,
+          "deaths": 8,
+          "capture": {
+            "count": 618,
+            "mean": 14.111650485436893,
+            "median": 9,
+            "p90": 34,
+            "max": 90
+          },
+          "crowded": {
+            "departures": 185,
+            "directions": [
+              45,
+              43,
+              36,
+              21,
+              16,
+              24
+            ],
+            "pairs": 138,
+            "sameShape": 55,
+            "sameShapeRate": 0.39855072463768115,
+            "sameShapeSize": 34,
+            "sameShapeSizeRate": 0.2463768115942029,
+            "sameLegsIgnoringNameRate": 0.2463768115942029,
+            "actualPathComparablePairs": 138,
+            "sameActualPathRate": 0.13043478260869565,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 138,
+              "mean": 2.8333333333333335,
+              "median": 2,
+              "p90": 5,
+              "max": 10
+            },
+            "shapes": {
+              "NATURAL": 72,
+              "HOOK": 16,
+              "RHOMBUS": 22,
+              "BEVEL": 75
+            }
+          },
+          "trajectoryHash": "e819dbf72cf59be15b1b063fa3102f7e5b6e38127c5ae1a374f5f18ce8fad98c"
+        },
+        {
+          "seed": 11,
+          "holding": 3093.338333333333,
+          "deaths": 10,
+          "capture": {
+            "count": 601,
+            "mean": 14.72379367720466,
+            "median": 13,
+            "p90": 32,
+            "max": 66
+          },
+          "crowded": {
+            "departures": 127,
+            "directions": [
+              23,
+              22,
+              26,
+              18,
+              17,
+              21
+            ],
+            "pairs": 85,
+            "sameShape": 25,
+            "sameShapeRate": 0.29411764705882354,
+            "sameShapeSize": 17,
+            "sameShapeSizeRate": 0.2,
+            "sameLegsIgnoringNameRate": 0.2,
+            "actualPathComparablePairs": 85,
+            "sameActualPathRate": 0.10588235294117647,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 85,
+              "mean": 3.070588235294118,
+              "median": 2,
+              "p90": 7,
+              "max": 12
+            },
+            "shapes": {
+              "RHOMBUS": 10,
+              "BEVEL": 43,
+              "NATURAL": 51,
+              "HOOK": 23
+            }
+          },
+          "trajectoryHash": "1a6d243ae4c010c785d55c7bfcc81ff701e47e72bc3ced2e3409c646aff775dd"
+        },
+        {
+          "seed": 31,
+          "holding": 3034.1097222222224,
+          "deaths": 7,
+          "capture": {
+            "count": 633,
+            "mean": 13.581358609794629,
+            "median": 8,
+            "p90": 33,
+            "max": 61
+          },
+          "crowded": {
+            "departures": 180,
+            "directions": [
+              37,
+              25,
+              35,
+              26,
+              25,
+              32
+            ],
+            "pairs": 126,
+            "sameShape": 42,
+            "sameShapeRate": 0.3333333333333333,
+            "sameShapeSize": 33,
+            "sameShapeSizeRate": 0.2619047619047619,
+            "sameLegsIgnoringNameRate": 0.2619047619047619,
+            "actualPathComparablePairs": 126,
+            "sameActualPathRate": 0.15079365079365079,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 126,
+              "mean": 2.888888888888889,
+              "median": 2,
+              "p90": 6,
+              "max": 14
+            },
+            "shapes": {
+              "NATURAL": 76,
+              "HOOK": 29,
+              "BEVEL": 61,
+              "RHOMBUS": 14
+            }
+          },
+          "trajectoryHash": "ccb1ce077171998d9ce642debafd488648d50f7d2e67392da9fe9e5c6009ac6b"
+        },
+        {
+          "seed": 47,
+          "holding": 3154.9963888888888,
+          "deaths": 11,
+          "capture": {
+            "count": 598,
+            "mean": 15.34448160535117,
+            "median": 11,
+            "p90": 36,
+            "max": 149
+          },
+          "crowded": {
+            "departures": 145,
+            "directions": [
+              23,
+              30,
+              25,
+              25,
+              14,
+              28
+            ],
+            "pairs": 97,
+            "sameShape": 31,
+            "sameShapeRate": 0.31958762886597936,
+            "sameShapeSize": 26,
+            "sameShapeSizeRate": 0.26804123711340205,
+            "sameLegsIgnoringNameRate": 0.26804123711340205,
+            "actualPathComparablePairs": 97,
+            "sameActualPathRate": 0.13402061855670103,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 97,
+              "mean": 2.865979381443299,
+              "median": 2,
+              "p90": 6,
+              "max": 11
+            },
+            "shapes": {
+              "BEVEL": 56,
+              "NATURAL": 53,
+              "HOOK": 23,
+              "RHOMBUS": 13
+            }
+          },
+          "trajectoryHash": "2e0bc80a4a7bd740a5aad832b5b9e13234dc69ca3c2fd1ee62c0a5243da8ab7d"
+        },
+        {
+          "seed": 101,
+          "holding": 2999.351111111111,
+          "deaths": 10,
+          "capture": {
+            "count": 620,
+            "mean": 13.82258064516129,
+            "median": 10,
+            "p90": 32,
+            "max": 91
+          },
+          "crowded": {
+            "departures": 166,
+            "directions": [
+              20,
+              34,
+              32,
+              28,
+              22,
+              30
+            ],
+            "pairs": 117,
+            "sameShape": 33,
+            "sameShapeRate": 0.28205128205128205,
+            "sameShapeSize": 21,
+            "sameShapeSizeRate": 0.1794871794871795,
+            "sameLegsIgnoringNameRate": 0.1794871794871795,
+            "actualPathComparablePairs": 117,
+            "sameActualPathRate": 0.1282051282051282,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 117,
+              "mean": 3.1367521367521367,
+              "median": 3,
+              "p90": 6,
+              "max": 12
+            },
+            "shapes": {
+              "HOOK": 31,
+              "BEVEL": 55,
+              "NATURAL": 65,
+              "RHOMBUS": 15
+            }
+          },
+          "trajectoryHash": "51aa8b619c7230efc1f18ca33d8ca8a9fdeff5120c2df78dc2d18c973803ddca"
+        },
+        {
+          "seed": 137,
+          "holding": 2940.329166666667,
+          "deaths": 11,
+          "capture": {
+            "count": 604,
+            "mean": 14.29635761589404,
+            "median": 13,
+            "p90": 31,
+            "max": 92
+          },
+          "crowded": {
+            "departures": 112,
+            "directions": [
+              23,
+              24,
+              18,
+              13,
+              17,
+              17
+            ],
+            "pairs": 71,
+            "sameShape": 25,
+            "sameShapeRate": 0.352112676056338,
+            "sameShapeSize": 19,
+            "sameShapeSizeRate": 0.2676056338028169,
+            "sameLegsIgnoringNameRate": 0.2676056338028169,
+            "actualPathComparablePairs": 71,
+            "sameActualPathRate": 0.16901408450704225,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 71,
+              "mean": 2.971830985915493,
+              "median": 2,
+              "p90": 5,
+              "max": 16
+            },
+            "shapes": {
+              "HOOK": 11,
+              "BEVEL": 50,
+              "NATURAL": 41,
+              "RHOMBUS": 10
+            }
+          },
+          "trajectoryHash": "c25e60c5c2b28bc3626ed030d9ad2dff577cd40efac24933490711d7e2909ca9"
+        }
+      ],
+      "byRole": [
+        {
+          "role": "EXPAND",
+          "movement": {
+            "departures": 906,
+            "directions": [
+              160,
+              169,
+              146,
+              136,
+              134,
+              161
+            ],
+            "pairs": 861,
+            "sameShape": 259,
+            "sameShapeRate": 0.3008130081300813,
+            "sameShapeSize": 151,
+            "sameShapeSizeRate": 0.1753774680603949,
+            "sameLegsIgnoringNameRate": 0.18118466898954705,
+            "actualPathComparablePairs": 861,
+            "sameActualPathRate": 0.156794425087108,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 861,
+              "mean": 4.86411149825784,
+              "median": 4,
+              "p90": 10,
+              "max": 25
+            },
+            "shapes": {
+              "NATURAL": 287,
+              "DEEP": 93,
+              "WIDE": 100,
+              "ASYMMETRIC": 71,
+              "RHOMBUS": 87,
+              "HOOK": 208,
+              "BEVEL": 60
+            }
+          },
+          "crowded": {
+            "departures": 203,
+            "directions": [
+              37,
+              38,
+              42,
+              30,
+              25,
+              31
+            ],
+            "pairs": 137,
+            "sameShape": 39,
+            "sameShapeRate": 0.2846715328467153,
+            "sameShapeSize": 27,
+            "sameShapeSizeRate": 0.19708029197080293,
+            "sameLegsIgnoringNameRate": 0.19708029197080293,
+            "actualPathComparablePairs": 137,
+            "sameActualPathRate": 0.11678832116788321,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 137,
+              "mean": 3.3576642335766422,
+              "median": 3,
+              "p90": 7,
+              "max": 16
+            },
+            "shapes": {
+              "BEVEL": 60,
+              "HOOK": 51,
+              "NATURAL": 81,
+              "RHOMBUS": 11
+            }
+          }
+        },
+        {
+          "role": "ATTACK",
+          "movement": {
+            "departures": 1276,
+            "directions": [
+              223,
+              251,
+              199,
+              181,
+              208,
+              214
+            ],
+            "pairs": 1230,
+            "sameShape": 334,
+            "sameShapeRate": 0.27154471544715447,
+            "sameShapeSize": 202,
+            "sameShapeSizeRate": 0.16422764227642275,
+            "sameLegsIgnoringNameRate": 0.16747967479674797,
+            "actualPathComparablePairs": 1230,
+            "sameActualPathRate": 0.14471544715447154,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1230,
+              "mean": 3.8829268292682926,
+              "median": 3,
+              "p90": 7,
+              "max": 25
+            },
+            "shapes": {
+              "WIDE": 175,
+              "NATURAL": 407,
+              "HOOK": 238,
+              "RHOMBUS": 141,
+              "DEEP": 117,
+              "ASYMMETRIC": 103,
+              "BEVEL": 95
+            }
+          },
+          "crowded": {
+            "departures": 287,
+            "directions": [
+              54,
+              56,
+              51,
+              34,
+              39,
+              53
+            ],
+            "pairs": 199,
+            "sameShape": 50,
+            "sameShapeRate": 0.25125628140703515,
+            "sameShapeSize": 39,
+            "sameShapeSizeRate": 0.19597989949748743,
+            "sameLegsIgnoringNameRate": 0.19597989949748743,
+            "actualPathComparablePairs": 199,
+            "sameActualPathRate": 0.1306532663316583,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 199,
+              "mean": 3.0050251256281406,
+              "median": 2,
+              "p90": 6,
+              "max": 12
+            },
+            "shapes": {
+              "NATURAL": 94,
+              "BEVEL": 95,
+              "HOOK": 68,
+              "RHOMBUS": 30
+            }
+          }
+        },
+        {
+          "role": "DEFEND",
+          "movement": {
+            "departures": 1567,
+            "directions": [
+              276,
+              333,
+              257,
+              245,
+              216,
+              240
+            ],
+            "pairs": 1525,
+            "sameShape": 836,
+            "sameShapeRate": 0.5481967213114755,
+            "sameShapeSize": 336,
+            "sameShapeSizeRate": 0.22032786885245903,
+            "sameLegsIgnoringNameRate": 0.22032786885245903,
+            "actualPathComparablePairs": 1525,
+            "sameActualPathRate": 0.16852459016393442,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1525,
+              "mean": 4.08327868852459,
+              "median": 3,
+              "p90": 7,
+              "max": 26
+            },
+            "shapes": {
+              "BEVEL": 773,
+              "NATURAL": 740,
+              "RHOMBUS": 54
+            }
+          },
+          "crowded": {
+            "departures": 359,
+            "directions": [
+              71,
+              76,
+              67,
+              59,
+              40,
+              46
+            ],
+            "pairs": 235,
+            "sameShape": 98,
+            "sameShapeRate": 0.41702127659574467,
+            "sameShapeSize": 71,
+            "sameShapeSizeRate": 0.3021276595744681,
+            "sameLegsIgnoringNameRate": 0.3021276595744681,
+            "actualPathComparablePairs": 235,
+            "sameActualPathRate": 0.14042553191489363,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 235,
+              "mean": 3.051063829787234,
+              "median": 2,
+              "p90": 6,
+              "max": 15
+            },
+            "shapes": {
+              "NATURAL": 168,
+              "RHOMBUS": 42,
+              "BEVEL": 149
+            }
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "movement": {
+            "departures": 1121,
+            "directions": [
+              182,
+              224,
+              184,
+              187,
+              157,
+              187
+            ],
+            "pairs": 1068,
+            "sameShape": 351,
+            "sameShapeRate": 0.32865168539325845,
+            "sameShapeSize": 197,
+            "sameShapeSizeRate": 0.18445692883895132,
+            "sameLegsIgnoringNameRate": 0.18632958801498128,
+            "actualPathComparablePairs": 1068,
+            "sameActualPathRate": 0.15262172284644196,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 1068,
+              "mean": 3.784644194756554,
+              "median": 3,
+              "p90": 7,
+              "max": 25
+            },
+            "shapes": {
+              "DEEP": 99,
+              "HOOK": 209,
+              "NATURAL": 349,
+              "WIDE": 122,
+              "ASYMMETRIC": 85,
+              "RHOMBUS": 141,
+              "BEVEL": 116
+            }
+          },
+          "crowded": {
+            "departures": 266,
+            "directions": [
+              44,
+              58,
+              45,
+              43,
+              27,
+              49
+            ],
+            "pairs": 195,
+            "sameShape": 76,
+            "sameShapeRate": 0.38974358974358975,
+            "sameShapeSize": 53,
+            "sameShapeSizeRate": 0.2717948717948718,
+            "sameLegsIgnoringNameRate": 0.2717948717948718,
+            "actualPathComparablePairs": 195,
+            "sameActualPathRate": 0.17435897435897435,
+            "reconstructedPaths": 0,
+            "launchShift": {
+              "count": 195,
+              "mean": 2.5846153846153848,
+              "median": 2,
+              "p90": 5,
+              "max": 14
+            },
+            "shapes": {
+              "NATURAL": 93,
+              "HOOK": 39,
+              "BEVEL": 116,
+              "RHOMBUS": 18
+            }
+          }
+        }
+      ],
+      "medium": {
+        "cuts": 11,
+        "failed": [
+          6,
+          10,
+          13,
+          14,
+          16
+        ]
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "from": "master",
+      "to": "B-quiet",
+      "holdingPercent": 4.298061086369476,
+      "deathPercent": 3.797468354430378,
+      "holdingSignal": {
+        "positive": 5,
+        "negative": 3,
+        "tied": 0,
+        "total": 1056.6352777777784,
+        "leaveOneOut": [
+          436.95833333333394,
+          1232.6288888888894,
+          1052.0550000000003,
+          1269.9411111111117,
+          845.2558333333341,
+          1077.2836111111114,
+          577.3563888888893,
+          904.9677777777783
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "deathSignal": {
+        "positive": 4,
+        "negative": 3,
+        "tied": 1,
+        "total": 3,
+        "leaveOneOut": [
+          5,
+          5,
+          3,
+          -1,
+          1,
+          2,
+          6,
+          0
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "crowdedRepeatSignal": {
+        "positive": 3,
+        "negative": 5,
+        "tied": 0,
+        "total": -0.16856116787559094,
+        "leaveOneOut": [
+          -0.02610215148214834,
+          -0.2098834819251777,
+          -0.16119968008016283,
+          -0.19145494076936376,
+          -0.1356243976618875,
+          -0.12986886018328325,
+          -0.12614420108887625,
+          -0.199650461938237
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "newMediumLosses": [],
+      "recoveredMedium": [],
+      "paired": [
+        {
+          "seed": 4,
+          "holdingBefore": 2781.083888888889,
+          "holdingAfter": 3400.7608333333333,
+          "holdingDelta": 619.6769444444444,
+          "holdingPercent": 22.281850141961044,
+          "deathsBefore": 12,
+          "deathsAfter": 10,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.8524590163934426,
+          "crowdedRepeatAfter": 0.71
+        },
+        {
+          "seed": 19,
+          "holdingBefore": 3357.8591666666666,
+          "holdingAfter": 3181.8655555555556,
+          "holdingDelta": -175.99361111111102,
+          "holdingPercent": -5.2412445661269125,
+          "deathsBefore": 11,
+          "deathsAfter": 9,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.7272727272727273,
+          "crowdedRepeatAfter": 0.768595041322314
+        },
+        {
+          "seed": 73,
+          "holdingBefore": 3204.2794444444444,
+          "holdingAfter": 3208.8597222222224,
+          "holdingDelta": 4.580277777778065,
+          "holdingPercent": 0.1429425197517986,
+          "deathsBefore": 9,
+          "deathsAfter": 9,
+          "deathsDelta": 0,
+          "crowdedRepeatBefore": 0.8275862068965517,
+          "crowdedRepeatAfter": 0.8202247191011236
+        },
+        {
+          "seed": 11,
+          "holdingBefore": 3262.2444444444445,
+          "holdingAfter": 3048.938611111111,
+          "holdingDelta": -213.30583333333334,
+          "holdingPercent": -6.538622012111639,
+          "deathsBefore": 8,
+          "deathsAfter": 12,
+          "deathsDelta": 4,
+          "crowdedRepeatBefore": 0.7976190476190477,
+          "crowdedRepeatAfter": 0.8205128205128205
+        },
+        {
+          "seed": 31,
+          "holdingBefore": 2967.166388888889,
+          "holdingAfter": 3178.545833333333,
+          "holdingDelta": 211.3794444444443,
+          "holdingPercent": 7.123949814071584,
+          "deathsBefore": 9,
+          "deathsAfter": 11,
+          "deathsDelta": 2,
+          "crowdedRepeatBefore": 0.7745098039215687,
+          "crowdedRepeatAfter": 0.7415730337078652
+        },
+        {
+          "seed": 47,
+          "holdingBefore": 3258.431111111111,
+          "holdingAfter": 3237.782777777778,
+          "holdingDelta": -20.648333333333085,
+          "holdingPercent": -0.6336894238126778,
+          "deathsBefore": 11,
+          "deathsAfter": 12,
+          "deathsDelta": 1,
+          "crowdedRepeatBefore": 0.856,
+          "crowdedRepeatAfter": 0.8173076923076923
+        },
+        {
+          "seed": 101,
+          "holdingBefore": 2714.5244444444443,
+          "holdingAfter": 3193.8033333333333,
+          "holdingDelta": 479.278888888889,
+          "holdingPercent": 17.65609036491762,
+          "deathsBefore": 12,
+          "deathsAfter": 9,
+          "deathsDelta": -3,
+          "crowdedRepeatBefore": 0.7482993197278912,
+          "crowdedRepeatAfter": 0.7058823529411765
+        },
+        {
+          "seed": 137,
+          "holdingBefore": 3038.409722222222,
+          "holdingAfter": 3190.077222222222,
+          "holdingDelta": 151.66750000000002,
+          "holdingPercent": 4.991673732832647,
+          "deathsBefore": 7,
+          "deathsAfter": 10,
+          "deathsDelta": 3,
+          "crowdedRepeatBefore": 0.7753623188405797,
+          "crowdedRepeatAfter": 0.8064516129032258
+        }
+      ]
+    },
+    {
+      "from": "B-quiet",
+      "to": "B-quiet+C",
+      "holdingPercent": -1.4022902579913343,
+      "deathPercent": -8.536585365853655,
+      "holdingSignal": {
+        "positive": 4,
+        "negative": 4,
+        "tied": 0,
+        "total": -359.556111111111,
+        "leaveOneOut": [
+          -385.0669444444443,
+          -555.1983333333333,
+          -405.8699999999999,
+          -403.955833333333,
+          -215.12000000000035,
+          -276.76972222222184,
+          -165.10388888888883,
+          -109.80805555555571
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "deathSignal": {
+        "positive": 2,
+        "negative": 5,
+        "tied": 1,
+        "total": -7,
+        "leaveOneOut": [
+          -7,
+          -6,
+          -6,
+          -5,
+          -3,
+          -6,
+          -8,
+          -8
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "crowdedRepeatSignal": {
+        "positive": 0,
+        "negative": 8,
+        "tied": 0,
+        "total": -4.16045824141155,
+        "leaveOneOut": [
+          -3.754806067498506,
+          -3.694188781484584,
+          -3.5866103339046287,
+          -3.539945420898729,
+          -3.6807899696084463,
+          -3.611191786217259,
+          -3.6340630679575527,
+          -3.6216122623111406
+        ],
+        "direction": "DECREASE"
+      },
+      "newMediumLosses": [
+        10,
+        13,
+        16
+      ],
+      "recoveredMedium": [
+        5
+      ],
+      "paired": [
+        {
+          "seed": 4,
+          "holdingBefore": 3400.7608333333333,
+          "holdingAfter": 3426.2716666666665,
+          "holdingDelta": 25.510833333333267,
+          "holdingPercent": 0.7501507628317361,
+          "deathsBefore": 10,
+          "deathsAfter": 10,
+          "deathsDelta": 0,
+          "crowdedRepeatBefore": 0.71,
+          "crowdedRepeatAfter": 0.30434782608695654
+        },
+        {
+          "seed": 19,
+          "holdingBefore": 3181.8655555555556,
+          "holdingAfter": 3377.507777777778,
+          "holdingDelta": 195.64222222222224,
+          "holdingPercent": 6.1486640087803135,
+          "deathsBefore": 9,
+          "deathsAfter": 8,
+          "deathsDelta": -1,
+          "crowdedRepeatBefore": 0.768595041322314,
+          "crowdedRepeatAfter": 0.3023255813953488
+        },
+        {
+          "seed": 73,
+          "holdingBefore": 3208.8597222222224,
+          "holdingAfter": 3255.1736111111113,
+          "holdingDelta": 46.31388888888887,
+          "holdingPercent": 1.4433129802512878,
+          "deathsBefore": 9,
+          "deathsAfter": 8,
+          "deathsDelta": -1,
+          "crowdedRepeatBefore": 0.8202247191011236,
+          "crowdedRepeatAfter": 0.2463768115942029
+        },
+        {
+          "seed": 11,
+          "holdingBefore": 3048.938611111111,
+          "holdingAfter": 3093.338333333333,
+          "holdingDelta": 44.39972222222195,
+          "holdingPercent": 1.4562353620508395,
+          "deathsBefore": 12,
+          "deathsAfter": 10,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.8205128205128205,
+          "crowdedRepeatAfter": 0.2
+        },
+        {
+          "seed": 31,
+          "holdingBefore": 3178.545833333333,
+          "holdingAfter": 3034.1097222222224,
+          "holdingDelta": -144.43611111111068,
+          "holdingPercent": -4.544094019233979,
+          "deathsBefore": 11,
+          "deathsAfter": 7,
+          "deathsDelta": -4,
+          "crowdedRepeatBefore": 0.7415730337078652,
+          "crowdedRepeatAfter": 0.2619047619047619
+        },
+        {
+          "seed": 47,
+          "holdingBefore": 3237.782777777778,
+          "holdingAfter": 3154.9963888888888,
+          "holdingDelta": -82.78638888888918,
+          "holdingPercent": -2.5568852072809123,
+          "deathsBefore": 12,
+          "deathsAfter": 11,
+          "deathsDelta": -1,
+          "crowdedRepeatBefore": 0.8173076923076923,
+          "crowdedRepeatAfter": 0.26804123711340205
+        },
+        {
+          "seed": 101,
+          "holdingBefore": 3193.8033333333333,
+          "holdingAfter": 2999.351111111111,
+          "holdingDelta": -194.4522222222222,
+          "holdingPercent": -6.088421919807907,
+          "deathsBefore": 9,
+          "deathsAfter": 10,
+          "deathsDelta": 1,
+          "crowdedRepeatBefore": 0.7058823529411765,
+          "crowdedRepeatAfter": 0.1794871794871795
+        },
+        {
+          "seed": 137,
+          "holdingBefore": 3190.077222222222,
+          "holdingAfter": 2940.329166666667,
+          "holdingDelta": -249.7480555555553,
+          "holdingPercent": -7.82890313174236,
+          "deathsBefore": 10,
+          "deathsAfter": 11,
+          "deathsDelta": 1,
+          "crowdedRepeatBefore": 0.8064516129032258,
+          "crowdedRepeatAfter": 0.2676056338028169
+        }
+      ]
+    },
+    {
+      "from": "master",
+      "to": "B-quiet+C",
+      "holdingPercent": 2.8354995364814783,
+      "deathPercent": -5.063291139240511,
+      "holdingSignal": {
+        "positive": 5,
+        "negative": 3,
+        "tied": 0,
+        "total": 697.0791666666673,
+        "leaveOneOut": [
+          51.89138888888965,
+          677.4305555555561,
+          646.1850000000004,
+          865.9852777777787,
+          630.1358333333337,
+          800.5138888888896,
+          412.2525000000005,
+          795.1597222222226
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "deathSignal": {
+        "positive": 2,
+        "negative": 5,
+        "tied": 1,
+        "total": -4,
+        "leaveOneOut": [
+          -2,
+          -1,
+          -3,
+          -6,
+          -2,
+          -4,
+          -2,
+          -8
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "crowdedRepeatSignal": {
+        "positive": 0,
+        "negative": 8,
+        "tied": 0,
+        "total": -4.32901940928714,
+        "leaveOneOut": [
+          -3.7809082189806538,
+          -3.9040722634097613,
+          -3.747810013984791,
+          -3.731400361668092,
+          -3.8164143672703332,
+          -3.741060646400542,
+          -3.760207269046428,
+          -3.821262724249377
+        ],
+        "direction": "DECREASE"
+      },
+      "newMediumLosses": [
+        10,
+        13,
+        16
+      ],
+      "recoveredMedium": [
+        5
+      ],
+      "paired": [
+        {
+          "seed": 4,
+          "holdingBefore": 2781.083888888889,
+          "holdingAfter": 3426.2716666666665,
+          "holdingDelta": 645.1877777777777,
+          "holdingPercent": 23.199148373605727,
+          "deathsBefore": 12,
+          "deathsAfter": 10,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.8524590163934426,
+          "crowdedRepeatAfter": 0.30434782608695654
+        },
+        {
+          "seed": 19,
+          "holdingBefore": 3357.8591666666666,
+          "holdingAfter": 3377.507777777778,
+          "holdingDelta": 19.648611111111222,
+          "holdingPercent": 0.5851529244037978,
+          "deathsBefore": 11,
+          "deathsAfter": 8,
+          "deathsDelta": -3,
+          "crowdedRepeatBefore": 0.7272727272727273,
+          "crowdedRepeatAfter": 0.3023255813953488
+        },
+        {
+          "seed": 73,
+          "holdingBefore": 3204.2794444444444,
+          "holdingAfter": 3255.1736111111113,
+          "holdingDelta": 50.89416666666693,
+          "holdingPercent": 1.5883186079449718,
+          "deathsBefore": 9,
+          "deathsAfter": 8,
+          "deathsDelta": -1,
+          "crowdedRepeatBefore": 0.8275862068965517,
+          "crowdedRepeatAfter": 0.2463768115942029
+        },
+        {
+          "seed": 11,
+          "holdingBefore": 3262.2444444444445,
+          "holdingAfter": 3093.338333333333,
+          "holdingDelta": -168.9061111111114,
+          "holdingPercent": -5.177604375991995,
+          "deathsBefore": 8,
+          "deathsAfter": 10,
+          "deathsDelta": 2,
+          "crowdedRepeatBefore": 0.7976190476190477,
+          "crowdedRepeatAfter": 0.2
+        },
+        {
+          "seed": 31,
+          "holdingBefore": 2967.166388888889,
+          "holdingAfter": 3034.1097222222224,
+          "holdingDelta": 66.94333333333361,
+          "holdingPercent": 2.2561368174031537,
+          "deathsBefore": 9,
+          "deathsAfter": 7,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.7745098039215687,
+          "crowdedRepeatAfter": 0.2619047619047619
+        },
+        {
+          "seed": 47,
+          "holdingBefore": 3258.431111111111,
+          "holdingAfter": 3154.9963888888888,
+          "holdingDelta": -103.43472222222226,
+          "holdingPercent": -3.1743719199560316,
+          "deathsBefore": 11,
+          "deathsAfter": 11,
+          "deathsDelta": 0,
+          "crowdedRepeatBefore": 0.856,
+          "crowdedRepeatAfter": 0.26804123711340205
+        },
+        {
+          "seed": 101,
+          "holdingBefore": 2714.5244444444443,
+          "holdingAfter": 2999.351111111111,
+          "holdingDelta": 284.8266666666668,
+          "holdingPercent": 10.49269116915097,
+          "deathsBefore": 12,
+          "deathsAfter": 10,
+          "deathsDelta": -2,
+          "crowdedRepeatBefore": 0.7482993197278912,
+          "crowdedRepeatAfter": 0.1794871794871795
+        },
+        {
+          "seed": 137,
+          "holdingBefore": 3038.409722222222,
+          "holdingAfter": 2940.329166666667,
+          "holdingDelta": -98.08055555555529,
+          "holdingPercent": -3.228022700105815,
+          "deathsBefore": 7,
+          "deathsAfter": 11,
+          "deathsDelta": 4,
+          "crowdedRepeatBefore": 0.7753623188405797,
+          "crowdedRepeatAfter": 0.2676056338028169
+        }
+      ]
+    }
+  ],
+  "expandedB": {
+    "baselineCuts": 155,
+    "candidateCuts": 155,
+    "lost": [],
+    "gained": [],
+    "observerEquivalentChecks": 44,
+    "legacy16": {
+      "cuts": 13,
+      "failures": [
+        5,
+        6,
+        14
+      ]
+    },
+    "byLayout": [
+      {
+        "matchSeed": 13,
+        "distance": 5,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "matchSeed": 17,
+        "distance": 5,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "matchSeed": 44,
+        "distance": 5,
+        "cases": 128,
+        "before": 56,
+        "after": 56
+      },
+      {
+        "matchSeed": 115,
+        "distance": 5,
+        "cases": 128,
+        "before": 99,
+        "after": 99
+      },
+      {
+        "matchSeed": 6,
+        "distance": 12,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "matchSeed": 11,
+        "distance": 12,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "matchSeed": 16,
+        "distance": 12,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      },
+      {
+        "matchSeed": 2,
+        "distance": 17,
+        "cases": 128,
+        "before": 0,
+        "after": 0
+      }
+    ],
+    "byRole": [
+      {
+        "role": "DEFEND",
+        "cases": 256,
+        "before": 38,
+        "after": 38
+      },
+      {
+        "role": "ATTACK",
+        "cases": 256,
+        "before": 40,
+        "after": 40
+      },
+      {
+        "role": "EXPAND",
+        "cases": 256,
+        "before": 43,
+        "after": 43
+      },
+      {
+        "role": "SEEK_POINT",
+        "cases": 256,
+        "before": 34,
+        "after": 34
+      }
+    ]
+  },
+  "expandedC": {
+    "baselineCuts": 155,
+    "candidateCuts": 164,
+    "lost": [
+      "L44/M2/DEFEND/R3",
+      "L44/M5/DEFEND/R4",
+      "L44/M5/ATTACK/R1",
+      "L44/M5/EXPAND/R1",
+      "L44/M5/SEEK_POINT/R1",
+      "L44/M6/ATTACK/R3",
+      "L44/M6/EXPAND/R3",
+      "L44/M7/DEFEND/R3",
+      "L44/M7/ATTACK/R3",
+      "L44/M8/EXPAND/R1",
+      "L115/M3/DEFEND/R1",
+      "L115/M3/DEFEND/R2",
+      "L115/M3/ATTACK/R1",
+      "L115/M3/ATTACK/R2",
+      "L115/M3/EXPAND/R1",
+      "L115/M3/EXPAND/R2",
+      "L115/M3/SEEK_POINT/R1",
+      "L115/M3/SEEK_POINT/R2",
+      "L115/M4/ATTACK/R1",
+      "L115/M4/EXPAND/R1",
+      "L115/M4/SEEK_POINT/R1",
+      "L115/M4/SEEK_POINT/R4",
+      "L115/M5/ATTACK/R1",
+      "L115/M5/EXPAND/R1",
+      "L115/M6/DEFEND/R1",
+      "L115/M6/ATTACK/R1",
+      "L115/M6/EXPAND/R1",
+      "L115/M6/SEEK_POINT/R1",
+      "L115/M7/EXPAND/R2",
+      "L115/M7/SEEK_POINT/R1",
+      "L115/M7/SEEK_POINT/R4",
+      "L115/M8/DEFEND/R1",
+      "L115/M8/DEFEND/R4",
+      "L115/M8/EXPAND/R1",
+      "L115/M8/SEEK_POINT/R1",
+      "L115/M8/SEEK_POINT/R2",
+      "L115/M8/SEEK_POINT/R4"
+    ],
+    "gained": [
+      "L44/M1/DEFEND/R1",
+      "L44/M1/DEFEND/R2",
+      "L44/M1/DEFEND/R3",
+      "L44/M1/ATTACK/R1",
+      "L44/M1/EXPAND/R1",
+      "L44/M1/SEEK_POINT/R1",
+      "L44/M2/DEFEND/R1",
+      "L44/M2/DEFEND/R2",
+      "L44/M2/ATTACK/R2",
+      "L44/M2/EXPAND/R2",
+      "L44/M2/SEEK_POINT/R1",
+      "L44/M2/SEEK_POINT/R4",
+      "L44/M3/DEFEND/R1",
+      "L44/M3/DEFEND/R2",
+      "L44/M3/DEFEND/R3",
+      "L44/M3/DEFEND/R4",
+      "L44/M3/ATTACK/R1",
+      "L44/M3/EXPAND/R1",
+      "L44/M3/SEEK_POINT/R1",
+      "L44/M4/DEFEND/R3",
+      "L44/M4/DEFEND/R4",
+      "L44/M4/ATTACK/R3",
+      "L44/M4/ATTACK/R4",
+      "L44/M4/EXPAND/R3",
+      "L44/M4/EXPAND/R4",
+      "L44/M4/SEEK_POINT/R1",
+      "L44/M4/SEEK_POINT/R4",
+      "L44/M6/DEFEND/R2",
+      "L44/M6/SEEK_POINT/R2",
+      "L44/M7/DEFEND/R1",
+      "L44/M7/ATTACK/R2",
+      "L44/M7/EXPAND/R2",
+      "L44/M7/SEEK_POINT/R1",
+      "L44/M7/SEEK_POINT/R3",
+      "L44/M8/DEFEND/R1",
+      "L44/M8/DEFEND/R2",
+      "L44/M8/ATTACK/R2",
+      "L44/M8/SEEK_POINT/R1",
+      "L115/M1/SEEK_POINT/R1",
+      "L115/M2/DEFEND/R2",
+      "L115/M2/SEEK_POINT/R1",
+      "L115/M2/SEEK_POINT/R2",
+      "L115/M4/DEFEND/R2",
+      "L115/M5/DEFEND/R2",
+      "L115/M5/SEEK_POINT/R2",
+      "L115/M7/ATTACK/R1"
+    ],
+    "observerEquivalentChecks": 44,
+    "legacy16": {
+      "cuts": 11,
+      "failures": [
+        6,
+        10,
+        13,
+        14,
+        16
+      ]
+    },
+    "byRole": [
+      {
+        "role": "DEFEND",
+        "cases": 256,
+        "before": 38,
+        "after": 48
+      },
+      {
+        "role": "ATTACK",
+        "cases": 256,
+        "before": 40,
+        "after": 40
+      },
+      {
+        "role": "EXPAND",
+        "cases": 256,
+        "before": 43,
+        "after": 39
+      },
+      {
+        "role": "SEEK_POINT",
+        "cases": 256,
+        "before": 34,
+        "after": 37
+      }
+    ]
+  },
+  "checks": [
+    {
+      "root": "bot-open-space-quiet-exploration",
+      "probe": {
+        "ticks": 450,
+        "seed": 19,
+        "allEqual": true,
+        "rankChecks": 68
+      },
+      "recovery": [
+        {
+          "arm": "baseline",
+          "arrived": true,
+          "arrivalTick": 103,
+          "captureTick": 190,
+          "cells": 5,
+          "deaths": 0
+        },
+        {
+          "arm": "candidate",
+          "arrived": true,
+          "arrivalTick": 103,
+          "captureTick": 190,
+          "cells": 5,
+          "deaths": 0
+        }
+      ]
+    },
+    {
+      "root": "bot-crowded-shape-exploration",
+      "probe": {
+        "ticks": 450,
+        "seed": 19,
+        "allEqual": true,
+        "rankChecks": 68
+      },
+      "recovery": [
+        {
+          "arm": "baseline",
+          "arrived": true,
+          "arrivalTick": 103,
+          "captureTick": 190,
+          "cells": 5,
+          "deaths": 0
+        },
+        {
+          "arm": "candidate",
+          "arrived": true,
+          "arrivalTick": 103,
+          "captureTick": 190,
+          "cells": 5,
+          "deaths": 0
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "bExplorationPass": true,
+    "cExplorationPass": false,
+    "finalExplorationCandidate": "B-quiet",
+    "notAdopted": true
+  },
+  "scope": "Expanded1024 added to this exploration for both revised B and C. No240s/cost/full-suite/user-play. No safety thresholds changed. No nickname application,master modification or push."
+}

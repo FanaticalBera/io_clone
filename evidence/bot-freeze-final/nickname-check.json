@@ -1,0 +1,28 @@
+{
+  "total": 288,
+  "legacyRetained": 48,
+  "activeDefault": 268,
+  "japanese": 20,
+  "japaneseIndices": [
+    229,
+    248
+  ],
+  "japaneseDefaultEnabled": false,
+  "sharedFlag": "BOT_NICKNAME_FLAGS.japanese (src/shared/bot-roster.ts)",
+  "perRosterOverride": "BotAssignmentOptions.japaneseNicknames",
+  "maxCodePoints": 10,
+  "normalizedUnique": true,
+  "similarPairs": [],
+  "clipped": [],
+  "fontSource": "Bundled @fontsource Jua/Gothic A1/Lilita One; no external font downloads",
+  "viewport": "1280x720 desktop",
+  "realDeviceJapaneseVerified": false,
+  "retained": 48,
+  "added": 240,
+  "nearEditPairs": [],
+  "score": "100.0%,rank14,99kills,bot label",
+  "juaLoaded": true,
+  "rankMaxWidth": 78,
+  "miniMaxWidth": 72,
+  "minimumMiniAvailable": 76
+}

@@ -12,3 +12,9 @@ export function expansionSides(shape:ExpansionShape,d:number,length:number,width
  return [leg(0,length),leg(1,width),leg(3,length),leg(4,width)];
 }
 export const EXPANSION_SHAPES:readonly ExpansionShape[]=['RHOMBUS','WIDE','DEEP','ASYMMETRIC','HOOK','NATURAL'];
+const CROWDED_SHAPES:readonly ExpansionShape[]=['RHOMBUS','NATURAL','BEVEL','HOOK'];
+const CROWDED_DEFENDER_SHAPES:readonly ExpansionShape[]=['RHOMBUS','NATURAL','BEVEL'];
+export function crowdedExpansionShape(defender:boolean,index:number):ExpansionShape {
+ const shapes=defender?CROWDED_DEFENDER_SHAPES:CROWDED_SHAPES;
+ return shapes[index%shapes.length];
+}

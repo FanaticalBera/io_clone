@@ -54,5 +54,9 @@ for(const layout of protocol.axes.layouts){const seed=layout.minimumMatchSeed;
  writeFileSync(resolve(root,'results.json'),JSON.stringify({protocol:'protocol.json',results,observerChecks},null,2));
 }
 assert.equal(results.length,1024);assert.equal(observerChecks.length,44);
-const legacy=results.filter(r=>r.matchSeed===115&&r.memorySeed===7);assert.equal(legacy.filter(r=>r.cut).length,13);
-writeFileSync(resolve(root,'results.json'),JSON.stringify({protocol:'protocol.json',results,observerChecks,legacy16:{cuts:13,failures:legacy.map((r,i)=>r.cut?null:i+1).filter(v=>v!==null)}},null,2)+'\n');
+const legacy=results.filter(r=>r.matchSeed===115&&r.memorySeed===7),legacyCuts=legacy.filter(r=>r.cut).length;
+// A candidate's expected result comes from its separate legacy audit. Keep the
+// baseline default pinned at 13; record failures rather than rewriting fixtures.
+const expectedLegacy=Number(process.argv.find(v=>v.startsWith('--expected-legacy='))?.slice(18)??13);
+assert.equal(legacyCuts,expectedLegacy);
+writeFileSync(resolve(root,'results.json'),JSON.stringify({protocol:'protocol.json',results,observerChecks,legacy16:{cuts:legacyCuts,failures:legacy.map((r,i)=>r.cut?null:i+1).filter(v=>v!==null)}},null,2)+'\n');

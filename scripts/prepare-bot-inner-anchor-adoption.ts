@@ -1,0 +1,22 @@
+import {readFileSync,writeFileSync,mkdirSync,existsSync,readdirSync,copyFileSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const root=resolve('../bot-inner-anchor-adoption');
+if(existsSync(root))throw Error('Preserve prior adoption evidence');
+mkdirSync(resolve(root,'candidate/src/shared'),{recursive:true});
+writeFileSync(resolve(root,'candidate/package.json'),'{"type":"module"}\n');
+const oldRoot=resolve('../bot-space-shape-adoption');
+const oldProtocol=JSON.parse(readFileSync(resolve(oldRoot,'protocol.json'),'utf8'));
+const baseline=oldProtocol.arms.find((a:any)=>a.name==='candidate');
+const digest=(file:string)=>createHash('sha256').update(readFileSync(file)).digest('hex');
+for(const [f,h]of Object.entries(baseline.sourceHashes))assert.equal(digest(resolve(baseline.source,f)),h);
+const hashes:Record<string,string>={};
+for(const file of readdirSync('src/shared').filter(f=>f.endsWith('.ts'))){const relative='src/shared/'+file;copyFileSync(relative,resolve(root,'candidate',relative));hashes[relative]=digest(relative);}
+const changed=Object.keys(hashes).filter(f=>hashes[f]!==baseline.sourceHashes[f]);
+assert.deepEqual(changed.sort(),['src/shared/bot-inner-anchor.ts','src/shared/bot-strategy.ts']);
+const arms=[{...baseline,name:'baseline'},{name:'candidate',source:resolve(root,'candidate'),sourceHashes:hashes}];
+const reports=oldProtocol.seeds.map((seed:number)=>{const r=JSON.parse(readFileSync(resolve(oldRoot,'candidate-seed-'+seed+'.json'),'utf8'));writeFileSync(resolve(root,'baseline-seed-'+seed+'.json'),JSON.stringify({...r,arm:'baseline'})+'\n');return {seed,deaths:r.checkpoints[0].deaths,trajectoryHash:r.checkpoints[0].trajectoryHash};});
+writeFileSync(resolve(root,'baseline.json'),JSON.stringify({reports})+'\n');
+writeFileSync(resolve(root,'protocol.json'),JSON.stringify({date:'2026-10-14',candidateCommit:'82ed5a2',baselineCommit:'67e7807',seeds:oldProtocol.seeds,ticks:7200,config:oldProtocol.config,arms,changedSourceFiles:changed,baselineEvidence:{root:oldRoot,reused:true,reason:'Byte-identical frozen B-quiet+C source, same deterministic configuration and seeds; reuse existing 240s trajectories and results instead of repeating identical gameplay. Cost is freshly paired in one session.'},cost:oldProtocol.cost,recheck:oldProtocol.recheck,knownCosts:{medium16:11,expandedOriginal:155,expandedPreviousCandidate:164,expandedReportedCandidate:163,newExpectedFailure:'SEEK_POINT normal-role memory seed2; replacement seed5 with unchanged actual-cut assertions'},scope:'240s fixed8seed + observer-free fresh paired cost + complete tests/typecheck/build; no nickname changes/master merge/push. Remote damage and HOME_CAPTURE strategy issues remain open.'},null,2)+'\n');
+console.log(root);

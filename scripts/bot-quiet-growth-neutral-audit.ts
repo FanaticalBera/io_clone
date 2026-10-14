@@ -4,13 +4,15 @@ import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const root=resolve(process.argv.find(v=>v.startsWith('--root='))?.slice(7)??'../bot-quiet-growth-review'),protocol=JSON.parse(readFileSync(resolve(root,'protocol.json'),'utf8'));
-const arm=process.argv.find(v=>v.startsWith('--arm='))?.slice(6)??'candidate',source=arm==='baseline'?protocol.native:protocol.candidate;
+const arm=process.argv.find(v=>v.startsWith('--arm='))?.slice(6)??'candidate',source=protocol.arms?protocol[arm]:arm==='baseline'?protocol.native:protocol.candidate;
+const ticks=Number(process.argv.find(v=>v.startsWith('--ticks='))?.slice(8)??7200);
+const reference=process.argv.find(v=>v.startsWith('--reference='))?.slice(12)??arm;
 const load=(f:string)=>import(pathToFileURL(resolve(source,'src/shared',f+'.ts')).href);
 const [game,bot,identity,director,respawn,random]=await Promise.all(['game','bot','bot-identity','bot-director','safe-bot-respawn','random'].map(load));
 const hashMemory=(memories:Map<string,any>)=>createHash('sha256').update(JSON.stringify([...memories].map(([id,m])=>[id,{...m,random:undefined}]),(_k,v)=>v instanceof Map?[...v]:v instanceof Set?[...v]:ArrayBuffer.isView(v)?Array.from(v as Uint8Array):v)).digest('hex');
 const reports=[];
 for(const seed of protocol.seeds){
- const ref=JSON.parse(readFileSync(resolve(root,arm+'-seed-'+seed+'.json'),'utf8'));
+ const ref=JSON.parse(readFileSync(resolve(root,reference+'-seed-'+seed+'.json'),'utf8'));
  const m=game.createMatch({mapRadius:56,spawnRadius:1,maxSlots:14},seed,bot.botSpecs(14,0,'bot',{seed}));respawn.setSafeBotRespawn(m,true);
  const memories=new Map<string,any>(m.participants.map((p:any)=>[p.participantId,bot.createBotMemory(identity.botSeed(seed,p.slot),'combined',identity.createBotIdentity(identity.botSeed(seed,p.slot),p.personality))]));
  const draws=new Map<string,number>();for(const [id,memory]of memories){const actual=memory.random;draws.set(id,0);memory.random=()=>{draws.set(id,draws.get(id)!+1);return actual();};}
@@ -18,7 +20,7 @@ for(const seed of protocol.seeds){
  const roles=new Map<string,any>(identity.BOT_PERSONALITIES.map((personality:string)=>[personality,{personality,aliveFrames:0,goalFrames:{},captured:0,stolen:0,reclaimed:0}]));
  const lost=new Map<string,Map<number,number>>(m.participants.map((p:any)=>[p.participantId,new Map()])),trajectory=createHash('sha256'),checkpoints=[];
  let holdingSum=0,spawnGrants=0;
- for(let t=0;t<7200;t++){
+ for(let t=0;t<ticks;t++){
   const owners=m.owners.slice(),before=m.eventCounter,lives=new Map(m.participants.map((p:any)=>[p.participantId,p.lifeId])),inputs=director.getBotInputs(m,memories);
   for(const p of m.participants)if(p.lifeState==='ALIVE'){const r=roles.get(p.personality),goal=memories.get(p.participantId).goal;r.aliveFrames++;r.goalFrames[goal]=(r.goalFrames[goal]??0)+1;}
   trajectory.update(JSON.stringify([...inputs]));game.stepMatch(m,inputs);

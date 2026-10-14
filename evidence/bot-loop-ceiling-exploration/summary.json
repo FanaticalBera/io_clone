@@ -1,0 +1,2082 @@
+{
+  "protocol": "Corrected4 sources and combinations fixed before corrected outcomes;120s primary,180s censored human fixture; same-session identical baseline reused; no adoption cost/fulltests/1024/240s performed.",
+  "baselineCommit": "c8f825d5e0eaf9a96a730a950945344380433307",
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "summaries": [
+    {
+      "arm": "baseline",
+      "combination": {
+        "path": 24,
+        "trailScale": 1,
+        "dimensionScale": 1
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 2781.083888888889,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 4004,
+          "deaths": 12,
+          "deathDifference": 0,
+          "deathLoss": 3177,
+          "captures": 566,
+          "capture": {
+            "count": 566,
+            "total": 8956,
+            "mean": 15.823321554770319,
+            "median": 15,
+            "p90": 35,
+            "maximum": 69
+          }
+        },
+        {
+          "seed": 19,
+          "holding": 3357.8591666666666,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 4047,
+          "deaths": 11,
+          "deathDifference": 0,
+          "deathLoss": 2958,
+          "captures": 607,
+          "capture": {
+            "count": 607,
+            "total": 8520,
+            "mean": 14.036243822075782,
+            "median": 12,
+            "p90": 31,
+            "maximum": 105
+          }
+        },
+        {
+          "seed": 73,
+          "holding": 3204.2794444444444,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 5076,
+          "deaths": 9,
+          "deathDifference": 0,
+          "deathLoss": 2318,
+          "captures": 638,
+          "capture": {
+            "count": 638,
+            "total": 8591,
+            "mean": 13.46551724137931,
+            "median": 9,
+            "p90": 31,
+            "maximum": 73
+          }
+        },
+        {
+          "seed": 11,
+          "holding": 3262.2444444444445,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 4804,
+          "deaths": 8,
+          "deathDifference": 0,
+          "deathLoss": 1960,
+          "captures": 628,
+          "capture": {
+            "count": 628,
+            "total": 8822,
+            "mean": 14.047770700636942,
+            "median": 11,
+            "p90": 31,
+            "maximum": 77
+          }
+        },
+        {
+          "seed": 31,
+          "holding": 2967.166388888889,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 4479,
+          "deaths": 9,
+          "deathDifference": 0,
+          "deathLoss": 2469,
+          "captures": 630,
+          "capture": {
+            "count": 630,
+            "total": 8527,
+            "mean": 13.534920634920635,
+            "median": 8,
+            "p90": 32,
+            "maximum": 57
+          }
+        },
+        {
+          "seed": 47,
+          "holding": 3258.431111111111,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 3907,
+          "deaths": 11,
+          "deathDifference": 0,
+          "deathLoss": 2422,
+          "captures": 599,
+          "capture": {
+            "count": 599,
+            "total": 9101,
+            "mean": 15.193656093489148,
+            "median": 10,
+            "p90": 36,
+            "maximum": 93
+          }
+        },
+        {
+          "seed": 101,
+          "holding": 2714.5244444444443,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 3761,
+          "deaths": 12,
+          "deathDifference": 0,
+          "deathLoss": 2673,
+          "captures": 643,
+          "capture": {
+            "count": 643,
+            "total": 8276,
+            "mean": 12.870917573872473,
+            "median": 7,
+            "p90": 30,
+            "maximum": 75
+          }
+        },
+        {
+          "seed": 137,
+          "holding": 3038.409722222222,
+          "holdingDifference": 0,
+          "holdingPercent": 0,
+          "final": 4309,
+          "deaths": 7,
+          "deathDifference": 0,
+          "deathLoss": 1901,
+          "captures": 671,
+          "capture": {
+            "count": 671,
+            "total": 8108,
+            "mean": 12.083457526080476,
+            "median": 6,
+            "p90": 26,
+            "maximum": 78
+          }
+        }
+      ],
+      "holdingMean": 3072.999826388889,
+      "holdingPercent": 0,
+      "holdingDirection": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 8,
+        "sum": 0,
+        "signal": "INCONCLUSIVE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deaths": 79,
+      "deathPercent": 0,
+      "deathDirection": {
+        "increase": 0,
+        "decrease": 0,
+        "equal": 8,
+        "sum": 0,
+        "signal": "INCONCLUSIVE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deathLoss": 19878,
+      "captures": {
+        "count": 4982,
+        "total": 68901,
+        "mean": 13.829987956643919,
+        "median": 10,
+        "p90": 32,
+        "maximum": 105,
+        "bins": [
+          {
+            "range": "0..3",
+            "count": 1373
+          },
+          {
+            "range": "4..7",
+            "count": 984
+          },
+          {
+            "range": "8..15",
+            "count": 601
+          },
+          {
+            "range": "16..31",
+            "count": 1515
+          },
+          {
+            "range": "32..63",
+            "count": 490
+          },
+          {
+            "range": "64..127",
+            "count": 19
+          },
+          {
+            "range": "128..∞",
+            "count": 0
+          }
+        ]
+      },
+      "byPersonality": [
+        {
+          "role": "DEFEND",
+          "distribution": {
+            "count": 1583,
+            "total": 18012,
+            "mean": 11.378395451674036,
+            "median": 8,
+            "p90": 23,
+            "maximum": 50
+          }
+        },
+        {
+          "role": "ATTACK",
+          "distribution": {
+            "count": 1334,
+            "total": 16902,
+            "mean": 12.670164917541229,
+            "median": 10,
+            "p90": 27,
+            "maximum": 93
+          }
+        },
+        {
+          "role": "EXPAND",
+          "distribution": {
+            "count": 909,
+            "total": 18302,
+            "mean": 20.134213421342135,
+            "median": 11,
+            "p90": 46,
+            "maximum": 105
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "distribution": {
+            "count": 1156,
+            "total": 15685,
+            "mean": 13.568339100346021,
+            "median": 10,
+            "p90": 31,
+            "maximum": 53
+          }
+        }
+      ],
+      "by30Seconds": [
+        {
+          "start": 0,
+          "end": 900,
+          "distribution": {
+            "count": 1085,
+            "total": 19544,
+            "mean": 18.01290322580645,
+            "median": 18,
+            "p90": 37,
+            "maximum": 73
+          }
+        },
+        {
+          "start": 900,
+          "end": 1800,
+          "distribution": {
+            "count": 1306,
+            "total": 16804,
+            "mean": 12.86676875957121,
+            "median": 7,
+            "p90": 30,
+            "maximum": 105
+          }
+        },
+        {
+          "start": 1800,
+          "end": 2700,
+          "distribution": {
+            "count": 1290,
+            "total": 16396,
+            "mean": 12.710077519379844,
+            "median": 7,
+            "p90": 30,
+            "maximum": 93
+          }
+        },
+        {
+          "start": 2700,
+          "end": 3600,
+          "distribution": {
+            "count": 1301,
+            "total": 16157,
+            "mean": 12.41890853189854,
+            "median": 6,
+            "p90": 30,
+            "maximum": 71
+          }
+        }
+      ],
+      "quietPlans": {
+        "count": 0,
+        "completed": 0,
+        "gain": 0
+      },
+      "cache": {
+        "all": {
+          "decisions": 5647,
+          "calls": 128151,
+          "duplicates": 15264,
+          "duplicateRatio": 0.1191094880258445,
+          "pathDuplicates": 1141,
+          "selectedLarge": 0,
+          "selectedPath": {
+            "count": 5579,
+            "total": 69034,
+            "mean": 12.373902132998746,
+            "median": 13,
+            "p90": 19,
+            "maximum": 24
+          },
+          "selectedExternal": {
+            "count": 5579,
+            "total": 49477,
+            "mean": 8.868435203441477,
+            "median": 9,
+            "p90": 15,
+            "maximum": 20
+          }
+        },
+        "eligible": {
+          "decisions": 973,
+          "calls": 21900,
+          "duplicates": 2372,
+          "duplicateRatio": 0.10831050228310503,
+          "pathDuplicates": 181,
+          "selectedLarge": 0,
+          "selectedPath": {
+            "count": 972,
+            "total": 13841,
+            "mean": 14.239711934156379,
+            "median": 14,
+            "p90": 21,
+            "maximum": 24
+          },
+          "selectedExternal": {
+            "count": 972,
+            "total": 10083,
+            "mean": 10.373456790123457,
+            "median": 10,
+            "p90": 16,
+            "maximum": 20
+          }
+        }
+      },
+      "human": {
+        "perSeed": [
+          {
+            "seed": 4,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.10044899237757127,
+            "baselineLeadingBotShare": 0.10044899237757127,
+            "pairedDifference": 0
+          },
+          {
+            "seed": 19,
+            "reached180": false,
+            "endedTick": 1521,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 73,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.11297901221676934,
+            "baselineLeadingBotShare": 0.11297901221676934,
+            "pairedDifference": 0
+          },
+          {
+            "seed": 11,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08353346559465386,
+            "baselineLeadingBotShare": 0.08353346559465386,
+            "pairedDifference": 0
+          },
+          {
+            "seed": 31,
+            "reached180": false,
+            "endedTick": 4254,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 47,
+            "reached180": false,
+            "endedTick": 3104,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 101,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.10138874386551112,
+            "baselineLeadingBotShare": 0.10138874386551112,
+            "pairedDifference": 0
+          },
+          {
+            "seed": 137,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.05993526156416414,
+            "baselineLeadingBotShare": 0.05993526156416414,
+            "pairedDifference": 0
+          }
+        ],
+        "available": 5,
+        "target20": 0,
+        "availableMean": 0.09165709512373393,
+        "pairedSeeds": [
+          4,
+          73,
+          11,
+          101,
+          137
+        ]
+      },
+      "medium": {
+        "cuts": 13,
+        "failedIds": [
+          5,
+          6,
+          14
+        ],
+        "newLossIds": []
+      },
+      "observerFreeProof": true
+    },
+    {
+      "arm": "p32",
+      "combination": {
+        "path": 32,
+        "trailScale": 1.75,
+        "dimensionScale": 1.75
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3018.2605555555556,
+          "holdingDifference": 237.17666666666673,
+          "holdingPercent": 8.528209724785562,
+          "final": 4378,
+          "deaths": 13,
+          "deathDifference": 1,
+          "deathLoss": 3489,
+          "captures": 539,
+          "capture": {
+            "count": 539,
+            "total": 9150,
+            "mean": 16.975881261595546,
+            "median": 12,
+            "p90": 39,
+            "maximum": 116
+          }
+        },
+        {
+          "seed": 19,
+          "holding": 3151.1111111111113,
+          "holdingDifference": -206.7480555555553,
+          "holdingPercent": -6.157138977356014,
+          "final": 4715,
+          "deaths": 12,
+          "deathDifference": 1,
+          "deathLoss": 3210,
+          "captures": 557,
+          "capture": {
+            "count": 557,
+            "total": 9492,
+            "mean": 17.04129263913824,
+            "median": 14,
+            "p90": 41,
+            "maximum": 131
+          }
+        },
+        {
+          "seed": 73,
+          "holding": 3327.5844444444447,
+          "holdingDifference": 123.30500000000029,
+          "holdingPercent": 3.8481350374663936,
+          "final": 4738,
+          "deaths": 14,
+          "deathDifference": 5,
+          "deathLoss": 3511,
+          "captures": 551,
+          "capture": {
+            "count": 551,
+            "total": 9633,
+            "mean": 17.482758620689655,
+            "median": 13,
+            "p90": 43,
+            "maximum": 124
+          }
+        },
+        {
+          "seed": 11,
+          "holding": 3308.1805555555557,
+          "holdingDifference": 45.93611111111113,
+          "holdingPercent": 1.4081137049475112,
+          "final": 5374,
+          "deaths": 14,
+          "deathDifference": 6,
+          "deathLoss": 3174,
+          "captures": 560,
+          "capture": {
+            "count": 560,
+            "total": 9561,
+            "mean": 17.073214285714286,
+            "median": 10,
+            "p90": 41,
+            "maximum": 97
+          }
+        },
+        {
+          "seed": 31,
+          "holding": 3215.463333333333,
+          "holdingDifference": 248.2969444444443,
+          "holdingPercent": 8.368150346210413,
+          "final": 4464,
+          "deaths": 12,
+          "deathDifference": 3,
+          "deathLoss": 2920,
+          "captures": 572,
+          "capture": {
+            "count": 572,
+            "total": 9299,
+            "mean": 16.256993006993007,
+            "median": 10,
+            "p90": 38,
+            "maximum": 130
+          }
+        },
+        {
+          "seed": 47,
+          "holding": 3514.340277777778,
+          "holdingDifference": 255.9091666666668,
+          "holdingPercent": 7.853754090243847,
+          "final": 4968,
+          "deaths": 13,
+          "deathDifference": 2,
+          "deathLoss": 3433,
+          "captures": 486,
+          "capture": {
+            "count": 486,
+            "total": 10638,
+            "mean": 21.88888888888889,
+            "median": 17,
+            "p90": 50,
+            "maximum": 153
+          }
+        },
+        {
+          "seed": 101,
+          "holding": 3158.498611111111,
+          "holdingDifference": 443.97416666666686,
+          "holdingPercent": 16.355504463233174,
+          "final": 5093,
+          "deaths": 10,
+          "deathDifference": -2,
+          "deathLoss": 2503,
+          "captures": 594,
+          "capture": {
+            "count": 594,
+            "total": 9196,
+            "mean": 15.481481481481481,
+            "median": 7,
+            "p90": 39,
+            "maximum": 166
+          }
+        },
+        {
+          "seed": 137,
+          "holding": 3171.0363888888887,
+          "holdingDifference": 132.62666666666655,
+          "holdingPercent": 4.365002708379517,
+          "final": 4595,
+          "deaths": 13,
+          "deathDifference": 6,
+          "deathLoss": 3820,
+          "captures": 545,
+          "capture": {
+            "count": 545,
+            "total": 9760,
+            "mean": 17.908256880733944,
+            "median": 13,
+            "p90": 43,
+            "maximum": 143
+          }
+        }
+      ],
+      "holdingMean": 3233.059409722222,
+      "holdingPercent": 5.208577688773275,
+      "holdingDirection": {
+        "increase": 7,
+        "decrease": 1,
+        "equal": 0,
+        "sum": 1280.4766666666674,
+        "signal": "INCREASE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deaths": 101,
+      "deathPercent": 27.848101265822777,
+      "deathDirection": {
+        "increase": 7,
+        "decrease": 1,
+        "equal": 0,
+        "sum": 22,
+        "signal": "INCREASE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deathLoss": 26060,
+      "captures": {
+        "count": 4404,
+        "total": 76729,
+        "mean": 17.422570390554043,
+        "median": 12,
+        "p90": 41,
+        "maximum": 166,
+        "bins": [
+          {
+            "range": "0..3",
+            "count": 1147
+          },
+          {
+            "range": "4..7",
+            "count": 796
+          },
+          {
+            "range": "8..15",
+            "count": 487
+          },
+          {
+            "range": "16..31",
+            "count": 1209
+          },
+          {
+            "range": "32..63",
+            "count": 630
+          },
+          {
+            "range": "64..127",
+            "count": 129
+          },
+          {
+            "range": "128..∞",
+            "count": 6
+          }
+        ]
+      },
+      "byPersonality": [
+        {
+          "role": "DEFEND",
+          "distribution": {
+            "count": 1430,
+            "total": 20431,
+            "mean": 14.287412587412588,
+            "median": 9,
+            "p90": 33,
+            "maximum": 106
+          }
+        },
+        {
+          "role": "ATTACK",
+          "distribution": {
+            "count": 1181,
+            "total": 18589,
+            "mean": 15.740050804403047,
+            "median": 11,
+            "p90": 35,
+            "maximum": 130
+          }
+        },
+        {
+          "role": "EXPAND",
+          "distribution": {
+            "count": 758,
+            "total": 21087,
+            "mean": 27.819261213720317,
+            "median": 21,
+            "p90": 65,
+            "maximum": 166
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "distribution": {
+            "count": 1035,
+            "total": 16622,
+            "mean": 16.059903381642513,
+            "median": 13,
+            "p90": 34,
+            "maximum": 99
+          }
+        }
+      ],
+      "by30Seconds": [
+        {
+          "start": 0,
+          "end": 900,
+          "distribution": {
+            "count": 1085,
+            "total": 19544,
+            "mean": 18.01290322580645,
+            "median": 18,
+            "p90": 37,
+            "maximum": 73
+          }
+        },
+        {
+          "start": 900,
+          "end": 1800,
+          "distribution": {
+            "count": 1153,
+            "total": 18350,
+            "mean": 15.915004336513443,
+            "median": 8,
+            "p90": 41,
+            "maximum": 132
+          }
+        },
+        {
+          "start": 1800,
+          "end": 2700,
+          "distribution": {
+            "count": 1061,
+            "total": 20404,
+            "mean": 19.23091423185674,
+            "median": 10,
+            "p90": 49,
+            "maximum": 153
+          }
+        },
+        {
+          "start": 2700,
+          "end": 3600,
+          "distribution": {
+            "count": 1105,
+            "total": 18431,
+            "mean": 16.679638009049775,
+            "median": 7,
+            "p90": 43,
+            "maximum": 166
+          }
+        }
+      ],
+      "quietPlans": {
+        "count": 651,
+        "completed": 442,
+        "gain": 14984
+      },
+      "cache": {
+        "all": {
+          "decisions": 4947,
+          "calls": 112811,
+          "duplicates": 12293,
+          "duplicateRatio": 0.10896986995948976,
+          "pathDuplicates": 941,
+          "selectedLarge": 651,
+          "selectedPath": {
+            "count": 4877,
+            "total": 67658,
+            "mean": 13.87287266762354,
+            "median": 14,
+            "p90": 22,
+            "maximum": 32
+          },
+          "selectedExternal": {
+            "count": 4877,
+            "total": 49968,
+            "mean": 10.245642813204839,
+            "median": 10,
+            "p90": 18,
+            "maximum": 31
+          }
+        },
+        "eligible": {
+          "decisions": 651,
+          "calls": 16318,
+          "duplicates": 1336,
+          "duplicateRatio": 0.08187277852678024,
+          "pathDuplicates": 160,
+          "selectedLarge": 651,
+          "selectedPath": {
+            "count": 651,
+            "total": 14965,
+            "mean": 22.987711213517667,
+            "median": 23,
+            "p90": 31,
+            "maximum": 32
+          },
+          "selectedExternal": {
+            "count": 651,
+            "total": 11911,
+            "mean": 18.29646697388633,
+            "median": 19,
+            "p90": 27,
+            "maximum": 31
+          }
+        }
+      },
+      "human": {
+        "perSeed": [
+          {
+            "seed": 4,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.07611987052312832,
+            "baselineLeadingBotShare": 0.10044899237757127,
+            "pairedDifference": -0.024329121854442942
+          },
+          {
+            "seed": 19,
+            "reached180": false,
+            "endedTick": 1521,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 73,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.10828025477707007,
+            "baselineLeadingBotShare": 0.11297901221676934,
+            "pairedDifference": -0.004698757439699275
+          },
+          {
+            "seed": 11,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.09637673592983188,
+            "baselineLeadingBotShare": 0.08353346559465386,
+            "pairedDifference": 0.012843270335178028
+          },
+          {
+            "seed": 31,
+            "reached180": false,
+            "endedTick": 2274,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 47,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08708363788242665,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 101,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08457763391458703,
+            "baselineLeadingBotShare": 0.10138874386551112,
+            "pairedDifference": -0.016811109950924094
+          },
+          {
+            "seed": 137,
+            "reached180": false,
+            "endedTick": 3769,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": 0.05993526156416414,
+            "pairedDifference": null
+          }
+        ],
+        "available": 5,
+        "target20": 0,
+        "availableMean": 0.0904876266054088,
+        "pairedSeeds": [
+          4,
+          73,
+          11,
+          101
+        ]
+      },
+      "medium": {
+        "cuts": 13,
+        "failedIds": [
+          5,
+          6,
+          14
+        ],
+        "newLossIds": []
+      },
+      "observerFreeProof": true
+    },
+    {
+      "arm": "p40",
+      "combination": {
+        "path": 40,
+        "trailScale": 1.75,
+        "dimensionScale": 1.75
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3135.7347222222224,
+          "holdingDifference": 354.6508333333336,
+          "holdingPercent": 12.75225226934904,
+          "final": 4661,
+          "deaths": 10,
+          "deathDifference": -2,
+          "deathLoss": 2924,
+          "captures": 493,
+          "capture": {
+            "count": 493,
+            "total": 9857,
+            "mean": 19.993914807302232,
+            "median": 16,
+            "p90": 46,
+            "maximum": 121
+          }
+        },
+        {
+          "seed": 19,
+          "holding": 3316.7952777777778,
+          "holdingDifference": -41.06388888888887,
+          "holdingPercent": -1.2229187363343996,
+          "final": 4621,
+          "deaths": 12,
+          "deathDifference": 1,
+          "deathLoss": 3804,
+          "captures": 503,
+          "capture": {
+            "count": 503,
+            "total": 10157,
+            "mean": 20.192842942345923,
+            "median": 17,
+            "p90": 44,
+            "maximum": 178
+          }
+        },
+        {
+          "seed": 73,
+          "holding": 3373.4158333333335,
+          "holdingDifference": 169.1363888888891,
+          "holdingPercent": 5.278453138103689,
+          "final": 4768,
+          "deaths": 14,
+          "deathDifference": 5,
+          "deathLoss": 3376,
+          "captures": 569,
+          "capture": {
+            "count": 569,
+            "total": 9511,
+            "mean": 16.715289982425308,
+            "median": 8,
+            "p90": 40,
+            "maximum": 173
+          }
+        },
+        {
+          "seed": 11,
+          "holding": 3261.6286111111112,
+          "holdingDifference": -0.6158333333332848,
+          "holdingPercent": -0.01887759620166074,
+          "final": 4102,
+          "deaths": 14,
+          "deathDifference": 6,
+          "deathLoss": 4452,
+          "captures": 548,
+          "capture": {
+            "count": 548,
+            "total": 9815,
+            "mean": 17.91058394160584,
+            "median": 13,
+            "p90": 42,
+            "maximum": 129
+          }
+        },
+        {
+          "seed": 31,
+          "holding": 3015.5130555555556,
+          "holdingDifference": 48.346666666666806,
+          "holdingPercent": 1.629388457880565,
+          "final": 4553,
+          "deaths": 9,
+          "deathDifference": 0,
+          "deathLoss": 2699,
+          "captures": 551,
+          "capture": {
+            "count": 551,
+            "total": 9324,
+            "mean": 16.921960072595283,
+            "median": 13,
+            "p90": 39,
+            "maximum": 110
+          }
+        },
+        {
+          "seed": 47,
+          "holding": 3184.7336111111113,
+          "holdingDifference": -73.69749999999976,
+          "holdingPercent": -2.261747985056195,
+          "final": 5033,
+          "deaths": 15,
+          "deathDifference": 4,
+          "deathLoss": 3965,
+          "captures": 522,
+          "capture": {
+            "count": 522,
+            "total": 10272,
+            "mean": 19.67816091954023,
+            "median": 15,
+            "p90": 45,
+            "maximum": 174
+          }
+        },
+        {
+          "seed": 101,
+          "holding": 3041.658611111111,
+          "holdingDifference": 327.1341666666667,
+          "holdingPercent": 12.051251457181777,
+          "final": 4913,
+          "deaths": 11,
+          "deathDifference": -1,
+          "deathLoss": 2833,
+          "captures": 614,
+          "capture": {
+            "count": 614,
+            "total": 8896,
+            "mean": 14.488599348534201,
+            "median": 6,
+            "p90": 37,
+            "maximum": 116
+          }
+        },
+        {
+          "seed": 137,
+          "holding": 3214.5144444444445,
+          "holdingDifference": 176.10472222222234,
+          "holdingPercent": 5.795950458367516,
+          "final": 3830,
+          "deaths": 11,
+          "deathDifference": 4,
+          "deathLoss": 3373,
+          "captures": 597,
+          "capture": {
+            "count": 597,
+            "total": 9292,
+            "mean": 15.564489112227806,
+            "median": 8,
+            "p90": 37,
+            "maximum": 168
+          }
+        }
+      ],
+      "holdingMean": 3192.9992708333334,
+      "holdingPercent": 3.9049609900387416,
+      "holdingDirection": {
+        "increase": 5,
+        "decrease": 3,
+        "equal": 0,
+        "sum": 959.9955555555566,
+        "signal": "INCONCLUSIVE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deaths": 96,
+      "deathPercent": 21.518987341772156,
+      "deathDirection": {
+        "increase": 5,
+        "decrease": 2,
+        "equal": 1,
+        "sum": 17,
+        "signal": "INCONCLUSIVE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deathLoss": 27426,
+      "captures": {
+        "count": 4397,
+        "total": 77124,
+        "mean": 17.54014100523084,
+        "median": 12,
+        "p90": 41,
+        "maximum": 178,
+        "bins": [
+          {
+            "range": "0..3",
+            "count": 1200
+          },
+          {
+            "range": "4..7",
+            "count": 783
+          },
+          {
+            "range": "8..15",
+            "count": 458
+          },
+          {
+            "range": "16..31",
+            "count": 1220
+          },
+          {
+            "range": "32..63",
+            "count": 588
+          },
+          {
+            "range": "64..127",
+            "count": 138
+          },
+          {
+            "range": "128..∞",
+            "count": 10
+          }
+        ]
+      },
+      "byPersonality": [
+        {
+          "role": "DEFEND",
+          "distribution": {
+            "count": 1484,
+            "total": 19448,
+            "mean": 13.10512129380054,
+            "median": 7,
+            "p90": 28,
+            "maximum": 85
+          }
+        },
+        {
+          "role": "ATTACK",
+          "distribution": {
+            "count": 1171,
+            "total": 18942,
+            "mean": 16.17591801878736,
+            "median": 12,
+            "p90": 35,
+            "maximum": 121
+          }
+        },
+        {
+          "role": "EXPAND",
+          "distribution": {
+            "count": 761,
+            "total": 21237,
+            "mean": 27.906701708278582,
+            "median": 18,
+            "p90": 70,
+            "maximum": 178
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "distribution": {
+            "count": 981,
+            "total": 17497,
+            "mean": 17.835881753312947,
+            "median": 15,
+            "p90": 38,
+            "maximum": 113
+          }
+        }
+      ],
+      "by30Seconds": [
+        {
+          "start": 0,
+          "end": 900,
+          "distribution": {
+            "count": 1085,
+            "total": 19544,
+            "mean": 18.01290322580645,
+            "median": 18,
+            "p90": 37,
+            "maximum": 73
+          }
+        },
+        {
+          "start": 900,
+          "end": 1800,
+          "distribution": {
+            "count": 1179,
+            "total": 18164,
+            "mean": 15.406276505513146,
+            "median": 7,
+            "p90": 37,
+            "maximum": 155
+          }
+        },
+        {
+          "start": 1800,
+          "end": 2700,
+          "distribution": {
+            "count": 1077,
+            "total": 20521,
+            "mean": 19.05385329619313,
+            "median": 7,
+            "p90": 48,
+            "maximum": 174
+          }
+        },
+        {
+          "start": 2700,
+          "end": 3600,
+          "distribution": {
+            "count": 1056,
+            "total": 18895,
+            "mean": 17.892992424242426,
+            "median": 8,
+            "p90": 45,
+            "maximum": 178
+          }
+        }
+      ],
+      "quietPlans": {
+        "count": 635,
+        "completed": 430,
+        "gain": 14747
+      },
+      "cache": {
+        "all": {
+          "decisions": 4813,
+          "calls": 110213,
+          "duplicates": 11812,
+          "duplicateRatio": 0.1071742897843267,
+          "pathDuplicates": 926,
+          "selectedLarge": 635,
+          "selectedPath": {
+            "count": 4748,
+            "total": 66562,
+            "mean": 14.018955349620892,
+            "median": 14,
+            "p90": 23,
+            "maximum": 40
+          },
+          "selectedExternal": {
+            "count": 4748,
+            "total": 49130,
+            "mean": 10.347514743049706,
+            "median": 10,
+            "p90": 19,
+            "maximum": 35
+          }
+        },
+        "eligible": {
+          "decisions": 636,
+          "calls": 16432,
+          "duplicates": 1270,
+          "duplicateRatio": 0.07728821811100292,
+          "pathDuplicates": 157,
+          "selectedLarge": 635,
+          "selectedPath": {
+            "count": 635,
+            "total": 15603,
+            "mean": 24.571653543307086,
+            "median": 24,
+            "p90": 35,
+            "maximum": 40
+          },
+          "selectedExternal": {
+            "count": 635,
+            "total": 12380,
+            "mean": 19.496062992125985,
+            "median": 19,
+            "p90": 30,
+            "maximum": 35
+          }
+        }
+      },
+      "human": {
+        "perSeed": [
+          {
+            "seed": 4,
+            "reached180": false,
+            "endedTick": 2926,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": 0.10044899237757127,
+            "pairedDifference": null
+          },
+          {
+            "seed": 19,
+            "reached180": false,
+            "endedTick": 1521,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 73,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08165396261877414,
+            "baselineLeadingBotShare": 0.11297901221676934,
+            "pairedDifference": -0.0313250495979952
+          },
+          {
+            "seed": 11,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.1036859141693641,
+            "baselineLeadingBotShare": 0.08353346559465386,
+            "pairedDifference": 0.02015244857471024
+          },
+          {
+            "seed": 31,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.06348543385193693,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 47,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.0735094497232954,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 101,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.05690717343635794,
+            "baselineLeadingBotShare": 0.10138874386551112,
+            "pairedDifference": -0.04448157042915318
+          },
+          {
+            "seed": 137,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.09167797849013261,
+            "baselineLeadingBotShare": 0.05993526156416414,
+            "pairedDifference": 0.031742716925968466
+          }
+        ],
+        "available": 6,
+        "target20": 0,
+        "availableMean": 0.0784866520483102,
+        "pairedSeeds": [
+          73,
+          11,
+          101,
+          137
+        ]
+      },
+      "medium": {
+        "cuts": 13,
+        "failedIds": [
+          5,
+          6,
+          14
+        ],
+        "newLossIds": []
+      },
+      "observerFreeProof": true
+    },
+    {
+      "arm": "p48",
+      "combination": {
+        "path": 48,
+        "trailScale": 1.75,
+        "dimensionScale": 1.75
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3081.585,
+          "holdingDifference": 300.5011111111112,
+          "holdingPercent": 10.805179675150644,
+          "final": 3425,
+          "deaths": 13,
+          "deathDifference": 1,
+          "deathLoss": 4457,
+          "captures": 480,
+          "capture": {
+            "count": 480,
+            "total": 9979,
+            "mean": 20.789583333333333,
+            "median": 17,
+            "p90": 45,
+            "maximum": 171
+          }
+        },
+        {
+          "seed": 19,
+          "holding": 3180.389166666667,
+          "holdingDifference": -177.4699999999998,
+          "holdingPercent": -5.285212726064792,
+          "final": 4575,
+          "deaths": 12,
+          "deathDifference": 1,
+          "deathLoss": 3506,
+          "captures": 520,
+          "capture": {
+            "count": 520,
+            "total": 9880,
+            "mean": 19,
+            "median": 16,
+            "p90": 44,
+            "maximum": 147
+          }
+        },
+        {
+          "seed": 73,
+          "holding": 3269.061388888889,
+          "holdingDifference": 64.78194444444443,
+          "holdingPercent": 2.0217320482694756,
+          "final": 4777,
+          "deaths": 12,
+          "deathDifference": 3,
+          "deathLoss": 3349,
+          "captures": 547,
+          "capture": {
+            "count": 547,
+            "total": 9599,
+            "mean": 17.548446069469836,
+            "median": 10,
+            "p90": 43,
+            "maximum": 134
+          }
+        },
+        {
+          "seed": 11,
+          "holding": 3261.6286111111112,
+          "holdingDifference": -0.6158333333332848,
+          "holdingPercent": -0.01887759620166074,
+          "final": 4102,
+          "deaths": 14,
+          "deathDifference": 6,
+          "deathLoss": 4452,
+          "captures": 548,
+          "capture": {
+            "count": 548,
+            "total": 9815,
+            "mean": 17.91058394160584,
+            "median": 13,
+            "p90": 42,
+            "maximum": 129
+          }
+        },
+        {
+          "seed": 31,
+          "holding": 3015.9775,
+          "holdingDifference": 48.81111111111113,
+          "holdingPercent": 1.645041251946422,
+          "final": 4557,
+          "deaths": 9,
+          "deathDifference": 0,
+          "deathLoss": 2699,
+          "captures": 552,
+          "capture": {
+            "count": 552,
+            "total": 9331,
+            "mean": 16.903985507246375,
+            "median": 13,
+            "p90": 39,
+            "maximum": 110
+          }
+        },
+        {
+          "seed": 47,
+          "holding": 3096.612222222222,
+          "holdingDifference": -161.81888888888898,
+          "holdingPercent": -4.966159583275931,
+          "final": 3499,
+          "deaths": 15,
+          "deathDifference": 4,
+          "deathLoss": 3745,
+          "captures": 572,
+          "capture": {
+            "count": 572,
+            "total": 9646,
+            "mean": 16.863636363636363,
+            "median": 9,
+            "p90": 41,
+            "maximum": 139
+          }
+        },
+        {
+          "seed": 101,
+          "holding": 2950.2883333333334,
+          "holdingDifference": 235.76388888888914,
+          "holdingPercent": 8.685274113902498,
+          "final": 4004,
+          "deaths": 14,
+          "deathDifference": 2,
+          "deathLoss": 3797,
+          "captures": 593,
+          "capture": {
+            "count": 593,
+            "total": 8932,
+            "mean": 15.062394603709949,
+            "median": 7,
+            "p90": 37,
+            "maximum": 135
+          }
+        },
+        {
+          "seed": 137,
+          "holding": 3082.8488888888887,
+          "holdingDifference": 44.43916666666655,
+          "holdingPercent": 1.4625797943459862,
+          "final": 4365,
+          "deaths": 13,
+          "deathDifference": 6,
+          "deathLoss": 3709,
+          "captures": 580,
+          "capture": {
+            "count": 580,
+            "total": 9257,
+            "mean": 15.960344827586207,
+            "median": 12,
+            "p90": 38,
+            "maximum": 156
+          }
+        }
+      ],
+      "holdingMean": 3117.298888888889,
+      "holdingPercent": 1.441557598526022,
+      "holdingDirection": {
+        "increase": 5,
+        "decrease": 3,
+        "equal": 0,
+        "sum": 354.3925000000004,
+        "signal": "INCONCLUSIVE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deaths": 102,
+      "deathPercent": 29.11392405063291,
+      "deathDirection": {
+        "increase": 7,
+        "decrease": 0,
+        "equal": 1,
+        "sum": 23,
+        "signal": "INCREASE",
+        "meaning": "Inconclusive is not evidence of no effect."
+      },
+      "deathLoss": 29714,
+      "captures": {
+        "count": 4392,
+        "total": 76439,
+        "mean": 17.404143897996356,
+        "median": 12,
+        "p90": 41,
+        "maximum": 171,
+        "bins": [
+          {
+            "range": "0..3",
+            "count": 1201
+          },
+          {
+            "range": "4..7",
+            "count": 778
+          },
+          {
+            "range": "8..15",
+            "count": 460
+          },
+          {
+            "range": "16..31",
+            "count": 1206
+          },
+          {
+            "range": "32..63",
+            "count": 610
+          },
+          {
+            "range": "64..127",
+            "count": 128
+          },
+          {
+            "range": "128..∞",
+            "count": 9
+          }
+        ]
+      },
+      "byPersonality": [
+        {
+          "role": "DEFEND",
+          "distribution": {
+            "count": 1418,
+            "total": 20397,
+            "mean": 14.384344146685473,
+            "median": 10,
+            "p90": 33,
+            "maximum": 91
+          }
+        },
+        {
+          "role": "ATTACK",
+          "distribution": {
+            "count": 1167,
+            "total": 18866,
+            "mean": 16.1662382176521,
+            "median": 12,
+            "p90": 35,
+            "maximum": 121
+          }
+        },
+        {
+          "role": "EXPAND",
+          "distribution": {
+            "count": 769,
+            "total": 20569,
+            "mean": 26.747724317295187,
+            "median": 18,
+            "p90": 56,
+            "maximum": 171
+          }
+        },
+        {
+          "role": "SEEK_POINT",
+          "distribution": {
+            "count": 1038,
+            "total": 16607,
+            "mean": 15.999036608863198,
+            "median": 11,
+            "p90": 35,
+            "maximum": 113
+          }
+        }
+      ],
+      "by30Seconds": [
+        {
+          "start": 0,
+          "end": 900,
+          "distribution": {
+            "count": 1085,
+            "total": 19544,
+            "mean": 18.01290322580645,
+            "median": 18,
+            "p90": 37,
+            "maximum": 73
+          }
+        },
+        {
+          "start": 900,
+          "end": 1800,
+          "distribution": {
+            "count": 1190,
+            "total": 18040,
+            "mean": 15.159663865546218,
+            "median": 7,
+            "p90": 37,
+            "maximum": 147
+          }
+        },
+        {
+          "start": 1800,
+          "end": 2700,
+          "distribution": {
+            "count": 1079,
+            "total": 20328,
+            "mean": 18.839666357738647,
+            "median": 7,
+            "p90": 48,
+            "maximum": 156
+          }
+        },
+        {
+          "start": 2700,
+          "end": 3600,
+          "distribution": {
+            "count": 1038,
+            "total": 18527,
+            "mean": 17.84874759152216,
+            "median": 8,
+            "p90": 45,
+            "maximum": 171
+          }
+        }
+      ],
+      "quietPlans": {
+        "count": 637,
+        "completed": 434,
+        "gain": 13946
+      },
+      "cache": {
+        "all": {
+          "decisions": 4926,
+          "calls": 111170,
+          "duplicates": 11982,
+          "duplicateRatio": 0.1077808761356481,
+          "pathDuplicates": 929,
+          "selectedLarge": 637,
+          "selectedPath": {
+            "count": 4832,
+            "total": 67613,
+            "mean": 13.992756622516556,
+            "median": 14,
+            "p90": 22,
+            "maximum": 48
+          },
+          "selectedExternal": {
+            "count": 4832,
+            "total": 49563,
+            "mean": 10.257243377483444,
+            "median": 10,
+            "p90": 18,
+            "maximum": 35
+          }
+        },
+        "eligible": {
+          "decisions": 637,
+          "calls": 16410,
+          "duplicates": 1346,
+          "duplicateRatio": 0.08202315661182207,
+          "pathDuplicates": 159,
+          "selectedLarge": 637,
+          "selectedPath": {
+            "count": 637,
+            "total": 15373,
+            "mean": 24.13343799058085,
+            "median": 23,
+            "p90": 36,
+            "maximum": 48
+          },
+          "selectedExternal": {
+            "count": 637,
+            "total": 12065,
+            "mean": 18.940345368916798,
+            "median": 18,
+            "p90": 30,
+            "maximum": 35
+          }
+        }
+      },
+      "human": {
+        "perSeed": [
+          {
+            "seed": 4,
+            "reached180": false,
+            "endedTick": 2926,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": 0.10044899237757127,
+            "pairedDifference": null
+          },
+          {
+            "seed": 19,
+            "reached180": false,
+            "endedTick": 1521,
+            "humanState": "ELIMINATED",
+            "leadingBotShare": null,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 73,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08374229925864049,
+            "baselineLeadingBotShare": 0.11297901221676934,
+            "pairedDifference": -0.029236712958128852
+          },
+          {
+            "seed": 11,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.08823222303435314,
+            "baselineLeadingBotShare": 0.08353346559465386,
+            "pairedDifference": 0.004698757439699289
+          },
+          {
+            "seed": 31,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.06714002297170305,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 47,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.1078625874490968,
+            "baselineLeadingBotShare": null,
+            "pairedDifference": null
+          },
+          {
+            "seed": 101,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.05690717343635794,
+            "baselineLeadingBotShare": 0.10138874386551112,
+            "pairedDifference": -0.04448157042915318
+          },
+          {
+            "seed": 137,
+            "reached180": true,
+            "endedTick": 5400,
+            "humanState": "ALIVE",
+            "leadingBotShare": 0.0777905398350214,
+            "baselineLeadingBotShare": 0.05993526156416414,
+            "pairedDifference": 0.017855278270857262
+          }
+        ],
+        "available": 6,
+        "target20": 0,
+        "availableMean": 0.08027914099752881,
+        "pairedSeeds": [
+          73,
+          11,
+          101,
+          137
+        ]
+      },
+      "medium": {
+        "cuts": 13,
+        "failedIds": [
+          5,
+          6,
+          14
+        ],
+        "newLossIds": []
+      },
+      "observerFreeProof": true
+    }
+  ],
+  "recovery": [
+    {
+      "arm": "baseline",
+      "ticks": 190,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 5,
+      "deaths": 0,
+      "deathReason": null,
+      "finalHoldings": 96
+    },
+    {
+      "arm": "p32",
+      "ticks": 190,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 5,
+      "deaths": 0,
+      "deathReason": null,
+      "finalHoldings": 96
+    },
+    {
+      "arm": "p40",
+      "ticks": 190,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 5,
+      "deaths": 0,
+      "deathReason": null,
+      "finalHoldings": 96
+    },
+    {
+      "arm": "p48",
+      "ticks": 190,
+      "arrived": true,
+      "lastReposition": {
+        "sequence": 1,
+        "lifeId": 1,
+        "startedTick": 0,
+        "endedTick": 103,
+        "outcome": "ARRIVED",
+        "target": 1289,
+        "attackerId": "bot-1",
+        "distance": 15,
+        "score": 1.5,
+        "startCell": 1218,
+        "endCell": 1289,
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 787.2550881594539,
+          "y": 29.75030900078421
+        },
+        "movedCells": 15,
+        "lastCell": 1289
+      },
+      "actualRecovered": 5,
+      "deaths": 0,
+      "deathReason": null,
+      "finalHoldings": 96
+    }
+  ],
+  "disabledProof": {
+    "experimentEnabled": false,
+    "eightSeedsSameAsAcceptedBaseline": true,
+    "checks": "trajectory,memory,RNG,director,holding",
+    "reference": "baseline120",
+    "sourceHashes": {
+      "bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+      "bot-damage.ts": "de7f224197640ada24a1622ed20024b4aa9e6c7062ea6ed160a980c5af84784b",
+      "bot-departure-diagnostics.ts": "beae66eff48cfd2d3c9837a0fce7d2e6a8d2dce5eb1e0bcab2fee15f8af3f53e",
+      "bot-director.ts": "ab9da9a1fc386a503e118e9024dac7e9c0552b2d8b6e18d5f273c8a3648c2916",
+      "bot-emotion.ts": "7c20d5b9380229545e467b6f18059dfb7022e0d58607ae9d37b52a75e727c49d",
+      "bot-events.ts": "a2ed917c9c5338279d4cc8bca674a79f05a5eb487d2876a0c87f6b7de8b99358",
+      "bot-expansion.ts": "04894419d8e6e1ebd3655bed006eea2d5112d2cc3c4025fb91bbe2e364dcb412",
+      "bot-experiment.ts": "9beebef324c8567dd9f94b53862a6021e1ae101f2c31bc9b388b1dfe5019e36c",
+      "bot-holding-risk.ts": "bdc14a19a14852b72b7b79e367c0c7d8ff8b887e4dd8dfd5c8766fff825aff94",
+      "bot-identity.ts": "2128f91fd8bfe058d1e37530069b828a2e3e741f316e6ebee7ab69065149375d",
+      "bot-immediate-safety.ts": "b9727e816fe1bc569b5d3c3c0653686c9ca4d40d03fbc7e4ddc2a8e84a7face4",
+      "bot-loop-ceiling.ts": "37ceb1d639fffcf19b6aab210fb45c434f6621e003207bc380b980ec9c89fd8e",
+      "bot-navigation.ts": "8a16fa859acec682bb2e52bbff5d13147768dfb1eb99a6a0ccca1b5e119126ef",
+      "bot-opportunity.ts": "f0cd474f0784af8596c300747512d23eb0a976ecadfa245c19cf0e312f0749b5",
+      "bot-phase02-config.ts": "414586e95811beafb695d96d9b4b441d0a4c40db92a75452f4ddada13f2086e9",
+      "bot-phase025-config.ts": "39678165037978941e7abc29f21cef74718f1387764421e3198b15cf974e18f8",
+      "bot-plan-validity.ts": "9cf10bd61a3958310cc0ec6e38651db9c003a17082d73054b83fa0df82d315df",
+      "bot-policy.ts": "61c4b77e59ab5a8b68c48cda609cc59b473982c6be0d7724eeaa2963f1473706",
+      "bot-reclaim-diagnostics.ts": "05e1cf3008dcfdde6facc3e6a0037464c24faefe12512cfe7bdcc8e7ea49ccae",
+      "bot-reposition-diagnostics.ts": "dbc9df82e08a6e825ed96f1c0e685a0dcc7afe9e0426a5c1fbf2d445782a9a97",
+      "bot-reposition.ts": "6942f5319e71a19ffe7b8d41e297f653169f10a978255e9ee012e5395db265d6",
+      "bot-roster.ts": "279dd9a270e0a755c883ef6a474a35c0bb001938b13ffb38573cd41f2e85bfeb",
+      "bot-runtime.ts": "e78102dd1e295884ce19fb0d63053e32fd6cba4f3908d749f9ae7149fa2982b2",
+      "bot-scheduler.ts": "2a51e7cb8d3ee3da11b26c5c1c9cbaccf731c910b7487c6b67e4c932e62d82ab",
+      "bot-steering.ts": "6dfca8f2c4bd3cab35575a9690c7fe3177b84092dfdbdf7785bb4998501c3d0d",
+      "bot-strategy.ts": "a5dadefb4ed3490fbfef65f5bade5191c2610324d102088b37b6c23d4f539cf5",
+      "bot-tactical.ts": "46746907772d039b812ac3bd0d061aa43546cf69767115ce158f6cb7abcca211",
+      "bot.ts": "0f631e1458aaf130516fd30520e74ca608597564df3c5521684cb5ec63f6990c",
+      "capture-diagnostics.ts": "a3b3fc1893053dcb1b09357409e2bbe34c82c2ad01b16b3de07b5a60492c3755",
+      "capture.ts": "a91785eb75033ce83f61a8464201209f0d9680bcdd991ae41e4782d84db83f93",
+      "config.ts": "bc04ddccd870c886db523be67d4fc48809c930109bf4db79074f96d108f3bb00",
+      "engine.ts": "11919a14a357582b5743dc770942df4c073f41484563cab9a56f6a66c9ebc002",
+      "game.ts": "b8beeeedde19aaefdd8c25a15c3ef0da1753ae285b645c76599dcecec9651008",
+      "hex.ts": "7cb53286ce6ebafff266536bd8b27f1ae5a50c1fed93b2f8181285a0991a9f9c",
+      "lan-code.ts": "46f698f4cdb2e9c3ca9aac52c436711bcf299a8376681ea40c3d7d36fdb96653",
+      "lan-host.ts": "cbd7102b170624e1fd2643606faa31737c31b71e93f2fd9d1ba5f998cad530ef",
+      "lan-protocol.ts": "ce2ea979501cce8c8947ac199f39d8cc0d1dfbaf610f3f369a69df6b2cf36103",
+      "legacy-scoring.ts": "f96bfa3ed1352df50aff740698242d1c176042ab0952957c186c71a5dc9063b1",
+      "life.ts": "48d762d4c5a48e79c52d952556828a9ed9b0a20aaee46d7103b6c06afa95da28",
+      "map-experiment.ts": "7358f57e32f0dc43920ea72975497da2b62623d7bb0e3828799cf3330a617d99",
+      "model.ts": "97f2f576e715fe5bab2d492b3bda5374c0418eea86648c3be16a71ca5bb81b8e",
+      "modes.ts": "61596ca9c5296e2b212da1744f2211b10c14a5fc487fa30da8352b976a3df12c",
+      "movement.ts": "0f7eb1740a6eb7209861365bdd7d0b833185f0309f11d6a6a8637161b5307524",
+      "names.ts": "0e4a01db9874cef730a6c622b10997d4314fde79f56c3a1dd27c85ba52b79396",
+      "protocol.ts": "8c40424b7a205132fb6c7060252f7db457f8f3c5a68a7a22964b89735214d357",
+      "random.ts": "28f0ed04586058dd10e2320e02209c28fe69feb5579b69c45194ff1c97ba3abf",
+      "retry.ts": "2cfb8b84abf51187f051ce72d953fe67054ddcaf0022caae075348e1c71a0de2",
+      "room-input.ts": "6ec84d41641f3c49be97d43ee382ddce12c471808fdc8179b1ce224bf556a387",
+      "room-loop.ts": "c8be93c45d02bc0ecc7c4eda944b8aa979906aa5d891cfca787161b398b6914b",
+      "rooms.ts": "b1a7374783c94b77ccf4fa9eb64f0532ecacfef2bfa9ed471c47a28a99476936",
+      "run.ts": "c28121b234fe9a9cb4ef72ddb22f6ef595764f5115312eb1fbfd383ae7a56ade",
+      "safe-bot-respawn.ts": "9a9735134b15d1ef021ce8d2b2d5b3713da6bd2945ef2af69d6e3ac5bbb4023d",
+      "scoring.ts": "11bddedae3c2af9c09234cc12446ea80956a4ca98bec6a9b9e42f09339d30b6f",
+      "slots.ts": "ce0877d549045da1f9b47c9ff3f98d2ee806b379bdf8d6e34b5b11dd811faead",
+      "spawn.ts": "71f01318b01c4fb7d14e7b6d50d754d575484b0361b601c005ba5812d7d4d327",
+      "starting-anchors.ts": "33c7ee4f5620601ebaad5ed9f5f22e8ca8293da770ea79f29842b7ac01b7a33f",
+      "state.ts": "6917885094696af2c839769c543ea59ba64879735d38a4fb642b9b210facabe1",
+      "territory.ts": "bfa547b30161f108b0117e65fe1c88756493fb3f03cde1d5db0d50bc8d1c9eb6",
+      "wall-margin.ts": "b8d931b276ce14c6a6a09950c753b3643f0be60bb0029d29e70bbe9b138b64f3"
+    }
+  }
+}

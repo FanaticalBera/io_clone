@@ -1,0 +1,2503 @@
+{
+  "settings": {
+    "depth": 4,
+    "prefixLimit": 10,
+    "slots": 1,
+    "headWeight": 0.5,
+    "trailWeight": 0.25,
+    "walkWeight": 0.5,
+    "clearanceCap": 6
+  },
+  "baselineCommit": "657838913c2b437a0aa4d3e2df80970243b4c763",
+  "baselineReused": true,
+  "durationSeconds": 120,
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "arms": [
+    {
+      "arm": "baseline",
+      "holdingMean": 3072.999826388889,
+      "deaths": 79,
+      "captures": {
+        "count": 4982,
+        "total": 68901,
+        "mean": 13.829987956643919,
+        "median": 10,
+        "p90": 32,
+        "max": 105,
+        "bins": [
+          {
+            "from": 0,
+            "to": 4,
+            "count": 1373
+          },
+          {
+            "from": 4,
+            "to": 8,
+            "count": 984
+          },
+          {
+            "from": 8,
+            "to": 16,
+            "count": 601
+          },
+          {
+            "from": 16,
+            "to": 32,
+            "count": 1515
+          },
+          {
+            "from": 32,
+            "to": 64,
+            "count": 490
+          },
+          {
+            "from": 64,
+            "to": 128,
+            "count": 19
+          },
+          {
+            "from": 128,
+            "to": null,
+            "count": 0
+          }
+        ]
+      },
+      "movement": {
+        "departures": 5007,
+        "directions": [
+          864,
+          909,
+          811,
+          785,
+          766,
+          872
+        ],
+        "pairs": 4818,
+        "sameShape": 2229,
+        "sameShapeRate": 0.462640099626401,
+        "sameShapeSize": 1339,
+        "sameShapeSizeRate": 0.27791614777916146,
+        "sameShapePathExternalRate": 0.15960979659609797,
+        "launchShift": {
+          "count": 4818,
+          "total": 18702,
+          "mean": 3.8816936488169365,
+          "median": 3,
+          "p90": 8,
+          "max": 26,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 2623
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 1713
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 441
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 41
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "crowdedMovement": {
+        "departures": 1175,
+        "directions": [
+          214,
+          211,
+          204,
+          160,
+          173,
+          213
+        ],
+        "pairs": 821,
+        "sameShape": 821,
+        "sameShapeRate": 1,
+        "sameShapeSize": 650,
+        "sameShapeSizeRate": 0.7917174177831913,
+        "sameShapePathExternalRate": 0.17417783191230207,
+        "launchShift": {
+          "count": 821,
+          "total": 2203,
+          "mean": 2.6833130328867236,
+          "median": 2,
+          "p90": 5,
+          "max": 20,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 632
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 161
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 22
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 6
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "quietMovement": {
+        "departures": 3188,
+        "directions": [
+          540,
+          568,
+          507,
+          518,
+          490,
+          565
+        ],
+        "pairs": 2808,
+        "sameShape": 1122,
+        "sameShapeRate": 0.3995726495726496,
+        "sameShapeSize": 591,
+        "sameShapeSizeRate": 0.21047008547008547,
+        "sameShapePathExternalRate": 0.19444444444444445,
+        "launchShift": {
+          "count": 2808,
+          "total": 11337,
+          "mean": 4.037393162393163,
+          "median": 4,
+          "p90": 7,
+          "max": 26,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 1345
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 1195
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 258
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 10
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 2781.083888888889,
+          "deaths": 12,
+          "captures": {
+            "count": 566,
+            "total": 8956,
+            "mean": 15.823321554770319,
+            "median": 15,
+            "p90": 35,
+            "max": 69,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 137
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 97
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 56
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 203
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 71
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 94,
+            "directions": [
+              14,
+              11,
+              16,
+              15,
+              14,
+              24
+            ],
+            "pairs": 61,
+            "sameShape": 61,
+            "sameShapeRate": 1,
+            "sameShapeSize": 52,
+            "sameShapeSizeRate": 0.8524590163934426,
+            "sameShapePathExternalRate": 0.09836065573770492,
+            "launchShift": {
+              "count": 61,
+              "total": 163,
+              "mean": 2.6721311475409837,
+              "median": 2,
+              "p90": 5,
+              "max": 9,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 46
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 12
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 3
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "7aacd18443d7f0dc4e71d0e2e4a84f8fa0046ae300eac750b316dac82906b34a"
+        },
+        {
+          "seed": 19,
+          "holding": 3357.8591666666666,
+          "deaths": 11,
+          "captures": {
+            "count": 607,
+            "total": 8520,
+            "mean": 14.036243822075782,
+            "median": 12,
+            "p90": 31,
+            "max": 105,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 178
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 92
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 81
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 198
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 56
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 110,
+            "directions": [
+              20,
+              17,
+              20,
+              21,
+              15,
+              17
+            ],
+            "pairs": 77,
+            "sameShape": 77,
+            "sameShapeRate": 1,
+            "sameShapeSize": 56,
+            "sameShapeSizeRate": 0.7272727272727273,
+            "sameShapePathExternalRate": 0.2077922077922078,
+            "launchShift": {
+              "count": 77,
+              "total": 223,
+              "mean": 2.896103896103896,
+              "median": 3,
+              "p90": 5,
+              "max": 20,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 57
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 17
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 2
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 1
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "6a0a395b613ec64f012dfefee56a082db0a369bb1d7f69513da8c449101cd68d"
+        },
+        {
+          "seed": 73,
+          "holding": 3204.2794444444444,
+          "deaths": 9,
+          "captures": {
+            "count": 638,
+            "total": 8591,
+            "mean": 13.46551724137931,
+            "median": 9,
+            "p90": 31,
+            "max": 73,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 181
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 121
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 87
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 188
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 59
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 134,
+            "directions": [
+              22,
+              23,
+              24,
+              22,
+              21,
+              22
+            ],
+            "pairs": 87,
+            "sameShape": 87,
+            "sameShapeRate": 1,
+            "sameShapeSize": 72,
+            "sameShapeSizeRate": 0.8275862068965517,
+            "sameShapePathExternalRate": 0.13793103448275862,
+            "launchShift": {
+              "count": 87,
+              "total": 247,
+              "mean": 2.839080459770115,
+              "median": 2,
+              "p90": 6,
+              "max": 17,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 64
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 19
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 3
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 1
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "d15b1d846ccd5b81bd129b06d12152da58bce6acb57d5619e88030322b31088e"
+        },
+        {
+          "seed": 11,
+          "holding": 3262.2444444444445,
+          "deaths": 8,
+          "captures": {
+            "count": 628,
+            "total": 8822,
+            "mean": 14.047770700636942,
+            "median": 11,
+            "p90": 31,
+            "max": 77,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 172
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 114
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 73
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 211
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 55
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 3
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 125,
+            "directions": [
+              19,
+              21,
+              23,
+              19,
+              20,
+              23
+            ],
+            "pairs": 84,
+            "sameShape": 84,
+            "sameShapeRate": 1,
+            "sameShapeSize": 67,
+            "sameShapeSizeRate": 0.7976190476190477,
+            "sameShapePathExternalRate": 0.17857142857142858,
+            "launchShift": {
+              "count": 84,
+              "total": 230,
+              "mean": 2.738095238095238,
+              "median": 2,
+              "p90": 5,
+              "max": 20,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 63
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 19
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 1
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 1
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "f6802299093ccdc362dc78a7670ce1e6f8034bf780430cf841d0e58448eb506f"
+        },
+        {
+          "seed": 31,
+          "holding": 2967.166388888889,
+          "deaths": 9,
+          "captures": {
+            "count": 630,
+            "total": 8527,
+            "mean": 13.534920634920635,
+            "median": 8,
+            "p90": 32,
+            "max": 57,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 188
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 123
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 66
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 188
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 65
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 0
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 141,
+            "directions": [
+              27,
+              32,
+              20,
+              19,
+              24,
+              19
+            ],
+            "pairs": 102,
+            "sameShape": 102,
+            "sameShapeRate": 1,
+            "sameShapeSize": 79,
+            "sameShapeSizeRate": 0.7745098039215687,
+            "sameShapePathExternalRate": 0.20588235294117646,
+            "launchShift": {
+              "count": 102,
+              "total": 294,
+              "mean": 2.8823529411764706,
+              "median": 2,
+              "p90": 6,
+              "max": 17,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 79
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 17
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 4
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 2
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "3a89c8b4373849c38dcaff71451c3e09032ef4623039117252d5b925be7734e3"
+        },
+        {
+          "seed": 47,
+          "holding": 3258.431111111111,
+          "deaths": 11,
+          "captures": {
+            "count": 599,
+            "total": 9101,
+            "mean": 15.193656093489148,
+            "median": 10,
+            "p90": 36,
+            "max": 93,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 149
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 129
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 70
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 163
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 83
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 5
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 174,
+            "directions": [
+              32,
+              29,
+              29,
+              23,
+              22,
+              39
+            ],
+            "pairs": 125,
+            "sameShape": 125,
+            "sameShapeRate": 1,
+            "sameShapeSize": 107,
+            "sameShapeSizeRate": 0.856,
+            "sameShapePathExternalRate": 0.224,
+            "launchShift": {
+              "count": 125,
+              "total": 311,
+              "mean": 2.488,
+              "median": 2,
+              "p90": 5,
+              "max": 19,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 98
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 25
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 1
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 1
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "88f897f840309f0de914faa53b2d1adbd07666d179c0934405845f0a2f976e61"
+        },
+        {
+          "seed": 101,
+          "holding": 2714.5244444444443,
+          "deaths": 12,
+          "captures": {
+            "count": 643,
+            "total": 8276,
+            "mean": 12.870917573872473,
+            "median": 7,
+            "p90": 30,
+            "max": 75,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 169
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 157
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 86
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 171
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 57
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 3
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 201,
+            "directions": [
+              40,
+              48,
+              35,
+              22,
+              27,
+              29
+            ],
+            "pairs": 147,
+            "sameShape": 147,
+            "sameShapeRate": 1,
+            "sameShapeSize": 110,
+            "sameShapeSizeRate": 0.7482993197278912,
+            "sameShapePathExternalRate": 0.1564625850340136,
+            "launchShift": {
+              "count": 147,
+              "total": 377,
+              "mean": 2.564625850340136,
+              "median": 2,
+              "p90": 5,
+              "max": 12,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 115
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 27
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 5
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "e4ec0e6714de64a4df24c8946dbb9b2a8da3da4a2e524c6b203a5cd899ecf7cf"
+        },
+        {
+          "seed": 137,
+          "holding": 3038.409722222222,
+          "deaths": 7,
+          "captures": {
+            "count": 671,
+            "total": 8108,
+            "mean": 12.083457526080476,
+            "median": 6,
+            "p90": 26,
+            "max": 78,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 199
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 151
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 82
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 193
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 44
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 196,
+            "directions": [
+              40,
+              30,
+              37,
+              19,
+              30,
+              40
+            ],
+            "pairs": 138,
+            "sameShape": 138,
+            "sameShapeRate": 1,
+            "sameShapeSize": 107,
+            "sameShapeSizeRate": 0.7753623188405797,
+            "sameShapePathExternalRate": 0.15942028985507245,
+            "launchShift": {
+              "count": 138,
+              "total": 358,
+              "mean": 2.5942028985507246,
+              "median": 2,
+              "p90": 5,
+              "max": 12,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 110
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 25
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 3
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "24f1125b8ad3e231dfc91218ad6680321a014caa0f5008927b152cf1f02f4179"
+        }
+      ],
+      "medium": {
+        "success": 13,
+        "failed": [
+          5,
+          6,
+          14
+        ]
+      }
+    },
+    {
+      "arm": "candidate",
+      "holdingMean": 3230.7404513888887,
+      "deaths": 82,
+      "captures": {
+        "count": 4576,
+        "total": 70860,
+        "mean": 15.48513986013986,
+        "median": 14,
+        "p90": 34,
+        "max": 115,
+        "bins": [
+          {
+            "from": 0,
+            "to": 4,
+            "count": 1077
+          },
+          {
+            "from": 4,
+            "to": 8,
+            "count": 757
+          },
+          {
+            "from": 8,
+            "to": 16,
+            "count": 603
+          },
+          {
+            "from": 16,
+            "to": 32,
+            "count": 1592
+          },
+          {
+            "from": 32,
+            "to": 64,
+            "count": 524
+          },
+          {
+            "from": 64,
+            "to": 128,
+            "count": 23
+          },
+          {
+            "from": 128,
+            "to": null,
+            "count": 0
+          }
+        ]
+      },
+      "movement": {
+        "departures": 4631,
+        "directions": [
+          796,
+          889,
+          807,
+          725,
+          700,
+          714
+        ],
+        "pairs": 4438,
+        "sameShape": 1943,
+        "sameShapeRate": 0.43780982424515547,
+        "sameShapeSize": 1119,
+        "sameShapeSizeRate": 0.25214060387561965,
+        "sameShapePathExternalRate": 0.15592609283461017,
+        "launchShift": {
+          "count": 4438,
+          "total": 18407,
+          "mean": 4.147589004055881,
+          "median": 3,
+          "p90": 8,
+          "max": 25,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 2261
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 1615
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 520
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 42
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "crowdedMovement": {
+        "departures": 842,
+        "directions": [
+          134,
+          150,
+          168,
+          142,
+          116,
+          132
+        ],
+        "pairs": 528,
+        "sameShape": 528,
+        "sameShapeRate": 1,
+        "sameShapeSize": 417,
+        "sameShapeSizeRate": 0.7897727272727273,
+        "sameShapePathExternalRate": 0.14204545454545456,
+        "launchShift": {
+          "count": 528,
+          "total": 1558,
+          "mean": 2.9507575757575757,
+          "median": 2,
+          "p90": 6,
+          "max": 15,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 379
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 117
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 32
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 0
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "quietMovement": {
+        "departures": 3109,
+        "directions": [
+          536,
+          624,
+          519,
+          469,
+          472,
+          489
+        ],
+        "pairs": 2715,
+        "sameShape": 1137,
+        "sameShapeRate": 0.41878453038674035,
+        "sameShapeSize": 582,
+        "sameShapeSizeRate": 0.2143646408839779,
+        "sameShapePathExternalRate": 0.18637200736648252,
+        "launchShift": {
+          "count": 2715,
+          "total": 11028,
+          "mean": 4.061878453038674,
+          "median": 4,
+          "p90": 8,
+          "max": 23,
+          "bins": [
+            {
+              "from": 0,
+              "to": 4,
+              "count": 1329
+            },
+            {
+              "from": 4,
+              "to": 8,
+              "count": 1092
+            },
+            {
+              "from": 8,
+              "to": 16,
+              "count": 283
+            },
+            {
+              "from": 16,
+              "to": 32,
+              "count": 11
+            },
+            {
+              "from": 32,
+              "to": 64,
+              "count": 0
+            },
+            {
+              "from": 64,
+              "to": 128,
+              "count": 0
+            },
+            {
+              "from": 128,
+              "to": null,
+              "count": 0
+            }
+          ]
+        }
+      },
+      "perSeed": [
+        {
+          "seed": 4,
+          "holding": 3464.3925,
+          "deaths": 8,
+          "captures": {
+            "count": 563,
+            "total": 9001,
+            "mean": 15.987566607460035,
+            "median": 16,
+            "p90": 34,
+            "max": 79,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 138
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 79
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 52
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 225
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 67
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 81,
+            "directions": [
+              14,
+              22,
+              22,
+              7,
+              8,
+              8
+            ],
+            "pairs": 53,
+            "sameShape": 53,
+            "sameShapeRate": 1,
+            "sameShapeSize": 41,
+            "sameShapeSizeRate": 0.7735849056603774,
+            "sameShapePathExternalRate": 0.20754716981132076,
+            "launchShift": {
+              "count": 53,
+              "total": 132,
+              "mean": 2.490566037735849,
+              "median": 2,
+              "p90": 4,
+              "max": 9,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 45
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 6
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 2
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "21ed29c4d083734730584d74093da8ecd692bdf7c93d26de6195abb4c62e4ec6"
+        },
+        {
+          "seed": 19,
+          "holding": 3306.682222222222,
+          "deaths": 8,
+          "captures": {
+            "count": 586,
+            "total": 8596,
+            "mean": 14.668941979522184,
+            "median": 12,
+            "p90": 31,
+            "max": 80,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 129
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 118
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 83
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 201
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 51
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 4
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 132,
+            "directions": [
+              20,
+              26,
+              27,
+              21,
+              18,
+              20
+            ],
+            "pairs": 84,
+            "sameShape": 84,
+            "sameShapeRate": 1,
+            "sameShapeSize": 69,
+            "sameShapeSizeRate": 0.8214285714285714,
+            "sameShapePathExternalRate": 0.17857142857142858,
+            "launchShift": {
+              "count": 84,
+              "total": 241,
+              "mean": 2.869047619047619,
+              "median": 2,
+              "p90": 6,
+              "max": 15,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 63
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 16
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 5
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "11ffd206abcfd9ae466cbe514ca5ed9f8d453d065b474dd1e57865f1c79b6a2c"
+        },
+        {
+          "seed": 73,
+          "holding": 3234.711111111111,
+          "deaths": 10,
+          "captures": {
+            "count": 569,
+            "total": 8703,
+            "mean": 15.295254833040422,
+            "median": 13,
+            "p90": 35,
+            "max": 84,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 126
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 106
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 74
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 194
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 68
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 1
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 122,
+            "directions": [
+              20,
+              22,
+              27,
+              14,
+              19,
+              20
+            ],
+            "pairs": 86,
+            "sameShape": 86,
+            "sameShapeRate": 1,
+            "sameShapeSize": 63,
+            "sameShapeSizeRate": 0.7325581395348837,
+            "sameShapePathExternalRate": 0.06976744186046512,
+            "launchShift": {
+              "count": 86,
+              "total": 277,
+              "mean": 3.2209302325581395,
+              "median": 3,
+              "p90": 7,
+              "max": 14,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 55
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 25
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 6
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "ff161354063b690d33592a4003b5db493d80876631272870cb6b15b7f430f4b5"
+        },
+        {
+          "seed": 11,
+          "holding": 3042.703611111111,
+          "deaths": 8,
+          "captures": {
+            "count": 575,
+            "total": 8486,
+            "mean": 14.758260869565218,
+            "median": 14,
+            "p90": 30,
+            "max": 59,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 133
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 105
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 70
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 215
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 52
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 0
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 128,
+            "directions": [
+              21,
+              21,
+              19,
+              23,
+              21,
+              23
+            ],
+            "pairs": 80,
+            "sameShape": 80,
+            "sameShapeRate": 1,
+            "sameShapeSize": 62,
+            "sameShapeSizeRate": 0.775,
+            "sameShapePathExternalRate": 0.1625,
+            "launchShift": {
+              "count": 80,
+              "total": 247,
+              "mean": 3.0875,
+              "median": 3,
+              "p90": 6,
+              "max": 9,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 54
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 22
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 4
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "206226c066069bd944e626681d8a2377d4c2afe50cd78df9600cb4157bc066f6"
+        },
+        {
+          "seed": 31,
+          "holding": 3255.7425,
+          "deaths": 14,
+          "captures": {
+            "count": 568,
+            "total": 8988,
+            "mean": 15.82394366197183,
+            "median": 15,
+            "p90": 35,
+            "max": 74,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 148
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 74
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 74
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 197
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 73
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 2
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 80,
+            "directions": [
+              16,
+              14,
+              15,
+              18,
+              4,
+              13
+            ],
+            "pairs": 43,
+            "sameShape": 43,
+            "sameShapeRate": 1,
+            "sameShapeSize": 31,
+            "sameShapeSizeRate": 0.7209302325581395,
+            "sameShapePathExternalRate": 0.06976744186046512,
+            "launchShift": {
+              "count": 43,
+              "total": 132,
+              "mean": 3.0697674418604652,
+              "median": 3,
+              "p90": 6,
+              "max": 10,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 30
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 10
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 3
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "3e863a2d4a5a5df88365e2728a419e03155e9549fd383d60ceea28d58274eee9"
+        },
+        {
+          "seed": 47,
+          "holding": 3100.7908333333335,
+          "deaths": 16,
+          "captures": {
+            "count": 529,
+            "total": 9417,
+            "mean": 17.801512287334592,
+            "median": 15,
+            "p90": 41,
+            "max": 115,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 118
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 84
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 65
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 170
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 83
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 9
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 84,
+            "directions": [
+              12,
+              14,
+              19,
+              18,
+              11,
+              10
+            ],
+            "pairs": 42,
+            "sameShape": 42,
+            "sameShapeRate": 1,
+            "sameShapeSize": 34,
+            "sameShapeSizeRate": 0.8095238095238095,
+            "sameShapePathExternalRate": 0.07142857142857142,
+            "launchShift": {
+              "count": 42,
+              "total": 131,
+              "mean": 3.119047619047619,
+              "median": 2,
+              "p90": 6,
+              "max": 13,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 29
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 9
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 4
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "98c18f24830ee81b8844d07475739a34adb5cd8edc4f3d69acc79f7457a0bfbe"
+        },
+        {
+          "seed": 101,
+          "holding": 3142.7330555555554,
+          "deaths": 9,
+          "captures": {
+            "count": 611,
+            "total": 8894,
+            "mean": 14.556464811783961,
+            "median": 11,
+            "p90": 33,
+            "max": 78,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 160
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 113
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 83
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 182
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 69
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 4
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 141,
+            "directions": [
+              21,
+              18,
+              24,
+              26,
+              25,
+              27
+            ],
+            "pairs": 100,
+            "sameShape": 100,
+            "sameShapeRate": 1,
+            "sameShapeSize": 82,
+            "sameShapeSizeRate": 0.82,
+            "sameShapePathExternalRate": 0.19,
+            "launchShift": {
+              "count": 100,
+              "total": 277,
+              "mean": 2.77,
+              "median": 2,
+              "p90": 6,
+              "max": 12,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 73
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 22
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 5
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "ec0b6960469ee72f6155a0fb5df69e34843e3a76854b55ba879f366d3a547ccc"
+        },
+        {
+          "seed": 137,
+          "holding": 3298.1677777777777,
+          "deaths": 9,
+          "captures": {
+            "count": 575,
+            "total": 8775,
+            "mean": 15.26086956521739,
+            "median": 15,
+            "p90": 32,
+            "max": 64,
+            "bins": [
+              {
+                "from": 0,
+                "to": 4,
+                "count": 125
+              },
+              {
+                "from": 4,
+                "to": 8,
+                "count": 78
+              },
+              {
+                "from": 8,
+                "to": 16,
+                "count": 102
+              },
+              {
+                "from": 16,
+                "to": 32,
+                "count": 208
+              },
+              {
+                "from": 32,
+                "to": 64,
+                "count": 61
+              },
+              {
+                "from": 64,
+                "to": 128,
+                "count": 1
+              },
+              {
+                "from": 128,
+                "to": null,
+                "count": 0
+              }
+            ]
+          },
+          "crowded": {
+            "departures": 74,
+            "directions": [
+              10,
+              13,
+              15,
+              15,
+              10,
+              11
+            ],
+            "pairs": 40,
+            "sameShape": 40,
+            "sameShapeRate": 1,
+            "sameShapeSize": 35,
+            "sameShapeSizeRate": 0.875,
+            "sameShapePathExternalRate": 0.125,
+            "launchShift": {
+              "count": 40,
+              "total": 121,
+              "mean": 3.025,
+              "median": 3,
+              "p90": 6,
+              "max": 14,
+              "bins": [
+                {
+                  "from": 0,
+                  "to": 4,
+                  "count": 30
+                },
+                {
+                  "from": 4,
+                  "to": 8,
+                  "count": 7
+                },
+                {
+                  "from": 8,
+                  "to": 16,
+                  "count": 3
+                },
+                {
+                  "from": 16,
+                  "to": 32,
+                  "count": 0
+                },
+                {
+                  "from": 32,
+                  "to": 64,
+                  "count": 0
+                },
+                {
+                  "from": 64,
+                  "to": 128,
+                  "count": 0
+                },
+                {
+                  "from": 128,
+                  "to": null,
+                  "count": 0
+                }
+              ]
+            }
+          },
+          "trajectoryHash": "64c3c8a3f983cf33214f683a233b03959ee5d5e28d47e3f569873d4945a27a6c"
+        }
+      ],
+      "medium": {
+        "success": 8,
+        "failed": [
+          1,
+          2,
+          5,
+          6,
+          9,
+          10,
+          13,
+          14
+        ]
+      }
+    }
+  ],
+  "paired": [
+    {
+      "seed": 4,
+      "holdingBaseline": 2781.083888888889,
+      "holdingCandidate": 3464.3925,
+      "holdingDelta": 683.3086111111111,
+      "holdingPercent": 24.56986694436283,
+      "deathsBaseline": 12,
+      "deathsCandidate": 8,
+      "deathsDelta": -4,
+      "captureMeanBaseline": 15.823321554770319,
+      "captureMeanCandidate": 15.987566607460035,
+      "crowdedRepeatBaseline": 0.8524590163934426,
+      "crowdedRepeatCandidate": 0.7735849056603774
+    },
+    {
+      "seed": 19,
+      "holdingBaseline": 3357.8591666666666,
+      "holdingCandidate": 3306.682222222222,
+      "holdingDelta": -51.176944444444416,
+      "holdingPercent": -1.524094427558964,
+      "deathsBaseline": 11,
+      "deathsCandidate": 8,
+      "deathsDelta": -3,
+      "captureMeanBaseline": 14.036243822075782,
+      "captureMeanCandidate": 14.668941979522184,
+      "crowdedRepeatBaseline": 0.7272727272727273,
+      "crowdedRepeatCandidate": 0.8214285714285714
+    },
+    {
+      "seed": 73,
+      "holdingBaseline": 3204.2794444444444,
+      "holdingCandidate": 3234.711111111111,
+      "holdingDelta": 30.431666666666843,
+      "holdingPercent": 0.9497194983861146,
+      "deathsBaseline": 9,
+      "deathsCandidate": 10,
+      "deathsDelta": 1,
+      "captureMeanBaseline": 13.46551724137931,
+      "captureMeanCandidate": 15.295254833040422,
+      "crowdedRepeatBaseline": 0.8275862068965517,
+      "crowdedRepeatCandidate": 0.7325581395348837
+    },
+    {
+      "seed": 11,
+      "holdingBaseline": 3262.2444444444445,
+      "holdingCandidate": 3042.703611111111,
+      "holdingDelta": -219.54083333333347,
+      "holdingPercent": -6.729748094359033,
+      "deathsBaseline": 8,
+      "deathsCandidate": 8,
+      "deathsDelta": 0,
+      "captureMeanBaseline": 14.047770700636942,
+      "captureMeanCandidate": 14.758260869565218,
+      "crowdedRepeatBaseline": 0.7976190476190477,
+      "crowdedRepeatCandidate": 0.775
+    },
+    {
+      "seed": 31,
+      "holdingBaseline": 2967.166388888889,
+      "holdingCandidate": 3255.7425,
+      "holdingDelta": 288.576111111111,
+      "holdingPercent": 9.725646400947996,
+      "deathsBaseline": 9,
+      "deathsCandidate": 14,
+      "deathsDelta": 5,
+      "captureMeanBaseline": 13.534920634920635,
+      "captureMeanCandidate": 15.82394366197183,
+      "crowdedRepeatBaseline": 0.7745098039215687,
+      "crowdedRepeatCandidate": 0.7209302325581395
+    },
+    {
+      "seed": 47,
+      "holdingBaseline": 3258.431111111111,
+      "holdingCandidate": 3100.7908333333335,
+      "holdingDelta": -157.64027777777756,
+      "holdingPercent": -4.837919612301478,
+      "deathsBaseline": 11,
+      "deathsCandidate": 16,
+      "deathsDelta": 5,
+      "captureMeanBaseline": 15.193656093489148,
+      "captureMeanCandidate": 17.801512287334592,
+      "crowdedRepeatBaseline": 0.856,
+      "crowdedRepeatCandidate": 0.8095238095238095
+    },
+    {
+      "seed": 101,
+      "holdingBaseline": 2714.5244444444443,
+      "holdingCandidate": 3142.7330555555554,
+      "holdingDelta": 428.20861111111117,
+      "holdingPercent": 15.77471928784744,
+      "deathsBaseline": 12,
+      "deathsCandidate": 9,
+      "deathsDelta": -3,
+      "captureMeanBaseline": 12.870917573872473,
+      "captureMeanCandidate": 14.556464811783961,
+      "crowdedRepeatBaseline": 0.7482993197278912,
+      "crowdedRepeatCandidate": 0.82
+    },
+    {
+      "seed": 137,
+      "holdingBaseline": 3038.409722222222,
+      "holdingCandidate": 3298.1677777777777,
+      "holdingDelta": 259.75805555555553,
+      "holdingPercent": 8.54914508914797,
+      "deathsBaseline": 7,
+      "deathsCandidate": 9,
+      "deathsDelta": 2,
+      "captureMeanBaseline": 12.083457526080476,
+      "captureMeanCandidate": 15.26086956521739,
+      "crowdedRepeatBaseline": 0.7753623188405797,
+      "crowdedRepeatCandidate": 0.875
+    }
+  ],
+  "comparison": {
+    "holdingPercent": 5.133115324167203,
+    "deathsPercent": 3.797468354430378,
+    "captureMeanPercent": 11.967847757241223,
+    "holdingSignal": {
+      "positive": 5,
+      "negative": 3,
+      "unchanged": 0,
+      "total": 1261.9250000000002,
+      "leaveOneOutSameDirection": true,
+      "directionSignal": false,
+      "interpretation": "indistinguishable; not evidence of no effect"
+    },
+    "deathSignal": {
+      "positive": 4,
+      "negative": 3,
+      "unchanged": 1,
+      "total": 3,
+      "leaveOneOutSameDirection": false,
+      "directionSignal": false,
+      "interpretation": "indistinguishable; not evidence of no effect"
+    }
+  },
+  "checks": {
+    "probe": {
+      "ticks": 450,
+      "seed": 19,
+      "allEqual": true,
+      "rankChecks": 68
+    },
+    "newMediumFailures": [
+      1,
+      2,
+      9,
+      10,
+      13
+    ],
+    "recovery": [
+      {
+        "arm": "baseline",
+        "arrived": true,
+        "arrivalTick": 103,
+        "recoveryTick": 190,
+        "cells": 5,
+        "deaths": 0
+      },
+      {
+        "arm": "candidate",
+        "arrived": true,
+        "arrivalTick": 103,
+        "recoveryTick": 190,
+        "cells": 5,
+        "deaths": 0
+      }
+    ]
+  },
+  "decision": "NOT_ADOPTED: new medium-attack losses. C remains a proposal; do not conceal B regression in a combined result.",
+  "scope": "No240s/1024/cost/full-suite/user-play verification. B candidate only; nicknames and C not applied."
+}

@@ -1,0 +1,13 @@
+import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const root=resolve('../bot-freeze-final');if(existsSync(root))throw Error('Preserve prior final validation');mkdirSync(resolve(root,'expanded'),{recursive:true});
+const adoption=JSON.parse(readFileSync('../bot-inner-anchor-adoption/protocol.json','utf8'));
+const candidate=adoption.arms.find((a:any)=>a.name==='candidate');
+for(const [file,hash]of Object.entries(candidate.sourceHashes))assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),hash);
+const expanded=JSON.parse(readFileSync('../bot-crowded-shape-exploration/expanded/protocol.json','utf8'));
+const protocol={...expanded,source:candidate.source,sourceCommit:'82ed5a2',sourceHashes:Object.fromEntries(Object.entries(candidate.sourceHashes).map(([k,v])=>[k.replace('src/shared/',''),v])),stage:'Final adopted B-quiet+C+inner-anchor',legacy16:{cuts:11,failures:[6,10,13,14,16]},status:'FIXED_AXES_BEFORE_FINAL_RERUN'};
+writeFileSync(resolve(root,'expanded/protocol.json'),JSON.stringify(protocol,null,2)+'\n');
+writeFileSync(resolve(root,'protocol.json'),JSON.stringify({date:'2026-10-14',adoptedCommit:'0a5b3d4',behaviorCommit:'82ed5a2',playerReview:{spectatingSeed:137,approved:true,humanPlaySeconds:390,humanShare:.313},scope:'Freeze bot behavior after final expanded1024 validation and reviewed nicknames; rear territory intrusion detection deferred until after performance PRD.',reusedEvidence:{root:resolve('../bot-inner-anchor-adoption'),sourceHashes:candidate.sourceHashes,ticks:7200,seeds:adoption.seeds,cost:'Fresh prior same-session120s8seeds3round paired B+C versus B+C+inner; report marginal tick delta separately.'},nicknamePlan:{review:'docs/bot-nickname-pool-review.txt',total:288,legacyPrefix:48,japaneseRange:[229,248],japaneseDefaultEnabled:false},masterMergeAuthorized:true,pushAuthorized:false},null,2)+'\n');
+console.log(root);
