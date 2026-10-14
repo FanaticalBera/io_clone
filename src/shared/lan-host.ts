@@ -62,7 +62,16 @@ export class LanHost {
  }
  start():void {
   if(this.timers.length||this.closed)return;
-  this.timers.push(setInterval(()=>this.pump(),10),setInterval(()=>this.heartbeat(),LAN_HEARTBEAT_MS));
+  this.timers.push(setInterval(()=>this.heartbeat(),LAN_HEARTBEAT_MS));this.schedulePump();
+ }
+ // The host phone wakes for the next simulation step instead of every 10 ms (performance PRD N-e):
+ // a running room is due when its accumulator reaches one step; otherwise phase deadlines are checked
+ // at step granularity.
+ private pumpTimer:ReturnType<typeof setTimeout>|null=null;
+ private schedulePump():void {
+  if(this.closed)return;let delay=1000/30;
+  for(const room of this.rooms.rooms.values())if(room.phase==='RUNNING'&&room.match)delay=Math.min(delay,(1/room.match.config.simulationHz-room.accumulator)*1000);
+  this.pumpTimer=setTimeout(()=>{this.pumpTimer=null;this.pump();this.schedulePump();},Math.max(4,Math.ceil(delay)+1));
  }
  pump():void {if(!this.closed&&this.pausedAt===null)this.loop.pump();}
  get paused():boolean {return this.pausedAt!==null;}
@@ -107,7 +116,7 @@ export class LanHost {
  shutdown(error:AppError=HOST_LEFT,abortRooms=true):void {
   if(this.closed)return;this.closed=true;
   if(abortRooms)for(const room of [...this.rooms.rooms.values()])this.loop.abort(room,error.code,error.message);
-  for(const timer of this.timers)clearInterval(timer);this.timers=[];
+  for(const timer of this.timers)clearInterval(timer);this.timers=[];if(this.pumpTimer)clearTimeout(this.pumpTimer);this.pumpTimer=null;
   for(const peer of this.peers.values()){peer.closed=true;peer.channel.close('HOST_CLOSED');}
   this.peers.clear();this.options.onClosed?.(error);
  }

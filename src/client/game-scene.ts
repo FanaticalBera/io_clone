@@ -9,7 +9,7 @@ import {TerritoryEffects} from './territory-effects.js';
 import {TerritoryCaptureEffects} from './territory-capture-effects.js';
 import type {TerritoryEffectStyle} from './territory-effect-model.js';
 import {nearbyBoundaryEdges,boundaryGeometry,setWallMargin,movementCell} from '../shared/wall-margin.js';
-import {createMap} from '../shared/hex.js';
+import {createMap,worldCell} from '../shared/hex.js';
 import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
 import {GAME_MODES} from '../shared/modes.js';
 import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
@@ -220,25 +220,33 @@ export class GameScene extends Phaser.Scene {
   }
   const redrawAt=performance.now();
   const atlasChanged=this.ensureLandAtlas();
-  const dirty=new Set<string>();if(colorsChanged||reset||atlasChanged)for(const key of this.chunkIndex.keys())dirty.add(key);
+  // Land tiles change only with ownership; trails change every move. Rebuilding a chunk's land for a
+  // trail step would redo hundreds of tiles per snapshot, so the two are tracked separately.
+  const landDirty=new Set<string>(),trailDirty=new Set<string>();
+  if(colorsChanged||reset||atlasChanged)for(const key of this.chunkIndex.keys()){landDirty.add(key);trailDirty.add(key);}
   for(let id=0;id<view.owners.length;id++){
-   if(this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
-   if(this.lastOwners[id]===view.owners[id])continue;dirty.add(this.chunkKey(id));
+   if(this.lastTrails[id]!==view.trailMasks[id])trailDirty.add(this.chunkKey(id));
+   if(this.lastOwners[id]===view.owners[id])continue;landDirty.add(this.chunkKey(id));
+   // A trail is drawn under or over land depending on the cell's owner.
+   trailDirty.add(this.chunkKey(id));
    // The two cells above draw their tile side over this cell only while it is
    // empty, so they must be redrawn too even when they sit in another chunk.
-   for(const n of [1,2]){const above=this.map.cells[id].neighbors[n];if(above>=0)dirty.add(this.chunkKey(above));}
+   for(const n of [1,2]){const above=this.map.cells[id].neighbors[n];if(above>=0)landDirty.add(this.chunkKey(above));}
   }
-  for(const key of dirty){
-   const g=this.chunks.get(key)!;g.clear();
+  for(const key of landDirty){
    const cells=this.chunkIndex.get(key)!.cells;
-   // Trails on open ground go under raised land so neighbouring tile sides overlap them.
-   for(const id of cells)if(view.trailMasks[id]&&!view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,false);
    // Same per-cell order as the former Graphics: the lower sides that face open ground, then the top.
    const land=this.landChunks.get(key)!,{minX,minY}=this.landBox;land.clear();
    for(const id of cells){const owner=view.owners[id];if(!owner)continue;const c:MapDefinition['cells'][number]=this.map.cells[id],x=c.center.x+minX,y=c.center.y+minY;
     for(const [n,face]of [[5,'se'],[4,'sw']] as const){const next=c.neighbors[n];if(next<0||!view.owners[next])land.create(x,y,face+(owner-1));}
     land.create(x,y,'top'+(owner-1));
    }
+  }
+  for(const key of trailDirty){
+   const g=this.chunks.get(key)!;g.clear();
+   const cells=this.chunkIndex.get(key)!.cells;
+   // Trails on open ground go under raised land so neighbouring tile sides overlap them.
+   for(const id of cells)if(view.trailMasks[id]&&!view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,false);
    // A trail crossing someone's land must stay visible on top of that land.
    const top=this.trailTops.get(key)!;top.clear();
    for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(top,id,view.trailMasks[id],view.config.maxSlots,true);
@@ -372,10 +380,16 @@ export class GameScene extends Phaser.Scene {
   }
  }
  private boundaryCells:number[]=[];
- /** Render chunk of the boundary cell nearest to the points' centre (board pieces sit at or outside the edge). */
+ /**
+  * Render chunk for a board piece near the points' centre. Any nearby chunk is fine: each piece is culled
+  * by its own bounds. Pulling the centre one cell toward the middle lands in an edge cell almost always;
+  * otherwise the nearest boundary cell is searched.
+  */
  private edgeChunkKey(points:Vec[]):string {
-  const map=this.map!;if(!this.boundaryCells.length)this.boundaryCells=map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id);
-  const x=points.reduce((n,p)=>n+p.x,0)/points.length,y=points.reduce((n,p)=>n+p.y,0)/points.length;
+  const map=this.map!,x=points.reduce((n,p)=>n+p.x,0)/points.length,y=points.reduce((n,p)=>n+p.y,0)/points.length;
+  const length=Math.hypot(x,y),inward=length>0?Math.max(0,length-Math.sqrt(3)*map.side)/length:0,cell=worldCell(map,{x:x*inward,y:y*inward});
+  if(cell>=0)return this.cellChunkKeys[cell];
+  if(!this.boundaryCells.length)this.boundaryCells=map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id);
   let best=this.boundaryCells[0],distance=Infinity;
   for(const id of this.boundaryCells){const c=map.cells[id].center,d=(c.x-x)**2+(c.y-y)**2;if(d<distance){distance=d;best=id;}}
   return this.cellChunkKeys[best];
