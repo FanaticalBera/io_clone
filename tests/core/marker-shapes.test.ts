@@ -11,7 +11,7 @@ describe('vector marker shapes',()=>{
   expect(markerSvg('default',0xa180f4)).toContain(hexColor(shadeColor(0xa180f4)));
  });
  it('animates exactly the Special category and falls back to the default piece',()=>{
-  for(const m of MARKERS)expect(!!MARKER_SHAPES[m.id].motion).toBe(m.category==='SPECIAL');
+  for(const m of MARKERS)expect(!!MARKER_SHAPES[m.id].motion).toBe(m.category==='SPECIAL'||!!m.reward);
   expect(markerShape('missing')).toBe(MARKER_SHAPES.default);
  });
  it('adds sparkles and the orbit satellite only for still previews',()=>{

@@ -1,10 +1,10 @@
-import {DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,markerDefinition,markerColorDefinition,productDefinition,type ProductKind} from './catalog.js';
+import {DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,markerDefinition,markerColorDefinition,productDefinition,type ProductKind,earnedRewards} from './catalog.js';
 import type {PlayerProfileV1} from './profile.js';
 export interface PlayerInventory {
   version:1;ownedMarkerIds:string[];ownedMarkerColorIds:string[];
   equippedMarkerId:string;equippedMarkerColorId:string;
 }
-export interface ShopReceipt {status:'purchased'|'owned'|'insufficient'|'equipped'|'already-equipped'|'not-owned'|'unknown';kind:ProductKind;id:string;balance:number}
+export interface ShopReceipt {status:'purchased'|'owned'|'insufficient'|'equipped'|'already-equipped'|'not-owned'|'unknown'|'locked';kind:ProductKind;id:string;balance:number;unlocked?:string[]}
 const identifier=(id:unknown):id is string=>typeof id==='string'&&/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id);
 const record=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
 export function defaultInventory():PlayerInventory {
@@ -40,11 +40,15 @@ export function purchaseItem(profile:PlayerProfileV1,kind:ProductKind,id:string)
   const product=productDefinition(kind,id),receipt=(status:ShopReceipt['status']):ShopReceipt=>({status,kind,id,balance:profile.coins});
   if(!product)return receipt('unknown');
   if(ownedItem(profile,kind,id))return receipt('owned');
+  if('reward'in product&&product.reward)return receipt('locked');
   if(!Number.isSafeInteger(product.price)||product.price<0)throw new Error('Invalid catalog price');
   if(profile.coins<product.price)return receipt('insufficient');
   const owned=kind==='marker'?profile.inventory.ownedMarkerIds:profile.inventory.ownedMarkerColorIds;
   if(owned.length>=1024)throw new Error('Inventory capacity reached');
-  profile.coins-=product.price;owned.push(id);return receipt('purchased');
+  profile.coins-=product.price;owned.push(id);
+  // Completing a category (or the whole collection) grants its reward marker in the same write.
+  const unlocked=kind==='marker'?earnedRewards(owned):[];owned.push(...unlocked);
+  return {...receipt('purchased'),...(unlocked.length?{unlocked}:{})};
 }
 export function equipItem(profile:PlayerProfileV1,kind:ProductKind,id:string):ShopReceipt {
   const receipt=(status:ShopReceipt['status']):ShopReceipt=>({status,kind,id,balance:profile.coins});

@@ -1,10 +1,11 @@
-import {MARKERS,MARKER_COLORS,MARKER_CATEGORIES,CATEGORY_LABELS,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,productDefinition,type ProductKind,type MarkerCategory} from './catalog.js';
+import {MARKERS,MARKER_COLORS,MARKER_CATEGORIES,CATEGORY_LABELS,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,productDefinition,markerDefinition,type ProductKind,type MarkerCategory} from './catalog.js';
 import {ownedItem,equippedItem,type ShopReceipt} from './inventory.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
 import type {PlayerProfileV1} from './profile.js';
 import {ProfileStore} from './profile-store.js';
 import {ICONS} from './icons.js';
 import {styledColor} from './player-colors.js';
+import {playUnbox} from './unbox.js';
 import {cssHex} from './theme.js';
 const get=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 export class ShopUI {
@@ -63,25 +64,34 @@ export class ShopUI {
     for(const product of products){
       const card=document.createElement('button');card.className='shop-card';card.dataset.productId=product.id;card.dataset.productKind=this.kind;
       card.setAttribute('aria-pressed',String(product.id===this.selected));
+      const reward='reward'in product?product.reward:undefined;if('legendary'in product&&product.legendary)card.classList.add('legendary');
       if(this.kind==='marker-color'){
        const swatch=document.createElement('i');swatch.className='shop-color-swatch';swatch.setAttribute('aria-hidden','true');const value='value'in product?product.value:null;swatch.style.backgroundColor=cssHex(styledColor(value??this.slotColor));card.append(swatch);
       }else card.append(markerPreview(this.appearance(product.id),this.slotColor));
       const name=document.createElement('strong');name.textContent=product.name;card.append(name);
       const state=document.createElement('small'),owned=!!this.profile&&ownedItem(this.profile,this.kind,product.id),equipped=owned&&equippedItem(this.profile!,this.kind)===product.id;
-      state.className='state '+(equipped?'equipped':owned?'owned':'price');state.textContent=equipped?'장착 중':owned?'보유 중':product.price+' 코인';card.append(state);
+      state.className='state '+(equipped?'equipped':owned?'owned':reward?'locked':'price');state.textContent=equipped?'장착 중':owned?'보유 중':reward?'완성 보상':product.price+' 코인';card.append(state);
       card.addEventListener('click',()=>{this.selected=product.id;this.render();});list.append(card);
     }
     if(focusId)Array.from(list.querySelectorAll<HTMLElement>('[data-product-id]')).find(b=>b.dataset.productId===focusId)?.focus({preventScroll:true});
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;action.classList.add('sun');get('shop-preview').replaceChildren();
     if(!product){get('shop-item-name').textContent='상품 없음';get('shop-item-note').textContent='다른 카테고리나 보유 필터를 골라 보세요.';action.textContent='선택할 상품 없음';return;}
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':('category'in product&&product.category==='SPECIAL')?'게임 중에 움직여요 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
+    const reward='reward'in product?product.reward:undefined;
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':reward?(reward==='ALL'?'판매 마커를 전부':CATEGORY_LABELS[reward]+' 마커를 모두')+' 모으면 받는 전용 마커':('legendary'in product&&product.legendary)?'전설 · 게임 중에 움직여요':('category'in product&&product.category==='SPECIAL')?'게임 중에 움직여요 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;
-    action.textContent=owned?(equipped?'장착 중':'장착'):this.profile.coins<product.price?'코인이 부족해요':'구매 · '+product.price+' 코인';
+    action.textContent=owned?(equipped?'장착 중':'장착'):reward?'잠김 · 모으면 받아요':this.profile.coins<product.price?'코인이 부족해요':'구매 · '+product.price+' 코인';
     action.classList.toggle('sun',!owned);
-    action.disabled=owned?equipped:this.profile.coins<product.price;
+    action.disabled=owned?equipped:!!reward||this.profile.coins<product.price;
+  }
+  /** Plays the reveal for the bought marker, then one per reward it unlocked. */
+  private async reveal(ids:string[]):Promise<void>{
+    for(const [i,id] of ids.entries()){
+      const d=markerDefinition(id);if(!d)continue;
+      await playUnbox(this.dialog,markerPreview(this.appearance(id),this.slotColor),{legendary:!!d.legendary,title:i?'전용 마커 해금! '+d.name:'새 마커 획득!',color:cssHex(styledColor(this.slotColor))});
+    }
   }
   private status(text:string,error=false):void {get('shop-status').textContent=text;get('shop-status').classList.toggle('shop-error',error);}
   private async act():Promise<void>{
@@ -90,8 +100,9 @@ export class ShopUI {
     this.pending=true;this.status('저장 중…');this.render();
     try{
       const receipt=await(owned?this.store.equip(kind,id):this.store.purchase(kind,id));
-      const messages:Record<ShopReceipt['status'],string>={purchased:name+' 구매 완료. 장착할 수 있어요.',owned:'이미 보유 중이에요. 코인을 쓰지 않았어요.',insufficient:'코인이 부족해요.',equipped:name+' 장착 완료.', 'already-equipped':'이미 장착 중이에요.','not-owned':'먼저 상품을 구매하세요.',unknown:'상품 정보를 찾지 못했어요.'};
-      this.status(messages[receipt.status],['insufficient','not-owned','unknown'].includes(receipt.status));
+      const messages:Record<ShopReceipt['status'],string>={purchased:name+' 구매 완료. 장착할 수 있어요.',owned:'이미 보유 중이에요. 코인을 쓰지 않았어요.',insufficient:'코인이 부족해요.',equipped:name+' 장착 완료.', 'already-equipped':'이미 장착 중이에요.','not-owned':'먼저 상품을 구매하세요.',unknown:'상품 정보를 찾지 못했어요.',locked:'모아서 받는 전용 마커예요.'};
+      this.status(messages[receipt.status],['insufficient','not-owned','unknown','locked'].includes(receipt.status));
+      if(receipt.status==='purchased'&&kind==='marker')await this.reveal([id,...receipt.unlocked??[]]);
     }catch{this.status('저장 실패. 코인과 구매·장착 상태는 바뀌지 않았어요. 다시 눌러 주세요.',true);}
     finally{this.pending=false;this.render();}
   }

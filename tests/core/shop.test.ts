@@ -39,7 +39,7 @@ describe('Catalog-based purchase and equip',()=>{
   it('keeps unique stable IDs, all categories, and safe temporary prices',()=>{
     expect(new Set(MARKERS.map(d=>d.id)).size).toBe(MARKERS.length);expect(new Set(MARKER_COLORS.map(d=>d.id)).size).toBe(MARKER_COLORS.length);
     expect([...new Set(MARKERS.map(d=>d.category))].sort()).toEqual([...MARKER_CATEGORIES].sort());
-    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC')).toHaveLength(16);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
+    expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC'&&!d.reward)).toHaveLength(16);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
   });
   it.each([['marker','ring',SHOP_PRICES.ring],['marker-color','coral',SHOP_PRICES.markerColor]] as const)('buys %s/%s once without auto-equip', (kind,id,price)=>{
     const p=migrateProfile(legacyWallet())!,stats=structuredClone(p.stats),worlds=structuredClone(p.worlds),paid=structuredClone(p.processedRuns);
@@ -71,4 +71,16 @@ describe('Marker Color is a local presentation',()=>{
     const a=markerArt({markerId:'target',markerColorId:'coral'},0x359aff,false);expect(a.markerId).toBe('default');expect(a.markerColorId).toBe('slot');expect(a.bodyColor).toBe(0x359aff);expect(a.local).toBe(false);
   });
   it('falls back safely when a visual definition is missing',()=>expect(markerArt({markerId:'gone',markerColorId:'gone'},0x359aff,true)).toMatchObject({markerId:'default',markerColorId:'slot',bodyColor:0x359aff}));
+});
+describe('Reward markers',()=>{
+  it('cannot be bought and are granted once the last sold marker of the category is bought',()=>{
+    const p=emptyProfile();p.coins=100000;
+    expect(purchaseItem(p,'marker','crowncat').status).toBe('locked');
+    const cute=MARKERS.filter(m=>m.category==='CUTE'&&!m.reward).map(m=>m.id);
+    for(const id of cute.slice(0,-1))expect(purchaseItem(p,'marker',id).unlocked).toBeUndefined();
+    expect(purchaseItem(p,'marker',cute.at(-1)!)).toMatchObject({status:'purchased',unlocked:['crowncat']});
+    expect(p.inventory.ownedMarkerIds.filter(id=>id==='crowncat')).toHaveLength(1);
+    for(const m of MARKERS)if(!m.reward&&!p.inventory.ownedMarkerIds.includes(m.id))purchaseItem(p,'marker',m.id);
+    expect(MARKERS.every(m=>p.inventory.ownedMarkerIds.includes(m.id))).toBe(true);
+  });
 });

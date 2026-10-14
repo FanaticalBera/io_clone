@@ -6,9 +6,9 @@ import {markerArt} from '../../src/client/marker-art.js';
 import {MARKER_SHAPES} from '../../src/client/marker-shapes.js';
 describe('approved marker catalog and local test gift',()=>{
  it('includes eighty-one vector designs, sixteen per category plus the moved jellyfish, and preserves legacy product IDs',()=>{
-  expect(MARKERS).toHaveLength(81);expect(markerDefinition('moon')).toBeUndefined();
+  expect(MARKERS.filter(m=>!m.reward)).toHaveLength(81);expect(MARKERS.filter(m=>m.reward)).toHaveLength(6);expect(markerDefinition('moon')).toBeUndefined();
   for(const id of ['default','ring','hex','target','cat','chick','slime','crystal','ghost','core','radar','drone','orbit','crown','ember'])expect(markerDefinition(id)).toBeDefined();
-  for(const category of ['BASIC','CUTE','FANTASY','TECH','SPECIAL'])expect(MARKERS.filter(m=>m.category===category)).toHaveLength(category==='CUTE'?17:16);
+  for(const category of ['BASIC','CUTE','FANTASY','TECH','SPECIAL'])expect(MARKERS.filter(m=>m.category===category&&!m.reward)).toHaveLength(category==='CUTE'?17:16);
   for(const m of MARKERS)expect(MARKER_SHAPES[m.id]).toBeDefined();
  });
  it('restores existing paid placeholder ownership/equipment without another purchase',()=>{

@@ -2,7 +2,8 @@ export const MARKER_CATEGORIES=['BASIC','CUTE','FANTASY','TECH','SPECIAL'] as co
 export const CATEGORY_LABELS:Readonly<Record<typeof MARKER_CATEGORIES[number],string>>={BASIC:'기본',CUTE:'귀여움',FANTASY:'판타지',TECH:'테크',SPECIAL:'스페셜'};
 export type MarkerCategory=typeof MARKER_CATEGORIES[number];
 export type ProductKind='marker'|'marker-color';
-export interface MarkerDefinition {id:string;name:string;category:MarkerCategory;price:number}
+/** reward: never sold; granted when every sold marker of that category (or ALL) is owned. */
+export interface MarkerDefinition {id:string;name:string;category:MarkerCategory;price:number;legendary?:boolean;reward?:MarkerCategory|'ALL'}
 export interface MarkerColorDefinition {id:string;name:string;value:number|null;price:number}
 export const DEFAULT_MARKER_ID='default',DEFAULT_MARKER_COLOR_ID='slot';
 // Temporary V1 prices. All prices live here, independent of storage and renderers.
@@ -82,14 +83,20 @@ export const MARKERS:readonly Readonly<MarkerDefinition>[]=Object.freeze([
   {id:'sun',name:'해님',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
   {id:'heart',name:'두근 하트',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
   {id:'storm',name:'번개 구름',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'phoenix',name:'불사조',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'blackhole',name:'블랙홀',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'rainbow',name:'무지개',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'snowflake',name:'눈송이',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'sakura',name:'벚꽃',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'kingslime',name:'킹 슬라임',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'diamond',name:'다이아몬드',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'golddragon',name:'황금 드래곤',category:'SPECIAL',price:SHOP_PRICES.imageMarker}
+  {id:'phoenix',name:'불사조',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'blackhole',name:'블랙홀',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'rainbow',name:'무지개',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'snowflake',name:'눈송이',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'sakura',name:'벚꽃',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'kingslime',name:'킹 슬라임',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'diamond',name:'다이아몬드',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'golddragon',name:'황금 드래곤',category:'SPECIAL',price:SHOP_PRICES.imageMarker,legendary:true},
+  {id:'goldpuck',name:'황금 왕관 말',category:'BASIC',price:0,legendary:true,reward:'BASIC'},
+  {id:'crowncat',name:'왕관 말랑냥',category:'CUTE',price:0,legendary:true,reward:'CUTE'},
+  {id:'archmage',name:'대마법사의 구슬',category:'FANTASY',price:0,legendary:true,reward:'FANTASY'},
+  {id:'goldbot',name:'황금 로봇',category:'TECH',price:0,legendary:true,reward:'TECH'},
+  {id:'starwhale',name:'별고래',category:'SPECIAL',price:0,legendary:true,reward:'SPECIAL'},
+  {id:'hexcrown',name:'헥스홀드 왕관',category:'SPECIAL',price:0,legendary:true,reward:'ALL'}
 ].map(d=>Object.freeze(d as MarkerDefinition)));
 export const MARKER_COLORS:readonly Readonly<MarkerColorDefinition>[]=Object.freeze([
   {id:'slot',name:'내 기본색',value:null,price:0},
@@ -112,6 +119,12 @@ export const MARKER_COLORS:readonly Readonly<MarkerColorDefinition>[]=Object.fre
 ].map(d=>Object.freeze(d)));
 const markers=new Map(MARKERS.map(d=>[d.id,d])),colors=new Map(MARKER_COLORS.map(d=>[d.id,d]));
 export const markerDefinition=(id:string)=>markers.get(id);
+export const SOLD_MARKERS=MARKERS.filter(m=>!m.reward);
+/** Reward markers the owned set has earned but not yet received. */
+export function earnedRewards(owned:readonly string[]):string[]{
+ const have=new Set(owned),done=(c:MarkerCategory|'ALL')=>SOLD_MARKERS.every(m=>(c==='ALL'||m.category===c)?have.has(m.id):true);
+ return MARKERS.filter(m=>m.reward&&!have.has(m.id)&&done(m.reward)).map(m=>m.id);
+}
 export const markerColorDefinition=(id:string)=>colors.get(id);
 export const productDefinition=(kind:ProductKind,id:string)=>kind==='marker'?markers.get(id):kind==='marker-color'?colors.get(id):undefined;
 
