@@ -91,20 +91,26 @@ export class GameScene extends Phaser.Scene {
  // Render policy (performance PRD 4, Q2). Live: Phaser draws every frame. Still: the current state is
  // drawn once more and Phaser's loop then sleeps until live again. Snapshot handling keeps running either
  // way, so waking shows the latest state without catching up.
- private stillPending=false;private wantLive=true;
- setRenderLive(live:boolean):void {
+ // Idle: an overlay (settings, run result, results) covers the live field. Drawing continues at a low
+ // rate instead of stopping: restarting a stopped WebGL canvas stuttered for ~0.3 s after closing
+ // settings on an S24+ (no JS work; the WebView rebuilds the canvas layer). 30 fps showed no stutter in
+ // 8 closes, 10 fps still missed a frame now and then. ?perfIdleFps tunes it in measurement builds.
+ private stillPending=false;private wantMode:'live'|'idle'|'still'='live';
+ frameLimit:(fps:number)=>void=()=>{};liveFps=60;idleFps=30;
+ setRenderMode(mode:'live'|'idle'|'still'):void {
   // Before boot the loop has not started; create() applies the wanted policy.
-  this.wantLive=live;if(!this.created)return;
+  this.wantMode=mode;if(!this.created)return;
   const loop=this.game.loop;
-  if(live){this.stillPending=false;if(!loop.running)loop.wake(true);return;}
+  if(mode!=='still'){this.stillPending=false;this.frameLimit(mode==='live'?this.liveFps:this.idleFps);if(!loop.running)loop.wake(true);return;}
+  this.frameLimit(this.liveFps);
   // Only the switch from live draws the extra frame; repeated still requests keep it asleep.
   if(!loop.running||this.stillPending)return;
   this.stillPending=true;
  }
- renderLive():boolean{return this.game.loop.running&&!this.stillPending;}
+ renderLive():boolean{return this.game.loop.running&&!this.stillPending&&this.wantMode==='live';}
  afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;if(!this.wantLive)this.stillPending=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -423,7 +429,7 @@ export function createRenderer(parent:string):GameScene {
   scene:[scene],render:{antialias:true,powerPreference:'high-performance'},banner:false,audio:{noAudio:true}});
  // Measurement builds can lift the cap (?perfFps=0) for A/B comparisons.
  const fpsParam=PERF_BUILD?new URLSearchParams(location.search).get('perfFps'):null;
- installFrameLimit(game,fpsParam!==null?Number(fpsParam):60);
+ scene.liveFps=fpsParam!==null?Number(fpsParam):60;const idleParam=PERF_BUILD?new URLSearchParams(location.search).get('perfIdleFps'):null;if(idleParam!==null)scene.idleFps=Number(idleParam);scene.frameLimit=installFrameLimit(game,scene.liveFps);
  game.events.on(Phaser.Core.Events.POST_RENDER,()=>scene.afterRender());
  startFrameMeter(game);
  return scene;

@@ -46,7 +46,9 @@ const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui
  quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
 // Phaser draws only while the live field is on screen (performance PRD 4); elsewhere it shows a still frame.
 let rendererReady=false;
-function syncRender():void {if(rendererReady)scene.setRenderLive(ui.fieldVisible());}
+// Measurement builds can keep Phaser drawing behind overlays (?perfNoSleep=1) to compare against the still frame.
+const keepDrawing=PERF_BUILD&&perfParams.get('perfNoSleep')==='1';
+function syncRender():void {if(rendererReady)scene.setRenderMode(keepDrawing||ui.fieldVisible()?'live':ui.overlaysField()?'idle':'still');}
 ui.setLanMode(lanAvailable());
 
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));

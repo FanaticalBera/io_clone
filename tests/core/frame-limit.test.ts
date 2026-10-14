@@ -4,11 +4,11 @@ import {installFrameLimit} from '../../src/client/frame-limit.js';
 import {seededRandom} from '../../src/shared/random.js';
 
 /** Drives the installed limiter like requestAnimationFrame would and counts game steps per second. */
-function stepsPerSecond(hz:number,jitterMs:number,seconds=10){
+function stepsPerSecond(hz:number,jitterMs:number,seconds=10,fps=60){
  const loop={hasFpsLimit:false,fpsLimit:0,_limitRate:0,smoothStep:false,smoothDelta:(d:number)=>d,nextFpsUpdate:Infinity,updateFPS(){},framesThisSecond:0,frame:0,
   now:0,lastTime:0,rawDelta:0,time:0,delta:0,callback:(_t:number,_d:number)=>{},stepLimitFPS:(_t:number)=>{}};
  let steps=0;loop.callback=()=>{steps++;};
- installFrameLimit({loop} as unknown as Phaser.Game,60);
+ const setFps=installFrameLimit({loop} as unknown as Phaser.Game,60);setFps(fps);
  const random=seededRandom(hz),period=1000/hz;
  for(let i=1;i<=seconds*hz;i++)loop.stepLimitFPS(i*period+(random()-.5)*2*jitterMs);
  return steps/seconds;
@@ -26,9 +26,9 @@ describe('Performance PRD Q1: 60 fps frame limit',()=>{
   expect(stepsPerSecond(50,.5)).toBeCloseTo(50,0);
   expect(stepsPerSecond(30,.5)).toBeCloseTo(30,0);
  });
- it('can be disabled for measurement comparisons',()=>{
-  const loop={hasFpsLimit:true} as unknown as Phaser.Core.TimeStep;
-  installFrameLimit({loop} as unknown as Phaser.Game,0);
-  expect(loop.hasFpsLimit).toBe(false);
+ it('0 means every display frame, and the cap can change at runtime (30 fps idle under overlays)',()=>{
+  expect(stepsPerSecond(120,.3,10,0)).toBeCloseTo(120,0);
+  expect(stepsPerSecond(120,.3,10,30)).toBeGreaterThanOrEqual(29);
+  expect(stepsPerSecond(120,.3,10,30)).toBeLessThanOrEqual(31);
  });
 });

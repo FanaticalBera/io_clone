@@ -229,6 +229,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  get hasRunResult():boolean{return !!this.runKey;}
  /** Whether the live field is what the player sees: the game screen with no settings, result card or results table over it. */
  fieldVisible():boolean{return get('app').dataset.screen==='game'&&!this.isSettingsOpen()&&!!get('run-results').hidden&&!!get('results').hidden;}
+ /** The game screen is up but covered (settings, run result card or results table): the field stays in view behind it. */
+ overlaysField():boolean{return get('app').dataset.screen==='game'&&!this.fieldVisible();}
  private changed():void{this.actions.screenChanged?.();}
  clearRunResult():void {if(this.runTimer!==null)clearTimeout(this.runTimer);this.runTimer=null;this.runKey='';this.currentRunResult=null;get('run-results').hidden=true;this.changed();}
  showRunResult(result:RunResult,restored=false):void {
