@@ -41,6 +41,7 @@ export const MARKERS:readonly Readonly<MarkerDefinition>[]=Object.freeze([
   {id:'dog',name:'멍뭉이',category:'CUTE',price:SHOP_PRICES.imageMarker},
   {id:'whale',name:'아기고래',category:'CUTE',price:SHOP_PRICES.imageMarker},
   {id:'turtle',name:'엉금거북',category:'CUTE',price:SHOP_PRICES.imageMarker},
+  {id:'jellyfish',name:'해파리',category:'CUTE',price:SHOP_PRICES.imageMarker},
   {id:'crystal',name:'루미 크리스탈',category:'FANTASY',price:SHOP_PRICES.imageMarker},
   {id:'ghost',name:'꼬마 유령',category:'FANTASY',price:SHOP_PRICES.imageMarker},
   {id:'dragon',name:'꼬마 드래곤',category:'FANTASY',price:SHOP_PRICES.imageMarker},
@@ -88,7 +89,7 @@ export const MARKERS:readonly Readonly<MarkerDefinition>[]=Object.freeze([
   {id:'sakura',name:'벚꽃',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
   {id:'kingslime',name:'킹 슬라임',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
   {id:'diamond',name:'다이아몬드',category:'SPECIAL',price:SHOP_PRICES.imageMarker},
-  {id:'jellyfish',name:'해파리',category:'SPECIAL',price:SHOP_PRICES.imageMarker}
+  {id:'golddragon',name:'황금 드래곤',category:'SPECIAL',price:SHOP_PRICES.imageMarker}
 ].map(d=>Object.freeze(d as MarkerDefinition)));
 export const MARKER_COLORS:readonly Readonly<MarkerColorDefinition>[]=Object.freeze([
   {id:'slot',name:'내 기본색',value:null,price:0},

@@ -43,9 +43,9 @@ test('all seventy-six designs purchase/equip and restore at mobile size; switchi
   await page.evaluate(async()=>{const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=5000;
    await new Promise<void>(resolve=>{const r=indexedDB.open('hexhold.player-profile',1);r.onsuccess=()=>{const db=r.result,tx=db.transaction('meta','readwrite');tx.objectStore('meta').put(p,'profile');tx.oncomplete=()=>{db.close();resolve();};};});});
   await page.reload();await expect(page.locator('#menu-coins')).toHaveText('5,000');
-  await page.locator('#shop-open').click();await expect(page.locator('#shop-items svg[data-marker-id]')).toHaveCount(80);
+  await page.locator('#shop-open').click();await expect(page.locator('#shop-items svg[data-marker-id]')).toHaveCount(81);
   await expect(page.locator('[data-product-id="moon"]')).toHaveCount(0);await expect(page.locator('[data-product-id="ghost"]')).toHaveCount(1);
-  const ids=(await page.locator('#shop-items svg').evaluateAll(es=>es.map(e=>(e as SVGElement).dataset.markerId!))).filter(id=>!['default','ring','hex','target'].includes(id));expect(ids).toHaveLength(76);
+  const ids=(await page.locator('#shop-items svg').evaluateAll(es=>es.map(e=>(e as SVGElement).dataset.markerId!))).filter(id=>!['default','ring','hex','target'].includes(id));expect(ids).toHaveLength(77);
   for(const viewport of [{width:844,height:390},{width:640,height:320},{width:568,height:320}]){
    await page.setViewportSize(viewport);
    for(const id of ['shop-close','shop-preview','shop-action','shop-coins']){
@@ -58,7 +58,7 @@ test('all seventy-six designs purchase/equip and restore at mobile size; switchi
    await page.locator('[data-product-id="'+id+'"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 50 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
   }
   await page.locator('#shop-colors').click();await page.locator('[data-product-id="violet"]').click();await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
-  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('1,170');
+  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('1,120');
   const saved=await profile(page);expect(saved.inventory.ownedMarkerIds).toEqual(['default',...ids]);expect(saved.inventory.equippedMarkerId).toBe(ids.at(-1));expect(saved.inventory.equippedMarkerColorId).toBe('violet');
   await page.getByTestId('practice').click();await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
   let assets:any=null;
@@ -84,7 +84,7 @@ test('shop previews paint each body in the chosen colour and keep fixed ink deta
   const {MARKERS}=await import('/src/client/catalog.ts' as string),{markerPreview}=await import('/src/client/marker-art.ts' as string);
   return MARKERS.map((d:any)=>{const svg=markerPreview({markerId:d.id,markerColorId:'violet'},0x9b644d);return {id:d.id,marker:svg.dataset.markerId,body:!!svg.querySelector('[fill="#a180f4"]'),ink:!!svg.querySelector('[stroke="#1f1b2d"]'),slot:!!svg.querySelector('[fill="#9b644d"]')};});
  });
- expect(checked).toHaveLength(80);
+ expect(checked).toHaveLength(81);
  for(const c of checked){expect(c.marker,c.id).toBe(c.id);expect(c.body,c.id).toBe(true);expect(c.ink,c.id).toBe(true);expect(c.slot,c.id).toBe(false);}
 });
 
@@ -98,8 +98,8 @@ test('all-marker gift preserves the real wallet, equips a chosen design in mobil
    await new Promise<void>((resolve,reject)=>{const r=indexedDB.open('hexhold.player-profile',1);r.onsuccess=()=>{const db=r.result,tx=db.transaction('meta','readwrite');tx.objectStore('meta').put(p,'profile');tx.oncomplete=()=>{db.close();resolve();};tx.onabort=()=>reject(tx.error);};});return p;
   });
   await page.goto('/?testMarkerGift=all&experimentSeed=4&experimentSlots=16');await expect(page).not.toHaveURL(/testMarkerGift/);await expect(page).toHaveURL(/experimentSeed=4/);
-  const after=await profile(page),{inventory,...core}=after,{inventory:oldInventory,...oldCore}=before;expect(core).toEqual(oldCore);expect(inventory.equippedMarkerId).toBe('cat');expect(inventory.equippedMarkerColorId).toBe('violet');expect(inventory.ownedMarkerColorIds).toEqual(oldInventory.ownedMarkerColorIds);expect(new Set(inventory.ownedMarkerIds).size).toBe(80);
-  await page.locator('#shop-open').click();await page.locator('#shop-owned').click();await expect(page.locator('#shop-items [data-product-id]')).toHaveCount(80);
+  const after=await profile(page),{inventory,...core}=after,{inventory:oldInventory,...oldCore}=before;expect(core).toEqual(oldCore);expect(inventory.equippedMarkerId).toBe('cat');expect(inventory.equippedMarkerColorId).toBe('violet');expect(inventory.ownedMarkerColorIds).toEqual(oldInventory.ownedMarkerColorIds);expect(new Set(inventory.ownedMarkerIds).size).toBe(81);
+  await page.locator('#shop-open').click();await page.locator('#shop-owned').click();await expect(page.locator('#shop-items [data-product-id]')).toHaveCount(81);
   await page.locator('[data-product-id="crown"]').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-coins')).toHaveText('321');await page.locator('#shop-close').click();
   await page.goto('/?testMarkerGift=all&experimentSeed=4&experimentSlots=16');await expect(page).not.toHaveURL(/testMarkerGift/);expect((await profile(page)).inventory.equippedMarkerId).toBe('crown');
   await page.getByTestId('practice').click();await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().find((m:any)=>m.local)?.markerId)).toBe('crown');
@@ -114,5 +114,5 @@ test('all-marker gift abort never partially unlocks markers; concurrent claims g
   IDBObjectStore.prototype.put=function(...args:any[]){if(this.transaction.db.name==='all-marker-atomic')throw new DOMException('Writes blocked','QuotaExceededError');return put.apply(this,args as any);};
   try{await a.claimTestMarker('all');}catch{aborted=true;}finally{IDBObjectStore.prototype.put=put;}
   const failed=await a.read();await Promise.all([a.claimTestMarker('all'),b.claimTestMarker('all')]);const after=await a.read();a.dispose();b.dispose();return{before,failed,after,aborted};
- });expect(result.aborted).toBe(true);expect(result.failed).toEqual(result.before);expect(result.after.inventory.ownedMarkerIds).toHaveLength(80);expect(new Set(result.after.inventory.ownedMarkerIds).size).toBe(80);expect(result.after.coins).toBe(result.before.coins);
+ });expect(result.aborted).toBe(true);expect(result.failed).toEqual(result.before);expect(result.after.inventory.ownedMarkerIds).toHaveLength(81);expect(new Set(result.after.inventory.ownedMarkerIds).size).toBe(81);expect(result.after.coins).toBe(result.before.coins);
 });

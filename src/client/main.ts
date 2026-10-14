@@ -59,7 +59,9 @@ scene.setTerritoryEffect(experimentalTerritoryEffect(new URLSearchParams(locatio
 scene.setCaptureEffect(experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test'));
 // Legacy strict geometry is available only for local development comparison.
 const strictWallExperiment=(import.meta.env.DEV||import.meta.env.MODE==='test')&&new URLSearchParams(location.search).get('experimentWall')==='strict';
-void (import.meta.env.MODE==='apk'?import('./fonts-bundled.js'):Promise.resolve()).then(()=>document.fonts?.load('14px Jua')).then(()=>scene.refreshLabels()).catch(()=>{});
+// Keep the app hidden on the splash colour until the display fonts arrive (or 2.5s), so text never swaps faces on screen.
+const revealApp=()=>document.documentElement.classList.remove('fonts-pending');setTimeout(revealApp,2500);
+void (import.meta.env.MODE==='apk'?import('./fonts-bundled.js'):Promise.resolve()).then(()=>Promise.all(['14px Jua','14px "Lilita One"','700 14px "Gothic A1"'].map(f=>document.fonts?.load(f)))).then(()=>scene.refreshLabels()).catch(()=>{}).finally(revealApp);
 scene.setKillFeedback(()=>{haptics.kill();});
 scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
