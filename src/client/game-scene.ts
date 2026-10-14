@@ -17,6 +17,8 @@ import {renderPixelRatio} from './render-viewport.js';
 import {slotBit} from '../shared/slots.js';
 import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
 import {FIELD,INK,mixColor} from './theme.js';
+import {perfNow,perfAdd} from '../shared/perf-sink.js';
+import {startFrameMeter} from './frame-meter.js';
 export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
 export class GameScene extends Phaser.Scene {
@@ -75,6 +77,7 @@ export class GameScene extends Phaser.Scene {
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
+ isReady():boolean{return this.created;}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
  create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
@@ -98,7 +101,7 @@ export class GameScene extends Phaser.Scene {
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
   const cleanup=()=>{observer.disconnect();abort.abort();cancelAnimationFrame(frame);};this.events.once(Phaser.Scenes.Events.SHUTDOWN,cleanup);this.events.once(Phaser.Scenes.Events.DESTROY,cleanup);fit();
  }
- setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
+ setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){const span=perfNow();this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);perfAdd('recv.draw',span);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {
@@ -220,8 +223,11 @@ export class GameScene extends Phaser.Scene {
  update(time:number):void {
   if(!this.map||!this.view)return;
   const now=performance.now();this.renderedAt=now;
-  this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);this.captureEffects?.update(now,this.view,this.cullChunks);
-  for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);if(avatar.container.visible)avatar.marker.update(now);}
+  let span=perfNow();this.combat?.update(now);perfAdd('step.fx.combat',span);
+  span=perfNow();this.territoryEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.territory',span);
+  span=perfNow();this.captureEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.capture',span);
+  span=perfNow();for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);if(avatar.container.visible)avatar.marker.update(now);}
+  perfAdd('step.markers',span);span=perfNow();
   setWallMargin(this.map,this.wallMargin);
   const boardKey=this.map.mapId+':'+this.wallMargin;
   if(this.boardKey!==boardKey){this.boardKey=boardKey;this.drawBoard();}
@@ -234,6 +240,7 @@ export class GameScene extends Phaser.Scene {
     // The lethal board edge glows: a soft wide pass under a solid one.
     for(const [width,alpha]of [[18,.3],[7,1]] as const){this.wallHighlight.lineStyle(width,FIELD.nearDeath,alpha);for(const edge of near)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}}
   }
+  perfAdd('step.wall',span);span=perfNow();
   const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
   // camera.worldView is the last completed frame; one whole chunk margin also
   // covers normal movement before the next camera pre-render.
@@ -241,6 +248,7 @@ export class GameScene extends Phaser.Scene {
   for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
    this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);
   }
+  perfAdd('step.cull',span);span=perfNow();
   if(this.online){
    this.predictedLine??=this.add.graphics().setDepth(3);this.predictedLine.clear();
    const self=this.view.participants.find(p=>p.participantId===this.selfId),position=self&&this.presentation.position(self.participantId,now);
@@ -251,7 +259,12 @@ export class GameScene extends Phaser.Scene {
     }
    }
   }else this.predictedLine?.clear();
+  perfAdd('step.predict',span);
   if(time-this.lastMini<250)return;this.lastMini=time;
+  span=perfNow();this.updateMinimap(now);perfAdd('step.minimap',span);
+ }
+ private updateMinimap(now:number):void {
+  if(!this.map||!this.view)return;
   const canvas=document.querySelector<HTMLCanvasElement>('#minimap');if(!canvas||canvas.hidden)return;
   const context=canvas.getContext('2d');if(!context)return;
   const miniAt=performance.now();
@@ -310,9 +323,10 @@ export class GameScene extends Phaser.Scene {
 }
 export function createRenderer(parent:string):GameScene {
  const scene=new GameScene();
- new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
+ const game=new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
   scale:{mode:Phaser.Scale.NONE,autoCenter:Phaser.Scale.NO_CENTER},
   scene:[scene],render:{antialias:true,powerPreference:'high-performance'},banner:false,audio:{noAudio:true}});
+ startFrameMeter(game);
  return scene;
 }
 

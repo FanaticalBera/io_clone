@@ -45,7 +45,9 @@ export class LanHost {
    roomView:(_room,member,view)=>this.emit(member.session.peer,'room:view',view),
    snapshot:(_room,member,snapshot,kind)=>{
     const peer=member.session.peer;if(peer.closed)return false;
-    this.emit(peer,kind==='init'?'match:init':'match:snapshot',snapshot,kind==='volatile'?'snap:'+snapshot.matchId:undefined);return true;
+    // Frame length in UTF-16 units; snapshots are almost all ASCII, so this is close to the bytes sent.
+    const bytes=this.emit(peer,kind==='init'?'match:init':'match:snapshot',snapshot,kind==='volatile'?'snap:'+snapshot.matchId:undefined);
+    this.loop.metrics.snapshotBytes+=bytes;if(!peer.local)this.loop.metrics.snapshotSentBytes+=bytes;return true;
    },
    result:(_room,member,payload)=>this.emit(member.session.peer,'match:result',payload),
    aborted:(_room,member,error)=>this.emit(member.session.peer,'app:error',error)
@@ -110,8 +112,8 @@ export class LanHost {
   this.peers.clear();this.options.onClosed?.(error);
  }
 
- private emit(peer:Peer,event:string,data:unknown,replaceKey?:string):void {
-  if(peer.closed)return;peer.channel.send(encodeFrame({k:'evt',e:event,d:data}),replaceKey?{replaceKey}:undefined);
+ private emit(peer:Peer,event:string,data:unknown,replaceKey?:string):number {
+  if(peer.closed)return 0;const frame=encodeFrame({k:'evt',e:event,d:data});peer.channel.send(frame,replaceKey?{replaceKey}:undefined);return frame.length;
  }
  private heartbeat():void {
   // Paused: guests know and wait, but the host's own client still needs pings or it would close the loopback

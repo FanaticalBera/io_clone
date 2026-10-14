@@ -7,6 +7,7 @@ const offlineFonts:Plugin={
 };
 export default defineConfig(({mode})=>({
  server:{port:5173,proxy:{'/socket.io':{target:mode==='test'?'http://127.0.0.1:3002':'http://127.0.0.1:3001',ws:true},'/healthz':'http://127.0.0.1:3001'}},
- plugins:mode==='apk'?[offlineFonts]:[],
+ // apk-perf is the measurement APK: same offline setup, plus measurement features (performance PRD).
+ plugins:mode==='apk'||mode==='apk-perf'?[offlineFonts]:[],
  build:{outDir:'dist/client',sourcemap:false}
 }));

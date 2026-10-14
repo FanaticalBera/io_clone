@@ -6,7 +6,8 @@ export type {Metrics} from '../shared/room-loop.js';
 export class GameLoop extends RoomLoop<Session> {
  private timer:ReturnType<typeof setInterval>|null=null;
  declare readonly rooms:RoomManager;
- constructor(readonly io:GameIO,rooms:RoomManager,log:(event:string,fields:Record<string,unknown>)=>void=()=>{}){
+ // Measuring bytes means serializing each snapshot a second time (socket.io serializes internally), so production skips it.
+ constructor(readonly io:GameIO,rooms:RoomManager,log:(event:string,fields:Record<string,unknown>)=>void=()=>{},measureSnapshotBytes=process.env.NODE_ENV==='test'||process.env.HEXHOLD_SNAPSHOT_BYTES==='1'){
   super(rooms,{} as RoomOutput<Session>,log);
   const socketOf=(session:Session)=>session.socketId?io.sockets.sockets.get(session.socketId):undefined;
   this.output={
@@ -19,7 +20,7 @@ export class GameLoop extends RoomLoop<Session> {
    snapshot:(room,member,snapshot,kind)=>{
     const socket=socketOf(member.session);if(!socket)return false;
     socket.join('arena:'+room.roomId);
-    this.metrics.snapshotBytes+=Buffer.byteLength(JSON.stringify(snapshot));
+    if(measureSnapshotBytes){const bytes=Buffer.byteLength(JSON.stringify(snapshot));this.metrics.snapshotBytes+=bytes;this.metrics.snapshotSentBytes+=bytes;}
     if(kind==='init')socket.emit('match:init',snapshot);else if(kind==='reliable')socket.emit('match:snapshot',snapshot);else socket.volatile.emit('match:snapshot',snapshot);
     return true;
    },

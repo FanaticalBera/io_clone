@@ -204,4 +204,13 @@ describe('L08: LAN heartbeat',()=>{
   expect(errors.map(e=>e.code)).toEqual(['HOST_LEFT']);
  });
 });
+describe('Performance PRD M1: LAN snapshot byte counters',()=>{
+ it('counts every serialized snapshot, and only guest-bound ones as sent',async()=>{
+  const f=await running(2);const m=f.host.loop.metrics;
+  expect(m.snapshotSentBytes).toBeGreaterThan(0);
+  // Three receivers (host loopback + two guests) share each snapshot, so sent bytes are about two thirds.
+  expect(m.snapshotBytes).toBeGreaterThan(m.snapshotSentBytes);
+  expect(m.snapshotSentBytes/m.snapshotBytes).toBeCloseTo(2/3,1);
+ });
+});
 export type {FrameChannel};
