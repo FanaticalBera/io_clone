@@ -68,10 +68,10 @@ class PerfMeter {
  }
 }
 let meter:PerfMeter|null=null;
-export function startFrameMeter(game:Phaser.Game):PerfMeter|null{
+export function startFrameMeter(game:Phaser.Game,renderState?:()=>unknown):PerfMeter|null{
  if(!metricsEnabled||meter)return meter;
  meter=new PerfMeter();setPerfSink(meter.sink);meter.attach(game);
- const api={snapshot:(seconds?:number)=>meter!.snapshot(seconds),rows:(from=0)=>meter!.rows.filter(r=>r.t>=from),mark:(label:string)=>meter!.mark(label),info:meter.info};
+ const api={snapshot:(seconds?:number)=>meter!.snapshot(seconds),rows:(from=0)=>meter!.rows.filter(r=>r.t>=from),mark:(label:string)=>meter!.mark(label),info:meter.info,renderState};
  Object.assign(window,{__HEXHOLD_PERF__:api});
  return meter;
 }

@@ -43,12 +43,13 @@ const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&n
 const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true),data=>scene.setBotDebugOverlay(data)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
- quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
+ quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;pausePractice(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
 // Phaser draws only while the live field is on screen (performance PRD 4); elsewhere it shows a still frame.
 let rendererReady=false;
 // Measurement builds can keep Phaser drawing behind overlays (?perfNoSleep=1) to compare against the still frame.
 const keepDrawing=PERF_BUILD&&perfParams.get('perfNoSleep')==='1';
 function syncRender():void {if(rendererReady)scene.setRenderMode(keepDrawing||ui.fieldVisible()?'live':ui.overlaysField()?'idle':'still');}
+function pausePractice(paused:boolean):void {if(practice){practice.setPaused(paused);scene.setPracticePaused(paused);}}
 ui.setLanMode(lanAvailable());
 
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
@@ -209,7 +210,7 @@ if(autoplay)startPerfRound();
 
 
 document.addEventListener('visibilitychange',()=>{
- haptics.stop();input.reset();input.enabled=false;scene.freezePresentation();practice?.setPaused(document.hidden||ui.isSettingsOpen());
+ haptics.stop();input.reset();input.enabled=false;scene.freezePresentation();pausePractice(document.hidden||ui.isSettingsOpen());
  // The LAN host phone runs the room: leaving the app freezes it for everyone for up to 60 s (PRD 11).
  // Guests behave as online: a bot steers them home while away, and the seat is held for 30 s.
  if(lanHosting){

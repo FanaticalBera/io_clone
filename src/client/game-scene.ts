@@ -62,7 +62,7 @@ export class GameScene extends Phaser.Scene {
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
- private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number}>();
+ private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number;alive:boolean}>();
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
  setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
  // Canvas text keeps its fallback face until it is redrawn after web fonts load.
@@ -135,6 +135,7 @@ export class GameScene extends Phaser.Scene {
  setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){const span=perfNow();this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);perfAdd('recv.draw',span);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
+ setPracticePaused(paused:boolean):void{this.presentation.setLocalPaused(paused,performance.now());}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {
   const origin=g.getData('origin') as Vec|undefined;const vertices=origin?this.map!.cells[id].vertices.map(v=>({x:v.x-origin.x,y:v.y-origin.y})):this.map!.cells[id].vertices;
   if(alpha){g.fillStyle(fill,alpha);g.fillPoints(vertices,true);}
@@ -270,14 +271,14 @@ export class GameScene extends Phaser.Scene {
     const marker=new PlayerMarker(this);
     const self=p.participantId===this.selfId,label=this.add.text(0,-54,p.nickname,{fontFamily:'Jua, Gothic A1, sans-serif',fontSize:self?'14px':'12px',color:'#ffffff',backgroundColor:self?'#1f1b2d':'#1f1b2d8c',padding:{x:7,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
-    avatar={container,marker,shield,label,life:p.lifeId,territory:p.territoryCount};this.avatars.set(p.participantId,avatar);
+    avatar={container,marker,shield,label,life:p.lifeId,territory:p.territoryCount,alive:p.lifeState==='ALIVE'};this.avatars.set(p.participantId,avatar);
    }
    const appearance=p.kind==='BOT'?{markerId:this.botMarkerIds[p.slot%this.botMarkerIds.length]??'default',markerColorId:'slot'}:this.markerAppearance;
    avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,p.kind==='BOT');
    // Any gain within one life is a capture; the marker hops once.
    if(avatar.life===p.lifeId&&p.territoryCount>avatar.territory&&!reset)avatar.marker.jump(performance.now());avatar.life=p.lifeId;avatar.territory=p.territoryCount;
    avatar.shield.setStrokeStyle(3,this.renderColors[p.slot],.9);
-   avatar.container.setVisible(p.lifeState==='ALIVE');
+   avatar.alive=p.lifeState==='ALIVE';avatar.container.setVisible(avatar.alive);
    avatar.label.setText(p.nickname);
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
@@ -302,7 +303,18 @@ export class GameScene extends Phaser.Scene {
   let span=perfNow();this.combat?.update(now);perfAdd('step.fx.combat',span);
   span=perfNow();this.territoryEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.territory',span);
   span=perfNow();this.captureEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.capture',span);
-  span=perfNow();for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);if(avatar.container.visible)avatar.marker.update(now);}
+  span=perfNow();
+  const viewRect=this.cameras.main.worldView,avatarMargin=cullMargin(this.map);
+  for(const [id,avatar]of this.avatars){
+   const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);
+   // Include the entire name label, shield, hop and pulse, plus the existing movement margin.
+   // The followed avatar stays visible while its camera recenters. Offscreen animation uses absolute
+   // time, so returning markers immediately have the same pose and effects as continuous updates.
+   const padX=avatarMargin+Math.max(80,avatar.label.displayWidth/2),padY=avatarMargin+80;
+   const {x,y}=avatar.container,followed=id===(this.botDebugFollowId??this.selfId);
+   const visible=avatar.alive&&(!this.cullChunks||followed||(x+padX>=viewRect.x&&x-padX<=viewRect.right&&y+padY>=viewRect.y&&y-padY<=viewRect.bottom));
+   avatar.container.setVisible(visible);if(visible)avatar.marker.update(now);
+  }
   perfAdd('step.markers',span);span=perfNow();
   setWallMargin(this.map,this.wallMargin);
   const boardKey=this.map.mapId+':'+this.wallMargin;
@@ -431,7 +443,7 @@ export function createRenderer(parent:string):GameScene {
  const fpsParam=PERF_BUILD?new URLSearchParams(location.search).get('perfFps'):null;
  scene.liveFps=fpsParam!==null?Number(fpsParam):60;const idleParam=PERF_BUILD?new URLSearchParams(location.search).get('perfIdleFps'):null;if(idleParam!==null)scene.idleFps=Number(idleParam);scene.frameLimit=installFrameLimit(game,scene.liveFps);
  game.events.on(Phaser.Core.Events.POST_RENDER,()=>scene.afterRender());
- startFrameMeter(game);
+ startFrameMeter(game,()=>scene.renderState());
  return scene;
 }
 
