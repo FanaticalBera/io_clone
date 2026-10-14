@@ -24,7 +24,7 @@ describe('radius-scaled initial placement, with unchanged R22 and respawn settin
    const specs=botSpecs(8),a=createMatch({mapRadius:radius},seed,specs,'same',createMode(mode)),b=createMatch({mapRadius:radius},seed,[...specs].reverse(),'same',createMode(mode));
    expect(a.owners).toEqual(b.owners);const assignment=(m:typeof a)=>[...m.participants].sort((x,y)=>x.slot-y.slot).map(p=>[p.participantId,p.cellId,p.spawnCells]);expect(assignment(a)).toEqual(assignment(b));
    expect(a.participants.every(p=>p.lifeState==='ALIVE'&&p.spawnCells.size===19&&p.territoryCount===19)).toBe(true);
-   expect({...a.config,mapRadius:22}).toEqual({...DEFAULT_CONFIG,mapRadius:22,maxSlots:8,spawnRadius:2});
+   expect({...a.config,mapRadius:22}).toEqual({...DEFAULT_CONFIG,mapRadius:22,maxSlots:8,spawnRadius:2,moveCellsPerSecond:4.2,turnRadiansPerSecond:9});
   }
  });
  it('initial spacing increases with radius and cube rounding preserves opposite anchors',()=>{

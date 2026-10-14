@@ -4,7 +4,7 @@ export const HEX_EPS = 1e-7;
 export const MAX_ENTRY_EVENTS = 64;
 export const DEFAULT_CONFIG = Object.freeze({
     simulationHz: 30, snapshotHz: 10, inputMaxHz: 30, roundSeconds: 240, maxSlots: 14,
-    mapRadius: 56, hexSideWorldUnits: 32, spawnRadius: 1, moveCellsPerSecond: 4.2, turnRadiansPerSecond: 9,
+    mapRadius: 56, hexSideWorldUnits: 32, spawnRadius: 1, moveCellsPerSecond: 4.41, turnRadiansPerSecond: 9.45,
     respawnSeconds: 3, protectSeconds: 2, retrySpawnSeconds: 1, spawnBufferHexes: 3,
     botDecisionMs: 200, botObservationRange: 12, interpolationMs: 100, maxExtrapolationMs: 100,
     publicRecruitSeconds: 2, countdownSeconds: 3, resultsSecondsIncludingCountdown: 10,

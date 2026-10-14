@@ -30,7 +30,7 @@ describe('spatial wall tolerance (no timers, stops or sliding)',()=>{
   expect(worldCell(soft.map,next.position)).toBe(-1);expect(movementCell(soft.map,next.position)).toBe(b.cellId);
  });
  it('moves at full speed across the old wall and dies immediately at the new line',()=>{
-  const m=wallFixture(true,'push'),p=m.participants[0],start={...p.position},distance=Math.sqrt(3)*32*4.2/30;
+  const m=wallFixture(true,'push'),p=m.participants[0],start={...p.position},distance=Math.sqrt(3)*m.config.hexSideWorldUnits*m.config.moveCellsPerSecond/m.config.simulationHz;
   stepMatch(m);expect(p.lifeState).toBe('ALIVE');expect(p.position.x-start.x).toBeCloseTo(distance,10);expect(worldCell(m.map,p.position)).toBe(-1);
   stepMatch(m);expect(p.deathReason).toBe('WALL_HIT');expect(p.deaths).toBe(1);expect(p.deathContext!.eventTick).toBeCloseTo((wallMargin(m.map)+.15)/distance,4);
   stepMatch(m);expect(m.events.filter(e=>e.type==='DEATH')).toHaveLength(1);assertOwnershipCounts(m);
