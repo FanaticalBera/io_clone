@@ -38,6 +38,8 @@ else page=await (await browser.newContext({viewport:{width,height},deviceScaleFa
 const errors:string[]=[];page.on('pageerror',error=>errors.push(String(error)));
 await page.goto(url.toString());
 await page.waitForFunction(()=>!!(window as any).__HEXHOLD_PERF__,undefined,{timeout:30000});
+// Keep the phone screen on for the run without changing device settings (Screen Wake Lock, released on exit).
+if(args.has('cdp'))console.error('wake lock',await page.evaluate(async()=>{try{await (navigator as any).wakeLock.request('screen');return 'on';}catch(e){return 'unavailable: '+e;}}));
 const startedAt=Date.now(),samples:unknown[]=[];
 const record=async()=>{const snapshot=await page.evaluate(s=>(window as any).__HEXHOLD_PERF__.snapshot(s),sampleSeconds);
  samples.push({elapsedSeconds:Math.round((Date.now()-startedAt)/1000),device:device(),...snapshot});
