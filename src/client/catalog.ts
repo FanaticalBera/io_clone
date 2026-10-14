@@ -128,3 +128,16 @@ export function earnedRewards(owned:readonly string[]):string[]{
 export const markerColorDefinition=(id:string)=>colors.get(id);
 export const productDefinition=(kind:ProductKind,id:string)=>kind==='marker'?markers.get(id):kind==='marker-color'?colors.get(id):undefined;
 
+/** Collection sets: owning every member earns the title shown in the marker book. */
+export interface MarkerSet {id:string;name:string;title:string;ids:readonly string[]}
+export const MARKER_SETS:readonly Readonly<MarkerSet>[]=Object.freeze([
+ {id:'chess',name:'체스 세트',title:'체스 마스터',ids:['pawn','rook','king']},
+ {id:'luck',name:'행운 세트',title:'행운아',ids:['clover','coin','card','dice']},
+ {id:'farm',name:'농장 친구들',title:'농장 주인',ids:['chick','duckling','pig','bunny']},
+ {id:'sea',name:'바다 친구들',title:'바다 탐험가',ids:['octopus','whale','jellyfish','submarine']},
+ {id:'halloween',name:'할로윈',title:'할로윈 대장',ids:['bat','pumpkin','ghost','mimic']},
+ {id:'magic',name:'마법 학교',title:'마법 학도',ids:['wizard','book','orb','potion']},
+ {id:'space',name:'우주 여행',title:'우주 비행사',ids:['rocket','ufo','satellite','meteor']},
+ {id:'seasons',name:'사계절',title:'사계절 여행자',ids:['sakura','sun','snowflake','rainbow']}
+].map(s=>Object.freeze(s)));
+export const earnedTitles=(owned:readonly string[])=>{const have=new Set(owned);return MARKER_SETS.filter(s=>s.ids.every(id=>have.has(id))).map(s=>s.title);};

@@ -7,16 +7,16 @@ import {styledColor} from './player-colors.js';
 import {cssHex} from './theme.js';
 export class ProfileUI {
  private dialog:HTMLDialogElement;private model:ProfileViewModel|null=null;private revision=0;private request=0;private previewKey='';
- constructor(private store:ProfileStore,private canOpen:()=>boolean){
+ constructor(private store:ProfileStore,private canOpen:()=>boolean,private openDex:()=>void=()=>{}){
   this.dialog=document.createElement('dialog');this.dialog.id='profile-dialog';this.dialog.className='sheet';this.dialog.setAttribute('aria-labelledby','profile-title');
   this.dialog.innerHTML='<header class="sheet-bar"><button id="profile-close" class="btn icon" aria-label="프로필 닫기">'+ICONS.back+'</button><h2 id="profile-title">프로필</h2><span class="coin-pill">'+ICONS.coin+'<strong id="profile-coins">…</strong></span></header>'+
    '<div class="sheet-panel profile-panel"><div id="profile-content" class="profile-content"><section class="profile-collection" aria-label="장착과 보유"><div class="equipped"><div class="pedestal small"><div id="profile-preview"></div></div><div class="equipped-text"><small>장착 중</small><strong id="profile-marker-name">—</strong><span class="profile-color"><i id="profile-color-chip" aria-hidden="true"></i><span id="profile-color-name">—</span></span></div></div>'+
-   '<dl class="profile-owned"><div><dt>보유 마커</dt><dd id="profile-markers">—</dd><span class="bar" aria-hidden="true"><i id="profile-markers-bar"></i></span></div><div><dt>보유 색상</dt><dd id="profile-colors">—</dd><span class="bar" aria-hidden="true"><i id="profile-colors-bar"></i></span></div></dl></section>'+
+   '<dl class="profile-owned"><div><dt>보유 마커</dt><dd id="profile-markers">—</dd><span class="bar" aria-hidden="true"><i id="profile-markers-bar"></i></span></div><div><dt>보유 색상</dt><dd id="profile-colors">—</dd><span class="bar" aria-hidden="true"><i id="profile-colors-bar"></i></span></div></dl><button id="profile-dex" class="btn mini profile-dex">마커 도감 보기</button></section>'+
    '<section class="profile-stats" aria-label="누적 기록">'+[['best','최고 점유율'],['runs','총 플레이'],['kills','총 처치'],['clears','클래식 완주'],['longest','최장 생존']].map(([id,label])=>'<article><small>'+label+'</small><strong id="profile-'+id+'">—</strong></article>').join('')+'</section>'+
    '</div><footer class="profile-footer"><span id="profile-status" role="status">불러오는 중…</span><button id="profile-reload" class="btn mini" hidden>다시 읽기</button></footer></div>';
   document.getElementById('app')!.append(this.dialog);
   document.getElementById('profile-open')!.addEventListener('click',()=>this.open());this.get('profile-close').addEventListener('click',()=>this.dialog.close());
-  this.get('profile-reload').addEventListener('click',()=>void this.refresh());this.dialog.addEventListener('close',()=>{this.request++;this.dialog.setAttribute('aria-busy','false');});
+  this.get('profile-reload').addEventListener('click',()=>void this.refresh());this.get('profile-dex').addEventListener('click',()=>{this.dialog.close();this.openDex();});this.dialog.addEventListener('close',()=>{this.request++;this.dialog.setAttribute('aria-busy','false');});
   // Main applies the existing local/BroadcastChannel profile updates.
  }
  private get(id:string):HTMLElement{return this.dialog.querySelector<HTMLElement>('#'+id)!;}

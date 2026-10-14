@@ -1,3 +1,4 @@
+import {DexUI} from './dex-ui.js';
 import {experimentalSafeRespawn} from '../shared/safe-bot-respawn.js';
 import {ProfileUI} from './profile-ui.js';
 import {profileTrace} from './profile-diagnostics.js';
@@ -41,7 +42,8 @@ ui.setLanMode(lanAvailable());
 
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
-const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU');
+const dex=new DexUI(profileStore,()=>{if(ui.mode==='MENU')profileUI.open();});
+const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU',()=>void dex.open());
 function applyProfile(p:PlayerProfileV1):void {profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
 const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);

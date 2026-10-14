@@ -2,7 +2,7 @@ import {MARKER_SHAPES} from '../../src/client/marker-shapes.js';
 import {describe,it,expect} from 'vitest';
 import {emptyProfile,migrateProfile,validProfile,admitRun,grantProfileReward} from '../../src/client/profile.js';
 import {defaultInventory,normalizeInventory,purchaseItem,equipItem,validInventory} from '../../src/client/inventory.js';
-import {MARKERS,MARKER_COLORS,MARKER_CATEGORIES,SHOP_PRICES} from '../../src/client/catalog.js';
+import {MARKERS,MARKER_COLORS,MARKER_CATEGORIES,SHOP_PRICES,MARKER_SETS,earnedTitles} from '../../src/client/catalog.js';
 import {markerArt} from '../../src/client/marker-art.js';
 function legacyWallet(){
   const p=emptyProfile();p.coins=500;
@@ -82,5 +82,11 @@ describe('Reward markers',()=>{
     expect(p.inventory.ownedMarkerIds.filter(id=>id==='crowncat')).toHaveLength(1);
     for(const m of MARKERS)if(!m.reward&&!p.inventory.ownedMarkerIds.includes(m.id))purchaseItem(p,'marker',m.id);
     expect(MARKERS.every(m=>p.inventory.ownedMarkerIds.includes(m.id))).toBe(true);
+  });
+});
+describe('Marker sets',()=>{
+  it('only use sold markers and award titles when complete',()=>{
+    for(const s of MARKER_SETS)for(const id of s.ids)expect(MARKERS.find(m=>m.id===id&&!m.reward),id).toBeDefined();
+    expect(earnedTitles(['pawn','rook'])).toEqual([]);expect(earnedTitles(['pawn','rook','king','cat'])).toEqual(['체스 마스터']);
   });
 });
