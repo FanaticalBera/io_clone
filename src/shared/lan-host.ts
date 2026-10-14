@@ -3,7 +3,7 @@ import {RoomLoop} from './room-loop.js';
 import {acceptDirection} from './room-input.js';
 import {PROTOCOL_VERSION,type GameConfig} from './config.js';
 import {record,validRequest,type Ack,type AppError,type CommandRequest,type ErrorCode} from './protocol.js';
-import {decodeFrame,encodeFrame,LAN_AWAY_GRACE_MS,LAN_HEARTBEAT_MS,LAN_HEARTBEAT_TIMEOUT_MS,LAN_HOST_PAUSE_MS,LAN_MAX_HUMANS,type FrameChannel} from './lan-protocol.js';
+import {decodeFrame,encodeFrame,snapshotFrame,LAN_AWAY_GRACE_MS,LAN_HEARTBEAT_MS,LAN_HEARTBEAT_TIMEOUT_MS,LAN_HOST_PAUSE_MS,LAN_MAX_HUMANS,type FrameChannel} from './lan-protocol.js';
 // The host phone's authority (PRD 5, 9). It runs the same RoomManager and RoomLoop as the online server; only the
 // delivery differs: frames over FrameChannels instead of socket.io. The host's own client joins through a loopback
 // channel and passes the same request and input validation as every guest.
@@ -36,6 +36,9 @@ export class LanHost {
  private peers=new Map<string,Peer>();private nextPeer=0;private closed=false;private pausedAt:number|null=null;
  /** Seated guests by resume token, so a guest whose connection dropped can take the same seat back (PRD 11). */
  private sessions=new Map<string,LanSession>();
+ private snapshotBody:{seq:number;matchId:string;json:string}|null=null;
+ /** How many snapshot bodies were serialized (measurement and tests). */
+ snapshotSerializations=0;
  private timers:ReturnType<typeof setInterval>[]=[];private now:()=>number;
  constructor(private options:LanHostOptions){
   this.now=options.now??(()=>performance.now());
@@ -45,9 +48,14 @@ export class LanHost {
    roomView:(_room,member,view)=>this.emit(member.session.peer,'room:view',view),
    snapshot:(_room,member,snapshot,kind)=>{
     const peer=member.session.peer;if(peer.closed)return false;
+    // Every receiver shares the body of one snapshot; serialize it once per snapshot (performance PRD N-a).
+    if(this.snapshotBody?.seq!==snapshot.snapshotSeq||this.snapshotBody.matchId!==snapshot.matchId){
+     const {selfParticipantId:_self,lastAppliedInputSeq:_seq,...body}=snapshot;this.snapshotBody={seq:snapshot.snapshotSeq,matchId:snapshot.matchId,json:JSON.stringify(body)};this.snapshotSerializations++;
+    }
+    const frame=snapshotFrame(kind==='init'?'match:init':'match:snapshot',this.snapshotBody.json,snapshot.selfParticipantId,snapshot.lastAppliedInputSeq);
+    peer.channel.send(frame,kind==='volatile'?{replaceKey:'snap:'+snapshot.matchId}:undefined);
     // Frame length in UTF-16 units; snapshots are almost all ASCII, so this is close to the bytes sent.
-    const bytes=this.emit(peer,kind==='init'?'match:init':'match:snapshot',snapshot,kind==='volatile'?'snap:'+snapshot.matchId:undefined);
-    this.loop.metrics.snapshotBytes+=bytes;if(!peer.local)this.loop.metrics.snapshotSentBytes+=bytes;return true;
+    this.loop.metrics.snapshotBytes+=frame.length;if(!peer.local)this.loop.metrics.snapshotSentBytes+=frame.length;return true;
    },
    result:(_room,member,payload)=>this.emit(member.session.peer,'match:result',payload),
    aborted:(_room,member,error)=>this.emit(member.session.peer,'app:error',error)
