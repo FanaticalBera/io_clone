@@ -1,6 +1,6 @@
 {
   "date": "2026-10-14",
-  "status": "APPROVED_FOR_MASTER_AND_FREEZE",
+  "status": "FROZEN",
   "playerReview": {
     "spectatingSeed": 137,
     "approved": true,
@@ -246,6 +246,13 @@
     "rearIntrusionDetection": false,
     "botBehaviorChangesDeferredUntil": "After performance PRD",
     "masterMergeAuthorized": true,
-    "pushAuthorized": false
+    "pushAuthorized": false,
+    "masterMerged": true,
+    "pushed": false
+  },
+  "merge": {
+    "masterMergeCommit": "fed55eee8aa8cb0687a5c76d0cbc027978a3e622",
+    "validatedCandidateCommit": "8a444df",
+    "postMergeSourceMatches": true
   }
 }
