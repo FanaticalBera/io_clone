@@ -217,11 +217,11 @@ export class LanHost {
    case 'room:create':
     if(!peer.local)return this.fail('NOT_HOST','방은 방장 기기에서만 만들 수 있어요.');
     if(this.rooms.rooms.size)return this.fail('ALREADY_IN_ROOM','이미 방이 열려 있어요.');
-    return this.rooms.createFriend(session,request.nickname,request.gameMode);
+    return this.rooms.createFriend(session,request.nickname,request.gameMode,request.title);
    case 'room:join':{
     const room=[...this.rooms.rooms.values()][0];
     if(room&&room.members.size>=LAN_MAX_HUMANS&&!session.roomId)return this.fail('ROOM_FULL','방이 가득 찼어요.');
-    return this.rooms.joinFriend(session,request.nickname,request.code);
+    return this.rooms.joinFriend(session,request.nickname,request.code,request.title);
    }
    case 'room:start':return this.rooms.start(session);
    case 'run:retry':return this.rooms.retryRun(session,request.matchId,request.runId);

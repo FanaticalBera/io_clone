@@ -90,3 +90,10 @@ describe('Marker sets',()=>{
     expect(earnedTitles(['pawn','rook'])).toEqual([]);expect(earnedTitles(['pawn','rook','king','cat'])).toEqual(['체스 마스터']);
   });
 });
+import {KNOWN_TITLES,normalizeTitle} from '../../src/shared/titles.js';
+describe('Room titles',()=>{
+  it('accept every set title and drop anything else',()=>{
+    expect([...KNOWN_TITLES].sort()).toEqual(MARKER_SETS.map(s=>s.title).sort());
+    expect(normalizeTitle('행운아')).toBe('행운아');expect(normalizeTitle('운영자')).toBeUndefined();expect(normalizeTitle(5)).toBeUndefined();
+  });
+});

@@ -45,7 +45,9 @@ const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
 const dex=new DexUI(profileStore,()=>{if(ui.mode==='MENU')profileUI.open();});
 const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU',()=>void dex.open());
-function applyProfile(p:PlayerProfileV1):void {ui.setHomeTitles(earnedTitles(p.inventory.ownedMarkerIds));profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
+/** Latest earned collection title, sent when entering a room. */
+let roomTitle:string|undefined;
+function applyProfile(p:PlayerProfileV1):void {const titles=earnedTitles(p.inventory.ownedMarkerIds);roomTitle=titles.at(-1);ui.setHomeTitles(titles);profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
 const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);
 void (async()=>{
@@ -142,7 +144,7 @@ async function enterOnline(event:'room:quickJoin'|'room:create'|'room:join',code
   }else ui.message('대전 서버에 연결하고 있어요.');
   const session=new NetworkSession({input:(direction,seq)=>scene.setLocalInput(direction,seq),room:onRoom,view:display,snapshot:raw=>{
 if(import.meta.env.MODE==='test'){testHistory.push(raw);if(testHistory.length>512)testHistory.shift();}},error:error=>{if(error.code==='HOST_LEFT'||lan&&error.code==='SESSION_EXPIRED'){lanEnded(error);return;}expired=error.code==='SESSION_EXPIRED';input.enabled=false;scene.freezePresentation();ui.message(error.message,true);},paused:graceMs=>{if(online===session)hostPaused(graceMs);},resumed:()=>{if(online===session)hostResumed();},connected:connected=>{if(online!==session)return;ui.setRunRetryAvailable(connected);if(!connected){input.enabled=false;scene.freezePresentation();ui.message('연결을 복구하고 있어요.',!lan);}}},transport);online=session;activeSession=session;
-  await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
+  await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(roomTitle?{title:roomTitle}:{}),...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
  }catch(error){if(activeSession&&online!==activeSession)return;ui.message((error as Error).message||'서버에 연결할 수 없어요.',true);}
 }
 async function startOnline():Promise<void>{try{const response=await online?.command('room:start');if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message,true);}}

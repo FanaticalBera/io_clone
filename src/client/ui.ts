@@ -13,7 +13,7 @@ const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1
 export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
- members:{memberId:string;nickname:string;connected:boolean;waitingForNextRound:boolean}[];
+ members:{memberId:string;nickname:string;title?:string;connected:boolean;waitingForNextRound:boolean}[];
  hostId:string|null;selfMemberId:string;waitingForNextRound:boolean;remainingSeconds:number|null;gameMode:GameModeConfig;
 }
 const get=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
@@ -273,7 +273,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('room-host-note').hidden=!(this.lan&&view.hostId===view.selfMemberId);
   get('invite').hidden=view.mode!=='FRIEND';
   const code=get('friend-code');code.replaceChildren(...[...(view.code??'')].map(letter=>{const tile=document.createElement('span');tile.textContent=letter;return tile;}));
-  get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
+  get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.title?' ★'+member.title:'')+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
   get('start').hidden=!(view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId);
  }
  clearMessage():void {if(performance.now()>=this.noticeUntil)get('notice').hidden=true;}

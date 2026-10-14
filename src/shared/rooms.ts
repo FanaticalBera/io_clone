@@ -1,4 +1,5 @@
 import {setSafeBotRespawn} from './safe-bot-respawn.js';
+import {normalizeTitle} from './titles.js';
 import {retryHumanRun} from './retry.js';
 import {leaveParticipant} from './life.js';
 import {makeParticipant} from './state.js';
@@ -22,7 +23,7 @@ const randomUint32=()=>crypto.getRandomValues(new Uint32Array(1))[0]!;
 // 2^32 is a multiple of 32, so the modulo is unbiased.
 const randomInt=(max:32)=>randomUint32()%max;
 import {createMode,roundDeadlineTicks,isGameModeId,type GameModeConfig,type GameModeId} from './modes.js';
-export interface Member<S extends RoomSession=RoomSession> {memberId:string;session:S;nickname:string;joinOrder:number;waitingForNextRound:boolean;graceUntil:number|null}
+export interface Member<S extends RoomSession=RoomSession> {memberId:string;session:S;nickname:string;title?:string;joinOrder:number;waitingForNextRound:boolean;graceUntil:number|null}
 export const MAX_HUMAN_ROOM_MEMBERS=8;
 export interface Room<S extends RoomSession=RoomSession> {
  roomId:string;mode:'PUBLIC'|'FRIEND';readonly gameMode:GameModeConfig;code:string|null;createdAt:number;phase:RoomPhase;phaseDeadline:number|null;
@@ -42,12 +43,12 @@ export class RoomManager<S extends RoomSession=RoomSession> {
    roundNumber:0,revision:1,snapshotSeq:0,accumulator:0,lastStepAt:now,emptyDeadline:null,inputs:new Map(),bots:new Map()};
   this.rooms.set(room.roomId,room);return room;
  }
- private addMember(room:Room<S>,session:S,nickname:string,waiting=false):Member<S> {
-  const member:Member<S>={memberId:randomUUID(),session,nickname,joinOrder:++this.joinCounter,waitingForNextRound:waiting,graceUntil:null};
+ private addMember(room:Room<S>,session:S,nickname:string,waiting=false,title?:unknown):Member<S> {
+  const shown=normalizeTitle(title),member:Member<S>={memberId:randomUUID(),session,nickname,...(shown?{title:shown}:{}),joinOrder:++this.joinCounter,waitingForNextRound:waiting,graceUntil:null};
   room.members.set(member.memberId,member);session.roomId=room.roomId;session.memberId=member.memberId;room.emptyDeadline=null;session.expiresAt=Infinity;room.revision++;
   if(room.mode==='FRIEND'&&!room.hostId)room.hostId=member.memberId;return member;
  }
- quickJoin(session:S,nickname:unknown,gameMode:GameModeId='classic'):Ack {
+ quickJoin(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unknown):Ack {
   if(!isGameModeId(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
   if(session.roomId)return {ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
@@ -55,25 +56,25 @@ export class RoomManager<S extends RoomSession=RoomSession> {
   let room:Room<S>|undefined=[...this.rooms.values()].filter(r=>r.mode==='PUBLIC'&&r.gameMode.id===gameMode&&r.members.size<Math.min(MAX_HUMAN_ROOM_MEMBERS,this.config.maxSlots)&&(r.phase==='WAITING'||r.phase==='COUNTDOWN'&&r.roundNumber===0)).sort((a,b)=>a.createdAt-b.createdAt)[0];
   if(!room)room=this.createRoom('PUBLIC',gameMode)??undefined;
   if(!room)return{ok:false,code:'SERVER_BUSY',message:'대전 서버가 가득 찼습니다. 잠시 후 다시 시도하세요.'};
-  this.addMember(room,session,name);return{ok:true,roomId:room.roomId};
+  this.addMember(room,session,name,false,title);return{ok:true,roomId:room.roomId};
  }
-createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic'):Ack {
+createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unknown):Ack {
   if(!isGameModeId(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
   if(session.roomId)return{ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
   let code='';for(let attempt=0;attempt<32;attempt++){const candidate=this.codeGenerator();if(!/^[A-HJ-NP-Z2-9]{8}$/.test(candidate))throw new Error('Invalid generated code');if(![...this.rooms.values()].some(r=>r.code===candidate)){code=candidate;break;}}
   if(!code)return{ok:false,code:'SERVER_BUSY',message:'새 방을 만들 수 없습니다. 잠시 후 다시 시도하세요.'};
   const room=this.createRoom('FRIEND',gameMode,code);if(!room)return{ok:false,code:'SERVER_BUSY',message:'대전 서버가 가득 찼습니다.'};
-  this.addMember(room,session,name);return{ok:true,roomId:room.roomId};
+  this.addMember(room,session,name,false,title);return{ok:true,roomId:room.roomId};
  }
- joinFriend(session:S,nickname:unknown,rawCode:unknown):Ack {
+ joinFriend(session:S,nickname:unknown,rawCode:unknown,title?:unknown):Ack {
   if(session.roomId)return{ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
   this.advance();const code=typeof rawCode==='string'?rawCode.trim().toUpperCase():'';
   const room=[...this.rooms.values()].find(r=>r.code===code&&r.mode==='FRIEND'&&r.phase!=='CLOSED');
   if(!/^[A-HJ-NP-Z2-9]{8}$/.test(code)||!room)return{ok:false,code:'ROOM_NOT_FOUND',message:'존재하지 않는 방 코드입니다.'};
   if(room.members.size>=Math.min(MAX_HUMAN_ROOM_MEMBERS,this.config.maxSlots))return{ok:false,code:'ROOM_FULL',message:'친구 방의 사람 정원이 모두 찼습니다.'};
-  this.addMember(room,session,name,room.phase!=='WAITING');return{ok:true,roomId:room.roomId};
+  this.addMember(room,session,name,room.phase!=='WAITING',title);return{ok:true,roomId:room.roomId};
  }
  start(session:S):Ack {
   const current=this.member(session);if(!current)return{ok:false,code:'ROOM_NOT_FOUND',message:'참가 중인 방이 없습니다.'};
@@ -183,7 +184,7 @@ disconnected(session:S):void {
   const remainingSeconds=room.phase==='RUNNING'&&room.match?(roundDeadlineTicks(room.match)===null?null:Math.max(0,(roundDeadlineTicks(room.match)!-room.match.tick)/room.match.config.simulationHz)):
     room.phaseDeadline===null?0:Math.max(0,(room.phaseDeadline-this.sessions.now())/1000);
   return{roomId:room.roomId,mode:room.mode,gameMode:{...room.gameMode},outcome:room.match?.outcome?{...room.match.outcome}:null,code:room.code,phase:room.phase,phaseDeadline:room.phaseDeadline,serverTime:this.sessions.now(),
-   members:[...room.members.values()].sort((a,b)=>a.joinOrder-b.joinOrder).map(m=>({memberId:m.memberId,nickname:m.nickname,connected:m.session.connected,away:m.session.background||!m.session.connected,waitingForNextRound:m.waitingForNextRound})),
+   members:[...room.members.values()].sort((a,b)=>a.joinOrder-b.joinOrder).map(m=>({memberId:m.memberId,nickname:m.nickname,...(m.title?{title:m.title}:{}),connected:m.session.connected,away:m.session.background||!m.session.connected,waitingForNextRound:m.waitingForNextRound})),
    hostId:room.hostId,selfMemberId:member.memberId,selfParticipantId:room.match?.participants.some(p=>p.participantId===member.memberId)?member.memberId:null,
    waitingForNextRound:member.waitingForNextRound,remainingSeconds,results:room.phase==='RESULTS'?room.match?.results??null:null,matchId:room.match?.matchId??null,selfRunResult:room.match?.participants.find(p=>p.participantId===member.memberId)?.run?.result??null,mapCellCount:room.match?.map.cells.length??1+3*this.config.mapRadius*(this.config.mapRadius+1)};
  }
