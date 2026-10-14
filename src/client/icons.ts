@@ -12,7 +12,6 @@ export const ICONS={
  plus:icon('<path d="M12 5v14M5 12h14"/>'),
  pencil:icon('<path d="M4 20h4L19 9l-4-4L4 16Z"/>',2.2),
  trophy:icon('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>'),
- expand:icon('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'),
  exit:icon('<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>'),
  copy:icon('<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"/>'),
  retry:icon('<path d="M4 12a8 8 0 1 0 2.5-5.8M4 4v5h5"/>',3),

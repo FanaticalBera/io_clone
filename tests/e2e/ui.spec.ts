@@ -6,6 +6,6 @@ test('T19 nickname validation, skippable tutorial, safe DOM and game HUD',async(
  await page.getByTestId('tutorial-skip').click();await expect(page.locator('#hud')).toBeVisible();
  await expect(page.locator('#population')).toContainText('사람 1 · 봇 7');await expect(page.locator('#ranking')).toContainText('<b>브로</b>');
  expect(await page.locator('#ranking b').count()).toBe(8);
- await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.locator('#rules').click();await expect(page.locator('#tutorial')).toBeVisible();await page.getByTestId('tutorial-skip').click();await expect(page.locator('#menu')).toBeVisible();
+ await page.locator('#game-tools-toggle').click();await page.locator('#leave-request').click();await page.getByTestId('leave').click();await page.locator('#rules').click();await expect(page.locator('#tutorial')).toBeVisible();await expect(page.getByTestId('tutorial-skip')).toBeHidden();await page.locator('#tutorial-go').click();await expect(page.locator('#menu')).toBeVisible();
  await page.screenshot({path:'evidence/T19-menu.png'});
 });
