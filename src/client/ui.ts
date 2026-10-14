@@ -93,7 +93,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
     <label><input type="radio" name="color-style" id="look-vivid" value="vivid"><span class="look-sample vivid" aria-hidden="true"></span><b>선명</b></label>
    </fieldset>
    <fieldset class="vibration-box"><legend>전투 진동</legend><div class="vibration-row"><label class="vibration-option"><input type="checkbox" id="kill-vibration" role="switch"><span><b>처치·탈락 진동</b><small>처치하면 짧게, 탈락하면 길게</small></span></label><button id="vibration-test" class="btn mini">테스트</button></div></fieldset>
-   <p id="vibration-support" class="settings-help"></p><p id="vibration-status" role="status" class="settings-help"></p>
+   <p id="vibration-support" class="settings-help" hidden></p><p id="vibration-status" role="status" class="settings-help"></p>
   </div>
  </div></dialog>
 <div id="member-toast" aria-live="polite"></div><div id="notice" role="alert" hidden><p id="notice-text"></p><div id="notice-actions" hidden><button id="retry" class="btn mini">재시도</button><button id="fallback-practice" class="btn mini">봇 연습</button></div><button id="notice-close" aria-label="안내 닫기" class="btn icon small">${ICONS.close}</button></div>
@@ -152,7 +152,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  isSettingsOpen():boolean{return get<HTMLDialogElement>('settings-dialog').open;}
  private refreshSettings():void{
   const settings=this.settings.get();get<HTMLInputElement>('controls-'+settings.mobileControls).checked=true;get<HTMLInputElement>('look-'+settings.colorStyle).checked=true;get<HTMLInputElement>('kill-vibration').checked=settings.killVibration;
-  const supported=browserHaptics().supported();get('vibration-support').textContent=supported?'지원되는 모바일 브라우저에서 동작해요.':'현재 환경에서는 진동을 지원하지 않아요.';
+  const supported=browserHaptics().supported(),support=get('vibration-support');support.hidden=supported;support.textContent=supported?'':'현재 환경에서는 진동을 지원하지 않아요.';
   get<HTMLButtonElement>('vibration-test').disabled=!supported||!settings.killVibration;this.refreshControls();
   if(this.homeAppearance)this.setHomeMarker(this.homeAppearance);
  }
