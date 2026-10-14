@@ -1,0 +1,2321 @@
+{
+  "date": "2026-10-14",
+  "candidate": "B-quiet+C+inner-anchor",
+  "commit": "82ed5a2",
+  "baseline": "67e7807",
+  "baselineEvidence": {
+    "root": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\.local\\bot-space-shape-adoption",
+    "reused": true,
+    "reason": "Byte-identical frozen B-quiet+C source, same deterministic configuration and seeds; reuse existing 240s trajectories and results instead of repeating identical gameplay. Cost is freshly paired in one session."
+  },
+  "seeds": [
+    4,
+    19,
+    73,
+    11,
+    31,
+    47,
+    101,
+    137
+  ],
+  "comparisons": [
+    {
+      "seconds": 120,
+      "arms": [
+        {
+          "arm": "baseline",
+          "holding": 3160.134722222222,
+          "final": 35524,
+          "deaths": 75,
+          "wallDeaths": 0,
+          "attacks": 186,
+          "targetKills": 50,
+          "TV": 0.09444054956713144,
+          "capture": {
+            "count": 4832,
+            "total": 70916,
+            "mean": 14.676324503311259,
+            "median": 12,
+            "p90": 33,
+            "maximum": 149
+          },
+          "rows": [
+            {
+              "seed": 4,
+              "holding": 3426.2716666666665,
+              "final": 5386,
+              "maximumShare": 0.5623890571160071,
+              "largestBotMaximumShare": 0.08583063589850684,
+              "deaths": 10,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 6,
+                "TRAIL_CAPTURE": 1,
+                "HOME_CAPTURE": 3
+              },
+              "attacks": 13,
+              "targetKills": 6,
+              "TV": 0.14421958766044782,
+              "capture": {
+                "count": 565,
+                "total": 9515,
+                "mean": 16.84070796460177,
+                "median": 16,
+                "p90": 35,
+                "maximum": 100
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2675,
+                  "stolen": 507,
+                  "stealShare": 0.18953271028037383
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1972,
+                  "stolen": 121,
+                  "stealShare": 0.06135902636916836
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2302,
+                  "stolen": 413,
+                  "stealShare": 0.17940920938314509
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2566,
+                  "stolen": 661,
+                  "stealShare": 0.25759937646141856
+                }
+              ],
+              "trajectoryHash": "4adc9f04860e9124a5f7ef048d2ce16d3d4d6ef2073c25de884e5c1fcefb8e9c"
+            },
+            {
+              "seed": 19,
+              "holding": 3377.507777777778,
+              "final": 4106,
+              "maximumShare": 0.502767046047823,
+              "largestBotMaximumShare": 0.08572621906651352,
+              "deaths": 8,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 6,
+                "HOME_CAPTURE": 1,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 19,
+              "targetKills": 6,
+              "TV": 0.18049720733336552,
+              "capture": {
+                "count": 593,
+                "total": 8853,
+                "mean": 14.929173693086003,
+                "median": 14,
+                "p90": 32,
+                "maximum": 76
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2439,
+                  "stolen": 353,
+                  "stealShare": 0.14473144731447316
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2308,
+                  "stolen": 379,
+                  "stealShare": 0.16421143847487002
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2374,
+                  "stolen": 406,
+                  "stealShare": 0.17101937657961247
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1732,
+                  "stolen": 614,
+                  "stealShare": 0.35450346420323325
+                }
+              ],
+              "trajectoryHash": "5407e3144d97d5732fb4e933f574889511c60eee1773a210d017036b6c24c086"
+            },
+            {
+              "seed": 73,
+              "holding": 3255.1736111111113,
+              "final": 4617,
+              "maximumShare": 0.5055863005116424,
+              "largestBotMaximumShare": 0.0741359507152553,
+              "deaths": 8,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 8
+              },
+              "attacks": 25,
+              "targetKills": 7,
+              "TV": 0.06315289648622986,
+              "capture": {
+                "count": 618,
+                "total": 8721,
+                "mean": 14.111650485436893,
+                "median": 9,
+                "p90": 34,
+                "maximum": 90
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2156,
+                  "stolen": 318,
+                  "stealShare": 0.14749536178107606
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2239,
+                  "stolen": 377,
+                  "stealShare": 0.16837874050915588
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2489,
+                  "stolen": 419,
+                  "stealShare": 0.1683406990759341
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1837,
+                  "stolen": 261,
+                  "stealShare": 0.14207947740881874
+                }
+              ],
+              "trajectoryHash": "e819dbf72cf59be15b1b063fa3102f7e5b6e38127c5ae1a374f5f18ce8fad98c"
+            },
+            {
+              "seed": 11,
+              "holding": 3093.338333333333,
+              "final": 4471,
+              "maximumShare": 0.46684765584212173,
+              "largestBotMaximumShare": 0.07194319724339564,
+              "deaths": 10,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 6,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 3
+              },
+              "attacks": 22,
+              "targetKills": 5,
+              "TV": 0.10203928705240062,
+              "capture": {
+                "count": 601,
+                "total": 8849,
+                "mean": 14.72379367720466,
+                "median": 13,
+                "p90": 32,
+                "maximum": 66
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2548,
+                  "stolen": 308,
+                  "stealShare": 0.12087912087912088
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1784,
+                  "stolen": 167,
+                  "stealShare": 0.09360986547085202
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2133,
+                  "stolen": 536,
+                  "stealShare": 0.2512892639474918
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2384,
+                  "stolen": 630,
+                  "stealShare": 0.26426174496644295
+                }
+              ],
+              "trajectoryHash": "1a6d243ae4c010c785d55c7bfcc81ff701e47e72bc3ced2e3409c646aff775dd"
+            },
+            {
+              "seed": 31,
+              "holding": 3034.1097222222224,
+              "final": 4366,
+              "maximumShare": 0.46757857366607497,
+              "largestBotMaximumShare": 0.06881069228359611,
+              "deaths": 7,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 6,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 26,
+              "targetKills": 5,
+              "TV": 0.10560303893637227,
+              "capture": {
+                "count": 633,
+                "total": 8597,
+                "mean": 13.581358609794629,
+                "median": 8,
+                "p90": 33,
+                "maximum": 61
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2126,
+                  "stolen": 499,
+                  "stealShare": 0.23471307619943557
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2408,
+                  "stolen": 320,
+                  "stealShare": 0.132890365448505
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2212,
+                  "stolen": 396,
+                  "stealShare": 0.17902350813743217
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1851,
+                  "stolen": 411,
+                  "stealShare": 0.22204213938411668
+                }
+              ],
+              "trajectoryHash": "ccb1ce077171998d9ce642debafd488648d50f7d2e67392da9fe9e5c6009ac6b"
+            },
+            {
+              "seed": 47,
+              "holding": 3154.9963888888888,
+              "final": 4632,
+              "maximumShare": 0.4918032786885246,
+              "largestBotMaximumShare": 0.07925237548292785,
+              "deaths": 11,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 6,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 34,
+              "targetKills": 7,
+              "TV": 0.06260683760683763,
+              "capture": {
+                "count": 598,
+                "total": 9176,
+                "mean": 15.34448160535117,
+                "median": 11,
+                "p90": 36,
+                "maximum": 149
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 1822,
+                  "stolen": 348,
+                  "stealShare": 0.19099890230515917
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1767,
+                  "stolen": 330,
+                  "stealShare": 0.1867572156196944
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 3181,
+                  "stolen": 524,
+                  "stealShare": 0.16472807293303993
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2406,
+                  "stolen": 458,
+                  "stealShare": 0.19035743973399832
+                }
+              ],
+              "trajectoryHash": "2e0bc80a4a7bd740a5aad832b5b9e13234dc69ca3c2fd1ee62c0a5243da8ab7d"
+            },
+            {
+              "seed": 101,
+              "holding": 2999.351111111111,
+              "final": 3815,
+              "maximumShare": 0.4394904458598726,
+              "largestBotMaximumShare": 0.093453064634019,
+              "deaths": 10,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "HOME_CAPTURE": 1
+              },
+              "attacks": 24,
+              "targetKills": 8,
+              "TV": 0.03183639963300979,
+              "capture": {
+                "count": 620,
+                "total": 8570,
+                "mean": 13.82258064516129,
+                "median": 10,
+                "p90": 32,
+                "maximum": 91
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2366,
+                  "stolen": 517,
+                  "stealShare": 0.21851225697379545
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2078,
+                  "stolen": 445,
+                  "stealShare": 0.21414821944177093
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2300,
+                  "stolen": 196,
+                  "stealShare": 0.08521739130434783
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1826,
+                  "stolen": 183,
+                  "stealShare": 0.10021905805038335
+                }
+              ],
+              "trajectoryHash": "51aa8b619c7230efc1f18ca33d8ca8a9fdeff5120c2df78dc2d18c973803ddca"
+            },
+            {
+              "seed": 137,
+              "holding": 2940.329166666667,
+              "final": 4131,
+              "maximumShare": 0.4731126657617208,
+              "largestBotMaximumShare": 0.07831262399498799,
+              "deaths": 11,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "HOME_CAPTURE": 2
+              },
+              "attacks": 23,
+              "targetKills": 6,
+              "TV": 0.06556914182838802,
+              "capture": {
+                "count": 604,
+                "total": 8635,
+                "mean": 14.29635761589404,
+                "median": 13,
+                "p90": 31,
+                "maximum": 92
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2376,
+                  "stolen": 208,
+                  "stealShare": 0.08754208754208755
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2177,
+                  "stolen": 468,
+                  "stealShare": 0.21497473587505742
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2275,
+                  "stolen": 385,
+                  "stealShare": 0.16923076923076924
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1807,
+                  "stolen": 258,
+                  "stealShare": 0.14277808522412838
+                }
+              ],
+              "trajectoryHash": "c25e60c5c2b28bc3626ed030d9ad2dff577cd40efac24933490711d7e2909ca9"
+            }
+          ]
+        },
+        {
+          "arm": "candidate",
+          "holding": 3336.2952777777778,
+          "final": 36611,
+          "deaths": 74,
+          "wallDeaths": 0,
+          "attacks": 165,
+          "targetKills": 54,
+          "TV": 0.13520467262836985,
+          "capture": {
+            "count": 4647,
+            "total": 70742,
+            "mean": 15.223154723477512,
+            "median": 14,
+            "p90": 34,
+            "maximum": 123
+          },
+          "rows": [
+            {
+              "seed": 4,
+              "holding": 3576.6783333333333,
+              "final": 4604,
+              "maximumShare": 0.5629111412759736,
+              "largestBotMaximumShare": 0.0728829487313355,
+              "deaths": 7,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 4,
+                "HOME_CAPTURE": 1,
+                "TRAIL_CAPTURE": 1,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 17,
+              "targetKills": 4,
+              "TV": 0.08388331114229852,
+              "capture": {
+                "count": 558,
+                "total": 9203,
+                "mean": 16.49283154121864,
+                "median": 15,
+                "p90": 35,
+                "maximum": 88
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2515,
+                  "stolen": 632,
+                  "stealShare": 0.25129224652087473
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1696,
+                  "stolen": 388,
+                  "stealShare": 0.22877358490566038
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2284,
+                  "stolen": 409,
+                  "stealShare": 0.17907180385288968
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2708,
+                  "stolen": 565,
+                  "stealShare": 0.2086410635155096
+                }
+              ],
+              "trajectoryHash": "4986b1920912417d24f7f6868774ef8c00ddc0f8ca46c9d722144f49a8ea4762"
+            },
+            {
+              "seed": 19,
+              "holding": 3211.782777777778,
+              "final": 3761,
+              "maximumShare": 0.49806828860812363,
+              "largestBotMaximumShare": 0.06661793881173646,
+              "deaths": 11,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "HOME_CAPTURE": 2
+              },
+              "attacks": 23,
+              "targetKills": 8,
+              "TV": 0.110727969348659,
+              "capture": {
+                "count": 577,
+                "total": 8906,
+                "mean": 15.435008665511265,
+                "median": 14,
+                "p90": 33,
+                "maximum": 88
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2547,
+                  "stolen": 296,
+                  "stealShare": 0.11621515508441303
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2257,
+                  "stolen": 158,
+                  "stealShare": 0.07000443066016837
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2222,
+                  "stolen": 295,
+                  "stealShare": 0.13276327632763277
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1880,
+                  "stolen": 422,
+                  "stealShare": 0.22446808510638297
+                }
+              ],
+              "trajectoryHash": "740df2eda3e6964fab5a84fcfea278786e09e331d046d7b26309eeee251534d1"
+            },
+            {
+              "seed": 73,
+              "holding": 3378.1180555555557,
+              "final": 4869,
+              "maximumShare": 0.5384776025895375,
+              "largestBotMaximumShare": 0.07622428735512164,
+              "deaths": 8,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 7,
+                "TERRITORY_LOST": 1
+              },
+              "attacks": 15,
+              "targetKills": 6,
+              "TV": 0.1423404117150464,
+              "capture": {
+                "count": 600,
+                "total": 8723,
+                "mean": 14.538333333333334,
+                "median": 12,
+                "p90": 33,
+                "maximum": 67
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2441,
+                  "stolen": 304,
+                  "stealShare": 0.12453912331011881
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2286,
+                  "stolen": 425,
+                  "stealShare": 0.18591426071741032
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2262,
+                  "stolen": 251,
+                  "stealShare": 0.11096374889478337
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1734,
+                  "stolen": 371,
+                  "stealShare": 0.21395617070357556
+                }
+              ],
+              "trajectoryHash": "94a4f03bfae6ac565d77e706faeacf3df80d9965db9e096842805f5af7c65c30"
+            },
+            {
+              "seed": 11,
+              "holding": 3517.9069444444444,
+              "final": 4785,
+              "maximumShare": 0.5705335700114859,
+              "largestBotMaximumShare": 0.07852145765897463,
+              "deaths": 7,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 7
+              },
+              "attacks": 19,
+              "targetKills": 5,
+              "TV": 0.17161650985180396,
+              "capture": {
+                "count": 595,
+                "total": 8741,
+                "mean": 14.690756302521008,
+                "median": 13,
+                "p90": 31,
+                "maximum": 92
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2399,
+                  "stolen": 314,
+                  "stealShare": 0.13088786994581075
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1719,
+                  "stolen": 398,
+                  "stealShare": 0.2315299592786504
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2212,
+                  "stolen": 227,
+                  "stealShare": 0.10262206148282098
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2411,
+                  "stolen": 606,
+                  "stealShare": 0.2513479883865616
+                }
+              ],
+              "trajectoryHash": "8a362af23f1d8f1445d7345f1657b7b2cc32efa74d7ca52304464894ae427c0e"
+            },
+            {
+              "seed": 31,
+              "holding": 3341.415,
+              "final": 5195,
+              "maximumShare": 0.5440116946851833,
+              "largestBotMaximumShare": 0.07037694476349587,
+              "deaths": 8,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 7,
+                "HOME_CAPTURE": 1
+              },
+              "attacks": 21,
+              "targetKills": 6,
+              "TV": 0.13707686464416274,
+              "capture": {
+                "count": 594,
+                "total": 8836,
+                "mean": 14.875420875420875,
+                "median": 13,
+                "p90": 34,
+                "maximum": 74
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2210,
+                  "stolen": 413,
+                  "stealShare": 0.18687782805429864
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2686,
+                  "stolen": 392,
+                  "stealShare": 0.14594192107222637
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2069,
+                  "stolen": 290,
+                  "stealShare": 0.1401643305944901
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1871,
+                  "stolen": 485,
+                  "stealShare": 0.259219668626403
+                }
+              ],
+              "trajectoryHash": "daf41bf12b4b1a1e6b9e394c2843e5eff7bd264f993d92ae8a239e2b47d9ca99"
+            },
+            {
+              "seed": 47,
+              "holding": 3447.9205555555554,
+              "final": 4671,
+              "maximumShare": 0.5431763600292367,
+              "largestBotMaximumShare": 0.08405554975462044,
+              "deaths": 10,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "HOME_CAPTURE": 1
+              },
+              "attacks": 20,
+              "targetKills": 9,
+              "TV": 0.2599625688037174,
+              "capture": {
+                "count": 539,
+                "total": 9111,
+                "mean": 16.90352504638219,
+                "median": 15,
+                "p90": 39,
+                "maximum": 97
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 1779,
+                  "stolen": 311,
+                  "stealShare": 0.17481731309724563
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 1561,
+                  "stolen": 303,
+                  "stealShare": 0.19410634208840488
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 3371,
+                  "stolen": 237,
+                  "stealShare": 0.0703055473153367
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 2400,
+                  "stolen": 840,
+                  "stealShare": 0.35
+                }
+              ],
+              "trajectoryHash": "970094cf9302af57ca7aa9cf990e8652593377e841b9c2fd32bb1fe63809c2db"
+            },
+            {
+              "seed": 101,
+              "holding": 2895.2055555555557,
+              "final": 4012,
+              "maximumShare": 0.43510493891615326,
+              "largestBotMaximumShare": 0.08509971807455362,
+              "deaths": 11,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 29,
+              "targetKills": 8,
+              "TV": 0.11908509987606032,
+              "capture": {
+                "count": 601,
+                "total": 8554,
+                "mean": 14.232945091514143,
+                "median": 11,
+                "p90": 33,
+                "maximum": 87
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2174,
+                  "stolen": 455,
+                  "stealShare": 0.20929162833486661
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2154,
+                  "stolen": 586,
+                  "stealShare": 0.2720519962859796
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 2347,
+                  "stolen": 139,
+                  "stealShare": 0.059224541968470386
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1879,
+                  "stolen": 266,
+                  "stealShare": 0.1415646620542842
+                }
+              ],
+              "trajectoryHash": "615181737f5758e5421ea23c8f11e5d194c23b9b26fd5aa50fefb10b65d3c1a9"
+            },
+            {
+              "seed": 137,
+              "holding": 3321.335,
+              "final": 4714,
+              "maximumShare": 0.5161324005429675,
+              "largestBotMaximumShare": 0.07330061605930877,
+              "deaths": 12,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 2
+              },
+              "attacks": 21,
+              "targetKills": 8,
+              "TV": 0.056944645645210595,
+              "capture": {
+                "count": 583,
+                "total": 8668,
+                "mean": 14.867924528301886,
+                "median": 14,
+                "p90": 31,
+                "maximum": 123
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 2449,
+                  "stolen": 401,
+                  "stealShare": 0.16374030216414864
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 2439,
+                  "stolen": 410,
+                  "stealShare": 0.16810168101681017
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 1843,
+                  "stolen": 347,
+                  "stealShare": 0.18827997829625612
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 1937,
+                  "stolen": 495,
+                  "stealShare": 0.2555498193082086
+                }
+              ],
+              "trajectoryHash": "b3d549c7bf90bbfce63b85268149a5c8191c93a64695babfc63923d081bb480b"
+            }
+          ]
+        }
+      ],
+      "paired": [
+        {
+          "seed": 4,
+          "holdingBefore": 3426.2716666666665,
+          "holdingAfter": 3576.6783333333333,
+          "holdingDelta": 150.40666666666675,
+          "holdingPercent": 4.389805634209787,
+          "deathsBefore": 10,
+          "deathsAfter": 7,
+          "deathsDelta": -3
+        },
+        {
+          "seed": 19,
+          "holdingBefore": 3377.507777777778,
+          "holdingAfter": 3211.782777777778,
+          "holdingDelta": -165.7249999999999,
+          "holdingPercent": -4.906724451987444,
+          "deathsBefore": 8,
+          "deathsAfter": 11,
+          "deathsDelta": 3
+        },
+        {
+          "seed": 73,
+          "holdingBefore": 3255.1736111111113,
+          "holdingAfter": 3378.1180555555557,
+          "holdingDelta": 122.94444444444434,
+          "holdingPercent": 3.776893620198618,
+          "deathsBefore": 8,
+          "deathsAfter": 8,
+          "deathsDelta": 0
+        },
+        {
+          "seed": 11,
+          "holdingBefore": 3093.338333333333,
+          "holdingAfter": 3517.9069444444444,
+          "holdingDelta": 424.5686111111113,
+          "holdingPercent": 13.725256191216651,
+          "deathsBefore": 10,
+          "deathsAfter": 7,
+          "deathsDelta": -3
+        },
+        {
+          "seed": 31,
+          "holdingBefore": 3034.1097222222224,
+          "holdingAfter": 3341.415,
+          "holdingDelta": 307.3052777777775,
+          "holdingPercent": 10.128350847928559,
+          "deathsBefore": 7,
+          "deathsAfter": 8,
+          "deathsDelta": 1
+        },
+        {
+          "seed": 47,
+          "holdingBefore": 3154.9963888888888,
+          "holdingAfter": 3447.9205555555554,
+          "holdingDelta": 292.9241666666667,
+          "holdingPercent": 9.284453310256469,
+          "deathsBefore": 11,
+          "deathsAfter": 10,
+          "deathsDelta": -1
+        },
+        {
+          "seed": 101,
+          "holdingBefore": 2999.351111111111,
+          "holdingAfter": 2895.2055555555557,
+          "holdingDelta": -104.14555555555535,
+          "holdingPercent": -3.4722695575635565,
+          "deathsBefore": 10,
+          "deathsAfter": 11,
+          "deathsDelta": 1
+        },
+        {
+          "seed": 137,
+          "holdingBefore": 2940.329166666667,
+          "holdingAfter": 3321.335,
+          "holdingDelta": 381.00583333333316,
+          "holdingPercent": 12.95793129737457,
+          "deathsBefore": 11,
+          "deathsAfter": 12,
+          "deathsDelta": 1
+        }
+      ],
+      "holdingPercent": 5.574463465648671,
+      "deathPercent": -1.3333333333333308,
+      "holdingSignal": {
+        "up": 6,
+        "down": 2,
+        "tied": 0,
+        "leaveOneOut": [
+          1258.8777777777777,
+          1575.0094444444444,
+          1286.3400000000001,
+          984.7158333333332,
+          1101.979166666667,
+          1116.3602777777778,
+          1513.4299999999998,
+          1028.2786111111113
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "deathSignal": {
+        "up": 4,
+        "down": 3,
+        "tied": 1,
+        "leaveOneOut": [
+          2,
+          -4,
+          -1,
+          2,
+          -2,
+          0,
+          -2,
+          -2
+        ],
+        "direction": "INDISTINGUISHABLE"
+      }
+    },
+    {
+      "seconds": 240,
+      "arms": [
+        {
+          "arm": "baseline",
+          "holding": 3911.1213888888888,
+          "final": 36304,
+          "deaths": 178,
+          "wallDeaths": 0,
+          "attacks": 404,
+          "targetKills": 134,
+          "TV": 0.1258585675823921,
+          "capture": {
+            "count": 9668,
+            "total": 136472,
+            "mean": 14.115846090194456,
+            "median": 10,
+            "p90": 33,
+            "maximum": 149
+          },
+          "rows": [
+            {
+              "seed": 4,
+              "holding": 4230.789861111111,
+              "final": 4023,
+              "maximumShare": 0.5983084473217083,
+              "largestBotMaximumShare": 0.09052939333820612,
+              "deaths": 21,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 14,
+                "TRAIL_CAPTURE": 1,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 45,
+              "targetKills": 14,
+              "TV": 0.2055147900807065,
+              "capture": {
+                "count": 1195,
+                "total": 17185,
+                "mean": 14.380753138075313,
+                "median": 10,
+                "p90": 34,
+                "maximum": 100
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4685,
+                  "stolen": 1718,
+                  "stealShare": 0.36670224119530415
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3550,
+                  "stolen": 741,
+                  "stealShare": 0.20873239436619717
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4098,
+                  "stolen": 956,
+                  "stealShare": 0.2332845290385554
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4852,
+                  "stolen": 2099,
+                  "stealShare": 0.4326051112943116
+                }
+              ],
+              "trajectoryHash": "cd0fd86a8f33678fc7f0bf498328b458ac1b5d190df39f6f62a93bbe37cded05"
+            },
+            {
+              "seed": 19,
+              "holding": 3974.4575,
+              "final": 5367,
+              "maximumShare": 0.5635376422679336,
+              "largestBotMaximumShare": 0.08791897253837319,
+              "deaths": 19,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 13,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 42,
+              "targetKills": 14,
+              "TV": 0.22978696862877654,
+              "capture": {
+                "count": 1213,
+                "total": 16896,
+                "mean": 13.929101401483925,
+                "median": 9,
+                "p90": 32,
+                "maximum": 76
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4417,
+                  "stolen": 1134,
+                  "stealShare": 0.25673534072900156
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4482,
+                  "stolen": 989,
+                  "stealShare": 0.22066041945560017
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4766,
+                  "stolen": 1103,
+                  "stealShare": 0.23143096936634494
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3231,
+                  "stolen": 1466,
+                  "stealShare": 0.4537294955122253
+                }
+              ],
+              "trajectoryHash": "8f803bf8910a0b7f395ea3f38b0efce53784d8d8a8f1d98e9a0ec524904c50ce"
+            },
+            {
+              "seed": 73,
+              "holding": 3894.034722222222,
+              "final": 4112,
+              "maximumShare": 0.5956980265218753,
+              "largestBotMaximumShare": 0.08771013887438656,
+              "deaths": 19,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 19
+              },
+              "attacks": 47,
+              "targetKills": 18,
+              "TV": 0.06624091721021964,
+              "capture": {
+                "count": 1215,
+                "total": 16961,
+                "mean": 13.959670781893005,
+                "median": 8,
+                "p90": 34,
+                "maximum": 114
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4072,
+                  "stolen": 1187,
+                  "stealShare": 0.2915029469548134
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4577,
+                  "stolen": 998,
+                  "stealShare": 0.218046755516714
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4670,
+                  "stolen": 1343,
+                  "stealShare": 0.28758029978586724
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3642,
+                  "stolen": 962,
+                  "stealShare": 0.2641405820977485
+                }
+              ],
+              "trajectoryHash": "1f417e0e2da4b98f308df390561731f0f072d7a6cdb8299b2546bbebd60e2310"
+            },
+            {
+              "seed": 11,
+              "holding": 3906.6219444444446,
+              "final": 4162,
+              "maximumShare": 0.5448470293411298,
+              "largestBotMaximumShare": 0.10379033100135741,
+              "deaths": 22,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 18,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 3
+              },
+              "attacks": 55,
+              "targetKills": 15,
+              "TV": 0.15767043916174797,
+              "capture": {
+                "count": 1230,
+                "total": 16855,
+                "mean": 13.703252032520325,
+                "median": 9,
+                "p90": 31,
+                "maximum": 86
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4572,
+                  "stolen": 1045,
+                  "stealShare": 0.22856517935258092
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3653,
+                  "stolen": 685,
+                  "stealShare": 0.18751710922529427
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 3911,
+                  "stolen": 1123,
+                  "stealShare": 0.28713883917156735
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4719,
+                  "stolen": 1902,
+                  "stealShare": 0.4030514939605849
+                }
+              ],
+              "trajectoryHash": "8a9b8c7fc27e95dac095ae94fd3a8a42927a4014419f4bed2a9e879685affc34"
+            },
+            {
+              "seed": 31,
+              "holding": 3494.2965277777776,
+              "final": 3482,
+              "maximumShare": 0.47530541923358044,
+              "largestBotMaximumShare": 0.08081862796282761,
+              "deaths": 23,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 20,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 2
+              },
+              "attacks": 52,
+              "targetKills": 17,
+              "TV": 0.1527541097847258,
+              "capture": {
+                "count": 1230,
+                "total": 17036,
+                "mean": 13.85040650406504,
+                "median": 8,
+                "p90": 33,
+                "maximum": 129
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4286,
+                  "stolen": 1195,
+                  "stealShare": 0.2788147456836211
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4744,
+                  "stolen": 517,
+                  "stealShare": 0.10897976391231029
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4597,
+                  "stolen": 1161,
+                  "stealShare": 0.2525560147922558
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3409,
+                  "stolen": 1191,
+                  "stealShare": 0.34936931651510705
+                }
+              ],
+              "trajectoryHash": "7269ef6a61bea5e20cacce71a66e22bc486487ea697864230f32d06b789d4927"
+            },
+            {
+              "seed": 47,
+              "holding": 3932.8605555555555,
+              "final": 4611,
+              "maximumShare": 0.5729351571473321,
+              "largestBotMaximumShare": 0.11266576172078939,
+              "deaths": 28,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 22,
+                "HOME_CAPTURE": 5,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 67,
+              "targetKills": 21,
+              "TV": 0.034441692623082575,
+              "capture": {
+                "count": 1163,
+                "total": 17499,
+                "mean": 15.046431642304386,
+                "median": 10,
+                "p90": 36,
+                "maximum": 149
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 3378,
+                  "stolen": 1019,
+                  "stealShare": 0.30165778567199525
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3328,
+                  "stolen": 941,
+                  "stealShare": 0.28275240384615385
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 5880,
+                  "stolen": 1405,
+                  "stealShare": 0.2389455782312925
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4913,
+                  "stolen": 1132,
+                  "stealShare": 0.23040911866476693
+                }
+              ],
+              "trajectoryHash": "42c6552d0b5ee07e8862c655728df23cca792b7bbfb0c83baa5ef65adf16a162"
+            },
+            {
+              "seed": 101,
+              "holding": 4152.231527777778,
+              "final": 5767,
+              "maximumShare": 0.6320350840555498,
+              "largestBotMaximumShare": 0.13177404197556647,
+              "deaths": 21,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 20,
+                "HOME_CAPTURE": 1
+              },
+              "attacks": 49,
+              "targetKills": 18,
+              "TV": 0.06337117868484869,
+              "capture": {
+                "count": 1224,
+                "total": 16975,
+                "mean": 13.868464052287582,
+                "median": 10,
+                "p90": 32,
+                "maximum": 91
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4677,
+                  "stolen": 1281,
+                  "stealShare": 0.2738935214881334
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4374,
+                  "stolen": 1112,
+                  "stealShare": 0.2542295381801555
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4387,
+                  "stolen": 960,
+                  "stealShare": 0.21882835650786414
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3537,
+                  "stolen": 808,
+                  "stealShare": 0.2284421826406559
+                }
+              ],
+              "trajectoryHash": "a4921c5e57e8307befb1cfa9edfa8403479edfa9e6d4cb0241485c4ec5b2b4d5"
+            },
+            {
+              "seed": 137,
+              "holding": 3703.6784722222224,
+              "final": 4780,
+              "maximumShare": 0.5639553095959069,
+              "largestBotMaximumShare": 0.08426438341860708,
+              "deaths": 25,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 20,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 47,
+              "targetKills": 17,
+              "TV": 0.09708844448502928,
+              "capture": {
+                "count": 1198,
+                "total": 17065,
+                "mean": 14.24457429048414,
+                "median": 12,
+                "p90": 31,
+                "maximum": 92
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4741,
+                  "stolen": 759,
+                  "stealShare": 0.16009280742459397
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4312,
+                  "stolen": 1070,
+                  "stealShare": 0.2481447124304267
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4259,
+                  "stolen": 848,
+                  "stealShare": 0.19910777177741254
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3753,
+                  "stolen": 1020,
+                  "stealShare": 0.2717825739408473
+                }
+              ],
+              "trajectoryHash": "ce8d89fe307415547529fbafe8201a45aaeda4745e4e31ab22fb623fd4f91ff9"
+            }
+          ]
+        },
+        {
+          "arm": "candidate",
+          "holding": 4023.5926388888884,
+          "final": 39541,
+          "deaths": 176,
+          "wallDeaths": 0,
+          "attacks": 360,
+          "targetKills": 114,
+          "TV": 0.15837493003747882,
+          "capture": {
+            "count": 9250,
+            "total": 136385,
+            "mean": 14.744324324324324,
+            "median": 12,
+            "p90": 33,
+            "maximum": 155
+          },
+          "rows": [
+            {
+              "seed": 4,
+              "holding": 4627.895833333333,
+              "final": 6694,
+              "maximumShare": 0.6989662733632661,
+              "largestBotMaximumShare": 0.10504333298527722,
+              "deaths": 14,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 9,
+                "HOME_CAPTURE": 2,
+                "TRAIL_CAPTURE": 1,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 34,
+              "targetKills": 8,
+              "TV": 0.2136618933610396,
+              "capture": {
+                "count": 1103,
+                "total": 17863,
+                "mean": 16.194922937443337,
+                "median": 15,
+                "p90": 36,
+                "maximum": 88
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4770,
+                  "stolen": 1405,
+                  "stealShare": 0.2945492662473795
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3423,
+                  "stolen": 1156,
+                  "stealShare": 0.3377154542798715
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4751,
+                  "stolen": 1003,
+                  "stealShare": 0.2111134498000421
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4919,
+                  "stolen": 2089,
+                  "stealShare": 0.42467981297011587
+                }
+              ],
+              "trajectoryHash": "db8a644037cff63285612442a9d4d2cb38f5e0ee675d3320d0fae519ae9dd053"
+            },
+            {
+              "seed": 19,
+              "holding": 3887.3058333333333,
+              "final": 5204,
+              "maximumShare": 0.5651038947478334,
+              "largestBotMaximumShare": 0.08395113292262713,
+              "deaths": 22,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 17,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 47,
+              "targetKills": 15,
+              "TV": 0.09353646039428164,
+              "capture": {
+                "count": 1165,
+                "total": 17137,
+                "mean": 14.709871244635194,
+                "median": 12,
+                "p90": 33,
+                "maximum": 88
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4631,
+                  "stolen": 1107,
+                  "stealShare": 0.2390412437918376
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4425,
+                  "stolen": 1118,
+                  "stealShare": 0.2526553672316384
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4360,
+                  "stolen": 762,
+                  "stealShare": 0.17477064220183486
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3721,
+                  "stolen": 977,
+                  "stealShare": 0.2625638269282451
+                }
+              ],
+              "trajectoryHash": "c4485b9a3573ff2961e84a433629dda2030cc392fd7114e43323aa213705d306"
+            },
+            {
+              "seed": 73,
+              "holding": 4090.8969444444447,
+              "final": 5103,
+              "maximumShare": 0.5568549650203612,
+              "largestBotMaximumShare": 0.09449723295395218,
+              "deaths": 19,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 12,
+                "TERRITORY_LOST": 1,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 38,
+              "targetKills": 10,
+              "TV": 0.0803128449899344,
+              "capture": {
+                "count": 1208,
+                "total": 16906,
+                "mean": 13.995033112582782,
+                "median": 9,
+                "p90": 33,
+                "maximum": 92
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4427,
+                  "stolen": 1430,
+                  "stealShare": 0.32301784504178904
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4755,
+                  "stolen": 1156,
+                  "stealShare": 0.24311251314405888
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4434,
+                  "stolen": 1437,
+                  "stealShare": 0.32408660351826796
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3290,
+                  "stolen": 1055,
+                  "stealShare": 0.32066869300911854
+                }
+              ],
+              "trajectoryHash": "fddbb8de2a4f0509f4f73881e35ca802bac647c897ddcceac80047e802e37044"
+            },
+            {
+              "seed": 11,
+              "holding": 4056.0616666666665,
+              "final": 4437,
+              "maximumShare": 0.5705335700114859,
+              "largestBotMaximumShare": 0.10295499634541087,
+              "deaths": 23,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 16,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 6
+              },
+              "attacks": 43,
+              "targetKills": 14,
+              "TV": 0.17687621933025774,
+              "capture": {
+                "count": 1157,
+                "total": 16856,
+                "mean": 14.568712186689714,
+                "median": 11,
+                "p90": 31,
+                "maximum": 155
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4569,
+                  "stolen": 1088,
+                  "stealShare": 0.23812650470562485
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3342,
+                  "stolen": 917,
+                  "stealShare": 0.2743865948533812
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4453,
+                  "stolen": 909,
+                  "stealShare": 0.20413204581181227
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4492,
+                  "stolen": 1413,
+                  "stealShare": 0.31455921638468387
+                }
+              ],
+              "trajectoryHash": "7d9328926a0036f7e71009bad32a4ff3904eb188ae99b10680fcee455561371e"
+            },
+            {
+              "seed": 31,
+              "holding": 3970.022916666667,
+              "final": 4537,
+              "maximumShare": 0.5559152135324215,
+              "largestBotMaximumShare": 0.09293098047405242,
+              "deaths": 23,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 18,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 1
+              },
+              "attacks": 46,
+              "targetKills": 14,
+              "TV": 0.1431265078301532,
+              "capture": {
+                "count": 1157,
+                "total": 16916,
+                "mean": 14.62057044079516,
+                "median": 12,
+                "p90": 33,
+                "maximum": 74
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4497,
+                  "stolen": 1051,
+                  "stealShare": 0.2337113631309762
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4953,
+                  "stolen": 1258,
+                  "stealShare": 0.25398748233393903
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4044,
+                  "stolen": 1198,
+                  "stealShare": 0.2962413452027695
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3422,
+                  "stolen": 1357,
+                  "stealShare": 0.39655172413793105
+                }
+              ],
+              "trajectoryHash": "c55190bcd87c15a47af236a0360daa22660970be4da12ee6920814cf0ebaa594"
+            },
+            {
+              "seed": 47,
+              "holding": 3890.8327777777777,
+              "final": 4526,
+              "maximumShare": 0.5431763600292367,
+              "largestBotMaximumShare": 0.11590268351258223,
+              "deaths": 27,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 21,
+                "HOME_CAPTURE": 4,
+                "PENDING_TRAIL_CONTACT": 2
+              },
+              "attacks": 43,
+              "targetKills": 20,
+              "TV": 0.12591102516211397,
+              "capture": {
+                "count": 1087,
+                "total": 17671,
+                "mean": 16.25666973321067,
+                "median": 14,
+                "p90": 36,
+                "maximum": 98
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 3357,
+                  "stolen": 1319,
+                  "stealShare": 0.3929103366100685
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 3313,
+                  "stolen": 542,
+                  "stealShare": 0.16359794747962572
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 6161,
+                  "stolen": 1144,
+                  "stealShare": 0.18568414218471027
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 4840,
+                  "stolen": 1538,
+                  "stealShare": 0.3177685950413223
+                }
+              ],
+              "trajectoryHash": "91a69563cb4c4ed914f67f5f5ea45094346844e9d2cf946b1e94669f79f2aa99"
+            },
+            {
+              "seed": 101,
+              "holding": 3717.7656944444443,
+              "final": 3931,
+              "maximumShare": 0.5526782917406285,
+              "largestBotMaximumShare": 0.10358149733737078,
+              "deaths": 24,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 18,
+                "PENDING_TRAIL_CONTACT": 3,
+                "HOME_CAPTURE": 3
+              },
+              "attacks": 67,
+              "targetKills": 16,
+              "TV": 0.19691004570401396,
+              "capture": {
+                "count": 1218,
+                "total": 16015,
+                "mean": 13.148604269293925,
+                "median": 8,
+                "p90": 31,
+                "maximum": 87
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4310,
+                  "stolen": 1259,
+                  "stealShare": 0.2921113689095128
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4317,
+                  "stolen": 1449,
+                  "stealShare": 0.33564975677553854
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 4308,
+                  "stolen": 725,
+                  "stealShare": 0.16829155060352832
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3080,
+                  "stolen": 1002,
+                  "stealShare": 0.32532467532467535
+                }
+              ],
+              "trajectoryHash": "a48af24997364b8427dc10761e2e0297c987635c916214209796d0b79b6ea8d9"
+            },
+            {
+              "seed": 137,
+              "holding": 3947.9594444444447,
+              "final": 5109,
+              "maximumShare": 0.5636420590999269,
+              "largestBotMaximumShare": 0.0910514774981727,
+              "deaths": 24,
+              "wallDeaths": 0,
+              "deathCauses": {
+                "EXISTING_TRAIL_CONTACT": 21,
+                "PENDING_TRAIL_CONTACT": 1,
+                "HOME_CAPTURE": 2
+              },
+              "attacks": 42,
+              "targetKills": 17,
+              "TV": 0.23666444352803614,
+              "capture": {
+                "count": 1155,
+                "total": 17021,
+                "mean": 14.736796536796536,
+                "median": 13,
+                "p90": 32,
+                "maximum": 123
+              },
+              "roles": [
+                {
+                  "role": "DEFEND",
+                  "captured": 4616,
+                  "stolen": 1308,
+                  "stealShare": 0.2833622183708839
+                },
+                {
+                  "role": "ATTACK",
+                  "captured": 4862,
+                  "stolen": 727,
+                  "stealShare": 0.1495269436445907
+                },
+                {
+                  "role": "EXPAND",
+                  "captured": 3916,
+                  "stolen": 709,
+                  "stealShare": 0.1810520939734423
+                },
+                {
+                  "role": "SEEK_POINT",
+                  "captured": 3627,
+                  "stolen": 1498,
+                  "stealShare": 0.41301350978770335
+                }
+              ],
+              "trajectoryHash": "f69a52e5705a4e9eedb43c6b1dfdeb3f4c8ca1d92471c7844a9a2e21a15f8428"
+            }
+          ]
+        }
+      ],
+      "paired": [
+        {
+          "seed": 4,
+          "holdingBefore": 4230.789861111111,
+          "holdingAfter": 4627.895833333333,
+          "holdingDelta": 397.1059722222217,
+          "holdingPercent": 9.386095392549976,
+          "deathsBefore": 21,
+          "deathsAfter": 14,
+          "deathsDelta": -7
+        },
+        {
+          "seed": 19,
+          "holdingBefore": 3974.4575,
+          "holdingAfter": 3887.3058333333333,
+          "holdingDelta": -87.15166666666664,
+          "holdingPercent": -2.192794027025491,
+          "deathsBefore": 19,
+          "deathsAfter": 22,
+          "deathsDelta": 3
+        },
+        {
+          "seed": 73,
+          "holdingBefore": 3894.034722222222,
+          "holdingAfter": 4090.8969444444447,
+          "holdingDelta": 196.8622222222225,
+          "holdingPercent": 5.055481942643758,
+          "deathsBefore": 19,
+          "deathsAfter": 19,
+          "deathsDelta": 0
+        },
+        {
+          "seed": 11,
+          "holdingBefore": 3906.6219444444446,
+          "holdingAfter": 4056.0616666666665,
+          "holdingDelta": 149.43972222222192,
+          "holdingPercent": 3.8252926530231157,
+          "deathsBefore": 22,
+          "deathsAfter": 23,
+          "deathsDelta": 1
+        },
+        {
+          "seed": 31,
+          "holdingBefore": 3494.2965277777776,
+          "holdingAfter": 3970.022916666667,
+          "holdingDelta": 475.72638888888923,
+          "holdingPercent": 13.614368016770207,
+          "deathsBefore": 23,
+          "deathsAfter": 23,
+          "deathsDelta": 0
+        },
+        {
+          "seed": 47,
+          "holdingBefore": 3932.8605555555555,
+          "holdingAfter": 3890.8327777777777,
+          "holdingDelta": -42.02777777777783,
+          "holdingPercent": -1.0686312719226598,
+          "deathsBefore": 28,
+          "deathsAfter": 27,
+          "deathsDelta": -1
+        },
+        {
+          "seed": 101,
+          "holdingBefore": 4152.231527777778,
+          "holdingAfter": 3717.7656944444443,
+          "holdingDelta": -434.46583333333365,
+          "holdingPercent": -10.463429855171258,
+          "deathsBefore": 21,
+          "deathsAfter": 24,
+          "deathsDelta": 3
+        },
+        {
+          "seed": 137,
+          "holdingBefore": 3703.6784722222224,
+          "holdingAfter": 3947.9594444444447,
+          "holdingDelta": 244.28097222222232,
+          "holdingPercent": 6.595631182737427,
+          "deathsBefore": 25,
+          "deathsAfter": 24,
+          "deathsDelta": -1
+        }
+      ],
+      "holdingPercent": 2.8756778124943816,
+      "deathPercent": -1.1235955056179803,
+      "holdingSignal": {
+        "up": 5,
+        "down": 3,
+        "tied": 0,
+        "leaveOneOut": [
+          502.66402777777785,
+          986.9216666666662,
+          702.907777777777,
+          750.3302777777776,
+          424.0436111111103,
+          941.7977777777774,
+          1334.2358333333332,
+          655.4890277777772
+        ],
+        "direction": "INDISTINGUISHABLE"
+      },
+      "deathSignal": {
+        "up": 3,
+        "down": 3,
+        "tied": 2,
+        "leaveOneOut": [
+          5,
+          -5,
+          -2,
+          -3,
+          -2,
+          -1,
+          -5,
+          -1
+        ],
+        "direction": "INDISTINGUISHABLE"
+      }
+    }
+  ],
+  "cost": {
+    "before": 3.6588051805555533,
+    "after": 3.3653824131944425,
+    "percent": -8.019633538306003,
+    "summary": {
+      "baseline": {
+        "roundMsPerTick": [
+          3.7842207152777783,
+          3.6588051805555533,
+          3.5689571180555566
+        ],
+        "medianMsPerTick": 3.6588051805555533,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.894760777777778,
+              3.3478783888888817,
+              3.1824716388889
+            ],
+            "medianMsPerTick": 3.1824716388889
+          },
+          {
+            "seed": 19,
+            "samples": [
+              3.5763164722222207,
+              3.762103527777767,
+              3.6229302222222195
+            ],
+            "medianMsPerTick": 3.6229302222222195
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.8393994722222202,
+              3.752951138888893,
+              3.5947053611111026
+            ],
+            "medianMsPerTick": 3.752951138888893
+          },
+          {
+            "seed": 11,
+            "samples": [
+              3.8833544444444485,
+              3.5106248611111046,
+              3.4471617777777848
+            ],
+            "medianMsPerTick": 3.5106248611111046
+          },
+          {
+            "seed": 31,
+            "samples": [
+              4.25106688888889,
+              3.869891361111109,
+              3.782625527777774
+            ],
+            "medianMsPerTick": 3.869891361111109
+          },
+          {
+            "seed": 47,
+            "samples": [
+              3.979144416666669,
+              3.568230583333336,
+              3.5654293888889113
+            ],
+            "medianMsPerTick": 3.568230583333336
+          },
+          {
+            "seed": 101,
+            "samples": [
+              4.15319469444444,
+              4.05693052777778,
+              3.894084166666661
+            ],
+            "medianMsPerTick": 4.05693052777778
+          },
+          {
+            "seed": 137,
+            "samples": [
+              3.69652855555556,
+              3.401831055555554,
+              3.462248861111099
+            ],
+            "medianMsPerTick": 3.462248861111099
+          }
+        ]
+      },
+      "candidate": {
+        "roundMsPerTick": [
+          3.4665670243055544,
+          3.3606114895833312,
+          3.3653824131944425
+        ],
+        "medianMsPerTick": 3.3653824131944425,
+        "bySeed": [
+          {
+            "seed": 4,
+            "samples": [
+              2.7640417222222218,
+              3.216772083333336,
+              3.1155082222222217
+            ],
+            "medianMsPerTick": 3.1155082222222217
+          },
+          {
+            "seed": 19,
+            "samples": [
+              3.3577305833333333,
+              3.351063999999994,
+              3.3083491388888797
+            ],
+            "medianMsPerTick": 3.351063999999994
+          },
+          {
+            "seed": 73,
+            "samples": [
+              3.7004560277777756,
+              3.5702803611111045,
+              3.515270194444424
+            ],
+            "medianMsPerTick": 3.5702803611111045
+          },
+          {
+            "seed": 11,
+            "samples": [
+              3.663961500000001,
+              3.5277510555555636,
+              3.5907188055555648
+            ],
+            "medianMsPerTick": 3.5907188055555648
+          },
+          {
+            "seed": 31,
+            "samples": [
+              3.6448495833333276,
+              3.235001916666661,
+              3.316330583333329
+            ],
+            "medianMsPerTick": 3.316330583333329
+          },
+          {
+            "seed": 47,
+            "samples": [
+              3.343350861111111,
+              3.1436810833333424,
+              3.1962338333333418
+            ],
+            "medianMsPerTick": 3.1962338333333418
+          },
+          {
+            "seed": 101,
+            "samples": [
+              3.986243250000003,
+              3.658492888888884,
+              3.5094808333333156
+            ],
+            "medianMsPerTick": 3.658492888888884
+          },
+          {
+            "seed": 137,
+            "samples": [
+              3.271902666666663,
+              3.1818485277777655,
+              3.371167694444464
+            ],
+            "medianMsPerTick": 3.271902666666663
+          }
+        ]
+      }
+    },
+    "resourceGuard": {
+      "recordBackground": false,
+      "idleWaits": 0,
+      "discardedOverlaps": 0,
+      "overlappingRows": 0,
+      "probe": "Check external Vitest/Playwright presence before/after every timing; exclude overlap regardless of elapsed value"
+    }
+  },
+  "checks": {
+    "sourceMatchesMeasuredCandidate": true,
+    "medium16": {
+      "cuts": 11,
+      "failures": [
+        6,
+        10,
+        13,
+        14,
+        16
+      ]
+    },
+    "expanded1024": {
+      "originalBaseline": 155,
+      "previousCandidate": 164,
+      "candidateReportedByClaude": 163,
+      "independentlyRerunThisTurn": false,
+      "deltaFromPrevious": -1,
+      "aboveOriginalBaseline": true
+    },
+    "wallBand120": {
+      "reportedBefore": 0.268,
+      "reportedAfter": 0.229,
+      "reportedDecreaseSeeds": 8,
+      "reportedBy": "Claude / user-provided review",
+      "independentlyRemeasuredThisTurn": false
+    },
+    "witnesses": {
+      "selectionRule": "First memorySeed 1..256 passing all unchanged actual-cut assertions; 1..5 suffice to verify first pass5",
+      "normal": [
+        {
+          "seed": 1,
+          "reverse": false,
+          "tick": 76,
+          "attackTicks": 0,
+          "maxTrail": 5,
+          "humanCaptures": 1,
+          "humanState": "ALIVE",
+          "kills": 0,
+          "allOriginalAssertionsPass": false
+        },
+        {
+          "seed": 2,
+          "reverse": false,
+          "tick": 76,
+          "attackTicks": 0,
+          "maxTrail": 5,
+          "humanCaptures": 1,
+          "humanState": "ALIVE",
+          "kills": 0,
+          "allOriginalAssertionsPass": false
+        },
+        {
+          "seed": 3,
+          "reverse": false,
+          "tick": 76,
+          "attackTicks": 0,
+          "maxTrail": 5,
+          "humanCaptures": 1,
+          "humanState": "ALIVE",
+          "kills": 0,
+          "allOriginalAssertionsPass": false
+        },
+        {
+          "seed": 4,
+          "reverse": false,
+          "tick": 76,
+          "attackTicks": 0,
+          "maxTrail": 5,
+          "humanCaptures": 1,
+          "humanState": "ALIVE",
+          "kills": 0,
+          "allOriginalAssertionsPass": false
+        },
+        {
+          "seed": 5,
+          "reverse": false,
+          "tick": 47,
+          "attackTicks": 22,
+          "maxTrail": 4,
+          "humanCaptures": 0,
+          "humanState": "ELIMINATED",
+          "kills": 1,
+          "allOriginalAssertionsPass": true
+        }
+      ],
+      "reverse": {
+        "seed": 5,
+        "tick": 46,
+        "allOriginalAssertionsPass": true
+      },
+      "recovery": {
+        "stolen": 8,
+        "reclaimed": 4,
+        "deaths": [
+          0,
+          0
+        ],
+        "repositionSequence": 1
+      }
+    },
+    "recovery": {
+      "stolen": 8,
+      "reclaimed": 4,
+      "deaths": [
+        0,
+        0
+      ],
+      "repositionSequence": 1
+    },
+    "tests": {
+      "files": 101,
+      "total": 694,
+      "passed": 686,
+      "expectedFailed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "typecheckPassed": true,
+      "buildPassed": true,
+      "command": "vitest run --maxWorkers=1 --reporter=json",
+      "knownCases": [
+        "C known cost: original seed123 / original memory seeds misses the idle human cut",
+        "C known cost: original ATTACK memory15 kill-and-return witness",
+        "normally spawned bots exploit medium movement loops C known cost: original DEFEND short-loop witnesses in both spawn roles",
+        "normally spawned bots exploit medium movement loops C known cost: original ATTACK short-loop witnesses in both spawn roles",
+        "normally spawned bots exploit medium movement loops C known cost: original SEEK_POINT short-loop witnesses in both spawn roles",
+        "normally spawned bots exploit medium movement loops C known cost: original EXPAND memory seed 3 cut fixture in both spawn roles",
+        "normally spawned bots exploit medium movement loops inner-anchor known cost: SEEK_POINT normal-role witness memory seed 2",
+        "normally spawned bots exploit medium movement loops known regression: EXPAND #1 / match 115 / original memory seed 1 misses the real trail cut"
+      ],
+      "logSha256": "aa554ab89a6ff096867a890d52675dd009b29f907281d894232879417ef8179f"
+    }
+  },
+  "decision": {
+    "holdingClear": true,
+    "deathsClear": true,
+    "costClear": true,
+    "testsClear": true,
+    "playerReviewComplete": false,
+    "remoteDamageResponseFixed": false,
+    "homeCapturePredictionFixed": false,
+    "masterMerged": false,
+    "pushed": false
+  },
+  "readyForSpectating": true
+}
