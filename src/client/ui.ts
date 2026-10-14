@@ -78,7 +78,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  <article><div class="rule-picture" aria-hidden="true"><i class="tile land"></i><i class="tile trail"></i><i class="tile trail"></i><i class="tile land"></i></div><h3>돌아와야 내 땅</h3><p>내 땅 밖에 선을 긋고<br>내 땅으로 돌아오면 점령해요.</p></article>
  <article><div class="rule-picture" aria-hidden="true"><i class="tile trail"></i><i class="tile cut"></i><i class="tile trail"></i><i class="tile edge"></i></div><h3>선과 판 끝을 조심</h3><p>상대가 내 선을 끊거나<br>판 끝 갈색 선을 넘으면 탈락해요.</p></article>
  <article><div class="rule-picture" aria-hidden="true"><i class="tile land"></i><i class="tile land"></i><b>100%</b></div><h3 id="tutorial-mode-title">완전 점령</h3><p id="tutorial-mode-description">맵 전체를 내 땅으로 만들면 승리</p></article></div>
- <p class="tutorial-control">PC: WASD · 방향키 · 마우스 &nbsp;|&nbsp; 모바일: 조이스틱 · 화면 드래그 · 트랙패드 (설정)</p><div class="menu-actions"><button id="tutorial-go" class="btn sun">이해했어요</button><button id="tutorial-skip" data-testid="tutorial-skip" class="btn">건너뛰기</button></div></dialog>
+ <p class="tutorial-control">PC: WASD · 방향키 · 마우스 &nbsp;|&nbsp; 모바일: 조이스틱 · 화면 드래그 · 트랙패드 (설정)</p><div class="menu-actions"><button id="tutorial-go" data-testid="tutorial-go" class="btn sun">시작하기</button></div></dialog>
 <dialog id="settings-dialog" aria-labelledby="settings-title"><header class="sheet-head"><h2 id="settings-title">설정</h2><p class="settings-help">이 기기에 자동 저장돼요 · 온라인 판은 설정 중에도 계속돼요</p><button id="settings-close" class="btn sun">완료</button></header>
  <div class="settings-body">
   <fieldset class="control-options"><legend>모바일 조작 방법</legend>
@@ -120,7 +120,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',()=>{get('leave-confirm').hidden=true;this.actions.leave();});bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
   bind('reward-retry',()=>this.actions.rewardRetry?.());bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
-  bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());bind('tutorial-skip',()=>this.closeTutorial());
+  bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';
@@ -166,7 +166,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private refreshControls():void{get('joystick').hidden=!this.controlsActive||this.isSettingsOpen()||!matchMedia('(pointer:coarse)').matches||this.settings.get().mobileControls!=='joystick';}
  nickname():string {const name=normalizeNickname(get<HTMLInputElement>('nickname').value);if(!name)throw new Error('닉네임은 공백 정리 후 1–16자로 입력하세요.');save('hexhold.nickname',name);return name;}
  private requestPlay(action:()=>void):void {try{this.nickname();if(stored('hexhold.tutorialSeen')!=='1')this.tutorial(action);else action();}catch(error){this.message((error as Error).message);}}
- private tutorial(action:(()=>void)|null):void {this.pending=action;const mode=this.mode==='MENU'?createMode():this.activeMode;get('tutorial-mode-title').textContent=GAME_MODES[mode.id].subtitle;get('tutorial-mode-description').textContent=GAME_MODES[mode.id].description+' · '+GAME_MODES[mode.id].rules(mode);get<HTMLDialogElement>('tutorial').showModal();}
+ private tutorial(action:(()=>void)|null):void {this.pending=action;get('tutorial-go').textContent=action?'시작하기':'닫기';const mode=this.mode==='MENU'?createMode():this.activeMode;get('tutorial-mode-title').textContent=GAME_MODES[mode.id].subtitle;get('tutorial-mode-description').textContent=GAME_MODES[mode.id].description+' · '+GAME_MODES[mode.id].rules(mode);get<HTMLDialogElement>('tutorial').showModal();}
  private closeTutorial():void {get<HTMLDialogElement>('tutorial').close();save('hexhold.tutorialSeen','1');const action=this.pending;this.pending=null;action?.();}
  showMenu():void {
   this.controlsActive=false;
