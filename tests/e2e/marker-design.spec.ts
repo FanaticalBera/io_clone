@@ -1,4 +1,5 @@
 import {test,expect,type Page} from '@playwright/test';
+import {MARKERS,SHOP_PRICES} from '../../src/client/catalog.js';
 const profile=(page:Page)=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.profile());
 async function store(page:Page,method:string,...args:unknown[]){
  return page.evaluate(async({method,args})=>{
@@ -34,15 +35,15 @@ test('free claim rolls back ownership and equipment if the IndexedDB write fails
  await Promise.all([store(page,'claimTestMarker'),store(page,'claimTestMarker')]);
  const granted=await profile(page);expect(granted.inventory.ownedMarkerIds).toEqual(['default','cat']);expect(granted.coins).toBe(0);
 });
-test('all seventy-six designs purchase/equip and restore at mobile size; switching keeps textures bounded and bots unchanged',async({browser})=>{
+test('all seventy-seven paid image designs purchase/equip and restore at mobile size; switching keeps textures bounded and bots unchanged',async({browser})=>{
  test.setTimeout(240000);
  const context=await browser.newContext({viewport:{width:844,height:390},deviceScaleFactor:3,isMobile:true,hasTouch:true,reducedMotion:'reduce'});
  await context.addInitScript(()=>localStorage.setItem('hexhold.tutorialSeen','1'));const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  try{
-  await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');
-  await page.evaluate(async()=>{const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=5000;
+  await page.goto('/?experimentSlots=16');await expect(page.locator('#menu-coins')).toHaveText('0');
+  await page.evaluate(async()=>{const p=await (window as any).__HEXHOLD_TEST__.profile();p.coins=200000;
    await new Promise<void>(resolve=>{const r=indexedDB.open('hexhold.player-profile',1);r.onsuccess=()=>{const db=r.result,tx=db.transaction('meta','readwrite');tx.objectStore('meta').put(p,'profile');tx.oncomplete=()=>{db.close();resolve();};};});});
-  await page.reload();await expect(page.locator('#menu-coins')).toHaveText('5,000');
+  await page.reload();await expect(page.locator('#menu-coins')).toHaveText('200,000');
   await page.locator('#shop-open').click();await expect(page.locator('#shop-items svg[data-marker-id]')).toHaveCount(87);
   await expect(page.locator('[data-product-id="moon"]')).toHaveCount(0);await expect(page.locator('[data-product-id="ghost"]')).toHaveCount(1);
   const ids=(await page.locator('#shop-items svg').evaluateAll(es=>es.map(e=>(e as SVGElement).dataset.markerId!))).filter(id=>!['default','ring','hex','target','goldpuck','crowncat','archmage','goldbot','starwhale','hexcrown'].includes(id));expect(ids).toHaveLength(77);
@@ -55,10 +56,10 @@ test('all seventy-six designs purchase/equip and restore at mobile size; switchi
   }
   await page.setViewportSize({width:844,height:390});await page.screenshot({path:'evidence/marker-v1-shop-landscape.png'});
   for(const id of ids){
-   await page.locator('[data-product-id="'+id+'"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 50 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
+   await page.locator('[data-product-id="'+id+'"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · '+MARKERS.find(m=>m.id===id)!.price+' 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
   }
   await page.locator('#shop-colors').click();await page.locator('[data-product-id="violet"]').click();await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');
-  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('1,120');
+  await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText((200000-ids.reduce((n,id)=>n+MARKERS.find(m=>m.id===id)!.price,0)-SHOP_PRICES.markerColor).toLocaleString());
   const saved=await profile(page);expect(saved.inventory.ownedMarkerIds).toEqual(expect.arrayContaining(['default',...ids,'crowncat','archmage','goldbot','starwhale']));expect(saved.inventory.ownedMarkerIds).not.toContain('goldpuck');expect(saved.inventory.equippedMarkerId).toBe(ids.at(-1));expect(saved.inventory.equippedMarkerColorId).toBe('violet');
   await page.getByTestId('practice').click();await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
   let assets:any=null;

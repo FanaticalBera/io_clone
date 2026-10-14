@@ -21,7 +21,7 @@ export class ShopUI {
       '<div class="sheet-panel shop-content"><aside class="shop-detail"><div class="pedestal"><div id="shop-preview"></div></div><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="btn sun" disabled>불러오는 중</button></aside>'+
       '<div class="shop-main"><div class="shop-filters"><nav id="shop-categories" class="shop-categories" aria-label="마커 카테고리"></nav><button id="shop-owned" class="chip owned" aria-pressed="false"><i aria-hidden="true"></i>보유만</button></div>'+
       '<div id="shop-items" class="shop-items" aria-label="상품 목록"></div>'+
-      '<footer class="shop-footer"><span id="shop-status" role="status" aria-live="polite">가격은 테스트 값이에요.</span><button id="shop-reload" class="btn mini" hidden>저장 다시 읽기</button></footer></div></div>';
+      '<footer class="shop-footer"><span id="shop-status" role="status" aria-live="polite">마음에 드는 마커와 색상을 골라 보세요.</span><button id="shop-reload" class="btn mini" hidden>저장 다시 읽기</button></footer></div></div>';
     get('app').append(this.dialog);
     get('shop-open').addEventListener('click',()=>this.open());
     get('shop-close').addEventListener('click',()=>this.dialog.close());
@@ -40,7 +40,7 @@ export class ShopUI {
   open():void {
     if(!this.canOpen()||this.dialog.open)return;
     this.kind='marker';this.category='ALL';this.ownedOnly=false;this.selected=this.profile?.inventory.equippedMarkerId??DEFAULT_MARKER_ID;
-    this.status('가격은 테스트 값이에요.');this.dialog.showModal();this.render();void this.refresh();
+    this.status('마음에 드는 마커와 색상을 골라 보세요.');this.dialog.showModal();this.render();void this.refresh();
   }
   private async refresh():Promise<void>{
     try{const p=await this.store.read();this.loaded(p);}

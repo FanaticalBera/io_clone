@@ -1,8 +1,9 @@
 import {createGameServer} from '../../src/server/app.js';
 import {until} from '../server/helpers.js';
 import {test,expect,type Page} from '@playwright/test';
+import {MARKERS} from '../../src/client/catalog.js';
 const DB='hexhold.player-profile';
-const legacy=(coins=500)=>({version:1,coins,stats:{runsPlayed:2,classicClears:1,totalKills:12,bestTerritoryPercent:100,longestRunSeconds:95},processedRuns:[{runId:'legacy:h:life:1',baseCoins:5,territoryCoins:200,killCoins:36,clearBonusCoins:100,totalCoins:341}],worlds:[{matchId:'legacy',participants:[{participantId:'h',observedLifeId:1,paidLifeId:1,initialTerritoryCells:7,ownerId:'old',closed:true}]}]});
+const legacy=(coins=1000)=>({version:1,coins,stats:{runsPlayed:2,classicClears:1,totalKills:12,bestTerritoryPercent:100,longestRunSeconds:95},processedRuns:[{runId:'legacy:h:life:1',baseCoins:5,territoryCoins:200,killCoins:36,clearBonusCoins:100,totalCoins:341}],worlds:[{matchId:'legacy',participants:[{participantId:'h',observedLifeId:1,paidLifeId:1,initialTerritoryCells:7,ownerId:'old',closed:true}]}]});
 async function seed(page:Page,value:unknown,name=DB){
   await page.evaluate(async({value,name})=>{
     await new Promise<void>((resolve,reject)=>{const request=indexedDB.open(name,1);request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('meta'))request.result.createObjectStore('meta');};request.onerror=()=>reject(request.error);
@@ -10,8 +11,8 @@ async function seed(page:Page,value:unknown,name=DB){
     });
   },{value,name});
 }
-async function startFunded(page:Page,coins=500){
-  await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');await seed(page,legacy(coins));await page.reload();await expect(page.locator('#menu-coins')).toHaveText(String(coins));
+async function startFunded(page:Page,coins=1000){
+  await page.goto('/');await expect(page.locator('#menu-coins')).toHaveText('0');await seed(page,legacy(coins));await page.reload();await expect(page.locator('#menu-coins')).toHaveText(coins.toLocaleString());
 }
 async function profile(page:Page){return page.evaluate(()=>(window as any).__HEXHOLD_TEST__.profile());}
 async function corruptWrites(page:Page,on:boolean){
@@ -26,7 +27,7 @@ test('legacy wallet migrates intact; marker and Player Color purchase/equip pers
     const page=await context.newPage(),errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await startFunded(page);
     const restored=await profile(page),{inventory,...core}=restored;expect(core).toEqual(legacy());expect(inventory).toMatchObject({ownedMarkerIds:['default'],ownedMarkerColorIds:['slot'],equippedMarkerId:'default',equippedMarkerColorId:'slot'});
     await page.locator('#shop-open').click();await expect(page.locator('#shop-dialog')).toBeVisible();await page.locator('[data-category="BASIC"]').click();await page.locator('[data-product-id="ring"]').click();
-    await expect(page.locator('#shop-action')).toHaveText('구매 · 40 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('460');await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-action')).toBeDisabled();
+    await expect(page.locator('#shop-action')).toHaveText('구매 · 500 코인');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('500');await expect(page.locator('#shop-action')).toHaveText('장착');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await expect(page.locator('#shop-action')).toBeDisabled();
     for(const viewport of [{width:844,height:390},{width:640,height:320}]){
       await page.setViewportSize(viewport);
       for(const id of ['shop-close','shop-coins','shop-markers','shop-colors','shop-owned','shop-preview','shop-action','shop-status']){
@@ -35,11 +36,11 @@ test('legacy wallet migrates intact; marker and Player Color purchase/equip pers
       expect(await page.locator('#shop-dialog').evaluate(e=>e.scrollHeight-e.clientHeight)).toBeLessThanOrEqual(1);expect(await page.evaluate(()=>document.documentElement.scrollHeight>innerHeight)).toBe(false);
     }
     await page.screenshot({path:'evidence/shop-v1-basic-landscape.png'});
-    await page.locator('#shop-colors').click();await page.locator('[data-product-id="coral"]').click();await expect(page.locator('#shop-item-note')).toContainText('영토 · 꼬리');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('430');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await page.screenshot({path:'evidence/shop-v1-color-landscape.png'});
-    await page.locator('#shop-markers').click();await page.locator('[data-category="CUTE"]').click();await expect(page.locator('.shop-test-label')).toHaveCount(0);await expect(page.locator('#shop-items svg')).toHaveCount(4);await page.locator('[data-product-id="cat"]').click();await expect(page.locator('#shop-item-note')).toContainText('몸통에 내 색상');await page.screenshot({path:'evidence/shop-v1-placeholder-landscape.png'});
-    await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('430');
+    await page.locator('#shop-colors').click();await page.locator('[data-product-id="coral"]').click();await expect(page.locator('#shop-item-note')).toContainText('영토 · 꼬리');await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('200');await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await page.screenshot({path:'evidence/shop-v1-color-landscape.png'});
+    await page.locator('#shop-markers').click();await page.locator('[data-category="CUTE"]').click();await expect(page.locator('.shop-test-label')).toHaveCount(0);await expect(page.locator('#shop-items svg')).toHaveCount(MARKERS.filter(m=>m.category==='CUTE').length);await page.locator('[data-product-id="cat"]').click();await expect(page.locator('#shop-item-note')).toContainText('몸통에 내 색상');await page.screenshot({path:'evidence/shop-v1-placeholder-landscape.png'});
+    await page.locator('#shop-close').click();await page.reload();await expect(page.locator('#menu-coins')).toHaveText('200');
     const saved=await profile(page);expect(saved.inventory).toMatchObject({ownedMarkerIds:['default','ring'],ownedMarkerColorIds:['slot','coral'],equippedMarkerId:'ring',equippedMarkerColorId:'coral'});expect(saved.stats).toEqual(legacy().stats);expect(saved.processedRuns).toEqual(legacy().processedRuns);expect(saved.worlds).toEqual(legacy().worlds);
-    await page.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),store=new ProfileStore();try{const r=await store.purchase('marker','ring');if(r.status!=='owned'||r.balance!==430)throw new Error('Duplicate purchase charged');}finally{store.dispose();}});
+    await page.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),store=new ProfileStore();try{const r=await store.purchase('marker','ring');if(r.status!=='owned'||r.balance!==200)throw new Error('Duplicate purchase charged');}finally{store.dispose();}});
     await page.getByTestId('practice').click();await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getPractice().setPaused(true));
     await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().some((m:any)=>m.local)),{timeout:15000}).toBe(true);
     const markers=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState());expect(markers.find((m:any)=>m.local)).toMatchObject({markerId:'ring',markerColorId:'coral',bodyColor:0xff7084,slotColor:0xff7084,selfBase:true});
@@ -48,16 +49,16 @@ test('legacy wallet migrates intact; marker and Player Color purchase/equip pers
   }finally{await context.close();}
 });
 test('insufficient Coins and failed purchase/equip never apply partial wallet or cosmetic changes',async({page})=>{
-  await startFunded(page,100);await page.locator('#shop-open').click();await page.locator('[data-product-id="target"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 80 코인');
+  await startFunded(page,700);await page.locator('#shop-open').click();await page.locator('[data-product-id="target"]').click();await expect(page.locator('#shop-action')).toHaveText('구매 · 500 코인');
   await page.locator('[data-product-id="ring"]').click();await profile(page);const before=await profile(page);
-  await corruptWrites(page,true);await page.locator('#shop-action').click();await expect(page.locator('#shop-status')).toContainText('저장 실패');await expect(page.locator('#shop-coins')).toHaveText('100');await expect(page.locator('#shop-action')).toHaveText('구매 · 40 코인');await corruptWrites(page,false);expect(await profile(page)).toEqual(before);
-  await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('60');await expect(page.locator('#shop-action')).toHaveText('장착');const bought=await profile(page);
+  await corruptWrites(page,true);await page.locator('#shop-action').click();await expect(page.locator('#shop-status')).toContainText('저장 실패');await expect(page.locator('#shop-coins')).toHaveText('700');await expect(page.locator('#shop-action')).toHaveText('구매 · 500 코인');await corruptWrites(page,false);expect(await profile(page)).toEqual(before);
+  await page.locator('#shop-action').click();await expect(page.locator('#shop-coins')).toHaveText('200');await expect(page.locator('#shop-action')).toHaveText('장착');const bought=await profile(page);
   await corruptWrites(page,true);await page.locator('#shop-action').click();await expect(page.locator('#shop-status')).toContainText('저장 실패');await expect(page.locator('#shop-action')).toHaveText('장착');await corruptWrites(page,false);expect(await profile(page)).toEqual(bought);
   await page.locator('#shop-action').click();await expect(page.locator('#shop-action')).toHaveText('장착 중');await page.locator('[data-product-id="target"]').click();await expect(page.locator('#shop-action')).toHaveText('코인이 부족해요');await expect(page.locator('#shop-action')).toBeDisabled();
-  await page.locator('#shop-owned').click();await expect(page.locator('#shop-items [data-product-id]')).toHaveCount(2);await page.locator('#shop-close').click();await page.reload();const saved=await profile(page);expect(saved.coins).toBe(60);expect(saved.inventory.equippedMarkerId).toBe('ring');
+  await page.locator('#shop-owned').click();await expect(page.locator('#shop-items [data-product-id]')).toHaveCount(2);await page.locator('#shop-close').click();await page.reload();const saved=await profile(page);expect(saved.coins).toBe(200);expect(saved.inventory.equippedMarkerId).toBe('ring');
 });
 test('separate tabs serialize the same purchase and preserve simultaneous normal reward updates',async({context})=>{
-  const a=await context.newPage(),b=await context.newPage();await Promise.all([a.goto('/'),b.goto('/')]);await seed(a,legacy(50),'shop-race');
+  const a=await context.newPage(),b=await context.newPage();await Promise.all([a.goto('/'),b.goto('/')]);await seed(a,legacy(510),'shop-race');
   const purchase=async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),s=new ProfileStore(indexedDB,'shop-race');try{return await s.purchase('marker','ring');}finally{s.dispose();}};
   const receipts=await Promise.all([a.evaluate(purchase),b.evaluate(purchase)]);expect(receipts.map(r=>r.status).sort()).toEqual(['owned','purchased']);
   const result=await a.evaluate(async()=>{
@@ -98,7 +99,7 @@ test('online equipment remains local and never changes the other client or match
   try{
     const pa=await a.newPage(),pb=await b.newPage();await startFunded(pa);await pb.goto('/');
     await pa.evaluate(async()=>{const {ProfileStore}=await import('/src/client/profile-store.ts' as string),s=new ProfileStore();try{await s.purchase('marker','ring');await s.purchase('marker-color','coral');await s.equip('marker','ring');await s.equip('marker-color','coral');}finally{s.dispose();}});
-    await expect(pa.locator('#menu-coins')).toHaveText('430');await pa.getByTestId('create').click();await expect(pa.locator('#friend-code')).not.toHaveText('',{timeout:15000});const code=await pa.locator('#friend-code').textContent();
+    await expect(pa.locator('#menu-coins')).toHaveText('200');await pa.getByTestId('create').click();await expect(pa.locator('#friend-code')).not.toHaveText('',{timeout:15000});const code=await pa.locator('#friend-code').textContent();
     await pb.getByTestId('room-code').fill(code!);await pb.getByTestId('join').click();await expect(pb.locator('#room-panel')).toBeVisible({timeout:15000});await pa.getByTestId('start').click();await until(()=>[...server.rooms.rooms.values()][0]?.phase==='COUNTDOWN');now=3000;server.loop.pump();await Promise.all([expect(pa.locator('#hud')).toBeVisible(),expect(pb.locator('#hud')).toBeVisible()]);
     const av=await pa.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState()),bv=await pb.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState());
     const self=av.find((m:any)=>m.local);expect(self).toMatchObject({markerId:'ring',markerColorId:'coral',bodyColor:0xff7084,selfBase:true});
