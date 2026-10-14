@@ -41,7 +41,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <section id="menu" class="menu-panel">
  <div class="home-stage"><img class="home-art" src="/assets/ui/home-art.svg" alt=""><span id="home-marker" class="home-marker" aria-hidden="true"></span></div>
  <div class="play-column">
-  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label>
+  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label><p id="home-titles" class="home-titles" hidden></p>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
   <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
   <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span id="friend-hint">방을 만들거나 코드로 들어가요</span></div>
@@ -141,6 +141,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  }
  private homeAppearance:MarkerAppearance|null=null;
  // The equipped marker stands on the home art's trail head, in the current color style.
+ /** Earned collection titles, newest set last; the home shows the latest and how many more. */
+ setHomeTitles(titles:readonly string[]):void {const node=get('home-titles');node.hidden=!titles.length;node.textContent=titles.length?'★ '+titles.at(-1)+(titles.length>1?' 외 '+(titles.length-1)+'개':''):'';}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
  selectedGameMode():GameModeId{return 'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
