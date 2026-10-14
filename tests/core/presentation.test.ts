@@ -40,6 +40,33 @@ it('local practice interpolates within a tick instead of displaying 30Hz positio
  expect(p.position('a',60)!.x).toBeGreaterThan(p.position('a',50)!.x);
  expect(p.position('a',60)!.x).toBeLessThan(next.participants[0].position.x);
 });
+it('local practice keeps sub-tick movement after unchanged settings pauses, including repeated pauses',()=>{
+ const view=buildView(createMatch({},1,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'}]));
+ view.participants[0].position={x:0,y:0};view.participants[0].direction={x:1,y:0};
+ const p=new Presentation(),step=1000/view.config.simulationHz,distance=moveSpeed(view.config)/view.config.simulationHz;
+ p.accept(view,'a',0,true,true);
+ const next=structuredClone(view);next.tick=1;next.participants[0].position.x=distance;p.accept(next,'a',step,false,true);
+ let offset=0;
+ for(const duration of [3000,12000,500]){
+  p.setLocalPaused(true,offset+50);
+  expect(p.position('a',offset+50+duration)).toEqual(p.position('a',offset+50));
+  p.setLocalPaused(false,offset+50+duration);offset+=duration;
+  // Closing settings republishes the unchanged snapshot before simulation resumes.
+  p.accept(next,'a',offset+50,false,true);
+  expect(p.position('a',offset+50)!.x).toBeCloseTo(distance/2);
+  expect(p.position('a',offset+60)!.x).toBeGreaterThan(p.position('a',offset+50)!.x);
+  expect(p.position('a',offset+60)!.x).toBeLessThan(distance);
+ }
+ const resumed=structuredClone(next);resumed.tick=2;resumed.participants[0].position.x=distance*2;
+ const firstTickAt=offset+step*2+20; // The simulation resets its partial tick and primes its rAF clock.
+ p.accept(resumed,'a',firstTickAt,false,true);
+ expect(p.position('a',firstTickAt+step/2)!.x).toBeCloseTo(distance*1.5);
+});
+it('local pause handling leaves the online snapshot clock running',()=>{
+ const view=buildView(createMatch({},1,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'}]));view.participants[0].position={x:0,y:0};view.participants[0].direction={x:1,y:0};
+ const p=new Presentation();p.accept(view,'a',0,true);p.setLocalPaused(true,50);p.setLocalPaused(false,3050);
+ expect(p.position('a',3100)).toEqual(p.position('a',9000));
+});
 it('mid-tick intent does not rotate past displacement and then produces a limited turn',()=>{
  const view=buildView(createMatch({},1,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'}]));view.participants[0].position={x:0,y:0};view.participants[0].direction={x:1,y:0};
  const p=new Presentation();p.accept(view,'a',0,true);const speed=moveSpeed(view.config),before=p.position('a',50)!;

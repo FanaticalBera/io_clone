@@ -1,4 +1,5 @@
 import { setSafeBotRespawn } from './safe-bot-respawn.js';
+import { normalizeTitle } from './titles.js';
 import { retryHumanRun } from './retry.js';
 import { leaveParticipant } from './life.js';
 import { makeParticipant } from './state.js';
@@ -44,8 +45,8 @@ export class RoomManager {
         this.rooms.set(room.roomId, room);
         return room;
     }
-    addMember(room, session, nickname, waiting = false) {
-        const member = { memberId: randomUUID(), session, nickname, joinOrder: ++this.joinCounter, waitingForNextRound: waiting, graceUntil: null };
+    addMember(room, session, nickname, waiting = false, title) {
+        const shown = normalizeTitle(title), member = { memberId: randomUUID(), session, nickname, ...(shown ? { title: shown } : {}), joinOrder: ++this.joinCounter, waitingForNextRound: waiting, graceUntil: null };
         room.members.set(member.memberId, member);
         session.roomId = room.roomId;
         session.memberId = member.memberId;
@@ -56,7 +57,7 @@ export class RoomManager {
             room.hostId = member.memberId;
         return member;
     }
-    quickJoin(session, nickname, gameMode = 'classic') {
+    quickJoin(session, nickname, gameMode = 'classic', title) {
         if (!isGameModeId(gameMode))
             return { ok: false, code: 'INVALID_INPUT', message: '지원하지 않는 게임 모드입니다.' };
         if (session.roomId)
@@ -70,10 +71,10 @@ export class RoomManager {
             room = this.createRoom('PUBLIC', gameMode) ?? undefined;
         if (!room)
             return { ok: false, code: 'SERVER_BUSY', message: '대전 서버가 가득 찼습니다. 잠시 후 다시 시도하세요.' };
-        this.addMember(room, session, name);
+        this.addMember(room, session, name, false, title);
         return { ok: true, roomId: room.roomId };
     }
-    createFriend(session, nickname, gameMode = 'classic') {
+    createFriend(session, nickname, gameMode = 'classic', title) {
         if (!isGameModeId(gameMode))
             return { ok: false, code: 'INVALID_INPUT', message: '지원하지 않는 게임 모드입니다.' };
         if (session.roomId)
@@ -96,10 +97,10 @@ export class RoomManager {
         const room = this.createRoom('FRIEND', gameMode, code);
         if (!room)
             return { ok: false, code: 'SERVER_BUSY', message: '대전 서버가 가득 찼습니다.' };
-        this.addMember(room, session, name);
+        this.addMember(room, session, name, false, title);
         return { ok: true, roomId: room.roomId };
     }
-    joinFriend(session, nickname, rawCode) {
+    joinFriend(session, nickname, rawCode, title) {
         if (session.roomId)
             return { ok: false, code: 'ALREADY_IN_ROOM', message: '이미 방에 참가하고 있습니다.' };
         const name = normalizeNickname(nickname);
@@ -112,7 +113,7 @@ export class RoomManager {
             return { ok: false, code: 'ROOM_NOT_FOUND', message: '존재하지 않는 방 코드입니다.' };
         if (room.members.size >= Math.min(MAX_HUMAN_ROOM_MEMBERS, this.config.maxSlots))
             return { ok: false, code: 'ROOM_FULL', message: '친구 방의 사람 정원이 모두 찼습니다.' };
-        this.addMember(room, session, name, room.phase !== 'WAITING');
+        this.addMember(room, session, name, room.phase !== 'WAITING', title);
         return { ok: true, roomId: room.roomId };
     }
     start(session) {
@@ -332,7 +333,7 @@ export class RoomManager {
         const remainingSeconds = room.phase === 'RUNNING' && room.match ? (roundDeadlineTicks(room.match) === null ? null : Math.max(0, (roundDeadlineTicks(room.match) - room.match.tick) / room.match.config.simulationHz)) :
             room.phaseDeadline === null ? 0 : Math.max(0, (room.phaseDeadline - this.sessions.now()) / 1000);
         return { roomId: room.roomId, mode: room.mode, gameMode: { ...room.gameMode }, outcome: room.match?.outcome ? { ...room.match.outcome } : null, code: room.code, phase: room.phase, phaseDeadline: room.phaseDeadline, serverTime: this.sessions.now(),
-            members: [...room.members.values()].sort((a, b) => a.joinOrder - b.joinOrder).map(m => ({ memberId: m.memberId, nickname: m.nickname, connected: m.session.connected, away: m.session.background || !m.session.connected, waitingForNextRound: m.waitingForNextRound })),
+            members: [...room.members.values()].sort((a, b) => a.joinOrder - b.joinOrder).map(m => ({ memberId: m.memberId, nickname: m.nickname, ...(m.title ? { title: m.title } : {}), connected: m.session.connected, away: m.session.background || !m.session.connected, waitingForNextRound: m.waitingForNextRound })),
             hostId: room.hostId, selfMemberId: member.memberId, selfParticipantId: room.match?.participants.some(p => p.participantId === member.memberId) ? member.memberId : null,
             waitingForNextRound: member.waitingForNextRound, remainingSeconds, results: room.phase === 'RESULTS' ? room.match?.results ?? null : null, matchId: room.match?.matchId ?? null, selfRunResult: room.match?.participants.find(p => p.participantId === member.memberId)?.run?.result ?? null, mapCellCount: room.match?.map.cells.length ?? 1 + 3 * this.config.mapRadius * (this.config.mapRadius + 1) };
     }

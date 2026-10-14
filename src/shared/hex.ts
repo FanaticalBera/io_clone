@@ -31,8 +31,21 @@ export function disk(center:Axial,radius:number):Axial[] {
   cells.push({q:center.q+q,r:center.r+r});
  return cells;
 }
+// Same cells and order as disk() + byKey, without building a string key per cell (performance PRD:
+// respawn zone tables were rebuilt from ~600k keys on the first safe bot respawn of every match).
+const cellLookups=new WeakMap<MapDefinition,Int32Array>();
+function cellLookup(map:MapDefinition):Int32Array {
+ let lookup=cellLookups.get(map);if(lookup)return lookup;
+ const size=2*map.radius+1;lookup=new Int32Array(size*size).fill(-1);
+ for(const c of map.cells)lookup[(c.q+map.radius)*size+c.r+map.radius]=c.id;
+ cellLookups.set(map,lookup);return lookup;
+}
 export function region(map:MapDefinition,center:number,radius:number):number[] {
- return disk(map.cells[center],radius).map(a=>map.byKey.get(axialKey(a.q,a.r))??-1);
+ const lookup=cellLookup(map),R=map.radius,size=2*R+1,{q:cq,r:cr}=map.cells[center],cells:number[]=[];
+ for(let r=-radius;r<=radius;r++)for(let q=Math.max(-radius,-r-radius);q<=Math.min(radius,-r+radius);q++){
+  const aq=cq+q,ar=cr+r;cells.push(aq<-R||aq>R||ar<-R||ar>R?-1:lookup[(aq+R)*size+ar+R]);
+ }
+ return cells;
 }
 export function createMap(radius=22,side=32):MapDefinition {
  if(!Number.isInteger(radius)||radius<1||radius>64||!Number.isFinite(side)||side<=0) throw new Error('Invalid map');

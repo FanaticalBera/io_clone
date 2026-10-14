@@ -3,7 +3,7 @@ import { RoomLoop } from './room-loop.js';
 import { acceptDirection } from './room-input.js';
 import { PROTOCOL_VERSION } from './config.js';
 import { record, validRequest } from './protocol.js';
-import { decodeFrame, encodeFrame, LAN_AWAY_GRACE_MS, LAN_HEARTBEAT_MS, LAN_HEARTBEAT_TIMEOUT_MS, LAN_HOST_PAUSE_MS, LAN_MAX_HUMANS } from './lan-protocol.js';
+import { decodeFrame, encodeFrame, snapshotFrame, LAN_AWAY_GRACE_MS, LAN_HEARTBEAT_MS, LAN_HEARTBEAT_TIMEOUT_MS, LAN_HOST_PAUSE_MS, LAN_MAX_HUMANS } from './lan-protocol.js';
 // Anyone on the same Wi-Fi can reach the listener, so bound what one connection may cost (same budgets as src/server/limits.ts).
 export const LAN_MAX_PEERS = 8, LAN_HELLO_TIMEOUT_MS = 5000;
 const RATE_LIMITED = { ok: false, code: 'RATE_LIMITED', message: '요청이 너무 많아요. 잠시 후 다시 시도하세요.' };
@@ -22,6 +22,9 @@ export class LanHost {
     pausedAt = null;
     /** Seated guests by resume token, so a guest whose connection dropped can take the same seat back (PRD 11). */
     sessions = new Map();
+    snapshotBody = null;
+    /** How many snapshot bodies were serialized (measurement and tests). */
+    snapshotSerializations = 0;
     timers = [];
     now;
     constructor(options) {
@@ -35,7 +38,18 @@ export class LanHost {
                 const peer = member.session.peer;
                 if (peer.closed)
                     return false;
-                this.emit(peer, kind === 'init' ? 'match:init' : 'match:snapshot', snapshot, kind === 'volatile' ? 'snap:' + snapshot.matchId : undefined);
+                // Every receiver shares the body of one snapshot; serialize it once per snapshot (performance PRD N-a).
+                if (this.snapshotBody?.seq !== snapshot.snapshotSeq || this.snapshotBody.matchId !== snapshot.matchId) {
+                    const { selfParticipantId: _self, lastAppliedInputSeq: _seq, ...body } = snapshot;
+                    this.snapshotBody = { seq: snapshot.snapshotSeq, matchId: snapshot.matchId, json: JSON.stringify(body) };
+                    this.snapshotSerializations++;
+                }
+                const frame = snapshotFrame(kind === 'init' ? 'match:init' : 'match:snapshot', this.snapshotBody.json, snapshot.selfParticipantId, snapshot.lastAppliedInputSeq);
+                peer.channel.send(frame, kind === 'volatile' ? { replaceKey: 'snap:' + snapshot.matchId } : undefined);
+                // Frame length in UTF-16 units; snapshots are almost all ASCII, so this is close to the bytes sent.
+                this.loop.metrics.snapshotBytes += frame.length;
+                if (!peer.local)
+                    this.loop.metrics.snapshotSentBytes += frame.length;
                 return true;
             },
             result: (_room, member, payload) => this.emit(member.session.peer, 'match:result', payload),
@@ -54,7 +68,21 @@ export class LanHost {
     start() {
         if (this.timers.length || this.closed)
             return;
-        this.timers.push(setInterval(() => this.pump(), 10), setInterval(() => this.heartbeat(), LAN_HEARTBEAT_MS));
+        this.timers.push(setInterval(() => this.heartbeat(), LAN_HEARTBEAT_MS));
+        this.schedulePump();
+    }
+    // The host phone wakes for the next simulation step instead of every 10 ms (performance PRD N-e):
+    // a running room is due when its accumulator reaches one step; otherwise phase deadlines are checked
+    // at step granularity.
+    pumpTimer = null;
+    schedulePump() {
+        if (this.closed)
+            return;
+        let delay = 1000 / 30;
+        for (const room of this.rooms.rooms.values())
+            if (room.phase === 'RUNNING' && room.match)
+                delay = Math.min(delay, (1 / room.match.config.simulationHz - room.accumulator) * 1000);
+        this.pumpTimer = setTimeout(() => { this.pumpTimer = null; this.pump(); this.schedulePump(); }, Math.max(4, Math.ceil(delay) + 1));
     }
     pump() { if (!this.closed && this.pausedAt === null)
         this.loop.pump(); }
@@ -142,6 +170,9 @@ export class LanHost {
         for (const timer of this.timers)
             clearInterval(timer);
         this.timers = [];
+        if (this.pumpTimer)
+            clearTimeout(this.pumpTimer);
+        this.pumpTimer = null;
         for (const peer of this.peers.values()) {
             peer.closed = true;
             peer.channel.close('HOST_CLOSED');
@@ -151,8 +182,10 @@ export class LanHost {
     }
     emit(peer, event, data, replaceKey) {
         if (peer.closed)
-            return;
-        peer.channel.send(encodeFrame({ k: 'evt', e: event, d: data }), replaceKey ? { replaceKey } : undefined);
+            return 0;
+        const frame = encodeFrame({ k: 'evt', e: event, d: data });
+        peer.channel.send(frame, replaceKey ? { replaceKey } : undefined);
+        return frame.length;
     }
     heartbeat() {
         // Paused: guests know and wait, but the host's own client still needs pings or it would close the loopback
@@ -367,12 +400,12 @@ export class LanHost {
                     return this.fail('NOT_HOST', '방은 방장 기기에서만 만들 수 있어요.');
                 if (this.rooms.rooms.size)
                     return this.fail('ALREADY_IN_ROOM', '이미 방이 열려 있어요.');
-                return this.rooms.createFriend(session, request.nickname, request.gameMode);
+                return this.rooms.createFriend(session, request.nickname, request.gameMode, request.title);
             case 'room:join': {
                 const room = [...this.rooms.rooms.values()][0];
                 if (room && room.members.size >= LAN_MAX_HUMANS && !session.roomId)
                     return this.fail('ROOM_FULL', '방이 가득 찼어요.');
-                return this.rooms.joinFriend(session, request.nickname, request.code);
+                return this.rooms.joinFriend(session, request.nickname, request.code, request.title);
             }
             case 'room:start': return this.rooms.start(session);
             case 'run:retry': return this.rooms.retryRun(session, request.matchId, request.runId);

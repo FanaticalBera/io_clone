@@ -6,13 +6,16 @@ import { damageExpansionAnchors, expansionDamageBonus } from './bot-damage.js';
 import { emotionIndividual, memoryValuable, grudgeBonus, grudgeAmount } from './bot-emotion.js';
 import { survivalCounterAllowed } from './bot-policy.js';
 import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
-import { expansionSides, EXPANSION_SHAPES } from './bot-expansion.js';
+import { expansionSides, EXPANSION_SHAPES, crowdedExpansionShape } from './bot-expansion.js';
 import { evaluateDepartureSafety, recordDepartureSafety, expansionPerimeterBlocked } from './bot-immediate-safety.js';
 import { selectReposition, startReposition } from './bot-reposition.js';
 import { decisionTraces, attackPolicies } from './bot-runtime.js';
 import { shortestPath, returnPath, travelSeconds, observedHeading, forecastHead } from './bot-navigation.js';
 import { holdingRiskMultiplier } from './bot-holding-risk.js';
-// Candidate enumeration, score arithmetic and RNG draw order are unchanged.
+import { BOT_LOOP_CEILING, quietLoopEligible } from './bot-loop-ceiling.js';
+import { openSpaceExpansionAnchor } from './bot-open-space.js';
+import { innerExpansionAnchor } from './bot-inner-anchor.js';
+// Anchor/shape enumeration and existing score terms remain intact.
 const behavior = {
     EXPAND: { length: 5, width: 4, attack: 0.08, pointWeight: 4, risk: 0.7, trailLimit: 20, steal: 0.3, attackRange: 6 },
     ATTACK: { length: 3, width: 2, attack: 0.85, pointWeight: 3, risk: 0.4, trailLimit: 18, steal: 0.5, attackRange: 9 },
@@ -221,10 +224,8 @@ export function planAttack(obs, memory, interrupt = false, locked = false) {
 // Evaluate the same enclosure rule as capture: home plus the planned trail
 // blocks flood-fill from the outer edge. Retracing a line has no area bonus.
 const plannedCaptureWork = new WeakMap();
-export function plannedCapture(obs, path) {
-    // Profiling R56/16 identified candidate flood fills as the main hotspot.
-    // Reuse storage and index exterior seeds, retaining the same full-map flood,
-    // neighbor order and ascending result order (no local approximation).
+/** Reference full-map flood (the frozen rule). plannedCapture must always return exactly this. */
+export function plannedCaptureFull(obs, path) {
     let work = plannedCaptureWork.get(obs.map);
     if (!work) {
         const count = obs.map.cells.length;
@@ -253,6 +254,137 @@ export function plannedCapture(obs, path) {
     for (let id = 0; id < obs.map.cells.length; id++)
         if (obs.owners[id] !== owner && !visited[id])
             result.push(id);
+    return result;
+}
+const captureBases = new WeakMap();
+const captureScratch = new WeakMap();
+const UNSEEN = -2, SEED = -1;
+function captureBase(obs, owner) {
+    let byOwner = captureBases.get(obs.map);
+    if (!byOwner) {
+        byOwner = new Map();
+        captureBases.set(obs.map, byOwner);
+    }
+    const cached = byOwner.get(owner), count = obs.map.cells.length;
+    if (cached && cached.owners.length === obs.owners.length) {
+        let same = true;
+        for (let i = 0; i < count; i++)
+            if (cached.owners[i] !== obs.owners[i]) {
+                same = false;
+                break;
+            }
+        if (same)
+            return cached;
+    }
+    const parent = cached?.parent.length === count ? cached.parent : new Int32Array(count), queue = new Int32Array(count);
+    parent.fill(UNSEEN);
+    let tail = 0;
+    for (let id = 0; id < count; id++)
+        if (obs.map.cells[id].neighbors.includes(-1) && obs.owners[id] !== owner) {
+            parent[id] = SEED;
+            queue[tail++] = id;
+        }
+    for (let head = 0; head < tail; head++) {
+        const from = queue[head];
+        for (const id of obs.map.cells[from].neighbors) {
+            if (id < 0 || parent[id] !== UNSEEN || obs.owners[id] === owner)
+                continue;
+            parent[id] = from;
+            queue[tail++] = id;
+        }
+    }
+    const enclosed = [];
+    for (let id = 0; id < count; id++)
+        if (obs.owners[id] !== owner && parent[id] === UNSEEN)
+            enclosed.push(id);
+    const base = { owner, owners: Uint8Array.from(obs.owners), parent, enclosed };
+    byOwner.set(owner, base);
+    return base;
+}
+export function plannedCapture(obs, path) {
+    const owner = obs.self.slot + 1, base = captureBase(obs, owner), count = obs.map.cells.length, { parent } = base;
+    let work = captureScratch.get(obs.map);
+    if (!work) {
+        work = { blocked: new Int32Array(count), state: new Int32Array(count), dirty: new Int32Array(count), queue: new Int32Array(count), stamp: 0 };
+        captureScratch.set(obs.map, work);
+    }
+    // Stamps avoid clearing the scratch arrays: blocked[id]===stamp marks a path cell; state[id] holds
+    // stamp*4+k with k: 1 reachable, 2 unreachable, 3 queued in the current component search;
+    // dirty[id]===stamp marks a cell whose parent chain is known to cross the path.
+    const stamp = ++work.stamp, { blocked, state, dirty, queue } = work, REACH = stamp * 4 + 1, CUT = stamp * 4 + 2, OPEN = stamp * 4 + 3;
+    for (const id of path)
+        blocked[id] = stamp;
+    // A reached cell stays reachable when its whole parent chain to the edge avoids the path.
+    const clean = (id) => {
+        let cur = id, steps = 0;
+        while (true) {
+            if (blocked[cur] === stamp || dirty[cur] === stamp)
+                break;
+            if (state[cur] === REACH || parent[cur] === SEED) {
+                for (let c = id, k = 0; k < steps; k++, c = parent[c])
+                    state[c] = REACH;
+                return true;
+            }
+            cur = parent[cur];
+            steps++;
+        }
+        for (let c = id, k = 0; k < steps; k++, c = parent[c])
+            dirty[c] = stamp;
+        return false;
+    };
+    const extra = [];
+    for (const id of path)
+        if (obs.owners[id] !== owner && parent[id] !== UNSEEN && state[id] !== CUT) {
+            state[id] = CUT;
+            extra.push(id);
+        }
+    for (const b of path)
+        for (const start of obs.map.cells[b].neighbors) {
+            if (start < 0 || obs.owners[start] === owner || blocked[start] === stamp || parent[start] === UNSEEN)
+                continue;
+            const known = state[start];
+            if (known === REACH || known === CUT)
+                continue;
+            let tail = 0, head = 0, reachable = false;
+            queue[tail++] = start;
+            state[start] = OPEN;
+            while (head < tail) {
+                const cell = queue[head++];
+                if (clean(cell)) {
+                    reachable = true;
+                    break;
+                }
+                for (const id of obs.map.cells[cell].neighbors) {
+                    if (id < 0 || obs.owners[id] === owner || blocked[id] === stamp || state[id] === OPEN)
+                        continue;
+                    if (state[id] === REACH) {
+                        reachable = true;
+                        break;
+                    }
+                    state[id] = OPEN;
+                    queue[tail++] = id;
+                }
+                if (reachable)
+                    break;
+            }
+            for (let i = 0; i < tail; i++) {
+                const id = queue[i];
+                state[id] = reachable ? REACH : CUT;
+                if (!reachable)
+                    extra.push(id);
+            }
+        }
+    if (!extra.length)
+        return base.enclosed.slice();
+    extra.sort((a, b) => a - b);
+    const result = [], enclosed = base.enclosed;
+    let i = 0, j = 0;
+    while (i < enclosed.length || j < extra.length) {
+        if (j >= extra.length || i < enclosed.length && enclosed[i] < extra[j])
+            result.push(enclosed[i++]);
+        else
+            result.push(extra[j++]);
+    }
     return result;
 }
 // A shortened enclosure avoids retracing the existing trail. Emergency escape
@@ -298,9 +430,19 @@ export function planExpansion(obs, memory) {
     // The explorer's extra reach is for quiet space. Visible opponents keep its
     // footprint at the Phase 1 size even before they enter the crowded radius.
     const cautiousExplorer = obs.self.personality === 'EXPAND' && obs.others.length > 0;
+    const quietLarge = BOT_LOOP_CEILING.enabled && quietLoopEligible(obs), pathLimit = quietLarge ? BOT_LOOP_CEILING.pathLimit : 24;
+    const trailLimit = quietLarge ? settings.trailLimit * BOT_LOOP_CEILING.trailScale : settings.trailLimit;
     const loopLength = cautiousExplorer ? Math.min(settings.length, 4) : settings.length;
     const loopWidth = cautiousExplorer ? Math.min(settings.width, 3) : settings.width;
     const damageBoundary = damageExpansionAnchors(obs, memory.emotion.damage, boundary);
+    // Preserve the complete original anchor order and its RNG/shape enumeration.
+    // Only the appended anchor generates extra candidates; all filters below apply.
+    const openBoundary = openSpaceExpansionAnchor(obs, damageBoundary.anchors.map(c => c.id));
+    if (openBoundary)
+        damageBoundary.anchors.push(obs.map.cells[openBoundary.id]);
+    const innerBoundary = innerExpansionAnchor(obs, damageBoundary.anchors.map(c => c.id));
+    if (innerBoundary !== null)
+        damageBoundary.anchors.push(obs.map.cells[innerBoundary]);
     const boundaryTrace = decisionTraces.get(memory);
     if (boundaryTrace)
         boundaryTrace.damageBoundary = { anchors: damageBoundary.damageAnchors, unreachable: damageBoundary.unreachable };
@@ -312,13 +454,16 @@ export function planExpansion(obs, memory) {
             let current = anchor.id;
             const path = [...prefix];
             let valid = true, leftHome = false, closed = false;
-            let length = crowded ? 1 + Math.floor(memory.random() * 2) : Math.max(2, Math.floor(loopLength - 1 + memory.random() * 3));
-            let width = crowded ? 1 : Math.max(1, Math.floor(loopWidth - 1 + memory.random() * 3));
-            const bevel = crowded ? 0 : Math.floor(memory.random() * 3);
+            const lengthSpan = quietLarge ? (loopLength + 2) * BOT_LOOP_CEILING.dimensionScale - (loopLength - 1) : 3;
+            const widthSpan = quietLarge ? (loopWidth + 2) * BOT_LOOP_CEILING.dimensionScale - (loopWidth - 1) : 3;
+            let length = crowded ? 1 + Math.floor(memory.random() * 2) : Math.max(2, Math.floor(loopLength - 1 + memory.random() * lengthSpan));
+            let width = crowded ? 1 : Math.max(1, Math.floor(loopWidth - 1 + memory.random() * widthSpan));
+            const crowdedShape = crowded ? crowdedExpansionShape(obs.self.personality === 'DEFEND', anchorIndex * 6 + d + memory.seq) : null;
+            const bevel = crowded ? (crowdedShape === 'BEVEL' ? 1 : 0) : Math.floor(memory.random() * 3);
             const naturalClosure = !crowded && memory.random() < .35;
-            const shape = obs.self.personality === 'DEFEND' || crowded ? (naturalClosure ? 'NATURAL' : bevel ? 'BEVEL' : 'RHOMBUS') : EXPANSION_SHAPES[(anchorIndex * 6 + d + memory.seq) % EXPANSION_SHAPES.length];
-            // Only an explorer near observed pressure scales down. Quiet-space reach
-            // and all hard path/trail/proximity limits remain intact.
+            const shape = crowdedShape ?? (obs.self.personality === 'DEFEND' ? (naturalClosure ? 'NATURAL' : bevel ? 'BEVEL' : 'RHOMBUS') : EXPANSION_SHAPES[(anchorIndex * 6 + d + memory.seq) % EXPANSION_SHAPES.length]);
+            // Observed pressure retains the original explorer downscale. Quiet plans
+            // use their approved ceilings; head/proximity predicates are unchanged.
             const nearestHead = Math.min(...obs.others.map(p => hexDistance(anchor, obs.map.cells[p.cellId])));
             const downScaled = obs.self.personality === 'EXPAND' && !crowded && nearestHead < 2 * (length + width) * .65;
             if (downScaled) {
@@ -349,7 +494,7 @@ export function planExpansion(obs, memory) {
                 }
             }
             if (valid && ['NATURAL', 'HOOK', 'ASYMMETRIC'].includes(shape) && leftHome && !closed) {
-                const used = new Set(path), back = shortestPath(obs.map, current, id => obs.owners[id] === owner, id => !used.has(id) && !forbidden.has(id), 24 - path.length);
+                const used = new Set(path), back = shortestPath(obs.map, current, id => obs.owners[id] === owner, id => !used.has(id) && !forbidden.has(id), pathLimit - path.length);
                 if (back) {
                     path.push(...back);
                     current = back.at(-1) ?? current;
@@ -361,7 +506,7 @@ export function planExpansion(obs, memory) {
                 const reasons = trace.expansionRejected ??= {};
                 reasons[reason] = (reasons[reason] ?? 0) + 1;
             } };
-            if (!valid || path.length > 24) {
+            if (!valid || path.length > pathLimit) {
                 reject(!valid ? 'BLOCKED_PATH' : 'PATH_BUDGET');
                 continue;
             }
@@ -373,7 +518,7 @@ export function planExpansion(obs, memory) {
             // Any outside path cell is blocked from the capture flood, so these rejected
             // candidates cannot have zero gain. Keep the same guards/reason order/RNG,
             // but avoid a full-map flood whose result would immediately be discarded.
-            if (external.length > settings.trailLimit || (crowded && external.length > 6)) {
+            if (external.length > trailLimit || (crowded && external.length > 6)) {
                 reject('TRAIL_BUDGET');
                 continue;
             }
@@ -396,7 +541,7 @@ export function planExpansion(obs, memory) {
                 (trace.expansionAccepted ??= []).push(shape);
             const baseScore = gain.length * (obs.self.personality === 'EXPAND' ? 1.25 : 1) + stolen * settings.steal - path.length * 0.35 - risk * settings.risk * holdingRisk - turn * 2 - excursionRisk * holdingRisk - repeatPenalty + memory.random() * 0.5;
             const response = expansionDamageBonus(obs, memory.emotion, gain, baseScore, memory.identity);
-            candidates.push({ path, score: baseScore + response.bonus, goal: stolen > gain.length / 2 ? 'STEAL' : 'EXPAND', expansion: { response, anchor: anchor.id, shape, pathLength: path.length, externalLength: external.length, captureSize: gain.length, stolenCells: stolen, earlyClosed: false, downScaled, threatDistance } });
+            candidates.push({ path, score: baseScore + response.bonus, goal: stolen > gain.length / 2 ? 'STEAL' : 'EXPAND', expansion: { response, anchor: anchor.id, shape, pathLength: path.length, externalLength: external.length, captureSize: gain.length, stolenCells: stolen, earlyClosed: false, downScaled, threatDistance, ...(quietLarge ? { quietTrailLimit: trailLimit } : {}) } });
         }
     const candidateListener = botCandidateListener(memory), ordinals = candidateListener ? new Map(candidates.map((c, i) => [c, i])) : undefined;
     candidates.sort((a, b) => b.score - a.score);

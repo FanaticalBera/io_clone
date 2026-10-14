@@ -27,7 +27,7 @@ function validRun(value, p, snapshot, count, hz) {
 }
 export function validRequest(value) {
     return record(value) && typeof value.requestId === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(value.requestId) &&
-        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && Object.keys(value).every(key => ['requestId', 'nickname', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
+        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && (value.title === undefined || (typeof value.title === 'string' && value.title.length <= 24)) && Object.keys(value).every(key => ['requestId', 'nickname', 'title', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
 }
 export function validDirection(value) {
     return record(value) && Object.keys(value).every(k => ['matchId', 'lifeId', 'seq', 'dx', 'dy'].includes(k)) &&
@@ -36,9 +36,10 @@ export function validDirection(value) {
         typeof value.dx === 'number' && typeof value.dy === 'number' && Number.isFinite(value.dx) && Number.isFinite(value.dy) && Math.abs(value.dx) <= 1 && Math.abs(value.dy) <= 1;
 }
 export function encodeBytes(bytes) {
+    // Same output as one character per byte, built in chunks instead of ~20k string appends (performance PRD N-d).
     let binary = '';
-    for (const byte of bytes)
-        binary += String.fromCharCode(byte);
+    for (let i = 0; i < bytes.length; i += 0x8000)
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
     return btoa(binary);
 }
 export function decodeBytes(value, length) {

@@ -1,0 +1,1708 @@
+{
+ "url": "https://localhost/?metrics=1&perf=autoplay&perfSeed=137&perfRounds=3&perfFollow=0&perfColor=pastel&perfRoundSeconds=240",
+ "startedAt": "2026-10-14T07:17:16.955Z",
+ "sampleSeconds": 30,
+ "deviceAtStart": {
+  "batteryC": 29.5,
+  "batteryLevel": 81,
+  "charging": false,
+  "thermalStatus": 0
+ },
+ "samples": [
+  {
+   "elapsedSeconds": 30,
+   "device": {
+    "batteryC": 29.5,
+    "batteryLevel": 81,
+    "charging": false,
+    "thermalStatus": 0
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3441,
+    "interval": {
+     "p50": 8.3,
+     "p95": 13.6,
+     "max": 98.7
+    },
+    "onePercentLowFps": 29.53,
+    "frameCpu": {
+     "p50": 3.1,
+     "p95": 4.2,
+     "max": 9.7
+    },
+    "renderCpu": {
+     "p50": 3,
+     "p95": 4,
+     "max": 9.1
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 114.8,
+    "rafsPerSecond": 114.8,
+    "jsMsPerSecond": 498.42,
+    "perSecond": {
+     "sim": 104.95,
+     "step.fx.combat": 2.67,
+     "step.fx.territory": 0.97,
+     "step.fx.capture": 2.15,
+     "step.markers": 4.67,
+     "step.wall": 0.48,
+     "step.cull": 1.57,
+     "step.predict": 0.06,
+     "step": 17.8,
+     "render": 342.85,
+     "sim.bot": 85.87,
+     "sim.engine": 16.26,
+     "sim.view": 2.4,
+     "recv.draw": 25.31,
+     "recv.hud": 5.72,
+     "recv": 32.82,
+     "step.minimap": 2.21
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 60,
+   "device": {
+    "batteryC": 31.4,
+    "batteryLevel": 80,
+    "charging": false,
+    "thermalStatus": 0
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3499,
+    "interval": {
+     "p50": 8.3,
+     "p95": 12.8,
+     "max": 34.2
+    },
+    "onePercentLowFps": 36.14,
+    "frameCpu": {
+     "p50": 3.5,
+     "p95": 4.5,
+     "max": 12.5
+    },
+    "renderCpu": {
+     "p50": 3.4,
+     "p95": 4.3,
+     "max": 12.1
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 116.5,
+    "rafsPerSecond": 116.5,
+    "jsMsPerSecond": 532.13,
+    "perSecond": {
+     "sim": 96.25,
+     "step.fx.combat": 2.44,
+     "step.fx.territory": 0.62,
+     "step.fx.capture": 1.74,
+     "step.markers": 3.53,
+     "step.wall": 0.52,
+     "step.cull": 1.33,
+     "step.predict": 0.06,
+     "step": 14.52,
+     "render": 394.88,
+     "sim.bot": 81.54,
+     "sim.engine": 12.45,
+     "sim.view": 1.84,
+     "recv.draw": 20.7,
+     "recv.hud": 4.56,
+     "recv": 26.48,
+     "step.minimap": 1.72
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 91,
+   "device": {
+    "batteryC": 32.6,
+    "batteryLevel": 80,
+    "charging": false,
+    "thermalStatus": 0
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3439,
+    "interval": {
+     "p50": 8.2,
+     "p95": 15.8,
+     "max": 36.1
+    },
+    "onePercentLowFps": 35.92,
+    "frameCpu": {
+     "p50": 4.2,
+     "p95": 6.8,
+     "max": 23
+    },
+    "renderCpu": {
+     "p50": 4.1,
+     "p95": 6.6,
+     "max": 22.6
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 114.6,
+    "rafsPerSecond": 114.6,
+    "jsMsPerSecond": 637.6,
+    "perSecond": {
+     "sim": 99.18,
+     "step.fx.combat": 2.39,
+     "step.fx.territory": 0.73,
+     "step.fx.capture": 1.78,
+     "step.markers": 3.26,
+     "step.wall": 0.53,
+     "step.cull": 0.97,
+     "step.predict": 0.06,
+     "step": 13.56,
+     "render": 499.13,
+     "sim.bot": 85.48,
+     "sim.engine": 11.71,
+     "sim.view": 1.56,
+     "recv.draw": 20.13,
+     "recv.hud": 4.56,
+     "recv": 25.73,
+     "step.minimap": 1.55
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 121,
+   "device": {
+    "batteryC": 34.2,
+    "batteryLevel": 80,
+    "charging": false,
+    "thermalStatus": 1
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3245,
+    "interval": {
+     "p50": 8.7,
+     "p95": 15.3,
+     "max": 44.9
+    },
+    "onePercentLowFps": 36.98,
+    "frameCpu": {
+     "p50": 5.9,
+     "p95": 9.4,
+     "max": 26.9
+    },
+    "renderCpu": {
+     "p50": 5.7,
+     "p95": 9.2,
+     "max": 26.9
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 108.9,
+    "rafsPerSecond": 108.9,
+    "jsMsPerSecond": 789.83,
+    "perSecond": {
+     "sim": 99.2,
+     "step.fx.combat": 2.26,
+     "step.fx.territory": 0.97,
+     "step.fx.capture": 1.75,
+     "step.markers": 3.56,
+     "step.wall": 0.6,
+     "step.cull": 1.13,
+     "step.predict": 0.07,
+     "step": 14.05,
+     "render": 650.17,
+     "sim.bot": 85.65,
+     "sim.engine": 11.46,
+     "sim.view": 1.67,
+     "recv.draw": 20.71,
+     "recv.hud": 4.53,
+     "recv": 26.41,
+     "step.minimap": 1.83
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 151,
+   "device": {
+    "batteryC": 35.7,
+    "batteryLevel": 79,
+    "charging": false,
+    "thermalStatus": 2
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3306,
+    "interval": {
+     "p50": 8.4,
+     "p95": 13.6,
+     "max": 34.3
+    },
+    "onePercentLowFps": 38.48,
+    "frameCpu": {
+     "p50": 6.1,
+     "p95": 9.4,
+     "max": 23.7
+    },
+    "renderCpu": {
+     "p50": 6,
+     "p95": 9.2,
+     "max": 23.4
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 110,
+    "rafsPerSecond": 110,
+    "jsMsPerSecond": 807.29,
+    "perSecond": {
+     "sim": 87.22,
+     "step.fx.combat": 1.97,
+     "step.fx.territory": 0.94,
+     "step.fx.capture": 1.92,
+     "step.markers": 3.3,
+     "step.wall": 0.51,
+     "step.cull": 1.04,
+     "step.predict": 0.03,
+     "step": 13.24,
+     "render": 683.44,
+     "sim.bot": 76.22,
+     "sim.engine": 9.24,
+     "sim.view": 1.46,
+     "recv.draw": 18.4,
+     "recv.hud": 4.04,
+     "recv": 23.39,
+     "step.minimap": 1.62
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 182,
+   "device": {
+    "batteryC": 36.6,
+    "batteryLevel": 79,
+    "charging": false,
+    "thermalStatus": 2
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3427,
+    "interval": {
+     "p50": 8.2,
+     "p95": 13.5,
+     "max": 43.8
+    },
+    "onePercentLowFps": 34.64,
+    "frameCpu": {
+     "p50": 4.3,
+     "p95": 7.2,
+     "max": 28.7
+    },
+    "renderCpu": {
+     "p50": 4.2,
+     "p95": 7.1,
+     "max": 28.6
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 114.4,
+    "rafsPerSecond": 114.4,
+    "jsMsPerSecond": 645.7,
+    "perSecond": {
+     "sim": 94.79,
+     "step.fx.combat": 2.28,
+     "step.fx.territory": 0.78,
+     "step.fx.capture": 1.67,
+     "step.markers": 3.26,
+     "step.wall": 0.51,
+     "step.cull": 1.02,
+     "step.predict": 0.05,
+     "step": 13.69,
+     "render": 512.2,
+     "sim.bot": 83.05,
+     "sim.engine": 9.9,
+     "sim.view": 1.57,
+     "recv.draw": 19.28,
+     "recv.hud": 4.63,
+     "recv": 25.02,
+     "step.minimap": 2.06
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 212,
+   "device": {
+    "batteryC": 37.4,
+    "batteryLevel": 78,
+    "charging": false,
+    "thermalStatus": 2
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3375,
+    "interval": {
+     "p50": 8.2,
+     "p95": 15.6,
+     "max": 37.1
+    },
+    "onePercentLowFps": 34.86,
+    "frameCpu": {
+     "p50": 5.3,
+     "p95": 8.1,
+     "max": 28.2
+    },
+    "renderCpu": {
+     "p50": 5.2,
+     "p95": 7.9,
+     "max": 28.1
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 112.2,
+    "rafsPerSecond": 112.2,
+    "jsMsPerSecond": 758.03,
+    "perSecond": {
+     "sim": 95.42,
+     "step.fx.combat": 1.84,
+     "step.fx.territory": 0.63,
+     "step.fx.capture": 1.83,
+     "step.markers": 3.15,
+     "step.wall": 0.5,
+     "step.cull": 0.91,
+     "step.predict": 0.04,
+     "step": 12.19,
+     "render": 628.04,
+     "sim.bot": 84.45,
+     "sim.engine": 9.2,
+     "sim.view": 1.43,
+     "recv.draw": 17.34,
+     "recv.hud": 3.98,
+     "recv": 22.38,
+     "step.minimap": 1.59
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 242,
+   "device": {
+    "batteryC": 38.1,
+    "batteryLevel": 78,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3040,
+    "interval": {
+     "p50": 9,
+     "p95": 17.5,
+     "max": 38.8
+    },
+    "onePercentLowFps": 33.9,
+    "frameCpu": {
+     "p50": 7.5,
+     "p95": 10,
+     "max": 35.7
+    },
+    "renderCpu": {
+     "p50": 7.4,
+     "p95": 9.8,
+     "max": 35.7
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 101.3,
+    "rafsPerSecond": 101.3,
+    "jsMsPerSecond": 913.4,
+    "perSecond": {
+     "sim": 104.74,
+     "step.fx.combat": 1.53,
+     "step.fx.territory": 0.44,
+     "step.fx.capture": 1.97,
+     "step.markers": 3.55,
+     "step.wall": 0.45,
+     "step.cull": 0.97,
+     "step.predict": 0.05,
+     "step": 12.19,
+     "render": 772.29,
+     "sim.bot": 92.84,
+     "sim.engine": 9.92,
+     "sim.view": 1.64,
+     "recv.draw": 19.14,
+     "recv.hud": 4.1,
+     "recv": 24.18,
+     "step.minimap": 1.63
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 273,
+   "device": {
+    "batteryC": 38.6,
+    "batteryLevel": 77,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3384,
+    "interval": {
+     "p50": 8.3,
+     "p95": 14.1,
+     "max": 40.5
+    },
+    "onePercentLowFps": 34.67,
+    "frameCpu": {
+     "p50": 4.8,
+     "p95": 8,
+     "max": 37.6
+    },
+    "renderCpu": {
+     "p50": 4.7,
+     "p95": 7.8,
+     "max": 36.9
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 112.8,
+    "rafsPerSecond": 112.8,
+    "jsMsPerSecond": 714.47,
+    "perSecond": {
+     "sim": 92.46,
+     "step.fx.combat": 1.91,
+     "step.fx.territory": 1.06,
+     "step.fx.capture": 1.68,
+     "step.markers": 2.93,
+     "step.wall": 0.44,
+     "step.cull": 0.97,
+     "step.predict": 0.03,
+     "step": 12.44,
+     "render": 587.31,
+     "sim.bot": 80.94,
+     "sim.engine": 9.81,
+     "sim.view": 1.4,
+     "recv.draw": 17.3,
+     "recv.hud": 4.08,
+     "recv": 22.26,
+     "step.minimap": 1.59
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 303,
+   "device": {
+    "batteryC": 39.2,
+    "batteryLevel": 77,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3343,
+    "interval": {
+     "p50": 8.4,
+     "p95": 14.3,
+     "max": 34.9
+    },
+    "onePercentLowFps": 37.17,
+    "frameCpu": {
+     "p50": 5.5,
+     "p95": 8.5,
+     "max": 18.8
+    },
+    "renderCpu": {
+     "p50": 5.4,
+     "p95": 8.4,
+     "max": 18.3
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 111,
+    "rafsPerSecond": 111,
+    "jsMsPerSecond": 749.75,
+    "perSecond": {
+     "sim": 98.27,
+     "step.fx.combat": 2.19,
+     "step.fx.territory": 0.89,
+     "step.fx.capture": 1.9,
+     "step.markers": 3.43,
+     "step.wall": 0.52,
+     "step.cull": 1.15,
+     "step.predict": 0.04,
+     "step": 13.8,
+     "render": 612.73,
+     "sim.bot": 84.7,
+     "sim.engine": 11.46,
+     "sim.view": 1.71,
+     "recv.draw": 19.46,
+     "recv.hud": 4.5,
+     "recv": 24.95,
+     "step.minimap": 1.74
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 333,
+   "device": {
+    "batteryC": 39.7,
+    "batteryLevel": 76,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3348,
+    "interval": {
+     "p50": 8.3,
+     "p95": 16.9,
+     "max": 38
+    },
+    "onePercentLowFps": 34.79,
+    "frameCpu": {
+     "p50": 4.8,
+     "p95": 8.3,
+     "max": 34.9
+    },
+    "renderCpu": {
+     "p50": 4.7,
+     "p95": 8.2,
+     "max": 34.2
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 111.7,
+    "rafsPerSecond": 111.7,
+    "jsMsPerSecond": 706.63,
+    "perSecond": {
+     "sim": 106.13,
+     "step.fx.combat": 1.83,
+     "step.fx.territory": 0.5,
+     "step.fx.capture": 1.76,
+     "step.markers": 3.17,
+     "step.wall": 0.61,
+     "step.cull": 1.01,
+     "step.predict": 0.02,
+     "step": 12.26,
+     "render": 563.92,
+     "sim.bot": 93,
+     "sim.engine": 11.19,
+     "sim.view": 1.56,
+     "recv.draw": 19.05,
+     "recv.hud": 4.26,
+     "recv": 24.32,
+     "step.minimap": 1.51
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 364,
+   "device": {
+    "batteryC": 40.2,
+    "batteryLevel": 76,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2934,
+    "interval": {
+     "p50": 9.4,
+     "p95": 15.4,
+     "max": 47.1
+    },
+    "onePercentLowFps": 32.98,
+    "frameCpu": {
+     "p50": 8,
+     "p95": 10.4,
+     "max": 32.1
+    },
+    "renderCpu": {
+     "p50": 7.9,
+     "p95": 10.2,
+     "max": 31.8
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 98,
+    "rafsPerSecond": 98,
+    "jsMsPerSecond": 912.6,
+    "perSecond": {
+     "sim": 95.44,
+     "step.fx.combat": 1.73,
+     "step.fx.territory": 0.52,
+     "step.fx.capture": 1.94,
+     "step.markers": 3.55,
+     "step.wall": 0.38,
+     "step.cull": 0.95,
+     "step.predict": 0.02,
+     "step": 12.34,
+     "render": 780.36,
+     "sim.bot": 83.43,
+     "sim.engine": 10.11,
+     "sim.view": 1.61,
+     "recv.draw": 19.3,
+     "recv.hud": 4.25,
+     "recv": 24.46,
+     "step.minimap": 1.59
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 394,
+   "device": {
+    "batteryC": 40.6,
+    "batteryLevel": 76,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2387,
+    "interval": {
+     "p50": 10.3,
+     "p95": 20.6,
+     "max": 2850.9
+    },
+    "onePercentLowFps": 6.42,
+    "frameCpu": {
+     "p50": 8.6,
+     "p95": 11.5,
+     "max": 51.2
+    },
+    "renderCpu": {
+     "p50": 8.4,
+     "p95": 11.3,
+     "max": 50.8
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 79.5,
+    "rafsPerSecond": 79.5,
+    "jsMsPerSecond": 831.15,
+    "perSecond": {
+     "sim": 108.43,
+     "step.fx.combat": 1.49,
+     "step.fx.territory": 0.45,
+     "step.fx.capture": 1.66,
+     "step.markers": 5.46,
+     "step.wall": 0.39,
+     "step.cull": 0.89,
+     "step.predict": 0.04,
+     "step": 13.82,
+     "render": 684.29,
+     "sim.bot": 94.81,
+     "sim.engine": 11.6,
+     "sim.view": 1.62,
+     "recv.draw": 19.28,
+     "recv.hud": 4.33,
+     "recv": 24.61,
+     "step.minimap": 1.92
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 424,
+   "device": {
+    "batteryC": 42,
+    "batteryLevel": 75,
+    "charging": false,
+    "thermalStatus": 3
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2848,
+    "interval": {
+     "p50": 9.8,
+     "p95": 15.9,
+     "max": 36.3
+    },
+    "onePercentLowFps": 37.3,
+    "frameCpu": {
+     "p50": 8.6,
+     "p95": 10.4,
+     "max": 31.9
+    },
+    "renderCpu": {
+     "p50": 8.4,
+     "p95": 10.2,
+     "max": 31.8
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 94.9,
+    "rafsPerSecond": 94.9,
+    "jsMsPerSecond": 935.46,
+    "perSecond": {
+     "sim": 91.19,
+     "step.fx.combat": 1.47,
+     "step.fx.territory": 0.59,
+     "step.fx.capture": 1.5,
+     "step.markers": 5.84,
+     "step.wall": 0.44,
+     "step.cull": 0.8,
+     "step.predict": 0.05,
+     "step": 13.84,
+     "render": 806.34,
+     "sim.bot": 79.1,
+     "sim.engine": 10.19,
+     "sim.view": 1.53,
+     "recv.draw": 19.16,
+     "recv.hud": 3.99,
+     "recv": 24.09,
+     "step.minimap": 1.56
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 455,
+   "device": {
+    "batteryC": 42.9,
+    "batteryLevel": 75,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2770,
+    "interval": {
+     "p50": 9.8,
+     "p95": 19.4,
+     "max": 67.3
+    },
+    "onePercentLowFps": 26.18,
+    "frameCpu": {
+     "p50": 8.5,
+     "p95": 10.9,
+     "max": 67
+    },
+    "renderCpu": {
+     "p50": 8.3,
+     "p95": 10.7,
+     "max": 66.9
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 91.7,
+    "rafsPerSecond": 91.7,
+    "jsMsPerSecond": 922.98,
+    "perSecond": {
+     "sim": 93.02,
+     "step.fx.combat": 1.46,
+     "step.fx.territory": 0.91,
+     "step.fx.capture": 1.39,
+     "step.markers": 5.68,
+     "step.wall": 0.39,
+     "step.cull": 0.87,
+     "step.predict": 0.04,
+     "step": 15.24,
+     "render": 794.36,
+     "sim.bot": 82.58,
+     "sim.engine": 8.88,
+     "sim.view": 1.29,
+     "recv.draw": 15.98,
+     "recv.hud": 3.66,
+     "recv": 20.36,
+     "step.minimap": 2.92
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 485,
+   "device": {
+    "batteryC": 43.3,
+    "batteryLevel": 74,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3334,
+    "interval": {
+     "p50": 8.1,
+     "p95": 15.1,
+     "max": 36.5
+    },
+    "onePercentLowFps": 34.85,
+    "frameCpu": {
+     "p50": 6,
+     "p95": 7.9,
+     "max": 29.2
+    },
+    "renderCpu": {
+     "p50": 5.9,
+     "p95": 7.7,
+     "max": 28.9
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 111.6,
+    "rafsPerSecond": 111.6,
+    "jsMsPerSecond": 813.74,
+    "perSecond": {
+     "sim": 102.41,
+     "step.fx.combat": 1.91,
+     "step.fx.territory": 0.55,
+     "step.fx.capture": 1.49,
+     "step.markers": 6.81,
+     "step.wall": 0.5,
+     "step.cull": 1.04,
+     "step.predict": 0.06,
+     "step": 15.85,
+     "render": 670.59,
+     "sim.bot": 89.31,
+     "sim.engine": 11.07,
+     "sim.view": 1.64,
+     "recv.draw": 19.42,
+     "recv.hud": 4.5,
+     "recv": 24.89,
+     "step.minimap": 1.62
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 515,
+   "device": {
+    "batteryC": 44,
+    "batteryLevel": 74,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3059,
+    "interval": {
+     "p50": 8.7,
+     "p95": 17.6,
+     "max": 55.2
+    },
+    "onePercentLowFps": 30.17,
+    "frameCpu": {
+     "p50": 6.8,
+     "p95": 9.7,
+     "max": 33.2
+    },
+    "renderCpu": {
+     "p50": 6.6,
+     "p95": 9.5,
+     "max": 32.5
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 101.8,
+    "rafsPerSecond": 101.8,
+    "jsMsPerSecond": 873.69,
+    "perSecond": {
+     "sim.bot": 100.7,
+     "sim.engine": 11.65,
+     "sim.view": 1.9,
+     "sim": 114.6,
+     "recv.draw": 22.29,
+     "recv.hud": 4.84,
+     "recv": 28.22,
+     "step.fx.combat": 1.89,
+     "step.fx.territory": 0.63,
+     "step.fx.capture": 1.77,
+     "step.markers": 7.05,
+     "step.wall": 0.44,
+     "step.cull": 1.1,
+     "step.predict": 0.06,
+     "step": 16.68,
+     "render": 714.19,
+     "step.minimap": 1.81
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 546,
+   "device": {
+    "batteryC": 43.7,
+    "batteryLevel": 74,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3211,
+    "interval": {
+     "p50": 8.4,
+     "p95": 14.6,
+     "max": 42.9
+    },
+    "onePercentLowFps": 33.17,
+    "frameCpu": {
+     "p50": 6.4,
+     "p95": 8.9,
+     "max": 25.5
+    },
+    "renderCpu": {
+     "p50": 6.2,
+     "p95": 8.7,
+     "max": 25.4
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 106.9,
+    "rafsPerSecond": 106.9,
+    "jsMsPerSecond": 846.95,
+    "perSecond": {
+     "sim": 108.1,
+     "step.fx.combat": 2.23,
+     "step.fx.territory": 1.14,
+     "step.fx.capture": 1.66,
+     "step.markers": 7.73,
+     "step.wall": 0.54,
+     "step.cull": 1.26,
+     "step.predict": 0.04,
+     "step": 18.68,
+     "render": 690.56,
+     "sim.bot": 92.44,
+     "sim.engine": 13.17,
+     "sim.view": 2.1,
+     "recv.draw": 23.37,
+     "recv.hud": 5.16,
+     "recv": 29.61,
+     "step.minimap": 2
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 576,
+   "device": {
+    "batteryC": 44.2,
+    "batteryLevel": 73,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3134,
+    "interval": {
+     "p50": 8.5,
+     "p95": 19,
+     "max": 57.3
+    },
+    "onePercentLowFps": 29.81,
+    "frameCpu": {
+     "p50": 6.8,
+     "p95": 8.6,
+     "max": 38.9
+    },
+    "renderCpu": {
+     "p50": 6.6,
+     "p95": 8.4,
+     "max": 38.5
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 105.2,
+    "rafsPerSecond": 105.2,
+    "jsMsPerSecond": 862.23,
+    "perSecond": {
+     "sim": 119.79,
+     "step.fx.combat": 1.95,
+     "step.fx.territory": 0.7,
+     "step.fx.capture": 1.72,
+     "step.markers": 6.52,
+     "step.wall": 0.51,
+     "step.cull": 1.08,
+     "step.predict": 0.02,
+     "step": 16,
+     "render": 698.86,
+     "sim.bot": 105.76,
+     "sim.engine": 11.92,
+     "sim.view": 1.79,
+     "recv.draw": 21.43,
+     "recv.hud": 5.1,
+     "recv": 27.58,
+     "step.minimap": 1.73
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 606,
+   "device": {
+    "batteryC": 44.2,
+    "batteryLevel": 73,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2975,
+    "interval": {
+     "p50": 8.8,
+     "p95": 19.7,
+     "max": 45.4
+    },
+    "onePercentLowFps": 28.63,
+    "frameCpu": {
+     "p50": 6.8,
+     "p95": 9.5,
+     "max": 39.3
+    },
+    "renderCpu": {
+     "p50": 6.6,
+     "p95": 9.2,
+     "max": 38.9
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 99.1,
+    "rafsPerSecond": 99.1,
+    "jsMsPerSecond": 860.7,
+    "perSecond": {
+     "sim.bot": 109.57,
+     "sim.engine": 13.55,
+     "sim.view": 1.92,
+     "sim": 125.44,
+     "recv.draw": 25.68,
+     "recv.hud": 6.04,
+     "recv": 33.48,
+     "step.fx.combat": 2.14,
+     "step.fx.territory": 0.96,
+     "step.fx.capture": 1.87,
+     "step.markers": 8.07,
+     "step.wall": 0.64,
+     "step.cull": 1.84,
+     "step.predict": 0.07,
+     "step.minimap": 2.6,
+     "step": 20.26,
+     "render": 681.52
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 637,
+   "device": {
+    "batteryC": 42.7,
+    "batteryLevel": 73,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 2545,
+    "interval": {
+     "p50": 9,
+     "p95": 15.4,
+     "max": 4482.9
+    },
+    "onePercentLowFps": 4.89,
+    "frameCpu": {
+     "p50": 7.3,
+     "p95": 10.3,
+     "max": 32.9
+    },
+    "renderCpu": {
+     "p50": 7.2,
+     "p95": 10.1,
+     "max": 31.5
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 85.1,
+    "rafsPerSecond": 85.1,
+    "jsMsPerSecond": 759.58,
+    "perSecond": {
+     "sim.bot": 68.62,
+     "sim.engine": 9.67,
+     "sim.view": 1.5,
+     "sim": 80.09,
+     "recv.draw": 18.88,
+     "recv.hud": 4.37,
+     "recv": 24.3,
+     "step.fx.combat": 1.69,
+     "step.fx.territory": 0.39,
+     "step.fx.capture": 1.55,
+     "step.markers": 6.22,
+     "step.wall": 0.45,
+     "step.cull": 0.95,
+     "step.predict": 0.04,
+     "step": 14.22,
+     "render": 640.97,
+     "step.minimap": 1.39
+    }
+   }
+  },
+  {
+   "elapsedSeconds": 667,
+   "device": {
+    "batteryC": 43.2,
+    "batteryLevel": 72,
+    "charging": false,
+    "thermalStatus": 4
+   },
+   "info": {
+    "mode": "autoplay",
+    "build": "apk-perf",
+    "seed": 137,
+    "rounds": 3,
+    "round": 0,
+    "followSlot": 0,
+    "matchId": "perf-137-0",
+    "colorStyle": "pastel",
+    "territoryEffect": "WAVE_COLLAPSE",
+    "captureEffect": true,
+    "devicePixelRatio": 2.8125,
+    "userAgent": "Mozilla/5.0 (Linux; Android 15; SM-S926N Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/154.0.8037.106 Mobile Safari/537.36",
+    "done": false,
+    "pixelRatio": 2.8125,
+    "viewport": {
+     "width": 832,
+     "height": 384
+    },
+    "backing": {
+     "width": 2340,
+     "height": 1080
+    }
+   },
+   "frames": {
+    "frames": 3043,
+    "interval": {
+     "p50": 8.7,
+     "p95": 19.2,
+     "max": 45.7
+    },
+    "onePercentLowFps": 32.32,
+    "frameCpu": {
+     "p50": 7,
+     "p95": 10.2,
+     "max": 26.6
+    },
+    "renderCpu": {
+     "p50": 6.8,
+     "p95": 10,
+     "max": 25.8
+    }
+   },
+   "spans": {
+    "seconds": 30,
+    "rendersPerSecond": 101.7,
+    "rafsPerSecond": 101.7,
+    "jsMsPerSecond": 874.27,
+    "perSecond": {
+     "sim": 121.3,
+     "step.fx.combat": 1.85,
+     "step.fx.territory": 0.55,
+     "step.fx.capture": 1.5,
+     "step.markers": 6.91,
+     "step.wall": 0.54,
+     "step.cull": 1.06,
+     "step.predict": 0.03,
+     "step": 15.9,
+     "render": 709.05,
+     "sim.bot": 107.34,
+     "sim.engine": 11.97,
+     "sim.view": 1.72,
+     "recv.draw": 22.18,
+     "recv.hud": 4.87,
+     "recv": 28.02,
+     "step.minimap": 1.61
+    }
+   }
+  }
+ ],
+ "errors": []
+}

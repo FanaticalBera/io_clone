@@ -1,6 +1,6 @@
 import {describe,it,expect,vi,afterEach} from 'vitest';
 import {LanHost} from '../../src/shared/lan-host.js';
-import {createChannelPair,decodeFrame,type FrameChannel,type MemoryChannelOptions} from '../../src/shared/lan-protocol.js';
+import {createChannelPair,decodeFrame,encodeFrame,snapshotFrame,type FrameChannel,type MemoryChannelOptions} from '../../src/shared/lan-protocol.js';
 import {FrameTransport,type CommandEvent} from '../../src/client/transport.js';
 import {unpackSnapshot,type Ack,type AppError,type RoomView,type WireSnapshot,type CommandRequest} from '../../src/shared/protocol.js';
 import {markDead} from '../../src/shared/life.js';
@@ -202,6 +202,34 @@ describe('L08: LAN heartbeat',()=>{
   t.on('app:error',e=>errors.push(e));let acked=false;deadHost.onMessage(d=>{const f=decodeFrame(d);if(f?.k==='req'&&!acked){acked=true;deadHost.send(JSON.stringify({k:'ack',id:f.id,d:{ok:true} satisfies Ack}));}});
   t.connect();await vi.advanceTimersByTimeAsync(6500);
   expect(errors.map(e=>e.code)).toEqual(['HOST_LEFT']);
+ });
+});
+describe('Performance PRD N-a: one snapshot body per snapshot',()=>{
+ it('parses to the same frame as encodeFrame, with the receiver seat fields',()=>{
+  const snapshot={protocolVersion:PROTOCOL_VERSION,matchId:'m',snapshotSeq:7,tick:3,owners:'AAA=',nested:{a:[1,'x"y']},selfParticipantId:'p-1',lastAppliedInputSeq:12};
+  const {selfParticipantId:_s,lastAppliedInputSeq:_l,...body}=snapshot;
+  for(const self of ['p-1',null] as const){const raw=snapshotFrame('match:snapshot',JSON.stringify(body),self,5);
+   expect(JSON.parse(raw)).toEqual(JSON.parse(encodeFrame({k:'evt',e:'match:snapshot',d:{...snapshot,selfParticipantId:self,lastAppliedInputSeq:5}})));
+   expect(decodeFrame(raw)).toEqual({k:'evt',e:'match:snapshot',d:{...snapshot,selfParticipantId:self,lastAppliedInputSeq:5}});}
+ });
+ it('serializes each snapshot once for the host and every guest, and guests still get their own seat fields',async()=>{
+  const f=await running(2);const host=f.host as LanHost&{snapshotSerializations:number};
+  const before=host.snapshotSerializations,snapshotsBefore=f.host.loop.metrics.snapshots;
+  await f.advance(1000);
+  const published=(f.host.loop.metrics.snapshots-snapshotsBefore)/3;
+  expect(published).toBeGreaterThanOrEqual(9);
+  expect(host.snapshotSerializations-before).toBe(published);
+  for(const c of [f.hostClient,...f.guests]){const last=c.snapshots.at(-1)!;expect(f.room.match!.participants.find(p=>p.participantId===last.selfParticipantId)?.kind).toBe('HUMAN');}
+  expect(new Set([f.hostClient,...f.guests].map(c=>c.snapshots.at(-1)!.selfParticipantId)).size).toBe(3);
+ });
+});
+describe('Performance PRD M1: LAN snapshot byte counters',()=>{
+ it('counts every serialized snapshot, and only guest-bound ones as sent',async()=>{
+  const f=await running(2);const m=f.host.loop.metrics;
+  expect(m.snapshotSentBytes).toBeGreaterThan(0);
+  // Three receivers (host loopback + two guests) share each snapshot, so sent bytes are about two thirds.
+  expect(m.snapshotBytes).toBeGreaterThan(m.snapshotSentBytes);
+  expect(m.snapshotSentBytes/m.snapshotBytes).toBeCloseTo(2/3,1);
  });
 });
 export type {FrameChannel};

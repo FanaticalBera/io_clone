@@ -1,4 +1,5 @@
 import {SnapshotGate,type RoomView,type Ack,type AppError,type WireSnapshot} from '../shared/protocol.js';
+import {perfNow,perfAdd} from '../shared/perf-sink.js';
 import type {MatchView,Vec} from '../shared/model.js';
 import type {GameModeId} from '../shared/modes.js';
 import {SocketIoTransport,clearSessionToken,type GameTransport,type CommandEvent} from './transport.js';
@@ -58,7 +59,7 @@ export class NetworkSession {
  private receive(raw:WireSnapshot,init:boolean):void {
   if(this.disposed||this.room?.waitingForNextRound||this.room?.matchId&&raw.matchId!==this.room.matchId)return;
   try{
-   const view=this.gate.accept(raw,init);if(!view||!raw.selfParticipantId)return;
+   const decodeAt=perfNow(),view=this.gate.accept(raw,init);perfAdd('net.decode',decodeAt);perfAdd('net',decodeAt);if(!view||!raw.selfParticipantId)return;
    this.view=view;this.selfId=raw.selfParticipantId;const self=view.participants.find(p=>p.participantId===this.selfId);if(!self)return;
    if(this.lifeId!==self.lifeId){this.lifeId=self.lifeId;this.seq=raw.lastAppliedInputSeq;}else this.seq=Math.max(this.seq,raw.lastAppliedInputSeq);
    const wasUnstable=this.unstable;this.lastReceived=performance.now();this.unstable=false;this.synchronized=!this.background;if(wasUnstable)this.callbacks.connected?.(true);this.callbacks.snapshot?.(raw);this.callbacks.view(view,this.selfId,init);

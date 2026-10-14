@@ -30,7 +30,18 @@ test('all thirty-two colors drive actual marker, territory, trail, shields and e
  const setup=await page.evaluate(async()=>{const t=(window as any).__HEXHOLD_TEST__,m=t.getPractice().match,h=m.participants[0],{addTrail}=await import('/src/shared/territory.ts' as string);const id=m.map.cells.find((c:any)=>m.owners[c.id]===0&&c.neighbors.some((n:number)=>n>=0&&m.owners[n]===1)).id;addTrail(m,h,id);t.showPracticeView();return{matchId:m.matchId,identities:m.participants.map((p:any)=>[p.participantId,p.slot]),owners:[...m.owners],trails:[...m.trailMasks],tick:m.tick};});
  for(const color of [...colors,{id:'slot',value:0x16cdb1}]){
   await store(page,'equip','marker-color',color.id);await expect.poll(()=>page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getMarkerState().find((m:any)=>m.participantId==='local-human')?.bodyColor)).toBe(color.value);
-  const state=await page.evaluate(trailAlpha=>{const t=(window as any).__HEXHOLD_TEST__,s=t.getScene(),m=t.getPractice().match,style=(rgb:number,alpha:number)=>[...s.chunks.values()].some((g:any)=>g.commandBuffer.some((v:number,i:number,b:number[])=>v===7&&b[i+1]===rgb&&b[i+2]===alpha));const rgba=t.getPlayerColors(),local=t.getMarkerState().find((p:any)=>p.participantId==='local-human');return{local,colors:rgba,territory:style(local.bodyColor,1),trail:style(local.bodyColor,trailAlpha),shield:s.avatars.get('local-human').shield.strokeColor,identities:m.participants.map((p:any)=>[p.participantId,p.slot]),owners:[...m.owners],trails:[...m.trailMasks],tick:m.tick,bots:t.getMarkerState().filter((p:any)=>!p.local)};},FIELD.trailAlpha);
+  const state=await page.evaluate(trailAlpha=>{
+   const t=(window as any).__HEXHOLD_TEST__,s=t.getScene(),m=t.getPractice().match;
+   const style=(rgb:number,alpha:number)=>[...s.chunks.values()].some((g:any)=>g.commandBuffer.some((v:number,i:number,b:number[])=>v===7&&b[i+1]===rgb&&b[i+2]===alpha));
+   const rgba=t.getPlayerColors(),local=t.getMarkerState().find((p:any)=>p.participantId==='local-human'),self=m.participants[0];
+   // Land now uses an atlas and Blitter tiles. Check the actual fill pixel and the tile reference,
+   // rather than requiring the former Graphics commands. Trails still use Graphics.
+   const texture=s.textures.get(s.landKey),frame=texture.get('top'+self.slot),canvas=texture.getSourceImage() as HTMLCanvasElement;
+   const pixel=canvas.getContext('2d')!.getImageData(Math.round(-s.landBox.minX),frame.cutY+Math.round(-s.landBox.minY),1,1).data;
+   const tileColor=pixel[0]<<16|pixel[1]<<8|pixel[2];
+   const territory=tileColor===local.bodyColor&&pixel[3]===255&&[...s.landChunks.values()].some((land:any)=>land.children.list.some((bob:any)=>bob.frame===frame));
+   return{local,colors:rgba,territory,trail:style(local.bodyColor,trailAlpha),shield:s.avatars.get('local-human').shield.strokeColor,identities:m.participants.map((p:any)=>[p.participantId,p.slot]),owners:[...m.owners],trails:[...m.trailMasks],tick:m.tick,bots:t.getMarkerState().filter((p:any)=>!p.local)};
+  },FIELD.trailAlpha);
   expect(state.local).toMatchObject({local:true,slotColor:color.value,bodyColor:color.value,selfBase:true});expect(state.territory).toBe(true);expect(state.trail).toBe(true);expect(state.shield).toBe(color.value);expect(new Set(state.colors).size).toBe(16);expect(state.colors.slice(1)).not.toContain(color.value);expect(new Set(state.bots.map((p:any)=>p.markerId)).size).toBe(15);expect(state.bots.every((p:any)=>p.bodyColor===p.slotColor&&!p.selfBase)).toBe(true);expect(state.identities).toEqual(setup.identities);expect(state.owners).toEqual(setup.owners);expect(state.trails).toEqual(setup.trails);expect(state.tick).toBe(setup.tick);
  }
  await store(page,'equip','marker-color','violet');

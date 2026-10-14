@@ -69,7 +69,8 @@ export function validDirection(value:unknown):value is DirectionInput {
  typeof value.dx==='number'&&typeof value.dy==='number'&&Number.isFinite(value.dx)&&Number.isFinite(value.dy)&&Math.abs(value.dx)<=1&&Math.abs(value.dy)<=1;
 }
 export function encodeBytes(bytes:Uint8Array):string {
- let binary='';for(const byte of bytes)binary+=String.fromCharCode(byte);return btoa(binary);
+ // Same output as one character per byte, built in chunks instead of ~20k string appends (performance PRD N-d).
+ let binary='';for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000) as unknown as number[]);return btoa(binary);
 }
 export function decodeBytes(value:unknown,length:number):Uint8Array {
  if(typeof value!=='string'||value.length!==4*Math.ceil(length/3)||! /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(value))throw new Error('Invalid base64');

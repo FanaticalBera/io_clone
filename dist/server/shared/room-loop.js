@@ -1,13 +1,14 @@
 import { buildView, stepMatch } from './game.js';
 import { createBotMemory } from './bot.js';
 import { getBotInputs } from './bot-director.js';
+import { perfNow, perfAdd } from './perf-sink.js';
 import { botSeed, createBotIdentity } from './bot-identity.js';
 import { packSnapshot } from './protocol.js';
 export class RoomLoop {
     rooms;
     output;
     log;
-    metrics = { steps: 0, stepMs: [], snapshotBytes: 0, snapshots: 0, maxBacklogMs: 0 };
+    metrics = { steps: 0, stepMs: [], snapshotBytes: 0, snapshotSentBytes: 0, snapshots: 0, maxBacklogMs: 0 };
     state = new WeakMap();
     constructor(rooms, output, log = () => { }) {
         this.rooms = rooms;
@@ -23,8 +24,11 @@ export class RoomLoop {
     publishSnapshot(room, init = false, reliable = false, only) {
         if (!room.match)
             return;
+        const netAt = perfNow();
         const view = buildView(room.match), seq = ++room.snapshotSeq, now = this.rooms.sessions.now();
         const base = packSnapshot(view, seq, now, null);
+        perfAdd('net.pack', netAt);
+        const sendAt = perfNow();
         for (const member of room.members.values()) {
             if (member.waitingForNextRound || !member.session.connected || only && member.session !== only)
                 continue;
@@ -35,6 +39,8 @@ export class RoomLoop {
             if (this.output.snapshot(room, member, snapshot, init ? 'init' : reliable ? 'reliable' : 'volatile'))
                 this.metrics.snapshots++;
         }
+        perfAdd('net.send', sendAt);
+        perfAdd('net', netAt);
     }
     synchronize(session) {
         const current = this.rooms.member(session);
@@ -93,6 +99,7 @@ export class RoomLoop {
                         overloaded = true;
                     const dt = 1 / room.match.config.simulationHz;
                     let count = 0;
+                    const simAt = perfNow();
                     while (room.accumulator + 1e-9 >= dt && count < 5 && room.match.phase === 'RUNNING') {
                         const before = performance.now();
                         const inputs = new Map(room.inputs);
@@ -110,9 +117,13 @@ export class RoomLoop {
                                 if (p.kind === 'HUMAN')
                                     returnOnly.add(p.participantId);
                             }
+                        let span = perfNow();
                         for (const [id, input] of getBotInputs(room.match, room.bots, selected, returnOnly))
                             inputs.set(id, input);
+                        perfAdd('sim.bot', span);
+                        span = perfNow();
                         stepMatch(room.match, inputs);
+                        perfAdd('sim.engine', span);
                         const duration = performance.now() - before;
                         this.metrics.steps++;
                         this.metrics.stepMs.push(duration);
@@ -121,6 +132,7 @@ export class RoomLoop {
                         room.accumulator -= dt;
                         count++;
                     }
+                    perfAdd('sim', simAt);
                     const interval = room.match.config.simulationHz / room.match.config.snapshotHz;
                     if (Math.floor(room.match.tick / interval) > Math.floor(cache.lastSentTick / interval) || room.match.phase === 'FINISHED' && cache.resultId !== room.match.matchId) {
                         const spawn = room.match.events.some(e => e.type === 'SPAWN' && Number(e.eventId.split(':').at(-1)) > cache.lastEvent);

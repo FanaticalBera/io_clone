@@ -78,7 +78,7 @@ test('real saved invalid equipment repairs only that field and never resets wall
 test('unavailable storage disables Shop actions and recovers when storage access returns',async({page})=>{
   await page.addInitScript(()=>{(window as any).__SHOP_DB__=indexedDB;Object.defineProperty(window,'indexedDB',{get(){throw new Error('blocked');}});});
   await page.goto('/');await page.locator('#shop-open').click();await expect(page.locator('#shop-status')).toContainText('저장소를 읽지 못');await expect(page.locator('#shop-action')).toBeDisabled();await expect(page.locator('#shop-reload')).toBeVisible();
-  await page.evaluate(()=>Object.defineProperty(window,'indexedDB',{value:(window as any).__SHOP_DB__}));await page.locator('#shop-reload').click();await expect(page.locator('#shop-coins')).toHaveText('0');await expect(page.locator('#shop-reload')).toBeHidden();await page.locator('#shop-close').click();await page.getByTestId('practice').click();if(await page.locator('#tutorial').isVisible())await page.getByTestId('tutorial-skip').click();await expect(page.locator('#hud')).toBeVisible();
+  await page.evaluate(()=>Object.defineProperty(window,'indexedDB',{value:(window as any).__SHOP_DB__}));await page.locator('#shop-reload').click();await expect(page.locator('#shop-coins')).toHaveText('0');await expect(page.locator('#shop-reload')).toBeHidden();await page.locator('#shop-close').click();await page.getByTestId('practice').click();if(await page.locator('#tutorial').isVisible())await page.getByTestId('tutorial-go').click();await expect(page.locator('#hud')).toBeVisible();
 });
 
 test('migration write failure preserves the complete legacy record until a successful retry',async({page})=>{

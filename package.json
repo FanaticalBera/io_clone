@@ -19,7 +19,8 @@
     "start": "node dist/server/server/index.js",
     "test:run": "playwright test --config playwright.run.config.ts",
     "test:bot-ai": "playwright test --config playwright.bot-ai.config.ts",
-    "build:apk": "vite build --mode apk --outDir build/apk-web --emptyOutDir && cap sync android"
+    "build:apk": "vite build --mode apk --outDir build/apk-web --emptyOutDir && cap sync android",
+    "build:apk:perf": "vite build --mode apk-perf --outDir build/apk-web --emptyOutDir && cap sync android"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",

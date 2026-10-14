@@ -1,13 +1,14 @@
 import {test,expect} from '@playwright/test';
 import {writeFile} from 'node:fs/promises';
+const clientURL=process.env.HEXHOLD_TEST_CLIENT_URL??'http://127.0.0.1:5174';
 
 test('dense displays gain backing pixels while preserving field size, aiming and combat placement',async({browser})=>{
  const evidence:any[]=[];
  for(const density of [1,2,2.625,3]){
-  const context=await browser.newContext({viewport:{width:844,height:390},deviceScaleFactor:density,isMobile:true,hasTouch:true});
+  const context=await browser.newContext({baseURL:clientURL,viewport:{width:844,height:390},deviceScaleFactor:density,isMobile:true,hasTouch:true});
   try{
    const page=await context.newPage();const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
-   await page.goto('http://127.0.0.1:5173/tests/fixtures/combat.html');
+   await page.goto('/tests/fixtures/combat.html');
    await page.waitForFunction(()=>!!(window as any).fixture?.scene.combatState());
    for(const viewport of [{width:390,height:844},{width:844,height:390}]){
     await page.setViewportSize(viewport);
@@ -47,10 +48,10 @@ test('dense displays gain backing pixels while preserving field size, aiming and
 });
 
 test('high-density mobile touch and minimap remain usable after rotation',async({browser})=>{
- const context=await browser.newContext({viewport:{width:844,height:390},deviceScaleFactor:3,isMobile:true,hasTouch:true});
+ const context=await browser.newContext({baseURL:clientURL,viewport:{width:844,height:390},deviceScaleFactor:3,isMobile:true,hasTouch:true});
  await context.addInitScript(()=>{localStorage.setItem('hexhold.tutorialSeen','1');localStorage.setItem('hexhold.settings',JSON.stringify({mobileControls:'drag',killVibration:false}));});
  try{
-  const page=await context.newPage();await page.goto('http://127.0.0.1:5174');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();
+  const page=await context.newPage();await page.goto('/');await page.getByTestId('practice').click();await expect(page.locator('#hud')).toBeVisible();
   const cdp=await context.newCDPSession(page);
   for(const viewport of [{width:844,height:390},{width:390,height:844}]){
    await page.setViewportSize(viewport);
@@ -62,7 +63,8 @@ test('high-density mobile touch and minimap remain usable after rotation',async(
    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    
    await expect(page.locator('#minimap')).toBeVisible();
-   await expect.poll(()=>page.locator('#minimap').evaluate((canvas:HTMLCanvasElement)=>({width:canvas.width,height:canvas.height}))).toEqual({width:426,height:360});
+   // The compact minimap is 84 × 73 CSS pixels, including its border.
+   await expect.poll(()=>page.locator('#minimap').evaluate((canvas:HTMLCanvasElement)=>({width:canvas.width,height:canvas.height}))).toEqual({width:240,height:207});
    await page.keyboard.press('Escape');
   }
   // Moving between displays can change DPR without changing the CSS viewport.
@@ -72,9 +74,9 @@ test('high-density mobile touch and minimap remain usable after rotation',async(
 });
 
 test('extreme display densities cap rendering work',async({browser})=>{
- const context=await browser.newContext({viewport:{width:1920,height:1080},deviceScaleFactor:4});
+ const context=await browser.newContext({baseURL:clientURL,viewport:{width:1920,height:1080},deviceScaleFactor:4});
  try{
-  const page=await context.newPage();await page.goto('http://127.0.0.1:5174');
+  const page=await context.newPage();await page.goto('/');
   await page.waitForFunction(()=>!!(window as any).__HEXHOLD_TEST__);
   const state=await page.evaluate(()=>(window as any).__HEXHOLD_TEST__.getRenderState());
   expect(state.pixelRatio).toBeGreaterThan(1);expect(state.pixelRatio).toBeLessThan(3);

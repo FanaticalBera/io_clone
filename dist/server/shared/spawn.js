@@ -1,6 +1,6 @@
 import { safeBotRespawn, ownedDistances, coreDistance, MIN_CORE_OWNED_DISTANCE } from './safe-bot-respawn.js';
 import { startRun } from './run.js';
-import { region } from './hex.js';
+import { region, hexDistance } from './hex.js';
 import { setOwner } from './territory.js';
 import { emitEvent } from './life.js';
 import { roundDeadlineTicks } from './modes.js';
@@ -25,7 +25,9 @@ export function watchSpawnAttempts(match, observer) { spawnObservers.set(match, 
 // bodies are obstacles). Eligibility/delay is handled by trySpawn/tryRespawns.
 export function inspectSpawnSpace(match, p, reserved = new Set()) {
     const territorySafe = safeBotRespawn(match, p), territoryDistances = territorySafe ? ownedDistances(match) : null;
-    const clearance = territorySafe ? spawnRegions(match, match.config.spawnRadius + MIN_CORE_OWNED_DISTANCE - 1) : null;
+    // The map is a hex disk around the origin, so a center's clearance disk leaves the board exactly when
+    // its distance from the origin plus the clearance radius exceeds the map radius (no per-cell table).
+    const clearanceRadius = match.config.spawnRadius + MIN_CORE_OWNED_DISTANCE - 1, origin = { q: 0, r: 0 };
     const count = match.map.cells.length, distances = new Int32Array(count);
     distances.fill(count);
     const queue = new Int32Array(count);
@@ -56,7 +58,7 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
         const zone = zones[center];
         let safety = count, valid = true;
         // Three real neutral layers must fit on the playable board; outside is not neutral.
-        if (clearance?.[center].some(id => id < 0)) {
+        if (territorySafe && hexDistance(match.map.cells[center], origin) + clearanceRadius > match.map.radius) {
             edgeRejectedCount++;
             continue;
         }

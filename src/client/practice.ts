@@ -12,6 +12,8 @@ import type {ShadowOpportunity} from '../shared/bot-opportunity.js';
 import type {MatchState,MatchView,Vec,DirectionInput,Personality} from '../shared/model.js';
 import {validateConfig,type GameConfig} from '../shared/config.js';
 import type {GameModeConfig} from '../shared/modes.js';
+import {perfNow,perfAdd} from '../shared/perf-sink.js';
+import {PERF_BUILD} from './perf-build.js';
 export class PracticeSession {
  readonly selfId:string|null;readonly spectating:boolean;readonly match:MatchState;
  private memories=new Map<string,BotMemory>();private direction:Vec|null=null;private seq=0;
@@ -19,9 +21,10 @@ export class PracticeSession {
  private diagnosticStops:(()=>void)[]=[];private botDebug:BotDebugCollector|null=null;
  private diagnosticData:{deathCauses:Record<string,number>;decisionCount:number;escapeDecisionCount:number;clearDecisionCount:null;missedReasons:Record<string,number>;candidateReasons:Record<string,number>;deaths:DeathTrace[];missed:ShadowOpportunity[]}|null=null;
  private visibility=()=>{this.lastTime=null;this.accumulated=0;};
- constructor(nickname:string,private publish:(view:MatchView,selfId:string|null)=>void,config:Partial<GameConfig>={},options:{safeBotRespawn?:boolean;seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;spectate?:boolean;botVariant?:BotVariant;wallMargin?:boolean;botOverrides?:Readonly<Record<number,{personality?:Personality;secondaryTrait?:SecondaryTrait}>>}={}){
-  const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId='practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
-  this.spectating=!!options.spectate&&!!options.diagnostics&&(import.meta.env.DEV||import.meta.env.MODE==='test');
+ constructor(nickname:string,private publish:(view:MatchView,selfId:string|null)=>void,config:Partial<GameConfig>={},options:{safeBotRespawn?:boolean;seed?:number;autoStart?:boolean;gameMode?:GameModeConfig;diagnostics?:boolean;spectate?:boolean;botVariant?:BotVariant;wallMargin?:boolean;measurement?:boolean;matchId?:string;botOverrides?:Readonly<Record<number,{personality?:Personality;secondaryTrait?:SecondaryTrait}>>}={}){
+  const seed=options.seed??crypto.getRandomValues(new Uint32Array(1))[0],matchId=options.matchId??'practice-'+seed+'-'+Array.from(crypto.getRandomValues(new Uint8Array(8)),n=>n.toString(16).padStart(2,'0')).join('');
+  // Measurement runs spectate without the debug collectors so they do not add to what is measured.
+  this.spectating=!!options.spectate&&(!!options.diagnostics||!!options.measurement)&&PERF_BUILD;
   this.selfId=this.spectating?null:'local-human';
   const human={participantId:'local-human',slot:0,nickname,kind:'HUMAN' as const};
   const participants=this.spectating?botSpecs(14,0,matchId,{seed,overrides:options.botOverrides}):[human,...botSpecs(validateConfig(config).maxSlots-1,1,matchId,{seed,existing:[human],overrides:options.botOverrides})];
@@ -58,17 +61,19 @@ export class PracticeSession {
   if(this.lastTime===null){this.lastTime=now;return;}
   const delta=(now-this.lastTime)/1000;this.lastTime=now;
   if(delta<0||delta>1){this.accumulated=0;return;}this.accumulated+=delta;
-  const step=1/this.match.config.simulationHz;let count=0;
+  const step=1/this.match.config.simulationHz;let count=0;const simAt=perfNow();
   while(this.accumulated+1e-9>=step&&count<5&&this.match.phase==='RUNNING'){
    const inputs=new Map<string,DirectionInput>();
    const human=this.match.participants.find(p=>p.participantId===this.selfId);
    if(this.direction&&human?.lifeState==='ALIVE')inputs.set(human.participantId,{matchId:this.match.matchId,lifeId:human.lifeId,seq:++this.seq,dx:this.direction.x,dy:this.direction.y});
-   for(const [id,input]of getBotInputs(this.match,this.memories))inputs.set(id,input);
-   const lifeId=human?.lifeId;stepMatch(this.match,inputs);this.botDebug?.afterTick();
+   let span=perfNow();for(const [id,input]of getBotInputs(this.match,this.memories))inputs.set(id,input);perfAdd('sim.bot',span);
+   const lifeId=human?.lifeId;span=perfNow();stepMatch(this.match,inputs);perfAdd('sim.engine',span);this.botDebug?.afterTick();
    if(human&&human.lifeId!==lifeId){this.direction={...human.direction};this.seq=0;}
    this.accumulated-=step;count++;if(human?.lifeState==='ELIMINATED'){this.accumulated=0;break;}
   }
-  if(count)this.publish(buildView(this.match),this.selfId);
+  if(!count){perfAdd('sim',simAt);return;}
+  const viewAt=perfNow(),view=buildView(this.match);perfAdd('sim.view',viewAt);perfAdd('sim',simAt);
+  this.publish(view,this.selfId);
  }
  dispose():void {this.disposed=true;if(typeof cancelAnimationFrame!=='undefined')cancelAnimationFrame(this.frame);if(typeof document!=='undefined')document.removeEventListener('visibilitychange',this.visibility);for(const stop of this.diagnosticStops)stop();this.diagnosticStops=[];this.memories.clear();}
 }

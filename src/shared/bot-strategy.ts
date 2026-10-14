@@ -156,10 +156,8 @@ export function planAttack(obs:BotObservation,memory:BotMemory,interrupt=false,l
 // Evaluate the same enclosure rule as capture: home plus the planned trail
 // blocks flood-fill from the outer edge. Retracing a line has no area bonus.
 const plannedCaptureWork=new WeakMap<MapDefinition,{blocked:Uint8Array;visited:Uint8Array;queue:Int32Array;boundary:number[]}>();
-export function plannedCapture(obs:BotObservation,path:number[]):number[] {
- // Profiling R56/16 identified candidate flood fills as the main hotspot.
- // Reuse storage and index exterior seeds, retaining the same full-map flood,
- // neighbor order and ascending result order (no local approximation).
+/** Reference full-map flood (the frozen rule). plannedCapture must always return exactly this. */
+export function plannedCaptureFull(obs:BotObservation,path:number[]):number[] {
  let work=plannedCaptureWork.get(obs.map);if(!work){const count=obs.map.cells.length;
   work={blocked:new Uint8Array(count),visited:new Uint8Array(count),queue:new Int32Array(count),boundary:obs.map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id)};plannedCaptureWork.set(obs.map,work);
  }
@@ -170,6 +168,66 @@ export function plannedCapture(obs:BotObservation,path:number[]):number[] {
   if(id<0||visited[id]||obs.owners[id]===owner||blocked[id])continue;visited[id]=1;queue[tail++]=id;
  }
  const result:number[]=[];for(let id=0;id<obs.map.cells.length;id++)if(obs.owners[id]!==owner&&!visited[id])result.push(id);return result;
+}
+// Performance PRD stage 3 (C2): one decision evaluates many candidate paths against the same owners,
+// and the full flood per candidate was ~60% of all bot time. The flood without a path is computed once
+// per (owners, owner) and remembers each reached cell's BFS parent. A path can only cut off cells next to
+// it, so only those components are explored: a component stays reachable as soon as one of its cells has
+// a parent chain to the edge that avoids the path (or is an unblocked edge cell); otherwise it is enclosed.
+// The result is exactly plannedCaptureFull's (same cells, ascending), so bot behaviour is unchanged.
+interface CaptureBase {owner:number;owners:Uint8Array;parent:Int32Array;enclosed:number[]}
+const captureBases=new WeakMap<MapDefinition,Map<number,CaptureBase>>();
+const captureScratch=new WeakMap<MapDefinition,{blocked:Int32Array;state:Int32Array;dirty:Int32Array;queue:Int32Array;stamp:number}>();
+const UNSEEN=-2,SEED=-1;
+function captureBase(obs:BotObservation,owner:number):CaptureBase {
+ let byOwner=captureBases.get(obs.map);if(!byOwner){byOwner=new Map();captureBases.set(obs.map,byOwner);}
+ const cached=byOwner.get(owner),count=obs.map.cells.length;
+ if(cached&&cached.owners.length===obs.owners.length){let same=true;for(let i=0;i<count;i++)if(cached.owners[i]!==obs.owners[i]){same=false;break;}if(same)return cached;}
+ const parent=cached?.parent.length===count?cached.parent:new Int32Array(count),queue=new Int32Array(count);parent.fill(UNSEEN);
+ let tail=0;
+ for(let id=0;id<count;id++)if(obs.map.cells[id].neighbors.includes(-1)&&obs.owners[id]!==owner){parent[id]=SEED;queue[tail++]=id;}
+ for(let head=0;head<tail;head++){const from=queue[head];for(const id of obs.map.cells[from].neighbors){
+  if(id<0||parent[id]!==UNSEEN||obs.owners[id]===owner)continue;parent[id]=from;queue[tail++]=id;}}
+ const enclosed:number[]=[];for(let id=0;id<count;id++)if(obs.owners[id]!==owner&&parent[id]===UNSEEN)enclosed.push(id);
+ const base={owner,owners:Uint8Array.from(obs.owners),parent,enclosed};byOwner.set(owner,base);return base;
+}
+export function plannedCapture(obs:BotObservation,path:number[]):number[] {
+ const owner=obs.self.slot+1,base=captureBase(obs,owner),count=obs.map.cells.length,{parent}=base;
+ let work=captureScratch.get(obs.map);if(!work){work={blocked:new Int32Array(count),state:new Int32Array(count),dirty:new Int32Array(count),queue:new Int32Array(count),stamp:0};captureScratch.set(obs.map,work);}
+ // Stamps avoid clearing the scratch arrays: blocked[id]===stamp marks a path cell; state[id] holds
+ // stamp*4+k with k: 1 reachable, 2 unreachable, 3 queued in the current component search;
+ // dirty[id]===stamp marks a cell whose parent chain is known to cross the path.
+ const stamp=++work.stamp,{blocked,state,dirty,queue}=work,REACH=stamp*4+1,CUT=stamp*4+2,OPEN=stamp*4+3;
+ for(const id of path)blocked[id]=stamp;
+ // A reached cell stays reachable when its whole parent chain to the edge avoids the path.
+ const clean=(id:number):boolean=>{
+  let cur=id,steps=0;
+  while(true){if(blocked[cur]===stamp||dirty[cur]===stamp)break;if(state[cur]===REACH||parent[cur]===SEED){for(let c=id,k=0;k<steps;k++,c=parent[c])state[c]=REACH;return true;}cur=parent[cur];steps++;}
+  for(let c=id,k=0;k<steps;k++,c=parent[c])dirty[c]=stamp;
+  return false;
+ };
+ const extra:number[]=[];
+ for(const id of path)if(obs.owners[id]!==owner&&parent[id]!==UNSEEN&&state[id]!==CUT){state[id]=CUT;extra.push(id);}
+ for(const b of path)for(const start of obs.map.cells[b].neighbors){
+  if(start<0||obs.owners[start]===owner||blocked[start]===stamp||parent[start]===UNSEEN)continue;
+  const known=state[start];if(known===REACH||known===CUT)continue;
+  let tail=0,head=0,reachable=false;queue[tail++]=start;state[start]=OPEN;
+  while(head<tail){const cell=queue[head++];
+   if(clean(cell)){reachable=true;break;}
+   for(const id of obs.map.cells[cell].neighbors){
+    if(id<0||obs.owners[id]===owner||blocked[id]===stamp||state[id]===OPEN)continue;
+    if(state[id]===REACH){reachable=true;break;}
+    state[id]=OPEN;queue[tail++]=id;
+   }
+   if(reachable)break;
+  }
+  for(let i=0;i<tail;i++){const id=queue[i];state[id]=reachable?REACH:CUT;if(!reachable)extra.push(id);}
+ }
+ if(!extra.length)return base.enclosed.slice();
+ extra.sort((a,b)=>a-b);
+ const result:number[]=[],enclosed=base.enclosed;let i=0,j=0;
+ while(i<enclosed.length||j<extra.length){if(j>=extra.length||i<enclosed.length&&enclosed[i]<extra[j])result.push(enclosed[i++]);else result.push(extra[j++]);}
+ return result;
 }
 // A shortened enclosure avoids retracing the existing trail. Emergency escape
 // still uses returnPath; this is only a pre-emptive, area-preserving closure.

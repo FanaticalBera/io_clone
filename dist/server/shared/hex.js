@@ -36,8 +36,28 @@ export function disk(center, radius) {
             cells.push({ q: center.q + q, r: center.r + r });
     return cells;
 }
+// Same cells and order as disk() + byKey, without building a string key per cell (performance PRD:
+// respawn zone tables were rebuilt from ~600k keys on the first safe bot respawn of every match).
+const cellLookups = new WeakMap();
+function cellLookup(map) {
+    let lookup = cellLookups.get(map);
+    if (lookup)
+        return lookup;
+    const size = 2 * map.radius + 1;
+    lookup = new Int32Array(size * size).fill(-1);
+    for (const c of map.cells)
+        lookup[(c.q + map.radius) * size + c.r + map.radius] = c.id;
+    cellLookups.set(map, lookup);
+    return lookup;
+}
 export function region(map, center, radius) {
-    return disk(map.cells[center], radius).map(a => map.byKey.get(axialKey(a.q, a.r)) ?? -1);
+    const lookup = cellLookup(map), R = map.radius, size = 2 * R + 1, { q: cq, r: cr } = map.cells[center], cells = [];
+    for (let r = -radius; r <= radius; r++)
+        for (let q = Math.max(-radius, -r - radius); q <= Math.min(radius, -r + radius); q++) {
+            const aq = cq + q, ar = cr + r;
+            cells.push(aq < -R || aq > R || ar < -R || ar > R ? -1 : lookup[(aq + R) * size + ar + R]);
+        }
+    return cells;
 }
 export function createMap(radius = 22, side = 32) {
     if (!Number.isInteger(radius) || radius < 1 || radius > 64 || !Number.isFinite(side) || side <= 0)

@@ -9,16 +9,23 @@ import {TerritoryEffects} from './territory-effects.js';
 import {TerritoryCaptureEffects} from './territory-capture-effects.js';
 import type {TerritoryEffectStyle} from './territory-effect-model.js';
 import {nearbyBoundaryEdges,boundaryGeometry,setWallMargin,movementCell} from '../shared/wall-margin.js';
-import {createMap} from '../shared/hex.js';
+import {createMap,worldCell} from '../shared/hex.js';
 import type {MatchView,MapDefinition,Vec} from '../shared/model.js';
 import {GAME_MODES} from '../shared/modes.js';
 import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
 import {renderPixelRatio} from './render-viewport.js';
 import {slotBit} from '../shared/slots.js';
-import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
+import {indexRenderChunks,cullMargin,type RenderChunk} from './render-chunks.js';
 import {FIELD,INK,mixColor} from './theme.js';
+import {perfNow,perfAdd} from '../shared/perf-sink.js';
+import {startFrameMeter} from './frame-meter.js';
+import {installFrameLimit} from './frame-limit.js';
+import {PERF_BUILD} from './perf-build.js';
 export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
+const bounds=(points:Vec[],pad:number)=>({minX:Math.min(...points.map(p=>p.x))-pad,minY:Math.min(...points.map(p=>p.y))-pad,maxX:Math.max(...points.map(p=>p.x))+pad,maxY:Math.max(...points.map(p=>p.y))+pad});
+// Measurement builds can lower the backing-pixel cap (?perfMaxDpr=2) to compare heat and sharpness (PRD Q6).
+const MAX_RENDER_RATIO=PERF_BUILD&&Number(new URLSearchParams(location.search).get('perfMaxDpr'))>=1?Number(new URLSearchParams(location.search).get('perfMaxDpr')):3;
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
  private boundaryHighlight=true;private botDebugFollowId:string|null=null;
@@ -40,17 +47,22 @@ export class GameScene extends Phaser.Scene {
  botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0,route:this.debugOverlayData?.route?.length??0,destination:this.debugOverlayData?.destination??null};}
 
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
- private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
+ private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private boardKey='';private boardParts:{graphics:Phaser.GameObjects.Graphics[];minX:number;minY:number;maxX:number;maxY:number}[]=[];private boundaryParts:{graphics:Phaser.GameObjects.Graphics[];minX:number;minY:number;maxX:number;maxY:number}[]=[];
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
- wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.board?1:0)};}
+ wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.boardParts.length?1:0)};}
  private presentation=new Presentation();private online=false;private predictedLine?:Phaser.GameObjects.Graphics;
- private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
+ private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private groundKey='';
  private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
  private chunks=new Map<string,Phaser.GameObjects.Graphics>();
+ // Captured land is drawn from prebuilt tiles (performance PRD G1): Phaser re-triangulates every
+ // Graphics path each frame, and territory Graphics were ~2/3 of render time. Per chunk: open-ground
+ // trails (Graphics, under) -> land tiles (Blitter) -> trails over land (Graphics, above).
+ private landChunks=new Map<string,Phaser.GameObjects.Blitter>();private trailTops=new Map<string,Phaser.GameObjects.Graphics>();
+ private landKey='';private landAtlasKey='';private landBox={minX:0,minY:0,width:0,height:0};
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
- private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number}>();
+ private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number;alive:boolean}>();
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
  setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
  // Canvas text keeps its fallback face until it is redrawn after web fonts load.
@@ -75,13 +87,35 @@ export class GameScene extends Phaser.Scene {
  setDeathFeedback(callback:()=>void):void{this.deathFeedback=callback;}
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
+ isReady():boolean{return this.created;}
+ // Render policy (performance PRD 4, Q2). Live: Phaser draws every frame. Still: the current state is
+ // drawn once more and Phaser's loop then sleeps until live again. Snapshot handling keeps running either
+ // way, so waking shows the latest state without catching up.
+ // Idle: an overlay (settings, run result, results) covers the live field. Drawing continues at a low
+ // rate instead of stopping: restarting a stopped WebGL canvas stuttered for ~0.3 s after closing
+ // settings on an S24+ (no JS work; the WebView rebuilds the canvas layer). 30 fps showed no stutter in
+ // 8 closes, 10 fps still missed a frame now and then. ?perfIdleFps tunes it in measurement builds.
+ private stillPending=false;private wantMode:'live'|'idle'|'still'='live';
+ frameLimit:(fps:number)=>void=()=>{};liveFps=60;idleFps=30;
+ setRenderMode(mode:'live'|'idle'|'still'):void {
+  // Before boot the loop has not started; create() applies the wanted policy.
+  this.wantMode=mode;if(!this.created)return;
+  const loop=this.game.loop;
+  if(mode!=='still'){this.stillPending=false;this.frameLimit(mode==='live'?this.liveFps:this.idleFps);if(!loop.running)loop.wake(true);return;}
+  this.frameLimit(this.liveFps);
+  // Only the switch from live draws the extra frame; repeated still requests keep it asleep.
+  if(!loop.running||this.stillPending)return;
+  this.stillPending=true;
+ }
+ renderLive():boolean{return this.game.loop.running&&!this.stillPending&&this.wantMode==='live';}
+ afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
   const fit=()=>{frame=0;const rect=parent.getBoundingClientRect(),width=Math.round(rect.width),height=Math.round(rect.height);if(width<1||height<1)return;
-   const ratio=renderPixelRatio(width,height,window.devicePixelRatio),backingWidth=Math.round(width*ratio),backingHeight=Math.round(height*ratio);
+   const ratio=renderPixelRatio(width,height,window.devicePixelRatio,MAX_RENDER_RATIO),backingWidth=Math.round(width*ratio),backingHeight=Math.round(height*ratio);
    this.viewportWidth=width;this.viewportHeight=height;this.pixelRatio=ratio;
    // Phaser 3 renders in backing pixels. Counter-scale the canvas in CSS and
    // multiply the camera zoom, keeping world size and visible area unchanged.
@@ -98,14 +132,41 @@ export class GameScene extends Phaser.Scene {
   window.addEventListener('resize',schedule,{signal:abort.signal});window.addEventListener('orientationchange',schedule,{signal:abort.signal});window.visualViewport?.addEventListener('resize',schedule,{signal:abort.signal});
   const cleanup=()=>{observer.disconnect();abort.abort();cancelAnimationFrame(frame);};this.events.once(Phaser.Scenes.Events.SHUTDOWN,cleanup);this.events.once(Phaser.Scenes.Events.DESTROY,cleanup);fit();
  }
- setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
+ setView(view:MatchView,selfId:string|null,online=false,reset=false):void {const previous=this.view;this.online=online;this.presentation.accept(view,selfId,performance.now(),reset,!online);this.view=view;this.selfId=selfId;if(this.created){const span=perfNow();this.drawView(view,reset||(!selfId&&!this.botDebugFollowId&&previous?.matchId!==view.matchId),previous??undefined);perfAdd('recv.draw',span);this.combat?.accept(view,selfId,reset);if(this.debugOverlayData?.matchId!==view.matchId)this.setBotDebugOverlay(null);}}
  setLocalInput(direction:Vec,seq:number):void{this.presentation.input(direction,seq,performance.now());}
  freezePresentation():void{this.presentation.freeze();}
+ setPracticePaused(paused:boolean):void{this.presentation.setLocalPaused(paused,performance.now());}
  private hex(g:Phaser.GameObjects.Graphics,id:number,fill:number,alpha:number,outline?:number):void {
   const origin=g.getData('origin') as Vec|undefined;const vertices=origin?this.map!.cells[id].vertices.map(v=>({x:v.x-origin.x,y:v.y-origin.y})):this.map!.cells[id].vertices;
   if(alpha){g.fillStyle(fill,alpha);g.fillPoints(vertices,true);}
   if(outline!==undefined){g.lineStyle(1,outline,0.8);g.strokePoints(vertices,true);}
  }
+ /**
+  * Builds the land tile atlas: per player colour a top (fill + edge line) and the two lower sides.
+  * One texel per world unit, like the ground tiles: Phaser's Blitter renderer ignores object scale.
+  * A colour change rebuilds it and redraws every chunk. Returns whether it changed.
+  */
+ private ensureLandAtlas():boolean {
+  const map=this.map!;
+  const wanted=map.mapId+':'+this.renderColors.join(',');if(wanted===this.landAtlasKey)return false;
+  const side=map.side,d=side*FIELD.lipDepth,minX=Math.floor(-Math.sqrt(3)*side/2)-2,minY=-Math.ceil(side)-2;
+  const width=Math.ceil(Math.sqrt(3)*side/2)-minX+2,height=Math.ceil(side+d)-minY+2,w=width,h=height;
+  const c0=map.cells[0],v=c0.vertices.map(p=>({x:p.x-c0.center.x-minX,y:p.y-c0.center.y-minY}));
+  const g=this.add.graphics().setVisible(false),faces:Record<string,[number,number]>={se:[1,2],sw:[2,3]};
+  this.renderColors.forEach((color,slot)=>{
+   const oy=slot*h,at=(col:number,p:{x:number;y:number})=>({x:p.x+col*w,y:p.y+oy});
+   g.fillStyle(color,1).fillPoints(v.map(p=>at(0,p)),true).lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1).strokePoints(v.map(p=>at(0,p)),true);
+   Object.values(faces).forEach(([a,b],i)=>{const va=at(i+1,v[a]),vb=at(i+1,v[b]);g.fillStyle(mixColor(color,INK,FIELD.lipShade),1).fillPoints([va,vb,{x:vb.x,y:vb.y+d},{x:va.x,y:va.y+d}],true);});
+  });
+  const key='land-'+(++this.landAtlasSerial);g.generateTexture(key,w*3,h*this.renderColors.length);g.destroy();
+  const texture=this.textures.get(key);
+  this.renderColors.forEach((_,slot)=>{texture.add('top'+slot,0,0,slot*h,w,h);texture.add('se'+slot,0,w,slot*h,w,h);texture.add('sw'+slot,0,2*w,slot*h,w,h);});
+  for(const land of this.landChunks.values()){land.clear();land.setTexture(key);}
+  if(this.landKey)this.textures.remove(this.landKey);
+  this.landKey=key;this.landAtlasKey=wanted;this.landBox={minX,minY,width,height};
+  return true;
+ }
+ private landAtlasSerial=0;
  // Raised-tile side: only the lower faces whose neighbour is not land show it.
  // Owned neighbours draw their own top over this area, so they are skipped.
  private lip(g:Phaser.GameObjects.Graphics,id:number,fill:number,owners:ArrayLike<number>):void {
@@ -130,9 +191,11 @@ export class GameScene extends Phaser.Scene {
   if(!this.map||this.map.mapId!==view.mapId){
    const initAt=performance.now();
    this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
-   for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();this.boundary?.destroy();
+   for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();for(const part of [...this.boundaryParts,...this.boardParts])for(const g of part.graphics)g.destroy();this.boundaryParts=[];this.boardParts=[];this.boundaryCells=[];this.boardKey='';
    if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
+   for(const g of this.landChunks.values())g.destroy();this.landChunks.clear();for(const g of this.trailTops.values())g.destroy();this.trailTops.clear();
+   if(this.landKey)this.textures.remove(this.landKey);this.landKey='';this.landAtlasKey='';
    for(const text of this.points)text.destroy();this.points=[];
    const index=indexRenderChunks(this.map);this.chunkIndex=index.chunks;this.cellChunkKeys=index.keys;this.territoryEffects?.setMap(this.map,this.chunkIndex);this.captureEffects?.setMap(this.map,this.chunkIndex);reset=true;
    const groundAt=performance.now();
@@ -148,9 +211,13 @@ export class GameScene extends Phaser.Scene {
     const ground=this.add.blitter(0,0,this.groundKey).setDepth(0);for(const id of chunk.cells){const c=this.map.cells[id];ground.create(c.center.x+minX,c.center.y+minY);}
     ground.getRenderList();
     this.groundChunks.set(key,ground);this.chunks.set(key,this.add.graphics().setDepth(1));
+    this.landChunks.set(key,this.add.blitter(0,0,'__DEFAULT').setDepth(1.001));this.trailTops.set(key,this.add.graphics().setDepth(1.002));
    }
-   this.boundary=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);
-   for(const e of this.map.boundaryEdges)this.boundary.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+   // The map edge line over the ground, split like the board so only nearby pieces draw.
+   const edgeGroups=new Map<string,MapDefinition['boundaryEdges']>();
+   for(const e of this.map.boundaryEdges){const key=this.edgeChunkKey([e.a,e.b]);edgeGroups.set(key,[...(edgeGroups.get(key)??[]),e]);}
+   for(const own of edgeGroups.values()){const g=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);for(const e of own)g.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+    this.boundaryParts.push({graphics:[g],...bounds(own.flatMap(e=>[e.a,e.b]),4)});}
    this.metrics.groundPreparationMs=performance.now()-groundAt;
    for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8},resolution:this.pixelRatio}).setOrigin(0.5).setDepth(4));}
    this.lastOwners=new Uint8Array(this.map.cells.length).fill(255);this.lastTrails=new Uint16Array(this.map.cells.length);
@@ -159,24 +226,37 @@ export class GameScene extends Phaser.Scene {
    this.metrics.mapInitMs=performance.now()-initAt;
   }
   const redrawAt=performance.now();
-  const dirty=new Set<string>();if(colorsChanged||reset)for(const key of this.chunkIndex.keys())dirty.add(key);
+  const atlasChanged=this.ensureLandAtlas();
+  // Land tiles change only with ownership; trails change every move. Rebuilding a chunk's land for a
+  // trail step would redo hundreds of tiles per snapshot, so the two are tracked separately.
+  const landDirty=new Set<string>(),trailDirty=new Set<string>();
+  if(colorsChanged||reset||atlasChanged)for(const key of this.chunkIndex.keys()){landDirty.add(key);trailDirty.add(key);}
   for(let id=0;id<view.owners.length;id++){
-   if(this.lastTrails[id]!==view.trailMasks[id])dirty.add(this.chunkKey(id));
-   if(this.lastOwners[id]===view.owners[id])continue;dirty.add(this.chunkKey(id));
+   if(this.lastTrails[id]!==view.trailMasks[id])trailDirty.add(this.chunkKey(id));
+   if(this.lastOwners[id]===view.owners[id])continue;landDirty.add(this.chunkKey(id));
+   // A trail is drawn under or over land depending on the cell's owner.
+   trailDirty.add(this.chunkKey(id));
    // The two cells above draw their tile side over this cell only while it is
    // empty, so they must be redrawn too even when they sit in another chunk.
-   for(const n of [1,2]){const above=this.map.cells[id].neighbors[n];if(above>=0)dirty.add(this.chunkKey(above));}
+   for(const n of [1,2]){const above=this.map.cells[id].neighbors[n];if(above>=0)landDirty.add(this.chunkKey(above));}
   }
-  for(const key of dirty){
+  for(const key of landDirty){
+   const cells=this.chunkIndex.get(key)!.cells;
+   // Same per-cell order as the former Graphics: the lower sides that face open ground, then the top.
+   const land=this.landChunks.get(key)!,{minX,minY}=this.landBox;land.clear();
+   for(const id of cells){const owner=view.owners[id];if(!owner)continue;const c:MapDefinition['cells'][number]=this.map.cells[id],x=c.center.x+minX,y=c.center.y+minY;
+    for(const [n,face]of [[5,'se'],[4,'sw']] as const){const next=c.neighbors[n];if(next<0||!view.owners[next])land.create(x,y,face+(owner-1));}
+    land.create(x,y,'top'+(owner-1));
+   }
+  }
+  for(const key of trailDirty){
    const g=this.chunks.get(key)!;g.clear();
    const cells=this.chunkIndex.get(key)!.cells;
    // Trails on open ground go under raised land so neighbouring tile sides overlap them.
    for(const id of cells)if(view.trailMasks[id]&&!view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,false);
-   for(const id of cells){const owner=view.owners[id];if(!owner)continue;const color=this.renderColors[owner-1];
-    this.lip(g,id,mixColor(color,INK,FIELD.lipShade),view.owners);this.hex(g,id,color,1);g.lineStyle(1,mixColor(color,INK,FIELD.territoryEdge),1);this.strokeHex(g,id);
-   }
    // A trail crossing someone's land must stay visible on top of that land.
-   for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(g,id,view.trailMasks[id],view.config.maxSlots,true);
+   const top=this.trailTops.get(key)!;top.clear();
+   for(const id of cells)if(view.trailMasks[id]&&view.owners[id])this.trail(top,id,view.trailMasks[id],view.config.maxSlots,true);
   }
   this.territoryEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous);
   this.captureEffects?.accept(view,this.lastOwners,this.cellChunkKeys,this.renderColors,performance.now(),reset,previous,view.participants.find(p=>p.participantId===this.selfId)?.slot??-1);
@@ -191,14 +271,14 @@ export class GameScene extends Phaser.Scene {
     const marker=new PlayerMarker(this);
     const self=p.participantId===this.selfId,label=this.add.text(0,-54,p.nickname,{fontFamily:'Jua, Gothic A1, sans-serif',fontSize:self?'14px':'12px',color:'#ffffff',backgroundColor:self?'#1f1b2d':'#1f1b2d8c',padding:{x:7,y:3},resolution:this.pixelRatio}).setOrigin(0.5);
     const container=this.add.container(p.position.x,p.position.y,[shield,marker.container,label]).setDepth(5);
-    avatar={container,marker,shield,label,life:p.lifeId,territory:p.territoryCount};this.avatars.set(p.participantId,avatar);
+    avatar={container,marker,shield,label,life:p.lifeId,territory:p.territoryCount,alive:p.lifeState==='ALIVE'};this.avatars.set(p.participantId,avatar);
    }
    const appearance=p.kind==='BOT'?{markerId:this.botMarkerIds[p.slot%this.botMarkerIds.length]??'default',markerColorId:'slot'}:this.markerAppearance;
    avatar.marker.set(appearance,this.renderColors[p.slot],p.participantId===this.selfId,p.kind==='BOT');
    // Any gain within one life is a capture; the marker hops once.
    if(avatar.life===p.lifeId&&p.territoryCount>avatar.territory&&!reset)avatar.marker.jump(performance.now());avatar.life=p.lifeId;avatar.territory=p.territoryCount;
    avatar.shield.setStrokeStyle(3,this.renderColors[p.slot],.9);
-   avatar.container.setVisible(p.lifeState==='ALIVE');
+   avatar.alive=p.lifeState==='ALIVE';avatar.container.setVisible(avatar.alive);
    avatar.label.setText(p.nickname);
    avatar.label.setScale(Math.max(1,.7/gameplayZoom(this.viewportWidth)));
    // Positions are applied only in the render update, keeping camera and avatar on one frame.
@@ -220,8 +300,22 @@ export class GameScene extends Phaser.Scene {
  update(time:number):void {
   if(!this.map||!this.view)return;
   const now=performance.now();this.renderedAt=now;
-  this.combat?.update(now);this.territoryEffects?.update(now,this.view,this.cullChunks);this.captureEffects?.update(now,this.view,this.cullChunks);
-  for(const [id,avatar]of this.avatars){const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);if(avatar.container.visible)avatar.marker.update(now);}
+  let span=perfNow();this.combat?.update(now);perfAdd('step.fx.combat',span);
+  span=perfNow();this.territoryEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.territory',span);
+  span=perfNow();this.captureEffects?.update(now,this.view,this.cullChunks);perfAdd('step.fx.capture',span);
+  span=perfNow();
+  const viewRect=this.cameras.main.worldView,avatarMargin=cullMargin(this.map);
+  for(const [id,avatar]of this.avatars){
+   const position=this.presentation.position(id,now);if(position)avatar.container.setPosition(position.x,position.y);
+   // Include the entire name label, shield, hop and pulse, plus the existing movement margin.
+   // The followed avatar stays visible while its camera recenters. Offscreen animation uses absolute
+   // time, so returning markers immediately have the same pose and effects as continuous updates.
+   const padX=avatarMargin+Math.max(80,avatar.label.displayWidth/2),padY=avatarMargin+80;
+   const {x,y}=avatar.container,followed=id===(this.botDebugFollowId??this.selfId);
+   const visible=avatar.alive&&(!this.cullChunks||followed||(x+padX>=viewRect.x&&x-padX<=viewRect.right&&y+padY>=viewRect.y&&y-padY<=viewRect.bottom));
+   avatar.container.setVisible(visible);if(visible)avatar.marker.update(now);
+  }
+  perfAdd('step.markers',span);span=perfNow();
   setWallMargin(this.map,this.wallMargin);
   const boardKey=this.map.mapId+':'+this.wallMargin;
   if(this.boardKey!==boardKey){this.boardKey=boardKey;this.drawBoard();}
@@ -234,13 +328,16 @@ export class GameScene extends Phaser.Scene {
     // The lethal board edge glows: a soft wide pass under a solid one.
     for(const [width,alpha]of [[18,.3],[7,1]] as const){this.wallHighlight.lineStyle(width,FIELD.nearDeath,alpha);for(const edge of near)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}}
   }
-  const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
-  // camera.worldView is the last completed frame; one whole chunk margin also
-  // covers normal movement before the next camera pre-render.
+  perfAdd('step.wall',span);span=perfNow();
+  const camera=this.cameras.main,margin=cullMargin(this.map);
+  // camera.worldView is the last completed frame; the margin covers movement
+  // before the next camera pre-render (see cullMargin).
   const rect=camera.worldView;
   for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
-   this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);
+   this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);this.landChunks.get(key)!.setVisible(visible);this.trailTops.get(key)!.setVisible(visible);
   }
+  for(const part of [...this.boardParts,...this.boundaryParts]){const visible=!this.cullChunks||(part.maxX>=rect.x-margin&&part.minX<=rect.right+margin&&part.maxY>=rect.y-margin&&part.minY<=rect.bottom+margin);for(const g of part.graphics)g.setVisible(visible);}
+  perfAdd('step.cull',span);span=perfNow();
   if(this.online){
    this.predictedLine??=this.add.graphics().setDepth(3);this.predictedLine.clear();
    const self=this.view.participants.find(p=>p.participantId===this.selfId),position=self&&this.presentation.position(self.participantId,now);
@@ -251,7 +348,12 @@ export class GameScene extends Phaser.Scene {
     }
    }
   }else this.predictedLine?.clear();
+  perfAdd('step.predict',span);
   if(time-this.lastMini<250)return;this.lastMini=time;
+  span=perfNow();this.updateMinimap(now);perfAdd('step.minimap',span);
+ }
+ private updateMinimap(now:number):void {
+  if(!this.map||!this.view)return;
   const canvas=document.querySelector<HTMLCanvasElement>('#minimap');if(!canvas||canvas.hidden)return;
   const context=canvas.getContext('2d');if(!context)return;
   const miniAt=performance.now();
@@ -279,12 +381,36 @@ export class GameScene extends Phaser.Scene {
  }
  // The playable map is a board on an indigo table: a thick side below the
  // lethal edge, the edge line itself, then the survivable rim up to the cells.
+ // Board pieces are grouped by render chunk so only those near the camera are drawn (performance PRD:
+ // Graphics are re-triangulated every frame). One depth per pass keeps the single-Graphics layering:
+ // every side under every edge line under every rim.
  private drawBoard():void {
   const map=this.map!,geometry=this.wallMargin?boundaryGeometry(map):null,edges=geometry?.edges??map.boundaryEdges,t=map.side*FIELD.boardThickness;
-  this.board??=this.add.graphics().setDepth(-.1);const g=this.board.clear();
-  g.fillStyle(FIELD.boardSide,1);for(const e of edges)g.fillPoints([e.a,e.b,{x:e.b.x,y:e.b.y+t},{x:e.a.x,y:e.a.y+t}],true);
-  g.lineStyle(12,FIELD.boardEdge,1);for(const e of edges)g.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
-  if(geometry){g.fillStyle(FIELD.rim,1);for(const poly of geometry.polygons)g.fillPoints(poly,true);}
+  for(const part of this.boardParts)for(const g of part.graphics)g.destroy();this.boardParts=[];
+  const groups=new Map<string,{edges:typeof edges;polys:Vec[][]}>(),group=(points:Vec[])=>{const key=this.edgeChunkKey(points);let g=groups.get(key);if(!g){g={edges:[],polys:[]};groups.set(key,g);}return g;};
+  for(const e of edges)group([e.a,e.b]).edges.push(e);
+  for(const poly of geometry?.polygons??[])group(poly).polys.push(poly);
+  for(const {edges:own,polys}of groups.values()){
+   const side=this.add.graphics().setDepth(-.12).fillStyle(FIELD.boardSide,1),line=this.add.graphics().setDepth(-.11).lineStyle(12,FIELD.boardEdge,1),rim=this.add.graphics().setDepth(-.1).fillStyle(FIELD.rim,1);
+   for(const e of own){side.fillPoints([e.a,e.b,{x:e.b.x,y:e.b.y+t},{x:e.a.x,y:e.a.y+t}],true);line.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);}
+   for(const poly of polys)rim.fillPoints(poly,true);
+   this.boardParts.push({graphics:[side,line,rim],...bounds([...own.flatMap(e=>[e.a,e.b,{x:e.a.x,y:e.a.y+t},{x:e.b.x,y:e.b.y+t}]),...polys.flat()],8)});
+  }
+ }
+ private boundaryCells:number[]=[];
+ /**
+  * Render chunk for a board piece near the points' centre. Any nearby chunk is fine: each piece is culled
+  * by its own bounds. Pulling the centre one cell toward the middle lands in an edge cell almost always;
+  * otherwise the nearest boundary cell is searched.
+  */
+ private edgeChunkKey(points:Vec[]):string {
+  const map=this.map!,x=points.reduce((n,p)=>n+p.x,0)/points.length,y=points.reduce((n,p)=>n+p.y,0)/points.length;
+  const length=Math.hypot(x,y),inward=length>0?Math.max(0,length-Math.sqrt(3)*map.side)/length:0,cell=worldCell(map,{x:x*inward,y:y*inward});
+  if(cell>=0)return this.cellChunkKeys[cell];
+  if(!this.boundaryCells.length)this.boundaryCells=map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id);
+  let best=this.boundaryCells[0],distance=Infinity;
+  for(const id of this.boundaryCells){const c=map.cells[id].center,d=(c.x-x)**2+(c.y-y)**2;if(d<distance){distance=d;best=id;}}
+  return this.cellChunkKeys[best];
  }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;
@@ -310,9 +436,14 @@ export class GameScene extends Phaser.Scene {
 }
 export function createRenderer(parent:string):GameScene {
  const scene=new GameScene();
- new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
+ const game=new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
   scale:{mode:Phaser.Scale.NONE,autoCenter:Phaser.Scale.NO_CENTER},
   scene:[scene],render:{antialias:true,powerPreference:'high-performance'},banner:false,audio:{noAudio:true}});
+ // Measurement builds can lift the cap (?perfFps=0) for A/B comparisons.
+ const fpsParam=PERF_BUILD?new URLSearchParams(location.search).get('perfFps'):null;
+ scene.liveFps=fpsParam!==null?Number(fpsParam):60;const idleParam=PERF_BUILD?new URLSearchParams(location.search).get('perfIdleFps'):null;if(idleParam!==null)scene.idleFps=Number(idleParam);scene.frameLimit=installFrameLimit(game,scene.liveFps);
+ game.events.on(Phaser.Core.Events.POST_RENDER,()=>scene.afterRender());
+ startFrameMeter(game,()=>scene.renderState());
  return scene;
 }
 

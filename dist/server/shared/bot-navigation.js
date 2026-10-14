@@ -33,38 +33,58 @@ export function forecastHead(obs, enemy) {
         cache.entries.set(enemy.participantId, { signature, cells });
     return cells;
 }
+// Performance PRD (C2): searches stop within 24 steps, yet each call allocated and cleared two
+// map-sized arrays. Reused arrays with a per-call stamp keep the same BFS order and result; a nested
+// call (from a goal/allowed callback) gets its own arrays.
+const pathScratch = new WeakMap();
 export function shortestPath(map, start, goal, allowed = () => true, maxLength = 24) {
     if (start < 0)
         return null;
     if (goal(start))
         return [];
-    const parents = new Int32Array(map.cells.length);
-    parents.fill(-2);
-    parents[start] = -1;
-    const depths = new Uint16Array(map.cells.length), queue = [start];
-    let found = -1;
-    for (let head = 0; head < queue.length && found < 0; head++) {
-        if (depths[queue[head]] >= maxLength)
-            continue;
-        for (const n of map.cells[queue[head]].neighbors) {
-            if (n < 0 || parents[n] !== -2 || !allowed(n))
+    const count = map.cells.length;
+    let work = pathScratch.get(map);
+    if (!work || work.busy || work.stamp >= 0x7fffffff) {
+        const fresh = { seen: new Int32Array(count), parents: new Int32Array(count), depths: new Uint16Array(count), stamp: 0, busy: false };
+        if (!work || !work.busy)
+            pathScratch.set(map, fresh);
+        work = fresh;
+    }
+    const stamp = ++work.stamp, { seen, parents, depths } = work;
+    work.busy = true;
+    try {
+        seen[start] = stamp;
+        parents[start] = -1;
+        depths[start] = 0;
+        const queue = [start];
+        let found = -1;
+        for (let head = 0; head < queue.length && found < 0; head++) {
+            if (depths[queue[head]] >= maxLength)
                 continue;
-            parents[n] = queue[head];
-            depths[n] = depths[queue[head]] + 1;
-            queue.push(n);
-            if (goal(n)) {
-                found = n;
-                break;
+            for (const n of map.cells[queue[head]].neighbors) {
+                if (n < 0 || seen[n] === stamp || !allowed(n))
+                    continue;
+                seen[n] = stamp;
+                parents[n] = queue[head];
+                depths[n] = depths[queue[head]] + 1;
+                queue.push(n);
+                if (goal(n)) {
+                    found = n;
+                    break;
+                }
             }
         }
+        if (found < 0)
+            return null;
+        const path = [];
+        for (let id = found; id !== start; id = parents[id])
+            path.push(id);
+        path.reverse();
+        return path.length <= maxLength ? path : null;
     }
-    if (found < 0)
-        return null;
-    const path = [];
-    for (let id = found; id !== start; id = parents[id])
-        path.push(id);
-    path.reverse();
-    return path.length <= maxLength ? path : null;
+    finally {
+        work.busy = false;
+    }
 }
 export function returnPath(obs) {
     // Enemy trails are cuttable, not walls. Prefer a safe route, but never abandon

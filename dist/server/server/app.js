@@ -43,13 +43,13 @@ export function createGameServer(options = {}) {
     attachSessions(io, sessions, { onConnect: (session, socket) => {
             rooms.restored(session);
             attachDirection(socket, session, rooms, limits);
-            socket.on('room:quickJoin', (raw, ack) => { const response = command(session, raw, r => rooms.quickJoin(session, r.nickname, r.gameMode), 'room:quickJoin', socket.id); if (typeof ack === 'function')
+            socket.on('room:quickJoin', (raw, ack) => { const response = command(session, raw, r => rooms.quickJoin(session, r.nickname, r.gameMode, r.title), 'room:quickJoin', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (current)
                 loop.publishRoom(current.room); });
-            socket.on('room:create', (raw, ack) => { const response = command(session, raw, r => rooms.createFriend(session, r.nickname, r.gameMode), 'room:create', socket.id); if (typeof ack === 'function')
+            socket.on('room:create', (raw, ack) => { const response = command(session, raw, r => rooms.createFriend(session, r.nickname, r.gameMode, r.title), 'room:create', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (current)
                 loop.publishRoom(current.room); });
-            socket.on('room:join', (raw, ack) => { const response = command(session, raw, r => rooms.joinFriend(session, r.nickname, r.code), 'room:join', socket.id); if (typeof ack === 'function')
+            socket.on('room:join', (raw, ack) => { const response = command(session, raw, r => rooms.joinFriend(session, r.nickname, r.code, r.title), 'room:join', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (current)
                 loop.publishRoom(current.room); });
             socket.on('room:start', (raw, ack) => { const response = command(session, raw, () => rooms.start(session), 'room:start', socket.id); if (typeof ack === 'function')

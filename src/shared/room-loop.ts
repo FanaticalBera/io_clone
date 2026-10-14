@@ -1,12 +1,14 @@
 import {buildView,stepMatch} from './game.js';
 import {createBotMemory} from './bot.js';
 import {getBotInputs} from './bot-director.js';
+import {perfNow,perfAdd} from './perf-sink.js';
 import {botSeed,createBotIdentity} from './bot-identity.js';
 import {packSnapshot,type AppError,type ErrorCode,type RoomView,type WireSnapshot,type ServerEvents} from './protocol.js';
 import type {Room,Member,RoomManager,RoomSession} from './rooms.js';
 // Fixed-tick room loop shared by the online server (socket.io output) and the LAN host phone (frame output).
 // Which snapshots are reliable is decided here once, so both paths keep the same delivery guarantees (PRD 10.3).
-export interface Metrics {steps:number;stepMs:number[];snapshotBytes:number;snapshots:number;maxBacklogMs:number}
+/** snapshotBytes counts every serialized snapshot (the LAN host's own loopback too); snapshotSentBytes only those that leave the device. */
+export interface Metrics {steps:number;stepMs:number[];snapshotBytes:number;snapshotSentBytes:number;snapshots:number;maxBacklogMs:number}
 export type SnapshotKind='init'|'reliable'|'volatile';
 export type MatchResultPayload=Parameters<ServerEvents['match:result']>[0];
 export interface RoomOutput<S extends RoomSession> {
@@ -18,7 +20,7 @@ export interface RoomOutput<S extends RoomSession> {
  aborted(room:Room<S>,member:Member<S>,error:AppError):void;
 }
 export class RoomLoop<S extends RoomSession> {
- readonly metrics:Metrics={steps:0,stepMs:[],snapshotBytes:0,snapshots:0,maxBacklogMs:0};
+ readonly metrics:Metrics={steps:0,stepMs:[],snapshotBytes:0,snapshotSentBytes:0,snapshots:0,maxBacklogMs:0};
  private state=new WeakMap<Room<S>,{revision:number;viewAt:number;matchId:string|null;lastSentTick:number;lastEvent:number;resultId:string|null}>();
  constructor(readonly rooms:RoomManager<S>,protected output:RoomOutput<S>,protected log:(event:string,fields:Record<string,unknown>)=>void=()=>{}){}
  publishRoom(room:Room<S>):void {
@@ -28,14 +30,15 @@ export class RoomLoop<S extends RoomSession> {
   }
  }
  publishSnapshot(room:Room<S>,init=false,reliable=false,only?:S):void {
-  if(!room.match)return;const view=buildView(room.match),seq=++room.snapshotSeq,now=this.rooms.sessions.now();
-  const base=packSnapshot(view,seq,now,null);
+  if(!room.match)return;const netAt=perfNow();const view=buildView(room.match),seq=++room.snapshotSeq,now=this.rooms.sessions.now();
+  const base=packSnapshot(view,seq,now,null);perfAdd('net.pack',netAt);const sendAt=perfNow();
   for(const member of room.members.values()){
    if(member.waitingForNextRound||!member.session.connected||only&&member.session!==only)continue;
    const p=view.participants.find(p=>p.participantId===member.memberId);if(!p)continue;
    const snapshot={...base,selfParticipantId:p.participantId,lastAppliedInputSeq:p.lastAppliedInputSeq};
    if(this.output.snapshot(room,member,snapshot,init?'init':reliable?'reliable':'volatile'))this.metrics.snapshots++;
   }
+  perfAdd('net.send',sendAt);perfAdd('net',netAt);
  }
  synchronize(session:S):void {
   const current=this.rooms.member(session);if(!current)return;
@@ -63,18 +66,19 @@ export class RoomLoop<S extends RoomSession> {
      this.metrics.maxBacklogMs=Math.max(this.metrics.maxBacklogMs,room.accumulator*1000);
      if(room.accumulator>=3){this.abort(room,'SERVER_OVERLOAD');continue;}
      if(room.accumulator>0.25)overloaded=true;
-     const dt=1/room.match.config.simulationHz;let count=0;
+     const dt=1/room.match.config.simulationHz;let count=0;const simAt=perfNow();
      while(room.accumulator+1e-9>=dt&&count<5&&room.match.phase==='RUNNING'){
       const before=performance.now();const inputs=new Map(room.inputs);room.inputs.clear();
       const selected=new Set<string>(),returnOnly=new Set<string>();
       for(const p of room.match.participants)if(p.lifeState==='ALIVE'&&(p.kind==='BOT'||room.members.get(p.participantId)?.session.background||room.members.get(p.participantId)?.session.connected===false)){
        let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(botSeed(room.match.seed,p.slot),'combined',p.kind==='BOT'?createBotIdentity(botSeed(room.match.seed,p.slot),p.personality!):undefined);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);selected.add(p.participantId);if(p.kind==='HUMAN')returnOnly.add(p.participantId);
       }
-      for(const [id,input]of getBotInputs(room.match,room.bots,selected,returnOnly))inputs.set(id,input);
-      stepMatch(room.match,inputs);const duration=performance.now()-before;
+      let span=perfNow();for(const [id,input]of getBotInputs(room.match,room.bots,selected,returnOnly))inputs.set(id,input);perfAdd('sim.bot',span);
+      span=perfNow();stepMatch(room.match,inputs);perfAdd('sim.engine',span);const duration=performance.now()-before;
       this.metrics.steps++;this.metrics.stepMs.push(duration);if(this.metrics.stepMs.length>30000)this.metrics.stepMs.splice(0,1000);
       room.accumulator-=dt;count++;
      }
+     perfAdd('sim',simAt);
      const interval=room.match.config.simulationHz/room.match.config.snapshotHz;
      if(Math.floor(room.match.tick/interval)>Math.floor(cache.lastSentTick/interval)||room.match.phase==='FINISHED'&&cache.resultId!==room.match.matchId){
       const spawn=room.match.events.some(e=>e.type==='SPAWN'&&Number(e.eventId.split(':').at(-1))>cache!.lastEvent);

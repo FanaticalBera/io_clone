@@ -6,6 +6,14 @@ export const LAN_AWAY_GRACE_MS = 30000;
 /** The host phone may leave the app this long; the room stays frozen for everyone meanwhile. */
 export const LAN_HOST_PAUSE_MS = 60000;
 export function encodeFrame(frame) { return JSON.stringify(frame); }
+/**
+ * A snapshot event whose shared body was serialized once for all receivers (performance PRD N-a): only
+ * the receiver's own two fields are appended. Parses to the same object as encodeFrame would produce.
+ * `bodyJson` is the snapshot without selfParticipantId and lastAppliedInputSeq.
+ */
+export function snapshotFrame(event, bodyJson, selfParticipantId, lastAppliedInputSeq) {
+    return '{"k":"evt","e":' + JSON.stringify(event) + ',"d":' + bodyJson.slice(0, -1) + ',"selfParticipantId":' + JSON.stringify(selfParticipantId) + ',"lastAppliedInputSeq":' + JSON.stringify(lastAppliedInputSeq) + '}}';
+}
 export function decodeFrame(raw) {
     let value;
     try {

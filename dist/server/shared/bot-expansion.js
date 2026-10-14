@@ -21,3 +21,9 @@ export function expansionSides(shape, d, length, width, bevel = 1) {
     return [leg(0, length), leg(1, width), leg(3, length), leg(4, width)];
 }
 export const EXPANSION_SHAPES = ['RHOMBUS', 'WIDE', 'DEEP', 'ASYMMETRIC', 'HOOK', 'NATURAL'];
+const CROWDED_SHAPES = ['RHOMBUS', 'NATURAL', 'BEVEL', 'HOOK'];
+const CROWDED_DEFENDER_SHAPES = ['RHOMBUS', 'NATURAL', 'BEVEL'];
+export function crowdedExpansionShape(defender, index) {
+    const shapes = defender ? CROWDED_DEFENDER_SHAPES : CROWDED_SHAPES;
+    return shapes[index % shapes.length];
+}

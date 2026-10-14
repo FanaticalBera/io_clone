@@ -5,13 +5,15 @@ import { settingsFor, planAttack, earlyClosurePath } from './bot-strategy.js';
 import { returnPath, travelSeconds } from './bot-navigation.js';
 import { botPlanValidity } from './bot-plan-validity.js';
 import { holdingDangerDistance } from './bot-holding-risk.js';
+import { activeExpansionTrailLimit } from './bot-loop-ceiling.js';
 // Existing due-decision order, including interrupt attack evaluation, stays intact.
 export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
     rememberBotEntries(obs, memory.emotion);
     let settings = settingsFor(obs, memory);
     const home = returnPath(obs), atHome = obs.owners[obs.self.cellId] === obs.self.slot + 1;
+    const trailLimit = activeExpansionTrailLimit(memory, settings.trailLimit);
     const dangerDistance = holdingDangerDistance(Math.max(2, Math.min(5, (home?.length ?? 4) * settings.risk)), obs.self.territoryCount, obs.map.cells.length, obs.roster?.length ?? obs.config.maxSlots);
-    const danger = obs.ownTrail.length && (obs.ownTrail.length >= settings.trailLimit || obs.others.some(p => obs.ownTrail.some(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]) <= dangerDistance)));
+    const danger = obs.ownTrail.length && (obs.ownTrail.length >= trailLimit || obs.others.some(p => obs.ownTrail.some(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]) <= dangerDistance)));
     updatePressure(obs, memory.emotion, !!danger);
     settings = settingsFor(obs, memory);
     if (trace)
@@ -32,10 +34,10 @@ export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
     const expanding = memory.goal === 'EXPAND' || memory.goal === 'STEAL';
     const lineDistance = Math.min(...obs.others.flatMap(p => obs.ownTrail.map(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]))));
     if (trace)
-        trace.risk = { danger: !!danger, nearestEnemyToTrail: Number.isFinite(lineDistance) ? lineDistance : null, trailLimit: settings.trailLimit };
+        trace.risk = { danger: !!danger, nearestEnemyToTrail: Number.isFinite(lineDistance) ? lineDistance : null, trailLimit };
     const riskGrew = memory.expansion && !memory.expansion.earlyClosed && lineDistance <= 5 && lineDistance + 2 < (memory.expansion.threatDistance ?? Infinity);
-    const nearingBudget = obs.ownTrail.length >= settings.trailLimit - 4;
-    const early = obs.self.personality === 'EXPAND' && expanding && !returnOnly && !danger && !counterStrike && !stuck && !homeLost && (riskGrew || nearingBudget || pressuredExpansion) ? earlyClosurePath(obs, memory.path, settings.trailLimit) : null;
+    const nearingBudget = obs.ownTrail.length >= trailLimit - 4;
+    const early = obs.self.personality === 'EXPAND' && expanding && !returnOnly && !danger && !counterStrike && !stuck && !homeLost && (riskGrew || nearingBudget || pressuredExpansion) ? earlyClosurePath(obs, memory.path, trailLimit) : null;
     if (early) {
         if (trace)
             trace.reason = 'EARLY_CLOSURE';
@@ -51,6 +53,8 @@ export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
     if ((memory.goal === 'ESCAPE' || memory.goal === 'RETURN') && atHome && !obs.ownTrail.length) {
         setPath([]);
         memory.goal = 'EXPAND';
+        if (memory.expansion?.quietTrailLimit !== undefined)
+            delete memory.expansion.quietTrailLimit;
     }
     // Escape is committed until home. Other opportunities cannot replace it.
     if (returnOnly || (danger && !counterStrike) || (pressuredExpansion && !counterStrike && !early) || stuck || attackFinished || homeLost || (!atHome && !memory.path.length)) {
@@ -91,6 +95,8 @@ export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
         memory.goal = 'ATTACK';
         memory.attackTarget = attack.target;
         memory.attackSlot = attack.slot;
+        if (memory.expansion?.quietTrailLimit !== undefined)
+            delete memory.expansion.quietTrailLimit;
     }
     return { stuck, homeLost, danger, targetPresent, atHome };
 }

@@ -2,6 +2,7 @@ import {io,type Socket} from 'socket.io-client';
 import {PROTOCOL_VERSION} from '../shared/config.js';
 import {record,type Ack,type AppError,type ClientEvents,type ServerEvents,type CommandRequest,type SessionReady} from '../shared/protocol.js';
 import type {DirectionInput} from '../shared/model.js';
+import {perfNow,perfAdd} from '../shared/perf-sink.js';
 import {decodeFrame,encodeFrame,LAN_AWAY_GRACE_MS,LAN_HEARTBEAT_MS,LAN_HEARTBEAT_TIMEOUT_MS,type FrameChannel} from '../shared/lan-protocol.js';
 // How NetworkSession reaches the authority: the online server over socket.io, or a LAN host over frames (PRD 5.2).
 // Both expose the same ServerEvents, so the session, UI and renderer do not know which one they talk to.
@@ -164,7 +165,7 @@ export class FrameTransport implements GameTransport {
  }
  private receive(data:string):void {
   if(this.closed)return;this.lastHeard=performance.now();
-  const frame=decodeFrame(data);if(!frame)return;
+  const parseAt=perfNow(),frame=decodeFrame(data);perfAdd('net.parse',parseAt);perfAdd('net',parseAt);if(!frame)return;
   if(frame.k==='ack'){const p=this.pending.get(frame.id);if(p){clearTimeout(p.timer);this.pending.delete(frame.id);p.resolve(frame.d);}return;}
   if(frame.k!=='evt'||frame.e==='lan:ping')return;
   if(frame.e==='app:error')this.hostError=true;

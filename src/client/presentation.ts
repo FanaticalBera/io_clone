@@ -7,7 +7,7 @@ type Frame={view:MatchView;at:number};
 type PendingTarget={direction:Vec;seq:number;at:number};
 export class Presentation {
  private map:MapDefinition|null=null;private frames:Frame[]=[];private pending:PendingTarget[]=[];
- private clockOffset=Infinity;private local=false;private wallMargin=true;
+ private clockOffset=Infinity;private local=false;private wallMargin=true;private localPausedAt:number|null=null;private localResumePending=false;
  setWallMargin(enabled:boolean):void{this.wallMargin=enabled;if(this.map)setWallMargin(this.map,enabled);}
  private correction:Vec={x:0,y:0};private correctedAt=0;private frozen=false;selfId:string|null=null;
  accept(view:MatchView,selfId:string|null,at:number,reset=false,local=false):void{
@@ -18,9 +18,16 @@ export class Presentation {
   const oldPosition=self&&this.position(self.participantId,at);
   if(reset||this.selfId!==selfId||previous?.view.matchId!==view.matchId||self?.lifeId!==oldSelf?.lifeId||self?.lifeState!==oldSelf?.lifeState){
    this.frames=[];this.pending=[];this.clockOffset=Infinity;this.correction={x:0,y:0};
+   this.localResumePending=false;
+   if(reset||previous?.view.matchId!==view.matchId)this.localPausedAt=null;
   }
   // Place snapshots on the simulation timeline; varying packet arrival gaps are not movement time.
   this.local=local;const tickAt=view.tick*1000/view.config.simulationHz;
+  // Practice also discards its partial tick and primes its rAF clock after resuming. The first
+  // advancing snapshot supplies that new phase; an unchanged settings-close snapshot does not.
+  if(local&&this.localResumePending&&previous&&view.tick>previous.view.tick){
+   this.shiftLocalClock(at-tickAt-this.clockOffset);this.localResumePending=false;
+  }
   this.clockOffset=Math.min(this.clockOffset,at-tickAt);
   const frameAt=tickAt+this.clockOffset;
   this.selfId=selfId;this.frames.push({view,at:frameAt});if(this.frames.length>20)this.frames.shift();this.frozen=false;
@@ -64,7 +71,22 @@ export class Presentation {
   return position;
  }
  freeze():void{this.frozen=true;}
+ // Practice stops its simulation clock under settings and in the background. Move the display
+ // timeline by exactly that pause so interpolation can still find two adjacent ticks on return.
+ // Online snapshots keep advancing and must retain their original clock.
+ setLocalPaused(paused:boolean,at:number):void{
+  if(!this.local)return;
+  if(paused){this.localPausedAt??=at;return;}
+  if(this.localPausedAt===null)return;
+  const duration=Math.max(0,at-this.localPausedAt);this.localPausedAt=null;
+  this.shiftLocalClock(duration);this.localResumePending=true;
+ }
+ private shiftLocalClock(duration:number):void{
+  this.clockOffset+=duration;for(const frame of this.frames)frame.at+=duration;
+  for(const input of this.pending)input.at+=duration;this.correctedAt+=duration;
+ }
  position(id:string,now:number):Vec|null{
+  now=this.localPausedAt??now;
   const last=this.frames.at(-1);if(!last)return null;const p=last.view.participants.find(p=>p.participantId===id);if(!p)return null;
   if(p.lifeState!=='ALIVE'||last.view.phase!=='RUNNING'||this.frozen)return {...p.position};
   if(id===this.selfId&&!this.local){
