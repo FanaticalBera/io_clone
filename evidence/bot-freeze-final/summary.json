@@ -1,0 +1,251 @@
+{
+  "date": "2026-10-14",
+  "status": "APPROVED_FOR_MASTER_AND_FREEZE",
+  "playerReview": {
+    "spectatingSeed": 137,
+    "approved": true,
+    "humanPlaySeconds": 390,
+    "humanShare": 0.313
+  },
+  "behaviorCommit": "82ed5a2",
+  "validationCommit": "0a5b3d4",
+  "reused240": {
+    "source": "evidence/bot-inner-anchor-adoption/summary.json",
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "holdingBefore": 3911.1213888888888,
+    "holdingAfter": 4023.5926388888884,
+    "holdingPercent": 2.8756778124943816,
+    "deathsBefore": 178,
+    "deathsAfter": 176,
+    "holdingDirection": "INDISTINGUISHABLE",
+    "deathDirection": "INDISTINGUISHABLE"
+  },
+  "innerAnchorTickCost": {
+    "baseline": "B-quiet+C",
+    "candidate": "B-quiet+C+inner-anchor",
+    "beforeMs": 3.6588051805555533,
+    "afterMs": 3.3653824131944425,
+    "additionalMsPerTick": -0.2934227673611107,
+    "percent": -8.019633538306003,
+    "method": "Existing same-session observer-free120s8seeds3round paired runs; reuse exact behavior source. Delta includes changed trajectories, not an isolated function microbenchmark.",
+    "overlappingRows": 0
+  },
+  "expanded": {
+    "cases": 1024,
+    "cuts": 163,
+    "previousCandidateCuts": 164,
+    "originalBaselineCuts": 155,
+    "legacy16": {
+      "cuts": 11,
+      "failures": [
+        6,
+        10,
+        13,
+        14,
+        16
+      ]
+    },
+    "observerChecks": 44,
+    "fixedAxes": true,
+    "caseIDHash": "c89ab19e60f978d9e6b2a2113c2ee194d6726d33a01f42e2b7da1a72306745b3",
+    "byPersonality": [
+      {
+        "role": "DEFEND",
+        "cases": 256,
+        "cuts": 48
+      },
+      {
+        "role": "ATTACK",
+        "cases": 256,
+        "cuts": 40
+      },
+      {
+        "role": "EXPAND",
+        "cases": 256,
+        "cuts": 39
+      },
+      {
+        "role": "SEEK_POINT",
+        "cases": 256,
+        "cuts": 36
+      }
+    ],
+    "rawResultsSha256": "2e9a8f30c7597394eb9b354efc09049c800f084ac104a31e32288facc8f364ba"
+  },
+  "nicknames": {
+    "total": 288,
+    "legacyRetained": 48,
+    "activeDefault": 268,
+    "japanese": 20,
+    "japaneseIndices": [
+      229,
+      248
+    ],
+    "japaneseDefaultEnabled": false,
+    "sharedFlag": "BOT_NICKNAME_FLAGS.japanese (src/shared/bot-roster.ts)",
+    "perRosterOverride": "BotAssignmentOptions.japaneseNicknames",
+    "maxCodePoints": 10,
+    "normalizedUnique": true,
+    "similarPairs": [],
+    "clipped": [],
+    "fontSource": "Bundled @fontsource Jua/Gothic A1/Lilita One; no external font downloads",
+    "viewport": "1280x720 desktop",
+    "realDeviceJapaneseVerified": false
+  },
+  "nicknameTrajectory": {
+    "ticks": 3600,
+    "seeds": [
+      4,
+      19,
+      73,
+      11,
+      31,
+      47,
+      101,
+      137
+    ],
+    "allEightMatch": true,
+    "rows": [
+      {
+        "seed": 4,
+        "ticks": 3600,
+        "hash": "4986b1920912417d24f7f6868774ef8c00ddc0f8ca46c9d722144f49a8ea4762",
+        "matches": true
+      },
+      {
+        "seed": 19,
+        "ticks": 3600,
+        "hash": "740df2eda3e6964fab5a84fcfea278786e09e331d046d7b26309eeee251534d1",
+        "matches": true
+      },
+      {
+        "seed": 73,
+        "ticks": 3600,
+        "hash": "94a4f03bfae6ac565d77e706faeacf3df80d9965db9e096842805f5af7c65c30",
+        "matches": true
+      },
+      {
+        "seed": 11,
+        "ticks": 3600,
+        "hash": "8a362af23f1d8f1445d7345f1657b7b2cc32efa74d7ca52304464894ae427c0e",
+        "matches": true
+      },
+      {
+        "seed": 31,
+        "ticks": 3600,
+        "hash": "daf41bf12b4b1a1e6b9e394c2843e5eff7bd264f993d92ae8a239e2b47d9ca99",
+        "matches": true
+      },
+      {
+        "seed": 47,
+        "ticks": 3600,
+        "hash": "970094cf9302af57ca7aa9cf990e8652593377e841b9c2fd32bb1fe63809c2db",
+        "matches": true
+      },
+      {
+        "seed": 101,
+        "ticks": 3600,
+        "hash": "615181737f5758e5421ea23c8f11e5d194c23b9b26fd5aa50fefb10b65d3c1a9",
+        "matches": true
+      },
+      {
+        "seed": 137,
+        "ticks": 3600,
+        "hash": "b3d549c7bf90bbfce63b85268149a5c8191c93a64695babfc63923d081bb480b",
+        "matches": true
+      }
+    ]
+  },
+  "tests": {
+    "files": 102,
+    "total": 697,
+    "passed": 689,
+    "expectedFailed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "typecheckPassed": true,
+    "buildPassed": true,
+    "rawReportSha256": "433f025ae8f26c351ad5332e18c56b2a32ee94d9f92bf1b7a90c5f62e87de495"
+  },
+  "sourceManifest": {
+    "normalization": "UTF8 text with CRLF normalized to LF",
+    "sha256": {
+      "src/shared/bot-candidate-diagnostics.ts": "bdd29b3065758337210ef9d8e1f38a95e322553492f595e5ce369d56274be40e",
+      "src/shared/bot-damage.ts": "e016f3b2c3b0ca69fab122074935ce8dd7d8b17e6d5944ca8d89060d4661b761",
+      "src/shared/bot-departure-diagnostics.ts": "68b4a6c3a0d233b775f6a73511751addd3d451ff08559a773cc992238cc7a1b7",
+      "src/shared/bot-director.ts": "9154a72c577d1572c5b36ec28abb4d58da3543c4f3ee5cd8b5a927316477e75c",
+      "src/shared/bot-emotion.ts": "9ab411ae34a46c799297eae5fdd8c89bf93793ae599917fb165a70dee01f9df8",
+      "src/shared/bot-events.ts": "6df9555e07df157620184ca11bafca820e2a81c88fcc19b1e30483f514cbc01b",
+      "src/shared/bot-expansion.ts": "ea3d58c18e83db58a99a8c14cbb119daef011e2f6284d13b4c8016004bc48aab",
+      "src/shared/bot-experiment.ts": "d3daca33e1a2c37869b26882fd7ea536d5905750a97f9c91196b8dc37eb1be95",
+      "src/shared/bot-holding-risk.ts": "bdc14a19a14852b72b7b79e367c0c7d8ff8b887e4dd8dfd5c8766fff825aff94",
+      "src/shared/bot-identity.ts": "453c1652efc49e33116967a8ed41c8132f8392db847cbcfefa8b3ded985536eb",
+      "src/shared/bot-immediate-safety.ts": "07e9f857193c92ca659245f1e5d3531aae69bfb34208a427deddfbd7493ca210",
+      "src/shared/bot-inner-anchor.ts": "e17e5b7689ebfacbdd86b61609d4042be0fd18bb5133a60618d34d3cd5869d1b",
+      "src/shared/bot-loop-ceiling.ts": "37ceb1d639fffcf19b6aab210fb45c434f6621e003207bc380b980ec9c89fd8e",
+      "src/shared/bot-navigation.ts": "4e97af2e0ce233f8adc594551bdc3a8783e0922a2fcd1d4183669f2f9e6588ac",
+      "src/shared/bot-open-space.ts": "67925dd5529f9d27b1e587ef6e3f3bd5adeffa75f722ebb9aa231add741f37d4",
+      "src/shared/bot-opportunity.ts": "a44d0d49b406851f8f007ab1172f6fb2c9d948e6f04d7827d834ba0322c0db39",
+      "src/shared/bot-phase02-config.ts": "31e966e4bd816768ca3b3361ad4d5d09ea684ef6de63839981fb15eba49316ca",
+      "src/shared/bot-phase025-config.ts": "1933856862b26eeee90387932812635179b146a4c3542df5861b41cb6fe72510",
+      "src/shared/bot-plan-validity.ts": "f934c6646d8808e54f1abe15ff044a4debf7bafe50ff455d94e64d81f4d31969",
+      "src/shared/bot-policy.ts": "8eb69c5f812954b285ccac9615cc7aeeae08e545cdf29fdee92e37375f1cf46a",
+      "src/shared/bot-reclaim-diagnostics.ts": "1690b63c7a2277288697f3257dafa7ea469d344983e9f5eb3faf896d2569b2aa",
+      "src/shared/bot-reposition-diagnostics.ts": "1a3baf6c6303c6e6c6c9ca151db382c616a2dcf88ff0588710b8efd7b684d244",
+      "src/shared/bot-reposition.ts": "5b251622bd327a81e739afdc1f438777b1b1e6a3cbe1d4a5418268b1d3bc43b4",
+      "src/shared/bot-roster.ts": "ffbb7190400599b67c55baa428e996be6504f9c1856b45ec28fb36d849a5866f",
+      "src/shared/bot-runtime.ts": "3f5e10de2b18b9a76fad3d4fa4db9ad44278231bf7c3a254f6286e6a59444443",
+      "src/shared/bot-scheduler.ts": "06fd812131e6f314ff11e5a3ebd2c199c6d1d16a9f90ee69e04225bda004546d",
+      "src/shared/bot-steering.ts": "045613dd8620b794448c0af586787bd45fce5ed33f3ef85c012a9faf97011d00",
+      "src/shared/bot-strategy.ts": "8ce1666152f6dbd644de9da1ed6caa0a716a884b62d79ff937cbdba7c6fd242e",
+      "src/shared/bot-tactical.ts": "57064bfab48bd9c3bd80256be708b2b399a42fe80483da994db27e7ca4d7e674",
+      "src/shared/bot.ts": "bfcfe9ebf6e57aee46a9c72ad4b7a556043969d3e2f7cd951b64871fd345af15",
+      "src/shared/capture-diagnostics.ts": "34c369ec0e937c1c3730d528b083807822794e5e1668c1ff3fd0ad87a7ab71b3",
+      "src/shared/capture.ts": "e035a7223603d34059cce9d7b17a46b3ef64a69f70c688f24a538675e3093d8c",
+      "src/shared/config.ts": "96d2eadb99c5ac0c39119a50fb06bca2e7b2381e2833cfdf92fd2ee641fd6def",
+      "src/shared/engine.ts": "f286304996117fbd5d130ba7c5cb2073ef0eee7c9e62ae88f5d6aaa89f559433",
+      "src/shared/game.ts": "9a9071e158df288eef337494ec5e71b4b92f195e2b55ff891dd6b953b85c68be",
+      "src/shared/hex.ts": "7406efe86214984c17808040bf63299efee478c935e9ecd57037937b0ee3e28a",
+      "src/shared/lan-code.ts": "a855c6911a84f0c5ce7b39faeee98c41df416bf5d1fdd6f02409229752b30d14",
+      "src/shared/lan-host.ts": "8a5f46777b8551455301e6b6b20b31abe6719c439e3cd0f7d877f20907d16577",
+      "src/shared/lan-protocol.ts": "4958cc623f13dc8d85323e41e8897a3a8327e1d00e6383f968b411452992a349",
+      "src/shared/legacy-scoring.ts": "c50505add34b28ed03c942f67bb67dd918c36a3dc80e67c8dd90e1e9b3cd0e11",
+      "src/shared/life.ts": "a88714ab7a0ce5deb1969132d5bf8458d40dfb550b6257d368a973211b520f19",
+      "src/shared/map-experiment.ts": "bf2084c3a2015c8d980e881caf2749186fb4626b4c21b03321ff73a4bb509e71",
+      "src/shared/model.ts": "54aa0224fb39892fd558f98f1299f508ee621fc87f57169dda932ebe3a814c85",
+      "src/shared/modes.ts": "a47acdcd1b2925727ac6644950e60282a298cacc144d67463425a051df56970b",
+      "src/shared/movement.ts": "10073d1aaf622ec787ba602b0c4565a22b5673f2c8d76c558dfc8a64d96a1c06",
+      "src/shared/names.ts": "67fbf0f0a02f0fb0ff54106fae01849593c073f3282aef56cec05dddbf00d2f2",
+      "src/shared/protocol.ts": "1feb22be87aebd44fab4d046dc31a4a2a6af1ab7d7f2252a1527cc4f0019ea3d",
+      "src/shared/random.ts": "42309322e3a77d61ce0521916f87f21603c610956cc3c6eb2cf53f097b622063",
+      "src/shared/retry.ts": "100c64644fe80621dbe8d2b1d03f8fb47272fc1af08cffcdf84210407d24bfea",
+      "src/shared/room-input.ts": "44b5afe9ebc2ffb2546be8a458d72ce4cb2a99e2336200884896633ca02e1b9d",
+      "src/shared/room-loop.ts": "8eaeb9351102cfb9acd37f95f582afcbe01a7f62630dbfe7452247002c0de232",
+      "src/shared/rooms.ts": "7314b67db1138d58240c7cda5c0f21efa7d52795c1add64000c89a5eae9cc2a1",
+      "src/shared/run.ts": "026aa1af590c7a0180634b748b2fc1f6d19214599236816f6ffbe37bf61c7940",
+      "src/shared/safe-bot-respawn.ts": "e09d69cca128acb5662210883a2d9d744d733cf97bbb6027968d79c006a88d64",
+      "src/shared/scoring.ts": "1d89d6f39a47cea30c10e01f190790f10760bf6131ae4a9be61ca1e97ab5a58f",
+      "src/shared/slots.ts": "a1adba713aa1d2a304de4be01f6c264c0aa214124de0a70130cf1ff8c9975195",
+      "src/shared/spawn.ts": "6ea2178ede297bfdccc5d1cb891db10261392d902de416d4f4568bde43ad7286",
+      "src/shared/starting-anchors.ts": "b498ec45976373bf463bc8ad0b7d51479370f000c3910d272508a42af6cafff1",
+      "src/shared/state.ts": "e5bc991c28712fca5a0ab9544543c3463b33793f93b0ea764908b12e8adf2e32",
+      "src/shared/territory.ts": "198863de506af91b3a44d40a0ff685255e3bec5bd3122176270dce7deef99f68",
+      "src/shared/wall-margin.ts": "c5d438f9b7a2fa6a3513e72c730b0fe690c8db774056127298a5ca16375166d6"
+    }
+  },
+  "freeze": {
+    "rearIntrusionDetection": false,
+    "botBehaviorChangesDeferredUntil": "After performance PRD",
+    "masterMergeAuthorized": true,
+    "pushAuthorized": false
+  }
+}
