@@ -43,7 +43,10 @@ const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&n
 const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true),data=>scene.setBotDebugOverlay(data)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
- quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill()},settings);
+ quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;practice?.setPaused(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
+// Phaser draws only while the live field is on screen (performance PRD 4); elsewhere it shows a still frame.
+let rendererReady=false;
+function syncRender():void {if(rendererReady)scene.setRenderLive(ui.fieldVisible());}
 ui.setLanMode(lanAvailable());
 
 const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id,receipt)=>ui.showReward(id,receipt));
@@ -61,7 +64,7 @@ void (async()=>{
   if(markerGift){const url=new URL(location.href);url.searchParams.delete('testMarkerGift');history.replaceState(null,'',url);ui.message(markerGift==='all'?'전체 마커를 무료로 지급했어요. 상점에서 골라 장착해 보세요.':'말랑냥을 무료로 지급하고 장착했어요. 상점에서 색상을 바꿔보세요.');}
  }catch(error){profileTrace('INITIAL_PRESENTATION_ERROR',error);console.warn('Profile presentation failed',error);}
 })();
-const scene=createRenderer('field');
+const scene=createRenderer('field');rendererReady=true;
 const territoryEffect=experimentalTerritoryEffect(new URLSearchParams(location.search).get('experimentTerritoryEffect'),import.meta.env.DEV||import.meta.env.MODE==='test');
 const captureEffect=experimentalCaptureEffect(new URLSearchParams(location.search).get('experimentCaptureEffect'),import.meta.env.DEV||import.meta.env.MODE==='test');
 scene.setTerritoryEffect(territoryEffect);scene.setCaptureEffect(captureEffect);
@@ -73,7 +76,9 @@ scene.setDeathFeedback(()=>{haptics.death();});
 const testHistory:WireSnapshot[]=[];
 const input=new InputAdapter(document.querySelector('#field')!,(x,y)=>scene.pointerDirection(x,y),direction=>{if(practice)practice.setDirection(direction);else online?.sendDirection(direction);});input.enabled=false;
 input.attachJoystick(document.querySelector('#joystick')!);
-input.setMobileControls(settings.get().mobileControls);settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();setColorStyle(autoplay?.colorStyle??value.colorStyle);scene.refreshColors();});
+input.setMobileControls(settings.get().mobileControls);// Only a colour style change repaints the field (PRD Q4); other settings must not redraw every chunk.
+let appliedColorStyle=autoplay?.colorStyle??settings.get().colorStyle;
+settings.subscribe(value=>{input.setMobileControls(value.mobileControls);if(!value.killVibration)haptics.stop();const style=autoplay?.colorStyle??value.colorStyle;if(style!==appliedColorStyle){appliedColorStyle=style;setColorStyle(style);scene.refreshColors();}});
 if(import.meta.env.MODE==='test')Object.assign(window,{__HEXHOLD_TEST__:{getMarkerState:()=>scene.markerState(),getPlayerColors:()=>[...scene.playerColors()],getScene:()=>scene,getMarkerAssets:()=>scene.markerAssetsState(),profile:()=>profileStore.read(),rewardRetry:()=>ui.currentRunResult&&rewards.present(ui.currentRunResult,true),history:testHistory,inputDirection:()=>({...input.direction}),pointerDirection:(x:number,y:number)=>scene.pointerDirection(x,y),getView:()=>structuredClone(scene.view),getRenderState:()=>scene.renderState(),getResourceState:()=>scene.resourceState(),camera:(x:number,y:number)=>scene.testCamera(x,y),culling:(enabled:boolean)=>scene.setChunkCulling(enabled),getCombatState:()=>scene.combatState(),getTerritoryEffectState:()=>scene.territoryEffectState(),getCaptureEffectState:()=>scene.captureEffectState(),getPractice:()=>practice,showPracticeView:()=>{if(practice)display(buildView(practice.match),practice.selfId);},transportClose:(reconnect=true)=>online?.testTransportClose(reconnect),reconnect:()=>online?.testReconnect(),enabled:()=>input.enabled,direction:(x:number,y:number)=>input.setDirection({x,y})}});
 const preview=()=>scene.setView(buildView(createMatch({},71,botSpecs(8,0,'preview',{seed:71}))),null);
 // Snapshot handling outside Phaser's frame: the 'recv' measurement group (drawView and HUD are its leaves).

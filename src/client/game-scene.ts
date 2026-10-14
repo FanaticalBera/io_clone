@@ -19,8 +19,12 @@ import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
 import {FIELD,INK,mixColor} from './theme.js';
 import {perfNow,perfAdd} from '../shared/perf-sink.js';
 import {startFrameMeter} from './frame-meter.js';
+import {installFrameLimit} from './frame-limit.js';
+import {PERF_BUILD} from './perf-build.js';
 export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
+// Measurement builds can lower the backing-pixel cap (?perfMaxDpr=2) to compare heat and sharpness (PRD Q6).
+const MAX_RENDER_RATIO=PERF_BUILD&&Number(new URLSearchParams(location.search).get('perfMaxDpr'))>=1?Number(new URLSearchParams(location.search).get('perfMaxDpr')):3;
 export class GameScene extends Phaser.Scene {
  view:MatchView|null=null;selfId:string|null=null;map:MapDefinition|null=null;
  private boundaryHighlight=true;private botDebugFollowId:string|null=null;
@@ -78,13 +82,28 @@ export class GameScene extends Phaser.Scene {
  private points:Phaser.GameObjects.Text[]=[];private lastMini=0;private created=false;
  constructor(){super('game');}
  isReady():boolean{return this.created;}
+ // Render policy (performance PRD 4, Q2). Live: Phaser draws every frame. Still: the current state is
+ // drawn once more and Phaser's loop then sleeps until live again. Snapshot handling keeps running either
+ // way, so waking shows the latest state without catching up.
+ private stillPending=false;private wantLive=true;
+ setRenderLive(live:boolean):void {
+  // Before boot the loop has not started; create() applies the wanted policy.
+  this.wantLive=live;if(!this.created)return;
+  const loop=this.game.loop;
+  if(live){this.stillPending=false;if(!loop.running)loop.wake(true);return;}
+  // Only the switch from live draws the extra frame; repeated still requests keep it asleep.
+  if(!loop.running||this.stillPending)return;
+  this.stillPending=true;
+ }
+ renderLive():boolean{return this.game.loop.running&&!this.stillPending;}
+ afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(!this.wantLive)this.stillPending=true;this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
   const fit=()=>{frame=0;const rect=parent.getBoundingClientRect(),width=Math.round(rect.width),height=Math.round(rect.height);if(width<1||height<1)return;
-   const ratio=renderPixelRatio(width,height,window.devicePixelRatio),backingWidth=Math.round(width*ratio),backingHeight=Math.round(height*ratio);
+   const ratio=renderPixelRatio(width,height,window.devicePixelRatio,MAX_RENDER_RATIO),backingWidth=Math.round(width*ratio),backingHeight=Math.round(height*ratio);
    this.viewportWidth=width;this.viewportHeight=height;this.pixelRatio=ratio;
    // Phaser 3 renders in backing pixels. Counter-scale the canvas in CSS and
    // multiply the camera zoom, keeping world size and visible area unchanged.
@@ -326,6 +345,10 @@ export function createRenderer(parent:string):GameScene {
  const game=new Phaser.Game({type:Phaser.AUTO,parent,backgroundColor:FIELD.table,width:window.innerWidth,height:window.innerHeight,
   scale:{mode:Phaser.Scale.NONE,autoCenter:Phaser.Scale.NO_CENTER},
   scene:[scene],render:{antialias:true,powerPreference:'high-performance'},banner:false,audio:{noAudio:true}});
+ // Measurement builds can lift the cap (?perfFps=0) for A/B comparisons.
+ const fpsParam=PERF_BUILD?new URLSearchParams(location.search).get('perfFps'):null;
+ installFrameLimit(game,fpsParam!==null?Number(fpsParam):60);
+ game.events.on(Phaser.Core.Events.POST_RENDER,()=>scene.afterRender());
  startFrameMeter(game);
  return scene;
 }

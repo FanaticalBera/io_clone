@@ -10,7 +10,7 @@ import {ICONS} from './icons.js';
 import {cssHex} from './theme.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
-export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void; testVibration?:()=>boolean }
+export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
  members:{memberId:string;nickname:string;connected:boolean;waitingForNextRound:boolean}[];
@@ -107,9 +107,9 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   bind('leave-request',()=>{this.closeGamePanels();get('leave-confirm').hidden=false;get('leave-cancel').focus();});
   bind('leave-cancel',()=>{get('leave-confirm').hidden=true;get('game-tools-toggle').focus();});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!this.isSettingsOpen()&&!get<HTMLDialogElement>('tutorial').open){this.closeGamePanels();}});
-  bind('settings',()=>{get('vibration-status').textContent='';get<HTMLDialogElement>('settings-dialog').showModal();this.actions.settingsOpen?.(true);this.refreshSettings();});
+  bind('settings',()=>{get('vibration-status').textContent='';get<HTMLDialogElement>('settings-dialog').showModal();this.actions.settingsOpen?.(true);this.refreshSettings();this.changed();});
   bind('settings-close',()=>get<HTMLDialogElement>('settings-dialog').close());
-  get('settings-dialog').addEventListener('close',()=>{this.actions.settingsOpen?.(false);this.refreshControls();});
+  get('settings-dialog').addEventListener('close',()=>{this.actions.settingsOpen?.(false);this.refreshControls();this.changed();});
   for(const mode of ['joystick','drag','trackpad'] as const)get('controls-'+mode).addEventListener('change',()=>this.settings.update({mobileControls:mode}));
   for(const style of ['pastel','vivid'] as const)get('look-'+style).addEventListener('change',()=>this.settings.update({colorStyle:style as ColorStyle}));
   get('kill-vibration').addEventListener('change',()=>this.settings.update({killVibration:get<HTMLInputElement>('kill-vibration').checked}));
@@ -171,11 +171,13 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   this.clearRunResult();this.mode='MENU';get('app').dataset.screen='menu';this.resultId='';get('menu').hidden=false;
   this.closeGamePanels();for(const id of ['hud','minimap','rotate-hint','control-hint','death','results','room-panel','joystick'])get(id).hidden=true;
   screen.orientation?.unlock?.();
+  this.changed();
  }
  showGame(mode:'PRACTICE'|'ONLINE'):void {
   this.mode=mode;get('app').dataset.screen='game';get('menu').hidden=true;get('room-panel').hidden=true;get('results').hidden=true;
   this.closeGamePanels();get('hud').hidden=false;get('minimap').hidden=false;get('rotate-hint').hidden=false;get('control-hint').hidden=true;
   this.controlsActive=true;this.refreshControls();
+  this.changed();
  }
  private showCaptureGain(percent:number,loss=false):void {
   const toast=get('capture-toast');toast.textContent=loss?gainLabel(percent).replace('+','−'):gainLabel(percent);toast.hidden=false;toast.classList.toggle('loss',loss);
@@ -231,7 +233,10 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';}
  setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}
  get hasRunResult():boolean{return !!this.runKey;}
- clearRunResult():void {if(this.runTimer!==null)clearTimeout(this.runTimer);this.runTimer=null;this.runKey='';this.currentRunResult=null;get('run-results').hidden=true;}
+ /** Whether the live field is what the player sees: the game screen with no settings, result card or results table over it. */
+ fieldVisible():boolean{return get('app').dataset.screen==='game'&&!this.isSettingsOpen()&&!!get('run-results').hidden&&!!get('results').hidden;}
+ private changed():void{this.actions.screenChanged?.();}
+ clearRunResult():void {if(this.runTimer!==null)clearTimeout(this.runTimer);this.runTimer=null;this.runKey='';this.currentRunResult=null;get('run-results').hidden=true;this.changed();}
  showRunResult(result:RunResult,restored=false):void {
   if(this.runKey===result.runId)return;this.clearRunResult();this.runKey=result.runId;this.currentRunResult=result;get('run-coins').textContent='…';get('run-balance').textContent='보상 저장 중';get('reward-retry').hidden=true;this.controlsActive=false;this.refreshControls();
   const show=()=>{if(this.runKey!==result.runId)return;this.runTimer=null;
@@ -239,7 +244,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
    get('run-title').textContent=kind==='win'?'완전 점령!':kind==='death'?'탈락!':'판 종료';
    get('run-reason').textContent=kind==='death'?(this.deathText||'이번 생존의 기록'):kind==='loss'?'다른 참가자가 100%를 달성했어요':'월드 전체를 내 땅으로 만들었어요';
    get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
-   this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('minimap').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();
+   this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('minimap').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();this.changed();
   };
   if(result.endReason==='DEATH'&&!restored)this.runTimer=setTimeout(show,700);else show();
  }
@@ -259,6 +264,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   }
   get('restart').textContent=this.mode==='ONLINE'?'다음 판 참가':'다시 연습';
   get('next-round').textContent=this.mode==='ONLINE'?'방에 남아 있으면 결과 7초 뒤 다음 카운트다운이 시작돼요.':'연습은 직접 다시 시작할 수 있어요.';
+  this.changed();
  }
  showRoom(view:RoomDisplay):void {
   this.controlsActive=false;
@@ -273,6 +279,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const code=get('friend-code');code.replaceChildren(...[...(view.code??'')].map(letter=>{const tile=document.createElement('span');tile.textContent=letter;return tile;}));
   get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
   get('start').hidden=!(view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId);
+  this.changed();
  }
  clearMessage():void {if(performance.now()>=this.noticeUntil)get('notice').hidden=true;}
  message(text:string,recovery=false,holdMs=0):void {this.noticeUntil=performance.now()+holdMs;get('notice').hidden=false;get('notice-text').textContent=text;get('notice-actions').hidden=!recovery;}
