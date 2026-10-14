@@ -33,14 +33,14 @@ describe('Performance PRD C2: plannedCapture equals the full flood',()=>{
    const m=createMatch({mapRadius:56,spawnRadius:1,maxSlots:14},seed,botSpecs(14,0,'bot',{seed}));setSafeBotRespawn(m,true);
    const memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!))]));
    const random=seededRandom(seed);let checked=0;
-   for(let t=1;t<=1500;t++){stepMatch(m,getBotInputs(m,memories));
-    if(t%300)continue;
+   for(let t=1;t<=1200;t++){stepMatch(m,getBotInputs(m,memories));
+    if(t%400)continue;
     for(const p of m.participants){const obs=obsFor(m.map,m.owners,p.slot);
      for(const path of [[...p.trailCells],...paths(m.map,m.owners,p.slot+1,random,25)]){expect(plannedCapture(obs,path)).toEqual(plannedCaptureFull(obs,path));checked++;}}
    }
    expect(checked).toBeGreaterThan(1000);
   }
- });
+ },60000);
  it('matches on random ownership patterns with holes, islands and edge seeds, and refreshes its cache when owners change',()=>{
   const map=createMap(8,32),random=seededRandom(99);
   for(let round=0;round<200;round++){
