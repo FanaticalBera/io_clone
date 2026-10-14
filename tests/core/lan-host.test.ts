@@ -7,6 +7,7 @@ import {markDead} from '../../src/shared/life.js';
 import {seededRandom} from '../../src/shared/random.js';
 import {completeClassic} from '../mode-fixture.js';
 import {PROTOCOL_VERSION} from '../../src/shared/config.js';
+import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
 
 const CODE='NPQYMBM6';
 const flush=async(times=4)=>{for(let i=0;i<times;i++)await new Promise(r=>setTimeout(r,0));};
@@ -233,3 +234,35 @@ describe('Performance PRD M1: LAN snapshot byte counters',()=>{
  });
 });
 export type {FrameChannel};
+it('delivers a confirmed trail cut to the LAN host and guest before the next 10Hz snapshot',async()=>{
+ const f=await running(1),m=f.room.match!;
+ while(m.tick%3!==0)await f.advance(1000/m.config.simulationHz);
+ const h=m.participants.find(p=>p.participantId===f.hostClient.inits[0].selfParticipantId)!,g=m.participants.find(p=>p.participantId===f.guests[0].inits[0].selfParticipantId)!;
+ // Controlled crossing on the real host engine; both transports still use the actual wire format.
+ for(const p of m.participants){clearTrail(m,p);if(p!==h&&p!==g)p.lifeState='FINISHED';}
+ for(let id=0;id<m.owners.length;id++)setOwner(m,id,0);
+ const cell=(q:number,r:number)=>m.map.byKey.get(q+','+r)!;
+ h.cellId=cell(-1,0);h.position={x:-Math.sqrt(3)*m.map.side/2-1,y:0};h.direction={x:1,y:0};h.targetDirection=null;h.protectedUntilTick=0;
+ setOwner(m,h.cellId,h.slot+1);
+ g.cellId=cell(0,3);g.position={...m.map.cells[g.cellId].center};g.direction={x:1,y:0};g.targetDirection=null;g.protectedUntilTick=0;
+ setOwner(m,cell(0,-1),g.slot+1);g.trailOriginCellId=cell(0,-1);
+ for(let r=0;r<=3;r++)addTrail(m,g,cell(0,r));
+ f.host.loop.publishSnapshot(f.room,true,true);await flush();
+ const beforeTick=m.tick,beforeSequence=f.hostClient.inits.at(-1)!.snapshotSeq;
+ const frames:{e:string;replaceKey?:string}[]=[],channel=f.guests[0].ends.host,send=channel.send.bind(channel);
+ channel.send=(data,options)=>{const frame=decodeFrame(data);if(frame?.k==='evt')frames.push({e:frame.e,replaceKey:options?.replaceKey});send(data,options);};
+ await f.advance(1000/m.config.simulationHz);
+ expect(m.tick).toBe(beforeTick+1);expect(m.tick%3).not.toBe(0);
+ expect(g.deathContext?.cause).toBe('EXISTING_TRAIL_CONTACT');expect(h.kills).toBeGreaterThan(0);
+ for(const c of [f.hostClient,f.guests[0]]){
+  const packet=c.snapshots.at(-1)!;expect(packet.snapshotSeq).toBeGreaterThan(beforeSequence);expect(packet.tick).toBe(m.tick);
+  expect(unpackSnapshot(packet).participants.find(p=>p.participantId===g.participantId)?.lifeState).toBe('ELIMINATED');
+ }
+ expect(frames.filter(f=>f.e==='match:snapshot')).toEqual([{e:'match:snapshot',replaceKey:undefined}]);
+ const sequence=f.hostClient.snapshots.at(-1)!.snapshotSeq;
+ await f.advance(1000/m.config.simulationHz);
+ expect(m.tick%3).toBe(2);expect(f.hostClient.snapshots.at(-1)!.snapshotSeq).toBe(sequence);
+ await f.advance(1000/m.config.simulationHz);
+ expect(m.tick%3).toBe(0);expect(f.hostClient.snapshots.at(-1)!.snapshotSeq).toBeGreaterThan(sequence);
+ expect(frames.filter(f=>f.e==='match:snapshot').at(-1)?.replaceKey).toBe('snap:'+m.matchId);
+});

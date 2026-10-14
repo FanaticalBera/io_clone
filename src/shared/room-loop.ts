@@ -80,9 +80,13 @@ export class RoomLoop<S extends RoomSession> {
      }
      perfAdd('sim',simAt);
      const interval=room.match.config.simulationHz/room.match.config.snapshotHz;
-     if(Math.floor(room.match.tick/interval)>Math.floor(cache.lastSentTick/interval)||room.match.phase==='FINISHED'&&cache.resultId!==room.match.matchId){
+     // A confirmed cut must reach the host's loopback client as well as guests immediately.
+     // Waiting for the regular 10Hz movement snapshot makes a predicted marker appear to
+     // pass through the trail before the victim's death is displayed.
+     const death=room.match.events.some(e=>e.type==='DEATH'&&Number(e.eventId.split(':').at(-1))>cache!.lastEvent);
+     if(death||Math.floor(room.match.tick/interval)>Math.floor(cache.lastSentTick/interval)||room.match.phase==='FINISHED'&&cache.resultId!==room.match.matchId){
       const spawn=room.match.events.some(e=>e.type==='SPAWN'&&Number(e.eventId.split(':').at(-1))>cache!.lastEvent);
-      this.publishSnapshot(room,false,spawn||room.match.phase==='FINISHED');cache.lastSentTick=room.match.tick;cache.lastEvent=room.match.eventCounter;
+      this.publishSnapshot(room,false,death||spawn||room.match.phase==='FINISHED');cache.lastSentTick=room.match.tick;cache.lastEvent=room.match.eventCounter;
      }
      this.rooms.advance();
     }

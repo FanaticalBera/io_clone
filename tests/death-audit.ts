@@ -8,10 +8,11 @@ import {createBotMemory,getBotInput,observeBot,watchBotDecisions} from '../src/s
 import {botSpecs} from './bot-fixtures.js';
 import {summarizeOpportunities,type ShadowOpportunity} from '../src/shared/bot-opportunity.js';
 import {watchDeaths,type DeathTrace} from '../src/shared/life.js';
-import {watchCaptureResolution,type CaptureResolutionTrace} from '../src/shared/engine.js';
+import {watchCaptureResolution,isProtected,type CaptureResolutionTrace} from '../src/shared/engine.js';
 import {axialToWorld} from '../src/shared/hex.js';
 import {normalizeDirection} from '../src/shared/movement.js';
 import type {DirectionInput,Vec} from '../src/shared/model.js';
+import type {GameConfig} from '../src/shared/config.js';
 
 function distanceToSegment(p:Vec,a:Vec,b:Vec):number {
  const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy)));
@@ -19,10 +20,10 @@ function distanceToSegment(p:Vec,a:Vec,b:Vec):number {
 }
 // All positions, territories and trails here emerge from normal spawns,
 // ordinary input and stepMatch. No setOwner/addTrail or direct state setup.
-export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false,total=8,phase01=false,phase02=false){
+export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false,total=8,phase01=false,phase02=false,config:Partial<GameConfig>={}){
  const humans=mixed?[{participantId:'human-0',slot:0,nickname:'H0',kind:'HUMAN' as const},{participantId:'human-1',slot:1,nickname:'H1',kind:'HUMAN' as const}]:[];
  const specs=[...humans,...(phase01?liveBotSpecs(total-humans.length,humans.length,'bot',{seed,existing:humans}):botSpecs(total-humans.length,humans.length))];
- const m=createMatch({maxSlots:total},seed,specs),memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(seed+p.slot,'combined',phase01&&p.kind==='BOT'?createBotIdentity(seed+p.slot,p.personality!):undefined)]));
+ const m=createMatch({maxSlots:total,...config},seed,specs),memories=new Map(m.participants.map(p=>[p.participantId,createBotMemory(seed+p.slot,'combined',phase01&&p.kind==='BOT'?createBotIdentity(seed+p.slot,p.personality!):undefined)]));
  const deaths:DeathTrace[]=[],captures:CaptureResolutionTrace[]=[],failures:string[]=[],seen=new Set<string>(),frozen=new Map<string,{lifeId:number;position:Vec}>();
  const origins=new Map(m.participants.map(p=>[p.participantId,{...m.map.cells[p.cellId]}])),lifeIds=new Map(m.participants.map(p=>[p.participantId,p.lifeId])),legs=new Map<string,number>();
  watchDeaths(m,trace=>deaths.push(trace));watchCaptureResolution(m,trace=>captures.push(trace));
@@ -47,6 +48,10 @@ export function auditDeaths(seed:number,mixed=false,ticks=3600,shadow=false,tota
   }
   if(phase02)for(const [id,input]of getBotInputs(m,memories))inputs.set(id,input);
   stepMatch(m,inputs);
+  // Also detect a missing cut, rather than auditing only deaths that already happened.
+  if(m.phase==='RUNNING')for(const attacker of m.participants)if(attacker.lifeState==='ALIVE'&&!isProtected(m,attacker,m.tick-1)){
+   for(const victim of m.participants)if(victim!==attacker&&victim.lifeState==='ALIVE')check((m.trailMasks[attacker.cellId]&(1<<victim.slot))===0,'uncut surviving trail '+attacker.participantId+' -> '+victim.participantId);
+  }
   for(const trace of deaths.slice(before)){
    const key=trace.victimId+':'+trace.lifeId,p=m.participants.find(p=>p.participantId===trace.victimId)!;
    check(!seen.has(key),'duplicate death '+key);seen.add(key);
