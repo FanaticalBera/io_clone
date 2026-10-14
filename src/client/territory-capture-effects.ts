@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Cell,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,type CaptureBloom} from './territory-capture-model.js';
@@ -43,7 +44,7 @@ export class TerritoryCaptureEffects {
   for(const effect of this.model.effects)this.drawOverlay(effect,now);
   if(!this.dirty&&now-this.lastDraw<1000/30)return;this.dirty=false;this.lastDraw=now;
   for(const key of this.drawn){const g=this.graphics.get(key)!;g.clear();g.setVisible(false);}this.drawn.clear();this.drawnCells=0;this.drawnEdges=0;
-  const rect=this.scene.cameras.main.worldView,margin=16*Math.sqrt(3)*this.map.side;
+  const rect=this.scene.cameras.main.worldView,margin=cullMargin(this.map);
   for(const effect of this.model.effects)for(const [key,cells]of effect.chunks){
    const chunk=this.chunks.get(key)!;
    if(culling&&(chunk.maxX<rect.x-margin||chunk.minX>rect.right+margin||chunk.maxY<rect.y-margin||chunk.minY>rect.bottom+margin))continue;

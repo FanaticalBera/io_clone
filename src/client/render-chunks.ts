@@ -9,3 +9,8 @@ export function indexRenderChunks(map:MapDefinition,size=16):{chunks:Map<string,
  }
  return {chunks,keys};
 }
+// Culling margin beyond the last rendered camera view (performance PRD G2). Visibility is recomputed
+// every frame and players move ~4 cells/s, so three cells cover a frame's movement with room to spare;
+// the former one-chunk (16-cell) margin drew far more chunks than are ever seen.
+export const CULL_MARGIN_CELLS=3;
+export function cullMargin(map:MapDefinition):number {return CULL_MARGIN_CELLS*Math.sqrt(3)*map.side;}

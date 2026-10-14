@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryEffectModel,collapseAppearance,type TerritoryEffectStyle} from './territory-effect-model.js';
@@ -39,7 +40,7 @@ export class TerritoryEffects {
   if(!this.model.effects.length){if(this.drawn.size)this.clear();this.metrics.updateMs=performance.now()-at;return;}
   if(!this.dirty&&now-this.lastDraw<1000/30){this.metrics.updateMs=performance.now()-at;return;}
   this.lastDraw=now;this.dirty=false;this.redraws++;
-  const redrawAt=performance.now(),rect=this.scene.cameras.main.worldView,margin=16*Math.sqrt(3)*this.map.side;
+  const redrawAt=performance.now(),rect=this.scene.cameras.main.worldView,margin=cullMargin(this.map);
   for(const key of this.drawn){const g=this.graphics.get(key)!;g.clear();g.setVisible(false);}this.drawn.clear();
   let drawnCells=0;
   for(const effect of this.model.effects)for(const [key,cells]of effect.chunks){

@@ -15,7 +15,7 @@ import {GAME_MODES} from '../shared/modes.js';
 import {gameplayZoom,MOUSE_DEAD_ZONE} from './controls.js';
 import {renderPixelRatio} from './render-viewport.js';
 import {slotBit} from '../shared/slots.js';
-import {indexRenderChunks,type RenderChunk} from './render-chunks.js';
+import {indexRenderChunks,cullMargin,type RenderChunk} from './render-chunks.js';
 import {FIELD,INK,mixColor} from './theme.js';
 import {perfNow,perfAdd} from '../shared/perf-sink.js';
 import {startFrameMeter} from './frame-meter.js';
@@ -303,9 +303,9 @@ export class GameScene extends Phaser.Scene {
     for(const [width,alpha]of [[18,.3],[7,1]] as const){this.wallHighlight.lineStyle(width,FIELD.nearDeath,alpha);for(const edge of near)this.wallHighlight.lineBetween(edge.a.x,edge.a.y,edge.b.x,edge.b.y);}}}
   }
   perfAdd('step.wall',span);span=perfNow();
-  const camera=this.cameras.main,margin=16*Math.sqrt(3)*this.map.side;
-  // camera.worldView is the last completed frame; one whole chunk margin also
-  // covers normal movement before the next camera pre-render.
+  const camera=this.cameras.main,margin=cullMargin(this.map);
+  // camera.worldView is the last completed frame; the margin covers movement
+  // before the next camera pre-render (see cullMargin).
   const rect=camera.worldView;
   for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
    this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);this.landChunks.get(key)!.setVisible(visible);this.trailTops.get(key)!.setVisible(visible);
