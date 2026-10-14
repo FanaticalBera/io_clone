@@ -23,6 +23,7 @@ import {installFrameLimit} from './frame-limit.js';
 import {PERF_BUILD} from './perf-build.js';
 export {SLOT_COLORS as COLORS} from './player-colors.js';
 const cssColor=(color:number)=>'#'+color.toString(16).padStart(6,'0');
+const bounds=(points:Vec[],pad:number)=>({minX:Math.min(...points.map(p=>p.x))-pad,minY:Math.min(...points.map(p=>p.y))-pad,maxX:Math.max(...points.map(p=>p.x))+pad,maxY:Math.max(...points.map(p=>p.y))+pad});
 // Measurement builds can lower the backing-pixel cap (?perfMaxDpr=2) to compare heat and sharpness (PRD Q6).
 const MAX_RENDER_RATIO=PERF_BUILD&&Number(new URLSearchParams(location.search).get('perfMaxDpr'))>=1?Number(new URLSearchParams(location.search).get('perfMaxDpr')):3;
 export class GameScene extends Phaser.Scene {
@@ -46,11 +47,11 @@ export class GameScene extends Phaser.Scene {
  botDebugOverlayState(){return {enabled:!!this.debugOverlay?.visible,damage:this.debugOverlayData?.damage.length??0,expected:this.debugOverlayData?.expected.length??0,actual:this.debugOverlayData?.actual.length??0,route:this.debugOverlayData?.route?.length??0,destination:this.debugOverlayData?.destination??null};}
 
  setBoundaryHighlight(enabled:boolean):void{this.boundaryHighlight=enabled;if(!enabled)this.wallHighlight?.clear();}
- private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private board?:Phaser.GameObjects.Graphics;private boardKey='';
+ private wallMargin=true;private wallHighlight?:Phaser.GameObjects.Graphics;private highlightedEdges=0;private boardKey='';private boardParts:{graphics:Phaser.GameObjects.Graphics[];minX:number;minY:number;maxX:number;maxY:number}[]=[];private boundaryParts:{graphics:Phaser.GameObjects.Graphics[];minX:number;minY:number;maxX:number;maxY:number}[]=[];
  setWallMargin(enabled:boolean):void {this.wallMargin=enabled;this.presentation.setWallMargin(enabled);if(!enabled){this.wallHighlight?.clear();this.highlightedEdges=0;}}
- wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.board?1:0)};}
+ wallVisualState(){return {enabled:this.wallMargin,highlight:this.boundaryHighlight,edges:this.highlightedEdges,graphics:(this.wallHighlight?1:0)+(this.boardParts.length?1:0)};}
  private presentation=new Presentation();private online=false;private predictedLine?:Phaser.GameObjects.Graphics;
- private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private boundary?:Phaser.GameObjects.Graphics;private groundKey='';
+ private groundChunks=new Map<string,Phaser.GameObjects.Blitter>();private groundKey='';
  private chunkIndex=new Map<string,RenderChunk>();private cellChunkKeys:string[]=[];private cullChunks=true;
  private chunks=new Map<string,Phaser.GameObjects.Graphics>();
  // Captured land is drawn from prebuilt tiles (performance PRD G1): Phaser re-triangulates every
@@ -183,7 +184,7 @@ export class GameScene extends Phaser.Scene {
   if(!this.map||this.map.mapId!==view.mapId){
    const initAt=performance.now();
    this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
-   for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();this.boundary?.destroy();
+   for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();for(const part of [...this.boundaryParts,...this.boardParts])for(const g of part.graphics)g.destroy();this.boundaryParts=[];this.boardParts=[];this.boundaryCells=[];this.boardKey='';
    if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
    for(const g of this.landChunks.values())g.destroy();this.landChunks.clear();for(const g of this.trailTops.values())g.destroy();this.trailTops.clear();
@@ -205,8 +206,11 @@ export class GameScene extends Phaser.Scene {
     this.groundChunks.set(key,ground);this.chunks.set(key,this.add.graphics().setDepth(1));
     this.landChunks.set(key,this.add.blitter(0,0,'__DEFAULT').setDepth(1.001));this.trailTops.set(key,this.add.graphics().setDepth(1.002));
    }
-   this.boundary=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);
-   for(const e of this.map.boundaryEdges)this.boundary.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+   // The map edge line over the ground, split like the board so only nearby pieces draw.
+   const edgeGroups=new Map<string,MapDefinition['boundaryEdges']>();
+   for(const e of this.map.boundaryEdges){const key=this.edgeChunkKey([e.a,e.b]);edgeGroups.set(key,[...(edgeGroups.get(key)??[]),e]);}
+   for(const own of edgeGroups.values()){const g=this.add.graphics().setDepth(0).lineStyle(3,FIELD.edgeLine,1);for(const e of own)g.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
+    this.boundaryParts.push({graphics:[g],...bounds(own.flatMap(e=>[e.a,e.b]),4)});}
    this.metrics.groundPreparationMs=performance.now()-groundAt;
    for(const cp of this.map.controlPoints){const c=this.map.cells[cp.cellId];this.points.push(this.add.text(c.center.x,c.center.y,'◆ '+(cp.pointId+1),{fontFamily:'sans-serif',fontSize:'19px',fontStyle:'bold',color:'#142330',backgroundColor:'#ffce70',padding:{x:9,y:8},resolution:this.pixelRatio}).setOrigin(0.5).setDepth(4));}
    this.lastOwners=new Uint8Array(this.map.cells.length).fill(255);this.lastTrails=new Uint16Array(this.map.cells.length);
@@ -306,6 +310,7 @@ export class GameScene extends Phaser.Scene {
   for(const [key,chunk]of this.chunkIndex){const visible=!this.cullChunks||(chunk.maxX>=rect.x-margin&&chunk.minX<=rect.right+margin&&chunk.maxY>=rect.y-margin&&chunk.minY<=rect.bottom+margin);
    this.groundChunks.get(key)!.setVisible(visible);this.chunks.get(key)!.setVisible(visible);this.landChunks.get(key)!.setVisible(visible);this.trailTops.get(key)!.setVisible(visible);
   }
+  for(const part of [...this.boardParts,...this.boundaryParts]){const visible=!this.cullChunks||(part.maxX>=rect.x-margin&&part.minX<=rect.right+margin&&part.maxY>=rect.y-margin&&part.minY<=rect.bottom+margin);for(const g of part.graphics)g.setVisible(visible);}
   perfAdd('step.cull',span);span=perfNow();
   if(this.online){
    this.predictedLine??=this.add.graphics().setDepth(3);this.predictedLine.clear();
@@ -350,12 +355,30 @@ export class GameScene extends Phaser.Scene {
  }
  // The playable map is a board on an indigo table: a thick side below the
  // lethal edge, the edge line itself, then the survivable rim up to the cells.
+ // Board pieces are grouped by render chunk so only those near the camera are drawn (performance PRD:
+ // Graphics are re-triangulated every frame). One depth per pass keeps the single-Graphics layering:
+ // every side under every edge line under every rim.
  private drawBoard():void {
   const map=this.map!,geometry=this.wallMargin?boundaryGeometry(map):null,edges=geometry?.edges??map.boundaryEdges,t=map.side*FIELD.boardThickness;
-  this.board??=this.add.graphics().setDepth(-.1);const g=this.board.clear();
-  g.fillStyle(FIELD.boardSide,1);for(const e of edges)g.fillPoints([e.a,e.b,{x:e.b.x,y:e.b.y+t},{x:e.a.x,y:e.a.y+t}],true);
-  g.lineStyle(12,FIELD.boardEdge,1);for(const e of edges)g.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);
-  if(geometry){g.fillStyle(FIELD.rim,1);for(const poly of geometry.polygons)g.fillPoints(poly,true);}
+  for(const part of this.boardParts)for(const g of part.graphics)g.destroy();this.boardParts=[];
+  const groups=new Map<string,{edges:typeof edges;polys:Vec[][]}>(),group=(points:Vec[])=>{const key=this.edgeChunkKey(points);let g=groups.get(key);if(!g){g={edges:[],polys:[]};groups.set(key,g);}return g;};
+  for(const e of edges)group([e.a,e.b]).edges.push(e);
+  for(const poly of geometry?.polygons??[])group(poly).polys.push(poly);
+  for(const {edges:own,polys}of groups.values()){
+   const side=this.add.graphics().setDepth(-.12).fillStyle(FIELD.boardSide,1),line=this.add.graphics().setDepth(-.11).lineStyle(12,FIELD.boardEdge,1),rim=this.add.graphics().setDepth(-.1).fillStyle(FIELD.rim,1);
+   for(const e of own){side.fillPoints([e.a,e.b,{x:e.b.x,y:e.b.y+t},{x:e.a.x,y:e.a.y+t}],true);line.lineBetween(e.a.x,e.a.y,e.b.x,e.b.y);}
+   for(const poly of polys)rim.fillPoints(poly,true);
+   this.boardParts.push({graphics:[side,line,rim],...bounds([...own.flatMap(e=>[e.a,e.b,{x:e.a.x,y:e.a.y+t},{x:e.b.x,y:e.b.y+t}]),...polys.flat()],8)});
+  }
+ }
+ private boundaryCells:number[]=[];
+ /** Render chunk of the boundary cell nearest to the points' centre (board pieces sit at or outside the edge). */
+ private edgeChunkKey(points:Vec[]):string {
+  const map=this.map!;if(!this.boundaryCells.length)this.boundaryCells=map.cells.filter(c=>c.neighbors.includes(-1)).map(c=>c.id);
+  const x=points.reduce((n,p)=>n+p.x,0)/points.length,y=points.reduce((n,p)=>n+p.y,0)/points.length;
+  let best=this.boundaryCells[0],distance=Infinity;
+  for(const id of this.boundaryCells){const c=map.cells[id].center,d=(c.x-x)**2+(c.y-y)**2;if(d<distance){distance=d;best=id;}}
+  return this.cellChunkKeys[best];
  }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;
