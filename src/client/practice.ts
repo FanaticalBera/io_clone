@@ -6,7 +6,7 @@ import {setWallMargin} from '../shared/wall-margin.js';
 import type {BotVariant} from '../shared/bot-experiment.js';
 import {retryHumanRun} from '../shared/retry.js';
 import {createMatch,stepMatch,buildView} from '../shared/game.js';
-import {botSpecs,createBotMemory,type BotMemory} from '../shared/bot.js';
+import {botSpecs,createGameplayBotMemory,type BotMemory} from '../shared/bot.js';
 import {watchDeaths,type DeathTrace} from '../shared/life.js';
 import type {ShadowOpportunity} from '../shared/bot-opportunity.js';
 import type {MatchState,MatchView,Vec,DirectionInput,Personality} from '../shared/model.js';
@@ -31,7 +31,7 @@ export class PracticeSession {
   this.match=createMatch(this.spectating?{...config,maxSlots:14}:config,seed,participants,matchId,options.gameMode);
   setSafeBotRespawn(this.match,!(import.meta.env.DEV||import.meta.env.MODE==='test')||options.safeBotRespawn!==false);
   if(options.wallMargin!==undefined)setWallMargin(this.match.map,options.wallMargin);
-  for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createBotMemory(botSeed(seed,p.slot),options.botVariant,createBotIdentity(botSeed(seed,p.slot),p.personality!,{secondaryTrait:options.botOverrides?.[p.slot]?.secondaryTrait})));
+  for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createGameplayBotMemory(botSeed(seed,p.slot),options.botVariant,createBotIdentity(botSeed(seed,p.slot),p.personality!,{secondaryTrait:options.botOverrides?.[p.slot]?.secondaryTrait})));
   if(options.diagnostics&&(import.meta.env.DEV||import.meta.env.MODE==='test')){
    this.botDebug=new BotDebugCollector(this.match,this.memories);
    this.diagnosticStops.push(()=>this.botDebug?.dispose());

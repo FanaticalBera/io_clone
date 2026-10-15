@@ -16,6 +16,7 @@ import { normalizeDirection, setMovementNormalCaching } from './movement.js';
 import { botOptions } from './bot-experiment.js';
 import { moveSpeed } from './config.js';
 import { botSteeringTarget } from './bot-steering.js';
+import { setBotEncounterExperiment, ADOPTED_BOT_ENCOUNTER } from './bot-encounter-experiment.js';
 import { evaluateShadowOpportunities, shadowTravelSeconds } from './bot-opportunity.js';
 export function createBotMemory(seed, variant = 'combined', identity) {
     // Independent stream: traits neither consume decision RNG nor change on respawn.
@@ -23,6 +24,14 @@ export function createBotMemory(seed, variant = 'combined', identity) {
     const traits = Object.freeze({ expansionScale: scale(), riskScale: scale(), stealScale: scale() });
     const memory = { schedule: variant === 'combined' ? createBotSchedule(seed) : undefined, reposition: createRepositionState(), identity, traits: identity ? Object.freeze({ expansionScale: identity.individual.expansionScale, riskScale: identity.individual.riskScale, stealScale: identity.individual.stealScale }) : traits, path: [], nextDecisionTick: 0, seq: 0, random, goal: 'EXPAND', lastCell: -1, lastProgressTick: 0, plannedLifeId: 0, attackTarget: null, attackSlot: null, emotion: createBotEmotion(), attackSurvival: false };
     memoryVariants.set(memory, variant);
+    return memory;
+}
+// Single-player, initial room bots, replacements and room-loop recovery share
+// the player-approved explorer policy. Raw memories stay available for controls
+// and HUMAN return-only fallback, without changing action RNG or wire state.
+export function createGameplayBotMemory(seed, variant = 'combined', identity) {
+    const memory = createBotMemory(seed, variant, identity);
+    setBotEncounterExperiment(memory, ADOPTED_BOT_ENCOUNTER);
     return memory;
 }
 const botObservers = new WeakMap();

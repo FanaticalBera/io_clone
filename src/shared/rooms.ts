@@ -8,7 +8,7 @@ import {makeParticipant} from './state.js';
 import {trySpawn} from './spawn.js';
 import {validateConfig,type GameConfig} from './config.js';
 import {createMatch} from './game.js';
-import {botSpecs,createBotMemory,type BotMemory} from './bot.js';
+import {botSpecs,createGameplayBotMemory,type BotMemory} from './bot.js';
 import {botSeed,createBotIdentity} from './bot-identity.js';
 import type {MatchState,DirectionInput} from './model.js';
 import type {Ack,RoomPhase,RoomView} from './protocol.js';
@@ -124,7 +124,7 @@ createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unk
   const humans=members.map((m,slot)=>({participantId:m.memberId,slot,nickname:m.nickname,kind:'HUMAN' as const}));
   const config=this.roomConfig(room),seed=this.seed();room.match=createMatch(config,seed,[...humans,...botSpecs(config.maxSlots-humans.length,humans.length,matchId,{seed,existing:humans})],matchId,room.gameMode);
   setSafeBotRespawn(room.match,true);
-  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!)));
+  this.initializeMatch?.(room.match);room.inputs.clear();room.bots.clear();for(const p of room.match.participants)if(p.kind==='BOT')room.bots.set(p.participantId,createGameplayBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!)));
   room.snapshotSeq=0;room.accumulator=0;room.lastStepAt=at;room.phase='RUNNING';room.phaseDeadline=null;room.revision++;
   for(const member of members){member.session.highestReceivedSeq=0;}
  }
@@ -163,7 +163,7 @@ disconnected(session:S):void {
   const assignmentSeed=botSeed(match.seed,old.slot)^match.tick;
   const template=botSpecs(1,old.slot,match.matchId+'-replacement-'+randomUUID(),{seed:assignmentSeed,existing:match.participants})[0];
   const p=makeParticipant({...template,slot:old.slot});p.respawnAtTick=match.tick;match.participants.push(p);
-  room.bots.set(p.participantId,createBotMemory(assignmentSeed,'combined',createBotIdentity(assignmentSeed,p.personality!)));trySpawn(match,p);
+  room.bots.set(p.participantId,createGameplayBotMemory(assignmentSeed,'combined',createBotIdentity(assignmentSeed,p.personality!)));trySpawn(match,p);
  }
  closeRoom(room:Room<S>):void {
   this.onClosed?.(room);

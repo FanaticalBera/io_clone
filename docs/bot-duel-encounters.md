@@ -1,6 +1,6 @@
-# 봇 대면 행동: 확장형 첫 비교판
+# 봇 대면 행동: 확장형 비교 기록
 
-2026-10-15. 상태는 **실험 중**이다. `codex/bot-duel-encounters`에서 작업하며 master 기본값을 바꾸거나 병합하지 않았다. S24+의 별도 앱 **HEXHOLD 대면테스트**에만 싱글 비교안을 활성화했다.
+2026-10-15. 아래는 `3d24aef`의 첫 비교 실험 기록이다. 당시 S24+의 별도 **HEXHOLD 대면테스트**에만 싱글 비교안을 활성화했다. 이후 숙련자 시연 피드백을 받은 사용자가 B안의 일반 앱 적용·master 병합·push·공유 APK 제작을 승인했다. **최신 적용과 배포 상태는 [확장형 대면 정책 채택 기록](bot-duel-release.md)**을 따른다.
 
 ## 목표와 작업 순서
 
@@ -30,7 +30,7 @@
 
 A와 B를 순차적인 원인 분리로 비교했다. B에서도 노출 꼬리 위협, 꼬리 예산, 조기 폐쇄, 안전 귀환·역절단·공격 예약, 벽 회피는 그대로다. 가까이 있다는 이유의 일괄 축소 대신 이 기존 조건들의 판단을 받게 한다. 공격형·방어형·도둑형에는 두 변경 모두 적용하지 않는다.
 
-`bot-encounter-experiment.ts`의 메모리별 WeakMap에 명시적으로 등록해야 동작한다. 일반 Practice와 LAN은 등록하지 않으며 직렬화·프로토콜 변경도 없다. 정상 앱 기본값을 후보로 바꾼 작업이 아니다.
+`bot-encounter-experiment.ts`의 메모리별 WeakMap에 명시적으로 등록해야 동작한다. 이 실험 당시 일반 Practice와 LAN은 등록하지 않았다. 채택 단계에서는 `createGameplayBotMemory`가 B를 등록하며 Practice·방 시작·퇴장자 대체·RoomLoop 복구에서 공통으로 사용한다. 원본 `createBotMemory`는 역사 비교와 HUMAN return-only용으로 보존한다. 직렬화·프로토콜 변경은 없다.
 
 ## 대면 재현 결과
 
@@ -80,7 +80,7 @@ A와 B를 순차적인 원인 분리로 비교했다. B에서도 노출 꼬리 �
 - 전체 회귀 113파일: 일반 통과 1,107 + 기존 기대 실패 8, 예상 밖 실패 0. 기대 실패를 해결한 것으로 계산하지 않는다.
 - client/server/tests 및 두 새 스크립트 strict 타입 검사 통과. 별도 앱의 client 타입·오프라인 Vite·Android Gradle 빌드 통과.
 
-## 기기 비교판
+## 기기 비교판 — 실험 당시
 
 - 앱: **HEXHOLD 대면테스트**, 패키지 `com.hexhold.game.dueltest`.
 - 파일: `artifacts/bot-duel-20261015/hexhold-duel-explorer.apk`.

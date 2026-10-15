@@ -1,5 +1,5 @@
 import {buildView,stepMatch} from './game.js';
-import {createBotMemory} from './bot.js';
+import {createBotMemory,createGameplayBotMemory} from './bot.js';
 import {getBotInputs} from './bot-director.js';
 import {perfNow,perfAdd} from './perf-sink.js';
 import {botSeed,createBotIdentity} from './bot-identity.js';
@@ -71,7 +71,7 @@ export class RoomLoop<S extends RoomSession> {
       const before=performance.now();const inputs=new Map(room.inputs);room.inputs.clear();
       const selected=new Set<string>(),returnOnly=new Set<string>();
       for(const p of room.match.participants)if(p.lifeState==='ALIVE'&&(p.kind==='BOT'||room.members.get(p.participantId)?.session.background||room.members.get(p.participantId)?.session.connected===false)){
-       let memory=room.bots.get(p.participantId);if(!memory){memory=createBotMemory(botSeed(room.match.seed,p.slot),'combined',p.kind==='BOT'?createBotIdentity(botSeed(room.match.seed,p.slot),p.personality!):undefined);room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);selected.add(p.participantId);if(p.kind==='HUMAN')returnOnly.add(p.participantId);
+       let memory=room.bots.get(p.participantId);if(!memory){const seed=botSeed(room.match.seed,p.slot);memory=p.kind==='BOT'?createGameplayBotMemory(seed,'combined',createBotIdentity(seed,p.personality!)):createBotMemory(seed,'combined');room.bots.set(p.participantId,memory);}memory.seq=Math.max(memory.seq,p.lastAppliedInputSeq);selected.add(p.participantId);if(p.kind==='HUMAN')returnOnly.add(p.participantId);
       }
       let span=perfNow();for(const [id,input]of getBotInputs(room.match,room.bots,selected,returnOnly))inputs.set(id,input);perfAdd('sim.bot',span);
       span=perfNow();stepMatch(room.match,inputs);perfAdd('sim.engine',span);const duration=performance.now()-before;

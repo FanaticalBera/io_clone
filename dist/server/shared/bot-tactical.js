@@ -5,6 +5,7 @@ import { settingsFor, planAttack, earlyClosurePath } from './bot-strategy.js';
 import { returnPath, travelSeconds } from './bot-navigation.js';
 import { botPlanValidity } from './bot-plan-validity.js';
 import { holdingDangerDistance } from './bot-holding-risk.js';
+import { explorerEncounterCommit } from './bot-encounter-experiment.js';
 import { activeExpansionTrailLimit } from './bot-loop-ceiling.js';
 // Existing due-decision order, including interrupt attack evaluation, stays intact.
 export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
@@ -30,7 +31,7 @@ export function runBotTactics(obs, memory, returnOnly, policy, setPath, trace) {
         memory.attackSurvival = attack?.survival ?? false;
     // During danger, a short attack may override retreat only as a survival counter.
     const counterStrike = !!attack && attack.seconds <= 1.25 && obs.ownTrail.length < settings.trailLimit && (!danger || attack.survival);
-    const pressuredExpansion = (memory.goal === 'EXPAND' || memory.goal === 'STEAL') && obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6) && obs.ownTrail.length + memory.path.filter(id => obs.owners[id] !== obs.self.slot + 1).length > 6;
+    const pressuredExpansion = !explorerEncounterCommit(memory, obs.self.personality) && (memory.goal === 'EXPAND' || memory.goal === 'STEAL') && obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6) && obs.ownTrail.length + memory.path.filter(id => obs.owners[id] !== obs.self.slot + 1).length > 6;
     const expanding = memory.goal === 'EXPAND' || memory.goal === 'STEAL';
     const lineDistance = Math.min(...obs.others.flatMap(p => obs.ownTrail.map(id => hexDistance(obs.map.cells[id], obs.map.cells[p.cellId]))));
     if (trace)

@@ -3,7 +3,26 @@ import {PracticeSession} from '../../src/client/practice.js';
 import type {MatchView} from '../../src/shared/model.js';
 import {markDead} from '../../src/shared/life.js';
 import {homeReturnMargin} from '../../src/shared/home-return-margin.js';
+import {createMatch,stepMatch,buildView} from '../../src/shared/game.js';
+import {createBotMemory,type BotMemory} from '../../src/shared/bot.js';
+import {botSeed,createBotIdentity} from '../../src/shared/bot-identity.js';
+import {getBotInputs} from '../../src/shared/bot-director.js';
+import {setBotEncounterExperiment,explorerEncounterCommit} from '../../src/shared/bot-encounter-experiment.js';
+import {setSafeBotRespawn} from '../../src/shared/safe-bot-respawn.js';
 describe('T18: practice lifecycle shares the authoritative core',()=>{
+ it.each([[56,14],[24,4]])('R%s/%s default practice matches the explicitly approved explorer policy',(mapRadius,maxSlots)=>{
+  const seed=4,session=new PracticeSession('P',()=>{},{mapRadius,maxSlots},{seed,matchId:'adopted-duel-'+mapRadius,autoStart:false});
+  const reference=createMatch(session.match.config,seed,session.match.participants,session.match.matchId);setSafeBotRespawn(reference,true);
+  const actual=(session as unknown as {memories:Map<string,BotMemory>}).memories;
+  const memories=new Map(reference.participants.filter(p=>p.kind==='BOT').map(p=>{
+   const memory=createBotMemory(botSeed(seed,p.slot),'combined',createBotIdentity(botSeed(seed,p.slot),p.personality!));setBotEncounterExperiment(memory,'explorer-commit');
+   expect(explorerEncounterCommit(actual.get(p.participantId)!,p.personality)).toBe(p.personality==='EXPAND');return [p.participantId,memory];
+  }));
+  session.advance(0);
+  for(let i=1;i<=90;i++){stepMatch(reference,getBotInputs(reference,memories));session.advance(i*1000/30+.001);}
+  expect(buildView(session.match)).toEqual(buildView(reference));
+  for(const [id,memory]of memories)expect(actual.get(id)!.random()).toBe(memory.random());session.dispose();
+ });
  it('uses the accepted 10-unit home return in normal single-player without test hooks',()=>{
   const session=new PracticeSession('P',()=>{},{},{seed:4,autoStart:false});
   expect(homeReturnMargin(session.match)).toBe(10);expect(session.match.participants).toHaveLength(14);session.dispose();

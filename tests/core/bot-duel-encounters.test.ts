@@ -1,7 +1,7 @@
 import {it,expect} from 'vitest';
 import {createHash} from 'node:crypto';
 import {createMatch,stepMatch} from '../../src/shared/game.js';
-import {createBotMemory,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
+import {createBotMemory,createGameplayBotMemory,observeBot,watchBotDecisions,type BotDecisionTrace} from '../../src/shared/bot.js';
 import {createBotIdentity,botSeed} from '../../src/shared/bot-identity.js';
 import {getBotInputs,botDirector} from '../../src/shared/bot-director.js';
 import {setBotEncounterExperiment,type BotEncounterExperiment} from '../../src/shared/bot-encounter-experiment.js';
@@ -12,18 +12,18 @@ import {setOwner,addTrail,assertOwnershipCounts} from '../../src/shared/territor
 import {hexDistance} from '../../src/shared/hex.js';
 import type {Personality} from '../../src/shared/model.js';
 
-function fixture(role:Personality='EXPAND',gap=0){
+function fixture(role:Personality='EXPAND',gap=0,gameplay=false){
  const m=createMatch({mapRadius:24,maxSlots:4},4,[{participantId:'h',slot:0,nickname:'H',kind:'HUMAN'},{participantId:'b',slot:1,nickname:'B',kind:'BOT',personality:role}]);
  const [human,self]=m.participants,id=(q:number,r=0)=>m.map.byKey.get(q+','+r)!;
  m.owners.fill(0);m.trailMasks.fill(0);
  for(const p of m.participants){p.territoryCount=0;p.trailCells.clear();p.trailOriginCellId=null;p.spawnCells.clear();p.protectedUntilTick=0;}
  for(const c of m.map.cells){if(c.q>=-10&&c.q<=0&&Math.abs(c.r)<=8)setOwner(m,c.id,2);if(c.q>=1+gap&&c.q<=10+gap&&Math.abs(c.r)<=8)setOwner(m,c.id,1);}
  for(const [p,q]of [[self,0],[human,2+gap]] as const){p.cellId=id(q);p.position={...m.map.cells[p.cellId].center};p.direction={x:1,y:0};p.targetDirection=null;p.spawnCells.add(p.cellId);}
- const memory=createBotMemory(botSeed(4,1),'combined',createBotIdentity(botSeed(4,1),role));
+ const memory=(gameplay?createGameplayBotMemory:createBotMemory)(botSeed(4,1),'combined',createBotIdentity(botSeed(4,1),role));
  return {m,human,self,id,memory};
 }
-function run(role:Personality,arm:BotEncounterExperiment|null,gap=0,trace=false){
- const {m,self,human,memory}=fixture(role,gap),memories=new Map([['b',memory]]),hash=createHash('sha256'),external:number[]=[];
+function run(role:Personality,arm:BotEncounterExperiment|null,gap=0,trace=false,gameplay=false){
+ const {m,self,human,memory}=fixture(role,gap,gameplay),memories=new Map([['b',memory]]),hash=createHash('sha256'),external:number[]=[];
  if(arm)setBotEncounterExperiment(memory,arm);
  if(trace)watchBotDecisions(memory,()=>{}, {shadow:false});
  watchBotCandidates(memory,(o,batch)=>{if(batch.kind==='STRATEGY'&&o.others.some(p=>hexDistance(o.map.cells[p.cellId],o.map.cells[o.self.cellId])<=6))for(const c of batch.candidates)if(c.expansion)external.push(c.expansion.externalLength);});
@@ -44,6 +44,11 @@ it.each([0,2])('offers longer explorer candidates with %s neutral gap cells, whi
 it.each(['ATTACK','DEFEND','SEEK_POINT'] as const)('leaves %s trajectories, action RNG and director reservations unchanged',role=>{
  const baseline=run(role,null);
  for(const arm of ['explorer-footprint','explorer-commit'] as const)expect(run(role,arm).proof).toEqual(baseline.proof);
+ expect(run(role,null,0,false,true).proof).toEqual(baseline.proof);
+});
+
+it.each([0,2])('gameplay defaults reproduce the approved B trajectory and RNG with %s neutral gap cells',gap=>{
+ expect(run('EXPAND',null,gap,false,true).proof).toEqual(run('EXPAND','explorer-commit',gap).proof);
 });
 
 it('keeps opt-in decision diagnostics independent of the experiment trajectory and RNG',()=>{

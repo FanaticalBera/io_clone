@@ -1,0 +1,75 @@
+{
+  "status": "approved policy enabled in gameplay entry points; validation complete",
+  "approval": "User requested master merge, push and an APK for sharing after first expert test.",
+  "pilotCommit": "3d24aef",
+  "baseMasterCommit": "6e8af19",
+  "policy": "explorer-commit",
+  "scope": [
+    "single-player Practice",
+    "LAN/shared room initial bots",
+    "departing-human replacement bots",
+    "room-loop BOT memory recovery"
+  ],
+  "preserved": [
+    "other three personalities",
+    "human return-only fallback",
+    "coins",
+    "respawn",
+    "collision and home-return rules",
+    "maps and protocol9",
+    "marker artwork, effects and UI"
+  ],
+  "sourceHashes": {
+    "src/shared/bot.ts": "90051c5061c2ae5cf480518b419df20f7818ecddcac50c3ab17d810995151d8e",
+    "src/shared/bot-encounter-experiment.ts": "83078ef5483f3e7605e50accf8d024d769db20288ccc6c694602f2110dc2e395",
+    "src/shared/bot-strategy.ts": "847c9b82bd5b9d2780abb6d82e52403761944cece098364ae46c438abafb3356",
+    "src/shared/bot-tactical.ts": "2feb7202c41c0e1278ebe1de4c833b6795e1668b47113e5bc1fa6ff8e5204ba8",
+    "src/shared/room-loop.ts": "b40287ba2631b5fa5ffd81bfd9ded3e7d65d25a40724e30b2362f4531469daff",
+    "src/shared/rooms.ts": "9a69d2766dd5067a54f2d7c9648a830a009f1a358d9891aae66b5d1ebda43b25",
+    "src/client/practice.ts": "dd5b7f5e4d8c5f665ba00b349ad08f937d25a3e3067f36f96bca6d9936bf1140"
+  },
+  "approvedPolicyExactMatch": true,
+  "regression": {
+    "files": 113,
+    "total": 1119,
+    "ordinaryPassed": 1111,
+    "expectedFailures": 8,
+    "unexpectedFailures": 0,
+    "pending": 0,
+    "finalExecution": "one worker, explicit 60-second test timeout, no concurrent own builds",
+    "earlierExecution": "two workers while own builds ran: one reference-synchronization test hit its 20-second timeout; targeted run had passed; no application code or assertions were changed to resolve the timeout"
+  },
+  "targeted": {
+    "files": 4,
+    "passed": 48
+  },
+  "builds": [
+    "client/server/tests types",
+    "server compiled build",
+    "web Vite build",
+    "APK-mode Vite offline build",
+    "Capacitor sync",
+    "Android debug build with original portable dependency settings"
+  ],
+  "apk": {
+    "apk": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\artifacts\\bot-duel-master-20261015\\HEXHOLD-20261015-bot-duel.apk",
+    "sha256": "70f31eb6c383b190dd9526cec017b8aa8b849e28803d5ef90b01bbc325d398ee",
+    "verifiedWebFiles": 384,
+    "appId": "com.hexhold.game",
+    "offline": true,
+    "testAppHooksAbsent": true,
+    "adoptedPolicyBundled": true,
+    "applicationLabel": "HEXHOLD",
+    "signed": true,
+    "signerSha256": "2c85295b5d35cf44eddc94f976eb476fef1c29e1ca0f905e98e6de4633428cee",
+    "matchesPreviousNormalApkSigner": true,
+    "vibratePermission": true,
+    "kind": "direct-install debug APK, not store release signing"
+  },
+  "deviceInstallation": "not performed for this general APK; existing games/apps left running",
+  "limitations": [
+    "Expert feedback is one game, not a repeated difficulty study.",
+    "Small-hex bot deaths increased in the prior pilot; user accepted mistakes as part of the intended bot experience.",
+    "New APK two-physical-device LAN and long-session thermal tests not performed."
+  ]
+}

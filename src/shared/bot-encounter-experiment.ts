@@ -1,10 +1,11 @@
 import type {BotMemory} from './bot.js';
 import type {Personality} from './model.js';
 
-// Explicit desktop/test-app opt-in. Normal practice and LAN never enable it.
+// Raw memories retain historical controls; gameplay factories enable the adopted B policy.
 // A: remove the explorer's forced tiny planner footprint near a rival.
 // B: additionally let existing actual trail danger/early closure govern return.
 export type BotEncounterExperiment='explorer-footprint'|'explorer-commit';
+export const ADOPTED_BOT_ENCOUNTER:BotEncounterExperiment='explorer-commit';
 const experiments=new WeakMap<BotMemory,BotEncounterExperiment>();
 export function setBotEncounterExperiment(memory:BotMemory,experiment:BotEncounterExperiment|null):void {
  if(experiment===null)experiments.delete(memory);
