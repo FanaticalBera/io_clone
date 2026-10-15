@@ -7,6 +7,8 @@ const INK=0x1f1b2d,LOSS=0xffa24d,CONFETTI_MS=420;
 /** Capture flip wave above territory, plus local-only ripple, confetti and loss cues. */
 export class TerritoryCaptureEffects {
  readonly model=new TerritoryCaptureModel();
+ /** Premium markers replace the hex confetti with their own capture burst. */
+ themedCapture:(participantId:string)=>boolean=()=>false;
  private map:MapDefinition|null=null;private chunks=new Map<string,RenderChunk>();
  private graphics=new Map<string,Phaser.GameObjects.Graphics>();private drawn=new Set<string>();private overlay?:Phaser.GameObjects.Graphics;
  private points:Vec[]=Array.from({length:6},()=>({x:0,y:0}));
@@ -84,7 +86,7 @@ export class TerritoryCaptureEffects {
    const {x,y}=effect.origin;
    if(elapsed<300){const t=elapsed/300;g.lineStyle(3,INK,.5*(1-t)).strokeCircle(x,y,24+70*t+2).lineStyle(5,0xffffff,.95*(1-t)).strokeCircle(x,y,24+70*t);}
    const t=(elapsed-CAPTURE_WAVE)/CONFETTI_MS;
-   if(t>=0&&t<1&&this.map){
+   if(t>=0&&t<1&&this.map&&!this.themedCapture(effect.participantId)){
     // Bigger captures (1% of the board or more) throw twice the pieces.
     const count=effect.cellCount>=this.map.cells.length/100?12:6,light=(effect.color&0xfefefe)/2+0x7f7f7f|0,r=7*(1-.4*t);
     for(let i=0;i<count;i++){

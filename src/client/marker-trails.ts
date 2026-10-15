@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
 import {markerDefinition} from './catalog.js';
 /**
- * Movement trails for premium markers. Special markers drop a light trail of
- * one particle per step; legendary (gold) markers layer a denser trail.
- * One shared emitter per layer serves every player wearing that marker, and
- * particles are only emitted while a visible marker actually moves.
+ * Premium marker effects. Every special and legendary marker has a themed
+ * capture: a burst at the marker and its particles blooming over the newly
+ * captured tiles as the flip wave passes. Legendary (gold) markers also keep a
+ * soft movement trail. One shared emitter per layer serves every player
+ * wearing that marker; nothing is emitted for off-screen or still markers.
  */
 const INK=0x1f1b2d,TEX=32;
 type Shape='dot'|'star'|'flame'|'petal'|'heart'|'flake'|'ring'|'hex'|'bolt'|'glow'|'bubble';
@@ -79,9 +80,12 @@ function drawShape(g:Phaser.GameObjects.Graphics,shape:Shape):void{
  else for(let i=8;i>0;i--)g.fillStyle(0xffffff,.16).fillCircle(c,c,i*1.9);
 }
 interface Follower {x:number;y:number;markerId:string;seen:number}
+interface Bloom {at:number;markerId:string;x:number;y:number}
+export interface CapturePoint {x:number;y:number;delay:number}
+const isLegendary=(markerId:string)=>markerDefinition(markerId)?.legendary===true;
 export class MarkerTrails {
  private emitters=new Map<string,Phaser.GameObjects.Particles.ParticleEmitter>();
- private followers=new Map<string,Follower>();
+ private followers=new Map<string,Follower>();private blooms:Bloom[]=[];
  constructor(private scene:Phaser.Scene,private depth=4.5){}
  private texture(shape:Shape):string{
   const key='trail:'+shape;if(this.scene.textures.exists(key))return key;
@@ -97,16 +101,46 @@ export class MarkerTrails {
   * step so a crowd of premium markers stays cheap; a jump (respawn) resets.
   */
  follow(id:string,markerId:string,x:number,y:number,local:boolean,now:number):void{
-  const style=TRAIL_STYLES[markerId];if(!style){this.followers.delete(id);return;}
+  const style=TRAIL_STYLES[markerId];if(!style||!isLegendary(markerId)){this.followers.delete(id);return;}
   let f=this.followers.get(id);
   if(!f||f.markerId!==markerId||now-f.seen>250||Math.hypot(x-f.x,y-f.y)>400){this.followers.set(id,{x,y,markerId,seen:now});return;}
-  f.seen=now;const step=style.step*(local?1:1.5),dx=x-f.x,dy=y-f.y,distance=Math.hypot(dx,dy);if(distance<step)return;
+  // Trails stay soft: the capture is the moment that shows off.
+  f.seen=now;const step=style.step*(local?1.6:2.4),dx=x-f.x,dy=y-f.y,distance=Math.hypot(dx,dy);if(distance<step)return;
   const drops=Math.min(3,Math.floor(distance/step));
   for(let i=1;i<=drops;i++){const t=i*step/distance,px=f.x+dx*t,py=f.y+dy*t;
    style.layers.forEach((layer,index)=>this.emitter(markerId,index,layer).emitParticleAt(px+Phaser.Math.Between(-6,6),py+Phaser.Math.Between(-4,8),layer.count??1));
   }
   f.x+=dx*drops*step/distance;f.y+=dy*drops*step/distance;
  }
+ private burstEmitter(markerId:string,index:number,layer:Layer):Phaser.GameObjects.Particles.ParticleEmitter{
+  const key=markerId+':burst'+index;let emitter=this.emitters.get(key);
+  if(!emitter){const scale=layer.config.scale as {start:number;end:number},rising=(layer.config.gravityY as number|undefined??0)<0;
+   emitter=this.scene.add.particles(0,0,this.texture(layer.shape),{...layer.config,scale:{start:scale.start*SIZE*1.25,end:scale.end*SIZE},
+    speed:rising?{min:50,max:120}:{min:110,max:240},angle:{min:-165,max:-15},gravityY:rising?-60:300,lifespan:Math.max(700,Number(layer.config.lifespan)),emitting:false,maxParticles:200}).setDepth(6);
+   this.emitters.set(key,emitter);}
+  return emitter;
+ }
+ /**
+  * A capture by a premium marker: a fountain at the marker now, then the
+  * marker's particles bloom over sampled captured tiles as the wave reaches them.
+  * Others' captures use half the pieces.
+  */
+ capture(markerId:string,origin:{x:number;y:number},cells:readonly CapturePoint[],local:boolean,now:number):boolean{
+  const style=TRAIL_STYLES[markerId];if(!style)return false;
+  const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.max(3,Math.round((legendary?26:12)*scale));
+  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((index?8:legendary?16:10)*scale))));
+  const ordered=[...cells].sort((a,b)=>a.delay-b.delay),stride=Math.max(1,ordered.length/samples);
+  for(let i=0;i<ordered.length&&this.blooms.length<400;i+=stride){const c=ordered[Math.floor(i)];this.blooms.push({at:now+c.delay,markerId,x:c.x,y:c.y});}
+  return true;
+ }
+ /** Emits blooms whose wave time has come; call once per frame. */
+ update(now:number):void{
+  if(!this.blooms.length)return;let kept=0;
+  for(const b of this.blooms){if(b.at>now){this.blooms[kept++]=b;continue;}
+   const style=TRAIL_STYLES[b.markerId];
+   style?.layers.forEach((layer,index)=>this.emitter(b.markerId,index,layer).emitParticleAt(b.x+Phaser.Math.Between(-10,10),b.y+Phaser.Math.Between(-8,8),1));
+  }this.blooms.length=kept;
+ }
  forget(id:string):void{this.followers.delete(id);}
- destroy():void{for(const e of this.emitters.values())e.destroy();this.emitters.clear();this.followers.clear();}
+ destroy():void{for(const e of this.emitters.values())e.destroy();this.emitters.clear();this.followers.clear();this.blooms=[];}
 }
