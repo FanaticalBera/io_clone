@@ -3,7 +3,7 @@ import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Cell,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,CAPTURE_POP,type CaptureBloom} from './territory-capture-model.js';
-import {themedTile,themedEdge,themedRing,type CaptureTheme} from './capture-themes.js';
+import {themedTile,themedEdge,themedEdgeColors,themedRing,themedDelay,tileSpot,type CaptureTheme} from './capture-themes.js';
 const INK=0x1f1b2d,LOSS=0xffa24d,CONFETTI_MS=420;
 /** Capture flip wave above territory, plus local-only ripple, confetti and loss cues. */
 export class TerritoryCaptureEffects {
@@ -12,8 +12,13 @@ export class TerritoryCaptureEffects {
  themedCapture:(participantId:string)=>boolean=()=>false;
  /** Premium markers whose capture colours the land itself (see capture-themes). */
  captureTheme:(participantId:string)=>CaptureTheme|null=()=>null;
- private spans=new WeakMap<CaptureBloom,number>();
- private span(effect:CaptureBloom):number{let max=this.spans.get(effect);if(max===undefined){max=0;for(const cells of effect.chunks.values())for(const c of cells)max=Math.max(max,c.delay);this.spans.set(effect,max);}return max;}
+ private spans=new WeakMap<CaptureBloom,{span:number;radius:number}>();
+ /** Longest wave delay and farthest tile from the origin, for themed wave shapes. */
+ private span(effect:CaptureBloom):{span:number;radius:number}{
+  let s=this.spans.get(effect);if(s)return s;s={span:0,radius:0};
+  for(const cells of effect.chunks.values())for(const c of cells){const p=this.map!.cells[c.id].center;s.span=Math.max(s.span,c.delay);s.radius=Math.max(s.radius,Math.hypot(p.x-effect.origin.x,p.y-effect.origin.y));}
+  this.spans.set(effect,s);return s;
+ }
  private map:MapDefinition|null=null;private chunks=new Map<string,RenderChunk>();
  private graphics=new Map<string,Phaser.GameObjects.Graphics>();private drawn=new Set<string>();private overlay?:Phaser.GameObjects.Graphics;
  private points:Vec[]=Array.from({length:6},()=>({x:0,y:0}));
@@ -55,14 +60,15 @@ export class TerritoryCaptureEffects {
   for(const effect of this.model.effects)for(const [key,cells]of effect.chunks){
    const chunk=this.chunks.get(key)!;
    if(culling&&(chunk.maxX<rect.x-margin||chunk.minX>rect.right+margin||chunk.maxY<rect.y-margin||chunk.minY>rect.bottom+margin))continue;
-   const g=this.graphics.get(key)!,before=this.drawnCells,elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0,theme=this.captureTheme(effect.participantId),span=this.span(effect);
+   const g=this.graphics.get(key)!,before=this.drawnCells,elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0,theme=this.captureTheme(effect.participantId),{span,radius}=this.span(effect);
    for(const cell of cells){
     if(cell.cancelled)continue;
     if(view.owners[cell.id]!==effect.slot+1||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
-    const delay=theme?.inward?span-cell.delay:cell.delay,a=captureAppearance(elapsed,delay,effect.color),c:Cell=this.map.cells[cell.id];
-    const themed=theme&&!(a.pending&&cell.prior)?themedTile(theme,span?delay/span:0,this.map.cells[cell.id].center.x,this.map.cells[cell.id].center.y,elapsed-delay,effect.color):null;
+    const c:Cell=this.map.cells[cell.id],spot=theme?tileSpot(c.center.x,c.center.y,effect.origin,span?cell.delay/span:0,radius):null;
+    const delay=theme&&spot?themedDelay(theme,spot,Math.max(span,200)):cell.delay,a=captureAppearance(elapsed,delay,effect.color);
+    const themed=theme&&spot&&!(a.pending&&cell.prior)?themedTile(theme,spot,elapsed-delay,effect.color):null;
     if(themed){
-     const local=elapsed-delay,p=this.shape(c,local<CAPTURE_POP?a.scale:1,local<CAPTURE_POP?a.lift:0);
+     const local=elapsed-delay,pop=local<CAPTURE_POP?Math.sin(local/CAPTURE_POP*Math.PI):0,p=this.shape(c,1+(themed.pop??.16)*pop,-10*pop);
      g.fillStyle(themed.color,themed.alpha).fillPoints(p,true).lineStyle(2,INK,.45*themed.alpha).strokePoints(p,true);
     }else if(a.alpha>0){
      if(a.pending&&cell.prior){
@@ -78,8 +84,8 @@ export class TerritoryCaptureEffects {
      const v=c.vertices[(6-k)%6],w=c.vertices[(7-k)%6];
      if(theme&&cell.edges&(1<<k)){
       const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
-      const angle=Math.atan2((v.y+w.y)/2-effect.origin.y,(v.x+w.x)/2-effect.origin.x),light=themedEdge(angle,elapsed);
-      if(light>0){const colors=theme.edge(angle);g.lineStyle(5+4*light,colors.line,.95*light).lineBetween(v.x,v.y,w.x,w.y).lineStyle(2.5,colors.core,light).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
+      const angle=Math.atan2((v.y+w.y)/2-effect.origin.y,(v.x+w.x)/2-effect.origin.x),light=themedEdge(theme,angle,elapsed);
+      if(light>0){const colors=themedEdgeColors(theme,angle,effect.color);g.lineStyle(5+4*light,colors.line,.95*light).lineBetween(v.x,v.y,w.x,w.y).lineStyle(2.5,colors.core,light).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
      }else if(a.lineAlpha>0&&cell.edges&(1<<k)){
       const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
       g.lineStyle(a.lineWidth,a.lineColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);
