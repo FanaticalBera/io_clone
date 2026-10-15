@@ -7,6 +7,8 @@ import {packSnapshot,unpackSnapshot} from '../../src/shared/protocol.js';
 import {botSpecs,getBotInput,observeBot,createBotMemory} from '../../src/shared/bot.js';
 import {MAP_PRESETS,mapPreset} from '../../src/shared/map-presets.js';
 import {validateConfig} from '../../src/shared/config.js';
+import {boundaryGeometry,movementCell} from '../../src/shared/wall-margin.js';
+import {traceMovement} from '../../src/shared/movement.js';
 describe('map shapes',()=>{
  it('keeps the hexagon identical: inset is radius minus distance and the default config has no shape key',()=>{
   const map=createMap(56,32);
@@ -44,6 +46,15 @@ describe('map shapes',()=>{
   const count=validateConfig(config).maxSlots,specs=botSpecs(count).map(s=>({...s,kind:'HUMAN' as const})),m=createMatch(config,5,specs,'straight-'+id);
   for(let tick=0;tick<2*m.config.simulationHz;tick++)stepMatch(m,new Map());
   expect(m.participants.filter(p=>p.deathReason==='WALL_HIT').map(p=>p.slot)).toEqual([]);
+ });
+ it('straightens the sawtooth side walls so a player can slide down the rectangle edge',()=>{
+  const map=createMap(56,32,MAP_SHAPE.RECT),edges=boundaryGeometry(map).edges,left=Math.min(...edges.map(e=>Math.min(e.a.x,e.b.x)));
+  const side=edges.filter(e=>Math.max(e.a.x,e.b.x)<left+1);
+  expect(side.every(e=>Math.abs(e.a.x-left)<1e-6&&Math.abs(e.b.x-left)<1e-6)).toBe(true);
+  const ys=map.cells.map(c=>c.center.y),top=Math.min(...ys),bottom=Math.max(...ys),x=left+2;
+  for(let y=top;y<=bottom;y+=3)expect(movementCell(map,{x,y})).toBeGreaterThanOrEqual(0);
+  const start={x,y:top},move=traceMovement(map,start,movementCell(map,start),{x:0,y:1},bottom-top);
+  expect(move.blocked).toBe(false);
  });
  it('falls back to the hexagon for unknown saved choices',()=>{expect(mapPreset('nope').id).toBe('hex');expect(mapPreset('rect').config).toEqual({mapShape:MAP_SHAPE.RECT});});
 });

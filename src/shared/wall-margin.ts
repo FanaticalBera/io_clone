@@ -7,7 +7,25 @@ const overrides=new WeakMap<MapDefinition,boolean>();
 export function setWallMargin(map:MapDefinition,enabled:boolean):void {overrides.set(map,enabled);}
 export function wallMargin(map:MapDefinition):number{return overrides.get(map)===false?0:Math.sqrt(3)*map.side*WALL_MARGIN_FRACTION;}
 const normals=HEX_DIRECTIONS.map(a=>{const p=axialToWorld(a.q,a.r,1),l=Math.hypot(p.x,p.y);return{x:p.x/l,y:p.y/l};});
-function limit(map:MapDefinition,id:number,k:number,margin:number):number{return Math.sqrt(3)*map.side/2+(map.cells[id].neighbors[k]<0?margin:0);}
+// Pointy-top rows step half a cell, so a vertical board edge is a sawtooth of
+// notches. For a notch cell (one open face k, both flanks also open on k) the
+// flanks' faces toward the notch are pushed until their padded faces k meet,
+// and the notch cell reaches the notch apex, so the padded wall runs straight.
+// Values are extra reach in half-cell units beyond the normal padded face.
+const notchCache=new WeakMap<MapDefinition,Map<number,'flank'|'notch'>>();
+function notchFaces(map:MapDefinition):Map<number,'flank'|'notch'>{
+ let faces=notchCache.get(map);if(faces)return faces;faces=new Map();
+ for(const c of map.cells)for(let k=0;k<6;k++){const n=c.neighbors,before=n[(k+5)%6],after=n[(k+1)%6];
+  if(n[k]>=0||before<0||after<0||map.cells[before].neighbors[k]>=0||map.cells[after].neighbors[k]>=0)continue;
+  faces.set(c.id*6+k,'notch');faces.set(before*6+(k+1)%6,'flank');faces.set(after*6+(k+5)%6,'flank');
+ }notchCache.set(map,faces);return faces;
+}
+function limit(map:MapDefinition,id:number,k:number,margin:number):number{
+ const half=Math.sqrt(3)*map.side/2;if(map.cells[id].neighbors[k]>=0)return half;if(!margin)return half;
+ const notch=notchFaces(map).get(id*6+k);return notch==='flank'?2*half+margin:notch==='notch'?2*half:half+margin;
+}
+/** Distance from a cell centre to its padded face k, shared by movement and drawing. */
+export function faceLimit(map:MapDefinition,id:number,k:number):number{return limit(map,id,k,wallMargin(map));}
 function contains(map:MapDefinition,id:number,p:Vec,margin:number):boolean {
  const c=map.cells[id];return normals.every((n,k)=>(p.x-c.center.x)*n.x+(p.y-c.center.y)*n.y<=limit(map,id,k,margin)+1e-10);
 }
@@ -39,15 +57,24 @@ function clippedInterval(map:MapDefinition,id:number,a:Vec,b:Vec,margin:number):
   const t=gap/rate;if(rate>0)hi=Math.min(hi,t);else lo=Math.max(lo,t);if(lo>hi+1e-10)return null;
  }return[Math.max(0,lo),Math.min(1,hi)];
 }
-// Exact outline of the padded-cell union, including concave joins. Shared
-// faces are removed; any newly exposed part of an internal face is retained.
+// Exact outline of the padded-cell union, including concave joins and the
+// overlapping flanks of straightened notches. Each face is split wherever a
+// nearby padded cell starts or stops covering it; a piece is wall when the
+// outside just beyond it is uncovered, and a coincident piece is kept once.
 export function boundaryGeometry(map:MapDefinition):BoundaryGeometry {
  const margin=wallMargin(map),cached=geometryCache.get(map);if(cached?.margin===margin&&cached.side===map.side)return cached.geometry;
- const geometry:BoundaryGeometry={polygons:[],edges:[]};
+ const geometry:BoundaryGeometry={polygons:[],edges:[]},probe=map.side*1e-3;
  for(const c of map.cells){if(!c.neighbors.includes(-1))continue;const v=vertices(map,c.id,margin);geometry.polygons.push(v);
-  for(let k=0;k<6;k++){const a=v[(k+5)%6],b=v[k],neighbor=c.neighbors[k],overlap=neighbor<0?null:clippedInterval(map,neighbor,a,b,margin);
-   const spans=overlap?[[0,overlap[0]],[overlap[1],1]]:[[0,1]];
-   for(const [lo,hi]of spans){if(hi-lo<1e-9)continue;geometry.edges.push({a:{x:a.x+(b.x-a.x)*lo,y:a.y+(b.y-a.y)*lo},b:{x:a.x+(b.x-a.x)*hi,y:a.y+(b.y-a.y)*hi}});}
+  const nearby=new Set<number>();for(const n of c.neighbors)if(n>=0){nearby.add(n);for(const m of map.cells[n].neighbors)if(m>=0&&m!==c.id)nearby.add(m);}
+  for(let k=0;k<6;k++){const a=v[(k+5)%6],b=v[k],dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy);if(length<1e-9)continue;
+   const out={x:normals[k].x*probe,y:normals[k].y*probe},cuts=[0,1];
+   for(const id of nearby){const overlap=clippedInterval(map,id,a,b,margin);if(overlap)cuts.push(overlap[0],overlap[1]);}
+   cuts.sort((x,y)=>x-y);let open:number|null=null,last=0;
+   const flush=(t:number)=>{if(open!==null&&t-open>1e-9)geometry.edges.push({a:{x:a.x+dx*open,y:a.y+dy*open},b:{x:a.x+dx*t,y:a.y+dy*t}});open=null;};
+   for(let i=1;i<cuts.length;i++){const lo=cuts[i-1],hi=cuts[i];if(hi-lo<1e-9)continue;const t=(lo+hi)/2,p={x:a.x+dx*t,y:a.y+dy*t};
+    let wall=true;for(const id of nearby){if(contains(map,id,{x:p.x+out.x,y:p.y+out.y},margin)||(id<c.id&&contains(map,id,{x:p.x-out.x,y:p.y-out.y},margin))){wall=false;break;}}
+    if(wall){open??=lo;last=hi;}else flush(lo);
+   }flush(last);
   }
  }geometryCache.set(map,{margin,side:map.side,geometry});return geometry;
 }

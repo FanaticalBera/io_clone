@@ -1,5 +1,5 @@
 import { HEX_EPS,MAX_ENTRY_EVENTS,moveSpeed,type GameConfig } from './config.js';
-import {wallMargin,movementCell} from './wall-margin.js';
+import {faceLimit,movementCell} from './wall-margin.js';
 import { HEX_DIRECTIONS,axialToWorld } from './hex.js';
 import type { MapDefinition,Vec } from './model.js';
 export interface CellEntry { t:number; cellId:number; position:Vec }
@@ -45,18 +45,18 @@ export function traceMovement(map:MapDefinition,start:Vec,startCell:number,direc
  if(distance===0)return {position:{...start},cellId:startCell,entries:[],blocked:false,boundaryT:null};
  const delta={x:normalized.x*distance,y:normalized.y*distance}, entries:CellEntry[]=[];
  const at=(t:number)=>({x:start.x+delta.x*t,y:start.y+delta.y*t});
- const epsilon=HEX_EPS*4/distance, half=Math.sqrt(3)*map.side/2;
+ const epsilon=HEX_EPS*4/distance;
  let cellId=startCell, t=0;
  const startProbe=movementCell(map,at(epsilon));
  if(startProbe<0)return {position:{...start},cellId,entries,blocked:true,boundaryT:0};
  if(startProbe!==cellId){cellId=startProbe;entries.push({t:0,cellId,position:{...start}});}
- const normals=movementNormals(map),margin=wallMargin(map);
+ const normals=movementNormals(map);
  for(let count=0;count<=MAX_ENTRY_EVENTS;count++){
   const center=map.cells[cellId].center;
   let crossing=Infinity;
   for(let k=0;k<normals.length;k++){const n=normals[k];
    const denominator=delta.x*n.x+delta.y*n.y;if(denominator<=1e-12)continue;
-   const extent=half+(map.cells[cellId].neighbors[k]<0?margin:0);
+   const extent=faceLimit(map,cellId,k);
    const candidate=(extent-(start.x-center.x)*n.x-(start.y-center.y)*n.y)/denominator;
    if(candidate>=t-epsilon && candidate<crossing)crossing=Math.max(t,candidate);
   }
