@@ -352,6 +352,8 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .shop-fx-scenes{display:flex;gap:6px;justify-content:center}
 .shop-fx-scenes .chip{height:26px;min-height:0;line-height:1;display:inline-flex;align-items:center;padding:0 12px;border:2.5px solid var(--ink);border-radius:10px;background:#fff;font:400 14px var(--display);color:var(--ink);cursor:pointer}
 .shop-fx-scenes .chip[aria-pressed=true]{background:var(--ink);color:var(--sun)}
-.shop-fx-scenes[hidden]{display:none}
+/* Keep the chip row's space when a marker has one scene, so the board does not resize. */
+.shop-fx-scenes.single{visibility:hidden}
 .shop-detail>strong,.shop-detail>small{flex:none}
+.shop-detail>small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 @media(orientation:landscape) and (max-height:340px){.shop-fx-board{min-height:70px}.shop-fx{gap:4px;margin-bottom:2px}.shop-fx-scenes .chip{height:22px;padding:0 9px;font-size:13px}}

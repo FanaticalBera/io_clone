@@ -82,7 +82,7 @@ export class ShopUI {
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
     this.showEffects(this.kind==='marker'?product.id:'');
     const reward='reward'in product?product.reward:undefined;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':reward?(reward==='ALL'?'판매 마커를 전부':CATEGORY_LABELS[reward]+' 마커를 모두')+' 모으면 받는 전용 마커':('legendary'in product&&product.legendary)?'전설 · 점령·처치·죽음 이펙트':('category'in product&&product.category==='SPECIAL')?'스페셜 · 점령 이펙트 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':reward?(reward==='ALL'?'판매 마커를 전부':CATEGORY_LABELS[reward]+' 마커를 모두')+' 모으면 받는 전용 마커':('legendary'in product&&product.legendary)?'전설 · 점령·처치·죽음 이펙트':('category'in product&&product.category==='SPECIAL')?'스페셜 · 점령 이펙트':'몸통에 내 색상이 칠해져요';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;
@@ -97,7 +97,7 @@ export class ShopUI {
     get('shop-pedestal').hidden=scenes.length>0;get('shop-fx').hidden=!scenes.length;
     if(!scenes.length){this.effects.hide();this.effectsFor='';return;}
     if(this.effectsFor!==markerId||!scenes.includes(this.scene)){this.scene='capture';this.effectsFor=markerId;}
-    const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};nav.replaceChildren();nav.hidden=scenes.length<2;
+    const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};nav.replaceChildren();nav.classList.toggle('single',scenes.length<2);
     for(const scene of scenes){const chip=document.createElement('button');chip.className='chip';chip.textContent=labels[scene];chip.setAttribute('aria-pressed',String(scene===this.scene));
       chip.addEventListener('click',()=>{this.scene=scene;this.showEffects(markerId);});nav.append(chip);}
     const color=markerArt(this.appearance(markerId),this.slotColor,true).bodyColor;
