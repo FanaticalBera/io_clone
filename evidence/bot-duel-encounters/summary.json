@@ -1,0 +1,686 @@
+{
+  "status": "EXPERIMENTAL: installed in a separate single-player APK; no default activation or master merge",
+  "baselineCommit": "6e8af19cf314529334bf0faf15527699d156dff8",
+  "definitions": {
+    "case": "4 action/identity seeds x 2 board radii x 4 personalities x 5 human routes = 160 cases per arm; max 30 simulated seconds, first death stops the case",
+    "window": "Alive bot has >=4 trail cells and at least one is within 6 hex cells of the alive human. A descriptive opportunity proxy, not a verified cut ETA or player fun score.",
+    "independence": "The same centered territory layout is used at both radii; duplicate trajectories occur. These are paired fixtures, not 160 independent human playtests.",
+    "human": "Physical waypoint steering, all ordinary collisions/captures/deaths enabled. Patrol routes do not actively hunt bot tails. The exposed-loop route tests existing interception.",
+    "initialRejectedHarness": "The first dynamic closest-owned-cell pressure controller caused a human self-cut at tick10; its outputs are excluded. V2 uses reproducible wide/tight waypoint patrols."
+  },
+  "manifest": {
+    "bot-strategy.ts": "71fe0258094af3894e880f2108d27cb272b93ab7ab87f5ecdf8d3ded8a40097b",
+    "bot-tactical.ts": "46746907772d039b812ac3bd0d061aa43546cf69767115ce158f6cb7abcca211",
+    "bot-immediate-safety.ts": "3a6abc907c7f55acd1344386eca1014c56f97816dc3d4875ee2161eb85bbef4e",
+    "bot.ts": "0f631e1458aaf130516fd30520e74ca608597564df3c5521684cb5ec63f6990c",
+    "config.ts": "484b4d89b7abf166a0490ec2563cc39e718f3b817e975ef295ea79603205c6d6",
+    "home-return-margin.ts": "66477e9207b6b87f98b70b65604e5d6147ab788b374be033f2c251822173ecdc"
+  },
+  "candidateManifest": {
+    "bot-strategy.ts": "847c9b82bd5b9d2780abb6d82e52403761944cece098364ae46c438abafb3356",
+    "bot-tactical.ts": "2feb7202c41c0e1278ebe1de4c833b6795e1668b47113e5bc1fa6ff8e5204ba8",
+    "bot-immediate-safety.ts": "3a6abc907c7f55acd1344386eca1014c56f97816dc3d4875ee2161eb85bbef4e",
+    "bot.ts": "0f631e1458aaf130516fd30520e74ca608597564df3c5521684cb5ec63f6990c",
+    "config.ts": "484b4d89b7abf166a0490ec2563cc39e718f3b817e975ef295ea79603205c6d6",
+    "home-return-margin.ts": "66477e9207b6b87f98b70b65604e5d6147ab788b374be033f2c251822173ecdc",
+    "bot-encounter-experiment.ts": "6054ef3830750dfeb83db3044f52430ff0566814e3618af0ab4ac9af8021def4"
+  },
+  "equivalence": {
+    "defaultAgainstBaselineCases": 40,
+    "candidateObserverOnOffCases": 40,
+    "unchangedNonExplorerCases": 120,
+    "pairedArmsChecked": 2,
+    "allEqual": true
+  },
+  "encounters": [
+    {
+      "arm": "baseline",
+      "explorer": {
+        "role": "EXPAND",
+        "cases": 40,
+        "ticks": 27884,
+        "nearTicks": 3719,
+        "nearTrailTicks": 1460,
+        "readableTrailTicks": 784,
+        "nearChosenPlans": 189,
+        "nearSmallPlans": 7,
+        "nearLongerPlans": 114,
+        "botDeaths": 2,
+        "humanDeaths": 8
+      }
+    },
+    {
+      "arm": "explorer-footprint",
+      "explorer": {
+        "role": "EXPAND",
+        "cases": 40,
+        "ticks": 28348,
+        "nearTicks": 5241,
+        "nearTrailTicks": 1604,
+        "readableTrailTicks": 973,
+        "nearChosenPlans": 628,
+        "nearSmallPlans": 10,
+        "nearLongerPlans": 612,
+        "botDeaths": 2,
+        "humanDeaths": 8
+      }
+    },
+    {
+      "arm": "explorer-commit",
+      "explorer": {
+        "role": "EXPAND",
+        "cases": 40,
+        "ticks": 25876,
+        "nearTicks": 4656,
+        "nearTrailTicks": 2287,
+        "readableTrailTicks": 2151,
+        "nearChosenPlans": 152,
+        "nearSmallPlans": 2,
+        "nearLongerPlans": 142,
+        "botDeaths": 4,
+        "humanDeaths": 8
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "scene": "contact-patrol",
+      "arms": [
+        {
+          "arm": "baseline",
+          "cases": 8,
+          "aliveTicks": 5516,
+          "tail4Within6Ticks": 170,
+          "windowPer100AliveTicks": 3.0819434372733867,
+          "nearTrailTicks": 370,
+          "botDeaths": 2,
+          "humanDeaths": 0,
+          "captures": 72
+        },
+        {
+          "arm": "explorer-footprint",
+          "cases": 8,
+          "aliveTicks": 6186,
+          "tail4Within6Ticks": 270,
+          "windowPer100AliveTicks": 4.364694471387003,
+          "nearTrailTicks": 316,
+          "botDeaths": 2,
+          "humanDeaths": 0,
+          "captures": 88
+        },
+        {
+          "arm": "explorer-commit",
+          "cases": 8,
+          "aliveTicks": 5516,
+          "tail4Within6Ticks": 610,
+          "windowPer100AliveTicks": 11.058738216098622,
+          "nearTrailTicks": 708,
+          "botDeaths": 2,
+          "humanDeaths": 0,
+          "captures": 65
+        }
+      ]
+    },
+    {
+      "scene": "neutral-gap-patrol",
+      "arms": [
+        {
+          "arm": "baseline",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 292,
+          "windowPer100AliveTicks": 4.055555555555555,
+          "nearTrailTicks": 420,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 106
+        },
+        {
+          "arm": "explorer-footprint",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 355,
+          "windowPer100AliveTicks": 4.930555555555555,
+          "nearTrailTicks": 286,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 94
+        },
+        {
+          "arm": "explorer-commit",
+          "cases": 8,
+          "aliveTicks": 5530,
+          "tail4Within6Ticks": 326,
+          "windowPer100AliveTicks": 5.895117540687161,
+          "nearTrailTicks": 262,
+          "botDeaths": 2,
+          "humanDeaths": 0,
+          "captures": 69
+        }
+      ]
+    },
+    {
+      "scene": "contact-tight-patrol",
+      "arms": [
+        {
+          "arm": "baseline",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 116,
+          "windowPer100AliveTicks": 1.6111111111111112,
+          "nearTrailTicks": 210,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 83
+        },
+        {
+          "arm": "explorer-footprint",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 148,
+          "windowPer100AliveTicks": 2.0555555555555554,
+          "nearTrailTicks": 450,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 121
+        },
+        {
+          "arm": "explorer-commit",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 816,
+          "windowPer100AliveTicks": 11.333333333333334,
+          "nearTrailTicks": 904,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 84
+        }
+      ]
+    },
+    {
+      "scene": "neutral-gap-tight-patrol",
+      "arms": [
+        {
+          "arm": "baseline",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 148,
+          "windowPer100AliveTicks": 2.0555555555555554,
+          "nearTrailTicks": 318,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 101
+        },
+        {
+          "arm": "explorer-footprint",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 172,
+          "windowPer100AliveTicks": 2.388888888888889,
+          "nearTrailTicks": 508,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 142
+        },
+        {
+          "arm": "explorer-commit",
+          "cases": 8,
+          "aliveTicks": 7200,
+          "tail4Within6Ticks": 325,
+          "windowPer100AliveTicks": 4.513888888888889,
+          "nearTrailTicks": 331,
+          "botDeaths": 0,
+          "humanDeaths": 0,
+          "captures": 78
+        }
+      ]
+    },
+    {
+      "scene": "exposed-loop",
+      "arms": [
+        {
+          "arm": "baseline",
+          "cases": 8,
+          "aliveTicks": 768,
+          "tail4Within6Ticks": 58,
+          "windowPer100AliveTicks": 7.552083333333333,
+          "nearTrailTicks": 142,
+          "botDeaths": 0,
+          "humanDeaths": 8,
+          "captures": 12
+        },
+        {
+          "arm": "explorer-footprint",
+          "cases": 8,
+          "aliveTicks": 562,
+          "tail4Within6Ticks": 28,
+          "windowPer100AliveTicks": 4.98220640569395,
+          "nearTrailTicks": 44,
+          "botDeaths": 0,
+          "humanDeaths": 8,
+          "captures": 8
+        },
+        {
+          "arm": "explorer-commit",
+          "cases": 8,
+          "aliveTicks": 430,
+          "tail4Within6Ticks": 74,
+          "windowPer100AliveTicks": 17.209302325581394,
+          "nearTrailTicks": 82,
+          "botDeaths": 0,
+          "humanDeaths": 8,
+          "captures": 2
+        }
+      ]
+    }
+  ],
+  "crowd": [
+    {
+      "layout": "standard",
+      "arms": [
+        {
+          "arm": "baseline",
+          "seeds": 8,
+          "deaths": 33,
+          "walls": 0,
+          "meanTerritoryPerBot": 164.53452876984127,
+          "captures": 2529
+        },
+        {
+          "arm": "explorer-footprint",
+          "seeds": 8,
+          "deaths": 28,
+          "walls": 0,
+          "meanTerritoryPerBot": 164.13703373015872,
+          "captures": 2532
+        },
+        {
+          "arm": "explorer-commit",
+          "seeds": 8,
+          "deaths": 31,
+          "walls": 0,
+          "meanTerritoryPerBot": 161.50778273809522,
+          "captures": 2497
+        }
+      ]
+    },
+    {
+      "layout": "mini",
+      "arms": [
+        {
+          "arm": "baseline",
+          "seeds": 8,
+          "deaths": 13,
+          "walls": 0,
+          "meanTerritoryPerBot": 114.52935763888891,
+          "captures": 888
+        },
+        {
+          "arm": "explorer-footprint",
+          "seeds": 8,
+          "deaths": 13,
+          "walls": 0,
+          "meanTerritoryPerBot": 113.14010416666666,
+          "captures": 863
+        },
+        {
+          "arm": "explorer-commit",
+          "seeds": 8,
+          "deaths": 16,
+          "walls": 0,
+          "meanTerritoryPerBot": 125.54739583333334,
+          "captures": 807
+        }
+      ]
+    }
+  ],
+  "regression": {
+    "files": 113,
+    "reportedPassed": 1115,
+    "unexpectedFailed": 0,
+    "existingExpectedFailures": 8,
+    "ordinaryPassed": 1107,
+    "typechecks": "client/server/tests plus both audit scripts passed",
+    "newBehaviorTests": 9
+  },
+  "apk": {
+    "package": "com.hexhold.game.dueltest",
+    "label": "HEXHOLD 대면테스트",
+    "sha256": "B3DF2AB3D7834E987FABBAD8C96ED809304D9DAFB51EA39E270A0DBF7441E350",
+    "installedModel": "SM-S926N",
+    "installed": true,
+    "homeVerified": true,
+    "singlePlayerOnly": true,
+    "automaticDiagnosticObservers": false
+  },
+  "limitations": [
+    "Only EXPAND changes in this first pilot; the other three personalities keep their isolated duel trajectories.",
+    "No human assessment of the installed candidate, LAN candidate activation or Android long-session thermal test yet.",
+    "The crowd-v1 cost values were exploratory and are excluded from this summary; use the separate controlled repetition report.",
+    "This does not prove all personalities or all map shapes are fixed."
+  ],
+  "controlled": [
+    {
+      "layout": "standard",
+      "arms": [
+        {
+          "arm": "baseline",
+          "runs": 8,
+          "meanMs": 2.5204179166667036,
+          "medianRunMeanMs": 2.3577358333335723,
+          "p95Ms": 9.250012499999002,
+          "seeds": [
+            {
+              "seed": 4,
+              "repeat": 0,
+              "mean": 2.550310242424249,
+              "hash": "f1812afef865b41d73b17b5848948419ea22fd778cfd8633ff01015d304d10a5",
+              "deaths": 10,
+              "meanTerritory": 215.94261904761905
+            },
+            {
+              "seed": 19,
+              "repeat": 0,
+              "mean": 3.552103333333397,
+              "hash": "aaae44aac81f73c77a326f37aaeab57f840b06a606d295f2229505122ee62e16",
+              "deaths": 12,
+              "meanTerritory": 212.08303571428573
+            },
+            {
+              "seed": 73,
+              "repeat": 0,
+              "mean": 3.284446363636294,
+              "hash": "3ae239643c5c36db0a88dffdf3cb452c502bd50cd4b8da0e0e9eef07c76ec0dd",
+              "deaths": 8,
+              "meanTerritory": 220.5775
+            },
+            {
+              "seed": 137,
+              "repeat": 0,
+              "mean": 2.1049449696966445,
+              "hash": "073be01b10acbb170221fa81b1188a2697e2cfd7eed149b33eb2206357b669b6",
+              "deaths": 8,
+              "meanTerritory": 244.94859126984127
+            },
+            {
+              "seed": 4,
+              "repeat": 1,
+              "mean": 2.3294565454545997,
+              "hash": "f1812afef865b41d73b17b5848948419ea22fd778cfd8633ff01015d304d10a5",
+              "deaths": 10,
+              "meanTerritory": 215.94261904761905
+            },
+            {
+              "seed": 19,
+              "repeat": 1,
+              "mean": 1.989083818182037,
+              "hash": "aaae44aac81f73c77a326f37aaeab57f840b06a606d295f2229505122ee62e16",
+              "deaths": 12,
+              "meanTerritory": 212.08303571428573
+            },
+            {
+              "seed": 73,
+              "repeat": 1,
+              "mean": 2.386015121212545,
+              "hash": "3ae239643c5c36db0a88dffdf3cb452c502bd50cd4b8da0e0e9eef07c76ec0dd",
+              "deaths": 8,
+              "meanTerritory": 220.5775
+            },
+            {
+              "seed": 137,
+              "repeat": 1,
+              "mean": 1.966982939393863,
+              "hash": "073be01b10acbb170221fa81b1188a2697e2cfd7eed149b33eb2206357b669b6",
+              "deaths": 8,
+              "meanTerritory": 244.94859126984127
+            }
+          ]
+        },
+        {
+          "arm": "explorer-commit",
+          "runs": 8,
+          "meanMs": 2.299634727272802,
+          "medianRunMeanMs": 2.124079106060625,
+          "p95Ms": 8.506874999997308,
+          "seeds": [
+            {
+              "seed": 4,
+              "repeat": 0,
+              "mean": 2.5447787272727393,
+              "hash": "4f13b24752793a7b45b708eb3fe4cc16d58b4f9b17bea07ed8689f57f722f494",
+              "deaths": 14,
+              "meanTerritory": 206.99478174603175
+            },
+            {
+              "seed": 19,
+              "repeat": 0,
+              "mean": 2.6963127272726695,
+              "hash": "89d958eb7262a0485892110eefb41c3a86acd6ad11f2dc73f1fd68a495748aee",
+              "deaths": 12,
+              "meanTerritory": 224.4021626984127
+            },
+            {
+              "seed": 73,
+              "repeat": 0,
+              "mean": 2.925815939393995,
+              "hash": "cf16c5b5966f2478b68b7b74c044c48034622fd1b846011a0386b3da2020fbea",
+              "deaths": 10,
+              "meanTerritory": 236.34049603174603
+            },
+            {
+              "seed": 137,
+              "repeat": 0,
+              "mean": 2.1112943333333094,
+              "hash": "ea0a0c48c5a64640e6795ad3de17f3cb34fcb8c0afd1ecb8ce0427c9b55b3f3b",
+              "deaths": 9,
+              "meanTerritory": 250.69164682539682
+            },
+            {
+              "seed": 4,
+              "repeat": 1,
+              "mean": 2.1368638787879415,
+              "hash": "4f13b24752793a7b45b708eb3fe4cc16d58b4f9b17bea07ed8689f57f722f494",
+              "deaths": 14,
+              "meanTerritory": 206.99478174603175
+            },
+            {
+              "seed": 19,
+              "repeat": 1,
+              "mean": 2.0005762727272383,
+              "hash": "89d958eb7262a0485892110eefb41c3a86acd6ad11f2dc73f1fd68a495748aee",
+              "deaths": 12,
+              "meanTerritory": 224.4021626984127
+            },
+            {
+              "seed": 73,
+              "repeat": 1,
+              "mean": 1.979362787878931,
+              "hash": "cf16c5b5966f2478b68b7b74c044c48034622fd1b846011a0386b3da2020fbea",
+              "deaths": 10,
+              "meanTerritory": 236.34049603174603
+            },
+            {
+              "seed": 137,
+              "repeat": 1,
+              "mean": 2.002073151515594,
+              "hash": "ea0a0c48c5a64640e6795ad3de17f3cb34fcb8c0afd1ecb8ce0427c9b55b3f3b",
+              "deaths": 9,
+              "meanTerritory": 250.69164682539682
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layout": "mini",
+      "arms": [
+        {
+          "arm": "baseline",
+          "runs": 8,
+          "meanMs": 0.40980088257578606,
+          "medianRunMeanMs": 0.4137490454545045,
+          "p95Ms": 1.410487500002091,
+          "seeds": [
+            {
+              "seed": 4,
+              "repeat": 0,
+              "mean": 0.4809615151515468,
+              "hash": "85312bcbb75999048bdd6d63f3e8790b867b54e199599ea60e597e08f823bae9",
+              "deaths": 3,
+              "meanTerritory": 164.43173611111112
+            },
+            {
+              "seed": 19,
+              "repeat": 0,
+              "mean": 0.4706785151514685,
+              "hash": "f006b7190a210e9a7c75198f4eef4516fcf81ca9aee5777a4964410aafbdf4a8",
+              "deaths": 6,
+              "meanTerritory": 150.75895833333334
+            },
+            {
+              "seed": 73,
+              "repeat": 0,
+              "mean": 0.4298851515151865,
+              "hash": "ec324961cb872b3b57561ffb1ae55b2aedcd6b3e0f68ed763e63dd8a3f17f375",
+              "deaths": 6,
+              "meanTerritory": 131.98881944444443
+            },
+            {
+              "seed": 137,
+              "repeat": 0,
+              "mean": 0.37368469696968204,
+              "hash": "c0c9773e5b5cc236e4329ef7ee2d8a1a9474fa756021ff4b674be443f25cb1d8",
+              "deaths": 4,
+              "meanTerritory": 153.39416666666668
+            },
+            {
+              "seed": 4,
+              "repeat": 1,
+              "mean": 0.338508030303051,
+              "hash": "85312bcbb75999048bdd6d63f3e8790b867b54e199599ea60e597e08f823bae9",
+              "deaths": 3,
+              "meanTerritory": 164.43173611111112
+            },
+            {
+              "seed": 19,
+              "repeat": 1,
+              "mean": 0.4231043939393677,
+              "hash": "f006b7190a210e9a7c75198f4eef4516fcf81ca9aee5777a4964410aafbdf4a8",
+              "deaths": 6,
+              "meanTerritory": 150.75895833333334
+            },
+            {
+              "seed": 73,
+              "repeat": 1,
+              "mean": 0.40439369696964134,
+              "hash": "ec324961cb872b3b57561ffb1ae55b2aedcd6b3e0f68ed763e63dd8a3f17f375",
+              "deaths": 6,
+              "meanTerritory": 131.98881944444443
+            },
+            {
+              "seed": 137,
+              "repeat": 1,
+              "mean": 0.35719106060634437,
+              "hash": "c0c9773e5b5cc236e4329ef7ee2d8a1a9474fa756021ff4b674be443f25cb1d8",
+              "deaths": 4,
+              "meanTerritory": 153.39416666666668
+            }
+          ]
+        },
+        {
+          "arm": "explorer-commit",
+          "runs": 8,
+          "meanMs": 0.4308546060606309,
+          "medianRunMeanMs": 0.4087980606061341,
+          "p95Ms": 1.4549750000014683,
+          "seeds": [
+            {
+              "seed": 4,
+              "repeat": 0,
+              "mean": 0.47672396969700814,
+              "hash": "baac0d73321830824abe4628f07db8e5963fb3cf24fbff3a86e8dd3d0db3954b",
+              "deaths": 4,
+              "meanTerritory": 135.54229166666667
+            },
+            {
+              "seed": 19,
+              "repeat": 0,
+              "mean": 0.5864148181819143,
+              "hash": "1cfba5d2b25c37fa908cf340666abf411b4b89f9bf6533eb9f8e5a261f355540",
+              "deaths": 4,
+              "meanTerritory": 171.71166666666667
+            },
+            {
+              "seed": 73,
+              "repeat": 0,
+              "mean": 0.45087915151527286,
+              "hash": "5037e9f252a2fe5859bea35530d3e850f821750798c410c1e6cb9006a78be50c",
+              "deaths": 4,
+              "meanTerritory": 134.80055555555555
+            },
+            {
+              "seed": 137,
+              "repeat": 0,
+              "mean": 0.40955387878781147,
+              "hash": "f0d43fdc528292b31eff6a9b838ddf558e1ef359affcb8c1002e4cfd3a477d6a",
+              "deaths": 8,
+              "meanTerritory": 175.69395833333334
+            },
+            {
+              "seed": 4,
+              "repeat": 1,
+              "mean": 0.39371978787866696,
+              "hash": "baac0d73321830824abe4628f07db8e5963fb3cf24fbff3a86e8dd3d0db3954b",
+              "deaths": 4,
+              "meanTerritory": 135.54229166666667
+            },
+            {
+              "seed": 19,
+              "repeat": 1,
+              "mean": 0.406886575757764,
+              "hash": "1cfba5d2b25c37fa908cf340666abf411b4b89f9bf6533eb9f8e5a261f355540",
+              "deaths": 4,
+              "meanTerritory": 171.71166666666667
+            },
+            {
+              "seed": 73,
+              "repeat": 1,
+              "mean": 0.40804224242445675,
+              "hash": "5037e9f252a2fe5859bea35530d3e850f821750798c410c1e6cb9006a78be50c",
+              "deaths": 4,
+              "meanTerritory": 134.80055555555555
+            },
+            {
+              "seed": 137,
+              "repeat": 1,
+              "mean": 0.31461642424215275,
+              "hash": "f0d43fdc528292b31eff6a9b838ddf558e1ef359affcb8c1002e4cfd3a477d6a",
+              "deaths": 8,
+              "meanTerritory": 175.69395833333334
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "controlledConditions": {
+    "seeds": [
+      4,
+      19,
+      73,
+      137
+    ],
+    "ticks": 3600,
+    "repeats": 2,
+    "armNames": [
+      "baseline",
+      "explorer-commit"
+    ],
+    "layouts": [
+      "standard",
+      "mini"
+    ],
+    "warmup": "360 ticks per implementation; first 300 ticks excluded per measured run",
+    "measurement": "observer-free CPU simulation; rendering, Android thermal and human gameplay not measured"
+  }
+}

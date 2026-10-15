@@ -10,6 +10,7 @@ import {PROTOCOL_VERSION} from '../../src/shared/config.js';
 import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
 import {homeReturnMargin} from '../../src/shared/home-return-margin.js';
 import {MAP_PRESETS} from '../../src/shared/map-presets.js';
+import {explorerEncounterCommit} from '../../src/shared/bot-encounter-experiment.js';
 
 const CODE='NPQYMBM6';
 const flush=async(times=4)=>{for(let i=0;i<times;i++)await new Promise(r=>setTimeout(r,0));};
@@ -58,6 +59,7 @@ describe('L08–L10: LAN host over frame channels',()=>{
   expect(f.hostClient.rec.ready&&f.guests[0]!.rec.ready).toBe(true);
   expect(match.participants.filter(p=>p.kind==='HUMAN')).toHaveLength(2);
   expect(match.participants.filter(p=>p.kind==='BOT')).toHaveLength(12);
+  for(const p of match.participants.filter(p=>p.kind==='BOT'))expect(explorerEncounterCommit(f.room.bots.get(p.participantId)!,p.personality)).toBe(p.personality==='EXPAND');
   for(const c of [f.hostClient,f.guests[0]!]){
    expect(c.inits).toHaveLength(1);const self=c.inits[0]!.selfParticipantId;
    expect(match.participants.find(p=>p.participantId===self)?.kind).toBe('HUMAN');

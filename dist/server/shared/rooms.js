@@ -8,7 +8,7 @@ import { makeParticipant } from './state.js';
 import { trySpawn } from './spawn.js';
 import { validateConfig } from './config.js';
 import { createMatch } from './game.js';
-import { botSpecs, createBotMemory } from './bot.js';
+import { botSpecs, createGameplayBotMemory } from './bot.js';
 import { botSeed, createBotIdentity } from './bot-identity.js';
 import { normalizeNickname } from './names.js';
 const randomUUID = () => crypto.randomUUID();
@@ -210,7 +210,7 @@ export class RoomManager {
         room.bots.clear();
         for (const p of room.match.participants)
             if (p.kind === 'BOT')
-                room.bots.set(p.participantId, createBotMemory(botSeed(seed, p.slot), 'combined', createBotIdentity(botSeed(seed, p.slot), p.personality)));
+                room.bots.set(p.participantId, createGameplayBotMemory(botSeed(seed, p.slot), 'combined', createBotIdentity(botSeed(seed, p.slot), p.personality)));
         room.snapshotSeq = 0;
         room.accumulator = 0;
         room.lastStepAt = at;
@@ -297,7 +297,7 @@ export class RoomManager {
         const p = makeParticipant({ ...template, slot: old.slot });
         p.respawnAtTick = match.tick;
         match.participants.push(p);
-        room.bots.set(p.participantId, createBotMemory(assignmentSeed, 'combined', createBotIdentity(assignmentSeed, p.personality)));
+        room.bots.set(p.participantId, createGameplayBotMemory(assignmentSeed, 'combined', createBotIdentity(assignmentSeed, p.personality)));
         trySpawn(match, p);
     }
     closeRoom(room) {

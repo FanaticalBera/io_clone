@@ -1,5 +1,5 @@
 import { buildView, stepMatch } from './game.js';
-import { createBotMemory } from './bot.js';
+import { createBotMemory, createGameplayBotMemory } from './bot.js';
 import { getBotInputs } from './bot-director.js';
 import { perfNow, perfAdd } from './perf-sink.js';
 import { botSeed, createBotIdentity } from './bot-identity.js';
@@ -109,7 +109,8 @@ export class RoomLoop {
                             if (p.lifeState === 'ALIVE' && (p.kind === 'BOT' || room.members.get(p.participantId)?.session.background || room.members.get(p.participantId)?.session.connected === false)) {
                                 let memory = room.bots.get(p.participantId);
                                 if (!memory) {
-                                    memory = createBotMemory(botSeed(room.match.seed, p.slot), 'combined', p.kind === 'BOT' ? createBotIdentity(botSeed(room.match.seed, p.slot), p.personality) : undefined);
+                                    const seed = botSeed(room.match.seed, p.slot);
+                                    memory = p.kind === 'BOT' ? createGameplayBotMemory(seed, 'combined', createBotIdentity(seed, p.personality)) : createBotMemory(seed, 'combined');
                                     room.bots.set(p.participantId, memory);
                                 }
                                 memory.seq = Math.max(memory.seq, p.lastAppliedInputSeq);

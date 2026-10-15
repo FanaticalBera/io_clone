@@ -20,6 +20,7 @@ import {normalizeDirection,setMovementNormalCaching} from './movement.js';
 import {botOptions,type BotVariant} from './bot-experiment.js';
 import {moveSpeed} from './config.js';
 import {botSteeringTarget} from './bot-steering.js';
+import {setBotEncounterExperiment,ADOPTED_BOT_ENCOUNTER} from './bot-encounter-experiment.js';
 import type {GameModeConfig} from './modes.js';
 import {evaluateShadowOpportunities,shadowTravelSeconds,type ShadowOpportunity} from './bot-opportunity.js';
 import type {ExpansionShape} from './bot-expansion.js';
@@ -37,6 +38,12 @@ export function createBotMemory(seed:number,variant:BotVariant='combined',identi
  const random=seededRandom(seed),traitRandom=seededRandom(seed^0x51f15e),scale=()=>.9+traitRandom()*.2;
  const traits=Object.freeze({expansionScale:scale(),riskScale:scale(),stealScale:scale()});
  const memory:BotMemory={schedule:variant==='combined'?createBotSchedule(seed):undefined,reposition:createRepositionState(),identity,traits:identity?Object.freeze({expansionScale:identity.individual.expansionScale,riskScale:identity.individual.riskScale,stealScale:identity.individual.stealScale}):traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,emotion:createBotEmotion(),attackSurvival:false};memoryVariants.set(memory,variant);return memory;
+}
+// Single-player, initial room bots, replacements and room-loop recovery share
+// the player-approved explorer policy. Raw memories stay available for controls
+// and HUMAN return-only fallback, without changing action RNG or wire state.
+export function createGameplayBotMemory(seed:number,variant:BotVariant='combined',identity?:Readonly<BotIdentity>):BotMemory {
+ const memory=createBotMemory(seed,variant,identity);setBotEncounterExperiment(memory,ADOPTED_BOT_ENCOUNTER);return memory;
 }
 export interface BotAttackTrace {target:number;slot:number;distance:number;interrupt:boolean;reason:string;seconds?:number;returnTime?:number|null;counterTime?:number;returnSeconds?:number;etaMargin?:number;qualityBonus?:number;score?:number;grudge?:number;grudgeBonus?:number;attackChance?:number;otherReservations?:number;reservationFactor?:number;survival?:boolean}
 export interface ExpansionPlan {response?:DamageBonus;anchor?:number;shape:ExpansionShape;pathLength:number;externalLength:number;captureSize:number;stolenCells:number;earlyClosed:boolean;downScaled?:boolean;threatDistance?:number;quietTrailLimit?:number}
