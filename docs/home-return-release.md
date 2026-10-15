@@ -28,4 +28,8 @@ SHA256: `38156E8CB19F6F9EDFBBDCFE3E7B6DA070ED79103A0C9B42D9B7AB5C72D18457`.
 
 맵 통합 후 로그는 같은 디렉터리의 `with-maps-full.log`, `with-maps-lan-selection.log`, `with-maps-apk-build.log`에 있다. `full.log`, `active-engine-audit.json`, `traffic.json`은 맵 통합 전의 기본 육각형 검증 기록이다. 휴대폰의 일반 앱은 이번 병합 작업에서 덮어 설치하지 않았다. 사용자가 평가한 폰의 별도 복귀테스트 앱은 그대로다. 원격 push·정식 서명 배포는 하지 않았다.
 
-master 병합 결과는 검증한 소스 커밋을 확정한 뒤 아래에 기록한다.
+## master 병합 완료
+
+로컬 master를 클로드 맵 커밋 `573b93e`에서 최종 소스·생성 빌드 커밋 `5fac764`까지 fast-forward했다. 현재 본 폴더 체크아웃은 master이며, 병합 직후 `src`·`dist`·`tests`가 검증한 커밋과 동일함을 확인했다. `573b93e`의 조상 포함과 `src/shared/rooms.ts` 미변경도 확인했다. 이 기록을 남기는 후속 커밋은 문서만 바꾼다. 원격 push는 하지 않았다.
+
+최신 master 통합 전에 내 미커밋 변경을 보관한 stash는 안전 사본으로 유지했다. 새 맵을 합치지 않고 바로 커밋·병합하려던 최초 명령은 자동 승인 검사에서 실행 전 차단됐으며, 이후 변경 보관 → 최신 맵 master 통합 → 충돌 해결 → 전체 재검증·재빌드 → fast-forward 순서로 완료했다.
