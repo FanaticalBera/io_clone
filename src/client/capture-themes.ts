@@ -52,7 +52,8 @@ export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  orbit:{tile:flash(s=>Math.floor(far(s)/60)%2?0xffe9a0:0x34408f),edge:glow(0x34408f,0xffe9a0),heads:2,counter:true,ring:0x5a6fd6},
  crown:{tile:(s,t)=>({color:s.seed<.25&&t>.15&&t<.4?0xffffff:Math.floor(s.y/48)%2?0xffd23f:0xd6336c,alpha:hold(t)}),edge:glow(0xd6336c,0xffe9a0),particles:'bloom',ring:0xd6336c},
  meteor:{order:s=>clamp(.5+(s.dx+s.dy)/(2.4*s.radius)),tile:flash(s=>[0xffffff,0xbfe6ff,0x6cc4ff][stripe(s.x,s.y,40,3)]),edge:glow(0x6cc4ff,0xffffff),particles:'bloom',ring:0x9fd8ff},
- portal:{tile:flash(s=>Math.floor(((Math.atan2(s.dy,s.dx)/TAU*3+far(s)/90)%2+2)%2)?0xd8c8ff:0x7c5cff),edge:glow(0x7c5cff,0xe8e0ff),ring:0x9b6bff},
+ // Vortex: magenta and cyan spiral arms, coloured in a sweep that turns around the marker.
+ portal:{order:s=>(Math.atan2(s.dy,s.dx)/TAU+1)%1,tile:flash(s=>Math.floor(((Math.atan2(s.dy,s.dx)/TAU*3+far(s)/90)%2+2)%2)?0x4dd0e1:0xd63adf),edge:a=>({line:mix(0xd63adf,0x4dd0e1,(Math.sin(a*2)+1)/2),core:0xffffff}),heads:2,ring:0xd63adf},
  heart:{tile:(_s,t)=>({color:0xff6b9a,alpha:beats(t)}),edge:glow(0xff6b9a,0xffe0ea),particles:'bloom',ring:0xff6b9a},
  // Zigzag lightning bands over storm blue; one white strike, no strobing; sparks fly off.
  storm:{order:s=>clamp(s.dist*.75+s.seed*.25),tile:(s,t)=>({color:t<.1&&s.seed>.5?0xffffff:zigzag(s)?0xffe066:0x5fb8ff,alpha:hold(t)}),edge:glow(0xffd23f,0xffffff),heads:2,particles:'bloom',ring:0xffe066},
@@ -69,11 +70,13 @@ export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  diamond:{tile:(s,t)=>({color:s.seed>.6&&t<.3?0xffffff:0xbff3ff,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:3,particles:'bloom',ring:0xbff3ff},
  // Completion rewards: one category signature each.
  goldpuck:{tile:flash(s=>Math.round(s.x/55+s.y/48)%2?0xffe066:0xffb000),edge:glow(0xffb000,0xfff6c0),heads:2,ring:0xffd23f},
- crowncat:{tile:flash(s=>[0xff9cc0,0xffd23f][stripe(s.x,s.y,60,2)]),edge:glow(0xffb000,0xffe0ea),ring:0xff9cc0},
- archmage:{order:s=>s.seed,tile:(s,t)=>s.seed<.45?{color:s.seed<.12?0xffffff:0xb48cff,alpha:hold(t)}:null,edge:glow(0x9b6bff,0xe8e0ff),heads:2,ring:0xb48cff},
- goldbot:{order:s=>clamp(.5+s.dy/(2*s.radius)),tile:(s,t)=>({color:t<.15?0xffffff:Math.round(s.x/55+s.y/48)%2?0xffd23f:0xffb000,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),ring:0x8fe3ff},
+ crowncat:{tile:flash(s=>[0xff9cc0,0xffd23f][stripe(s.x,s.y,60,2)]),edge:glow(0xffb000,0xffe0ea),particles:'bloom',ring:0xff9cc0},
+ archmage:{order:s=>s.seed,tile:(s,t)=>s.seed<.45?{color:s.seed<.12?0xffffff:0xb48cff,alpha:hold(t)}:null,edge:glow(0x9b6bff,0xe8e0ff),heads:2,particles:'bloom',ring:0xb48cff},
+ // Circuit board: gold traces on dark teal, scanned top to bottom; sparks fly off.
+ goldbot:{order:s=>clamp(.5+s.dy/(2*s.radius)),tile:(s,t)=>({color:t<.12?0xffffff:Math.round(s.x/55)%3===0||Math.round(s.y/48)%3===0?0xffd23f:0x1f6f78,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:2,particles:'bloom',ring:0x6cd4ff},
  starwhale:{order:s=>clamp(s.dist+.12*Math.sin(Math.atan2(s.dy,s.dx)*3)),tile:flash(s=>Math.floor(far(s)/45+Math.sin(Math.atan2(s.dy,s.dx)*3))%2?0xbfe6ff:0x4ea8ff),edge:glow(0x4ea8ff,0xd8f0ff),ring:0x9fd8ff},
- hexcrown:{tile:flash(s=>Math.floor(far(s)/70)%2?0xfff2a8:0xffd23f),edge:glow(0xffb000,0xfff6c0),heads:2,ring:0xffd23f},
+ // The all-collection crown: gold land swept by two white shine passes, three border lights, glitter.
+ hexcrown:{tile:(s,t)=>({color:Math.abs(t-.12-s.dist*.1)<.06||Math.abs(t-.36-s.dist*.1)<.06?0xffffff:Math.floor(far(s)/70)%2?0xfff2a8:0xffd23f,alpha:hold(t)}),edge:glow(0xffb000,0xffffff),heads:3,particles:'bloom',ring:0xffd23f},
 };
 /** Tiles show the theme this long after flipping. */
 export const THEME_HOLD=480;
