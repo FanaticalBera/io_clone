@@ -1,3 +1,5 @@
+import {EffectPreview,previewScenes,type PreviewScene} from './effect-preview.js';
+import {markerArt} from './marker-art.js';
 import {MARKERS,MARKER_COLORS,MARKER_CATEGORIES,CATEGORY_LABELS,DEFAULT_MARKER_ID,DEFAULT_MARKER_COLOR_ID,productDefinition,markerDefinition,type ProductKind,type MarkerCategory} from './catalog.js';
 import {ownedItem,equippedItem,type ShopReceipt} from './inventory.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
@@ -18,13 +20,14 @@ export class ShopUI {
     this.dialog.innerHTML='<header class="sheet-bar"><button id="shop-close" class="btn icon" aria-label="상점 닫기">'+ICONS.back+'</button><h2 id="shop-title">상점</h2>'+
       '<nav class="shop-tabs" aria-label="상품 종류"><button id="shop-markers" aria-pressed="true">마커</button><button id="shop-colors" aria-pressed="false">색상</button></nav>'+
       '<span class="coin-pill">'+ICONS.coin+'<strong id="shop-coins">…</strong></span></header>'+
-      '<div class="sheet-panel shop-content"><aside class="shop-detail"><div class="pedestal"><div id="shop-preview"></div></div><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="btn sun" disabled>불러오는 중</button></aside>'+
+      '<div class="sheet-panel shop-content"><aside class="shop-detail"><div id="shop-pedestal" class="pedestal"><div id="shop-preview"></div></div><div id="shop-fx" class="shop-fx" hidden><div id="shop-fx-board" class="shop-fx-board"></div><nav id="shop-fx-scenes" class="shop-fx-scenes" aria-label="이펙트 장면"></nav></div><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="btn sun" disabled>불러오는 중</button></aside>'+
       '<div class="shop-main"><div class="shop-filters"><nav id="shop-categories" class="shop-categories" aria-label="마커 카테고리"></nav><button id="shop-owned" class="chip owned" aria-pressed="false"><i aria-hidden="true"></i>보유만</button></div>'+
       '<div id="shop-items" class="shop-items" aria-label="상품 목록"></div>'+
       '<footer class="shop-footer"><span id="shop-status" role="status" aria-live="polite">마음에 드는 마커와 색상을 골라 보세요.</span><button id="shop-reload" class="btn mini" hidden>저장 다시 읽기</button></footer></div></div>';
     get('app').append(this.dialog);
     get('shop-open').addEventListener('click',()=>this.open());
     get('shop-close').addEventListener('click',()=>this.dialog.close());
+    this.dialog.addEventListener('close',()=>this.effects.hide());
     get('shop-markers').addEventListener('click',()=>this.selectKind('marker'));
     get('shop-colors').addEventListener('click',()=>this.selectKind('marker-color'));
     get('shop-owned').addEventListener('click',()=>{this.ownedOnly=!this.ownedOnly;this.render();});
@@ -77,14 +80,28 @@ export class ShopUI {
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;action.classList.add('sun');get('shop-preview').replaceChildren();
     if(!product){get('shop-item-name').textContent='상품 없음';get('shop-item-note').textContent='다른 카테고리나 보유 필터를 골라 보세요.';action.textContent='선택할 상품 없음';return;}
     get('shop-preview').append(markerPreview(this.appearance(product.id),this.slotColor));get('shop-item-name').textContent=product.name;
+    this.showEffects(this.kind==='marker'?product.id:'');
     const reward='reward'in product?product.reward:undefined;
-    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':reward?(reward==='ALL'?'판매 마커를 전부':CATEGORY_LABELS[reward]+' 마커를 모두')+' 모으면 받는 전용 마커':('legendary'in product&&product.legendary)?'전설 · 게임 중에 움직여요':('category'in product&&product.category==='SPECIAL')?'게임 중에 움직여요 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
+    get('shop-item-note').textContent=this.kind==='marker-color'?'마커 · 영토 · 꼬리에 모두 적용돼요':reward?(reward==='ALL'?'판매 마커를 전부':CATEGORY_LABELS[reward]+' 마커를 모두')+' 모으면 받는 전용 마커':('legendary'in product&&product.legendary)?'전설 · 점령·처치·죽음 이펙트':('category'in product&&product.category==='SPECIAL')?'스페셜 · 점령 이펙트 · 몸통에 내 색상':'몸통에 내 색상이 칠해져요';
     if(this.pending){action.textContent='저장 중…';return;}
     if(!this.profile){action.textContent='저장소 확인 필요';return;}
     const owned=ownedItem(this.profile,this.kind,product.id),equipped=equippedItem(this.profile,this.kind)===product.id;
     action.textContent=owned?(equipped?'장착 중':'장착'):reward?'잠김 · 모으면 받아요':this.profile.coins<product.price?'코인이 부족해요':'구매 · '+product.price+' 코인';
     action.classList.toggle('sun',!owned);
     action.disabled=owned?equipped:!!reward||this.profile.coins<product.price;
+  }
+  private effects=new EffectPreview();private scene:PreviewScene='capture';private effectsFor='';
+  /** Premium markers swap the pedestal for a small board replaying their effects, with scene chips. */
+  private showEffects(markerId:string):void{
+    const scenes=this.dialog.open?previewScenes(markerId):[];
+    get('shop-pedestal').hidden=scenes.length>0;get('shop-fx').hidden=!scenes.length;
+    if(!scenes.length){this.effects.hide();this.effectsFor='';return;}
+    if(this.effectsFor!==markerId||!scenes.includes(this.scene)){this.scene='capture';this.effectsFor=markerId;}
+    const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};nav.replaceChildren();nav.hidden=scenes.length<2;
+    for(const scene of scenes){const chip=document.createElement('button');chip.className='chip';chip.textContent=labels[scene];chip.setAttribute('aria-pressed',String(scene===this.scene));
+      chip.addEventListener('click',()=>{this.scene=scene;this.showEffects(markerId);});nav.append(chip);}
+    const color=markerArt(this.appearance(markerId),this.slotColor,true).bodyColor;
+    this.effects.show(get('shop-fx-board'),markerId,color,color,this.scene);
   }
   /** Plays the reveal for the bought marker, then one per reward it unlocked. */
   private async reveal(ids:string[]):Promise<void>{

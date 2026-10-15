@@ -17,6 +17,8 @@ export class CombatEffects {
  private feedback:{at:number;kind:'KILL'|'DEATH';text:string;flash?:number}|null=null;
  /** Legendary killers restyle the kill (theme ring, colours, label); themedKill lets their particles burst. */
  killStyle:(killerId:string)=>KillStyle|null=()=>null;
+ /** The screen-centre kill/death message and flash; the shop preview turns it off. */
+ feedbackEnabled=true;
  themedKill:(killerId:string,position:Vec)=>void=()=>{};
  private played=0;private kills=0;private deaths=0;private lastEventId='';private destroyed=false;
  private viewportWidth:number;private viewportHeight:number;private pixelRatio=1;private points:Vec[]=[];
@@ -83,7 +85,7 @@ export class CombatEffects {
    burst.label.setPosition(x,y-46-ease*40).setAlpha(Math.min(1,fade*2)).setScale(1+Math.sin(Math.min(1,t*4)*Math.PI)*.25);
   }
   this.bursts=alive;
-  if(!this.feedback){this.message.setVisible(false);return;}
+  if(!this.feedback||!this.feedbackEnabled){this.message.setVisible(false);return;}
   const elapsed=now-this.feedback.at,kill=this.feedback.kind==='KILL',duration=kill?900:650;
   if(elapsed>=duration){this.feedback=null;this.message.setVisible(false);return;}
   const width=this.viewportWidth,height=this.viewportHeight;

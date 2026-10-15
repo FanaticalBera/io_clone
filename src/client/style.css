@@ -344,3 +344,14 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .room-members{padding:clamp(8px,2.6vh,14px) 14px clamp(10px,3vh,16px);gap:clamp(5px,1.8vh,8px)}
 #members li{min-height:clamp(34px,10.5vh,44px)}
 #start{height:clamp(44px,14vh,58px);font-size:clamp(19px,5.6vh,24px)}
+/* Shop effect preview: a small live board in place of the pedestal, with scene chips. */
+.shop-fx{width:100%;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+.shop-fx[hidden],.pedestal[hidden]{display:none}
+.shop-fx-board{flex:1 1 auto;min-height:96px;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#eef1f6}
+.shop-fx-board canvas{display:block}
+.shop-fx-scenes{display:flex;gap:6px;justify-content:center}
+.shop-fx-scenes .chip{height:26px;min-height:0;line-height:1;display:inline-flex;align-items:center;padding:0 12px;border:2.5px solid var(--ink);border-radius:10px;background:#fff;font:400 14px var(--display);color:var(--ink);cursor:pointer}
+.shop-fx-scenes .chip[aria-pressed=true]{background:var(--ink);color:var(--sun)}
+.shop-fx-scenes[hidden]{display:none}
+.shop-detail>strong,.shop-detail>small{flex:none}
+@media(orientation:landscape) and (max-height:340px){.shop-fx-board{min-height:70px}.shop-fx{gap:4px;margin-bottom:2px}.shop-fx-scenes .chip{height:22px;padding:0 9px;font-size:13px}}
