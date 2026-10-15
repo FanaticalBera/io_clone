@@ -8,7 +8,7 @@ export function departurePrefilterCells(obs) { return Math.ceil(Math.max(obs.con
 export function immediateLookAhead(obs, goal) {
     if (goal === 'ATTACK')
         return 3;
-    if ((goal === 'EXPAND' && obs.self.personality === 'DEFEND') || hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) >= obs.map.radius - 2)
+    if ((goal === 'EXPAND' && obs.self.personality === 'DEFEND') || obs.map.inset[obs.self.cellId] <= 2)
         return 1;
     if (obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 3) || obs.trails.some(t => hexDistance(obs.map.cells[t.cellId], obs.map.cells[obs.self.cellId]) <= 2))
         return 1;
@@ -156,12 +156,12 @@ export function evaluateRepositionStartSafety(obs, path) {
 // Candidate check only: match the immediate intent after waypoint consumption.
 // Do not simulate the prefix or reject goals handled by other safety layers.
 export function expansionPerimeterBlocked(obs, path, goal) {
-    if ((goal !== 'EXPAND' && goal !== 'STEAL') || hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) < obs.map.radius - 2)
+    if ((goal !== 'EXPAND' && goal !== 'STEAL') || obs.map.inset[obs.self.cellId] > 2)
         return false;
     return perimeterEscapeDirection(obs, departureIntent(obs, [...path], goal)) !== null;
 }
 export function perimeterEscapeDirection(obs, direction) {
-    if (hexDistance(obs.map.cells[obs.self.cellId], { q: 0, r: 0 }) < obs.map.radius - 2)
+    if (obs.map.inset[obs.self.cellId] > 2)
         return null;
     const safe = (intent) => {
         let position = obs.self.position, cellId = obs.self.cellId, heading = obs.self.direction;

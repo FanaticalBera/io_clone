@@ -1,3 +1,4 @@
+import { mapCellCount, mapIdFor } from './hex.js';
 import { PROTOCOL_VERSION, validateConfig } from './config.js';
 import { isGameModeId, validateMode, GAME_MODES } from './modes.js';
 export function record(value) { return !!value && typeof value === 'object' && !Array.isArray(value); }
@@ -27,7 +28,7 @@ function validRun(value, p, snapshot, count, hz) {
 }
 export function validRequest(value) {
     return record(value) && typeof value.requestId === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(value.requestId) &&
-        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && (value.title === undefined || (typeof value.title === 'string' && value.title.length <= 24)) && Object.keys(value).every(key => ['requestId', 'nickname', 'title', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
+        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && (value.title === undefined || (typeof value.title === 'string' && value.title.length <= 24)) && (value.map === undefined || (typeof value.map === 'string' && value.map.length <= 16)) && Object.keys(value).every(key => ['requestId', 'nickname', 'title', 'map', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
 }
 export function validDirection(value) {
     return record(value) && Object.keys(value).every(k => ['matchId', 'lifeId', 'seq', 'dx', 'dy'].includes(k)) &&
@@ -83,11 +84,11 @@ export function unpackSnapshot(raw) {
         !Number.isFinite(raw.serverTime) || !record(raw.config) || !Array.isArray(raw.participants) ||
         !['RUNNING', 'FINISHED', 'ABORTED'].includes(String(raw.phase)))
         throw new Error('Invalid snapshot');
-    const config = validateConfig(raw.config), count = 1 + 3 * config.mapRadius * (config.mapRadius + 1);
+    const config = validateConfig(raw.config), count = mapCellCount(config.mapRadius, config.mapShape ?? 0);
     if (raw.participants.length > config.maxSlots)
         throw new Error('Too many participants');
     const gameMode = validateMode(raw.gameMode), timeLimit = GAME_MODES[gameMode.id].timeLimitSeconds;
-    if (raw.mapId !== 'hex-r' + config.mapRadius + '-a' + config.hexSideWorldUnits + '-v1' ||
+    if (raw.mapId !== mapIdFor(config.mapRadius, config.hexSideWorldUnits, config.mapShape ?? 0) ||
         raw.remainingTicks !== (timeLimit === null ? null : Math.max(0, timeLimit * config.simulationHz - Number(raw.tick))))
         throw new Error('Invalid map/time');
     const owners = decodeBytes(raw.owners, count), trailMasks = decodeTrailMasks(raw.trailMasks, count);

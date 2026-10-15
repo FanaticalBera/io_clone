@@ -1,10 +1,9 @@
-import { disk, hexDistance, HEX_DIRECTIONS, axialKey } from './hex.js';
 const work = new WeakMap();
 export function captureCandidates(match, p) {
     const count = match.map.cells.length;
     let scratch = work.get(match);
     if (!scratch) {
-        scratch = { visited: new Uint8Array(count), blocked: new Uint8Array(count), queue: new Int32Array(count), exteriorSeeds: [...new Set(disk({ q: 0, r: 0 }, match.map.radius + 1).filter(c => hexDistance(c, { q: 0, r: 0 }) === match.map.radius + 1).flatMap(c => HEX_DIRECTIONS.flatMap(d => { const id = match.map.byKey.get(axialKey(c.q + d.q, c.r + d.r)); return id === undefined ? [] : [id]; })))] };
+        scratch = { visited: new Uint8Array(count), blocked: new Uint8Array(count), queue: new Int32Array(count), exteriorSeeds: match.map.cells.filter(c => match.map.inset[c.id] === 0).map(c => c.id) };
         work.set(match, scratch);
     }
     const { visited, blocked, queue } = scratch;

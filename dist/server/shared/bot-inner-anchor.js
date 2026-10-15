@@ -1,11 +1,10 @@
-import { hexDistance } from './hex.js';
 // A head working the outer rim only sees rim-side borders, and an inward loop
 // from them must turn back toward the wall to close, where the perimeter guard
 // cuts it. Offer one owned border on the inner side as an extra launch option.
 // It is ranked here only; every expansion filter and score still applies.
 export const BOT_INNER_ANCHOR = { wallBand: 4, minRingGain: 3, prefixLimit: 10 };
 export function innerExpansionAnchor(obs, existing) {
-    const center = { q: 0, r: 0 }, ring = (id) => obs.map.radius - hexDistance(obs.map.cells[id], center);
+    const center = { q: 0, r: 0 }, ring = (id) => obs.map.inset[id];
     const headRing = ring(obs.self.cellId);
     if (headRing > BOT_INNER_ANCHOR.wallBand)
         return null;

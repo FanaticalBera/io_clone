@@ -13,7 +13,7 @@ it.each([6,10])('identical movement: radius %s returns only when the selected ma
  expect(m.events.some(e=>e.type==='CAPTURE'&&e.participantId==='a')).toBe(radius===10);
  expect(m.owners[startCell]).toBe(radius===10?1:0);expect(a.lifeState).toBe('ALIVE');
 });
-function fixture(position:Vec,direction:Vec,radius:number,homes=[[0,0]]){
+function fixture(position:Vec,direction:Vec,radius:number|undefined,homes=[[0,0]]){
  const m=createMatch({},4,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'},{participantId:'b',slot:1,nickname:'B',kind:'HUMAN'}]);
  const [a,b]=m.participants,cell=(q:number,r:number)=>m.map.byKey.get(`${q},${r}`)!;
  for(let id=0;id<m.owners.length;id++)setOwner(m,id,0);
@@ -21,13 +21,20 @@ function fixture(position:Vec,direction:Vec,radius:number,homes=[[0,0]]){
  for(const [q,r]of homes)setOwner(m,cell(q,r),1);
  a.trailOriginCellId=cell(homes[0][0],homes[0][1]);if(m.owners[a.cellId]!==1)addTrail(m,a,a.cellId);
  b.cellId=cell(8,8);b.position={...m.map.cells[b.cellId].center};b.direction={x:1,y:0};b.targetDirection=null;b.protectedUntilTick=0;setOwner(m,cell(8,7),2);
- setHomeReturnMargin(m,radius);return {m,a,b,cell,home:cell(0,0)};
+ if(radius!==undefined)setHomeReturnMargin(m,radius);return {m,a,b,cell,home:cell(0,0)};
 }
-describe.each([6,10])('opt-in home return margin %s',radius=>{
+it.each(['HUMAN','BOT'] as const)('production default gives %s the accepted 10-unit return without an override',kind=>{
+ const {m,a,home}=fixture({x:half+14.5,y:0},{x:-1,y:0},undefined);a.kind=kind;
+ expect(homeReturnMargin(m)).toBe(10);stepMatch(m);
+ expect(a.cellId).not.toBe(home);expect(a.trailCells.size).toBe(0);
+ expect(m.events.filter(e=>e.type==='CAPTURE'&&e.participantId==='a')).toHaveLength(1);assertOwnershipCounts(m);
+});
+describe.each([6,10])('explicit comparison home return margin %s',radius=>{
  const setup=(position:Vec,direction:Vec,r=radius,homes=[[0,0]])=>fixture(position,direction,r,homes);
- it('stays off by default and does not leak between matches or into snapshots',()=>{
+ it('keeps explicit comparisons separate from production defaults and snapshots',()=>{
   const {m}=setup({x:half+7,y:0},{x:-1,y:0}),{m:normal,a}=setup({x:half+7,y:0},{x:-1,y:0},0);
   expect(homeReturnMargin(m)).toBe(radius);expect(homeReturnMargin(normal)).toBe(0);
+  const fresh=createMatch({},4,[{participantId:'fresh',slot:0,nickname:'F',kind:'HUMAN'}]);expect(homeReturnMargin(fresh)).toBe(10);
   expect(buildView(m).config).toEqual(buildView(normal).config);
   // A smaller step reaches the proposed margin but not the actual home edge.
   normal.config.moveCellsPerSecond=2;stepMatch(normal);expect(a.trailCells.size).toBeGreaterThan(0);

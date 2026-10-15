@@ -1,6 +1,6 @@
 import { safeBotRespawn, ownedDistances, coreDistance, MIN_CORE_OWNED_DISTANCE } from './safe-bot-respawn.js';
 import { startRun } from './run.js';
-import { region, hexDistance } from './hex.js';
+import { region, inwardDirection } from './hex.js';
 import { setOwner } from './territory.js';
 import { emitEvent } from './life.js';
 import { roundDeadlineTicks } from './modes.js';
@@ -58,7 +58,7 @@ export function inspectSpawnSpace(match, p, reserved = new Set()) {
         const zone = zones[center];
         let safety = count, valid = true;
         // Three real neutral layers must fit on the playable board; outside is not neutral.
-        if (territorySafe && hexDistance(match.map.cells[center], origin) + clearanceRadius > match.map.radius) {
+        if (territorySafe && match.map.inset[center] < clearanceRadius) {
             edgeRejectedCount++;
             continue;
         }
@@ -102,7 +102,7 @@ export function trySpawn(match, p, reserved = new Set()) {
     p.cellId = best;
     p.position = { ...match.map.cells[best].center };
     const length = Math.hypot(p.position.x, p.position.y);
-    p.direction = length ? { x: -p.position.x / length, y: -p.position.y / length } : { x: 1, y: 0 };
+    p.direction = inwardDirection(match.map, p.cellId) ?? (length ? { x: -p.position.x / length, y: -p.position.y / length } : { x: 1, y: 0 });
     p.spawnCells = new Set(spawnRegions(match)[best]);
     p.lastAppliedInputSeq = 0;
     p.targetDirection = null;

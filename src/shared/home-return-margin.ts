@@ -2,14 +2,16 @@ import type {Cell,MatchState,Participant,Vec} from './model.js';
 import type {Movement} from './movement.js';
 import {segmentDistanceSquared} from './wall-margin.js';
 
-// Opt-in comparison only. Normal matches retain centre-entry returns until
-// the small margin has been evaluated by the player in the separate test app.
+// Accepted after the 6/10-unit device comparison. Scale with hex art; at the
+// production side of 32 this is 10 world units for humans and bots alike.
+export const HOME_RETURN_MARGIN_FRACTION=10/32;
 const margins=new WeakMap<MatchState,number>();
+// Explicit overrides retain centre-only historical fixtures and comparisons.
 export function setHomeReturnMargin(match:MatchState,radius:number):void {
  if(!Number.isFinite(radius)||radius<0||radius>match.map.side/3)throw new Error('Invalid home return margin');
- if(radius===0)margins.delete(match);else margins.set(match,radius);
+ margins.set(match,radius);
 }
-export function homeReturnMargin(match:MatchState):number{return margins.get(match)??0;}
+export function homeReturnMargin(match:MatchState):number{return margins.get(match)??match.map.side*HOME_RETURN_MARGIN_FRACTION;}
 export function distanceToCellSquared(cell:Cell,p:Vec):number {
  let inside=true,nearest=Infinity;
  for(let i=0;i<6;i++){

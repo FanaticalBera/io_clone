@@ -55,6 +55,9 @@ export function createGameServer(options = {}) {
             socket.on('room:start', (raw, ack) => { const response = command(session, raw, () => rooms.start(session), 'room:start', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (current)
                 loop.publishRoom(current.room); });
+            socket.on('room:map', (raw, ack) => { const response = command(session, raw, r => rooms.setMap(session, r.map), 'room:map', socket.id); if (typeof ack === 'function')
+                ack(response); const current = rooms.member(session); if (current)
+                loop.publishRoom(current.room); });
             socket.on('run:retry', (raw, ack) => { const response = command(session, raw, r => rooms.retryRun(session, r.matchId, r.runId), 'run:retry', socket.id); if (typeof ack === 'function')
                 ack(response); const current = rooms.member(session); if (response.ok && current) {
                 loop.publishRoom(current.room);

@@ -1,3 +1,4 @@
+import { mapCellCount } from './hex.js';
 import { validateConfig } from './config.js';
 import { seededRandom, shuffled } from './random.js';
 import { validateMode } from './modes.js';
@@ -9,7 +10,7 @@ export function makeParticipant(spec) {
 }
 export function createState(config, seed, specs, map, matchId, gameMode = { id: 'classic' }) {
     const checked = validateConfig(config);
-    if (!matchId || matchId.length > 128 || map.cells.length !== 1 + 3 * checked.mapRadius * (checked.mapRadius + 1))
+    if (!matchId || matchId.length > 128 || map.cells.length !== mapCellCount(checked.mapRadius, checked.mapShape ?? 0))
         throw new Error('Invalid match/map');
     if (!specs.length || specs.length > checked.maxSlots)
         throw new Error('Invalid participants');

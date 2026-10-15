@@ -2,7 +2,12 @@ import {describe,it,expect} from 'vitest';
 import {PracticeSession} from '../../src/client/practice.js';
 import type {MatchView} from '../../src/shared/model.js';
 import {markDead} from '../../src/shared/life.js';
+import {homeReturnMargin} from '../../src/shared/home-return-margin.js';
 describe('T18: practice lifecycle shares the authoritative core',()=>{
+ it('uses the accepted 10-unit home return in normal single-player without test hooks',()=>{
+  const session=new PracticeSession('P',()=>{},{},{seed:4,autoStart:false});
+  expect(homeReturnMargin(session.match)).toBe(10);expect(session.match.participants).toHaveLength(14);session.dispose();
+ });
  it('drops the previous life target on respawn and maintains the new spawn heading',()=>{
   const session=new PracticeSession('P',()=>{}, {},{seed:1,autoStart:false}),human=session.match.participants[0];
   session.advance(0);session.setDirection({x:1,y:0});session.advance(34);markDead(session.match,human,'WALL_HIT');

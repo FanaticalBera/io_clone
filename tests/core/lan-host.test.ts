@@ -8,6 +8,8 @@ import {seededRandom} from '../../src/shared/random.js';
 import {completeClassic} from '../mode-fixture.js';
 import {PROTOCOL_VERSION} from '../../src/shared/config.js';
 import {setOwner,addTrail,clearTrail} from '../../src/shared/territory.js';
+import {homeReturnMargin} from '../../src/shared/home-return-margin.js';
+import {MAP_PRESETS} from '../../src/shared/map-presets.js';
 
 const CODE='NPQYMBM6';
 const flush=async(times=4)=>{for(let i=0;i<times;i++)await new Promise(r=>setTimeout(r,0));};
@@ -234,6 +236,35 @@ describe('Performance PRD M1: LAN snapshot byte counters',()=>{
  });
 });
 export type {FrameChannel};
+it.each(MAP_PRESETS.map(p=>[p.id,p.config] as const))('preserves host map choice %s with protocol and home-return defaults on both LAN peers',async(id,config)=>{
+ const f=await lobby(1);
+ expect(await f.guests[0].cmd('room:map',{map:id})).toMatchObject({ok:false,code:'NOT_HOST'});
+ expect(await f.hostClient.cmd('room:map',{map:id})).toMatchObject({ok:true});
+ expect(await f.hostClient.cmd('room:start')).toMatchObject({ok:true});await f.advance(3100);
+ const room=[...f.host.rooms.rooms.values()][0]!,m=room.match!;
+ expect(room.mapId).toBe(id);expect(m.config.mapShape).toBe(config.mapShape);expect(homeReturnMargin(m)).toBe(10);
+ for(const c of [f.hostClient,f.guests[0]]){
+  const view=unpackSnapshot(c.inits.at(-1));expect(view.mapId).toBe(m.map.mapId);expect(view.config.mapShape).toBe(config.mapShape);expect(view.config.maxSlots).toBe(m.config.maxSlots);
+ }
+});
+it.each(['host','guest'] as const)('uses the production 10-unit return for the %s and publishes it to both peers',async role=>{
+ const f=await running(1),m=f.room.match!;
+ while(m.tick%3!==0)await f.advance(1000/m.config.simulationHz);
+ const returningId=(role==='host'?f.hostClient:f.guests[0]).inits[0].selfParticipantId!;
+ const p=m.participants.find(p=>p.participantId===returningId)!;
+ for(const actor of m.participants){clearTrail(m,actor);if(actor!==p)actor.lifeState='FINISHED';}
+ for(let id=0;id<m.owners.length;id++)setOwner(m,id,0);
+ const cell=(q:number,r:number)=>m.map.byKey.get(`${q},${r}`)!,home=cell(0,0),trail=cell(1,0),half=Math.sqrt(3)*m.map.side/2;
+ p.cellId=trail;p.position={x:half+14.5,y:0};p.direction={x:-1,y:0};p.targetDirection=null;p.protectedUntilTick=0;
+ setOwner(m,home,p.slot+1);p.trailOriginCellId=home;addTrail(m,p,trail);
+ expect(homeReturnMargin(m)).toBe(10);f.host.loop.publishSnapshot(f.room,true,true);await flush();
+ const beforeTick=m.tick;await f.advance(1000/m.config.simulationHz);
+ expect(m.tick).toBe(beforeTick+1);expect(p.position.x).toBeGreaterThan(half);expect(p.cellId).toBe(trail);expect(p.trailCells.size).toBe(0);
+ expect(m.events.some(e=>e.type==='CAPTURE'&&e.participantId===p.participantId)).toBe(true);
+ for(const c of [f.hostClient,f.guests[0]]){
+  const view=unpackSnapshot(c.snapshots.at(-1));expect(view.tick).toBe(m.tick);expect(view.owners[trail]).toBe(p.slot+1);expect(view.trailMasks[trail]).toBe(0);
+ }
+});
 it('delivers a nonlethal return before an opponent can enter its obsolete displayed trail',async()=>{
  const f=await running(1),m=f.room.match!;
  while(m.tick%3!==0)await f.advance(1000/m.config.simulationHz);

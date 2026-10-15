@@ -8,7 +8,7 @@ export function generateStartingAnchors(map, count, spawnRadius, seed) {
         throw new Error('Invalid anchor request');
     const points = new Set(map.controlPoints.map(cp => cp.cellId)), zoneSize = 1 + 3 * spawnRadius * (spawnRadius + 1);
     const candidates = shuffled(map.cells.filter(c => {
-        if (hexDistance(c, { q: 0, r: 0 }) > map.radius - spawnRadius)
+        if (map.inset[c.id] < spawnRadius)
             return false;
         const zone = region(map, c.id, spawnRadius);
         return zone.length === zoneSize && zone.every(id => id >= 0 && !points.has(id));

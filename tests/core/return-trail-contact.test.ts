@@ -3,6 +3,7 @@ import {createMatch,stepMatch} from '../../src/shared/game.js';
 import {HEX_DIRECTIONS,axialToWorld,worldCell} from '../../src/shared/hex.js';
 import {setOwner,addTrail,assertOwnershipCounts} from '../../src/shared/territory.js';
 import type {Vec} from '../../src/shared/model.js';
+import {setHomeReturnMargin} from '../../src/shared/home-return-margin.js';
 
 const distance=Math.sqrt(3)*32*4.41/30;
 type Path={name:string;start:Vec;direction:Vec;enters:boolean};
@@ -36,6 +37,8 @@ function entryFraction(vertices:Vec[],start:Vec,direction:Vec):number|null {
 }
 function fixture(path:Path,kind:'return'|'cut'){
  const m=createMatch({},4,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'},{participantId:'b',slot:1,nickname:'B',kind:'HUMAN'}]);
+ // Retain the centre-entry baseline for comparison with the adopted margin.
+ setHomeReturnMargin(m,0);
  const [a,b]=m.participants,cell=(q:number,r:number)=>m.map.byKey.get(`${q},${r}`)!,target=cell(0,0);
  for(let i=0;i<m.owners.length;i++)setOwner(m,i,0);
  for(const p of m.participants){p.trailCells.clear();p.trailOriginCellId=null;p.protectedUntilTick=0;p.targetDirection=null;}
@@ -51,7 +54,7 @@ function fixture(path:Path,kind:'return'|'cut'){
  return {m,a,b,target};
 }
 
-describe('current-speed home return and enemy trail contact',()=>{
+describe('current-speed centre-entry baseline for home return and enemy trail contact',()=>{
  it.each([.1,.2,.3])('resolves a cut at tick fraction %s against a return at .2 in event order',cutAt=>{
   const path=paths.find(p=>p.name==='side 0, 0 degrees')!,{m,a,b,target}=fixture(path,'return'),trail=a.cellId;
   // The rival crosses the far edge of the exposed trail tile. The returner

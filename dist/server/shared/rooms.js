@@ -1,3 +1,5 @@
+import { MAP_PRESETS, mapPreset } from './map-presets.js';
+import { mapCellCount } from './hex.js';
 import { setSafeBotRespawn } from './safe-bot-respawn.js';
 import { normalizeTitle } from './titles.js';
 import { retryHumanRun } from './retry.js';
@@ -39,7 +41,7 @@ export class RoomManager {
     createRoom(mode, gameMode, code = null) {
         if (!this.accepting || this.rooms.size >= this.maxRooms)
             return null;
-        const now = this.sessions.now(), room = { roomId: randomUUID(), mode, gameMode: createMode(gameMode), code, createdAt: now, phase: 'WAITING',
+        const now = this.sessions.now(), room = { roomId: randomUUID(), mode, gameMode: createMode(gameMode), mapId: 'hex', code, createdAt: now, phase: 'WAITING',
             phaseDeadline: mode === 'PUBLIC' ? now + this.config.publicRecruitSeconds * 1000 : null, members: new Map(), hostId: null, match: null,
             roundNumber: 0, revision: 1, snapshotSeq: 0, accumulator: 0, lastStepAt: now, emptyDeadline: null, inputs: new Map(), bots: new Map() };
         this.rooms.set(room.roomId, room);
@@ -111,9 +113,33 @@ export class RoomManager {
         const room = [...this.rooms.values()].find(r => r.code === code && r.mode === 'FRIEND' && r.phase !== 'CLOSED');
         if (!/^[A-HJ-NP-Z2-9]{8}$/.test(code) || !room)
             return { ok: false, code: 'ROOM_NOT_FOUND', message: '존재하지 않는 방 코드입니다.' };
-        if (room.members.size >= Math.min(MAX_HUMAN_ROOM_MEMBERS, this.config.maxSlots))
+        if (room.members.size >= Math.min(MAX_HUMAN_ROOM_MEMBERS, this.roomConfig(room).maxSlots))
             return { ok: false, code: 'ROOM_FULL', message: '친구 방의 사람 정원이 모두 찼습니다.' };
         this.addMember(room, session, name, room.phase !== 'WAITING', title);
+        return { ok: true, roomId: room.roomId };
+    }
+    /** Server config with the room's board preset applied (shape, radius and player cap). */
+    roomConfig(room) { return { ...this.config, ...mapPreset(room.mapId).config }; }
+    /** Host-only, between rounds. A board that cannot seat everyone already here is refused. */
+    setMap(session, raw) {
+        const current = this.member(session);
+        if (!current)
+            return { ok: false, code: 'ROOM_NOT_FOUND', message: '참가 중인 방이 없습니다.' };
+        const { room, member } = current;
+        if (room.mode !== 'FRIEND' || room.hostId !== member.memberId)
+            return { ok: false, code: 'NOT_HOST', message: '방장만 맵을 바꿀 수 있어요.' };
+        if (room.phase !== 'WAITING')
+            return { ok: false, code: 'BAD_PHASE', message: '라운드 사이에만 맵을 바꿀 수 있어요.' };
+        const preset = MAP_PRESETS.find(p => p.id === raw);
+        if (!preset)
+            return { ok: false, code: 'INVALID_INPUT', message: '지원하지 않는 맵입니다.' };
+        const slots = { ...this.config, ...preset.config }.maxSlots;
+        if (room.members.size > slots)
+            return { ok: false, code: 'ROOM_FULL', message: preset.name + ' 맵은 최대 ' + slots + '명이에요.' };
+        if (room.mapId !== preset.id) {
+            room.mapId = preset.id;
+            room.revision++;
+        }
         return { ok: true, roomId: room.roomId };
     }
     start(session) {
@@ -176,8 +202,8 @@ export class RoomManager {
         }
         const matchId = room.roomId + ':round:' + (++room.roundNumber);
         const humans = members.map((m, slot) => ({ participantId: m.memberId, slot, nickname: m.nickname, kind: 'HUMAN' }));
-        const seed = this.seed();
-        room.match = createMatch(this.config, seed, [...humans, ...botSpecs(this.config.maxSlots - humans.length, humans.length, matchId, { seed, existing: humans })], matchId, room.gameMode);
+        const config = this.roomConfig(room), seed = this.seed();
+        room.match = createMatch(config, seed, [...humans, ...botSpecs(config.maxSlots - humans.length, humans.length, matchId, { seed, existing: humans })], matchId, room.gameMode);
         setSafeBotRespawn(room.match, true);
         this.initializeMatch?.(room.match);
         room.inputs.clear();
@@ -335,7 +361,7 @@ export class RoomManager {
         return { roomId: room.roomId, mode: room.mode, gameMode: { ...room.gameMode }, outcome: room.match?.outcome ? { ...room.match.outcome } : null, code: room.code, phase: room.phase, phaseDeadline: room.phaseDeadline, serverTime: this.sessions.now(),
             members: [...room.members.values()].sort((a, b) => a.joinOrder - b.joinOrder).map(m => ({ memberId: m.memberId, nickname: m.nickname, ...(m.title ? { title: m.title } : {}), connected: m.session.connected, away: m.session.background || !m.session.connected, waitingForNextRound: m.waitingForNextRound })),
             hostId: room.hostId, selfMemberId: member.memberId, selfParticipantId: room.match?.participants.some(p => p.participantId === member.memberId) ? member.memberId : null,
-            waitingForNextRound: member.waitingForNextRound, remainingSeconds, results: room.phase === 'RESULTS' ? room.match?.results ?? null : null, matchId: room.match?.matchId ?? null, selfRunResult: room.match?.participants.find(p => p.participantId === member.memberId)?.run?.result ?? null, mapCellCount: room.match?.map.cells.length ?? 1 + 3 * this.config.mapRadius * (this.config.mapRadius + 1) };
+            waitingForNextRound: member.waitingForNextRound, remainingSeconds, results: room.phase === 'RESULTS' ? room.match?.results ?? null : null, matchId: room.match?.matchId ?? null, selfRunResult: room.match?.participants.find(p => p.participantId === member.memberId)?.run?.result ?? null, mapCellCount: room.match?.map.cells.length ?? mapCellCount(this.roomConfig(room).mapRadius, this.roomConfig(room).mapShape ?? 0), map: room.mapId };
     }
     member(session) {
         const room = session.roomId ? this.rooms.get(session.roomId) : undefined, member = room && session.memberId ? room.members.get(session.memberId) : undefined;
