@@ -52,7 +52,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <section id="menu" class="menu-panel">
  <div class="home-stage"><img class="home-art" src="/assets/ui/home-art.svg" alt=""><span id="home-marker" class="home-marker" aria-hidden="true"></span></div>
  <div class="play-column">
-  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label><p id="home-titles" class="home-titles" hidden></p>
+  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력"><span id="home-titles" class="home-titles" hidden></span>${ICONS.pencil}</label>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
   <div class="play-group">
    <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>

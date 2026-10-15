@@ -52,7 +52,7 @@ h2{font-family:var(--display);font-weight:400;margin:0}
 .play-column{display:flex;flex-direction:column;gap:14px}
 .nickname-row{display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;background:var(--paper);border:3px solid var(--ink);border-radius:14px}
 .nickname-row .field-label{font:14px var(--display);color:var(--muted);white-space:nowrap}
-#nickname{flex:1;border:0;outline:0;background:transparent;font:19px var(--display)}
+#nickname{flex:1;min-width:0;border:0;outline:0;background:transparent;font:19px var(--display)}
 .nickname-row svg{width:20px;height:20px;color:var(--muted)}
 .nickname-row:focus-within{outline:3px solid var(--sun);outline-offset:2px}
 .play-main{height:84px;justify-content:space-between;padding:0 14px 0 20px;background:var(--sun);border-radius:18px;box-shadow:0 6px 0 var(--ink)}
@@ -302,7 +302,9 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .dex-cell.missing small{color:var(--muted)}
 .dex-cell.reward{background:linear-gradient(160deg,#fff3c4,#ffd76b 70%);border-color:var(--ink)}
 .profile-dex{margin-top:6px}
-.home-titles{margin:4px 0 0;padding:2px 10px;align-self:flex-start;background:var(--ink);color:#ffc93c;border-radius:9px;font:400 13px var(--display);white-space:nowrap}
+/* The title badge sits inside the nickname row, so it never pushes the cards below down. */
+.home-titles{margin:0 6px 0 0;padding:2px 9px;flex:0 1 auto;min-width:0;max-width:46%;overflow:hidden;text-overflow:ellipsis;align-self:center;background:var(--ink);color:#ffc93c;border-radius:9px;font:400 13px var(--display);white-space:nowrap}
+.home-titles[hidden]{display:none}
 /* Single-play button with its map bar attached underneath. Home sizes scale with screen
    height (clamped), so the column fits every landscape phone with room left below it. */
 .play-group{display:flex;flex-direction:column;border:3px solid var(--ink);border-radius:18px;box-shadow:0 6px 0 var(--ink);overflow:hidden}
