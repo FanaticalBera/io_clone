@@ -11,11 +11,11 @@ import {cssHex} from './theme.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
 import {MAP_PRESETS} from '../shared/map-presets.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
-export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
+export interface UIActions { roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
  members:{memberId:string;nickname:string;title?:string;connected:boolean;waitingForNextRound:boolean}[];
- hostId:string|null;selfMemberId:string;waitingForNextRound:boolean;remainingSeconds:number|null;gameMode:GameModeConfig;
+ hostId:string|null;selfMemberId:string;waitingForNextRound:boolean;remainingSeconds:number|null;gameMode:GameModeConfig;map?:string;
 }
 const get=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 function stored(key:string):string|null{try{return localStorage.getItem(key);}catch{return null;}}
@@ -78,7 +78,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <div id="death" data-testid="death" role="status" hidden></div>
 <section id="room-panel" class="room-panel" hidden>
  <button id="room-leave" class="btn back">${ICONS.back}나가기</button>
- <div class="room-info"><p class="eyebrow" id="room-kind">친구 방</p><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><p id="room-host-note" class="room-note" hidden>방장이 앱을 나가면 최대 60초 동안 모두의 경기가 멈춰요.</p><p id="room-game-mode"></p></div>
+ <div class="room-info"><p class="eyebrow" id="room-kind">친구 방</p><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><div id="room-map" class="map-bar room-map" role="group" aria-label="이번 판 맵"><button id="room-map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="room-map-icon" class="map-icon" aria-hidden="true"></span><span class="map-text"><strong id="room-map-name"></strong><small id="room-map-note"></small></span><button id="room-map-next" class="map-step" aria-label="다음 맵">›</button></div><p id="room-host-note" class="room-note" hidden>방장이 앱을 나가면 최대 60초 동안 모두의 경기가 멈춰요.</p><p id="room-game-mode"></p></div>
  <div class="room-members card"><div class="members-head"><h3>참가자</h3><p id="room-status"></p></div><ul id="members"></ul><button id="start" data-testid="start" class="btn sun big">라운드 시작 ${ICONS.play}</button></div>
 </section>
 <section id="results" class="card results-panel" hidden><p class="eyebrow" id="result-mode">판 종료</p><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="btn sun">다시 연습</button><button id="result-leave" class="btn">나가기</button></div><small id="next-round"></small></section>
@@ -135,7 +135,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   bind('reward-retry',()=>this.actions.rewardRetry?.());bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
   // Touching the play area (field or joystick) closes the ☰ menu; the same touch goes on to steer.
   document.addEventListener('pointerdown',event=>{if(get('game-tools').hidden)return;const target=event.target as Node;if(get('field').contains(target)||get('joystick').contains(target)){get('game-tools').hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');}},{capture:true});
-  bind('start',()=>this.actions.start?.());bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
+  bind('start',()=>this.actions.start?.());bind('room-map-prev',()=>this.stepRoomMap(-1));bind('room-map-next',()=>this.stepRoomMap(1));bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';
@@ -166,6 +166,15 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('map-icon').innerHTML=MAP_ICONS[preset.id];get('map-bar').dataset.map=preset.id;
   get('map-dots').replaceChildren(...MAP_PRESETS.map((_,i)=>{const dot=document.createElement('i');if(i===this.mapIndex)dot.className='on';return dot;}));
  }
+ private roomMapId='hex';
+ /** Friend rooms show the board; only the host, between rounds, gets the arrows. */
+ private renderRoomMap(view:RoomDisplay):void {
+  const preset=MAP_PRESETS.find(p=>p.id===view.map)??MAP_PRESETS[0],canChange=view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId;
+  this.roomMapId=preset.id;get('room-map').hidden=view.mode!=='FRIEND';
+  get('room-map-name').textContent=preset.name;get('room-map-note').textContent=canChange?preset.note:'방장이 골라요 · '+preset.note;get('room-map-icon').innerHTML=MAP_ICONS[preset.id];
+  for(const id of ['room-map-prev','room-map-next'])get(id).hidden=!canChange;
+ }
+ private stepRoomMap(delta:number):void {const i=MAP_PRESETS.findIndex(p=>p.id===this.roomMapId);this.actions.roomMap?.(MAP_PRESETS[(i+delta+MAP_PRESETS.length)%MAP_PRESETS.length].id);}
  private stepMap(delta:number):void {this.mapIndex=(this.mapIndex+delta+MAP_PRESETS.length)%MAP_PRESETS.length;save('hexhold.map',this.selectedMap().id);this.renderMap();}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
  selectedGameMode():GameModeId{return 'classic';}
@@ -298,6 +307,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const code=get('friend-code');code.replaceChildren(...[...(view.code??'')].map(letter=>{const tile=document.createElement('span');tile.textContent=letter;return tile;}));
   get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.title?' ★'+member.title:'')+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
   get('start').hidden=!(view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId);
+  this.renderRoomMap(view);
   this.changed();
  }
  clearMessage():void {if(performance.now()>=this.noticeUntil)get('notice').hidden=true;}

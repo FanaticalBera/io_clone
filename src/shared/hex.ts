@@ -107,3 +107,13 @@ export function createMap(radius=22,side=32,shape=0):MapDefinition {
   anchors:shape!==MAP_SHAPE.HEX?[]:scaledStartAnchors(radius).flatMap(p=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[id];})};
 }
 
+/**
+ * Starting heading on boards whose centre is off the board (islands sea, donut hole): face the
+ * deepest nearby cell instead of the origin. Other shapes return null and keep facing the centre.
+ */
+export function inwardDirection(map:MapDefinition,cellId:number):Vec|null{
+ if(map.shape!==MAP_SHAPE.ISLANDS&&map.shape!==MAP_SHAPE.DONUT)return null;
+ let best=cellId;for(const id of region(map,cellId,8))if(id>=0&&map.inset[id]>map.inset[best])best=id;
+ const from=map.cells[cellId].center,to=map.cells[best].center,dx=to.x-from.x,dy=to.y-from.y,length=Math.hypot(dx,dy);
+ return length?{x:dx/length,y:dy/length}:null;
+}

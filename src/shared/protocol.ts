@@ -5,7 +5,7 @@ import {isGameModeId,validateMode,GAME_MODES,type GameModeId,type GameModeConfig
 export type ErrorCode='INVALID_INPUT'|'HOST_LEFT'|'INVALID_NICKNAME'|'ROOM_NOT_FOUND'|'ROOM_FULL'|'ALREADY_IN_ROOM'|'NOT_HOST'|'BAD_PHASE'|'SESSION_EXPIRED'|'PROTOCOL_MISMATCH'|'RATE_LIMITED'|'SERVER_BUSY'|'SERVER_OVERLOAD'|'MATCH_ABORTED'|'INTERNAL_ERROR';
 export interface AppError {code:ErrorCode;message:string}
 export type Ack={ok:true;roomId?:string}|({ok:false}&AppError);
-export interface CommandRequest {requestId:string;nickname?:string;title?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}
+export interface CommandRequest {requestId:string;nickname?:string;title?:string;map?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}
 export type RoomPhase='WAITING'|'COUNTDOWN'|'RUNNING'|'RESULTS'|'CLOSED';
 export interface RoomView {
  roomId:string;mode:'PUBLIC'|'FRIEND';code:string|null;phase:RoomPhase;phaseDeadline:number|null;
@@ -14,6 +14,8 @@ export interface RoomView {
  members:{memberId:string;nickname:string;title?:string;connected:boolean;away:boolean;waitingForNextRound:boolean}[];
  waitingForNextRound:boolean;remainingSeconds:number|null;results:ResultRow[]|null;matchId:string|null;mapCellCount:number;
  gameMode:GameModeConfig;outcome:MatchView['outcome'];selfRunResult?:RunResult|null;
+ /** Board preset id chosen by the friend-room host. */
+ map:string;
 }
 export interface WireSnapshot extends Omit<MatchView,'owners'|'trailMasks'> {
  protocolVersion:number;snapshotSeq:number;serverTime:number;owners:string;trailMasks:string;lastAppliedInputSeq:number;selfParticipantId:string|null;
@@ -24,6 +26,7 @@ export interface ClientEvents {
  'room:create':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
  'room:join':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
  'room:start':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
+ 'room:map':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
  'run:retry':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
  'room:leave':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
  'control:background':(data:CommandRequest,ack:(response:Ack)=>void)=>void;
@@ -61,7 +64,7 @@ function validRun(value:unknown,p:Record<string,unknown>,snapshot:Record<string,
 }
 export function validRequest(value:unknown):value is CommandRequest {
  return record(value)&&typeof value.requestId==='string'&&/^[A-Za-z0-9_-]{1,96}$/.test(value.requestId)&&
-  (value.gameMode===undefined||isGameModeId(value.gameMode))&&(value.matchId===undefined||(typeof value.matchId==='string'&&value.matchId.length<=128))&&(value.runId===undefined||(typeof value.runId==='string'&&value.runId.length<=320))&&(value.title===undefined||(typeof value.title==='string'&&value.title.length<=24))&&Object.keys(value).every(key=>['requestId','nickname','title','code','gameMode','matchId','runId'].includes(key));
+  (value.gameMode===undefined||isGameModeId(value.gameMode))&&(value.matchId===undefined||(typeof value.matchId==='string'&&value.matchId.length<=128))&&(value.runId===undefined||(typeof value.runId==='string'&&value.runId.length<=320))&&(value.title===undefined||(typeof value.title==='string'&&value.title.length<=24))&&(value.map===undefined||(typeof value.map==='string'&&value.map.length<=16))&&Object.keys(value).every(key=>['requestId','nickname','title','map','code','gameMode','matchId','runId'].includes(key));
 }
 export function validDirection(value:unknown):value is DirectionInput {
  return record(value)&&Object.keys(value).every(k=>['matchId','lifeId','seq','dx','dy'].includes(k))&&

@@ -21,11 +21,11 @@ export interface LanHostOptions {
  /** Called once when the room ends for everyone (host left, closed, or expired). */
  onClosed?:(error:AppError)=>void;
 }
-type Command='room:create'|'room:join'|'room:start'|'run:retry'|'room:leave'|'control:background'|'control:foreground';
+type Command='room:create'|'room:join'|'room:start'|'room:map'|'run:retry'|'room:leave'|'control:background'|'control:foreground';
 // Anyone on the same Wi-Fi can reach the listener, so bound what one connection may cost (same budgets as src/server/limits.ts).
 export const LAN_MAX_PEERS=8,LAN_HELLO_TIMEOUT_MS=5000;
 const RATE_LIMITED:Ack={ok:false,code:'RATE_LIMITED',message:'요청이 너무 많아요. 잠시 후 다시 시도하세요.'};
-const COMMANDS=new Set<string>(['room:create','room:join','room:start','run:retry','room:leave','control:background','control:foreground']);
+const COMMANDS=new Set<string>(['room:create','room:join','room:start','room:map','run:retry','room:leave','control:background','control:foreground']);
 export const HOST_LEFT:AppError={code:'HOST_LEFT',message:'방장이 방을 닫아 경기가 끝났어요.'};
 export const HOST_GONE:AppError={code:'HOST_LEFT',message:'방장이 오래 자리를 비워 경기가 끝났어요.'};
 const SEAT_EXPIRED:Ack={ok:false,code:'SESSION_EXPIRED',message:'자리를 너무 오래 비워 경기에서 빠졌어요.'};
@@ -243,6 +243,7 @@ export class LanHost {
     return this.rooms.joinFriend(session,request.nickname,request.code,request.title);
    }
    case 'room:start':return this.rooms.start(session);
+   case 'room:map':return this.rooms.setMap(session,request.map);
    case 'run:retry':return this.rooms.retryRun(session,request.matchId,request.runId);
    case 'room:leave':return this.rooms.leave(session);
    case 'control:background':return this.rooms.setBackground(session,true);

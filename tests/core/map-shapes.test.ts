@@ -40,5 +40,10 @@ describe('map shapes',()=>{
   expect(queue.length).toBe(map.cells.length);expect(map.cells.length).toBe(mapCellCount(c.mapRadius,c.mapShape??0));
   expect(map.cells.every(cell=>map.inset[cell.id]>=0)).toBe(true);
  });
+ it.each(MAP_PRESETS.map(p=>[p.id,p.config] as const))('%s: nobody drives into the edge in the first two seconds without input',(id,config)=>{
+  const count=validateConfig(config).maxSlots,specs=botSpecs(count).map(s=>({...s,kind:'HUMAN' as const})),m=createMatch(config,5,specs,'straight-'+id);
+  for(let tick=0;tick<2*m.config.simulationHz;tick++)stepMatch(m,new Map());
+  expect(m.participants.filter(p=>p.deathReason==='WALL_HIT').map(p=>p.slot)).toEqual([]);
+ });
  it('falls back to the hexagon for unknown saved choices',()=>{expect(mapPreset('nope').id).toBe('hex');expect(mapPreset('rect').config).toEqual({mapShape:MAP_SHAPE.RECT});});
 });
