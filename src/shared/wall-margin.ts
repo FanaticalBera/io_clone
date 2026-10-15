@@ -24,6 +24,15 @@ function limit(map:MapDefinition,id:number,k:number,margin:number):number{
  const half=Math.sqrt(3)*map.side/2;if(map.cells[id].neighbors[k]>=0)return half;if(!margin)return half;
  const notch=notchFaces(map).get(id*6+k);return notch==='flank'?2*half+margin:notch==='notch'?2*half:half+margin;
 }
+/**
+ * The notch cell both cells border, when a move along a straightened wall jumps between two
+ * flanks that overlap across the notch; -1 otherwise (always -1 on maps without notches).
+ */
+export function notchBetween(map:MapDefinition,from:number,to:number):number{
+ if(!wallMargin(map))return -1;const faces=notchFaces(map);if(!faces.size)return -1;
+ for(const id of map.cells[from].neighbors)if(id>=0&&map.cells[to].neighbors.includes(id))for(let k=0;k<6;k++)if(faces.get(id*6+k)==='notch')return id;
+ return -1;
+}
 /** Distance from a cell centre to its padded face k, shared by movement and drawing. */
 export function faceLimit(map:MapDefinition,id:number,k:number):number{return limit(map,id,k,wallMargin(map));}
 function contains(map:MapDefinition,id:number,p:Vec,margin:number):boolean {

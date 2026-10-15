@@ -53,8 +53,18 @@ describe('map shapes',()=>{
   expect(side.every(e=>Math.abs(e.a.x-left)<1e-6&&Math.abs(e.b.x-left)<1e-6)).toBe(true);
   const ys=map.cells.map(c=>c.center.y),top=Math.min(...ys),bottom=Math.max(...ys),x=left+2;
   for(let y=top;y<=bottom;y+=3)expect(movementCell(map,{x,y})).toBeGreaterThanOrEqual(0);
-  const start={x,y:top},move=traceMovement(map,start,movementCell(map,start),{x:0,y:1},bottom-top);
-  expect(move.blocked).toBe(false);
+  let pos={x,y:top},cell=movementCell(map,pos);
+  for(let d=0;d<bottom-top;d+=8){const step=traceMovement(map,pos,cell,{x:0,y:1},8);expect(step.blocked).toBe(false);cell=step.cellId;pos=step.position;}
+  // Sliding along any vertical wall, in game-sized steps, must visit a connected chain of cells
+  // (no skipped notch cell), or a loop drawn along the wall leaves a gap and is never captured.
+  for(const shape of [MAP_SHAPE.RECT,MAP_SHAPE.ISLANDS,MAP_SHAPE.CROSS]){
+   const board=createMap(56,32,shape),vertical=boundaryGeometry(board).edges.filter(e=>Math.abs(e.a.x-e.b.x)<1e-6&&Math.abs(e.a.y-e.b.y)>40);
+   expect(vertical.length).toBeGreaterThan(0);
+   for(const e of vertical.slice(0,12)){const inward=movementCell(board,{x:e.a.x+3,y:(e.a.y+e.b.y)/2})>=0?1:-1;
+    for(const off of [.5,8,22]){let pos={x:e.a.x+inward*off,y:Math.min(e.a.y,e.b.y)+1},cell=movementCell(board,pos);if(cell<0)continue;
+     for(let d=0;d<Math.abs(e.a.y-e.b.y)-2;d+=8){const step=traceMovement(board,pos,cell,{x:0,y:1},Math.min(8,Math.abs(e.a.y-e.b.y)-2-d));expect(step.blocked).toBe(false);
+      for(const entry of step.entries){expect(board.cells[cell].neighbors).toContain(entry.cellId);cell=entry.cellId;}pos=step.position;}}}
+  }
  });
  it('falls back to the hexagon for unknown saved choices',()=>{expect(mapPreset('nope').id).toBe('hex');expect(mapPreset('rect').config).toEqual({mapShape:MAP_SHAPE.RECT});});
 });

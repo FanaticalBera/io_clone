@@ -14,13 +14,8 @@ export function watchDeaths(match:MatchState,observer:(trace:DeathTrace)=>void):
  deathObservers.set(match,observer);return()=>deathObservers.delete(match);
 }
 export function hasDeathObserver(match:MatchState):boolean{return deathObservers.has(match);}
-// Debug only (device effect review): a participant in this set never dies. Empty in real play.
-const invincible=new WeakSet<Participant>();
-export function setInvincible(p:Participant,enabled:boolean):void {if(enabled)invincible.add(p);else invincible.delete(p);}
 export function markDead(match:MatchState,p:Participant,reason:string,killer?:Participant,context?:DeathContext,diagnostic?:ResolutionDeathDiagnostic):boolean {
  if(p.lifeState!=='ALIVE'||match.phase!=='RUNNING')return false;
- // Invincible: the hit still removes the trail (so the contact resolves), but the player lives on.
- if(invincible.has(p)){clearTrail(match,p);return false;}
  const observer=deathObservers.get(match);
  if(observer){const first=p.trailCells.values().next().value;observer({tick:match.tick,victimId:p.participantId,victimKind:p.kind,lifeId:p.lifeId,reason,context,killerId:killer?.participantId,killerCell:killer?.cellId,victimCell:p.cellId,position:{...p.position},trailCells:[...p.trailCells],territoryCount:p.territoryCount,
   ownerCells:match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0),trailMaskCells:match.map.cells.filter(c=>(match.trailMasks[c.id]&(slotBit(p.slot)))!==0).map(c=>c.id),

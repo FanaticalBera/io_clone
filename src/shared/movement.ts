@@ -1,5 +1,5 @@
 import { HEX_EPS,MAX_ENTRY_EVENTS,moveSpeed,type GameConfig } from './config.js';
-import {faceLimit,movementCell} from './wall-margin.js';
+import {faceLimit,movementCell,notchBetween} from './wall-margin.js';
 import { HEX_DIRECTIONS,axialToWorld } from './hex.js';
 import type { MapDefinition,Vec } from './model.js';
 export interface CellEntry { t:number; cellId:number; position:Vec }
@@ -67,7 +67,11 @@ export function traceMovement(map:MapDefinition,start:Vec,startCell:number,direc
   if(next<0)return {position:at(Math.max(t,crossing-epsilon)),cellId,entries,blocked:true,boundaryT:crossing};
   if(next===cellId)throw new Error('Geometry made no progress');
   if(entries.length>=MAX_ENTRY_EVENTS)throw new Error('Movement event limit');
-  cellId=next;t=crossing;entries.push({t,cellId,position:at(t)});
+  t=crossing;
+  // Flanks of a straightened notch overlap, so a move along the wall can pass from one flank to
+  // the other; it still crosses the notch cell between them, so trails and captures stay connected.
+  if(!map.cells[cellId].neighbors.includes(next)){const between=notchBetween(map,cellId,next);if(between>=0)entries.push({t,cellId:between,position:at(t)});}
+  cellId=next;entries.push({t,cellId,position:at(t)});
  }
  throw new Error('Movement event limit');
 }

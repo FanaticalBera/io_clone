@@ -1,4 +1,3 @@
-import {setInvincible} from '../shared/life.js';
 import {getBotInputs} from '../shared/bot-director.js';
 import {botSeed,createBotIdentity,type SecondaryTrait} from '../shared/bot-identity.js';
 import {BotDebugCollector} from './bot-debug-model.js';
@@ -30,8 +29,6 @@ export class PracticeSession {
   const human={participantId:'local-human',slot:0,nickname,kind:'HUMAN' as const};
   const participants=this.spectating?botSpecs(14,0,matchId,{seed,overrides:options.botOverrides}):[human,...botSpecs(validateConfig(config).maxSlots-1,1,matchId,{seed,existing:[human],overrides:options.botOverrides})];
   this.match=createMatch(this.spectating?{...config,maxSlots:14}:config,seed,participants,matchId,options.gameMode);
-  // Debug only: localStorage hexhold.debug.invincible=1 keeps the local player alive, to review kill effects on a device.
-  try{const self=this.match.participants.find(p=>p.participantId===this.selfId);if(self&&localStorage.getItem('hexhold.debug.invincible')==='1')setInvincible(self,true);}catch{}
   setSafeBotRespawn(this.match,!(import.meta.env.DEV||import.meta.env.MODE==='test')||options.safeBotRespawn!==false);
   if(options.wallMargin!==undefined)setWallMargin(this.match.map,options.wallMargin);
   for(const p of this.match.participants)if(p.kind==='BOT')this.memories.set(p.participantId,createGameplayBotMemory(botSeed(seed,p.slot),options.botVariant,createBotIdentity(botSeed(seed,p.slot),p.personality!,{secondaryTrait:options.botOverrides?.[p.slot]?.secondaryTrait})));
