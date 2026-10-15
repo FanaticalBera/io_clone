@@ -10,13 +10,8 @@ import {markerDefinition} from './catalog.js';
 const INK=0x1f1b2d,TEX=32;
 type Shape='dot'|'star'|'flame'|'petal'|'heart'|'flake'|'ring'|'hex'|'bolt'|'glow'|'bubble';
 type EmitterConfig=Phaser.Types.GameObjects.Particles.ParticleEmitterConfig;
-type Baked='slime'|'splat'|'gear'|'spiral'|'sunburst'|'planet'|'arc'|'coin';
-/**
- * fire: baked three-tone flame (outer, middle, core); baked: a pre-coloured
- * picture. Neither is tinted. pop flares up then dies down (fire always does),
- * spin turns at that many degrees per second, flip spins it edge-on like a coin.
- */
-interface Layer {shape:Shape;count?:number;config:EmitterConfig;fire?:readonly [number,number,number];baked?:Baked;pop?:boolean;spin?:number;flip?:boolean}
+/** fire: baked three-tone flame (outer, middle, core) that flares up then dies down; not tinted. */
+interface Layer {shape:Shape;count?:number;config:EmitterConfig;fire?:readonly [number,number,number]}
 export interface TrailStyle {step:number;layers:Layer[]}
 const tint=(...colors:number[])=>({tint:colors});
 const fade={alpha:{start:1,end:0}};
@@ -26,20 +21,14 @@ const EMBER=[0xff7a1a,0xffb020,0xfff1a8] as const,PHOENIX=[0xe8453c,0xff8a1a,0xf
 const SIZE=1.8;
 export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
  // Special: one light layer.
- orbit:{step:SPECIAL,layers:[
-  {shape:'dot',baked:'planet',pop:true,spin:90,config:{lifespan:760,speedX:{min:-14,max:14},speedY:{min:-34,max:-10},scale:{start:.85,end:0}}},
-  {shape:'dot',count:2,config:{lifespan:560,speed:{min:30,max:70},scale:{start:.22,end:0},...tint(0xffc93c,0xfff6e0)}}]},
+ orbit:{step:SPECIAL,layers:[{shape:'dot',count:2,config:{lifespan:600,speed:{min:8,max:24},scale:{start:.42,end:0},...tint(0xffc93c,0xffe28a)}}]},
  crown:{step:SPECIAL,layers:[{shape:'star',count:2,config:{lifespan:620,speed:{min:6,max:20},rotate:{min:-40,max:40},scale:{start:.5,end:0},...tint(0xffc93c,0xfff6e0)}}]},
  ember:{step:20,layers:[
   {shape:'flame',fire:EMBER,count:2,config:{lifespan:640,speedX:{min:-10,max:10},speedY:{min:-40,max:-16},rotate:{min:-14,max:14},scale:{start:.8,end:0}}},
   {shape:'dot',config:{lifespan:560,speedX:{min:-30,max:30},speedY:{min:-110,max:-60},scale:{start:.2,end:0},...tint(0xffe066,0xffb020)}}]},
  meteor:{step:SPECIAL,layers:[{shape:'star',count:2,config:{lifespan:460,speed:{min:40,max:90},rotate:{min:0,max:360},scale:{start:.42,end:0},...tint(0xfff6e0,0xffe066,0x9fd8ff)}}]},
- portal:{step:SPECIAL,layers:[
-  {shape:'dot',baked:'spiral',spin:-540,config:{lifespan:700,scale:{start:.75,end:0}}},
-  {shape:'dot',count:2,config:{lifespan:520,speed:{min:24,max:56},scale:{start:.24,end:0},...tint(0xb48cff,0xd8c8ff)}}]},
- sun:{step:SPECIAL,layers:[
-  {shape:'dot',baked:'sunburst',pop:true,spin:120,config:{lifespan:720,speedY:{min:-24,max:-6},scale:{start:.72,end:0}}},
-  {shape:'glow',config:{lifespan:460,scale:{start:1.1,end:.4},alpha:{start:.5,end:0},...tint(0xffd23f)}}]},
+ portal:{step:SPECIAL,layers:[{shape:'ring',config:{lifespan:600,scale:{start:.2,end:.75},...fade,...tint(0xb48cff,0x7c5cff)}}]},
+ sun:{step:SPECIAL,layers:[{shape:'dot',count:2,config:{lifespan:480,speed:{min:20,max:46},scale:{start:.4,end:0},...tint(0xffd23f,0xff9f1c)}}]},
  heart:{step:SPECIAL,layers:[{shape:'heart',config:{lifespan:700,speed:{min:4,max:12},gravityY:-45,scale:{start:.5,end:.22},...fade,...tint(0xff6b9a,0xff9cc0)}}]},
  storm:{step:SPECIAL,layers:[{shape:'bolt',count:2,config:{lifespan:440,speed:{min:24,max:56},rotate:{min:-30,max:30},scale:{start:.55,end:.1},...tint(0x8fe3ff,0xffe066)}}]},
  // Legendary: denser trails with a second layer.
@@ -49,16 +38,14 @@ export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
  blackhole:{step:LEGEND,layers:[
   {shape:'ring',config:{lifespan:700,scale:{start:.15,end:.95},alpha:{start:.9,end:0},...tint(0x6b3fd1,0x2a1650)}},
   {shape:'dot',config:{lifespan:520,speed:{min:14,max:30},scale:{start:.32,end:0},...tint(0xb48cff,0x2a1650)}}]},
- rainbow:{step:28,layers:[
-  {shape:'dot',baked:'arc',pop:true,config:{lifespan:820,speedY:{min:-30,max:-12},speedX:{min:-8,max:8},scale:{start:.8,end:0}}},
-  {shape:'star',config:{lifespan:560,speed:{min:24,max:60},rotate:{min:0,max:90},scale:{start:.36,end:0},...tint(0xff5a5a,0xffd23f,0x46c46a,0x4ea8ff,0x9b6bff)}}]},
+ rainbow:{step:14,layers:[{shape:'dot',config:{lifespan:640,speed:{min:2,max:8},scale:{start:.55,end:.15},...fade,...tint(0xff5a5a,0xff9f1c,0xffd23f,0x46c46a,0x4ea8ff,0x9b6bff)}}]},
  snowflake:{step:LEGEND,layers:[
   {shape:'flake',config:{lifespan:950,speedY:{min:8,max:26},speedX:{min:-14,max:14},rotate:{start:0,end:180},scale:{start:.55,end:.2},...fade,...tint(0xe8f7ff,0xa8dcff)}},
   {shape:'dot',config:{lifespan:500,speed:{min:10,max:30},scale:{start:.22,end:0},...tint(0xffffff,0xbfe9ff)}}]},
  sakura:{step:LEGEND,layers:[{shape:'petal',config:{lifespan:1050,speed:{min:16,max:44},gravityY:24,rotate:{min:0,max:360},scale:{start:.6,end:.3},...fade,...tint(0xffc2d9,0xff8fb8,0xfff0f5)}}]},
  kingslime:{step:LEGEND,layers:[
-  {shape:'dot',baked:'slime',config:{lifespan:640,speed:{min:30,max:70},angle:{min:220,max:320},gravityY:260,rotate:{min:-20,max:20},scale:{start:.62,end:.36}}},
-  {shape:'dot',baked:'splat',pop:true,config:{lifespan:820,scale:{start:.9,end:0}}}]},
+  {shape:'dot',config:{lifespan:620,speed:{min:16,max:40},angle:{min:200,max:340},gravityY:170,scale:{start:.58,end:.22},...tint(0x7ee081,0x46c46a)}},
+  {shape:'bubble',config:{lifespan:700,scale:{start:.2,end:.5},...fade,...tint(0xb8f5b0)}}]},
  diamond:{step:LEGEND,layers:[
   {shape:'star',count:2,config:{lifespan:560,speed:{min:20,max:56},rotate:{min:0,max:90},scale:{start:.55,end:0},...tint(0xffffff,0xbff3ff,0x9be7ff)}},
   {shape:'glow',config:{lifespan:420,scale:{start:.9,end:.3},alpha:{start:.45,end:0},...tint(0xbff3ff)}}]},
@@ -67,14 +54,10 @@ export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
   {shape:'flame',fire:GOLD_FIRE,config:{lifespan:600,speedX:{min:-10,max:10},speedY:{min:-40,max:-16},rotate:{min:-14,max:14},scale:{start:.8,end:0}}},
   {shape:'glow',config:{lifespan:420,scale:{start:1,end:.3},alpha:{start:.4,end:0},...tint(0xffd23f)}}]},
  // Completion rewards: legendary weight, one signature each.
- goldpuck:{step:LEGEND,layers:[
-  {shape:'dot',baked:'coin',flip:true,count:2,config:{lifespan:820,speed:{min:30,max:70},angle:{min:220,max:320},gravityY:200,scale:{start:.62,end:.4}}},
-  {shape:'star',config:{lifespan:520,speed:{min:20,max:50},rotate:{min:0,max:90},scale:{start:.4,end:0},...tint(0xfff2a8,0xffd23f)}}]},
+ goldpuck:{step:LEGEND,layers:[{shape:'star',count:2,config:{lifespan:560,speed:{min:20,max:56},rotate:{min:0,max:90},scale:{start:.5,end:0},...tint(0xffd23f,0xfff2a8)}},{shape:'glow',config:{lifespan:420,scale:{start:.9,end:.3},alpha:{start:.4,end:0},...tint(0xffd23f)}}]},
  crowncat:{step:LEGEND,layers:[{shape:'heart',config:{lifespan:720,speed:{min:6,max:16},gravityY:-50,scale:{start:.45,end:.2},...fade,...tint(0xff9cc0,0xffd23f)}},{shape:'star',config:{lifespan:520,speed:{min:30,max:70},scale:{start:.4,end:0},...tint(0xffd23f)}}]},
  archmage:{step:LEGEND,layers:[{shape:'star',count:2,config:{lifespan:640,speed:{min:16,max:44},rotate:{min:0,max:180},scale:{start:.48,end:0},...tint(0xb48cff,0x7fd3ff,0xfff6e0)}},{shape:'ring',config:{lifespan:560,scale:{start:.15,end:.7},alpha:{start:.8,end:0},...tint(0xb48cff)}}]},
- goldbot:{step:LEGEND,layers:[
-  {shape:'dot',baked:'gear',pop:true,spin:240,count:2,config:{lifespan:760,speed:{min:16,max:40},scale:{start:.7,end:0}}},
-  {shape:'bolt',count:2,config:{lifespan:360,speed:{min:50,max:100},rotate:{min:-30,max:30},scale:{start:.5,end:.1},...tint(0x8fe3ff,0xfff6e0)}}]},
+ goldbot:{step:LEGEND,layers:[{shape:'bolt',count:2,config:{lifespan:340,speed:{min:40,max:80},rotate:{min:-30,max:30},scale:{start:.55,end:.1},...tint(0xffd23f,0x8fe3ff)}},{shape:'hex',config:{lifespan:600,speed:{min:6,max:16},rotate:{min:0,max:60},scale:{start:.42,end:.1},...fade,...tint(0xffd23f,0xffb000)}}]},
  starwhale:{step:LEGEND,layers:[{shape:'bubble',count:2,config:{lifespan:900,speed:{min:6,max:20},gravityY:-40,scale:{start:.25,end:.55},...fade,...tint(0x9fd8ff,0xd8f0ff)}},{shape:'star',config:{lifespan:560,speed:{min:20,max:50},scale:{start:.38,end:0},...tint(0xfff6e0,0xffe066)}}]},
  hexcrown:{step:LEGEND,layers:[{shape:'hex',count:2,config:{lifespan:700,speed:{min:14,max:36},rotate:{min:0,max:120},scale:{start:.5,end:.1},...fade,...tint(0xffd23f,0xfff2a8,0xffb000)}},{shape:'glow',config:{lifespan:420,scale:{start:1,end:.3},alpha:{start:.4,end:0},...tint(0xffd23f)}}]},
 };
@@ -96,25 +79,6 @@ function flamePoints(scale:number):Phaser.Types.Math.Vector2Like[]{
 function drawFire(g:Phaser.GameObjects.Graphics,[outer,middle,core]:readonly [number,number,number]):void{
  g.clear().fillStyle(outer,1).lineStyle(2.5,INK,1).fillPoints(flamePoints(1),true).strokePoints(flamePoints(1),true);
  g.fillStyle(middle,1).fillPoints(flamePoints(.66),true).fillStyle(core,1).fillPoints(flamePoints(.34),true);
-}
-// Pre-coloured pictures on a 40x40 canvas: flat cartoon fills with ink outlines.
-function drawBaked(g:Phaser.GameObjects.Graphics,art:Baked):void{
- const c=20;g.clear().lineStyle(2.5,INK,1);
- if(art==='slime'){g.fillStyle(0x46c46a,1).fillEllipse(c,c+3,26,22).strokeEllipse(c,c+3,26,22);g.fillStyle(0x7ee081,1).fillEllipse(c-1,c,18,12);g.fillStyle(0xffffff,1).fillEllipse(c-5,c-3,6,4);}
- else if(art==='splat'){g.fillStyle(0x46c46a,.85);for(const [x,y,r] of [[c,c+4,11],[c-10,c+6,6],[c+10,c+5,7],[c-4,c-4,6],[c+6,c-3,5]])g.fillCircle(x,y,r);
-  g.fillStyle(0x7ee081,1).fillEllipse(c-2,c+2,12,7);g.fillStyle(0xffffff,.9).fillCircle(c-5,c,2);}
- else if(art==='gear'){g.fillStyle(0xffc93c,1);for(let i=0;i<8;i++){const a=i*Math.PI/4,pts=[-.2,.2].flatMap(o=>[[13,o],[18,o*.7]]).map(([r,o])=>({x:c+Math.cos(a+o)*r,y:c+Math.sin(a+o)*r}));g.fillPoints([pts[0],pts[1],pts[3],pts[2]],true).strokePoints([pts[0],pts[1],pts[3],pts[2]],true);}
-  g.fillCircle(c,c,13.5).strokeCircle(c,c,13.5);g.fillStyle(0xe0a000,1).fillCircle(c+2,c+2,9);g.fillStyle(0xffc93c,1).fillCircle(c,c,8);g.fillStyle(0xfff6e0,1).fillCircle(c,c,4).strokeCircle(c,c,4);}
- else if(art==='spiral'){g.fillStyle(0x7c5cff,1).fillCircle(c,c,16).strokeCircle(c,c,16);g.lineStyle(3.5,0xd8c8ff,1).beginPath();for(let i=0;i<=40;i++){const a=i/40*Math.PI*3.4,r=1+i/40*12;if(i)g.lineTo(c+Math.cos(a)*r,c+Math.sin(a)*r);else g.moveTo(c+Math.cos(a)*r,c+Math.sin(a)*r);}g.strokePath();g.fillStyle(0x2a1650,1).fillCircle(c,c,3);}
- else if(art==='sunburst'){g.fillStyle(0xff9f1c,1);for(let i=0;i<10;i++){const a=i*Math.PI/5,pt=(r:number,o:number)=>({x:c+Math.cos(a+o)*r,y:c+Math.sin(a+o)*r}),tri=[pt(10,-.28),pt(19,0),pt(10,.28)];g.fillPoints(tri,true).strokePoints(tri,true);}
-  g.fillStyle(0xffd23f,1).fillCircle(c,c,11).strokeCircle(c,c,11);g.fillStyle(0xfff6c0,1).fillCircle(c-3,c-3,4);}
- else if(art==='planet'){g.fillStyle(0xffc93c,1).fillCircle(c,c,10).strokeCircle(c,c,10);g.fillStyle(0xff9f1c,1).fillEllipse(c+2,c+3,12,5);
-  const ring=Array.from({length:33},(_,i)=>{const a=i/32*Math.PI*2,x=Math.cos(a)*18,y=Math.sin(a)*6;return {x:c+x*.94-y*.34,y:c+x*.34+y*.94};});g.lineStyle(5,INK,1).strokePoints(ring,true).lineStyle(2.5,0xfff6e0,1).strokePoints(ring,true);
-  g.fillStyle(0xffffff,1).fillCircle(c-4,c-4,2.5);}
- else if(art==='arc'){for(const [r,col] of [[17,0xff5a5a],[13,0xffd23f],[9,0x4ea8ff]] as const){g.lineStyle(7,INK,1).beginPath().arc(c,c+8,r,Math.PI,0).strokePath();g.lineStyle(4.5,col,1).beginPath().arc(c,c+8,r,Math.PI,0).strokePath();}
-  g.lineStyle(2,INK,1).fillStyle(0xffffff,1);for(const x of [c-13,c+13]){g.fillCircle(x-3,c+10,4.5).fillCircle(x+3,c+10,4.5).strokeCircle(x-3,c+10,4.5).strokeCircle(x+3,c+10,4.5);g.fillCircle(x-3,c+10,3.4).fillCircle(x+3,c+10,3.4);}}
- else{g.fillStyle(0xffb000,1).fillCircle(c,c,15).strokeCircle(c,c,15);g.fillStyle(0xffd23f,1).fillCircle(c,c,11.5);g.lineStyle(2,0xe0a000,1).strokeCircle(c,c,11.5);
-  g.lineStyle(1.8,0xe0a000,1).fillStyle(0xfff2a8,1);star(g,c,7,3,5);g.fillStyle(0xffffff,1).fillEllipse(c-6,c-7,5,3);}
 }
 function drawShape(g:Phaser.GameObjects.Graphics,shape:Shape):void{
  const c=TEX/2;g.clear().fillStyle(0xffffff,1).lineStyle(2.5,INK,1);
@@ -142,21 +106,17 @@ export class MarkerTrails {
   const g=this.scene.make.graphics({x:0,y:0},false);drawShape(g,shape);g.generateTexture(key,TEX,TEX);g.destroy();return key;
  }
  private layerTexture(layer:Layer):string{
-  if(layer.baked){const key='trail:baked:'+layer.baked;if(!this.scene.textures.exists(key)){const g=this.scene.make.graphics({x:0,y:0},false);drawBaked(g,layer.baked);g.generateTexture(key,40,40);g.destroy();}return key;}
   if(!layer.fire)return this.texture(layer.shape);
   const key='trail:fire:'+layer.fire.join('-');if(this.scene.textures.exists(key))return key;
   const g=this.scene.make.graphics({x:0,y:0},false);drawFire(g,layer.fire);g.generateTexture(key,40,48);g.destroy();return key;
  }
  /** Scale (and for fire, a flare-up then die-down with a late fade) at SIZE times the tuned values. */
  private sizing(layer:Layer,boost:number):Partial<EmitterConfig>{
-  const scale=layer.config.scale as {start:number;end:number},pop=layer.fire!==undefined||layer.pop===true,start=scale.start*SIZE*boost,end=scale.end*SIZE;
-  const spin=layer.spin?{rotate:{onEmit:()=>Math.random()*360,onUpdate:(_p:unknown,_k:string,_t:number,value:number)=>value+layer.spin!/60}}:{};
-  const late={alpha:{onEmit:()=>1,onUpdate:(_p:unknown,_k:string,t:number)=>t<.6?1:1-(t-.6)/.4}};
-  if(!pop&&!layer.flip)return {scale:{start,end},...spin} as Partial<EmitterConfig>;
-  const size=pop?(t:number)=>start*.75*Math.sin(Math.PI*Math.pow(t,.55)):(t:number)=>start+(end-start)*t;
-  const extra=layer.fire?{originY:.9}:{};
-  if(!layer.flip)return {scale:{onEmit:()=>0,onUpdate:(_p:unknown,_k:string,t:number)=>size(t)},...late,...spin,...extra} as Partial<EmitterConfig>;
-  return {scaleY:{onEmit:()=>size(0),onUpdate:(_p:unknown,_k:string,t:number)=>size(t)},scaleX:{onEmit:()=>size(0),onUpdate:(_p:unknown,_k:string,t:number)=>size(t)*Math.abs(Math.cos(t*Math.PI*5))},...late,...spin} as Partial<EmitterConfig>;
+  const scale=layer.config.scale as {start:number;end:number};
+  if(!layer.fire)return {scale:{start:scale.start*SIZE*boost,end:scale.end*SIZE}};
+  const peak=scale.start*SIZE*boost*.75;
+  return {scale:{onEmit:()=>0,onUpdate:(_p:unknown,_k:string,t:number)=>peak*Math.sin(Math.PI*Math.pow(t,.55))},
+   alpha:{onEmit:()=>1,onUpdate:(_p:unknown,_k:string,t:number)=>t<.6?1:1-(t-.6)/.4},originY:.9} as Partial<EmitterConfig>;
  }
  private emitter(markerId:string,index:number,layer:Layer):Phaser.GameObjects.Particles.ParticleEmitter{
   const key=markerId+':'+index;let emitter=this.emitters.get(key);
@@ -181,7 +141,7 @@ export class MarkerTrails {
  }
  private burstEmitter(markerId:string,index:number,layer:Layer):Phaser.GameObjects.Particles.ParticleEmitter{
   const key=markerId+':burst'+index;let emitter=this.emitters.get(key);
-  if(!emitter){const rising=layer.fire!==undefined||layer.baked==='spiral'||layer.baked==='sunburst'||layer.baked==='arc'||(layer.config.gravityY as number|undefined??0)<0;
+  if(!emitter){const rising=layer.fire!==undefined||(layer.config.gravityY as number|undefined??0)<0;
    emitter=this.scene.add.particles(0,0,this.layerTexture(layer),{...layer.config,...this.sizing(layer,1.25),
     speed:rising?{min:50,max:120}:{min:110,max:240},angle:{min:-165,max:-15},gravityY:rising?-60:300,lifespan:Math.max(700,Number(layer.config.lifespan)),emitting:false,maxParticles:200}).setDepth(6);
    this.emitters.set(key,emitter);}
@@ -195,7 +155,7 @@ export class MarkerTrails {
  capture(markerId:string,origin:{x:number;y:number},cells:readonly CapturePoint[],local:boolean,now:number):boolean{
   const style=TRAIL_STYLES[markerId];if(!style)return false;
   const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.min(Math.ceil(cells.length*.6),Math.max(3,Math.round((legendary?26:12)*scale)));
-  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire||layer.baked?legendary?7:5:index?8:legendary?16:10)*scale))));
+  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire?legendary?7:5:index?8:legendary?16:10)*scale))));
   const ordered=[...cells].sort((a,b)=>a.delay-b.delay),stride=Math.max(1,ordered.length/samples);
   for(let i=0;i<ordered.length&&this.blooms.length<400;i+=stride){const c=ordered[Math.floor(i)];this.blooms.push({at:now+c.delay,markerId,x:c.x,y:c.y});}
   return true;
@@ -209,7 +169,5 @@ export class MarkerTrails {
   }this.blooms.length=kept;
  }
  forget(id:string):void{this.followers.delete(id);}
- /** Live particles across all emitters, pending tile blooms and emitter count. */
- state(){let particles=0;for(const e of this.emitters.values())particles+=e.getAliveParticleCount();return {particles,blooms:this.blooms.length,emitters:this.emitters.size};}
  destroy():void{for(const e of this.emitters.values())e.destroy();this.emitters.clear();this.followers.clear();this.blooms=[];}
 }

@@ -4,8 +4,6 @@ import {PlayerMarker} from './player-marker.js';
 import {MarkerTrails,TRAIL_MARKER_IDS,hasTrail} from './marker-trails.js';
 // Dev only: ?trailPreview=1 dresses every bot in a premium marker to review trails.
 const TRAIL_PREVIEW=import.meta.env.DEV&&new URLSearchParams(location.search).get('trailPreview')==='1';
-// Dev only: ?trailsOff=1 drops premium effects, the baseline for measuring their cost.
-const TRAILS_OFF=import.meta.env.DEV&&new URLSearchParams(location.search).get('trailsOff')==='1';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
 import Phaser from 'phaser';
 import {Presentation} from './presentation.js';
@@ -128,7 +126,7 @@ export class GameScene extends Phaser.Scene {
  renderLive():boolean{return this.game.loop.running&&!this.stillPending&&this.wantMode==='live';}
  afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);this.trails=TRAILS_OFF?null:new MarkerTrails(this);this.captureEffects.themedCapture=id=>!TRAILS_OFF&&hasTrail(this.avatars.get(id)?.marker.markerId??'');if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);this.trails=new MarkerTrails(this);this.captureEffects.themedCapture=id=>hasTrail(this.avatars.get(id)?.marker.markerId??'');if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -334,7 +332,6 @@ export class GameScene extends Phaser.Scene {
    avatar.container.setVisible(visible);if(visible){avatar.marker.update(now);this.trails?.follow(id,avatar.marker.markerId,x,y,followed,now);}
   }
   this.trails?.update(now);
-  if(TRAIL_PREVIEW&&this.trails)document.querySelector('#field')?.setAttribute('data-trail-particles',String(this.trails.state().particles));
   perfAdd('step.markers',span);span=perfNow();
   setWallMargin(this.map,this.wallMargin);
   const boardKey=this.map.mapId+':'+this.wallMargin;
