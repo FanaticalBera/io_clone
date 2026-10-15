@@ -3,7 +3,8 @@ import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Cell,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,CAPTURE_POP,type CaptureBloom} from './territory-capture-model.js';
-import {themedTile,themedEdge,themedEdgeColors,themedRing,themedDelay,themedWave,tileSpot,type CaptureTheme} from './capture-themes.js';
+import {themedTile,themedEdge,themedRing,type CaptureTheme} from './capture-themes.js';
+import {CaptureThemeCache,prepareCaptureTile} from './capture-theme-cache.js';
 const INK=0x1f1b2d,LOSS=0xffa24d,CONFETTI_MS=420;
 /** Capture flip wave above territory, plus local-only ripple, confetti and loss cues. */
 export class TerritoryCaptureEffects {
@@ -13,6 +14,7 @@ export class TerritoryCaptureEffects {
  /** Premium markers whose capture colours the land itself (see capture-themes). */
  captureTheme:(participantId:string)=>CaptureTheme|null=()=>null;
  private spans=new WeakMap<CaptureBloom,{span:number;radius:number}>();
+ private themes=new CaptureThemeCache();
  /** Longest wave delay and farthest tile from the origin, for themed wave shapes. */
  private span(effect:CaptureBloom):{span:number;radius:number}{
   let s=this.spans.get(effect);if(s)return s;s={span:0,radius:0};
@@ -57,46 +59,51 @@ export class TerritoryCaptureEffects {
   if(!this.dirty&&now-this.lastDraw<1000/30)return;this.dirty=false;this.lastDraw=now;
   for(const key of this.drawn){const g=this.graphics.get(key)!;g.clear();g.setVisible(false);}this.drawn.clear();this.drawnCells=0;this.drawnEdges=0;
   const rect=this.scene.cameras.main.worldView,margin=cullMargin(this.map);
-  for(const effect of this.model.effects)for(const [key,cells]of effect.chunks){
-   const chunk=this.chunks.get(key)!;
-   if(culling&&(chunk.maxX<rect.x-margin||chunk.minX>rect.right+margin||chunk.maxY<rect.y-margin||chunk.minY>rect.bottom+margin))continue;
-   const g=this.graphics.get(key)!,before=this.drawnCells,elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0,theme=this.captureTheme(effect.participantId),{span,radius}=this.span(effect);
-   for(const cell of cells){
-    if(cell.cancelled)continue;
-    if(view.owners[cell.id]!==effect.slot+1||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
-    const c:Cell=this.map.cells[cell.id],spot=theme?tileSpot(c.center.x,c.center.y,effect.origin,span?cell.delay/span:0,radius):null;
-    const delay=theme&&spot?themedDelay(theme,spot,themedWave(radius)):cell.delay,a=captureAppearance(elapsed,delay,effect.color);
-    const themed=theme&&spot&&!(a.pending&&cell.prior)?themedTile(theme,spot,elapsed-delay,effect.color):null;
-    if(themed){
-     const local=elapsed-delay,pop=local<CAPTURE_POP?Math.sin(local/CAPTURE_POP*Math.PI):0,p=this.shape(c,1+(themed.pop??.16)*pop,-10*pop);
-     g.fillStyle(themed.color,themed.alpha).fillPoints(p,true).lineStyle(2,INK,.45*themed.alpha).strokePoints(p,true);
-    }else if(a.alpha>0){
-     if(a.pending&&cell.prior){
-      // A stolen tile cracks in its old colour until the wave flips it.
-      const p=this.shape(c,1,3);g.fillStyle(cell.priorColor,1).fillPoints(p,true).fillStyle(INK,.25).fillPoints(p,true);
-      const v=c.vertices;g.lineStyle(3,INK,.9).beginPath().moveTo(v[0].x,v[0].y+3).lineTo(c.center.x+4,c.center.y+1).lineTo(c.center.x-3,c.center.y+6).lineTo(v[3].x,v[3].y+3).strokePath();
-     }else{
-      const p=this.shape(c,a.scale,a.lift);g.fillStyle(a.fillColor,a.alpha).fillPoints(p,true);
-      if(!a.pending)g.lineStyle(2,INK,.55).strokePoints(p,true);
+  for(const effect of this.model.effects){
+   const elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0,theme=this.captureTheme(effect.participantId),{span,radius}=this.span(effect);
+   const prepared=theme?this.themes.forEffect(this.map,effect,theme,span,radius):null;
+   for(const [key,cells]of effect.chunks){
+    const chunk=this.chunks.get(key)!;
+    if(culling&&(chunk.maxX<rect.x-margin||chunk.minX>rect.right+margin||chunk.maxY<rect.y-margin||chunk.minY>rect.bottom+margin))continue;
+    const g=this.graphics.get(key)!,before=this.drawnCells;
+    for(const cell of cells){
+     if(cell.cancelled)continue;
+     if(view.owners[cell.id]!==effect.slot+1||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
+     const c:Cell=this.map.cells[cell.id];let tile=prepared?.get(cell.id);
+     if(theme&&prepared&&!tile){tile=prepareCaptureTile(c,effect,cell,theme,span,radius);prepared.set(cell.id,tile);}
+     const spot=tile?.spot,delay=tile?.delay??cell.delay,a=captureAppearance(elapsed,delay,effect.color);
+     const themed=theme&&spot&&!(a.pending&&cell.prior)?themedTile(theme,spot,elapsed-delay,effect.color):null;
+     if(themed){
+      const local=elapsed-delay,pop=local<CAPTURE_POP?Math.sin(local/CAPTURE_POP*Math.PI):0,p=this.shape(c,1+(themed.pop??.16)*pop,-10*pop);
+      g.fillStyle(themed.color,themed.alpha).fillPoints(p,true).lineStyle(2,INK,.45*themed.alpha).strokePoints(p,true);
+     }else if(a.alpha>0){
+      if(a.pending&&cell.prior){
+       // A stolen tile cracks in its old colour until the wave flips it.
+       const p=this.shape(c,1,3);g.fillStyle(cell.priorColor,1).fillPoints(p,true).fillStyle(INK,.25).fillPoints(p,true);
+       const v=c.vertices;g.lineStyle(3,INK,.9).beginPath().moveTo(v[0].x,v[0].y+3).lineTo(c.center.x+4,c.center.y+1).lineTo(c.center.x-3,c.center.y+6).lineTo(v[3].x,v[3].y+3).strokePath();
+      }else{
+       const p=this.shape(c,a.scale,a.lift);g.fillStyle(a.fillColor,a.alpha).fillPoints(p,true);
+       if(!a.pending)g.lineStyle(2,INK,.55).strokePoints(p,true);
+      }
      }
-    }
-    for(let k=0;k<6;k++){
-     const v=c.vertices[(6-k)%6],w=c.vertices[(7-k)%6];
-     if(theme&&cell.edges&(1<<k)){
-      const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
-      const angle=Math.atan2((v.y+w.y)/2-effect.origin.y,(v.x+w.x)/2-effect.origin.x),light=themedEdge(theme,angle,elapsed);
-      if(light>0){const colors=themedEdgeColors(theme,angle,effect.color);g.lineStyle(5+4*light,colors.line,.95*light).lineBetween(v.x,v.y,w.x,w.y).lineStyle(2.5,colors.core,light).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
-     }else if(a.lineAlpha>0&&cell.edges&(1<<k)){
-      const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
-      g.lineStyle(a.lineWidth,a.lineColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);
-      g.lineStyle(2,a.coreColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;
+     for(let k=0;k<6;k++){
+      const v=c.vertices[(6-k)%6],w=c.vertices[(7-k)%6];
+      if(theme&&cell.edges&(1<<k)){
+       const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
+       const {angle,colors}=tile!.edges[k]!,light=themedEdge(theme,angle,elapsed);
+       if(light>0){g.lineStyle(5+4*light,colors.line,.95*light).lineBetween(v.x,v.y,w.x,w.y).lineStyle(2.5,colors.core,light).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
+      }else if(a.lineAlpha>0&&cell.edges&(1<<k)){
+       const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
+       g.lineStyle(a.lineWidth,a.lineColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);
+       g.lineStyle(2,a.coreColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;
+      }
+      // The local victim's freshly cut border flashes orange twice.
+      if(localLoss&&a.lossAlpha>0&&cell.prior===this.selfSlot+1&&cell.victimEdges&(1<<k)){g.lineStyle(9,LOSS,a.lossAlpha).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
      }
-     // The local victim's freshly cut border flashes orange twice.
-     if(localLoss&&a.lossAlpha>0&&cell.prior===this.selfSlot+1&&cell.victimEdges&(1<<k)){g.lineStyle(9,LOSS,a.lossAlpha).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
+     this.drawnCells++;
     }
-    this.drawnCells++;
+    if(this.drawnCells>before){g.setVisible(true);this.drawn.add(key);}
    }
-   if(this.drawnCells>before){g.setVisible(true);this.drawn.add(key);}
   }
  }
  private drawOverlay(effect:CaptureBloom,now:number):void{

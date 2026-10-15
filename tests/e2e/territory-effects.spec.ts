@@ -2,6 +2,46 @@ import {test,expect} from '@playwright/test';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const output='.local/territory-effects',styles=['WAVE_COLLAPSE','POWER_DOWN','EDGE_CRUMBLE'] as const;
 const fixture='/tests/fixtures/territory-effects.html';
+
+test('premium capture cache preserves drawing commands for every theme and cleans trails on shutdown',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await load(page);
+ await page.getByRole('button',{name:'Capture Pulse 재생'}).click();
+ const result=await page.evaluate(async()=>{
+  const f=(window as any).fixture,c=f.scene.captureEffects;
+  const {CAPTURE_THEMES}=await import('/src/client/capture-themes.ts' as string);
+  const {MarkerTrails}=await import('/src/client/marker-trails.ts' as string);
+  // Stop the fixture clock so both paths draw precisely the same confirmed capture.
+  f.scene.game.loop.sleep();const cached=c.themes,born=c.model.effects[0].startedAt;
+  const commands=()=>JSON.stringify([...c.graphics].map(([key,g]:any)=>[key,g.visible,g.commandBuffer]).concat([['overlay',c.overlay.commandBuffer]]));
+  const draw=(elapsed:number)=>{c.dirty=true;c.update(born+elapsed,f.scene.view,false);};
+  const rows:{theme:string;same:boolean;cells:number;cachedMs:number;uncachedMs:number}[]=[];
+  for(const [name,theme]of Object.entries(CAPTURE_THEMES)){
+   c.captureTheme=()=>theme;let same=true;
+   for(const color of [0x46c46a,0xffe066,0x34408f]){
+    c.model.effects[0].color=color;
+    for(const elapsed of [0,110,250,500,850]){
+     c.themes={forEffect:()=>new Map()};draw(elapsed);const before=commands();
+     c.themes=cached;draw(elapsed);same&&=commands()===before;
+    }
+   }
+   const measure=(useCache:boolean)=>{
+    c.themes=useCache?cached:{forEffect:()=>new Map()};draw(110);
+    const start=performance.now();for(let i=0;i<20;i++)draw(110+i*2);return (performance.now()-start)/20;
+   };
+   rows.push({theme:name,same,cells:c.state().drawnCells,uncachedMs:measure(false),cachedMs:measure(true)});
+  }
+  // Use an isolated scene event bus; shutting down the fixture itself would
+  // also destroy the graphics under comparison.
+  const events=new f.scene.events.constructor(),probe=new MarkerTrails({events});let destroyed=0;
+  probe.emitters.set('test',{destroy(){destroyed++;}});probe.followers.set('test',{});probe.blooms.push({});
+  events.emit('shutdown');events.emit('destroy');
+  return {rows,lifecycle:{destroyed,emitters:probe.emitters.size,followers:probe.followers.size,blooms:probe.blooms.length}};
+ });
+ expect(result.rows.length).toBeGreaterThan(10);expect(result.rows.every(row=>row.same&&row.cells>0)).toBe(true);
+ expect(result.lifecycle).toEqual({destroyed:1,emitters:0,followers:0,blooms:0});expect(errors).toEqual([]);
+ mkdirSync('.local/wall-effects-fix-20261016',{recursive:true});
+ writeFileSync('.local/wall-effects-fix-20261016/marker-cache-browser.json',JSON.stringify({condition:'Headless desktop Chromium; identical Graphics commands, all themes/three owner colours/five animation times. Timings cover forced redraws of this fixture, not phone thermals.',...result,errors},null,2));
+});
 test.beforeAll(()=>{mkdirSync(output,{recursive:true});mkdirSync('.local/capture-effects',{recursive:true});});
 async function load(page:any){await page.goto(fixture);await page.waitForFunction(()=>!!(window as any).fixture&&(window as any).fixture.scene.territoryEffectState()!==null);}
 const stats=(a:number[])=>{const s=[...a].sort((a,b)=>a-b);return {mean:a.reduce((n,v)=>n+v,0)/a.length,p95:s[Math.floor(s.length*.95)],p99:s[Math.floor(s.length*.99)],max:s.at(-1),samples:a.length};};
