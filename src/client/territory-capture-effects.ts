@@ -3,7 +3,7 @@ import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Cell,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
 import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,CAPTURE_POP,type CaptureBloom} from './territory-capture-model.js';
-import {themedTile,themedEdge,themedEdgeColors,themedRing,themedDelay,tileSpot,type CaptureTheme} from './capture-themes.js';
+import {themedTile,themedEdge,themedEdgeColors,themedRing,themedDelay,themedWave,tileSpot,type CaptureTheme} from './capture-themes.js';
 const INK=0x1f1b2d,LOSS=0xffa24d,CONFETTI_MS=420;
 /** Capture flip wave above territory, plus local-only ripple, confetti and loss cues. */
 export class TerritoryCaptureEffects {
@@ -65,7 +65,7 @@ export class TerritoryCaptureEffects {
     if(cell.cancelled)continue;
     if(view.owners[cell.id]!==effect.slot+1||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
     const c:Cell=this.map.cells[cell.id],spot=theme?tileSpot(c.center.x,c.center.y,effect.origin,span?cell.delay/span:0,radius):null;
-    const delay=theme&&spot?themedDelay(theme,spot,Math.max(span,200)):cell.delay,a=captureAppearance(elapsed,delay,effect.color);
+    const delay=theme&&spot?themedDelay(theme,spot,themedWave(radius)):cell.delay,a=captureAppearance(elapsed,delay,effect.color);
     const themed=theme&&spot&&!(a.pending&&cell.prior)?themedTile(theme,spot,elapsed-delay,effect.color):null;
     if(themed){
      const local=elapsed-delay,pop=local<CAPTURE_POP?Math.sin(local/CAPTURE_POP*Math.PI):0,p=this.shape(c,1+(themed.pop??.16)*pop,-10*pop);

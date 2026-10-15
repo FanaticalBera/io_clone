@@ -71,7 +71,9 @@ export class TerritoryCaptureModel {
     if(prior){const c=map.cells[id].center,sum=sums.get(prior)??{x:0,y:0,n:0};sum.x+=c.x;sum.y+=c.y;sum.n++;sums.set(prior,sum);}
    }
    const losses=new Map([...sums].map(([owner,sum])=>[owner,{x:sum.x/sum.n,y:sum.y/sum.n}]));
-   this.effects=this.effects.filter(e=>e.participantId!==target.participantId);
+   // A quick follow-up capture (or a big capture split across snapshots) must not cut the earlier
+   // effect short: keep it running, at most two per participant.
+   const own=this.effects.filter(e=>e.participantId===target.participantId);if(own.length>=2)this.effects.splice(this.effects.indexOf(own[0]),1);
    if(this.effects.length>=MAX_CAPTURE_EFFECTS){this.effects.shift();this.dropped++;}
    const {ids,head:_head,...metadata}=target;
    this.effects.push({...metadata,chunks,startedAt:now,cellCount:ids.length,losses});this.played++;

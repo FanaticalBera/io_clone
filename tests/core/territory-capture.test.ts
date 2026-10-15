@@ -45,10 +45,11 @@ describe('Capture Bloom presentation',()=>{
   capture(15,cells.slice(5));accept(120);expect(model.played).toBe(1);expect(model.state().cells).toBe(7);
   m.participants[15].lifeId++;m.tick++;accept(140);expect(model.state().cells).toBe(0);
  });
- it('replaces the same participant and caps simultaneous participants at four',()=>{
+ it('keeps a participant earlier capture running (two at most) and caps simultaneous effects at four',()=>{
   const {m,model,cells,capture,accept}=setup();capture(15,cells.slice(0,2));accept();
-  capture(15,cells.slice(2,4));accept(120);expect(model.effects).toHaveLength(1);expect(model.state().cells).toBe(2);
-  for(let slot=0;slot<5;slot++)capture(slot,[cells[slot+4]]);accept(140);expect(model.effects.map(e=>e.slot)).toEqual([1,2,3,4]);expect(model.dropped).toBe(2);
+  capture(15,cells.slice(2,4));accept(120);expect(model.effects).toHaveLength(2);expect(model.state().cells).toBe(4);
+  capture(15,cells.slice(4,5));accept(125);expect(model.effects).toHaveLength(2);expect(model.state().cells).toBe(3);
+  for(let slot=0;slot<5;slot++)capture(slot,[cells[slot+5]]);accept(140);expect(model.effects.map(e=>e.slot)).toEqual([1,2,3,4]);expect(model.dropped).toBe(3);
  });
  it('does not replay expired/future events or stale snapshots',()=>{
   const {m,model,keys,capture,accept}=setup();capture();m.tick+=31;accept();expect(model.played).toBe(0);

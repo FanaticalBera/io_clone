@@ -42,7 +42,7 @@ class TrailLab extends Phaser.Scene {
    r.marker.container.setPosition(x,y);r.marker.update(now);this.trails.follow(r.id,r.id,x,y,true,now);
    const theme=CAPTURE_THEMES[r.id];
    if(now>=r.next){r.next=now+EVERY;r.at=now;r.ox=x;r.oy=y;r.marker.jump(now);
-    if(!theme)this.trails.capture(r.id,{x,y},PATCH.map(p=>({x:r.cx+p.x,y:r.cy+p.y,delay:p.ring/MAX_RING*WAVE})),true,now);}
+    if(!theme||theme.particles)this.trails.capture(r.id,{x,y},PATCH.map(p=>({x:r.cx+p.x,y:r.cy+p.y,delay:p.ring/MAX_RING*WAVE})),true,now);}
    const t=now-r.at;if(t>EVERY*.85)continue;const fade=t<EVERY*.6?1:1-(t-EVERY*.6)/(EVERY*.25);
    for(const p of PATCH){
     const px=r.cx+p.x,py=r.cy+p.y,spot=tileSpot(px,py,{x:r.ox,y:r.oy},p.ring/MAX_RING,MAX_RING*SIDE*1.8);

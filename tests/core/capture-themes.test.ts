@@ -3,12 +3,12 @@ import {CAPTURE_THEMES,contrast,themedDelay,themedTile,tileSpot,themedEdge,THEME
 import {MARKERS} from '../../src/client/catalog.js';
 const FIRE=['ember','phoenix','golddragon'];
 describe('premium capture themes',()=>{
- it('gives every premium marker except the fire ones a land theme',()=>{
+ it('gives every premium marker a land theme; only fire keeps particle flames on top',()=>{
   // Premium = the special category plus every gold (legendary or reward) marker.
   const premium=MARKERS.filter(m=>m.category==='SPECIAL'||m.legendary).map(m=>m.id);
-  expect(premium.filter(id=>!CAPTURE_THEMES[id]).sort()).toEqual([...FIRE].sort());
+  expect(premium.filter(id=>!CAPTURE_THEMES[id])).toEqual([]);
   expect(Object.keys(CAPTURE_THEMES).every(id=>premium.includes(id))).toBe(true);
-  for(const id of FIRE)expect(CAPTURE_THEMES[id]).toBeUndefined();
+  expect(Object.keys(CAPTURE_THEMES).filter(id=>CAPTURE_THEMES[id].particles).sort()).toEqual([...FIRE].sort());
  });
  it('keeps every wave inside the wave time and every tile and border finite',()=>{
   for(const [id,theme] of Object.entries(CAPTURE_THEMES))for(let i=0;i<40;i++){
