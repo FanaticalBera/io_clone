@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {SLOT_COLORS,participantRenderColors,setColorStyle,styledColor} from '../../src/client/player-colors.js';
 import {shuffledBotMarkers} from '../../src/client/bot-cosmetics.js';
-import {MARKERS,MARKER_COLORS} from '../../src/client/catalog.js';
+import {MARKERS,MARKER_COLORS,SHOP_PRICES} from '../../src/client/catalog.js';
 import {emptyProfile,migrateProfile} from '../../src/client/profile.js';
 import {purchaseItem,equipItem} from '../../src/client/inventory.js';
 import {markerArt} from '../../src/client/marker-art.js';
@@ -13,8 +13,8 @@ const colored=MARKER_COLORS.filter(c=>c.value!==null);
 describe('Player Color V2 presentation',()=>{
  it('provides thirty-two distinct paid colors and keeps default mint free and separate',()=>{
   expect(colored).toHaveLength(32);expect(new Set(colored.map(c=>c.value)).size).toBe(32);
-  for(const [id,rgb] of [['coral',0xff7084],['violet',0xa180f4],['cyan',0x59bfd8],['gold',0xffb43b]] as const)expect(colored.find(c=>c.id===id)).toMatchObject({value:rgb,price:300});
-  expect(colored.every(c=>c.price===300)).toBe(true);expect(colored.find(c=>c.id==='mint')!.value).not.toBe(SLOT_COLORS[0]);
+  for(const [id,rgb] of [['coral',0xff7084],['violet',0xa180f4],['cyan',0x59bfd8],['gold',0xffb43b]] as const)expect(colored.find(c=>c.id===id)).toMatchObject({value:rgb,price:100});
+  expect(colored.every(c=>c.price===100)).toBe(true);expect(colored.find(c=>c.id==='mint')!.value).not.toBe(SLOT_COLORS[0]);
   expect(MARKER_COLORS.find(c=>c.id==='slot')).toMatchObject({value:null,price:0});
  });
  it('preserves unique participant identities across every shop color in pastel and vivid styles',()=>{
@@ -45,7 +45,7 @@ describe('Player Color V2 presentation',()=>{
   const p=emptyProfile();p.coins=10000;p.stats.totalKills=12;p.inventory.ownedMarkerColorIds.push('coral','violet','cyan','gold','mint');p.inventory.equippedMarkerColorId='mint';const before=structuredClone(p);
   expect(migrateProfile(p)).toEqual(before);
   for(const c of colored){expect(['purchased','owned']).toContain(purchaseItem(p,'marker-color',c.id).status);expect(equipItem(p,'marker-color',c.id).status).toBe('equipped');expect(purchaseItem(p,'marker-color',c.id).status).toBe('owned');}
-  expect(p.coins).toBe(1900);expect(p.inventory.ownedMarkerColorIds).toHaveLength(33);expect(p.stats).toEqual(before.stats);expect(p.processedRuns).toEqual(before.processedRuns);expect(p.worlds).toEqual(before.worlds);expect(p.version).toBe(1);
+  expect(p.coins).toBe(10000-(colored.length-5)*SHOP_PRICES.markerColor);expect(p.inventory.ownedMarkerColorIds).toHaveLength(33);expect(p.stats).toEqual(before.stats);expect(p.processedRuns).toEqual(before.processedRuns);expect(p.worlds).toEqual(before.worlds);expect(p.version).toBe(1);
  });
  it('shuffles cosmetic appearances per match only, uses all eighty designs and never consumes global RNG',()=>{
   const a=shuffledBotMarkers('first'),b=shuffledBotMarkers('second');expect(a).toHaveLength(81);expect(new Set(a).size).toBe(81);expect([...a].sort()).toEqual(MARKERS.filter(m=>!m.reward).map(m=>m.id).sort());expect(a).toEqual(shuffledBotMarkers('first'));expect(a).not.toEqual(b);
