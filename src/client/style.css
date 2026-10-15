@@ -322,5 +322,7 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .menu-panel .play-column{gap:clamp(6px,2.4vh,14px)}
 .menu-panel .nickname-row{height:clamp(36px,11vh,46px)}
 .friend-card{padding:clamp(6px,2vh,10px) 12px clamp(8px,2.6vh,12px);gap:clamp(5px,2vh,9px)}
-.friend-card .friend-actions .btn,.friend-card .code-field{height:clamp(34px,10.5vh,44px)}
+.friend-card .friend-actions>.btn,.friend-card .code-field{height:clamp(34px,10.5vh,44px)}
+/* 입장 sits inside the code field: a small chip, never the field's full height. */
+.friend-card .code-field .btn{min-height:0;height:calc(100% - 12px);max-height:30px;padding:0 10px;font-size:14px}
 @media(orientation:landscape) and (max-height:340px){.play-group .mode-line,.map-text small{display:none}}

@@ -24,7 +24,7 @@ export const DEFAULT_CONFIG: Readonly<GameConfig> = Object.freeze({
 export function validateConfig(overrides: Partial<GameConfig> = {}): GameConfig {
  const config = { ...DEFAULT_CONFIG, ...overrides };
  for (const [key, value] of Object.entries(config)) {
-  if (key === 'mapShape') { if (value !== undefined && value !== 0 && value !== 1) throw new Error('Invalid config: mapShape'); continue; }
+  if (key === 'mapShape') { if (value !== undefined && !(Number.isInteger(value) && value >= 0 && value <= 4)) throw new Error('Invalid config: mapShape'); continue; }
   if (!Number.isFinite(value) || value <= 0 || value > 1e6) throw new Error('Invalid config: ' + key);
  }
  for (const key of ['simulationHz','snapshotHz','inputMaxHz','maxSlots','mapRadius','spawnRadius','spawnBufferHexes'] as const)

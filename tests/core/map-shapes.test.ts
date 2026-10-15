@@ -34,5 +34,11 @@ describe('map shapes',()=>{
   const view=unpackSnapshot(packSnapshot(buildView(m),1,0,null));
   expect(view.mapId).toBe(m.map.mapId);expect(view.owners).toEqual(m.owners);
  });
+ it.each(MAP_PRESETS.map(p=>[p.id,p.config] as const))('%s board is one connected piece with an edge ring of 0',(_id,config)=>{
+  const c=validateConfig(config),map=createMap(c.mapRadius,c.hexSideWorldUnits,c.mapShape??0),seen=new Uint8Array(map.cells.length),queue=[0];seen[0]=1;
+  for(let i=0;i<queue.length;i++)for(const n of map.cells[queue[i]].neighbors)if(n>=0&&!seen[n]){seen[n]=1;queue.push(n);}
+  expect(queue.length).toBe(map.cells.length);expect(map.cells.length).toBe(mapCellCount(c.mapRadius,c.mapShape??0));
+  expect(map.cells.every(cell=>map.inset[cell.id]>=0)).toBe(true);
+ });
  it('falls back to the hexagon for unknown saved choices',()=>{expect(mapPreset('nope').id).toBe('hex');expect(mapPreset('rect').config).toEqual({mapShape:MAP_SHAPE.RECT});});
 });

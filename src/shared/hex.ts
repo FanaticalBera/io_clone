@@ -48,24 +48,45 @@ export function region(map:MapDefinition,center:number,radius:number):number[] {
  }
  return cells;
 }
-export const MAP_SHAPE={HEX:0,RECT:1} as const;
+export const MAP_SHAPE={HEX:0,RECT:1,ISLANDS:2,DONUT:3,CROSS:4} as const;
+const SHAPE_NAMES=['hex','rect','islands','donut','cross'];
 /** Rectangle sized from the hex radius: about the same cell count, 2:1 for landscape screens. */
 export function rectHalfSize(radius:number):{cols:number;rows:number}{return {cols:Math.round(radius*1.18),rows:Math.round(radius*.64)};}
+// Unit-side pixel position, for shapes defined by straight edges and corridors.
+const unitPx=(a:Axial)=>({x:Math.sqrt(3)*(a.q+a.r/2),y:1.5*a.r});
+const segmentDistance=(p:Vec,a:Vec,b:Vec)=>{const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy)));return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);};
+/** Island, donut and cross boards, all proportional to the radius (designed at R56). */
+function featureMember(shape:number,radius:number):((a:Axial)=>boolean)|null{
+ const k=radius/56,o={q:0,r:0};
+ if(shape===MAP_SHAPE.ISLANDS){
+  // Four hex islands joined in a ring by bridges about 8-9 cells wide.
+  const centres=[[-24,-32],[56,-32],[-56,32],[24,32]].map(([q,r])=>({q:Math.round(q*k),r:Math.round(r*k)})),px=centres.map(unitPx),size=26*k,half=7.5*k;
+  return a=>centres.some(c=>hexDistance(a,c)<=size)||[[0,1],[0,2],[1,3],[2,3]].some(([i,j])=>segmentDistance(unitPx(a),px[i],px[j])<=half);
+ }
+ if(shape===MAP_SHAPE.DONUT){const outer=Math.round(60*k),inner=Math.round(24*k);return a=>{const d=hexDistance(a,o);return d<=outer&&d>inner;};}
+ if(shape===MAP_SHAPE.CROSS){
+  const plaza=22*k,arm=1.5*12*k,armX=Math.sqrt(3)*12*k,longX=Math.sqrt(3)*70*k,longY=1.5*62*k;
+  return a=>{const p=unitPx(a);return hexDistance(a,o)<=plaza||(Math.abs(p.y)<=arm&&Math.abs(p.x)<=longX)||(Math.abs(p.x)<=armX&&Math.abs(p.y)<=longY);};
+ }
+ return null;
+}
 function shapeCoords(radius:number,shape:number):Axial[]{
+ const member=featureMember(shape,radius);
+ if(member){const bound=Math.ceil(radius*2.2),cells:Axial[]=[];for(let r=-bound;r<=bound;r++)for(let q=-2*bound;q<=2*bound;q++)if(member({q,r}))cells.push({q,r});return cells;}
  if(shape!==MAP_SHAPE.RECT)return disk({q:0,r:0},radius);
  const {cols,rows}=rectHalfSize(radius),cells:Axial[]=[];
  // Odd-r offset rows: every row spans the same x range, so the board is a true rectangle.
  for(let r=-rows;r<=rows;r++){const shift=Math.floor(r/2);for(let col=-cols;col<=cols;col++)cells.push({q:col-shift,r});}
  return cells;
 }
-export function mapIdFor(radius:number,side:number,shape=0):string{return shape===MAP_SHAPE.RECT?'rect-r'+radius+'-a'+side+'-v1':'hex-r'+radius+'-a'+side+'-v1';}
+export function mapIdFor(radius:number,side:number,shape=0):string{return (SHAPE_NAMES[shape]??'hex')+'-r'+radius+'-a'+side+'-v1';}
 const cellCounts=new Map<string,number>();
 export function mapCellCount(radius:number,shape=0):number{
- if(shape!==MAP_SHAPE.RECT)return 1+3*radius*(radius+1);
+ if(shape===MAP_SHAPE.HEX)return 1+3*radius*(radius+1);
  const key=radius+':'+shape;let n=cellCounts.get(key);if(n===undefined){n=shapeCoords(radius,shape).length;cellCounts.set(key,n);}return n;
 }
 export function createMap(radius=22,side=32,shape=0):MapDefinition {
- if(!Number.isInteger(radius)||radius<1||radius>64||!Number.isFinite(side)||side<=0||(shape!==0&&shape!==1)) throw new Error('Invalid map');
+ if(!Number.isInteger(radius)||radius<1||radius>64||!Number.isFinite(side)||side<=0||!Number.isInteger(shape)||shape<0||shape>=SHAPE_NAMES.length) throw new Error('Invalid map');
  const coords=shapeCoords(radius,shape), byKey=new Map(coords.map((a,i)=>[axialKey(a.q,a.r),i]));
  const cells=coords.map((a,id)=>{
   const center=axialToWorld(a.q,a.r,side);
