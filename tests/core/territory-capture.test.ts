@@ -45,11 +45,13 @@ describe('Capture Bloom presentation',()=>{
   capture(15,cells.slice(5));accept(120);expect(model.played).toBe(1);expect(model.state().cells).toBe(7);
   m.participants[15].lifeId++;m.tick++;accept(140);expect(model.state().cells).toBe(0);
  });
- it('keeps a participant earlier capture running (two at most) and caps simultaneous effects at four',()=>{
+ it('keeps a participant earlier capture running (four at most) and caps simultaneous effects at eight',()=>{
   const {m,model,cells,capture,accept}=setup();capture(15,cells.slice(0,2));accept();
   capture(15,cells.slice(2,4));accept(120);expect(model.effects).toHaveLength(2);expect(model.state().cells).toBe(4);
-  capture(15,cells.slice(4,5));accept(125);expect(model.effects).toHaveLength(2);expect(model.state().cells).toBe(3);
-  for(let slot=0;slot<5;slot++)capture(slot,[cells[slot+5]]);accept(140);expect(model.effects.map(e=>e.slot)).toEqual([1,2,3,4]);expect(model.dropped).toBe(3);
+  // Two halves of a big capture plus two quick single tiles all stay; a fifth drops the oldest.
+  capture(15,cells.slice(4,5));accept(125);capture(15,cells.slice(5,6));accept(126);expect(model.effects).toHaveLength(4);
+  capture(15,cells.slice(6,7));accept(127);expect(model.effects).toHaveLength(4);expect(model.state().cells).toBe(5);
+  for(let slot=0;slot<5;slot++)capture(slot,[cells[slot+7]]);accept(140);expect(model.effects).toHaveLength(8);expect(model.effects.slice(-5).map(e=>e.slot)).toEqual([0,1,2,3,4]);expect(model.dropped).toBe(1);
  });
  it('does not replay expired/future events or stale snapshots',()=>{
   const {m,model,keys,capture,accept}=setup();capture();m.tick+=31;accept();expect(model.played).toBe(0);

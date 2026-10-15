@@ -1,7 +1,7 @@
 import type {MapDefinition,MatchView,Vec} from '../shared/model.js';
 import {hexDistance} from '../shared/hex.js';
 /** Tiles flip outward from the entry over WAVE ms, each popping for POP ms; the rest is edge glow and loss cues. */
-export const CAPTURE_DURATION=1000,CAPTURE_WAVE=250,CAPTURE_POP=200,MAX_CAPTURE_EFFECTS=4;
+export const CAPTURE_DURATION=1000,CAPTURE_WAVE=250,CAPTURE_POP=200,MAX_CAPTURE_EFFECTS=8;
 export function experimentalCaptureEffect(value:string|null,enabled:boolean):boolean{return !(enabled&&value==='none');}
 /** prior is the old owner (slot+1, 0 neutral); victimEdges marks sides that still border that owner. */
 export interface BloomCell {id:number;edges:number;cancelled:boolean;delay:number;prior:number;priorColor:number;victimEdges:number}
@@ -72,8 +72,8 @@ export class TerritoryCaptureModel {
    }
    const losses=new Map([...sums].map(([owner,sum])=>[owner,{x:sum.x/sum.n,y:sum.y/sum.n}]));
    // A quick follow-up capture (or a big capture split across snapshots) must not cut the earlier
-   // effect short: keep it running, at most two per participant.
-   const own=this.effects.filter(e=>e.participantId===target.participantId);if(own.length>=2)this.effects.splice(this.effects.indexOf(own[0]),1);
+   // effect short: keep it running. A big capture can arrive as two halves, so four per participant.
+   const own=this.effects.filter(e=>e.participantId===target.participantId);if(own.length>=4)this.effects.splice(this.effects.indexOf(own[0]),1);
    if(this.effects.length>=MAX_CAPTURE_EFFECTS){this.effects.shift();this.dropped++;}
    const {ids,head:_head,...metadata}=target;
    this.effects.push({...metadata,chunks,startedAt:now,cellCount:ids.length,losses});this.played++;

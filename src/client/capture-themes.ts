@@ -74,7 +74,8 @@ export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  archmage:{order:s=>s.seed,tile:(s,t)=>s.seed<.45?{color:s.seed<.12?0xffffff:0xb48cff,alpha:hold(t)}:null,edge:glow(0x9b6bff,0xe8e0ff),heads:2,particles:'bloom',ring:0xb48cff},
  // Circuit board: gold traces on dark teal, scanned top to bottom; sparks fly off.
  goldbot:{order:s=>clamp(.5+s.dy/(2*s.radius)),tile:(s,t)=>({color:t<.12?0xffffff:Math.round(s.x/55)%3===0||Math.round(s.y/48)%3===0?0xffd23f:0x1f6f78,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:2,particles:'bloom',ring:0x6cd4ff},
- starwhale:{order:s=>clamp(s.dist+.12*Math.sin(Math.atan2(s.dy,s.dx)*3)),tile:flash(s=>Math.floor(far(s)/45+Math.sin(Math.atan2(s.dy,s.dx)*3))%2?0xbfe6ff:0x4ea8ff),edge:glow(0x4ea8ff,0xd8f0ff),ring:0x9fd8ff},
+ // Night sea: rolling wave bands (deep blue, sea blue, white crests) washing outward; bubbles and stars rise.
+ starwhale:{order:s=>clamp(s.dist+.12*Math.sin(Math.atan2(s.dy,s.dx)*3)),tile:flash(s=>{const k=((s.y+28*Math.sin(s.x/70))/46%3+3)%3;return k<1?0x1f4fb8:k<2.2?0x4ea8ff:0xeaf6ff;}),edge:glow(0x1f4fb8,0xeaf6ff),heads:2,particles:'bloom',ring:0x8fe3ff},
  // The all-collection crown: gold land swept by two white shine passes, three border lights, glitter.
  hexcrown:{tile:(s,t)=>({color:Math.abs(t-.12-s.dist*.1)<.06||Math.abs(t-.36-s.dist*.1)<.06?0xffffff:Math.floor(far(s)/70)%2?0xfff2a8:0xffd23f,alpha:hold(t)}),edge:glow(0xffb000,0xffffff),heads:3,particles:'bloom',ring:0xffd23f},
 };
