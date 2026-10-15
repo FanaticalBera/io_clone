@@ -1,4 +1,5 @@
 import {prepareCaptureTransfers} from './capture-diagnostics.js';
+import {homeReturnMargin,homeMarginEntries} from './home-return-margin.js';
 import {captureLosses,recordBotCapture} from './bot-events.js';
 import {beginRunResolution,endRunResolution,recordBestTerritories} from './run.js';
 import {slotBit} from './slots.js';
@@ -40,11 +41,11 @@ function trailTouchesHome(match:MatchState,p:Participant):boolean{
  const first=p.trailCells.values().next().value;
  return first!==undefined&&match.map.cells[first].neighbors.some(id=>id>=0&&match.owners[id]===p.slot+1);
 }
-export function applySimultaneousCaptures(match:MatchState,returners:Participant[],eventTick=match.tick,iteration=0):void {
+export function applySimultaneousCaptures(match:MatchState,returners:Participant[],eventTick=match.tick,iteration=0,returnHomes?:ReadonlyMap<string,number>):void {
  beginRunResolution(match);try{
  const ordered=[...returners].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
  const candidates=new Map<Participant,Set<number>>();
- for(const p of ordered)if(p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[p.cellId]===p.slot+1)candidates.set(p,captureCandidates(match,p));
+ for(const p of ordered)if(p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[returnHomes?.get(p.participantId)??p.cellId]===p.slot+1)candidates.set(p,captureCandidates(match,p));
  if(!candidates.size)return;
  const audit=hasDeathObserver(match),ownersBefore=audit?[...match.owners]:[],trailMasksBefore=audit?[...match.trailMasks]:[],trailsBefore=audit?new Map(match.participants.map(p=>[p,[...p.trailCells]])):null;
  const connectedBefore=new Set(match.participants.filter(p=>p.lifeState==='ALIVE'&&!candidates.has(p)&&p.trailCells.size&&trailTouchesHome(match,p)));
@@ -125,7 +126,7 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
  }observer({tick:match.tick,participants:trace});}
  }finally{endRunResolution(match);}
 }
-export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set()):void {
+export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set(),returnHomes?:ReadonlyMap<string,number>):void {
  beginRunResolution(match);try{
  for(let iteration=0;iteration<32;iteration++){
   const ordered=[...match.participants].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
@@ -158,8 +159,9 @@ export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:
   let wallDeaths=0;
   for(const p of alive)if(wallVictims.has(p.participantId)&&markDead(match,p,'WALL_HIT',undefined,{cause:'WALL_HIT',cellId:p.cellId,eventTick},diagnostics?.get(p)))wallDeaths++;
   for(const [p,id]of pending)if(p.lifeState==='ALIVE')addTrail(match,p,id);
-  const returners=ordered.filter(p=>p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[p.cellId]===p.slot+1);
-  applySimultaneousCaptures(match,returners,eventTick,iteration);
+  const earlyHomes=iteration===0?returnHomes:undefined;
+  const returners=ordered.filter(p=>p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[earlyHomes?.get(p.participantId)??p.cellId]===p.slot+1);
+  applySimultaneousCaptures(match,returners,eventTick,iteration,earlyHomes);
   let territoryDeaths=0;
   for(const p of ordered)if(p.lifeState==='ALIVE'&&p.territoryCount===0){markDead(match,p,'TERRITORY_LOST',undefined,{cause:'TERRITORY_LOST',cellId:p.cellId,eventTick},diagnostics?.get(p));territoryDeaths++;}
   if(!deaths.size&&!pending.size&&!returners.length&&!territoryDeaths&&!wallDeaths){const outcome=evaluateMode(match,eventTick);if(outcome)finishMatch(match,outcome);return;}
@@ -170,6 +172,7 @@ export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:
 export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):void {
  if(match.phase!=='RUNNING')return;
  const motions=new Map<string,Motion>(),entries:Entry[]=[],wallEntries:Entry[]=[];
+ const margin=homeReturnMargin(match),homeEntries:(Entry&{homeCellId:number})[]=[];
  const distance=moveSpeed(match.config)/match.config.simulationHz;
  for(const p of match.participants){
   if(p.lifeState!=='ALIVE')continue;
@@ -183,6 +186,7 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
   const delta={x:p.direction.x*distance,y:p.direction.y*distance};
   const stopT=movement.blocked?Math.min(1,Math.hypot(movement.position.x-start.x,movement.position.y-start.y)/distance):1;
   motions.set(p.participantId,{start,delta,movement,lifeId:p.lifeId,stopT});
+  if(margin)for(const e of homeMarginEntries(match,p,movement,delta,stopT,margin))homeEntries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:p.cellId,homeCellId:e.homeCellId,t:e.t,time:quantizedEventTime(e.t,match.config.simulationHz)});
   for(const e of movement.entries)entries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:e.cellId,t:e.t,time:quantizedEventTime(e.t,match.config.simulationHz)});
   if(movement.boundaryT!==null)wallEntries.push({participantId:p.participantId,lifeId:p.lifeId,cellId:movement.cellId,t:movement.boundaryT,time:quantizedEventTime(movement.boundaryT,match.config.simulationHz)});
  }
@@ -190,6 +194,7 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
  const groups=new Map<number,Entry[]>([[0,[]]]);
  for(const e of entries){const group=groups.get(e.time)??[];group.push(e);groups.set(e.time,group);}
  for(const e of wallEntries)if(!groups.has(e.time))groups.set(e.time,[]);
+ for(const e of homeEntries)if(!groups.has(e.time))groups.set(e.time,[]);
  const deadline=roundDeadlineTicks(match),finalTick=deadline!==null&&match.tick+1>=deadline;
  for(const [time,group] of [...groups].sort((a,b)=>a[0]-b[0])){
   if(match.phase!=='RUNNING')break;
@@ -207,7 +212,8 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
   const walls=new Set(wallEntries.filter(e=>e.time===time&&match.participants.some(p=>p.participantId===e.participantId&&p.lifeId===e.lifeId&&p.lifeState==='ALIVE')).map(e=>e.participantId));
   // The time key is quantized; preserve the exact inside-boundary impact position.
   for(const p of match.participants)if(walls.has(p.participantId))p.position={...motions.get(p.participantId)!.movement.position};
-  resolveAtTime(match,match.tick+fraction,walls);
+  const homes=margin?new Map(homeEntries.filter(e=>e.time===time&&match.participants.some(p=>p.participantId===e.participantId&&p.lifeId===e.lifeId&&p.lifeState==='ALIVE'&&match.owners[e.homeCellId]===p.slot+1)).map(e=>[e.participantId,e.homeCellId])):undefined;
+  resolveAtTime(match,match.tick+fraction,walls,homes);
  }
  if(match.phase==='RUNNING')for(const p of match.participants){const motion=motions.get(p.participantId);if(motion&&p.lifeState==='ALIVE'&&p.lifeId===motion.lifeId)p.position={...motion.movement.position};}
 }

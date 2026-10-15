@@ -1,4 +1,5 @@
 import { prepareCaptureTransfers } from './capture-diagnostics.js';
+import { homeReturnMargin, homeMarginEntries } from './home-return-margin.js';
 import { captureLosses, recordBotCapture } from './bot-events.js';
 import { beginRunResolution, endRunResolution, recordBestTerritories } from './run.js';
 import { slotBit } from './slots.js';
@@ -29,13 +30,13 @@ function trailTouchesHome(match, p) {
     const first = p.trailCells.values().next().value;
     return first !== undefined && match.map.cells[first].neighbors.some(id => id >= 0 && match.owners[id] === p.slot + 1);
 }
-export function applySimultaneousCaptures(match, returners, eventTick = match.tick, iteration = 0) {
+export function applySimultaneousCaptures(match, returners, eventTick = match.tick, iteration = 0, returnHomes) {
     beginRunResolution(match);
     try {
         const ordered = [...returners].sort((a, b) => match.priority.indexOf(a.slot) - match.priority.indexOf(b.slot));
         const candidates = new Map();
         for (const p of ordered)
-            if (p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1)
+            if (p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[returnHomes?.get(p.participantId) ?? p.cellId] === p.slot + 1)
                 candidates.set(p, captureCandidates(match, p));
         if (!candidates.size)
             return;
@@ -178,7 +179,7 @@ export function applySimultaneousCaptures(match, returners, eventTick = match.ti
         endRunResolution(match);
     }
 }
-export function resolveAtTime(match, eventTick = match.tick, wallVictims = new Set()) {
+export function resolveAtTime(match, eventTick = match.tick, wallVictims = new Set(), returnHomes) {
     beginRunResolution(match);
     try {
         for (let iteration = 0; iteration < 32; iteration++) {
@@ -226,8 +227,9 @@ export function resolveAtTime(match, eventTick = match.tick, wallVictims = new S
             for (const [p, id] of pending)
                 if (p.lifeState === 'ALIVE')
                     addTrail(match, p, id);
-            const returners = ordered.filter(p => p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[p.cellId] === p.slot + 1);
-            applySimultaneousCaptures(match, returners, eventTick, iteration);
+            const earlyHomes = iteration === 0 ? returnHomes : undefined;
+            const returners = ordered.filter(p => p.lifeState === 'ALIVE' && p.trailCells.size && match.owners[earlyHomes?.get(p.participantId) ?? p.cellId] === p.slot + 1);
+            applySimultaneousCaptures(match, returners, eventTick, iteration, earlyHomes);
             let territoryDeaths = 0;
             for (const p of ordered)
                 if (p.lifeState === 'ALIVE' && p.territoryCount === 0) {
@@ -251,6 +253,7 @@ export function advanceMovement(match, inputs = new Map()) {
     if (match.phase !== 'RUNNING')
         return;
     const motions = new Map(), entries = [], wallEntries = [];
+    const margin = homeReturnMargin(match), homeEntries = [];
     const distance = moveSpeed(match.config) / match.config.simulationHz;
     for (const p of match.participants) {
         if (p.lifeState !== 'ALIVE')
@@ -268,6 +271,9 @@ export function advanceMovement(match, inputs = new Map()) {
         const delta = { x: p.direction.x * distance, y: p.direction.y * distance };
         const stopT = movement.blocked ? Math.min(1, Math.hypot(movement.position.x - start.x, movement.position.y - start.y) / distance) : 1;
         motions.set(p.participantId, { start, delta, movement, lifeId: p.lifeId, stopT });
+        if (margin)
+            for (const e of homeMarginEntries(match, p, movement, delta, stopT, margin))
+                homeEntries.push({ participantId: p.participantId, lifeId: p.lifeId, cellId: p.cellId, homeCellId: e.homeCellId, t: e.t, time: quantizedEventTime(e.t, match.config.simulationHz) });
         for (const e of movement.entries)
             entries.push({ participantId: p.participantId, lifeId: p.lifeId, cellId: e.cellId, t: e.t, time: quantizedEventTime(e.t, match.config.simulationHz) });
         if (movement.boundaryT !== null)
@@ -281,6 +287,9 @@ export function advanceMovement(match, inputs = new Map()) {
         groups.set(e.time, group);
     }
     for (const e of wallEntries)
+        if (!groups.has(e.time))
+            groups.set(e.time, []);
+    for (const e of homeEntries)
         if (!groups.has(e.time))
             groups.set(e.time, []);
     const deadline = roundDeadlineTicks(match), finalTick = deadline !== null && match.tick + 1 >= deadline;
@@ -310,7 +319,8 @@ export function advanceMovement(match, inputs = new Map()) {
         for (const p of match.participants)
             if (walls.has(p.participantId))
                 p.position = { ...motions.get(p.participantId).movement.position };
-        resolveAtTime(match, match.tick + fraction, walls);
+        const homes = margin ? new Map(homeEntries.filter(e => e.time === time && match.participants.some(p => p.participantId === e.participantId && p.lifeId === e.lifeId && p.lifeState === 'ALIVE' && match.owners[e.homeCellId] === p.slot + 1)).map(e => [e.participantId, e.homeCellId])) : undefined;
+        resolveAtTime(match, match.tick + fraction, walls, homes);
     }
     if (match.phase === 'RUNNING')
         for (const p of match.participants) {
