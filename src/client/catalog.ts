@@ -7,7 +7,7 @@ export interface MarkerDefinition {id:string;name:string;category:MarkerCategory
 export interface MarkerColorDefinition {id:string;name:string;value:number|null;price:number}
 export const DEFAULT_MARKER_ID='default',DEFAULT_MARKER_COLOR_ID='slot';
 // Launch prices. Owned items and collection rewards remain available without another purchase.
-export const SHOP_PRICES=Object.freeze({basicMarker:500,imageMarker:1500,specialMarker:4000,markerColor:300});
+export const SHOP_PRICES=Object.freeze({basicMarker:250,imageMarker:600,specialMarker:1200,legendaryMarker:2250,markerColor:100});
 // Every marker is vector art in marker-shapes.ts under the same id.
 export const MARKERS:readonly Readonly<MarkerDefinition>[]=Object.freeze([
   {id:'default',name:'기본 원',category:'BASIC',price:0},
@@ -83,14 +83,14 @@ export const MARKERS:readonly Readonly<MarkerDefinition>[]=Object.freeze([
   {id:'sun',name:'해님',category:'SPECIAL',price:SHOP_PRICES.specialMarker},
   {id:'heart',name:'두근 하트',category:'SPECIAL',price:SHOP_PRICES.specialMarker},
   {id:'storm',name:'번개 구름',category:'SPECIAL',price:SHOP_PRICES.specialMarker},
-  {id:'phoenix',name:'불사조',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'blackhole',name:'블랙홀',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'rainbow',name:'무지개',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'snowflake',name:'눈송이',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'sakura',name:'벚꽃',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'kingslime',name:'킹 슬라임',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'diamond',name:'다이아몬드',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
-  {id:'golddragon',name:'황금 드래곤',category:'SPECIAL',price:SHOP_PRICES.specialMarker,legendary:true},
+  {id:'phoenix',name:'불사조',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'blackhole',name:'블랙홀',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'rainbow',name:'무지개',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'snowflake',name:'눈송이',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'sakura',name:'벚꽃',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'kingslime',name:'킹 슬라임',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'diamond',name:'다이아몬드',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
+  {id:'golddragon',name:'황금 드래곤',category:'SPECIAL',price:SHOP_PRICES.legendaryMarker,legendary:true},
   {id:'goldpuck',name:'황금 왕관 말',category:'BASIC',price:0,legendary:true,reward:'BASIC'},
   {id:'crowncat',name:'왕관 말랑냥',category:'CUTE',price:0,legendary:true,reward:'CUTE'},
   {id:'archmage',name:'대마법사의 구슬',category:'FANTASY',price:0,legendary:true,reward:'FANTASY'},

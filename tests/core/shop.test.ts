@@ -41,7 +41,7 @@ describe('Catalog-based purchase and equip',()=>{
     expect([...new Set(MARKERS.map(d=>d.category))].sort()).toEqual([...MARKER_CATEGORIES].sort());
     expect(MARKERS.every(d=>Number.isSafeInteger(d.price)&&d.price>=0)).toBe(true);expect(MARKERS.filter(d=>d.category==='BASIC'&&!d.reward)).toHaveLength(16);expect(MARKERS.every(d=>d.id in MARKER_SHAPES)).toBe(true);
   });
-  it.each([['marker','ring',500],['marker','star',500],['marker','cat',1500],['marker','phoenix',4000],['marker-color','coral',300]] as const)('buys %s/%s once at its launch price without auto-equip', (kind,id,price)=>{
+  it.each([['marker','ring',250],['marker','star',250],['marker','cat',600],['marker','orbit',1200],['marker','phoenix',2250],['marker-color','coral',100]] as const)('buys %s/%s once at its current price without auto-equip', (kind,id,price)=>{
     const p=migrateProfile(legacyWallet())!,stats=structuredClone(p.stats),worlds=structuredClone(p.worlds),paid=structuredClone(p.processedRuns);
     p.coins=price-1;const before=structuredClone(p);expect(purchaseItem(p,kind,id).status).toBe('insufficient');expect(p).toEqual(before);
     p.coins=price;expect(purchaseItem(p,kind,id).status).toBe('purchased');expect(p.coins).toBe(0);expect(purchaseItem(p,kind,id).status).toBe('owned');expect(p.coins).toBe(0);
@@ -60,7 +60,7 @@ describe('Catalog-based purchase and equip',()=>{
     const p=emptyProfile();p.coins=600;purchaseItem(p,'marker','ring');equipItem(p,'marker','ring');const before=structuredClone(p.inventory);
     const a={matchId:'m',participantId:'h',lifeId:1,initialTerritoryCells:7,ownerId:'tab'};admitRun(p,a);
     grantProfileReward(p,{runId:'m:h:life:1',matchId:'m',participantId:'h',lifeId:1,endReason:'DEATH',startedAtTick:0,endedAtTick:30,durationTicks:30,simulationHz:30,mapCellCount:1000,kills:0,bestTerritoryCells:30,bestTerritoryPercent:3});
-    expect(p.inventory).toEqual(before);expect(p.coins).toBe(111);
+    expect(p.inventory).toEqual(before);expect(p.coins).toBe(600-SHOP_PRICES.basicMarker+11);
   });
 });
 describe('Marker Color is a local presentation',()=>{
