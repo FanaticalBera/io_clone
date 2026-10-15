@@ -154,9 +154,11 @@ export class MarkerTrails {
   * Others' captures use half the pieces.
   */
  capture(markerId:string,origin:{x:number;y:number},cells:readonly CapturePoint[],local:boolean,now:number):boolean{
-  const style=TRAIL_STYLES[markerId];if(!style||(CAPTURE_THEMES[markerId]&&!CAPTURE_THEMES[markerId].particles))return false;
-  const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.min(Math.ceil(cells.length*.6),Math.max(3,Math.round((legendary?26:12)*scale)));
-  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire?legendary?7:5:index?8:legendary?16:10)*scale))));
+  const style=TRAIL_STYLES[markerId],mode=CAPTURE_THEMES[markerId]?.particles;if(!style||!mode)return false;
+  // Pieces scale with the captured area so a big capture is covered evenly, within a cap.
+  const fire=style.layers.some(l=>l.fire),density=fire?.35:.2,cap=local?(fire?80:50):(fire?35:20);
+  const samples=Math.min(cells.length,cap,Math.max(4,Math.round(cells.length*density)));
+  if(mode==='full')style.layers.slice(0,isLegendary(markerId)?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire?isLegendary(markerId)?7:5:index?8:isLegendary(markerId)?16:10)*(local?1:.5)))));
   const ordered=[...cells].sort((a,b)=>a.delay-b.delay),stride=Math.max(1,ordered.length/samples);
   for(let i=0;i<ordered.length&&this.blooms.length<400;i+=stride){const c=ordered[Math.floor(i)];this.blooms.push({at:now+c.delay,markerId,x:c.x,y:c.y});}
   return true;

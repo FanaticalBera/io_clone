@@ -17,8 +17,11 @@ export interface CaptureTheme {
  /** Bright heads running around the border; counter makes every other head run backwards. */
  heads?:number;counter?:boolean;
  inward?:boolean;
- /** Also play the marker's particle capture (fire markers burn on top of the land colour). */
- particles?:boolean;
+ /**
+  * Particles over the land colour: 'bloom' lets the marker's small particles rise or drift off
+  * the captured tiles; 'full' also bursts at the marker (fire burns on top of the land).
+  */
+ particles?:'bloom'|'full';
  ring:number;
 }
 const INK=0x1f1b2d,TAU=Math.PI*2;
@@ -37,29 +40,33 @@ const beats=(t:number)=>Math.max(Math.sin(clamp(t/.22)*Math.PI),.85*Math.sin(cla
 const stripe=(x:number,y:number,width:number,count:number)=>Math.floor(((x+y*.6)/width%count+count)%count);
 /** World distance from the capture origin, and alternating angular sectors around it. */
 const far=(s:TileSpot)=>Math.hypot(s.dx,s.dy);
+/** Thin zigzag bands, like lightning, across the land. */
+const zigzag=(s:TileSpot)=>{const k=s.y/40,tri=Math.abs(k-Math.floor(k)-.5)*2;return ((s.x+tri*50)/110%1+1)%1<.32;};
 const sector=(s:TileSpot,count:number)=>Math.floor(((Math.atan2(s.dy,s.dx)/TAU+1)%1)*count)%2===1;
 export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  // Captures in play are long strips and loops and the wave is short, so each theme is told
  // apart by a pattern fixed on the land (rays, rings, stripes, spirals), not by the wave shape.
  // Special: one pattern in one colour family.
- sun:{tile:flash(s=>sector(s,14)?0xfff6c0:0xffc93c),edge:glow(0xff9f1c,0xfff6c0),ring:0xffc93c},
- orbit:{tile:flash(s=>Math.floor(far(s)/60)%2?0xfff6e0:0xffc93c),edge:glow(0xffb000,0xfff6e0),heads:2,counter:true,ring:0xffc93c},
- crown:{tile:(s,t)=>({color:s.seed<.3&&t>.15&&t<.4?0xffffff:0xffd23f,alpha:hold(t)}),edge:glow(0xffb000,0xfff6c0),ring:0xffd23f},
- meteor:{order:s=>clamp(.5+(s.dx+s.dy)/(2.4*s.radius)),tile:flash(s=>[0xffffff,0xbfe6ff,0x6cc4ff][stripe(s.x,s.y,40,3)]),edge:glow(0x6cc4ff,0xffffff),ring:0x9fd8ff},
+ // Sun is warm orange rays, orbit a night-sky ring pattern, crown a royal crimson-and-gold carpet.
+ sun:{tile:flash(s=>sector(s,14)?0xffe066:0xff9f1c),edge:glow(0xff7a1a,0xfff6c0),ring:0xff9f1c},
+ orbit:{tile:flash(s=>Math.floor(far(s)/60)%2?0xffe9a0:0x34408f),edge:glow(0x34408f,0xffe9a0),heads:2,counter:true,ring:0x5a6fd6},
+ crown:{tile:(s,t)=>({color:s.seed<.25&&t>.15&&t<.4?0xffffff:Math.floor(s.y/48)%2?0xffd23f:0xd6336c,alpha:hold(t)}),edge:glow(0xd6336c,0xffe9a0),particles:'bloom',ring:0xd6336c},
+ meteor:{order:s=>clamp(.5+(s.dx+s.dy)/(2.4*s.radius)),tile:flash(s=>[0xffffff,0xbfe6ff,0x6cc4ff][stripe(s.x,s.y,40,3)]),edge:glow(0x6cc4ff,0xffffff),particles:'bloom',ring:0x9fd8ff},
  portal:{tile:flash(s=>Math.floor(((Math.atan2(s.dy,s.dx)/TAU*3+far(s)/90)%2+2)%2)?0xd8c8ff:0x7c5cff),edge:glow(0x7c5cff,0xe8e0ff),ring:0x9b6bff},
- heart:{tile:(_s,t)=>({color:0xff6b9a,alpha:beats(t)}),edge:glow(0xff6b9a,0xffe0ea),ring:0xff6b9a},
- storm:{order:s=>clamp(s.dist*.75+s.seed*.25),tile:(s,t)=>({color:s.seed>.82?0xffe066:s.seed>.6&&t<.12?0xffffff:0x8fe3ff,alpha:hold(t)}),edge:glow(0xffd23f,0xffffff),ring:0x8fe3ff},
+ heart:{tile:(_s,t)=>({color:0xff6b9a,alpha:beats(t)}),edge:glow(0xff6b9a,0xffe0ea),particles:'bloom',ring:0xff6b9a},
+ // Zigzag lightning bands over storm blue; one white strike, no strobing; sparks fly off.
+ storm:{order:s=>clamp(s.dist*.75+s.seed*.25),tile:(s,t)=>({color:t<.1&&s.seed>.5?0xffffff:zigzag(s)?0xffe066:0x5fb8ff,alpha:hold(t)}),edge:glow(0xffd23f,0xffffff),heads:2,particles:'bloom',ring:0xffe066},
  // Fire: the land catches (yellow to orange to red) under the flames.
- ember:{tile:(s,t)=>({color:mix(0xffe066,0xff7a1a,clamp(t*1.6+s.seed*.2)),alpha:hold(t)}),edge:glow(0xff7a1a,0xffe066),particles:true,ring:0xff9f1c},
- phoenix:{tile:(s,t)=>({color:mix(0xffe066,0xe8453c,clamp(t*1.5+s.seed*.25)),alpha:hold(t)}),edge:a=>({line:mix(0xe8453c,0xff9f1c,(Math.sin(a*3)+1)/2),core:0xfff1a8}),heads:2,particles:true,ring:0xff7a1a},
- golddragon:{tile:(s,t)=>({color:t<.15&&s.seed>.5?0xffffff:s.seed<.5?0xffd23f:0xffb000,alpha:hold(t)}),edge:glow(0xffb000,0xfffbe0),heads:2,particles:true,ring:0xffd23f},
+ ember:{tile:(s,t)=>({color:mix(0xffe066,0xff7a1a,clamp(t*1.6+s.seed*.2)),alpha:hold(t)}),edge:glow(0xff7a1a,0xffe066),particles:'full',ring:0xff9f1c},
+ phoenix:{tile:(s,t)=>({color:mix(0xffe066,0xe8453c,clamp(t*1.5+s.seed*.25)),alpha:hold(t)}),edge:a=>({line:mix(0xe8453c,0xff9f1c,(Math.sin(a*3)+1)/2),core:0xfff1a8}),heads:2,particles:'full',ring:0xff7a1a},
+ golddragon:{tile:(s,t)=>({color:t<.15&&s.seed>.5?0xffffff:s.seed<.5?0xffd23f:0xffb000,alpha:hold(t)}),edge:glow(0xffb000,0xfffbe0),heads:2,particles:'full',ring:0xffd23f},
  // Legendary: richer patterns and wave shapes.
  rainbow:{tile:flash(s=>RAINBOW[stripe(s.x,s.y,70,RAINBOW.length)]),edge:a=>({line:hue(a/TAU),core:0xffffff}),ring:0xffffff},
  blackhole:{tile:flash(s=>mix(0x2a1650,0x9b6bff,s.dist)),edge:glow(0x6b3fd1,0xd8c8ff),inward:true,ring:0x9b6bff},
- snowflake:{tile:(s,t)=>({color:mix(0xffffff,0xa8dcff,clamp(t*1.6+s.seed*.2)),alpha:t<.6?1:1-(t-.6)/.4}),edge:glow(0x8fd0ff,0xffffff),ring:0xd8f0ff},
- sakura:{order:s=>clamp(s.dist*.8+s.seed*.2),tile:flash(s=>[0xffc2d9,0xff8fb8,0xfff0f5][Math.floor(s.seed*3)]),edge:glow(0xff8fb8,0xfff0f5),ring:0xff8fb8},
+ snowflake:{tile:(s,t)=>({color:mix(0xffffff,0xa8dcff,clamp(t*1.6+s.seed*.2)),alpha:t<.6?1:1-(t-.6)/.4}),edge:glow(0x8fd0ff,0xffffff),particles:'bloom',ring:0xd8f0ff},
+ sakura:{order:s=>clamp(s.dist*.8+s.seed*.2),tile:flash(s=>[0xffc2d9,0xff8fb8,0xfff0f5][Math.floor(s.seed*3)]),edge:glow(0xff8fb8,0xfff0f5),particles:'bloom',ring:0xff8fb8},
  kingslime:{tile:(s,t)=>({color:s.seed<.5?0x7ee081:0x46c46a,alpha:hold(t),pop:.38}),edge:glow(0x46c46a,0xd8ffd0),ring:0x7ee081},
- diamond:{tile:(s,t)=>({color:s.seed>.6&&t<.3?0xffffff:0xbff3ff,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:3,ring:0xbff3ff},
+ diamond:{tile:(s,t)=>({color:s.seed>.6&&t<.3?0xffffff:0xbff3ff,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:3,particles:'bloom',ring:0xbff3ff},
  // Completion rewards: one category signature each.
  goldpuck:{tile:flash(s=>Math.round(s.x/55+s.y/48)%2?0xffe066:0xffb000),edge:glow(0xffb000,0xfff6c0),heads:2,ring:0xffd23f},
  crowncat:{tile:flash(s=>[0xff9cc0,0xffd23f][stripe(s.x,s.y,60,2)]),edge:glow(0xffb000,0xffe0ea),ring:0xff9cc0},
