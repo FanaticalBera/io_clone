@@ -3,7 +3,7 @@ import {disk,hexDistance,HEX_DIRECTIONS,axialKey} from './hex.js';
 const work=new WeakMap<MatchState,{visited:Uint8Array;blocked:Uint8Array;queue:Int32Array;exteriorSeeds:number[]}>();
 export function captureCandidates(match:MatchState,p:Participant):Set<number> {
  const count=match.map.cells.length;
- let scratch=work.get(match);if(!scratch){scratch={visited:new Uint8Array(count),blocked:new Uint8Array(count),queue:new Int32Array(count),exteriorSeeds:[...new Set(disk({q:0,r:0},match.map.radius+1).filter(c=>hexDistance(c,{q:0,r:0})===match.map.radius+1).flatMap(c=>HEX_DIRECTIONS.flatMap(d=>{const id=match.map.byKey.get(axialKey(c.q+d.q,c.r+d.r));return id===undefined?[]:[id];})))]};work.set(match,scratch);}
+ let scratch=work.get(match);if(!scratch){scratch={visited:new Uint8Array(count),blocked:new Uint8Array(count),queue:new Int32Array(count),exteriorSeeds:match.map.cells.filter(c=>match.map.inset[c.id]===0).map(c=>c.id)};work.set(match,scratch);}
  const {visited,blocked,queue}=scratch;visited.fill(0);blocked.fill(0);
  for(let i=0;i<count;i++)if(match.owners[i]===p.slot+1||p.trailCells.has(i))blocked[i]=1;
  // Every unblocked boundary cell is connected to the virtual exterior.

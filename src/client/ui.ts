@@ -9,6 +9,7 @@ import {deathMessage} from './death-message.js';
 import {ICONS} from './icons.js';
 import {cssHex} from './theme.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
+import {MAP_PRESETS} from '../shared/map-presets.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
 export interface UIActions { rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
@@ -19,6 +20,13 @@ export interface RoomDisplay {
 const get=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 function stored(key:string):string|null{try{return localStorage.getItem(key);}catch{return null;}}
 function save(key:string,value:string):void{try{localStorage.setItem(key,value);}catch{}}
+// Board silhouettes for the map bar (hexagon, wide rectangle, small hexagon), on the table colour.
+const MAP_ICONS:Record<string,string>={
+ hex:'<svg viewBox="0 0 30 26"><polygon points="15,2 26,8 26,18 15,24 4,18 4,8" fill="#eef1f6" stroke="#8e6a52" stroke-width="2" stroke-linejoin="round"/></svg>',
+ rect:'<svg viewBox="0 0 30 26"><rect x="2" y="6" width="26" height="14" rx="1.5" fill="#eef1f6" stroke="#8e6a52" stroke-width="2"/></svg>',
+ mini:'<svg viewBox="0 0 30 26"><polygon points="15,7.5 21,11 21,16 15,19.5 9,16 9,11" fill="#eef1f6" stroke="#8e6a52" stroke-width="2" stroke-linejoin="round"/></svg>'
+};
+
 // Mode names stay English in shared code; the client shows Korean labels.
 const MODE_LABELS:Partial<Record<GameModeId,string>>={classic:'클래식'};
 export const modeLabel=(mode:GameModeConfig)=>(MODE_LABELS[mode.id]??GAME_MODES[mode.id].name)+' · '+GAME_MODES[mode.id].rules(mode);
@@ -43,7 +51,10 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  <div class="play-column">
   <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력">${ICONS.pencil}</label><p id="home-titles" class="home-titles" hidden></p>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
-  <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
+  <div class="play-group">
+   <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
+   <div id="map-bar" class="map-bar" role="group" aria-label="맵 선택"><button id="map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="map-icon" class="map-icon" aria-hidden="true"></span><span class="map-text"><strong id="map-name"></strong><small id="map-note"></small></span><span id="map-dots" class="map-dots" aria-hidden="true"></span><button id="map-next" class="map-step" aria-label="다음 맵">›</button></div>
+  </div>
   <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span id="friend-hint">방을 만들거나 코드로 들어가요</span></div>
    <div class="friend-actions"><button id="create" data-testid="create" class="btn dark">${ICONS.plus}방 만들기</button><label class="code-field"><span class="sr-only">친구 방 코드</span><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드"><button id="join" data-testid="join" class="btn mini sun">입장</button></label></div></section>
  </div>
@@ -114,7 +125,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('kill-vibration').addEventListener('change',()=>this.settings.update({killVibration:get<HTMLInputElement>('kill-vibration').checked}));
   bind('vibration-test',()=>{get('vibration-status').textContent=this.actions.testVibration?.()?'진동을 요청했어요. 무음 설정이나 기기에 따라 느껴지지 않을 수 있어요.':'이 환경에서는 진동을 실행할 수 없어요.';});
   this.settings.subscribe(()=>this.refreshSettings());this.refreshSettings();
-  bind('practice',()=>this.requestPlay(this.actions.practice));
+  bind('practice',()=>this.requestPlay(this.actions.practice));bind('map-prev',()=>this.stepMap(-1));bind('map-next',()=>this.stepMap(1));this.renderMap();
   bind('create',()=>this.requestPlay(()=>this.actions.create?this.actions.create():this.message('온라인 연결을 준비하고 있어요.')));
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',()=>{get('leave-confirm').hidden=true;this.actions.leave();});bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
@@ -144,6 +155,15 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  // The equipped marker stands on the home art's trail head, in the current color style.
  /** Earned collection titles, newest set last; the home shows the latest and how many more. */
  setHomeTitles(titles:readonly string[]):void {const node=get('home-titles');node.hidden=!titles.length;node.textContent=titles.length?'★ '+titles.at(-1)+(titles.length>1?' 외 '+(titles.length-1)+'개':''):'';}
+ private mapIndex=Math.max(0,MAP_PRESETS.findIndex(p=>p.id===stored('hexhold.map')));
+ /** Board chosen for single play. */
+ selectedMap(){return MAP_PRESETS[this.mapIndex];}
+ private renderMap():void {
+  const preset=this.selectedMap();get('map-name').textContent=preset.name;get('map-note').textContent=preset.note;
+  get('map-icon').innerHTML=MAP_ICONS[preset.id];get('map-bar').dataset.map=preset.id;
+  get('map-dots').replaceChildren(...MAP_PRESETS.map((_,i)=>{const dot=document.createElement('i');if(i===this.mapIndex)dot.className='on';return dot;}));
+ }
+ private stepMap(delta:number):void {this.mapIndex=(this.mapIndex+delta+MAP_PRESETS.length)%MAP_PRESETS.length;save('hexhold.map',this.selectedMap().id);this.renderMap();}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
  selectedGameMode():GameModeId{return 'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}

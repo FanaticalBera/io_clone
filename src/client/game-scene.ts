@@ -190,7 +190,7 @@ export class GameScene extends Phaser.Scene {
   const colorsChanged=this.syncCosmetics(view);
   if(!this.map||this.map.mapId!==view.mapId){
    const initAt=performance.now();
-   this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
+   this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits,view.config.mapShape??0);
    for(const g of this.groundChunks.values())g.destroy();this.groundChunks.clear();for(const part of [...this.boundaryParts,...this.boardParts])for(const g of part.graphics)g.destroy();this.boundaryParts=[];this.boardParts=[];this.boundaryCells=[];this.boardKey='';
    if(this.groundKey)this.textures.remove(this.groundKey);
    for(const g of this.chunks.values())g.destroy();this.chunks.clear();
@@ -361,7 +361,7 @@ export class GameScene extends Phaser.Scene {
   if(backingWidth<1||backingHeight<1)return;
   if(canvas.width!==backingWidth||canvas.height!==backingHeight){canvas.width=backingWidth;canvas.height=backingHeight;}
   context.setTransform(canvas.width/width,0,0,canvas.height/height,0,0);
-  const scale=Math.min((width-20)/(Math.sqrt(3)*this.map.side*(this.map.radius*2+1)),(height-20)/(this.map.side*(this.map.radius*3+2)));
+  const span=this.mapSpan(),scale=Math.min((width-20)/span.width,(height-20)/span.height);
   context.clearRect(0,0,width,height);
   const prepareMini=!this.miniLayer||this.miniLayer.width!==backingWidth||this.miniLayer.height!==backingHeight;
   if(prepareMini){
@@ -411,6 +411,12 @@ export class GameScene extends Phaser.Scene {
   let best=this.boundaryCells[0],distance=Infinity;
   for(const id of this.boundaryCells){const c=map.cells[id].center,d=(c.x-x)**2+(c.y-y)**2;if(d<distance){distance=d;best=id;}}
   return this.cellChunkKeys[best];
+ }
+ private span:{width:number;height:number;mapId:string}|null=null;
+ /** Symmetric world extent of the board (all shapes are centred on the origin). */
+ private mapSpan():{width:number;height:number}{
+  if(this.span?.mapId!==this.map!.mapId){let x=0,y=0;for(const c of this.map!.cells)for(const v of c.vertices){x=Math.max(x,Math.abs(v.x));y=Math.max(y,Math.abs(v.y));}this.span={width:2*x,height:2*y,mapId:this.map!.mapId};}
+  return this.span!;
  }
  pointerDirection(x:number,y:number):Vec|null {
   const p=this.view?.participants.find(p=>p.participantId===this.selfId);if(!p)return null;

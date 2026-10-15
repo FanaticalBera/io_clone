@@ -34,7 +34,7 @@ export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:Reado
  for(const center of match.spawnOrder){
   const zone=zones[center];let safety=count,valid=true;
   // Three real neutral layers must fit on the playable board; outside is not neutral.
-  if(territorySafe&&hexDistance(match.map.cells[center],origin)+clearanceRadius>match.map.radius){edgeRejectedCount++;continue;}
+  if(territorySafe&&match.map.inset[center]<clearanceRadius){edgeRejectedCount++;continue;}
   const territoryDistance=territoryDistances?(coreDistance(zone,territoryDistances)??count):0;
   if(territorySafe&&territoryDistance<MIN_CORE_OWNED_DISTANCE)continue;
   for(const id of zone){

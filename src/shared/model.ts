@@ -4,7 +4,8 @@ export interface Vec { x: number; y: number }
 export interface Axial { q: number; r: number }
 export interface Cell extends Axial { id: number; center: Vec; neighbors: number[]; vertices: Vec[] }
 export interface MapDefinition {
- mapId: string; radius: number; side: number; cells: Cell[]; byKey: Map<string, number>;
+ /** shape 0 = hexagon, 1 = rectangle. radius bounds |q| and |r| for lookups; inset[id] counts rings to the edge. */
+ mapId: string; radius: number; side: number; shape: number; inset: Int16Array; cells: Cell[]; byKey: Map<string, number>;
  controlPoints: { pointId: number; cellId: number }[]; anchors: number[];
  boundaryEdges: { a: Vec; b: Vec }[];
 }

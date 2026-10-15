@@ -9,7 +9,7 @@ export const BOT_DEPARTURE_SAFETY=Object.freeze({horizonSeconds:1,nearHeadCells:
 export function departurePrefilterCells(obs:BotObservation){return Math.ceil(Math.max(obs.config.moveCellsPerSecond*BOT_DEPARTURE_SAFETY.horizonSeconds+BOT_DEPARTURE_SAFETY.nearHeadCells+BOT_DEPARTURE_SAFETY.prefilterSlackCells,2/Math.sqrt(3)*obs.config.moveCellsPerSecond*BOT_DEPARTURE_SAFETY.horizonSeconds+2));}
 export function immediateLookAhead(obs:BotObservation,goal:BotGoal):number {
  if(goal==='ATTACK')return 3;
- if((goal==='EXPAND'&&obs.self.personality==='DEFEND')||hexDistance(obs.map.cells[obs.self.cellId],{q:0,r:0})>=obs.map.radius-2)return 1;
+ if((goal==='EXPAND'&&obs.self.personality==='DEFEND')||obs.map.inset[obs.self.cellId]<=2)return 1;
  if(obs.others.some(p=>hexDistance(obs.map.cells[p.cellId],obs.map.cells[obs.self.cellId])<=3)||obs.trails.some(t=>hexDistance(obs.map.cells[t.cellId],obs.map.cells[obs.self.cellId])<=2))return 1;
  return 2;
 }
@@ -88,11 +88,11 @@ export function evaluateRepositionStartSafety(obs:BotObservation,path:readonly n
 // Candidate check only: match the immediate intent after waypoint consumption.
 // Do not simulate the prefix or reject goals handled by other safety layers.
 export function expansionPerimeterBlocked(obs:BotObservation,path:readonly number[],goal:BotGoal):boolean {
- if((goal!=='EXPAND'&&goal!=='STEAL')||hexDistance(obs.map.cells[obs.self.cellId],{q:0,r:0})<obs.map.radius-2)return false;
+ if((goal!=='EXPAND'&&goal!=='STEAL')||obs.map.inset[obs.self.cellId]>2)return false;
  return perimeterEscapeDirection(obs,departureIntent(obs,[...path],goal))!==null;
 }
 export function perimeterEscapeDirection(obs:BotObservation,direction:Vec):Vec|null {
- if(hexDistance(obs.map.cells[obs.self.cellId],{q:0,r:0})<obs.map.radius-2)return null;
+ if(obs.map.inset[obs.self.cellId]>2)return null;
  const safe=(intent:typeof direction)=>{let position=obs.self.position,cellId=obs.self.cellId,heading=obs.self.direction;
    for(let step=0;step<Math.ceil(obs.config.simulationHz*0.65);step++){const next=stepSteering(obs.map,position,cellId,heading,intent,obs.config);if(next.blocked)return false;position=next.position;cellId=next.cellId;heading=next.direction;}return true;};
  if(!safe(direction)){

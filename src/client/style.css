@@ -303,3 +303,17 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .dex-cell.reward{background:linear-gradient(160deg,#fff3c4,#ffd76b 70%);border-color:var(--ink)}
 .profile-dex{margin-top:6px}
 .home-titles{margin:4px 0 0;padding:2px 10px;align-self:flex-start;background:var(--ink);color:#ffc93c;border-radius:9px;font:400 13px var(--display);white-space:nowrap}
+/* Single-play button with its map bar attached underneath */
+.play-group{display:flex;flex-direction:column;border:3px solid var(--ink);border-radius:18px;box-shadow:0 6px 0 var(--ink);overflow:hidden}
+.play-group .play-main{border:0;border-radius:0;box-shadow:none}
+.play-group .play-main:active{transform:none;filter:brightness(.96)}
+.map-bar{height:46px;display:flex;align-items:center;gap:8px;padding:0 8px;background:var(--ink);color:#fff}
+.map-step{appearance:none;width:32px;height:32px;flex:none;border-radius:50%;border:2px solid #fff;background:transparent;color:#fff;font:400 20px/1 var(--display);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0 0 2px}
+.map-step:active{background:rgba(255,255,255,.18)}
+.map-icon{width:36px;height:32px;flex:none;border-radius:9px;background:#3b3366;border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.map-icon svg{width:26px;height:22px}
+.map-text{flex:1;min-width:0;display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden}
+.map-text strong{font:400 17px var(--display)}.map-text small{font:700 11px var(--body);color:#cfcbe6;overflow:hidden;text-overflow:ellipsis}
+.map-dots{display:flex;gap:3px;flex:none}.map-dots i{display:block;width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.35)}.map-dots i.on{width:14px;background:var(--sun)}
+@media(orientation:landscape) and (max-height:340px){.map-bar{height:36px;gap:6px}.map-step{width:26px;height:26px;font-size:17px}.map-icon{width:30px;height:26px}.map-text small{display:none}.play-group .play-main{height:52px}.play-group .mode-line{display:none}.play-column{gap:6px}.play-group .play-text strong{font-size:25px}.friend-card{padding:7px 10px 9px;gap:6px}}
+@media(orientation:landscape) and (min-height:341px) and (max-height:430px){.play-group .play-main{height:70px}.map-bar{height:42px}}

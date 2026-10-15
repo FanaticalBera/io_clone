@@ -7,11 +7,12 @@ import { seededRandom, shuffled } from './random.js';
 import type {GameModeConfig} from './modes.js';
 import {generateStartingAnchors} from './starting-anchors.js';
 export function createMatch(overrides:Partial<GameConfig>,seed:number,specs:ParticipantSpec[],matchId='match-'+seed,gameMode:GameModeConfig={id:'classic'}):MatchState {
- const config=validateConfig(overrides), map=createMap(config.mapRadius,config.hexSideWorldUnits);
+ const config=validateConfig(overrides), map=createMap(config.mapRadius,config.hexSideWorldUnits,config.mapShape??0);
  const match=createState(config,seed,specs,map,matchId,gameMode);
- if(specs.length<=8&&map.anchors.length < specs.length) throw new Error('Map lacks validated starting anchors');
- const anchors=specs.length<=8?shuffled(map.anchors,seededRandom(seed^0x51a7)):generateStartingAnchors(map,specs.length,config.spawnRadius,seed);
- if(specs.length>8)map.anchors=anchors;
+ // Hand-placed anchors exist only on the hexagon; other shapes always use generated starts.
+ const fixed=specs.length<=8&&map.anchors.length>=specs.length;
+ const anchors=fixed?shuffled(map.anchors,seededRandom(seed^0x51a7)):generateStartingAnchors(map,specs.length,config.spawnRadius,seed);
+ if(!fixed)map.anchors=anchors;
  for(const [i,p] of [...match.participants].sort((a,b)=>a.slot-b.slot).entries()) {
   const id=anchors[i], zone=region(map,id,config.spawnRadius);
   if(zone.length!==1+3*config.spawnRadius*(config.spawnRadius+1)||zone.some(c=>c<0||match.owners[c]||map.controlPoints.some(cp=>cp.cellId===c))) throw new Error('Invalid spawn anchor');

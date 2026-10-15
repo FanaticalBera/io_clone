@@ -36,6 +36,7 @@ export function disk(center:Axial,radius:number):Axial[] {
 const cellLookups=new WeakMap<MapDefinition,Int32Array>();
 function cellLookup(map:MapDefinition):Int32Array {
  let lookup=cellLookups.get(map);if(lookup)return lookup;
+ // radius bounds |q| and |r| for every shape, so one square table covers any map.
  const size=2*map.radius+1;lookup=new Int32Array(size*size).fill(-1);
  for(const c of map.cells)lookup[(c.q+map.radius)*size+c.r+map.radius]=c.id;
  cellLookups.set(map,lookup);return lookup;
@@ -47,9 +48,25 @@ export function region(map:MapDefinition,center:number,radius:number):number[] {
  }
  return cells;
 }
-export function createMap(radius=22,side=32):MapDefinition {
- if(!Number.isInteger(radius)||radius<1||radius>64||!Number.isFinite(side)||side<=0) throw new Error('Invalid map');
- const coords=disk({q:0,r:0},radius), byKey=new Map(coords.map((a,i)=>[axialKey(a.q,a.r),i]));
+export const MAP_SHAPE={HEX:0,RECT:1} as const;
+/** Rectangle sized from the hex radius: about the same cell count, 2:1 for landscape screens. */
+export function rectHalfSize(radius:number):{cols:number;rows:number}{return {cols:Math.round(radius*1.18),rows:Math.round(radius*.64)};}
+function shapeCoords(radius:number,shape:number):Axial[]{
+ if(shape!==MAP_SHAPE.RECT)return disk({q:0,r:0},radius);
+ const {cols,rows}=rectHalfSize(radius),cells:Axial[]=[];
+ // Odd-r offset rows: every row spans the same x range, so the board is a true rectangle.
+ for(let r=-rows;r<=rows;r++){const shift=Math.floor(r/2);for(let col=-cols;col<=cols;col++)cells.push({q:col-shift,r});}
+ return cells;
+}
+export function mapIdFor(radius:number,side:number,shape=0):string{return shape===MAP_SHAPE.RECT?'rect-r'+radius+'-a'+side+'-v1':'hex-r'+radius+'-a'+side+'-v1';}
+const cellCounts=new Map<string,number>();
+export function mapCellCount(radius:number,shape=0):number{
+ if(shape!==MAP_SHAPE.RECT)return 1+3*radius*(radius+1);
+ const key=radius+':'+shape;let n=cellCounts.get(key);if(n===undefined){n=shapeCoords(radius,shape).length;cellCounts.set(key,n);}return n;
+}
+export function createMap(radius=22,side=32,shape=0):MapDefinition {
+ if(!Number.isInteger(radius)||radius<1||radius>64||!Number.isFinite(side)||side<=0||(shape!==0&&shape!==1)) throw new Error('Invalid map');
+ const coords=shapeCoords(radius,shape), byKey=new Map(coords.map((a,i)=>[axialKey(a.q,a.r),i]));
  const cells=coords.map((a,id)=>{
   const center=axialToWorld(a.q,a.r,side);
   const vertices=Array.from({length:6},(_,i)=>{const angle=(60*i-30)*Math.PI/180;return {x:center.x+side*Math.cos(angle),y:center.y+side*Math.sin(angle)};});
@@ -58,8 +75,14 @@ export function createMap(radius=22,side=32):MapDefinition {
  // Edge k lies between vertices k and k+1 and points toward direction k.
  const boundaryEdges=cells.flatMap(c=>c.neighbors.flatMap((n,k)=>n<0?[{a:c.vertices[(6-k)%6],b:c.vertices[(7-k)%6]}]:[]));
  const points=[{q:-8,r:0},{q:0,r:8},{q:8,r:-8}];
- return {mapId:'hex-r'+radius+'-a'+side+'-v1',radius,side,cells,byKey,boundaryEdges,
+ // Rings to the edge: boundary cells are 0. On the hexagon this equals radius - distance to centre.
+ const inset=new Int16Array(cells.length).fill(-1),queue:number[]=[];
+ for(const c of cells)if(c.neighbors.some(n=>n<0)){inset[c.id]=0;queue.push(c.id);}
+ for(let head=0;head<queue.length;head++){const id=queue[head];for(const n of cells[id].neighbors)if(n>=0&&inset[n]<0){inset[n]=inset[id]+1;queue.push(n);}}
+ const bound=coords.reduce((m,a)=>Math.max(m,Math.abs(a.q),Math.abs(a.r)),0);
+ return {mapId:mapIdFor(radius,side,shape),radius:bound,side,shape,inset,cells,byKey,boundaryEdges,
   controlPoints:points.flatMap((p,i)=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[{pointId:i,cellId:id}];}),
-  anchors:scaledStartAnchors(radius).flatMap(p=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[id];})};
+  // Hand-tuned hex anchors only fit the hexagon; other shapes use generated starts.
+  anchors:shape!==MAP_SHAPE.HEX?[]:scaledStartAnchors(radius).flatMap(p=>{const id=byKey.get(axialKey(p.q,p.r));return id===undefined?[]:[id];})};
 }
 

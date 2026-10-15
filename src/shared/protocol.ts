@@ -1,3 +1,4 @@
+import {mapCellCount,mapIdFor} from './hex.js';
 import {PROTOCOL_VERSION,validateConfig} from './config.js';
 import type {MatchView,DirectionInput,ResultRow,RunResult} from './model.js';
 import {isGameModeId,validateMode,GAME_MODES,type GameModeId,type GameModeConfig} from './modes.js';
@@ -100,10 +101,10 @@ export function unpackSnapshot(raw:unknown):MatchView {
     !Number.isSafeInteger(raw.snapshotSeq)||Number(raw.snapshotSeq)<0||!Number.isSafeInteger(raw.tick)||Number(raw.tick)<0||
     !Number.isFinite(raw.serverTime)||!record(raw.config)||!Array.isArray(raw.participants)||
     !['RUNNING','FINISHED','ABORTED'].includes(String(raw.phase)))throw new Error('Invalid snapshot');
- const config=validateConfig(raw.config),count=1+3*config.mapRadius*(config.mapRadius+1);
+ const config=validateConfig(raw.config),count=mapCellCount(config.mapRadius,config.mapShape??0);
  if(raw.participants.length>config.maxSlots)throw new Error('Too many participants');
  const gameMode=validateMode(raw.gameMode),timeLimit=GAME_MODES[gameMode.id].timeLimitSeconds;
- if(raw.mapId!=='hex-r'+config.mapRadius+'-a'+config.hexSideWorldUnits+'-v1'||
+ if(raw.mapId!==mapIdFor(config.mapRadius,config.hexSideWorldUnits,config.mapShape??0)||
     raw.remainingTicks!==(timeLimit===null?null:Math.max(0,timeLimit*config.simulationHz-Number(raw.tick))))throw new Error('Invalid map/time');
  const owners=decodeBytes(raw.owners,count),trailMasks=decodeTrailMasks(raw.trailMasks,count);
  if(owners.some(o=>o>config.maxSlots)||trailMasks.some(mask=>mask>=(1<<config.maxSlots)))throw new Error('Invalid board');
