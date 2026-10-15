@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {CAPTURE_THEMES,contrast,themedDelay,themedTile,tileSpot,themedEdge,THEME_HOLD,THEME_END} from '../../src/client/capture-themes.js';
+import {CAPTURE_THEMES,themePalette,contrast,themedDelay,themedTile,tileSpot,themedEdge,THEME_HOLD,THEME_END} from '../../src/client/capture-themes.js';
 import {MARKERS} from '../../src/client/catalog.js';
 const FIRE=['ember','phoenix','golddragon'];
 describe('premium capture themes',()=>{
@@ -23,5 +23,8 @@ describe('premium capture themes',()=>{
   expect(contrast(0xffc93c,0x4ea8ff)).toBe(0xffc93c);
   expect(contrast(0xffc93c,0xffc93c)).not.toBe(0xffc93c);
   expect(contrast(0x9b6bff,0x9b6bff)).not.toBe(0x9b6bff);
+ });
+ it('samples a non-empty kill palette of real colours from every theme',()=>{
+  for(const [id,theme] of Object.entries(CAPTURE_THEMES)){const palette=themePalette(theme);expect(palette.length,id).toBeGreaterThan(0);expect(palette.every(c=>Number.isInteger(c)&&c>=0&&c<=0xffffff),id).toBe(true);}
  });
 });

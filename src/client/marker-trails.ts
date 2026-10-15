@@ -163,6 +163,11 @@ export class MarkerTrails {
   for(let i=0;i<ordered.length&&this.blooms.length<400;i+=stride){const c=ordered[Math.floor(i)];this.blooms.push({at:now+c.delay,markerId,x:c.x,y:c.y});}
   return true;
  }
+ /** A kill by a marker whose capture has particles: a small burst of them where the victim fell. */
+ kill(markerId:string,x:number,y:number):void{
+  const style=TRAIL_STYLES[markerId];if(!style||!CAPTURE_THEMES[markerId]?.particles)return;
+  style.layers.slice(0,2).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(x,y-10,layer.fire?5:index?5:8));
+ }
  /** Emits blooms whose wave time has come; call once per frame. */
  update(now:number):void{
   if(!this.blooms.length)return;let kept=0;

@@ -2,7 +2,8 @@ import {SLOT_COLORS,participantRenderColors} from './player-colors.js';
 import {shuffledBotMarkers} from './bot-cosmetics.js';
 import {PlayerMarker} from './player-marker.js';
 import {MarkerTrails,TRAIL_MARKER_IDS,hasTrail} from './marker-trails.js';
-import {CAPTURE_THEMES} from './capture-themes.js';
+import {CAPTURE_THEMES,themePalette} from './capture-themes.js';
+import {markerDefinition} from './catalog.js';
 // Dev only: ?trailPreview=1 dresses every bot in a premium marker to review trails.
 const TRAIL_PREVIEW=import.meta.env.DEV&&new URLSearchParams(location.search).get('trailPreview')==='1';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
@@ -66,7 +67,14 @@ export class GameScene extends Phaser.Scene {
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
- private trails:MarkerTrails|null=null;private themedBlooms=new WeakSet<object>();
+ private trails:MarkerTrails|null=null;private palettes=new Map<string,number[]>();
+ /** Gold (legendary and reward) markers restyle their kills with their capture theme. */
+ private killStyle(participantId:string){
+  const id=this.avatars.get(participantId)?.marker.markerId??'',theme=CAPTURE_THEMES[id];
+  if(!theme||!markerDefinition(id)?.legendary)return null;
+  let palette=this.palettes.get(id);if(!palette){palette=themePalette(theme);this.palettes.set(id,palette);}
+  return {theme,palette};
+ }private themedBlooms=new WeakSet<object>();
  /** New capture blooms by premium markers get their themed burst and tile bloom. */
  private themeCaptures():void{
   const effects=this.captureEffects,map=this.map;if(!effects||!this.trails||!map)return;
@@ -127,7 +135,7 @@ export class GameScene extends Phaser.Scene {
  renderLive():boolean{return this.game.loop.running&&!this.stillPending&&this.wantMode==='live';}
  afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);this.trails=new MarkerTrails(this);this.captureEffects.themedCapture=id=>hasTrail(this.avatars.get(id)?.marker.markerId??'');this.captureEffects.captureTheme=id=>CAPTURE_THEMES[this.avatars.get(id)?.marker.markerId??'']??null;if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);this.trails=new MarkerTrails(this);this.captureEffects.themedCapture=id=>hasTrail(this.avatars.get(id)?.marker.markerId??'');this.captureEffects.captureTheme=id=>CAPTURE_THEMES[this.avatars.get(id)?.marker.markerId??'']??null;this.combat.killStyle=id=>this.killStyle(id);this.combat.themedKill=(id,p)=>this.trails?.kill(this.avatars.get(id)?.marker.markerId??'',p.x,p.y);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();

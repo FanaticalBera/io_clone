@@ -118,6 +118,12 @@ export function themedEdge(theme:CaptureTheme,angle:number,elapsed:number):numbe
 export function themedEdgeColors(theme:CaptureTheme,angle:number,owner:number):{line:number;core:number}{
  const c=theme.edge(angle);return {line:contrast(c.line,owner),core:c.core};
 }
+/** A few colours from a theme's land pattern, sampled on a ring of spots, for its kill burst. */
+export function themePalette(theme:CaptureTheme):number[]{
+ const colors:number[]=[];
+ for(let i=0;i<12;i++){const a=i/12*TAU,r=40+(i%3)*45,look=theme.tile(tileSpot(Math.cos(a)*r,Math.sin(a)*r,{x:0,y:0},(i%4)/3,140),.3);if(look&&!colors.includes(look.color))colors.push(look.color);}
+ return colors.length?colors:[theme.ring];
+}
 /** Marker ring radius and alpha, opening out (or closing in) over RING ms. */
 export const RING=420;
 export function themedRing(theme:CaptureTheme,elapsed:number):{radius:number;alpha:number}|null{
