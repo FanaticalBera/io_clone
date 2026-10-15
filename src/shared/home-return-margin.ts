@@ -6,7 +6,7 @@ import {segmentDistanceSquared} from './wall-margin.js';
 // the small margin has been evaluated by the player in the separate test app.
 const margins=new WeakMap<MatchState,number>();
 export function setHomeReturnMargin(match:MatchState,radius:number):void {
- if(!Number.isFinite(radius)||radius<0||radius>match.map.side/4)throw new Error('Invalid home return margin');
+ if(!Number.isFinite(radius)||radius<0||radius>match.map.side/3)throw new Error('Invalid home return margin');
  if(radius===0)margins.delete(match);else margins.set(match,radius);
 }
 export function homeReturnMargin(match:MatchState):number{return margins.get(match)??0;}
