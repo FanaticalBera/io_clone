@@ -1,7 +1,7 @@
 import {safeBotRespawn,ownedDistances,coreDistance,MIN_CORE_OWNED_DISTANCE} from './safe-bot-respawn.js';
 import type {MatchState,Participant,MapDefinition} from './model.js';
 import {startRun} from './run.js';
-import {region,hexDistance} from './hex.js';
+import {region,hexDistance,inwardDirection} from './hex.js';
 import {setOwner} from './territory.js';
 import {emitEvent} from './life.js';
 import {roundDeadlineTicks} from './modes.js';
@@ -34,7 +34,7 @@ export function inspectSpawnSpace(match:MatchState,p?:Participant,reserved:Reado
  for(const center of match.spawnOrder){
   const zone=zones[center];let safety=count,valid=true;
   // Three real neutral layers must fit on the playable board; outside is not neutral.
-  if(territorySafe&&hexDistance(match.map.cells[center],origin)+clearanceRadius>match.map.radius){edgeRejectedCount++;continue;}
+  if(territorySafe&&match.map.inset[center]<clearanceRadius){edgeRejectedCount++;continue;}
   const territoryDistance=territoryDistances?(coreDistance(zone,territoryDistances)??count):0;
   if(territorySafe&&territoryDistance<MIN_CORE_OWNED_DISTANCE)continue;
   for(const id of zone){
@@ -54,7 +54,7 @@ export function trySpawn(match:MatchState,p:Participant,reserved:ReadonlySet<num
  if(best<0){p.lifeState='SPAWN_BLOCKED';p.respawnAtTick=match.tick+Math.ceil(match.config.retrySpawnSeconds*match.config.simulationHz);if(trace&&observer)observer(trace);return false;}
  p.lifeState='ALIVE';p.lifeId++;p.cellId=best;p.position={...match.map.cells[best].center};
  const length=Math.hypot(p.position.x,p.position.y);
- p.direction=length?{x:-p.position.x/length,y:-p.position.y/length}:{x:1,y:0};
+ p.direction=inwardDirection(match.map,p.cellId)??(length?{x:-p.position.x/length,y:-p.position.y/length}:{x:1,y:0});
  p.spawnCells=new Set(spawnRegions(match)[best]);p.lastAppliedInputSeq=0;p.targetDirection=null;p.deathReason=null;p.deathContext=undefined;
  p.protectedUntilTick=match.tick+Math.ceil(match.config.protectSeconds*match.config.simulationHz);
  for(const id of p.spawnCells)setOwner(match,id,p.slot+1);

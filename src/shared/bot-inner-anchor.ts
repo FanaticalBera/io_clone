@@ -7,7 +7,7 @@ import {hexDistance} from './hex.js';
 // It is ranked here only; every expansion filter and score still applies.
 export const BOT_INNER_ANCHOR={wallBand:4,minRingGain:3,prefixLimit:10} as const;
 export function innerExpansionAnchor(obs:BotObservation,existing:readonly number[]):number|null {
- const center={q:0,r:0},ring=(id:number)=>obs.map.radius-hexDistance(obs.map.cells[id],center);
+ const center={q:0,r:0},ring=(id:number)=>obs.map.inset[id];
  const headRing=ring(obs.self.cellId);if(headRing>BOT_INNER_ANCHOR.wallBand)return null;
  const owner=obs.self.slot+1,excluded=new Set(existing),distances=new Map([[obs.self.cellId,0]]),queue=[obs.self.cellId];
  for(let i=0;i<queue.length;i++){

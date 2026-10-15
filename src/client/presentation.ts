@@ -11,7 +11,7 @@ export class Presentation {
  setWallMargin(enabled:boolean):void{this.wallMargin=enabled;if(this.map)setWallMargin(this.map,enabled);}
  private correction:Vec={x:0,y:0};private correctedAt=0;private frozen=false;selfId:string|null=null;
  accept(view:MatchView,selfId:string|null,at:number,reset=false,local=false):void{
-  if(this.map?.mapId!==view.mapId)this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits);
+  if(this.map?.mapId!==view.mapId)this.map=createMap(view.config.mapRadius,view.config.hexSideWorldUnits,view.config.mapShape??0);
   setWallMargin(this.map!,this.wallMargin);
   const previous=this.frames.at(-1),oldSelf=previous?.view.participants.find(p=>p.participantId===selfId),self=view.participants.find(p=>p.participantId===selfId);
   if(previous?.view.matchId===view.matchId&&view.tick<previous.view.tick)return;
