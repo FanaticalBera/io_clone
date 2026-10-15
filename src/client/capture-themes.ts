@@ -66,7 +66,8 @@ export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  blackhole:{tile:flash(s=>mix(0x2a1650,0x9b6bff,s.dist)),edge:glow(0x6b3fd1,0xd8c8ff),inward:true,ring:0x9b6bff},
  snowflake:{tile:(s,t)=>({color:mix(0xffffff,0xa8dcff,clamp(t*1.6+s.seed*.2)),alpha:t<.6?1:1-(t-.6)/.4}),edge:glow(0x8fd0ff,0xffffff),particles:'bloom',ring:0xd8f0ff},
  sakura:{order:s=>clamp(s.dist*.8+s.seed*.2),tile:flash(s=>[0xffc2d9,0xff8fb8,0xfff0f5][Math.floor(s.seed*3)]),edge:glow(0xff8fb8,0xfff0f5),particles:'bloom',ring:0xff8fb8},
- kingslime:{tile:(s,t)=>({color:s.seed<.5?0x7ee081:0x46c46a,alpha:hold(t),pop:.38}),edge:glow(0x46c46a,0xd8ffd0),ring:0x7ee081},
+ // Goo: a wobbly wave, gloopy lime and emerald rings with glossy tiles, a big jelly bounce, drops and bubbles.
+ kingslime:{order:s=>clamp(s.dist+.1*Math.sin(Math.atan2(s.dy,s.dx)*5)),tile:(s,t)=>({color:s.seed>.85&&t<.35?0xeaffe4:Math.floor((far(s)+22*Math.sin(Math.atan2(s.dy,s.dx)*5))/52)%2?0x2fa65a:0x8ef08a,alpha:hold(t),pop:.5}),edge:glow(0x2fa65a,0xeaffe4),heads:2,particles:'bloom',ring:0x7ee081},
  diamond:{tile:(s,t)=>({color:s.seed>.6&&t<.3?0xffffff:0xbff3ff,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:3,particles:'bloom',ring:0xbff3ff},
  // Completion rewards: one category signature each.
  // Treasure argyle: gold and ivory diamonds with an emerald border; glitter drifts up.
