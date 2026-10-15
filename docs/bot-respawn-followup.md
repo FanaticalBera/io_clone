@@ -172,12 +172,12 @@ LAN 후속 검증에서 **이미 확정된 탈락의 전달 지연**은 수정�
 
 ## 6. 현재 상태와 검증 기록
 
-2026-10-14 갱신 시 로컬 저장소 확인값이다. 원격 상태는 이번 문서 수정에서 확인하지 않았으며 push·병합 지시로 해석하지 않는다.
+2026-10-15 로컬 master 병합 후 확인값이다. 원격 push 상태와 구분한다.
 
 | 항목 | 위치·값 |
 | --- | --- |
-| 로컬 master | `e0815c0` — 모바일 최적화·진동·UI 후속 반영, 사람·봇 공통 속도 5% 조정 포함 |
-| 현재 작업 브랜치 | `codex/lan-contact-audit`, `64c8252` — 확정된 LAN 탈락 전달 지연 수정·검증. 이 커밋은 master 병합 전 |
+| 로컬 master | `cc6ab30`까지 fast-forward 병합 완료. 기존 최적화·속도 5% 조정에 LAN 탈락 전달 지연 수정·상점 가격 재조정·관련 문서와 검증을 추가 |
+| 병합한 작업 브랜치 | `codex/lan-contact-audit` — `64c8252` LAN 수정, `11b698e` 실험·후속 문서, `cc6ab30` 상점 가격. 현재 체크아웃은 master |
 | 원래 폴더 | `Desktop\sixio_clone`. 현재 작업 브랜치는 위 항목을 참고한다. Capacitor 의존성을 이용한 APK 빌드가 이미 확인됐으므로 미설치라고 단정하지 않는다 |
 | 봇 동결 이력 | `cb15860` / 병합 `fed55ee`, `docs/bot-ai-freeze.md`. 동결 당시 수치를 현재 빌드 결과와 구분한다 |
 | 봇 PRD | `docs/HEXHOLD-bot-AI-PRD.md` |
@@ -185,7 +185,7 @@ LAN 후속 검증에서 **이미 확정된 탈락의 전달 지연**은 수정�
 | 최적화 통합 검증 | `docs/mobile-performance-merge.md` |
 | 속도·맵 취소 기록 | `docs/game-speed-five-percent.md`. 기존 육각형 맵, 가로 전용 지원. 새 맵/UI 추가는 취소 |
 | 접촉 판정 후속 검증 | `docs/lan-contact-audit.md` |
-| 최신 검증 APK | `artifacts/contact-audit/hexhold-lan-contact.apk`, Android debug APK. S24+ 설치 확인, 정식 배포용 서명·출시는 별도 |
+| 최신 일반 APK | `artifacts/shop-reprice-20261015/hexhold-shop-prices.apk`, Android debug APK. 최신 LAN 수정·상점 가격 포함, S24+ 설치 확인. 정식 배포용 서명·출시는 별도 |
 | LAN PRD | `docs/LAN-FRIEND-MATCH-PRD.md`. 현재 대전 제품 범위는 같은 Wi-Fi·핫스팟의 LAN이며 공개대전은 제거 |
 | 과거 실험·보고서 | `.local/bot-ai-live/`와 저장소의 개별 보고서. 과거 후보 코드·꺼 둔 루프 천장 실험을 현재 적용본으로 해석하지 않는다 |
 
@@ -227,3 +227,10 @@ LAN 후속 검증에서 **이미 확정된 탈락의 전달 지연**은 수정�
 일반 앱과 별도 무적테스트 앱 모두 S24+에 데이터 유지 업데이트했다. 관련 단위 테스트 59개와 실제 오프라인 번들의 다섯 가격대 구매·장착·재로드 검증을 통과했다. 전체 기존 shop e2e suite는 HTTP 서버 응답 문제로 시작하지 못하여 통과로 기록하지 않는다. 자세한 내용은 `docs/shop-price-rebalance.md`에 있다.
 
 부활 규칙 변경 보류, 다음 개선 주제인 봇의 1대1 대면 행동은 유지한다. 이번 가격 변경에서 봇 정책은 수정하지 않았다.
+
+
+## 9. master 병합 완료 — 2026-10-15
+
+사용자 요청으로 로컬 master를 `e0815c0`에서 `cc6ab30`까지 fast-forward했다. 병합 당시 검증한 작업 브랜치와 master의 파일 상태는 동일했고 작업 트리는 깨끗했다. source·배포 웹 번들에 플레이어 무적 활성 코드가 없음을 확인했다. 무적 구현은 ignored `.local/`의 별도 테스트 앱 사본에만 있으며, 실험 보고서와 일반 검증 테스트만 master에 포함된다.
+
+이미 검증한 동일 커밋을 충돌 없이 옮겼으며 게임 코드의 추가 변경은 없었다. 부활 규칙 변경은 보류, 봇 1대1 대면 행동은 다음 개선 과제로 유지한다.
