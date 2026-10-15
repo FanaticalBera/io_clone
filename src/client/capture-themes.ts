@@ -69,7 +69,8 @@ export const CAPTURE_THEMES:Readonly<Record<string,CaptureTheme>>={
  kingslime:{tile:(s,t)=>({color:s.seed<.5?0x7ee081:0x46c46a,alpha:hold(t),pop:.38}),edge:glow(0x46c46a,0xd8ffd0),ring:0x7ee081},
  diamond:{tile:(s,t)=>({color:s.seed>.6&&t<.3?0xffffff:0xbff3ff,alpha:hold(t)}),edge:glow(0x6cd4ff,0xffffff),heads:3,particles:'bloom',ring:0xbff3ff},
  // Completion rewards: one category signature each.
- goldpuck:{tile:flash(s=>Math.round(s.x/55+s.y/48)%2?0xffe066:0xffb000),edge:glow(0xffb000,0xfff6c0),heads:2,ring:0xffd23f},
+ // Treasure argyle: gold and ivory diamonds with an emerald border; glitter drifts up.
+ goldpuck:{tile:flash(s=>(Math.floor(s.x/55+s.y/48)+Math.floor(s.x/55-s.y/48))%2?0xfff6e0:0xffc93c),edge:glow(0x1fa37a,0xfff6e0),heads:2,particles:'bloom',ring:0x1fa37a},
  crowncat:{tile:flash(s=>[0xff9cc0,0xffd23f][stripe(s.x,s.y,60,2)]),edge:glow(0xffb000,0xffe0ea),particles:'bloom',ring:0xff9cc0},
  archmage:{order:s=>s.seed,tile:(s,t)=>s.seed<.45?{color:s.seed<.12?0xffffff:0xb48cff,alpha:hold(t)}:null,edge:glow(0x9b6bff,0xe8e0ff),heads:2,particles:'bloom',ring:0xb48cff},
  // Circuit board: gold traces on dark teal, scanned top to bottom; sparks fly off.
