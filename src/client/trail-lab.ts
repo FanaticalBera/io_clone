@@ -5,21 +5,22 @@ import {PlayerMarker} from './player-marker.js';
 import {MarkerTrails,TRAIL_MARKER_IDS} from './marker-trails.js';
 import {markerDefinition} from './catalog.js';
 import {disk,axialToWorld} from '../shared/hex.js';
-const COLS=6,CELL=300,RADIUS=80,SIDE=19,EVERY=3000,WAVE=250,COLOR=0x4ea8ff;
+const ONLY=new URLSearchParams(location.search).get('only')?.split(','),IDS=ONLY?TRAIL_MARKER_IDS.filter(id=>ONLY.includes(id)):TRAIL_MARKER_IDS;
+const COLS=Math.min(6,IDS.length),CELL=380,RADIUS=110,SIDE=30,EVERY=3000,WAVE=250,COLOR=0x4ea8ff;
 const PATCH=disk({q:0,r:0},2).map(a=>({...axialToWorld(a.q,a.r,SIDE),ring:Math.max(Math.abs(a.q),Math.abs(a.r),Math.abs(a.q+a.r))}));
 const hexPoints=(x:number,y:number,s:number)=>Array.from({length:6},(_,i)=>{const a=Math.PI/180*(60*i-30);return {x:x+Math.cos(a)*s,y:y+Math.sin(a)*s};});
 class TrailLab extends Phaser.Scene {
  private runners:{id:string;marker:PlayerMarker;cx:number;cy:number;phase:number;next:number;at:number;x:number;y:number}[]=[];
  private trails!:MarkerTrails;private patches!:Phaser.GameObjects.Graphics;
  create():void{
-  const rows=Math.ceil(TRAIL_MARKER_IDS.length/COLS),fit=()=>{const cam=this.cameras.main;cam.setZoom(Math.min(this.scale.width/(COLS*CELL),this.scale.height/(rows*CELL))).centerOn(COLS*CELL/2,rows*CELL/2);};
+  const rows=Math.ceil(IDS.length/COLS),fit=()=>{const cam=this.cameras.main;cam.setZoom(Math.min(this.scale.width/(COLS*CELL),this.scale.height/(rows*CELL))).centerOn(COLS*CELL/2,rows*CELL/2);};
   this.cameras.main.setBackgroundColor(0xeef1f6);fit();this.scale.on('resize',fit);
   this.trails=new MarkerTrails(this);this.patches=this.add.graphics().setDepth(2);
   const now=performance.now();
-  TRAIL_MARKER_IDS.forEach((id,i)=>{
+  IDS.forEach((id,i)=>{
    const cx=(i%COLS+.5)*CELL,cy=(Math.floor(i/COLS)+.5)*CELL,def=markerDefinition(id)!;
    const marker=new PlayerMarker(this);marker.set({markerId:id,markerColorId:'slot'},COLOR,false,true);marker.container.setDepth(5);
-   this.add.text(cx,cy+RADIUS+46,(def.legendary?'★ ':'')+def.name,{fontFamily:'Jua, sans-serif',fontSize:'26px',color:def.legendary?'#b07800':'#1f1b2d'}).setOrigin(.5);
+   this.add.text(cx,cy+RADIUS+70,(def.legendary?'★ ':'')+def.name,{fontFamily:'Jua, sans-serif',fontSize:'26px',color:def.legendary?'#b07800':'#1f1b2d'}).setOrigin(.5);
    this.runners.push({id,marker,cx,cy,phase:i*.7,next:now+800+(i%6)*350,at:-Infinity,x:cx,y:cy});
   });
  }

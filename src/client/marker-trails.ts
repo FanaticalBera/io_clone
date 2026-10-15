@@ -10,18 +10,22 @@ import {markerDefinition} from './catalog.js';
 const INK=0x1f1b2d,TEX=32;
 type Shape='dot'|'star'|'flame'|'petal'|'heart'|'flake'|'ring'|'hex'|'bolt'|'glow'|'bubble';
 type EmitterConfig=Phaser.Types.GameObjects.Particles.ParticleEmitterConfig;
-interface Layer {shape:Shape;count?:number;config:EmitterConfig}
+/** fire: baked three-tone flame (outer, middle, core) that flares up then dies down; not tinted. */
+interface Layer {shape:Shape;count?:number;config:EmitterConfig;fire?:readonly [number,number,number]}
 export interface TrailStyle {step:number;layers:Layer[]}
 const tint=(...colors:number[])=>({tint:colors});
 const fade={alpha:{start:1,end:0}};
 const SPECIAL=24,LEGEND=18;
+const EMBER=[0xff7a1a,0xffb020,0xfff1a8] as const,PHOENIX=[0xe8453c,0xff8a1a,0xffe066] as const,GOLD_FIRE=[0xffa000,0xffd23f,0xfffbe0] as const;
 // Scales below are tuned at texture size; this lifts them all to read at gameplay zoom.
 const SIZE=1.8;
 export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
  // Special: one light layer.
  orbit:{step:SPECIAL,layers:[{shape:'dot',count:2,config:{lifespan:600,speed:{min:8,max:24},scale:{start:.42,end:0},...tint(0xffc93c,0xffe28a)}}]},
  crown:{step:SPECIAL,layers:[{shape:'star',count:2,config:{lifespan:620,speed:{min:6,max:20},rotate:{min:-40,max:40},scale:{start:.5,end:0},...tint(0xffc93c,0xfff6e0)}}]},
- ember:{step:20,layers:[{shape:'flame',count:2,config:{lifespan:620,speed:{min:4,max:14},gravityY:-70,scale:{start:.62,end:.12},color:[0xffe066,0xff8a3d,0xe8453c],colorEase:'quad.out',...fade}}]},
+ ember:{step:20,layers:[
+  {shape:'flame',fire:EMBER,count:2,config:{lifespan:640,speedX:{min:-10,max:10},speedY:{min:-40,max:-16},rotate:{min:-14,max:14},scale:{start:.8,end:0}}},
+  {shape:'dot',config:{lifespan:560,speedX:{min:-30,max:30},speedY:{min:-110,max:-60},scale:{start:.2,end:0},...tint(0xffe066,0xffb020)}}]},
  meteor:{step:SPECIAL,layers:[{shape:'star',count:2,config:{lifespan:460,speed:{min:40,max:90},rotate:{min:0,max:360},scale:{start:.42,end:0},...tint(0xfff6e0,0xffe066,0x9fd8ff)}}]},
  portal:{step:SPECIAL,layers:[{shape:'ring',config:{lifespan:600,scale:{start:.2,end:.75},...fade,...tint(0xb48cff,0x7c5cff)}}]},
  sun:{step:SPECIAL,layers:[{shape:'dot',count:2,config:{lifespan:480,speed:{min:20,max:46},scale:{start:.4,end:0},...tint(0xffd23f,0xff9f1c)}}]},
@@ -29,7 +33,7 @@ export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
  storm:{step:SPECIAL,layers:[{shape:'bolt',count:2,config:{lifespan:440,speed:{min:24,max:56},rotate:{min:-30,max:30},scale:{start:.55,end:.1},...tint(0x8fe3ff,0xffe066)}}]},
  // Legendary: denser trails with a second layer.
  phoenix:{step:LEGEND,layers:[
-  {shape:'flame',config:{lifespan:720,speed:{min:6,max:18},gravityY:-95,scale:{start:.95,end:.12},color:[0xfff1a8,0xff8a1a,0xd62f3a],colorEase:'quad.out',...fade}},
+  {shape:'flame',fire:PHOENIX,config:{lifespan:720,speedX:{min:-12,max:12},speedY:{min:-50,max:-20},rotate:{min:-16,max:16},scale:{start:.85,end:0}}},
   {shape:'star',config:{lifespan:520,speed:{min:50,max:100},rotate:{min:0,max:360},scale:{start:.32,end:0},...tint(0xffb347,0xffe066)}}]},
  blackhole:{step:LEGEND,layers:[
   {shape:'ring',config:{lifespan:700,scale:{start:.15,end:.95},alpha:{start:.9,end:0},...tint(0x6b3fd1,0x2a1650)}},
@@ -47,7 +51,7 @@ export const TRAIL_STYLES:Readonly<Record<string,TrailStyle>>={
   {shape:'glow',config:{lifespan:420,scale:{start:.9,end:.3},alpha:{start:.45,end:0},...tint(0xbff3ff)}}]},
  golddragon:{step:LEGEND,layers:[
   {shape:'petal',config:{lifespan:760,speed:{min:20,max:46},rotate:{min:0,max:360},scale:{start:.5,end:.2},...fade,...tint(0xffd23f,0xffb000,0xfff2a8)}},
-  {shape:'flame',config:{lifespan:520,speed:{min:4,max:12},gravityY:-80,scale:{start:.6,end:.1},color:[0xfff2a8,0xffb000,0xe8453c],colorEase:'quad.out',...fade}},
+  {shape:'flame',fire:GOLD_FIRE,config:{lifespan:600,speedX:{min:-10,max:10},speedY:{min:-40,max:-16},rotate:{min:-14,max:14},scale:{start:.8,end:0}}},
   {shape:'glow',config:{lifespan:420,scale:{start:1,end:.3},alpha:{start:.4,end:0},...tint(0xffd23f)}}]},
  // Completion rewards: legendary weight, one signature each.
  goldpuck:{step:LEGEND,layers:[{shape:'star',count:2,config:{lifespan:560,speed:{min:20,max:56},rotate:{min:0,max:90},scale:{start:.5,end:0},...tint(0xffd23f,0xfff2a8)}},{shape:'glow',config:{lifespan:420,scale:{start:.9,end:.3},alpha:{start:.4,end:0},...tint(0xffd23f)}}]},
@@ -65,13 +69,23 @@ function star(g:Phaser.GameObjects.Graphics,c:number,r:number,inner:number,point
  g.fillPoints(v,true).strokePoints(v,true);
 }
 // White fills tint to the layer colour; ink outlines stay ink, matching the marker art.
+// A licking flame outline (cubic segments) on a 40x48 canvas, bottom-anchored at (20,46).
+const FLAME:readonly number[][]=[[20,46],[8,46,3,36,6,26],[8,20,12,17,12,10],[16,14,17,18,17,21],[19,14,22,8,21,1],[29,9,36,19,35,30],[34,40,28,46,20,46]];
+function flamePoints(scale:number):Phaser.Types.Math.Vector2Like[]{
+ const at=(x:number,y:number)=>({x:20+(x-20)*scale,y:46+(y-46)*scale}),out=[at(FLAME[0][0],FLAME[0][1])];let [px,py]=FLAME[0];
+ for(const [x1,y1,x2,y2,x,y] of FLAME.slice(1)){for(let i=1;i<=8;i++){const t=i/8,u=1-t;out.push(at(u*u*u*px+3*u*u*t*x1+3*u*t*t*x2+t*t*t*x,u*u*u*py+3*u*u*t*y1+3*u*t*t*y2+t*t*t*y));}px=x;py=y;}
+ return out;
+}
+function drawFire(g:Phaser.GameObjects.Graphics,[outer,middle,core]:readonly [number,number,number]):void{
+ g.clear().fillStyle(outer,1).lineStyle(2.5,INK,1).fillPoints(flamePoints(1),true).strokePoints(flamePoints(1),true);
+ g.fillStyle(middle,1).fillPoints(flamePoints(.66),true).fillStyle(core,1).fillPoints(flamePoints(.34),true);
+}
 function drawShape(g:Phaser.GameObjects.Graphics,shape:Shape):void{
  const c=TEX/2;g.clear().fillStyle(0xffffff,1).lineStyle(2.5,INK,1);
  if(shape==='dot')g.fillCircle(c,c,9).strokeCircle(c,c,9);
  else if(shape==='star')star(g,c,13,5,4);
  else if(shape==='hex')star(g,c,11,11,3);
  else if(shape==='bolt'){const v=[[19,3],[8,17],[15,17],[11,29],[24,13],[17,13],[21,3]].map(([x,y])=>({x,y}));g.fillPoints(v,true).strokePoints(v,true);}
- else if(shape==='flame'){g.beginPath();g.moveTo(c,3);g.lineTo(c+9,c+2);g.arc(c,c+5,9.5,-.35,Math.PI+.35);g.lineTo(c,3);g.closePath();g.fillPath();g.strokePath();}
  else if(shape==='petal'){g.fillEllipse(c,c,13,22).strokeEllipse(c,c,13,22);}
  else if(shape==='heart'){g.fillCircle(c-5,c-3,6.5).fillCircle(c+5,c-3,6.5).fillTriangle(c-11,c-1,c+11,c-1,c,c+11);g.beginPath();g.arc(c-5,c-3,6.5,Math.PI*.8,Math.PI*1.95);g.arc(c+5,c-3,6.5,Math.PI*1.05,Math.PI*.2);g.lineTo(c,c+11);g.closePath();g.strokePath();}
  else if(shape==='flake'){for(const [w,col] of [[6,INK],[3,0xffffff]] as const){g.lineStyle(w,col,1);for(let i=0;i<3;i++){const a=i*Math.PI/3;g.lineBetween(c-Math.cos(a)*12,c-Math.sin(a)*12,c+Math.cos(a)*12,c+Math.sin(a)*12);}}}
@@ -91,9 +105,22 @@ export class MarkerTrails {
   const key='trail:'+shape;if(this.scene.textures.exists(key))return key;
   const g=this.scene.make.graphics({x:0,y:0},false);drawShape(g,shape);g.generateTexture(key,TEX,TEX);g.destroy();return key;
  }
+ private layerTexture(layer:Layer):string{
+  if(!layer.fire)return this.texture(layer.shape);
+  const key='trail:fire:'+layer.fire.join('-');if(this.scene.textures.exists(key))return key;
+  const g=this.scene.make.graphics({x:0,y:0},false);drawFire(g,layer.fire);g.generateTexture(key,40,48);g.destroy();return key;
+ }
+ /** Scale (and for fire, a flare-up then die-down with a late fade) at SIZE times the tuned values. */
+ private sizing(layer:Layer,boost:number):Partial<EmitterConfig>{
+  const scale=layer.config.scale as {start:number;end:number};
+  if(!layer.fire)return {scale:{start:scale.start*SIZE*boost,end:scale.end*SIZE}};
+  const peak=scale.start*SIZE*boost*.75;
+  return {scale:{onEmit:()=>0,onUpdate:(_p:unknown,_k:string,t:number)=>peak*Math.sin(Math.PI*Math.pow(t,.55))},
+   alpha:{onEmit:()=>1,onUpdate:(_p:unknown,_k:string,t:number)=>t<.6?1:1-(t-.6)/.4},originY:.9} as Partial<EmitterConfig>;
+ }
  private emitter(markerId:string,index:number,layer:Layer):Phaser.GameObjects.Particles.ParticleEmitter{
   const key=markerId+':'+index;let emitter=this.emitters.get(key);
-  if(!emitter){const scale=layer.config.scale as {start:number;end:number};emitter=this.scene.add.particles(0,0,this.texture(layer.shape),{...layer.config,scale:{start:scale.start*SIZE,end:scale.end*SIZE},emitting:false,maxParticles:240}).setDepth(this.depth);this.emitters.set(key,emitter);}
+  if(!emitter){emitter=this.scene.add.particles(0,0,this.layerTexture(layer),{...layer.config,...this.sizing(layer,1),emitting:false,maxParticles:240}).setDepth(this.depth);this.emitters.set(key,emitter);}
   return emitter;
  }
  /**
@@ -114,8 +141,8 @@ export class MarkerTrails {
  }
  private burstEmitter(markerId:string,index:number,layer:Layer):Phaser.GameObjects.Particles.ParticleEmitter{
   const key=markerId+':burst'+index;let emitter=this.emitters.get(key);
-  if(!emitter){const scale=layer.config.scale as {start:number;end:number},rising=(layer.config.gravityY as number|undefined??0)<0;
-   emitter=this.scene.add.particles(0,0,this.texture(layer.shape),{...layer.config,scale:{start:scale.start*SIZE*1.25,end:scale.end*SIZE},
+  if(!emitter){const rising=layer.fire!==undefined||(layer.config.gravityY as number|undefined??0)<0;
+   emitter=this.scene.add.particles(0,0,this.layerTexture(layer),{...layer.config,...this.sizing(layer,1.25),
     speed:rising?{min:50,max:120}:{min:110,max:240},angle:{min:-165,max:-15},gravityY:rising?-60:300,lifespan:Math.max(700,Number(layer.config.lifespan)),emitting:false,maxParticles:200}).setDepth(6);
    this.emitters.set(key,emitter);}
   return emitter;
@@ -127,8 +154,8 @@ export class MarkerTrails {
   */
  capture(markerId:string,origin:{x:number;y:number},cells:readonly CapturePoint[],local:boolean,now:number):boolean{
   const style=TRAIL_STYLES[markerId];if(!style)return false;
-  const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.max(3,Math.round((legendary?26:12)*scale));
-  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((index?8:legendary?16:10)*scale))));
+  const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.min(Math.ceil(cells.length*.6),Math.max(3,Math.round((legendary?26:12)*scale)));
+  style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire?legendary?7:5:index?8:legendary?16:10)*scale))));
   const ordered=[...cells].sort((a,b)=>a.delay-b.delay),stride=Math.max(1,ordered.length/samples);
   for(let i=0;i<ordered.length&&this.blooms.length<400;i+=stride){const c=ordered[Math.floor(i)];this.blooms.push({at:now+c.delay,markerId,x:c.x,y:c.y});}
   return true;
