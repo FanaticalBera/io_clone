@@ -1,6 +1,9 @@
 import {SLOT_COLORS,participantRenderColors} from './player-colors.js';
 import {shuffledBotMarkers} from './bot-cosmetics.js';
 import {PlayerMarker} from './player-marker.js';
+import {MarkerTrails,TRAIL_MARKER_IDS} from './marker-trails.js';
+// Dev only: ?trailPreview=1 dresses every bot in a premium marker to review trails.
+const TRAIL_PREVIEW=import.meta.env.DEV&&new URLSearchParams(location.search).get('trailPreview')==='1';
 import {DEFAULT_MARKER_APPEARANCE,type MarkerAppearance} from './marker-art.js';
 import Phaser from 'phaser';
 import {Presentation} from './presentation.js';
@@ -62,6 +65,7 @@ export class GameScene extends Phaser.Scene {
  private lastOwners=new Uint8Array();private lastTrails=new Uint16Array();
  private miniLayer?:HTMLCanvasElement;private miniPaths:Path2D[]=[];private miniOwners=new Uint8Array();
  private metrics={mapInitMs:0,groundPreparationMs:0,territoryRedrawMs:0,minimapUpdateMs:0,minimapPreparationMs:0};
+ private trails:MarkerTrails|null=null;
  private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number;alive:boolean}>();
  private markerAppearance:MarkerAppearance={...DEFAULT_MARKER_APPEARANCE};
  setMarkerAppearance(value:MarkerAppearance):void {this.markerAppearance={...value};if(this.created&&this.view)this.drawView(this.view,false,this.view);}
@@ -71,7 +75,7 @@ export class GameScene extends Phaser.Scene {
  private renderColors=[...SLOT_COLORS];private colorKey='';private cosmeticMatch='';private botMarkerIds:readonly string[]=[];
  playerColors():readonly number[]{return this.renderColors;}
  private syncCosmetics(view:MatchView):boolean {
-  if(this.cosmeticMatch!==view.matchId){this.cosmeticMatch=view.matchId;this.botMarkerIds=shuffledBotMarkers(view.matchId);}
+  if(this.cosmeticMatch!==view.matchId){this.cosmeticMatch=view.matchId;this.botMarkerIds=TRAIL_PREVIEW?TRAIL_MARKER_IDS:shuffledBotMarkers(view.matchId);}
   const next=participantRenderColors(view,this.selfId,this.markerAppearance.markerColorId,this.online),key=next.join(':');
   if(this.colorKey===key)return false;this.colorKey=key;this.renderColors.splice(0,this.renderColors.length,...next);this.miniOwners.fill(255);return true;
  }
@@ -110,7 +114,7 @@ export class GameScene extends Phaser.Scene {
  renderLive():boolean{return this.game.loop.running&&!this.stillPending&&this.wantMode==='live';}
  afterRender():void {if(this.stillPending){this.stillPending=false;this.game.loop.sleep();}}
  markerAssetsState(){return {textureKeys:this.textures.getTextureKeys().filter(key=>key.startsWith('mk:')).sort(),avatars:this.avatars.size,readyMarkers:[...this.avatars.values()].filter(a=>a.marker.state()?.textureReady).length};}
- create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
+ create():void {this.created=true;if(this.wantMode==='still')this.stillPending=true;else if(this.wantMode==='idle')this.frameLimit(this.idleFps);this.cameras.main.setBackgroundColor(FIELD.table);this.trackViewport();this.combat=new CombatEffects(this,this.renderColors,()=>this.killFeedback(),()=>this.deathFeedback(),id=>{const state=this.avatars.get(id)?.marker.state();return state?.textureReady?state.textureKey:null;});this.combat.setViewport(this.viewportWidth,this.viewportHeight,this.pixelRatio);this.territoryEffects=new TerritoryEffects(this);this.territoryEffects.setStyle(this.territoryStyle);this.captureEffects=new TerritoryCaptureEffects(this);this.captureEffects.setEnabled(this.captureEnabled);this.trails=new MarkerTrails(this);if(this.view){this.drawView(this.view,true);this.combat.accept(this.view,this.selfId,true);}}
  private cssZoom():number{return (this.selfId||this.botDebugFollowId)?gameplayZoom(this.viewportWidth):Math.min(this.viewportWidth/2200,this.viewportHeight/2200);}
  private trackViewport():void {
   const parent=this.game.canvas.parentElement!;let frame=0;const abort=new AbortController();
@@ -263,7 +267,7 @@ export class GameScene extends Phaser.Scene {
   this.lastOwners.set(view.owners);this.lastTrails.set(view.trailMasks);
   this.metrics.territoryRedrawMs=performance.now()-redrawAt;
   const present=new Set(view.participants.map(p=>p.participantId));
-  for(const [id,avatar]of this.avatars)if(!present.has(id)){avatar.container.destroy();this.avatars.delete(id);}
+  for(const [id,avatar]of this.avatars)if(!present.has(id)){avatar.container.destroy();this.avatars.delete(id);this.trails?.forget(id);}
   for(const p of view.participants){
    let avatar=this.avatars.get(p.participantId);
    if(!avatar){
@@ -313,7 +317,7 @@ export class GameScene extends Phaser.Scene {
    const padX=avatarMargin+Math.max(80,avatar.label.displayWidth/2),padY=avatarMargin+80;
    const {x,y}=avatar.container,followed=id===(this.botDebugFollowId??this.selfId);
    const visible=avatar.alive&&(!this.cullChunks||followed||(x+padX>=viewRect.x&&x-padX<=viewRect.right&&y+padY>=viewRect.y&&y-padY<=viewRect.bottom));
-   avatar.container.setVisible(visible);if(visible)avatar.marker.update(now);
+   avatar.container.setVisible(visible);if(visible){avatar.marker.update(now);this.trails?.follow(id,avatar.marker.markerId,x,y,followed,now);}
   }
   perfAdd('step.markers',span);span=perfNow();
   setWallMargin(this.map,this.wallMargin);

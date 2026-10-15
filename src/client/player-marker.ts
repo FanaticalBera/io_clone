@@ -51,6 +51,7 @@ export class PlayerMarker {
   const flicker=this.shape.motion==='flicker',originY=flicker?(22+32)/64:.5;
   this.image.setTexture(key).setDisplaySize(MARKER_DIAMETER,MARKER_DIAMETER).setOrigin(.5,originY).setPosition(0,(originY-.5)*MARKER_DIAMETER).setRotation(0).setVisible(true);
  }
+ get markerId():string{return this.art?.markerId??'';}
  /** A short squash-and-hop, played when this player captures land. */
  jump(now:number):void{this.jumpAt=now;}
  update(now:number):void{
