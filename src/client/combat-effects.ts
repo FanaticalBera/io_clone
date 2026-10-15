@@ -9,7 +9,7 @@ export interface KillStyle {theme:CaptureTheme;palette:readonly number[]}
 const INK=0x1f1b2d,STAR=0xffc93c,BURST_MS=650;
 // A chunky 13-point star, unit radius.
 const STAR_POINTS=[[0,-1],[.22,-.39],[.83,-.61],[.5,-.06],[1,.28],[.33,.33],[.28,1],[-.11,.44],[-.67,.83],[-.44,.17],[-1,-.17],[-.33,-.33],[-.5,-.89]].map(([x,y])=>({x,y}));
-type Burst={position:Vec;color:number;born:number;local:boolean;label:Phaser.GameObjects.Text;seed:number;marker:Phaser.GameObjects.Image|null;style:KillStyle|null};
+type Burst={position:Vec;color:number;born:number;local:boolean;label:Phaser.GameObjects.Text;seed:number;marker:Phaser.GameObjects.Image|null;style:KillStyle|null;dying:boolean};
 const css=(c:number)=>'#'+c.toString(16).padStart(6,'0');
 export class CombatEffects {
  private cursor=new CombatEvents();private matchId='';private bursts:Burst[]=[];
@@ -41,17 +41,19 @@ export class CombatEffects {
    const victim=view.participants.find(p=>p.participantId===event.participantId),position=event.position??victim?.position;
    if(!position)continue;
    const killed=!!selfId&&event.killerId===selfId&&event.participantId!==selfId,dead=!!selfId&&event.participantId===selfId;
-   const color=this.colors[victim?.slot??0],style=event.killerId&&event.killerId!==event.participantId?this.killStyle(event.killerId):null;
+   // A gold killer styles the kill; otherwise a gold victim's own theme plays its death (ring closing in).
+   const kill=event.killerId&&event.killerId!==event.participantId?this.killStyle(event.killerId):null,dying=!kill?this.killStyle(event.participantId):null;
+   const color=this.colors[victim?.slot??0],style=kill??dying;
    const label=this.scene.add.text(position.x,position.y-35,killed?'처치!':dead?'탈락':event.reason==='WALL_HIT'?'벽 충돌':'선 절단',{
     fontFamily:'Jua, Gothic A1, sans-serif',fontSize:killed||dead?'24px':'16px',color:'#1f1b2d',stroke:'#ffffff',strokeThickness:6,resolution:this.pixelRatio
    }).setOrigin(.5).setDepth(9);
-   if(style&&event.killerId){label.setColor(css(style.theme.ring)).setStroke('#1f1b2d',6);this.themedKill(event.killerId,position);}
+   if(style){label.setColor(css(style.theme.ring)).setStroke('#1f1b2d',6);this.themedKill(kill?event.killerId!:event.participantId,position);}
    // The fallen piece reuses the victim's marker texture when it is ready.
    const key=this.markerTexture(event.participantId),marker=key?this.scene.add.image(position.x,position.y,key).setDisplaySize(64,64).setDepth(7.5):null;
-   this.bursts.push({position:{...position},color,born:now,local:killed||dead,label,marker,style,seed:[...event.eventId].reduce((n,c)=>n+c.charCodeAt(0),0)});
+   this.bursts.push({position:{...position},color,born:now,local:killed||dead,label,marker,style,dying:!!dying,seed:[...event.eventId].reduce((n,c)=>n+c.charCodeAt(0),0)});
    while(this.bursts.length>24){const old=this.bursts.shift()!;old.label.destroy();old.marker?.destroy();}this.played++;this.lastEventId=event.eventId;
    if(dead){this.deaths++;this.onDeath();this.feedback={at:now,kind:'DEATH',text:deathMessage(event.reason,event.deathContext)};}
-   else if(killed){this.kills++;if(!localDeath)this.onKill();if(this.feedback?.kind!=='DEATH'||this.feedback.at!==now)this.feedback={at:now,kind:'KILL',text:'처치!\n'+(victim?.nickname??'상대'),flash:style?.theme.ring};}
+   else if(killed){this.kills++;if(!localDeath)this.onKill();if(this.feedback?.kind!=='DEATH'||this.feedback.at!==now)this.feedback={at:now,kind:'KILL',text:'처치!\n'+(victim?.nickname??'상대'),flash:kill?.theme.ring};}
   }
  }
  private poly(cx:number,cy:number,unit:readonly Vec[],radius:number,rotation=0):Vec[]{
@@ -68,7 +70,7 @@ export class CombatEffects {
    // Impact star: pops past full size, then fades.
    const style=burst.style;
    // A legendary killer's shock ring opens out (or closes in) in its theme colour.
-   if(style){const r=style.theme.inward?140-110*ease:30+110*ease,alpha=1-t;this.world.lineStyle(10,INK,.6*alpha).strokeCircle(x,y,r).lineStyle(6,style.theme.ring,alpha).strokeCircle(x,y,r);}
+   if(style){const r=style.theme.inward||burst.dying?140-110*ease:30+110*ease,alpha=1-t;this.world.lineStyle(10,INK,.6*alpha).strokeCircle(x,y,r).lineStyle(6,style.theme.ring,alpha).strokeCircle(x,y,r);}
    if(t<.5){const grow=t<.12?t/.12*1.25:1.25-.25*Math.min(1,(t-.12)/.1),alpha=t<.25?1:1-(t-.25)/.25,r=(burst.local?46:34)*grow;
     this.world.fillStyle(style?style.palette[0]:STAR,alpha).fillPoints(this.poly(x,y,STAR_POINTS,r,burst.seed*.1),true).lineStyle(4,INK,alpha).strokePoints(this.points,true);}
    // The piece tips over and fades while its hex shards fly and fall.
