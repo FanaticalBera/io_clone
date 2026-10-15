@@ -134,13 +134,13 @@ export class RoomLoop {
                     }
                     perfAdd('sim', simAt);
                     const interval = room.match.config.simulationHz / room.match.config.snapshotHz;
-                    // A confirmed cut must reach the host's loopback client as well as guests immediately.
-                    // Waiting for the regular 10Hz movement snapshot makes a predicted marker appear to
-                    // pass through the trail before the victim's death is displayed.
-                    const death = room.match.events.some(e => e.type === 'DEATH' && Number(e.eventId.split(':').at(-1)) > cache.lastEvent);
-                    if (death || Math.floor(room.match.tick / interval) > Math.floor(cache.lastSentTick / interval) || room.match.phase === 'FINISHED' && cache.resultId !== room.match.matchId) {
+                    // Cuts and closed excursions change which trails can be hit. Deliver both
+                    // immediately: a stale trail after capture looks like an ignored collision,
+                    // just as a delayed death makes a marker appear to pass through a live trail.
+                    const contactChanged = room.match.events.some(e => (e.type === 'DEATH' || e.type === 'CAPTURE') && Number(e.eventId.split(':').at(-1)) > cache.lastEvent);
+                    if (contactChanged || Math.floor(room.match.tick / interval) > Math.floor(cache.lastSentTick / interval) || room.match.phase === 'FINISHED' && cache.resultId !== room.match.matchId) {
                         const spawn = room.match.events.some(e => e.type === 'SPAWN' && Number(e.eventId.split(':').at(-1)) > cache.lastEvent);
-                        this.publishSnapshot(room, false, death || spawn || room.match.phase === 'FINISHED');
+                        this.publishSnapshot(room, false, contactChanged || spawn || room.match.phase === 'FINISHED');
                         cache.lastSentTick = room.match.tick;
                         cache.lastEvent = room.match.eventCounter;
                     }

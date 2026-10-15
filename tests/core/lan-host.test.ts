@@ -234,6 +234,37 @@ describe('Performance PRD M1: LAN snapshot byte counters',()=>{
  });
 });
 export type {FrameChannel};
+it('delivers a nonlethal return before an opponent can enter its obsolete displayed trail',async()=>{
+ const f=await running(1),m=f.room.match!;
+ while(m.tick%3!==0)await f.advance(1000/m.config.simulationHz);
+ const h=m.participants.find(p=>p.participantId===f.hostClient.inits[0].selfParticipantId)!,g=m.participants.find(p=>p.participantId===f.guests[0].inits[0].selfParticipantId)!;
+ for(const p of m.participants){clearTrail(m,p);if(p!==h&&p!==g)p.lifeState='FINISHED';}
+ for(let id=0;id<m.owners.length;id++)setOwner(m,id,0);
+ const cell=(q:number,r:number)=>m.map.byKey.get(q+','+r)!,trail=cell(1,0),home=cell(0,0);
+ const d=Math.sqrt(3)*m.map.side*m.config.moveCellsPerSecond/m.config.simulationHz,half=Math.sqrt(3)*m.map.side/2;
+ g.cellId=trail;g.position={x:half+d*.1,y:0};g.direction={x:-1,y:0};g.targetDirection=null;g.protectedUntilTick=0;
+ setOwner(m,home,g.slot+1);g.trailOriginCellId=home;addTrail(m,g,trail);
+ // Host enters the old trail late in tick 2, after the guest returned in tick 1.
+ h.position={x:half*3+d*1.8,y:0};h.cellId=cell(2,0);h.direction={x:-1,y:0};h.targetDirection=null;h.protectedUntilTick=0;setOwner(m,h.cellId,h.slot+1);
+ f.host.loop.publishSnapshot(f.room,true,true);await flush();
+ expect(unpackSnapshot(f.hostClient.inits.at(-1)).trailMasks[trail]&(1<<g.slot)).not.toBe(0);
+ const frames:{e:string;replaceKey?:string}[]=[],channel=f.guests[0].ends.host,send=channel.send.bind(channel);
+ channel.send=(data,options)=>{const frame=decodeFrame(data);if(frame?.k==='evt')frames.push({e:frame.e,replaceKey:options?.replaceKey});send(data,options);};
+ await f.advance(1000/m.config.simulationHz);
+ expect(g.trailCells.size).toBe(0);expect(m.trailMasks[trail]&(1<<g.slot)).toBe(0);
+ for(const c of [f.hostClient,f.guests[0]]){
+  const updated=unpackSnapshot(c.snapshots.at(-1));expect(updated.tick).toBe(m.tick);
+  expect(updated.trailMasks[trail]&(1<<g.slot)).toBe(0);expect(updated.owners[trail]).toBe(g.slot+1);
+ }
+ expect(frames.filter(f=>f.e==='match:snapshot')).toEqual([{e:'match:snapshot',replaceKey:undefined}]);
+ const sequence=f.hostClient.snapshots.at(-1)!.snapshotSeq;
+ await f.advance(1000/m.config.simulationHz);
+ expect(h.cellId).toBe(trail);expect(g.lifeState).toBe('ALIVE');expect(h.kills).toBe(0);
+ expect(f.hostClient.snapshots.at(-1)!.snapshotSeq).toBe(sequence);
+ await f.advance(1000/m.config.simulationHz);
+ for(const c of [f.hostClient,f.guests[0]])expect(unpackSnapshot(c.snapshots.at(-1)).trailMasks[trail]&(1<<g.slot)).toBe(0);
+ expect(frames.filter(f=>f.e==='match:snapshot').at(-1)?.replaceKey).toBe('snap:'+m.matchId);
+});
 it('delivers a confirmed trail cut to the LAN host and guest before the next 10Hz snapshot',async()=>{
  const f=await running(1),m=f.room.match!;
  while(m.tick%3!==0)await f.advance(1000/m.config.simulationHz);
