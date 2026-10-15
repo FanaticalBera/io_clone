@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import {markerDefinition} from './catalog.js';
+import {CAPTURE_THEMES} from './capture-themes.js';
 /**
  * Premium marker effects. Every special and legendary marker has a themed
  * capture: a burst at the marker and its particles blooming over the newly
@@ -153,7 +154,7 @@ export class MarkerTrails {
   * Others' captures use half the pieces.
   */
  capture(markerId:string,origin:{x:number;y:number},cells:readonly CapturePoint[],local:boolean,now:number):boolean{
-  const style=TRAIL_STYLES[markerId];if(!style)return false;
+  const style=TRAIL_STYLES[markerId];if(!style||CAPTURE_THEMES[markerId])return false;
   const legendary=isLegendary(markerId),scale=local?1:.5,samples=Math.min(Math.ceil(cells.length*.6),Math.max(3,Math.round((legendary?26:12)*scale)));
   style.layers.slice(0,legendary?2:1).forEach((layer,index)=>this.burstEmitter(markerId,index,layer).emitParticleAt(origin.x,origin.y-10,Math.max(2,Math.round((layer.fire?legendary?7:5:index?8:legendary?16:10)*scale))));
   const ordered=[...cells].sort((a,b)=>a.delay-b.delay),stride=Math.max(1,ordered.length/samples);

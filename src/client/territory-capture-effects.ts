@@ -2,13 +2,18 @@ import Phaser from 'phaser';
 import {cullMargin} from './render-chunks.js';
 import type {MapDefinition,MatchView,Cell,Vec} from '../shared/model.js';
 import type {RenderChunk} from './render-chunks.js';
-import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,type CaptureBloom} from './territory-capture-model.js';
+import {TerritoryCaptureModel,captureAppearance,CAPTURE_WAVE,CAPTURE_POP,type CaptureBloom} from './territory-capture-model.js';
+import {themedTile,themedEdge,themedRing,type CaptureTheme} from './capture-themes.js';
 const INK=0x1f1b2d,LOSS=0xffa24d,CONFETTI_MS=420;
 /** Capture flip wave above territory, plus local-only ripple, confetti and loss cues. */
 export class TerritoryCaptureEffects {
  readonly model=new TerritoryCaptureModel();
  /** Premium markers replace the hex confetti with their own capture burst. */
  themedCapture:(participantId:string)=>boolean=()=>false;
+ /** Premium markers whose capture colours the land itself (see capture-themes). */
+ captureTheme:(participantId:string)=>CaptureTheme|null=()=>null;
+ private spans=new WeakMap<CaptureBloom,number>();
+ private span(effect:CaptureBloom):number{let max=this.spans.get(effect);if(max===undefined){max=0;for(const cells of effect.chunks.values())for(const c of cells)max=Math.max(max,c.delay);this.spans.set(effect,max);}return max;}
  private map:MapDefinition|null=null;private chunks=new Map<string,RenderChunk>();
  private graphics=new Map<string,Phaser.GameObjects.Graphics>();private drawn=new Set<string>();private overlay?:Phaser.GameObjects.Graphics;
  private points:Vec[]=Array.from({length:6},()=>({x:0,y:0}));
@@ -50,12 +55,16 @@ export class TerritoryCaptureEffects {
   for(const effect of this.model.effects)for(const [key,cells]of effect.chunks){
    const chunk=this.chunks.get(key)!;
    if(culling&&(chunk.maxX<rect.x-margin||chunk.minX>rect.right+margin||chunk.maxY<rect.y-margin||chunk.minY>rect.bottom+margin))continue;
-   const g=this.graphics.get(key)!,before=this.drawnCells,elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0;
+   const g=this.graphics.get(key)!,before=this.drawnCells,elapsed=now-effect.startedAt,localLoss=this.selfSlot>=0,theme=this.captureTheme(effect.participantId),span=this.span(effect);
    for(const cell of cells){
     if(cell.cancelled)continue;
     if(view.owners[cell.id]!==effect.slot+1||view.trailMasks[cell.id]!==0){cell.cancelled=true;this.model.cancelledCells++;continue;}
-    const a=captureAppearance(elapsed,cell.delay,effect.color),c:Cell=this.map.cells[cell.id];
-    if(a.alpha>0){
+    const delay=theme?.inward?span-cell.delay:cell.delay,a=captureAppearance(elapsed,delay,effect.color),c:Cell=this.map.cells[cell.id];
+    const themed=theme&&!(a.pending&&cell.prior)?themedTile(theme,span?delay/span:0,this.map.cells[cell.id].center.x,this.map.cells[cell.id].center.y,elapsed-delay,effect.color):null;
+    if(themed){
+     const local=elapsed-delay,p=this.shape(c,local<CAPTURE_POP?a.scale:1,local<CAPTURE_POP?a.lift:0);
+     g.fillStyle(themed.color,themed.alpha).fillPoints(p,true).lineStyle(2,INK,.45*themed.alpha).strokePoints(p,true);
+    }else if(a.alpha>0){
      if(a.pending&&cell.prior){
       // A stolen tile cracks in its old colour until the wave flips it.
       const p=this.shape(c,1,3);g.fillStyle(cell.priorColor,1).fillPoints(p,true).fillStyle(INK,.25).fillPoints(p,true);
@@ -67,7 +76,11 @@ export class TerritoryCaptureEffects {
     }
     for(let k=0;k<6;k++){
      const v=c.vertices[(6-k)%6],w=c.vertices[(7-k)%6];
-     if(a.lineAlpha>0&&cell.edges&(1<<k)){
+     if(theme&&cell.edges&(1<<k)){
+      const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
+      const angle=Math.atan2((v.y+w.y)/2-effect.origin.y,(v.x+w.x)/2-effect.origin.x),light=themedEdge(angle,elapsed);
+      if(light>0){const colors=theme.edge(angle);g.lineStyle(5+4*light,colors.line,.95*light).lineBetween(v.x,v.y,w.x,w.y).lineStyle(2.5,colors.core,light).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;}
+     }else if(a.lineAlpha>0&&cell.edges&(1<<k)){
       const neighbor=c.neighbors[k];if(neighbor>=0&&view.trailMasks[neighbor]!==0)continue;
       g.lineStyle(a.lineWidth,a.lineColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);
       g.lineStyle(2,a.coreColor,a.lineAlpha).lineBetween(v.x,v.y,w.x,w.y);this.drawnEdges++;
@@ -81,8 +94,9 @@ export class TerritoryCaptureEffects {
   }
  }
  private drawOverlay(effect:CaptureBloom,now:number):void{
-  const g=this.overlay;if(!g)return;const elapsed=now-effect.startedAt;
-  if(effect.slot===this.selfSlot){
+  const g=this.overlay;if(!g)return;const elapsed=now-effect.startedAt,theme=this.captureTheme(effect.participantId);
+  if(theme){const ring=themedRing(theme,elapsed),{x,y}=effect.origin;if(ring)g.lineStyle(7,INK,.5*ring.alpha).strokeCircle(x,y,ring.radius).lineStyle(4,theme.ring,ring.alpha).strokeCircle(x,y,ring.radius);}
+  else if(effect.slot===this.selfSlot){
    const {x,y}=effect.origin;
    if(elapsed<300){const t=elapsed/300;g.lineStyle(3,INK,.5*(1-t)).strokeCircle(x,y,24+70*t+2).lineStyle(5,0xffffff,.95*(1-t)).strokeCircle(x,y,24+70*t);}
    const t=(elapsed-CAPTURE_WAVE)/CONFETTI_MS;
