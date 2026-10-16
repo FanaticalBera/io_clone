@@ -49,4 +49,12 @@ describe('per-map profile records',()=>{
   expect(grantProfileReward(p,win(3,6000),admission(3)).records).toEqual({fastest:true});
   expect(p.stats.maps!.hex.fastest).toBe(200);
  });
+ it('keeps timed rounds in their own per-map records, apart from classic',()=>{
+  const p=migrateProfile(emptyProfile())!,timed=(life:number,cells:number,reason:RunResult['endReason']='TIME_LOSS')=>run(9577,cells,life,reason);
+  grantProfileReward(p,run(9577,3000,1),admission(1));
+  expect(grantProfileReward(p,timed(2,500),admission(2)).records).toBeUndefined();
+  expect(grantProfileReward(p,timed(3,800,'TIME_WIN'),admission(3)).records).toEqual({best:true});
+  expect(p.stats.maps!.hex.best).toBe(31.3);expect(p.stats.maps!['timed:hex']).toMatchObject({best:8.3,runs:2,clears:0});
+  expect(p.stats.lastMap).toBe('hex');expect(validProfile(p)).toBe(true);
+ });
 });

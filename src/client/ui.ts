@@ -300,7 +300,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const slotOf=(id:string)=>view.participants.find(p=>p.participantId===id)?.slot??0;
   // Title and the line under it: ties on territory are settled (or shared) by kills.
   const title=document.createElement('h2'),sub=document.createElement('p');title.className='pod-title';sub.className='pod-sub';
-  if(me.rank===1&&shared){title.textContent='공동 1위!';sub.textContent='영토도 처치도 같아요';}
+  if(me.rank===1&&me.territory===total){title.textContent='완전 점령!';sub.textContent='3분이 되기 전에 월드 전체를 차지했어요';}
+  else if(me.rank===1&&shared){title.textContent='공동 1위!';sub.textContent='영토도 처치도 같아요';}
   else if(me.rank===1){title.textContent='1위!';sub.textContent=second&&second.territory===me.territory?'영토 동률 · 처치 수로 승리':second?'2위와 '+pct(me.territory-second.territory)+' 차이':'';}
   else{title.textContent=me.rank+'위'+(me.rank!==null&&me.rank<=3?'!':'');sub.textContent=first.territory===me.territory?'영토 동률 · 처치 수로 '+me.rank+'위':'1위와 '+pct(first.territory-me.territory)+' 차이';}
   title.classList.toggle('gold',me.rank===1);host.append(title,sub);
@@ -314,12 +315,19 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
     const block=document.createElement('div');block.className='pod-block';const n=document.createElement('b');n.textContent=String(row.rank);const detail=document.createElement('small');detail.textContent=pct(row.territory)+' · 처치 '+row.kills;block.append(n,detail);
     pod.append(look(row.participantId,slotOf(row.participantId)),name,block);podium.append(pod);}
    host.append(podium);
+   // Whoever is on the podium still sees their own result and broken records.
+   const mine=document.createElement('div');mine.className='pod-mine';
+   for(const [label,value,rec] of [['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory)),'best'],['처치',String(result.kills),'kills']]){
+    const item=document.createElement('span');const l=document.createElement('small');l.textContent=label;const v=document.createElement('b');v.textContent=value;
+    const badge=document.createElement('i');badge.className='rec-badge';badge.dataset.rec=rec;badge.textContent='신기록';badge.hidden=true;item.append(l,v,badge);mine.append(item);}
+   host.append(mine);
   }else{
    const line=document.createElement('div');line.className='pod-top3';
    for(const row of rows.slice(0,3)){const chip=document.createElement('span');chip.textContent=(row.rank===1?'👑 ':'')+row.rank+' '+row.nickname+' '+pct(row.territory);line.append(chip);}
    const card=document.createElement('div');card.className='pod-card';const rank=document.createElement('b');rank.className='pod-rank';rank.textContent=me.rank+'위';
    const stats=document.createElement('div');stats.className='pod-stats';
-   for(const [label,value] of [['최종 점유율',pct(me.territory)],['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory))],['처치',String(result.kills)]]){const box=document.createElement('div');const s2=document.createElement('small');s2.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(s2,v);stats.append(box);}
+   for(const [label,value,rec] of [['최종 점유율',pct(me.territory),''],['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory)),'best'],['처치',String(result.kills),'kills']]){const box=document.createElement('div');const s2=document.createElement('small');s2.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(s2,v);
+    if(rec){const badge=document.createElement('i');badge.className='rec-badge';badge.dataset.rec=rec;badge.textContent='신기록';badge.hidden=true;box.append(badge);}stats.append(box);}
    card.append(rank,look(me.participantId,slotOf(me.participantId)),stats);host.append(line,card);
   }
  }
@@ -334,7 +342,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const node=get('run-coins'),start=performance.now(),step=(now:number)=>{const t=Math.min(1,(now-start)/750);node.textContent='+'+Math.round(amount*(1-(1-t)**3)).toLocaleString();if(t<1)requestAnimationFrame(step);};requestAnimationFrame(step);
  }
  showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;
-  const records=receipt.records??{};get('rec-best').hidden=!records.best;get('rec-time').hidden=!(records.longest||records.fastest);get('rec-kills').hidden=!records.kills;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';
+  const records=receipt.records??{};for(const badge of get('run-podium').querySelectorAll<HTMLElement>('[data-rec]'))badge.hidden=!records[badge.dataset.rec as 'best'|'kills'];get('rec-best').hidden=!records.best;get('rec-time').hidden=!(records.longest||records.fastest);get('rec-kills').hidden=!records.kills;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';
   if(amount&&get('run-results').dataset.outcome==='win'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)this.countCoins(amount);
  }
  setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}

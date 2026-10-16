@@ -30,6 +30,9 @@ export const GAME_MODES:Readonly<Record<GameModeId,ModeDefinition>>={
   }},
  timed:{name:'3분 점령전',subtitle:'3분 점령전',description:'3분이 끝났을 때 영토가 가장 넓으면 승리',usesControlPoints:false,timeLimitSeconds:180,humanRespawnSeconds:3,
   rules:()=> '3분 · 영토 1위',evaluate:(match,atTick)=>{
+   // A full capture ends the round at once (practically unreachable in three minutes, but never left hanging).
+   const full=match.participants.find(p=>p.lifeState==='ALIVE'&&p.territoryCount===match.map.cells.length);
+   if(full)return {winnerId:full.participantId,reason:'FULL_CAPTURE',atTick};
    const deadline=roundDeadlineTicks(match);if(deadline===null||atTick<deadline||!match.participants.length)return null;
    // Most territory wins; equal territory goes to kills; equal on both shares the win.
    const ranked=[...match.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills||a.participantId.localeCompare(b.participantId));

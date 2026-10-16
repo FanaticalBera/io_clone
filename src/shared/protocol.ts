@@ -61,7 +61,7 @@ function validRun(value:unknown,p:Record<string,unknown>,snapshot:Record<string,
   Number.isSafeInteger(result.kills)&&Number(result.kills)>=0&&Number(result.kills)<=Number(p.kills)&&
   result.bestTerritoryCells===value.bestTerritoryCells&&result.bestTerritoryPercent===Math.floor(Number(result.bestTerritoryCells)*1000/count)/10&&
   (result.endReason==='DEATH'?value.pendingDeathAtTick===result.endedAtTick:snapshot.phase==='FINISHED'&&record(snapshot.outcome)&&snapshot.outcome.atTick===result.endedAtTick&&
-    (String(result.endReason).startsWith('TIME_')?snapshot.outcome.reason==='TIME_UP'&&(result.endReason==='TIME_WIN')===isWinner(snapshot.outcome as {winnerId:string;coWinnerIds?:string[]},String(p.participantId)):
+    (String(result.endReason).startsWith('TIME_')?['TIME_UP','FULL_CAPTURE'].includes(String(snapshot.outcome.reason))&&(result.endReason==='TIME_WIN')===isWinner(snapshot.outcome as {winnerId:string;coWinnerIds?:string[]},String(p.participantId)):
      snapshot.outcome.reason==='FULL_CAPTURE'&&(result.endReason==='FULL_CAPTURE_WIN'?snapshot.outcome.winnerId===p.participantId:snapshot.outcome.winnerId!==p.participantId)));
 }
 export function validRequest(value:unknown):value is CommandRequest {

@@ -47,4 +47,12 @@ describe('3-minute round',()=>{
   expect(shared.participants.map(p=>p.run!.result!.endReason)).toEqual(['TIME_WIN','TIME_WIN']);
   expect(()=>unpackSnapshot(packSnapshot(buildView(shared),1,0,'a'))).not.toThrow();
  });
+ it('ends at once on a full capture before time, still settled as a timed round',()=>{
+  const m=round(),[a,b]=m.participants;
+  for(let id=0;id<m.owners.length;id++)setOwner(m,id,1);b.lifeState='DEAD_WAIT';b.respawnAtTick=m.tick+999;
+  stepMatch(m);
+  expect(m.phase).toBe('FINISHED');expect(m.outcome).toMatchObject({winnerId:'a',reason:'FULL_CAPTURE'});expect(m.tick).toBeLessThan(roundDeadlineTicks(m)!);
+  expect(a.run!.result!.endReason).toBe('TIME_WIN');expect(b.run!.result!.endReason).toBe('TIME_LOSS');
+  expect(()=>unpackSnapshot(packSnapshot(buildView(m),1,0,'a'))).not.toThrow();
+ });
 });
