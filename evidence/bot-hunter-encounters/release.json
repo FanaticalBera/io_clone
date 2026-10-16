@@ -1,0 +1,57 @@
+{
+  "status": "User-approved production adoption; validation completed before master merge and push",
+  "date": "2026-10-16",
+  "baseMaster": "1fdf2ce4f79d302bf49567a4f8f319eaa32f26be",
+  "pilotCommit": "eba53fd",
+  "productionDefault": "hunter-commit",
+  "affectedPersonalities": [
+    "EXPAND",
+    "ATTACK"
+  ],
+  "unchangedPersonalityPolicies": [
+    "DEFEND",
+    "SEEK_POINT"
+  ],
+  "gameplayEntryPoints": [
+    "single-player PracticeSession",
+    "initial room bots",
+    "departing HUMAN replacement",
+    "room-loop BOT memory recovery"
+  ],
+  "verification": {
+    "typecheckClientServerTests": "passed",
+    "webAndServerBuild": "passed",
+    "fullVitest": {
+      "files": 118,
+      "reportedPassingTests": 1175,
+      "failures": 0,
+      "existingExpectedFailureWitnesses": 8
+    },
+    "targetedPracticeAndDuels": {
+      "files": 2,
+      "tests": 27,
+      "status": "passed"
+    },
+    "normalAndroidDebugBuild": "passed"
+  },
+  "apk": {
+    "package": "com.hexhold.game",
+    "label": "HEXHOLD",
+    "apk": "C:\\Users\\Home Bsw\\Desktop\\sixio_clone\\artifacts\\hunter-adoption-20261016\\HEXHOLD-20261016-two-bot-personalities.apk",
+    "sha256": "92cf292ee41783cf7f87eaa6ff3bce8d7fb32ad27436ee8dd52d08044c674c1c",
+    "verifiedWebFiles": 384,
+    "entryScript": "assets/index-BTZ30I6R.js",
+    "approvedPilotWebBundleByteIdentical": true,
+    "offline": true,
+    "signatureVerified": true,
+    "signerSha256": "2c85295b5d35cf44eddc94f976eb476fef1c29e1ca0f905e98e6de4633428cee",
+    "vibratePermissionVerified": true,
+    "installedThisTurn": false
+  },
+  "limits": [
+    "Automated steering evidence is not human playtesting",
+    "No new Android FPS or long-session thermal measurements",
+    "Kill-counter reset not included"
+  ],
+  "historicalPilotEvidence": "summary.json"
+}

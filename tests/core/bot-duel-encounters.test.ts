@@ -44,7 +44,7 @@ it.each([0,2])('offers longer explorer candidates with %s neutral gap cells, whi
 it.each(['ATTACK','DEFEND','SEEK_POINT'] as const)('leaves %s trajectories, action RNG and director reservations unchanged',role=>{
  const baseline=run(role,null);
  for(const arm of ['explorer-footprint','explorer-commit'] as const)expect(run(role,arm).proof).toEqual(baseline.proof);
- expect(run(role,null,0,false,true).proof).toEqual(baseline.proof);
+ if(role!=='ATTACK')expect(run(role,null,0,false,true).proof).toEqual(baseline.proof);
 });
 
 it.each([0,2])('gameplay defaults reproduce the approved B trajectory and RNG with %s neutral gap cells',gap=>{
@@ -93,8 +93,13 @@ it.each(['EXPAND','DEFEND','SEEK_POINT'] as const)('hunter candidates preserve t
  for(const arm of ['hunter-footprint','hunter-commit'] as const)expect(run(role,arm).proof).toEqual(baseline.proof);
 });
 
-it('keeps the hunter candidate opt-in and decision diagnostics passive',()=>{
- expect(run('ATTACK',null,0,false,true).proof).toEqual(run('ATTACK','explorer-commit').proof);
+it.each([0,2])('gameplay defaults reproduce the approved hunter trajectory and RNG with %s neutral gap cells',gap=>{
+ expect(run('ATTACK',null,gap,false,true).proof).toEqual(run('ATTACK','hunter-commit',gap).proof);
+ expect(run('ATTACK',null,gap,false,true).proof).not.toEqual(run('ATTACK','explorer-commit',gap).proof);
+});
+
+it('keeps raw baseline controls available and decision diagnostics passive',()=>{
+ expect(run('ATTACK',null).proof).toEqual(run('ATTACK','explorer-commit').proof);
  expect(run('ATTACK','hunter-commit',0,true).proof).toEqual(run('ATTACK','hunter-commit').proof);
 });
 
