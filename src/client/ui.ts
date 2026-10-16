@@ -12,10 +12,10 @@ import {cssHex} from './theme.js';
 import {markerPreview,type MarkerAppearance} from './marker-art.js';
 import {MAP_PRESETS} from '../shared/map-presets.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
-export interface UIActions { roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
+export interface UIActions { pickTitle?:(title:string)=>void; roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
- members:{memberId:string;nickname:string;title?:string;connected:boolean;waitingForNextRound:boolean}[];
+ members:{memberId:string;nickname:string;title?:string;marker?:string;color?:string;connected:boolean;waitingForNextRound:boolean}[];
  hostId:string|null;selfMemberId:string;waitingForNextRound:boolean;remainingSeconds:number|null;gameMode:GameModeConfig;map?:string;
 }
 const get=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
@@ -45,7 +45,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <section id="menu" class="menu-panel">
  <div class="home-stage"><img class="home-art" src="/assets/ui/home-art.svg" alt=""><span id="home-marker" class="home-marker" aria-hidden="true"></span></div>
  <div class="play-column">
-  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력"><span id="home-titles" class="home-titles" hidden></span>${ICONS.pencil}</label>
+  <label class="nickname-row"><span class="field-label">닉네임</span><input id="nickname" data-testid="nickname" maxlength="128" autocomplete="nickname" aria-describedby="nickname-hint" placeholder="닉네임 입력"><button type="button" id="home-titles" class="home-titles" aria-haspopup="dialog" hidden></button>${ICONS.pencil}</label>
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
   <div class="play-group">
    <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
@@ -128,7 +128,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   bind('reward-retry',()=>this.actions.rewardRetry?.());bind('run-retry',this.actions.restart);bind('run-menu',this.actions.leave);
   // Touching the play area (field or joystick) closes the ☰ menu; the same touch goes on to steer.
   document.addEventListener('pointerdown',event=>{if(get('game-tools').hidden)return;const target=event.target as Node;if(get('field').contains(target)||get('joystick').contains(target)){get('game-tools').hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');}},{capture:true});
-  bind('start',()=>this.actions.start?.());bind('room-map-prev',()=>this.stepRoomMap(-1));bind('room-map-next',()=>this.stepRoomMap(1));bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
+  bind('start',()=>this.actions.start?.());
+  get('home-titles').addEventListener('click',event=>{event.preventDefault();this.openTitlePicker();});bind('room-map-prev',()=>this.stepRoomMap(-1));bind('room-map-next',()=>this.stepRoomMap(1));bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';
@@ -150,7 +151,24 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private homeAppearance:MarkerAppearance|null=null;
  // The equipped marker stands on the home art's trail head, in the current color style.
  /** Earned collection titles, newest set last; the home shows the latest and how many more. */
- setHomeTitles(titles:readonly string[]):void {const node=get('home-titles');node.hidden=!titles.length;node.textContent=titles.length?'★ '+titles.at(-1)+(titles.length>1?' 외 '+(titles.length-1)+'개':''):'';}
+ private titles:readonly string[]=[];private chosenTitle:string|undefined;
+ /** Earned collection titles and the one chosen to show; the badge opens the picker. */
+ setHomeTitles(titles:readonly string[],chosen:string|undefined):void {
+  this.titles=titles;this.chosenTitle=chosen;const node=get('home-titles');node.hidden=!titles.length;
+  node.textContent=chosen?'★ '+chosen:'☆ 칭호 고르기';node.classList.toggle('none',!chosen);
+ }
+ private openTitlePicker():void{
+  let dialog=document.getElementById('title-picker') as HTMLDialogElement|null;
+  if(!dialog){dialog=document.createElement('dialog');dialog.id='title-picker';dialog.className='title-picker';dialog.setAttribute('aria-labelledby','title-picker-head');
+   dialog.innerHTML='<h3 id="title-picker-head">칭호 고르기</h3><div id="title-list" class="title-list"></div><button id="title-close" class="btn mini">닫기</button>';
+   get('app').append(dialog);dialog.querySelector('#title-close')!.addEventListener('click',()=>dialog!.close());
+   dialog.addEventListener('click',event=>{if(event.target===dialog)dialog!.close();});}
+  const list=dialog.querySelector('#title-list')!,options=[...this.titles,''];list.replaceChildren();
+  for(const title of options){const button=document.createElement('button');button.type='button';button.className='title-option';button.textContent=title?'★ '+title:'칭호 없음';
+   button.setAttribute('aria-pressed',String((title||undefined)===this.chosenTitle));
+   button.addEventListener('click',()=>{this.actions.pickTitle?.(title);dialog!.close();});list.append(button);}
+  dialog.showModal();
+ }
  private mapIndex=Math.max(0,MAP_PRESETS.findIndex(p=>p.id===stored('hexhold.map')));
  /** Board chosen for single play. */
  selectedMap(){return MAP_PRESETS[this.mapIndex];}
@@ -298,7 +316,11 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('room-host-note').hidden=!(this.lan&&view.hostId===view.selfMemberId);
   get('invite').hidden=view.mode!=='FRIEND';
   const code=get('friend-code');code.replaceChildren(...[...(view.code??'')].map(letter=>{const tile=document.createElement('span');tile.textContent=letter;return tile;}));
-  get('members').replaceChildren();for(const member of view.members){const li=document.createElement('li');li.textContent=member.nickname+(member.title?' ★'+member.title:'')+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
+  get('members').replaceChildren();for(const [index,member] of view.members.entries()){const li=document.createElement('li'),icon=document.createElement('span'),text=document.createElement('span');
+   // Each member shows the marker they wear; unknown ids draw as the default marker.
+   icon.className='member-marker';icon.append(markerPreview({markerId:member.marker??'default',markerColorId:member.color??'slot'},SLOT_COLORS[index%SLOT_COLORS.length]));
+   text.textContent=member.nickname+(member.title?' ★'+member.title:'')+(member.memberId===view.hostId?' · 방장':'')+(!member.connected?' · 복구 대기':'')+(member.waitingForNextRound?' · 다음 판':'');
+   li.append(icon,text);if(member.memberId===view.selfMemberId)li.className='self';get('members').append(li);}
   get('start').hidden=!(view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId);
   this.renderRoomMap(view);
   this.changed();

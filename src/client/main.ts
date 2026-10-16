@@ -45,7 +45,7 @@ const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&n
 const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true),data=>scene.setBotDebugOverlay(data)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
- quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),roomMap:id=>void changeRoomMap(id),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;pausePractice(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
+ quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),pickTitle:title=>{try{localStorage.setItem(TITLE_KEY,title);}catch{}applyTitles();},roomMap:id=>void changeRoomMap(id),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;pausePractice(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
 // Phaser draws only while the live field is on screen (performance PRD 4); elsewhere it shows a still frame.
 let rendererReady=false;
 // Measurement builds can keep Phaser drawing behind overlays (?perfNoSleep=1) to compare against the still frame.
@@ -58,9 +58,13 @@ const profileStore=new ProfileStore(),rewards=new RewardService(profileStore,(id
 const shop=new ShopUI(profileStore,()=>ui.mode==='MENU',applyProfile);
 const dex=new DexUI(profileStore,()=>{if(ui.mode==='MENU')profileUI.open();});
 const profileUI=new ProfileUI(profileStore,()=>ui.mode==='MENU',()=>void dex.open());
-/** Latest earned collection title, sent when entering a room. */
-let roomTitle:string|undefined;
-function applyProfile(p:PlayerProfileV1):void {const titles=earnedTitles(p.inventory.ownedMarkerIds);roomTitle=titles.at(-1);ui.setHomeTitles(titles);profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
+/** The chosen collection title (latest earned until the player picks one) and the equipped look, sent when entering a room. */
+let roomTitle:string|undefined;let roomLook:{marker:string;color:string}|undefined;let earned:string[]=[];
+const TITLE_KEY='hexhold.title';
+/** A saved choice wins while it is still earned; '' means no title; otherwise the latest earned. */
+function applyTitles():void{let saved:string|null=null;try{saved=localStorage.getItem(TITLE_KEY);}catch{}
+ roomTitle=saved===''?undefined:saved!==null&&earned.includes(saved)?saved:earned.at(-1);ui.setHomeTitles(earned,roomTitle);}
+function applyProfile(p:PlayerProfileV1):void {earned=earnedTitles(p.inventory.ownedMarkerIds);applyTitles();roomLook={marker:p.inventory.equippedMarkerId,color:p.inventory.equippedMarkerColorId};profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
 const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);
 void (async()=>{
@@ -165,7 +169,7 @@ async function enterOnline(event:'room:quickJoin'|'room:create'|'room:join',code
   }else ui.message('대전 서버에 연결하고 있어요.');
   const session=new NetworkSession({input:(direction,seq)=>scene.setLocalInput(direction,seq),room:onRoom,view:display,snapshot:raw=>{
 if(import.meta.env.MODE==='test'){testHistory.push(raw);if(testHistory.length>512)testHistory.shift();}},error:error=>{if(error.code==='HOST_LEFT'||lan&&error.code==='SESSION_EXPIRED'){lanEnded(error);return;}expired=error.code==='SESSION_EXPIRED';input.enabled=false;scene.freezePresentation();ui.message(error.message,true);},paused:graceMs=>{if(online===session)hostPaused(graceMs);},resumed:()=>{if(online===session)hostResumed();},connected:connected=>{if(online!==session)return;ui.setRunRetryAvailable(connected);if(!connected){input.enabled=false;scene.freezePresentation();ui.message('연결을 복구하고 있어요.',!lan);}}},transport);online=session;activeSession=session;
-  await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(roomTitle?{title:roomTitle}:{}),...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
+  await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(roomTitle?{title:roomTitle}:{}),...(roomLook?{marker:roomLook.marker,color:roomLook.color}:{}),...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
  }catch(error){if(activeSession&&online!==activeSession)return;ui.message((error as Error).message||'서버에 연결할 수 없어요.',true);}
 }
 async function changeRoomMap(id:string):Promise<void>{try{const response=await online?.command('room:map',{map:id});if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message);}}

@@ -1,6 +1,6 @@
 import {MAX_MATCH_SLOTS} from './slots.js';
 // Version 9 combines the map choices (v8) with the accepted home-return rule.
-export const PROTOCOL_VERSION = 9;
+export const PROTOCOL_VERSION = 10;
 export const HEX_EPS = 1e-7;
 export const MAX_ENTRY_EVENTS = 64;
 export interface GameConfig {

@@ -65,7 +65,7 @@ export class NetworkSession {
    const wasUnstable=this.unstable;this.lastReceived=performance.now();this.unstable=false;this.synchronized=!this.background;if(wasUnstable)this.callbacks.connected?.(true);this.callbacks.snapshot?.(raw);this.callbacks.view(view,this.selfId,init);
   }catch{this.callbacks.error({code:'PROTOCOL_MISMATCH',message:'경기 상태를 읽을 수 없어요. 새로고침하거나 다시 입장하세요.'});}
  }
- async command(event:CommandEvent,payload:{nickname?:string;map?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}={}):Promise<Ack> {
+ async command(event:CommandEvent,payload:{nickname?:string;marker?:string;color?:string;map?:string;code?:string;gameMode?:GameModeId;matchId?:string;runId?:string}={}):Promise<Ack> {
   if(!this.ready)throw new Error('서버 연결을 기다리고 있어요.');
   const request={requestId:Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join(''),...payload};
   for(let attempt=0;attempt<2;attempt++){
