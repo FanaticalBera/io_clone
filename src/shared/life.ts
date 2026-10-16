@@ -1,3 +1,4 @@
+import {GAME_MODES} from './modes.js';
 import {recordBotDeath} from './bot-events.js';
 import {queueRunDeath,settleUnbatchedRuns} from './run.js';
 import {slotBit} from './slots.js';
@@ -21,9 +22,9 @@ export function markDead(match:MatchState,p:Participant,reason:string,killer?:Pa
   ownerCells:match.owners.reduce((sum,owner)=>sum+Number(owner===p.slot+1),0),trailMaskCells:match.map.cells.filter(c=>(match.trailMasks[c.id]&(slotBit(p.slot)))!==0).map(c=>c.id),
   rootHomeNeighbors:first===undefined?[]:match.map.cells[first].neighbors.filter(id=>id>=0&&match.owners[id]===p.slot+1),pendingContact:diagnostic?.pendingTrailContact??(context?.cause==='PENDING_TRAIL_CONTACT'),originCellId:p.trailOriginCellId,originOwner:p.trailOriginCellId===null?null:match.owners[p.trailOriginCellId],diagnostic});}
  queueRunDeath(match,p,context?.eventTick??match.tick);
- clearTrail(match,p);neutralizeTerritory(match,p);p.lifeState=p.kind==='HUMAN'?'ELIMINATED':'DEAD_WAIT';p.deaths++;
+ clearTrail(match,p);neutralizeTerritory(match,p);const humanRespawn=GAME_MODES[match.gameMode.id].humanRespawnSeconds;p.lifeState=p.kind==='HUMAN'&&humanRespawn===null?'ELIMINATED':'DEAD_WAIT';p.deaths++;
  p.deathReason=reason;p.deathContext=context?{...context}:undefined;p.protectedUntilTick=0;p.lastAppliedInputSeq=0;p.targetDirection=null;
- p.respawnAtTick=p.kind==='BOT'?match.tick+Math.ceil(match.config.respawnSeconds*match.config.simulationHz):0;
+ p.respawnAtTick=p.kind==='BOT'?match.tick+Math.ceil(match.config.respawnSeconds*match.config.simulationHz):humanRespawn!==null?match.tick+Math.ceil(humanRespawn*match.config.simulationHz):0;
  if(killer&&killer.participantId!==p.participantId)killer.kills++;
  emitEvent(match,{type:'DEATH',participantId:p.participantId,reason,lifeId:p.lifeId,position:{...p.position},...(context?{deathContext:{...context}}:{}),...(killer&&killer.participantId!==p.participantId?{killerId:killer.participantId}:{})});settleUnbatchedRuns(match);return true;
 }

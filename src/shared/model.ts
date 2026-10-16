@@ -14,7 +14,7 @@ export type LifeState = 'ALIVE' | 'DEAD_WAIT' | 'SPAWN_BLOCKED' | 'ELIMINATED' |
 export type DeathCause='EXISTING_TRAIL_CONTACT'|'PENDING_TRAIL_CONTACT'|'TRAIL_CAPTURE'|'HOME_CAPTURE'|'TERRITORY_LOST'|'WALL_HIT';
 export interface DeathContext {cause:DeathCause|'TRAIL_CONTACT';cellId:number;eventTick?:number}
 export interface ParticipantSpec { participantId: string; slot: number; nickname: string; kind: 'HUMAN' | 'BOT'; personality?: Personality }
-export type RunEndReason='DEATH'|'FULL_CAPTURE_WIN'|'FULL_CAPTURE_LOSS';
+export type RunEndReason='DEATH'|'FULL_CAPTURE_WIN'|'FULL_CAPTURE_LOSS'|'TIME_WIN'|'TIME_LOSS';
 export interface RunResult {runId:string;matchId:string;participantId:string;lifeId:number;endReason:RunEndReason;startedAtTick:number;endedAtTick:number;durationTicks:number;simulationHz:number;mapCellCount:number;kills:number;bestTerritoryCells:number;bestTerritoryPercent:number}
 export interface HumanRun {runId:string;lifeId:number;startedAtTick:number;initialKills:number;bestTerritoryCells:number;pendingDeathAtTick:number|null;result:Readonly<RunResult>|null}
 export interface Participant extends ParticipantSpec {
@@ -30,7 +30,8 @@ export interface ResultRow {
  participantId: string; nickname: string; kind: 'HUMAN'|'BOT'; score: number; territory: number;
  controlScore: number; kills: number; deaths: number; rank: number | null; status: 'FINISHED'|'LEFT';
 }
-export interface MatchOutcome {winnerId:string;reason:'FULL_CAPTURE';atTick:number}
+/** coWinnerIds lists every winner when a timed round ends level on territory and kills (winnerId is the first). */
+export interface MatchOutcome {winnerId:string;reason:'FULL_CAPTURE'|'TIME_UP';atTick:number;coWinnerIds?:string[]}
 export interface MatchState {
  matchId: string; seed: number; tick: number; config: GameConfig; map: MapDefinition;
  participants: Participant[]; owners: Uint8Array; trailMasks: Uint16Array;

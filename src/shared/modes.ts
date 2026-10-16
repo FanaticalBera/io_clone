@@ -1,19 +1,21 @@
 import type {MatchState,MatchOutcome} from './model.js';
 
-export type GameModeId='classic';
-export type GameModeConfig=Readonly<{id:'classic'}>;
+export type GameModeId='classic'|'timed';
+export type GameModeConfig=Readonly<{id:GameModeId}>;
 // Reserved empty field preserves the existing Classic snapshot format.
 export interface ModeState {holds:[]}
 interface ModeDefinition {
  name:string;subtitle:string;description:string;usesControlPoints:boolean;timeLimitSeconds:number|null;
+ /** Humans come back after humanRespawnSeconds instead of ending their run; the round settles once at the end. */
+ humanRespawnSeconds:number|null;
  rules:(mode:GameModeConfig)=>string;evaluate:(match:MatchState,atTick:number)=>MatchOutcome|null;
 }
-export const GAME_MODE_IDS:readonly GameModeId[]=['classic'];
-export function isGameModeId(value:unknown):value is GameModeId{return value==='classic';}
+export const GAME_MODE_IDS:readonly GameModeId[]=['classic','timed'];
+export function isGameModeId(value:unknown):value is GameModeId{return value==='classic'||value==='timed';}
 export function validateMode(value:unknown):GameModeConfig{
  if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid game mode');
  const raw=value as Record<string,unknown>;
- if(raw.id==='classic'&&Object.keys(raw).every(k=>k==='id'))return Object.freeze({id:'classic'});
+ if(isGameModeId(raw.id)&&Object.keys(raw).every(k=>k==='id'))return Object.freeze({id:raw.id});
  throw new Error('Invalid game mode');
 }
 export function createMode(id:GameModeId='classic'):GameModeConfig{
@@ -21,12 +23,24 @@ export function createMode(id:GameModeId='classic'):GameModeConfig{
  return validateMode({id});
 }
 export const GAME_MODES:Readonly<Record<GameModeId,ModeDefinition>>={
- classic:{name:'CLASSIC',subtitle:'완전 점령',description:'맵 전체를 자신의 영토로 만들면 승리',usesControlPoints:false,timeLimitSeconds:null,
+ classic:{name:'CLASSIC',subtitle:'완전 점령',description:'맵 전체를 자신의 영토로 만들면 승리',usesControlPoints:false,timeLimitSeconds:null,humanRespawnSeconds:null,
   rules:()=> '100% 점령',evaluate:(match,atTick)=>{
    const winner=match.participants.find(p=>p.lifeState==='ALIVE'&&p.territoryCount===match.map.cells.length);
    return winner?{winnerId:winner.participantId,reason:'FULL_CAPTURE',atTick}:null;
+  }},
+ timed:{name:'3분 점령전',subtitle:'3분 점령전',description:'3분이 끝났을 때 영토가 가장 넓으면 승리',usesControlPoints:false,timeLimitSeconds:180,humanRespawnSeconds:3,
+  rules:()=> '3분 · 영토 1위',evaluate:(match,atTick)=>{
+   const deadline=roundDeadlineTicks(match);if(deadline===null||atTick<deadline||!match.participants.length)return null;
+   // Most territory wins; equal territory goes to kills; equal on both shares the win.
+   const ranked=[...match.participants].sort((a,b)=>b.territoryCount-a.territoryCount||b.kills-a.kills||a.participantId.localeCompare(b.participantId));
+   const top=ranked[0],winners=ranked.filter(p=>p.territoryCount===top.territoryCount&&p.kills===top.kills);
+   return {winnerId:top.participantId,reason:'TIME_UP',atTick,...(winners.length>1?{coWinnerIds:winners.map(p=>p.participantId)}:{})};
   }}
 };
+/** Whether this participant won the finished round (alone or tied for first). */
+export function isWinner(outcome:{winnerId:string;coWinnerIds?:readonly string[]}|null|undefined,participantId:string):boolean{
+ return !!outcome&&(outcome.winnerId===participantId||!!outcome.coWinnerIds?.includes(participantId));
+}
 export function evaluateMode(match:MatchState,atTick=match.tick):MatchOutcome|null{
  return match.phase==='RUNNING'?GAME_MODES[match.gameMode.id].evaluate(match,atTick):null;
 }

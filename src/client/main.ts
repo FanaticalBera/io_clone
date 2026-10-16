@@ -69,6 +69,7 @@ function applyTitles():void{let saved:string|null=null;try{saved=localStorage.ge
  roomTitle=saved===''?undefined:saved!==null&&earned.includes(saved)?saved:earned.at(-1);ui.setHomeTitles(earned,roomTitle);}
 function applyProfile(p:PlayerProfileV1):void {earned=earnedTitles(p.inventory.ownedMarkerIds);applyTitles();roomLook={marker:p.inventory.equippedMarkerId,color:p.inventory.equippedMarkerColorId};profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
+ui.markerFor=id=>{const look=scene.markerState().find(m=>m.participantId===id);return look?.markerId?{markerId:look.markerId,markerColorId:look.markerColorId??'slot'}:null;};
 const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);
 void (async()=>{
  let p:PlayerProfileV1;

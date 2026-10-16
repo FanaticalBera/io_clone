@@ -58,7 +58,7 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  if(!p||p.closed||result.lifeId!==p.observedLifeId)return{status:'ignored',reward:null,balance:profile.coins};
  const reward=calculateReward(result,p.initialTerritoryCells),coins=profile.coins+reward.totalCoins,kills=profile.stats.totalKills+result.kills,runs=profile.stats.runsPlayed+1,clears=profile.stats.classicClears+Number(result.endReason==='FULL_CAPTURE_WIN');
  if(![coins,kills,runs,clears].every(safe))throw new Error('Profile integer overflow');
- const mapId=presetForCellCount(result.mapCellCount),maps={...(profile.stats.maps??{})};
+ const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS',mapId=timed?null:presetForCellCount(result.mapCellCount),maps={...(profile.stats.maps??{})};
  const seconds=result.durationTicks/result.simulationHz,win=result.endReason==='FULL_CAPTURE_WIN',records:RunRecords={};
  if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0},mapKills=(r.kills??0)+result.kills;if(!safe(mapKills))throw new Error('Profile integer overflow');
   if(r.runs>0){if(result.bestTerritoryPercent>r.best)records.best=true;if(r.topKills!==undefined&&result.kills>r.topKills)records.kills=true;

@@ -62,6 +62,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   <ol id="mini-board" aria-label="순위"></ol>
  </section>
  ${iconButton('game-tools-toggle','경기 메뉴',ICONS.menu,'aria-controls="game-tools" aria-expanded="false"')}
+ <div id="round-timer" class="round-timer" role="timer" hidden><small>남은</small><b id="round-time"></b></div>
 </div>
 <section id="game-tools" aria-label="경기 메뉴" hidden><button id="ranking-toggle" class="menu-item" aria-controls="leaderboard" aria-pressed="false">${ICONS.trophy}전체 순위</button><p id="score-detail"></p><hr><button id="leave-request" class="menu-item danger">${ICONS.exit}나가기</button></section>
 <section id="leave-confirm" role="alertdialog" aria-labelledby="leave-title" aria-describedby="leave-copy" hidden><h2 id="leave-title">이번 판에서 나갈까요?</h2><p id="leave-copy">나가면 지금 판은 여기서 끝나요.</p><div class="row"><button id="leave-cancel" class="btn sun">계속하기</button><button id="leave" data-testid="leave" class="btn danger">나가기</button></div></section>
@@ -77,6 +78,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <section id="results" class="card results-panel" hidden><p class="eyebrow" id="result-mode">판 종료</p><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="btn sun">다시 연습</button><button id="result-leave" class="btn">나가기</button></div><small id="next-round"></small></section>
 <div id="run-results" hidden><div class="run-rays" aria-hidden="true"></div><div id="run-confetti" class="run-confetti" aria-hidden="true"></div><section class="run-panel card" role="dialog" aria-modal="true" aria-labelledby="run-title">
  <div class="run-head"><div class="run-figure" aria-hidden="true"><span class="run-crown">👑</span><div id="run-marker" class="run-marker"></div></div><div><h2 id="run-title">탈락!</h2><p id="run-reason"></p></div></div>
+ <div id="run-podium" class="run-podium" hidden></div>
  <div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong><span id="rec-best" class="rec-badge" hidden>신기록</span></div><div><small id="run-time-label">생존 시간</small><strong id="run-time"></strong><span id="rec-time" class="rec-badge" hidden>신기록</span></div><div><small>처치</small><strong id="run-kills"></strong><span id="rec-kills" class="rec-badge" hidden>신기록</span></div></div>
  <div class="run-reward">${ICONS.coin}<strong id="run-coins">…</strong><span class="reward-label">코인 획득</span><span id="run-balance">보상 저장 중</span><button id="reward-retry" class="btn mini" hidden>저장 재시도</button></div>
  <div class="run-actions"><button id="run-retry" class="btn sun">${ICONS.retry}다시 하기</button><button id="run-menu" class="btn">메인 메뉴</button></div>
@@ -188,7 +190,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private stepRoomMap(delta:number):void {const i=MAP_PRESETS.findIndex(p=>p.id===this.roomMapId);this.actions.roomMap?.(MAP_PRESETS[(i+delta+MAP_PRESETS.length)%MAP_PRESETS.length].id);}
  private stepMap(delta:number):void {this.mapIndex=(this.mapIndex+delta+MAP_PRESETS.length)%MAP_PRESETS.length;save('hexhold.map',this.selectedMap().id);this.renderMap();}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
- selectedGameMode():GameModeId{return 'classic';}
+ /** Mode for single play; a saved choice (hexhold.mode) until the mode picker is designed. */
+ selectedGameMode():GameModeId{const saved=stored('hexhold.mode');return saved==='timed'?'timed':'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
  private closeGamePanels():void{for(const id of ['game-tools','leaderboard','leave-confirm'])get(id).hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');get('ranking-toggle').setAttribute('aria-pressed','false');}
 
@@ -222,8 +225,12 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   toast.classList.remove('pop');void toast.offsetWidth;toast.classList.add('pop');
   if(this.toastTimer!==null)clearTimeout(this.toastTimer);this.toastTimer=setTimeout(()=>{toast.hidden=true;this.toastTimer=null;},1400);
  }
+ /** The equipped look of any participant, from the scene (bots wear theirs, others the default). */
+ markerFor:(participantId:string)=>MarkerAppearance|null=()=>null;
+ private lastView:MatchView|null=null;private lastColors:readonly number[]=SLOT_COLORS;
  updateView(view:MatchView,selfId:string|null,init=false,colors:readonly number[]=SLOT_COLORS):void {
   const self=view.participants.find(p=>p.participantId===selfId);if(selfId&&!self)return;
+  this.lastView=view;this.lastColors=colors;this.renderTimer(view);
   if(self){
    this.controlsActive=view.phase==='RUNNING'&&self.lifeState==='ALIVE';this.refreshControls();get('joystick').classList.toggle('respawn-paused',self.lifeState!=='ALIVE');
    this.activeMode=view.gameMode;this.totalCells=view.owners.length;
@@ -257,16 +264,65 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
      const r=document.createElement('span');r.className='mini-rank';r.textContent=String(rank);const dot=document.createElement('i');dot.setAttribute('aria-hidden','true');
      const n=document.createElement('span');n.className='mini-name';n.textContent=p.nickname;const pct=document.createElement('b');pct.textContent=percent;item.append(r,dot,n,pct);mini.append(item);}
    });
+   if(view.gameMode.id==='timed')this.renderGap(ordered,selfId);
   }
   if(!self)return;
   const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING'||this.hasRunResult;
   if(self.lifeState==='ELIMINATED')this.deathText=deathMessage(self.deathReason,self.deathContext);
-  death.textContent=self.lifeState==='SPAWN_BLOCKED'?'안전한 '+(1+3*view.config.spawnRadius*(view.config.spawnRadius+1))+'칸을 찾고 있어요.':self.lifeState==='ELIMINATED'?this.deathText:'시작 위치를 준비하고 있어요.';
+  // A timed round brings the fallen player back: count down instead of ending.
+  const respawn=self.lifeState==='DEAD_WAIT'&&view.gameMode.id==='timed'?Math.max(1,Math.ceil((self.respawnAtTick-view.tick)/view.config.simulationHz)):0;
+  death.textContent=respawn?'영토를 잃었어요 · '+respawn+'초 후 부활':self.lifeState==='SPAWN_BLOCKED'?'안전한 '+(1+3*view.config.spawnRadius*(view.config.spawnRadius+1))+'칸을 찾고 있어요.':self.lifeState==='ELIMINATED'?this.deathText:'시작 위치를 준비하고 있어요.';
   if(self.run?.result&&self.lifeState!=='SPAWN_BLOCKED'&&self.lifeState!=='DEAD_WAIT')this.showRunResult(self.run.result,init);
   else if(self.lifeState==='ALIVE')this.clearRunResult();
   else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],self.participantId,view.gameMode,view.outcome,view.owners.length);
  }
  setProfileBalance(coins:number|null):void {get('menu-coins').textContent=coins===null?'저장 불가':coins.toLocaleString();}
+ /** Round timer at the top of the field: hidden without a deadline, red for the last ten seconds. */
+ private renderTimer(view:MatchView):void{
+  const timer=get('round-timer'),left=view.remainingTicks;timer.hidden=left===null||view.phase!=='RUNNING';if(left===null)return;
+  const seconds=Math.ceil(left/view.config.simulationHz);get('round-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');timer.classList.toggle('hot',seconds<=10);
+ }
+ /** Timed round: one more line on the mini board — the gap to first, or the lead over second. */
+ private renderGap(ordered:MatchView['participants'],selfId:string|null):void{
+  const mini=get('mini-board'),me=ordered.findIndex(p=>p.participantId===selfId);if(me<0||ordered.length<2)return;
+  const gap=(a:number,b:number)=>territoryPercent(Math.abs(a-b),this.totalCells).toFixed(1)+'%',line=document.createElement('li');line.className='gap-line';
+  if(me===0){line.classList.add('lead');line.textContent='2위와 '+gap(ordered[0].territoryCount,ordered[1].territoryCount)+' 차이';}
+  else line.textContent='1위까지 '+gap(ordered[0].territoryCount,ordered[me].territoryCount);
+  mini.append(line);
+ }
+ /** Final standings: a podium when I am in the top three (or tied first), else the top three in a line and my card. */
+ private renderPodium(result:RunResult):void{
+  const view=this.lastView,host=get('run-podium');host.replaceChildren();if(!view?.results)return;
+  const rows=view.results.filter(r=>r.status==='FINISHED'),total=result.mapCellCount,pct=(cells:number)=>(Math.floor(cells*10000/total)/100).toFixed(2)+'%';
+  const meIndex=rows.findIndex(r=>r.participantId===result.participantId),me=rows[meIndex];if(!me)return;
+  const winners=rows.filter(r=>r.rank===1),shared=winners.length>1,first=rows[0],second=rows[1];
+  const look=(id:string,slot:number)=>{const box=document.createElement('span');box.className='pod-marker';box.append(markerPreview(this.markerFor(id)??{markerId:'default',markerColorId:'slot'},this.lastColors[slot]??SLOT_COLORS[slot%SLOT_COLORS.length]));return box;};
+  const slotOf=(id:string)=>view.participants.find(p=>p.participantId===id)?.slot??0;
+  // Title and the line under it: ties on territory are settled (or shared) by kills.
+  const title=document.createElement('h2'),sub=document.createElement('p');title.className='pod-title';sub.className='pod-sub';
+  if(me.rank===1&&shared){title.textContent='공동 1위!';sub.textContent='영토도 처치도 같아요';}
+  else if(me.rank===1){title.textContent='1위!';sub.textContent=second&&second.territory===me.territory?'영토 동률 · 처치 수로 승리':second?'2위와 '+pct(me.territory-second.territory)+' 차이':'';}
+  else{title.textContent=me.rank+'위'+(me.rank!==null&&me.rank<=3?'!':'');sub.textContent=first.territory===me.territory?'영토 동률 · 처치 수로 '+me.rank+'위':'1위와 '+pct(first.territory-me.territory)+' 차이';}
+  title.classList.toggle('gold',me.rank===1);host.append(title,sub);
+  if((me.rank??99)<=3){
+   const podium=document.createElement('div');podium.className='podium';
+   const top=rows.slice(0,3),order=top.length===3?[top[1],top[0],top[2]]:top.length===2?[top[1],top[0]]:top;
+   for(const row of order){const place=row.rank===1?1:row===top[1]?2:3,pod=document.createElement('div');pod.className='pod p'+place+(row.participantId===me.participantId?' me':'');
+    if(row.rank===1){const crown=document.createElement('span');crown.className='pod-crown';crown.textContent='👑';pod.append(crown);}
+    const name=document.createElement('span');name.className='pod-name';name.textContent=row.nickname;
+    if(row.participantId===me.participantId){const tag=document.createElement('i');tag.className='me-chip';tag.textContent='나';name.prepend(tag);}
+    const block=document.createElement('div');block.className='pod-block';const n=document.createElement('b');n.textContent=String(row.rank);const detail=document.createElement('small');detail.textContent=pct(row.territory)+' · 처치 '+row.kills;block.append(n,detail);
+    pod.append(look(row.participantId,slotOf(row.participantId)),name,block);podium.append(pod);}
+   host.append(podium);
+  }else{
+   const line=document.createElement('div');line.className='pod-top3';
+   for(const row of rows.slice(0,3)){const chip=document.createElement('span');chip.textContent=(row.rank===1?'👑 ':'')+row.rank+' '+row.nickname+' '+pct(row.territory);line.append(chip);}
+   const card=document.createElement('div');card.className='pod-card';const rank=document.createElement('b');rank.className='pod-rank';rank.textContent=me.rank+'위';
+   const stats=document.createElement('div');stats.className='pod-stats';
+   for(const [label,value] of [['최종 점유율',pct(me.territory)],['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory))],['처치',String(result.kills)]]){const box=document.createElement('div');const s2=document.createElement('small');s2.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(s2,v);stats.append(box);}
+   card.append(rank,look(me.participantId,slotOf(me.participantId)),stats);host.append(line,card);
+  }
+ }
  /** Hexagon confetti in the player's land colour, falling once behind the win screen. */
  private celebrate():void{
   const host=get('run-confetti'),land=cssHex(markerArt(this.homeAppearance??{markerId:'default',markerColorId:'slot'},SLOT_COLORS[0],true).bodyColor);
@@ -299,6 +355,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
    get('run-marker').replaceChildren(markerPreview(this.homeAppearance??{markerId:'default',markerColorId:'slot'},SLOT_COLORS[0]));
    get('run-time-label').textContent=kind==='win'?'걸린 시간':'생존 시간';for(const id of ['rec-best','rec-time','rec-kills'])get(id).hidden=true;
    if(kind==='win')this.celebrate();else get('run-confetti').replaceChildren();
+   const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS';get('run-results').dataset.mode=timed?'timed':'classic';get('run-podium').hidden=!timed;
+   if(timed){get('run-results').dataset.outcome=result.endReason==='TIME_WIN'?'win':'loss';this.renderPodium(result);if(result.endReason==='TIME_WIN')this.celebrate();}
    get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
    this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('minimap').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();this.changed();
   };

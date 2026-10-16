@@ -439,3 +439,48 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
  #run-results[data-outcome="win"] .run-figure{width:92px;height:80px}#run-results[data-outcome="win"] .run-marker{width:54px;height:54px;margin-bottom:14px}
  .run-figure{width:60px;height:60px}.run-marker{width:48px;height:48px}}
 @media(prefers-reduced-motion:reduce){.run-rays,.run-confetti i,.run-crown,.rec-badge{animation:none!important}}
+/* 3-minute round: timer, mini-board gap line and the final podium. */
+.round-timer{position:fixed;left:50%;top:calc(var(--top,10px) + 2px);transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:8px;padding:2px 16px;background:var(--ink);color:#fff;border:3px solid #fff;border-radius:14px;box-shadow:0 4px 0 #0004;pointer-events:none}
+.round-timer small{font:12px var(--display);color:var(--sun)}.round-timer b{font:400 28px/1.1 var(--number);font-variant-numeric:tabular-nums}
+.round-timer.hot{background:#e8453c;animation:timer-beat 1s ease-in-out infinite}.round-timer.hot small{color:#fff}
+@keyframes timer-beat{50%{transform:translateX(-50%) scale(1.1)}}
+#mini-board .gap-line{display:block;padding:1px 6px;font:12px var(--display);color:#e8453c;text-align:right;background:none}#mini-board .gap-line.lead{color:#0f7a68}
+#run-results[data-mode="timed"]{background:#1f1b2dd9}
+#run-results[data-mode="timed"] .run-panel{background:transparent;border:0;box-shadow:none;align-items:center;text-align:center;overflow:visible;position:relative;width:min(760px,calc(100vw - 24px))}
+#run-results[data-mode="timed"] .run-head,#run-results[data-mode="timed"] .run-stats{display:none}
+#run-results[data-mode="timed"] .run-reward{width:auto;min-width:min(520px,100%);border-style:solid;border-color:var(--ink);box-shadow:0 4px 0 var(--ink);justify-content:center}
+#run-results[data-mode="timed"] .run-actions{width:min(520px,100%)}
+.run-podium{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px}
+.pod-title{margin:0;font:400 44px/1 var(--display);color:#fff;-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;text-shadow:0 5px 0 var(--ink)}.pod-title.gold{color:#ffc93c}
+.pod-sub{margin:0;font:15px var(--display);color:#fff}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin-top:20px}
+.pod{position:relative;width:128px;display:flex;flex-direction:column;align-items:center}
+.pod-marker{width:46px;height:46px;display:flex}.pod-marker svg{width:100%;height:100%}
+.pod.me .pod-marker{border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 0 6px var(--ink)}
+.me-tag{position:absolute;top:-30px;padding:0 7px;background:#fff;border:2.5px solid var(--ink);border-radius:8px;font:12px var(--display)}
+.pod-crown{font-size:22px;line-height:1;margin-bottom:-2px}
+#run-results[data-outcome="win"] .pod.me .pod-crown{animation:crown-drop .6s .25s cubic-bezier(.3,1.4,.5,1) both}
+.pod-name{margin:3px 0 4px;color:#fff;font:14px var(--display);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod-block{width:100%;border:3px solid var(--ink);border-radius:12px 12px 0 0;box-shadow:0 4px 0 var(--ink);display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.pod-block b{font:400 26px/1 var(--number)}.pod-block small{font:12px var(--display);color:var(--ink)}
+.pod.p1 .pod-block{height:96px;background:#ffc93c}.pod.p2 .pod-block{height:72px;background:#d8dcef}.pod.p3 .pod-block{height:54px;background:#f0c8a0}
+.pod-top3{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.pod-top3 span{padding:2px 10px;border-radius:10px;background:#ffffff1f;color:#fff;font:13px var(--display)}
+.pod-card{display:flex;align-items:center;gap:14px;margin-top:10px;padding:10px 18px;background:#fff;border:3px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink)}
+.pod-rank{font:400 44px/1 var(--display)}.pod-card .pod-marker{width:52px;height:52px}
+.pod-stats{display:flex;gap:8px}.pod-stats div{padding:3px 10px;background:var(--soft);border:2.5px solid var(--ink);border-radius:12px}.pod-stats small{display:block;font:11px var(--display);color:var(--muted)}.pod-stats strong{font:400 22px/1.1 var(--number)}
+@media(orientation:landscape) and (max-height:430px){.pod-title{font-size:34px}.podium{margin-top:14px}.pod{width:112px}.pod.p1 .pod-block{height:76px}.pod.p2 .pod-block{height:58px}.pod.p3 .pod-block{height:44px}.pod-marker{width:38px;height:38px}.pod-block b{font-size:22px}}
+/* The round timer sits just left of the minimap at the top centre; the podium marks me with a chip before my name. */
+.round-timer{left:auto;right:calc(50% + 50px);top:var(--top);transform:none;height:73px;flex-direction:column;justify-content:center;gap:0;padding:0 14px}
+.round-timer.hot{animation:timer-beat2 1s ease-in-out infinite}
+@keyframes timer-beat2{50%{transform:scale(1.08)}}
+.me-chip{display:inline-block;margin-right:5px;padding:0 6px;border-radius:7px;background:#fff;color:var(--ink);font:12px/1.5 var(--display);font-style:normal;vertical-align:1px}
+.me-tag{display:none}
+@media(orientation:landscape) and (max-height:360px){
+ #run-results[data-mode="timed"] .run-panel{gap:6px;padding:6px 10px}
+ .pod-title{font-size:28px;-webkit-text-stroke:5px var(--ink);text-shadow:0 3px 0 var(--ink)}.pod-sub{font-size:13px}
+ .podium{margin-top:4px;gap:8px}.pod{width:104px}.pod-marker{width:30px;height:30px}.pod-crown{font-size:16px}.pod-name{font-size:12px;margin:1px 0 2px}
+ .pod.p1 .pod-block{height:52px}.pod.p2 .pod-block{height:40px}.pod.p3 .pod-block{height:36px}.pod-block{padding-top:2px}.pod-block b{font-size:18px}.pod-block small{font-size:10.5px}
+ .pod-card{margin-top:4px;padding:6px 12px}.pod-rank{font-size:32px}.pod-card .pod-marker{width:38px;height:38px}.pod-stats strong{font-size:17px}
+ #run-results[data-mode="timed"] .run-reward{min-height:36px;padding:2px 12px}#run-results[data-mode="timed"] #run-coins{font-size:20px}
+ #run-results[data-mode="timed"] .run-actions .btn{height:40px}#run-results[data-mode="timed"] #run-retry{font-size:19px}
+}

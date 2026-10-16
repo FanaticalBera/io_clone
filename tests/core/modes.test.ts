@@ -8,8 +8,8 @@ import {packSnapshot,unpackSnapshot,validDirection} from '../../src/shared/proto
 import {completeClassic} from '../mode-fixture.js';
 import {PracticeSession} from '../../src/client/practice.js';
 describe('Classic-only authoritative mode rules',()=>{
- it('accepts only Classic and rejects former HOLD settings',()=>{
-  expect(GAME_MODE_IDS).toEqual(['classic']);expect(createMode()).toEqual({id:'classic'});expect(isGameModeId('hold')).toBe(false);
+ it('accepts Classic and the timed round only and rejects former HOLD settings',()=>{
+  expect(GAME_MODE_IDS).toEqual(['classic','timed']);expect(createMode('timed')).toEqual({id:'timed'});expect(createMode()).toEqual({id:'classic'});expect(isGameModeId('hold')).toBe(false);
   expect(()=>createMode('hold' as GameModeId)).toThrow();
   for(const mode of [{id:'other'},{id:'classic',holdSeconds:1},{id:'hold',targetPercent:50,holdSeconds:10}])expect(()=>validateMode(mode)).toThrow();
   expect(territoryPercent(1518,1519)).toBe(99.9);

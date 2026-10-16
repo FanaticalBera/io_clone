@@ -1,3 +1,4 @@
+import {isWinner} from './modes.js';
 import {mapCellCount,mapIdFor} from './hex.js';
 import {PROTOCOL_VERSION,validateConfig} from './config.js';
 import type {MatchView,DirectionInput,ResultRow,RunResult} from './model.js';
@@ -54,13 +55,14 @@ function validRun(value:unknown,p:Record<string,unknown>,snapshot:Record<string,
     (value.pendingDeathAtTick!==null&&(typeof value.pendingDeathAtTick!=='number'||!Number.isFinite(value.pendingDeathAtTick)||value.pendingDeathAtTick<Number(value.startedAtTick)||value.pendingDeathAtTick>Number(snapshot.tick))))return false;
  const result=value.result;if(result===null)return p.lifeState!=='ELIMINATED'&&value.pendingDeathAtTick===null;
  return record(result)&&result.runId===value.runId&&result.matchId===snapshot.matchId&&result.participantId===p.participantId&&result.lifeId===value.lifeId&&
-  ['DEATH','FULL_CAPTURE_WIN','FULL_CAPTURE_LOSS'].includes(String(result.endReason))&&result.startedAtTick===value.startedAtTick&&
+  ['DEATH','FULL_CAPTURE_WIN','FULL_CAPTURE_LOSS','TIME_WIN','TIME_LOSS'].includes(String(result.endReason))&&result.startedAtTick===value.startedAtTick&&
   typeof result.endedAtTick==='number'&&Number.isFinite(result.endedAtTick)&&result.endedAtTick>=Number(result.startedAtTick)&&result.endedAtTick<=Number(snapshot.tick)&&
   result.durationTicks===result.endedAtTick-Number(result.startedAtTick)&&result.simulationHz===hz&&result.mapCellCount===count&&
   Number.isSafeInteger(result.kills)&&Number(result.kills)>=0&&Number(result.kills)<=Number(p.kills)&&
   result.bestTerritoryCells===value.bestTerritoryCells&&result.bestTerritoryPercent===Math.floor(Number(result.bestTerritoryCells)*1000/count)/10&&
   (result.endReason==='DEATH'?value.pendingDeathAtTick===result.endedAtTick:snapshot.phase==='FINISHED'&&record(snapshot.outcome)&&snapshot.outcome.atTick===result.endedAtTick&&
-    (result.endReason==='FULL_CAPTURE_WIN'?snapshot.outcome.winnerId===p.participantId:snapshot.outcome.winnerId!==p.participantId));
+    (String(result.endReason).startsWith('TIME_')?snapshot.outcome.reason==='TIME_UP'&&(result.endReason==='TIME_WIN')===isWinner(snapshot.outcome as {winnerId:string;coWinnerIds?:string[]},String(p.participantId)):
+     snapshot.outcome.reason==='FULL_CAPTURE'&&(result.endReason==='FULL_CAPTURE_WIN'?snapshot.outcome.winnerId===p.participantId:snapshot.outcome.winnerId!==p.participantId)));
 }
 export function validRequest(value:unknown):value is CommandRequest {
  return record(value)&&typeof value.requestId==='string'&&/^[A-Za-z0-9_-]{1,96}$/.test(value.requestId)&&
@@ -132,7 +134,8 @@ export function unpackSnapshot(raw:unknown):MatchView {
  if(!record(raw.modeState)||!Array.isArray(raw.modeState.holds)||raw.modeState.holds.length!==0)throw new Error('Invalid mode state');
  if(raw.phase==='FINISHED'&&raw.outcome===null)throw new Error('Missing outcome');
  if(raw.outcome!==null&&(!record(raw.outcome)||typeof raw.outcome.winnerId!=='string'||!ids.has(raw.outcome.winnerId)||
-    raw.phase!=='FINISHED'||raw.outcome.reason!=='FULL_CAPTURE'||
+    raw.phase!=='FINISHED'||!['FULL_CAPTURE','TIME_UP'].includes(String(raw.outcome.reason))||
+    (raw.outcome.coWinnerIds!==undefined&&(!Array.isArray(raw.outcome.coWinnerIds)||raw.outcome.coWinnerIds.length<2||!raw.outcome.coWinnerIds.every(id=>typeof id==='string'&&ids.has(id))))||
     typeof raw.outcome.atTick!=='number'||!Number.isFinite(raw.outcome.atTick)||raw.outcome.atTick<0||raw.outcome.atTick>Number(raw.tick)))throw new Error('Invalid outcome');
  const wire=raw as unknown as WireSnapshot;
  return {matchId:wire.matchId,seed:wire.seed,tick:wire.tick,remainingTicks:wire.remainingTicks,phase:wire.phase,config,mapId:wire.mapId,

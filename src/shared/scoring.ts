@@ -2,25 +2,27 @@ import type {MatchState,MatchView,ResultRow,MatchOutcome} from './model.js';
 import {copyRun,finishMatchRuns} from './run.js';
 import {clearTrail} from './territory.js';
 import {emitEvent} from './life.js';
-import {roundDeadlineTicks} from './modes.js';
+import {roundDeadlineTicks,isWinner} from './modes.js';
 export function computeResults(match:MatchState):ResultRow[] {
  const excluded=new Set(match.departed.map(p=>p.participantId));
  const rows=match.participants.filter(p=>!excluded.has(p.participantId)).map(p=>({
   participantId:p.participantId,nickname:p.nickname,kind:p.kind,score:p.territoryCount,
   territory:p.territoryCount,controlScore:p.controlScore,kills:p.kills,deaths:p.deaths,rank:null as number|null,status:'FINISHED' as const
  }));
- rows.sort((a,b)=>Number(b.participantId===match.outcome?.winnerId)-Number(a.participantId===match.outcome?.winnerId)||b.territory-a.territory||b.kills-a.kills||a.participantId.localeCompare(b.participantId));
+ const won=(id:string)=>isWinner(match.outcome,id);
+ rows.sort((a,b)=>Number(won(b.participantId))-Number(won(a.participantId))||b.territory-a.territory||b.kills-a.kills||a.participantId.localeCompare(b.participantId));
  let rank=0;
  for(let i=0;i<rows.length;i++){
   const p=rows[i],previous=rows[i-1];
-  if(!previous||p.territory!==previous.territory||p.kills!==previous.kills||previous.participantId===match.outcome?.winnerId)rank=i+1;
+  // Co-winners share first place; anyone after a winner starts a new rank.
+  if(!previous||p.territory!==previous.territory||p.kills!==previous.kills||(won(previous.participantId)&&!won(p.participantId)))rank=i+1;
   p.rank=rank;
  }
  return [...rows,...match.departed.map(row=>({...row}))];
 }
 export function finishMatch(match:MatchState,outcome:MatchOutcome):void {
  if(match.phase!=='RUNNING')return;
- finishMatchRuns(match,outcome.winnerId,outcome.atTick);
+ finishMatchRuns(match,outcome,outcome.atTick);
  match.outcome={...outcome};match.results=computeResults(match);match.phase='FINISHED';
  for(const p of match.participants){clearTrail(match,p);p.lifeState='FINISHED';p.protectedUntilTick=0;}
  emitEvent(match,{type:'FINISH',participantId:outcome.winnerId});
