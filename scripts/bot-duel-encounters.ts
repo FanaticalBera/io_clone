@@ -13,8 +13,9 @@ const observe=arg('observe','on')==='on';
 const load=(name:string)=>import(pathToFileURL(resolve(source,'src/shared',name+'.ts')).href);
 const [game,bot,identity,director,hex,movement,territory]=await Promise.all(['game','bot','bot-identity','bot-director','hex','movement','territory'].map(load));
 const experiment=arm==='baseline'?null:await load('bot-encounter-experiment');
-const roles=['EXPAND','ATTACK','DEFEND','SEEK_POINT'];
-const scenes=['contact-patrol','neutral-gap-patrol','contact-tight-patrol','neutral-gap-tight-patrol','exposed-loop'];
+const roles=arg('roles','EXPAND,ATTACK,DEFEND,SEEK_POINT').split(',');
+const scenes=arg('scenes','contact-patrol,neutral-gap-patrol,contact-tight-patrol,neutral-gap-tight-patrol,exposed-loop').split(',');
+const navigation=await load('bot-navigation');
 const increment=(map:Record<string,number>,key:string)=>map[key]=(map[key]??0)+1;
 const serialize=(v:unknown)=>JSON.stringify(v,(_k,value)=>value instanceof Map?[...value]:value instanceof Set?[...value]:value);
 const results:any[]=[];
@@ -41,7 +42,7 @@ for(const radius of radii)for(const seed of seeds)for(const role of roles)for(co
  if(experiment)experiment.setBotEncounterExperiment(memory,arm);
  const memories=new Map([['bot',memory]]),hash=createHash('sha256');
  const stats:any={radius,seed,role,scene,arm,ticks:0,nearTicks:0,nearTrailTicks:0,nearReadableTrailTicks:0,exposedTicks:0,maxTrail:0,
-  attackTicks:0,chosenPlans:0,chosenSmallPlans:0,chosenLongerPlans:0,nearChosenPlans:0,nearChosenSmallPlans:0,nearChosenLongerPlans:0,
+  attackTicks:0,nearHomeTicks:0,pursuitTicks:0,chosenPlans:0,chosenSmallPlans:0,chosenLongerPlans:0,nearChosenPlans:0,nearChosenSmallPlans:0,nearChosenLongerPlans:0,
   candidateExternalHistogram:{},nearCandidateExternalHistogram:{},rejected:{},decisions:{},captures:[],excursions:[],deaths:[]};
  const stops:(()=>void)[]=[],witnesses:any[]=[];
  if(observe){
@@ -67,6 +68,15 @@ for(const radius of radii)for(const seed of seeds)for(const role of roles)for(co
  for(let tick=0;tick<ticks&&m.phase==='RUNNING'&&self.lifeId===1&&human.lifeId===1&&self.lifeState==='ALIVE'&&human.lifeState==='ALIVE';tick++){
   let target=m.map.cells[id(...route[waypoint] as [number,number])].center;
   if(Math.hypot(target.x-human.position.x,target.y-human.position.y)<18){waypoint=(waypoint+1)%route.length;target=m.map.cells[id(...route[waypoint] as [number,number])].center;}
+  // Optional synthetic pursuit: only a currently visible trail within six cells,
+  // with ordinary steering/collision and no access to the bot's plan or intent.
+  // This is a reproducible interception attempt, not a human playtest.
+  if(scene.endsWith('intercept')){
+   const visible=[...self.trailCells].filter(cell=>hex.hexDistance(m.map.cells[human.cellId],m.map.cells[cell as number])<=6)
+    .sort((a:any,b:any)=>Math.hypot(m.map.cells[a].center.x-human.position.x,m.map.cells[a].center.y-human.position.y)-Math.hypot(m.map.cells[b].center.x-human.position.x,m.map.cells[b].center.y-human.position.y)||(a-b));
+   for(const cell of visible){const path=navigation.shortestPath(m.map,human.cellId,(id:number)=>id===cell,(id:number)=>!human.trailCells.has(id)||id===cell,6);
+    if(path){target=m.map.cells[path[0]??cell as number].center;stats.pursuitTicks++;break;}}
+  }
   const d=movement.normalizeDirection(target.x-human.position.x,target.y-human.position.y)??human.direction;
   const inputs=director.getBotInputs(m,memories);
   inputs.set('human',{matchId:m.matchId,lifeId:human.lifeId,seq:++seq,dx:d.x,dy:d.y});
@@ -74,13 +84,14 @@ for(const radius of radii)for(const seed of seeds)for(const role of roles)for(co
   hash.update(m.owners);hash.update(Buffer.from(m.trailMasks.buffer));hash.update(serialize(m.participants.map((p:any)=>[p.lifeId,p.lifeState,p.position,p.direction,p.lastAppliedInputSeq])));
   const near=hex.hexDistance(m.map.cells[self.cellId],m.map.cells[human.cellId])<=6;
   stats.ticks++;stats.nearTicks+=Number(near);stats.exposedTicks+=Number(self.trailCells.size>0);stats.nearTrailTicks+=Number(near&&self.trailCells.size>0);
+  stats.nearHomeTicks+=Number(near&&self.lifeState==='ALIVE'&&!self.trailCells.size&&m.owners[self.cellId]===self.slot+1);
   // Operational opportunity proxy only, not a guaranteed reachable kill.
   stats.nearReadableTrailTicks+=Number(self.lifeState==='ALIVE'&&human.lifeState==='ALIVE'&&self.trailCells.size>=4&&[...self.trailCells].some((cell:any)=>hex.hexDistance(m.map.cells[cell],m.map.cells[human.cellId])<=6));
   stats.maxTrail=Math.max(stats.maxTrail,self.trailCells.size);stats.attackTicks+=Number(memory.goal==='ATTACK');
   if(self.trailCells.size&&!episode)episode={start:m.tick,max:0,ticks:0,nearTicks:0};
   if(episode){episode.max=Math.max(episode.max,self.trailCells.size);episode.ticks++;episode.nearTicks+=Number(near);}
   const events=m.events.filter((e:any)=>Number(e.eventId.split(':').at(-1))>before);
-  for(const e of events){if(e.type==='CAPTURE'&&e.participantId==='bot')stats.captures.push({tick:m.tick,amount:e.amount,near});if(e.type==='DEATH')stats.deaths.push({participantId:e.participantId,tick:m.tick,cause:e.deathContext?.cause??e.reason});}
+  for(const e of events){if(e.type==='CAPTURE'&&e.participantId==='bot')stats.captures.push({tick:m.tick,amount:e.amount,near});if(e.type==='DEATH')stats.deaths.push({participantId:e.participantId,tick:m.tick,cause:e.deathContext?.cause??e.reason,killerId:e.killerId});}
   if(episode&&(!self.trailCells.size||self.lifeState!=='ALIVE')){stats.excursions.push({...episode,end:m.tick,ended:self.lifeState==='ALIVE'?'RETURN':'DEATH'});episode=null;}
  }
  for(const stop of stops)stop();

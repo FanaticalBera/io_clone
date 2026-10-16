@@ -12,7 +12,7 @@ import { selectReposition, startReposition } from './bot-reposition.js';
 import { decisionTraces, attackPolicies } from './bot-runtime.js';
 import { shortestPath, returnPath, travelSeconds, observedHeading, forecastHead } from './bot-navigation.js';
 import { holdingRiskMultiplier } from './bot-holding-risk.js';
-import { explorerEncounterFootprint } from './bot-encounter-experiment.js';
+import { explorerEncounterFootprint, hunterEncounterFootprint } from './bot-encounter-experiment.js';
 import { BOT_LOOP_CEILING, quietLoopEligible } from './bot-loop-ceiling.js';
 import { openSpaceExpansionAnchor } from './bot-open-space.js';
 import { innerExpansionAnchor } from './bot-inner-anchor.js';
@@ -427,7 +427,7 @@ export function planExpansion(obs, memory) {
             if (outward && back && outward.length + back.length <= 24)
                 candidates.push({ path: [...outward, ...back], score: settings.pointWeight - outward.length * 0.3, goal: 'SEEK_POINT' });
         }
-    const crowded = !explorerEncounterFootprint(memory, obs.self.personality) && obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6);
+    const crowded = !explorerEncounterFootprint(memory, obs.self.personality) && !hunterEncounterFootprint(memory, obs.self.personality) && obs.others.some(p => hexDistance(obs.map.cells[p.cellId], obs.map.cells[obs.self.cellId]) <= 6);
     // The explorer's extra reach is for quiet space. Visible opponents keep its
     // footprint at the Phase 1 size even before they enter the crowded radius.
     const cautiousExplorer = obs.self.personality === 'EXPAND' && obs.others.length > 0;

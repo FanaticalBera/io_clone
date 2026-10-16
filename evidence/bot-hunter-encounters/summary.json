@@ -1,0 +1,527 @@
+{
+  "status": "Experimental candidate installed separately; no default adoption, master merge or push",
+  "baseMaster": "1fdf2ce4f79d302bf49567a4f8f319eaa32f26be",
+  "policy": "hunter-commit",
+  "rootDefault": "explorer-commit",
+  "scope": "ATTACK footprint and pre-emptive expansion return only; approved EXPAND behaviour retained",
+  "sourceHashes": {
+    "src/shared/bot-encounter-experiment.ts": "fe576760f7483fd5fc47562438d0b99eed759372c7899ba37ed5814630bf4990",
+    "src/shared/bot-strategy.ts": "737a47cc398ca739d02c0c51ea4dc3b27c21d04ac785a9c28462e046c4811527",
+    "src/shared/bot-tactical.ts": "4675f963f2f31de2eecf5754fdd1c5c19259566147dae089733c915974055420"
+  },
+  "preservedSourceFiles": [
+    "src/shared/bot-immediate-safety.ts",
+    "src/shared/bot-navigation.ts",
+    "src/shared/bot-steering.ts",
+    "src/shared/bot-roster.ts",
+    "src/shared/bot-policy.ts",
+    "src/shared/config.ts",
+    "src/shared/movement.ts",
+    "src/shared/engine.ts",
+    "src/shared/home-return-margin.ts",
+    "src/shared/life.ts",
+    "src/shared/spawn.ts",
+    "src/shared/rooms.ts",
+    "src/shared/room-loop.ts",
+    "src/client/practice.ts"
+  ],
+  "pairedDuels": {
+    "conditionsPerArm": 224,
+    "unchangedOtherRoleCases": 168,
+    "observerOnOffCases": 56,
+    "hunters": [
+      {
+        "arm": "explorer-commit",
+        "cases": 56,
+        "ticks": 37228,
+        "nearTicks": 8584,
+        "homeWhenNear": 5275,
+        "nearHomeShare": 0.6145153774464119,
+        "windowTicks": 1220,
+        "windowPer100AliveTicks": 3.277103255614054,
+        "botDeaths": 8,
+        "humanCuts": 8,
+        "botWalls": 0,
+        "humanDeaths": 12
+      },
+      {
+        "arm": "hunter-commit",
+        "cases": 56,
+        "ticks": 27256,
+        "nearTicks": 6682,
+        "homeWhenNear": 3294,
+        "nearHomeShare": 0.49296617779108054,
+        "windowTicks": 3155,
+        "windowPer100AliveTicks": 11.575432932198416,
+        "botDeaths": 20,
+        "humanCuts": 20,
+        "botWalls": 0,
+        "humanDeaths": 14
+      }
+    ],
+    "scenes": [
+      {
+        "scene": "contact-patrol",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 5042,
+            "nearTicks": 1446,
+            "homeWhenNear": 960,
+            "nearHomeShare": 0.6639004149377593,
+            "windowTicks": 194,
+            "windowPer100AliveTicks": 3.8476794922649744,
+            "botDeaths": 4,
+            "humanCuts": 4,
+            "botWalls": 0,
+            "humanDeaths": 0
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 3832,
+            "nearTicks": 812,
+            "homeWhenNear": 516,
+            "nearHomeShare": 0.6354679802955665,
+            "windowTicks": 214,
+            "windowPer100AliveTicks": 5.5845511482254695,
+            "botDeaths": 4,
+            "humanCuts": 4,
+            "botWalls": 0,
+            "humanDeaths": 0
+          }
+        ]
+      },
+      {
+        "scene": "neutral-gap-patrol",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 7200,
+            "nearTicks": 1368,
+            "homeWhenNear": 784,
+            "nearHomeShare": 0.5730994152046783,
+            "windowTicks": 242,
+            "windowPer100AliveTicks": 3.361111111111111,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 0
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 3770,
+            "nearTicks": 1112,
+            "homeWhenNear": 572,
+            "nearHomeShare": 0.5143884892086331,
+            "windowTicks": 552,
+            "windowPer100AliveTicks": 14.641909814323608,
+            "botDeaths": 4,
+            "humanCuts": 4,
+            "botWalls": 0,
+            "humanDeaths": 2
+          }
+        ]
+      },
+      {
+        "scene": "contact-tight-patrol",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 7200,
+            "nearTicks": 1246,
+            "homeWhenNear": 808,
+            "nearHomeShare": 0.6484751203852327,
+            "windowTicks": 162,
+            "windowPer100AliveTicks": 2.25,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 0
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 7158,
+            "nearTicks": 2366,
+            "homeWhenNear": 1092,
+            "nearHomeShare": 0.46153846153846156,
+            "windowTicks": 1184,
+            "windowPer100AliveTicks": 16.54093322157027,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 2
+          }
+        ]
+      },
+      {
+        "scene": "neutral-gap-tight-patrol",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 7200,
+            "nearTicks": 1534,
+            "homeWhenNear": 766,
+            "nearHomeShare": 0.49934810951760106,
+            "windowTicks": 278,
+            "windowPer100AliveTicks": 3.861111111111111,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 0
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 7200,
+            "nearTicks": 806,
+            "homeWhenNear": 200,
+            "nearHomeShare": 0.24813895781637718,
+            "windowTicks": 706,
+            "windowPer100AliveTicks": 9.805555555555555,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 0
+          }
+        ]
+      },
+      {
+        "scene": "exposed-loop",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 768,
+            "nearTicks": 690,
+            "homeWhenNear": 548,
+            "nearHomeShare": 0.7942028985507247,
+            "windowTicks": 58,
+            "windowPer100AliveTicks": 7.552083333333333,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 8
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 598,
+            "nearTicks": 532,
+            "homeWhenNear": 378,
+            "nearHomeShare": 0.7105263157894737,
+            "windowTicks": 140,
+            "windowPer100AliveTicks": 23.411371237458194,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 8
+          }
+        ]
+      },
+      {
+        "scene": "contact-intercept",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 4130,
+            "nearTicks": 1608,
+            "homeWhenNear": 1123,
+            "nearHomeShare": 0.6983830845771144,
+            "windowTicks": 110,
+            "windowPer100AliveTicks": 2.6634382566585955,
+            "botDeaths": 4,
+            "humanCuts": 4,
+            "botWalls": 0,
+            "humanDeaths": 2
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 2564,
+            "nearTicks": 774,
+            "homeWhenNear": 472,
+            "nearHomeShare": 0.6098191214470284,
+            "windowTicks": 187,
+            "windowPer100AliveTicks": 7.2932917316692665,
+            "botDeaths": 6,
+            "humanCuts": 6,
+            "botWalls": 0,
+            "humanDeaths": 2
+          }
+        ]
+      },
+      {
+        "scene": "neutral-gap-intercept",
+        "arms": [
+          {
+            "arm": "explorer-commit",
+            "cases": 8,
+            "ticks": 5688,
+            "nearTicks": 692,
+            "homeWhenNear": 286,
+            "nearHomeShare": 0.41329479768786126,
+            "windowTicks": 176,
+            "windowPer100AliveTicks": 3.0942334739803092,
+            "botDeaths": 0,
+            "humanCuts": 0,
+            "botWalls": 0,
+            "humanDeaths": 2
+          },
+          {
+            "arm": "hunter-commit",
+            "cases": 8,
+            "ticks": 2134,
+            "nearTicks": 280,
+            "homeWhenNear": 64,
+            "nearHomeShare": 0.22857142857142856,
+            "windowTicks": 172,
+            "windowPer100AliveTicks": 8.059981255857544,
+            "botDeaths": 6,
+            "humanCuts": 6,
+            "botWalls": 0,
+            "humanDeaths": 0
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Synthetic steering, not a human playtest. Window is alive exposed tail >=4 cells within 6 cells, not a proven reachable kill.",
+      "Both radii use the same centered layout; repeated radius trajectories are not independent samples.",
+      "All ordinary steering, wall deaths, trail cuts, return margin and captures remain enabled.",
+      "Paired cases stop at the first participant death, so report opportunity rates as well as total ticks."
+    ]
+  },
+  "crowd": {
+    "protocol": {
+      "seeds": [
+        4,
+        19,
+        73,
+        137
+      ],
+      "ticks": 3600,
+      "repeats": 2,
+      "armNames": [
+        "explorer-commit",
+        "hunter-commit"
+      ],
+      "layouts": [
+        "standard",
+        "mini"
+      ],
+      "warmup": "360 ticks per implementation; first 300 ticks excluded per measured run",
+      "measurement": "observer-free CPU simulation; rendering, Android thermal and human gameplay not measured"
+    },
+    "repeatedTrajectoriesEqual": true,
+    "groups": [
+      {
+        "layout": "standard",
+        "arm": "explorer-commit",
+        "cases": 8,
+        "meanTickMs": 2.5399745795454423,
+        "meanP95Ms": 9.056462499995405,
+        "meanDeaths": 11.25,
+        "wallDeaths": 0,
+        "meanTerritoryPerBot": 229.60727182539682,
+        "roles": {
+          "EXPAND": {
+            "aliveTicks": 83352,
+            "exposedShare": 0.7160236107112007,
+            "trail4Share": 0.5580190037431615,
+            "deaths": 34
+          },
+          "ATTACK": {
+            "aliveTicks": 106200,
+            "exposedShare": 0.6023163841807909,
+            "trail4Share": 0.3927683615819209,
+            "deaths": 20
+          },
+          "DEFEND": {
+            "aliveTicks": 113760,
+            "exposedShare": 0.5936005625879044,
+            "trail4Share": 0.3687236286919831,
+            "deaths": 16
+          },
+          "SEEK_POINT": {
+            "aliveTicks": 91860,
+            "exposedShare": 0.636120182887002,
+            "trail4Share": 0.43183104724580884,
+            "deaths": 20
+          }
+        }
+      },
+      {
+        "layout": "standard",
+        "arm": "hunter-commit",
+        "cases": 8,
+        "meanTickMs": 2.697083106060628,
+        "meanP95Ms": 9.73710000000574,
+        "meanDeaths": 12,
+        "wallDeaths": 0,
+        "meanTerritoryPerBot": 234.8239384920635,
+        "roles": {
+          "EXPAND": {
+            "aliveTicks": 83536,
+            "exposedShare": 0.7241907680520973,
+            "trail4Share": 0.5624401455659835,
+            "deaths": 32
+          },
+          "ATTACK": {
+            "aliveTicks": 105300,
+            "exposedShare": 0.6591452991452992,
+            "trail4Share": 0.4683760683760684,
+            "deaths": 30
+          },
+          "DEFEND": {
+            "aliveTicks": 114480,
+            "exposedShare": 0.5660377358490566,
+            "trail4Share": 0.343570929419986,
+            "deaths": 8
+          },
+          "SEEK_POINT": {
+            "aliveTicks": 91260,
+            "exposedShare": 0.6416831032215647,
+            "trail4Share": 0.43953539338154723,
+            "deaths": 26
+          }
+        }
+      },
+      {
+        "layout": "mini",
+        "arm": "explorer-commit",
+        "cases": 8,
+        "meanTickMs": 0.5315120871212109,
+        "meanP95Ms": 2.001437500004158,
+        "meanDeaths": 5,
+        "wallDeaths": 0,
+        "meanTerritoryPerBot": 154.43711805555557,
+        "roles": {
+          "EXPAND": {
+            "aliveTicks": 26820,
+            "exposedShare": 0.6955257270693512,
+            "trail4Share": 0.5111856823266219,
+            "deaths": 22
+          },
+          "ATTACK": {
+            "aliveTicks": 28080,
+            "exposedShare": 0.5780626780626781,
+            "trail4Share": 0.3418091168091168,
+            "deaths": 8
+          },
+          "DEFEND": {
+            "aliveTicks": 28620,
+            "exposedShare": 0.5062893081761006,
+            "trail4Share": 0.27120894479385044,
+            "deaths": 2
+          },
+          "SEEK_POINT": {
+            "aliveTicks": 28080,
+            "exposedShare": 0.557977207977208,
+            "trail4Share": 0.3378917378917379,
+            "deaths": 8
+          }
+        }
+      },
+      {
+        "layout": "mini",
+        "arm": "hunter-commit",
+        "cases": 8,
+        "meanTickMs": 0.42593523484846296,
+        "meanP95Ms": 1.6162250000002132,
+        "meanDeaths": 6.5,
+        "wallDeaths": 0,
+        "meanTerritoryPerBot": 146.16440972222225,
+        "roles": {
+          "EXPAND": {
+            "aliveTicks": 26394,
+            "exposedShare": 0.6953095400469804,
+            "trail4Share": 0.5154959460483444,
+            "deaths": 28
+          },
+          "ATTACK": {
+            "aliveTicks": 27360,
+            "exposedShare": 0.6706140350877193,
+            "trail4Share": 0.46476608187134505,
+            "deaths": 16
+          },
+          "DEFEND": {
+            "aliveTicks": 28800,
+            "exposedShare": 0.5203472222222222,
+            "trail4Share": 0.29055555555555557,
+            "deaths": 0
+          },
+          "SEEK_POINT": {
+            "aliveTicks": 28194,
+            "exposedShare": 0.5538767113570263,
+            "trail4Share": 0.33262396254522236,
+            "deaths": 8
+          }
+        }
+      }
+    ]
+  },
+  "validation": {
+    "files": 118,
+    "reportedPasses": 1172,
+    "ordinaryPassed": 1164,
+    "existingExpectedFailures": 8,
+    "unexpectedFailures": 0,
+    "pending": 0,
+    "newEncounterTests": 19,
+    "typechecks": [
+      "client",
+      "server",
+      "tests",
+      "standalone encounter/crowd scripts",
+      "isolated APK client"
+    ],
+    "build": "Offline APK Vite build and isolated Android debug assemble passed"
+  },
+  "apk": {
+    "path": "artifacts/hunter-encounter-20261016/HEXHOLD-20261016-hunter-test.apk",
+    "package": "com.hexhold.game.huntertest",
+    "label": "HEXHOLD 사냥꾼테스트",
+    "sha256": "10067d0e23d6bd28780ab69a06594eb103ab036d008daba9f9af7698979bec27",
+    "verifiedWebFiles": 384,
+    "projectOverrides": [
+      "src/shared/bot-encounter-experiment.ts"
+    ],
+    "noAutomaticDiagnosticHooks": true,
+    "offline": true,
+    "factoryProof": {
+      "candidate": "hunter-commit",
+      "gameplayFactoryEnabled": true,
+      "explorerPolicyPreserved": true,
+      "otherRolesExcluded": true,
+      "registrationDoesNotDrawActionRngOrChangeWireMemory": true
+    }
+  },
+  "device": {
+    "model": "SM-S926N",
+    "installed": true,
+    "homeVerified": true,
+    "landscape": true,
+    "fatalConsoleErrors": 0,
+    "nonBlockingConsole": [
+      {
+        "url": "https://localhost/favicon.ico",
+        "message": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      }
+    ],
+    "screenshot": ".local/hunter-encounter-20261016/phone-home.png",
+    "mainAppDataModified": false
+  },
+  "remaining": [
+    "Repeated human play feedback",
+    "Sustained Android FPS/thermal comparison",
+    "Two-physical-device LAN play"
+  ]
+}

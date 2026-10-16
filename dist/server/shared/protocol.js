@@ -28,7 +28,7 @@ function validRun(value, p, snapshot, count, hz) {
 }
 export function validRequest(value) {
     return record(value) && typeof value.requestId === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(value.requestId) &&
-        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && (value.title === undefined || (typeof value.title === 'string' && value.title.length <= 24)) && (value.map === undefined || (typeof value.map === 'string' && value.map.length <= 16)) && Object.keys(value).every(key => ['requestId', 'nickname', 'title', 'map', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
+        (value.gameMode === undefined || isGameModeId(value.gameMode)) && (value.matchId === undefined || (typeof value.matchId === 'string' && value.matchId.length <= 128)) && (value.runId === undefined || (typeof value.runId === 'string' && value.runId.length <= 320)) && (value.title === undefined || (typeof value.title === 'string' && value.title.length <= 24)) && (value.map === undefined || (typeof value.map === 'string' && value.map.length <= 16)) && [value.marker, value.color].every(v => v === undefined || (typeof v === 'string' && v.length <= 24)) && Object.keys(value).every(key => ['requestId', 'nickname', 'title', 'marker', 'color', 'map', 'code', 'gameMode', 'matchId', 'runId'].includes(key));
 }
 export function validDirection(value) {
     return record(value) && Object.keys(value).every(k => ['matchId', 'lifeId', 'seq', 'dx', 'dy'].includes(k)) &&

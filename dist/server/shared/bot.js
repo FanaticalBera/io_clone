@@ -27,7 +27,7 @@ export function createBotMemory(seed, variant = 'combined', identity) {
     return memory;
 }
 // Single-player, initial room bots, replacements and room-loop recovery share
-// the player-approved explorer policy. Raw memories stay available for controls
+// the player-approved explorer and hunter policies. Raw memories stay available for controls
 // and HUMAN return-only fallback, without changing action RNG or wire state.
 export function createGameplayBotMemory(seed, variant = 'combined', identity) {
     const memory = createBotMemory(seed, variant, identity);

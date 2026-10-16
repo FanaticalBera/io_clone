@@ -40,7 +40,7 @@ export function createBotMemory(seed:number,variant:BotVariant='combined',identi
  const memory:BotMemory={schedule:variant==='combined'?createBotSchedule(seed):undefined,reposition:createRepositionState(),identity,traits:identity?Object.freeze({expansionScale:identity.individual.expansionScale,riskScale:identity.individual.riskScale,stealScale:identity.individual.stealScale}):traits,path:[],nextDecisionTick:0,seq:0,random,goal:'EXPAND',lastCell:-1,lastProgressTick:0,plannedLifeId:0,attackTarget:null,attackSlot:null,emotion:createBotEmotion(),attackSurvival:false};memoryVariants.set(memory,variant);return memory;
 }
 // Single-player, initial room bots, replacements and room-loop recovery share
-// the player-approved explorer policy. Raw memories stay available for controls
+// the player-approved explorer and hunter policies. Raw memories stay available for controls
 // and HUMAN return-only fallback, without changing action RNG or wire state.
 export function createGameplayBotMemory(seed:number,variant:BotVariant='combined',identity?:Readonly<BotIdentity>):BotMemory {
  const memory=createBotMemory(seed,variant,identity);setBotEncounterExperiment(memory,ADOPTED_BOT_ENCOUNTER);return memory;
