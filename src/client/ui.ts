@@ -370,19 +370,18 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
     const block=document.createElement('div');block.className='pod-block';const n=document.createElement('b');n.textContent=String(row.rank);const detail=document.createElement('small');detail.textContent=pct(row.territory)+' · 처치 '+row.kills;block.append(n,detail);
     pod.append(look(row.participantId,slotOf(row.participantId)),name,block);podium.append(pod);}
    host.append(podium);
-   // Whoever is on the podium still sees their own result and broken records.
+   // Whoever is on the podium still sees their own result (no record badges: multiplayer results depend on who played).
    const mine=document.createElement('div');mine.className='pod-mine';
    for(const [label,value,rec] of [['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory)),'best'],['처치',String(result.kills),'kills']]){
     const item=document.createElement('span');const l=document.createElement('small');l.textContent=label;const v=document.createElement('b');v.textContent=value;
-    const badge=document.createElement('i');badge.className='rec-badge';badge.dataset.rec=rec;badge.textContent='신기록';badge.hidden=true;item.append(l,v,badge);mine.append(item);}
+    void rec;item.append(l,v);mine.append(item);}
    host.append(mine);
   }else{
    const line=document.createElement('div');line.className='pod-top3';
    for(const row of rows.slice(0,3)){const chip=document.createElement('span');chip.textContent=(row.rank===1?'👑 ':'')+row.rank+' '+row.nickname+' '+pct(row.territory);line.append(chip);}
    const card=document.createElement('div');card.className='pod-card';const rank=document.createElement('b');rank.className='pod-rank';rank.textContent=me.rank+'위';
    const stats=document.createElement('div');stats.className='pod-stats';
-   for(const [label,value,rec] of [['최종 점유율',pct(me.territory),''],['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory)),'best'],['처치',String(result.kills),'kills']]){const box=document.createElement('div');const s2=document.createElement('small');s2.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(s2,v);
-    if(rec){const badge=document.createElement('i');badge.className='rec-badge';badge.dataset.rec=rec;badge.textContent='신기록';badge.hidden=true;box.append(badge);}stats.append(box);}
+   for(const [label,value,rec] of [['최종 점유율',pct(me.territory),''],['최고 점유율',pct(Math.max(result.bestTerritoryCells,me.territory)),'best'],['처치',String(result.kills),'kills']]){const box=document.createElement('div');const s2=document.createElement('small');s2.textContent=label;const v=document.createElement('strong');v.textContent=value;box.append(s2,v);void rec;stats.append(box);}
    card.append(rank,look(me.participantId,slotOf(me.participantId)),stats);host.append(line,card);
   }
  }

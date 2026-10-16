@@ -17,6 +17,7 @@ export function emptyProfile():PlayerProfileV1{return{version:1,inventory:defaul
 const safe=(v:unknown):v is number=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=0;
 const text=(v:unknown,max=128):v is string=>typeof v==='string'&&v.length>0&&v.length<=max;
 const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
+// 'timed:' keys are still accepted so profiles saved by earlier test builds stay valid.
 const MAP_IDS=new Set<string>(MAP_PRESETS.flatMap(p=>[p.id,'timed:'+p.id,'growth:'+p.id]));
 const percent=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100;
 function validMaps(stats:Record<string,unknown>):boolean{
@@ -60,14 +61,16 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  const reward=calculateReward(result,p.initialTerritoryCells),coins=profile.coins+reward.totalCoins,kills=profile.stats.totalKills+result.kills,runs=profile.stats.runsPlayed+1,clears=profile.stats.classicClears+Number(result.endReason==='FULL_CAPTURE_WIN');
  if(![coins,kills,runs,clears].every(safe))throw new Error('Profile integer overflow');
  // Timed rounds keep separate records per board ('timed:<map>'); the profile card shows the classic ones.
- const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS',preset=presetForCellCount(result.mapCellCount),mapId=preset&&timed?(result.mode==='growth'?'growth:':'timed:')+preset:preset,maps={...(profile.stats.maps??{})};
+ // Records are personal: classic and the growth challenge keep per-board records; the 3-minute round
+ // depends on who played, so it only adds to the totals.
+ const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS',growth=result.mode==='growth',preset=presetForCellCount(result.mapCellCount);
+ const mapId=!preset||(timed&&!growth)?null:growth?'growth:'+preset:preset,maps={...(profile.stats.maps??{})};
  const previousBest=mapId&&maps[mapId]?.runs?maps[mapId].best:null;
  const seconds=result.durationTicks/result.simulationHz,win=result.endReason==='FULL_CAPTURE_WIN',records:RunRecords={};
  if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0},mapKills=(r.kills??0)+result.kills;if(!safe(mapKills))throw new Error('Profile integer overflow');
   if(r.runs>0){if(result.bestTerritoryPercent>r.best)records.best=true;if(r.topKills!==undefined&&result.kills>r.topKills)records.kills=true;
    if(timed){}else if(win){if(r.fastest!==undefined&&seconds<r.fastest)records.fastest=true;}else if(r.longest!==undefined&&seconds>r.longest)records.longest=true;}
-  // clears: full captures for classic, first places for the 3-minute round.
-  maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(timed?result.endReason==='TIME_WIN'&&result.mode!=='growth':win),runs:r.runs+1,kills:mapKills,longest:Math.max(r.longest??0,seconds),topKills:Math.max(r.topKills??0,result.kills),...(win||r.fastest!==undefined?{fastest:Math.min(r.fastest??Infinity,win?seconds:Infinity)}:{})};}
+    maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(win),runs:r.runs+1,kills:mapKills,longest:Math.max(r.longest??0,seconds),topKills:Math.max(r.topKills??0,result.kills),...(win||r.fastest!==undefined?{fastest:Math.min(r.fastest??Infinity,win?seconds:Infinity)}:{})};}
  const lastMap=mapId&&!timed?mapId:profile.stats.lastMap;
  profile.coins=coins;profile.stats={runsPlayed:runs,classicClears:clears,totalKills:kills,bestTerritoryPercent:Math.max(profile.stats.bestTerritoryPercent,result.bestTerritoryPercent),longestRunSeconds:Math.max(profile.stats.longestRunSeconds,result.durationTicks/result.simulationHz),maps,...(lastMap?{lastMap}:{})};
  p.paidLifeId=result.lifeId;profile.processedRuns.push(reward);if(profile.processedRuns.length>PROFILE_HISTORY_LIMIT)profile.processedRuns.splice(0,profile.processedRuns.length-PROFILE_HISTORY_LIMIT);

@@ -547,3 +547,4 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
 .room-mode button small{font-size:11px;opacity:.85}.room-mode button[aria-pressed=true]{background:var(--sun);color:var(--ink)}
 .profile-modes button{appearance:none;cursor:pointer}.profile-modes button[aria-pressed=true]{background:var(--ink);color:var(--sun)}
 @media(orientation:landscape) and (max-height:400px){.profile-modes{display:flex}.mode-chip{padding:0 6px;font-size:11px}}
+.profile-modes .mode-chip{white-space:nowrap}@media(orientation:landscape) and (max-height:400px){.profile-modes{gap:4px}.profile-modes .mode-chip{padding:0 6px;font-size:11px;min-height:0;height:20px}}
