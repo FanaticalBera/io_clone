@@ -77,3 +77,48 @@ it('clears the experimental setting without consuming RNG or altering serialized
  setBotEncounterExperiment(memory,'explorer-commit');setBotEncounterExperiment(memory,null);
  expect(JSON.stringify(memory)).toBe(before);expect(memory.random()).toBe(control.random());
 });
+
+it.each([0,2])('hunter candidates offer longer ATTACK excursions with %s neutral gap cells',gap=>{
+ const baseline=run('ATTACK','explorer-commit',gap);
+ for(const arm of ['hunter-footprint','hunter-commit'] as const){
+  const candidate=run('ATTACK',arm,gap);
+  expect(Math.max(...baseline.external)).toBeLessThanOrEqual(6);
+  expect(candidate.external.some(n=>n>6)).toBe(true);
+  expect(candidate.proof.trajectory).not.toBe(baseline.proof.trajectory);
+ }
+});
+
+it.each(['EXPAND','DEFEND','SEEK_POINT'] as const)('hunter candidates preserve the current %s trajectory, RNG and reservations',role=>{
+ const baseline=run(role,'explorer-commit');
+ for(const arm of ['hunter-footprint','hunter-commit'] as const)expect(run(role,arm).proof).toEqual(baseline.proof);
+});
+
+it('keeps the hunter candidate opt-in and decision diagnostics passive',()=>{
+ expect(run('ATTACK',null,0,false,true).proof).toEqual(run('ATTACK','explorer-commit').proof);
+ expect(run('ATTACK','hunter-commit',0,true).proof).toEqual(run('ATTACK','hunter-commit').proof);
+});
+
+it('does not abort a safe hunter excursion merely because the rival is within six cells',()=>{
+ for(const arm of ['explorer-commit','hunter-footprint','hunter-commit'] as const){
+  const {m,self,human,id,memory}=fixture('ATTACK');setBotEncounterExperiment(memory,arm);
+  self.cellId=id(1);self.position={...m.map.cells[self.cellId].center};human.cellId=id(3,-4);human.position={...m.map.cells[human.cellId].center};
+  addTrail(m,self,id(1));memory.plannedLifeId=self.lifeId;memory.goal='EXPAND';memory.path=[id(2),id(3),id(4),id(4,1),id(3,1),id(2,1),id(1,1),id(0,1)];
+  const original=[...memory.path],trace:BotDecisionTrace={tick:0,from:'EXPAND',to:'EXPAND',ownTrail:1,attackTarget:null,attacks:[]};
+  runBotTactics(observeBot(m,self.participantId),memory,false,undefined,path=>memory.path=path,trace);
+  expect(trace.risk?.danger).toBe(false);
+  if(arm==='hunter-commit'){expect(memory.goal).toBe('EXPAND');expect(memory.path).toEqual(original);}
+  else{expect(memory.goal).toBe('RETURN');expect(trace.reason).toBe('EXPANSION_PRESSURE');}
+ }
+});
+
+it('retains real trail danger and immediate departure protection for hunters',()=>{
+ const {m,self,human,id,memory}=fixture('ATTACK');setBotEncounterExperiment(memory,'hunter-commit');
+ const departure=evaluateDepartureSafety(observeBot(m,self.participantId),[id(1),id(2),id(2,-1),id(1,-1),id(0)],'EXPAND');
+ expect(departure.blocked).toBe(true);expect(departure.reason).toBe('NEAR_HEAD');
+ self.cellId=id(2);self.position={...m.map.cells[self.cellId].center};human.cellId=id(3);human.position={...m.map.cells[human.cellId].center};
+ addTrail(m,self,id(1));addTrail(m,self,id(2));memory.plannedLifeId=self.lifeId;memory.goal='EXPAND';memory.path=[id(4),id(4,1),id(0,1)];
+ const trace:BotDecisionTrace={tick:0,from:'EXPAND',to:'EXPAND',ownTrail:2,attackTarget:null,attacks:[]};
+ memory.random=()=>{throw Error('action RNG must not be consumed');};
+ runBotTactics(observeBot(m,self.participantId),memory,false,undefined,path=>memory.path=path,trace);
+ expect(trace.risk?.danger).toBe(true);expect(memory.goal).toBe('ESCAPE');expect(memory.path.length).toBeGreaterThan(0);
+});
