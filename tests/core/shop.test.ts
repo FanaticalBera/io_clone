@@ -11,14 +11,16 @@ function legacyWallet(){
   p.worlds=[{matchId:'legacy',participants:[{participantId:'h',observedLifeId:1,paidLifeId:1,initialTerritoryCells:7,ownerId:'old',closed:true}]}];
   const {inventory,...legacy}=p;return legacy;
 }
+const withHexRecord=(w:ReturnType<typeof legacyWallet>)=>({...w,stats:{...w.stats,maps:{hex:{best:w.stats.bestTerritoryPercent,clears:w.stats.classicClears,runs:w.stats.runsPlayed}}}});
 describe('additive Inventory migration',()=>{
   it('adds only defaults to a valid legacy profile without resetting any wallet data',()=>{
     const old=legacyWallet(),before=structuredClone(old),next=migrateProfile(old)!;const {inventory,...core}=next;
-    expect(core).toEqual(before);expect(inventory).toEqual(defaultInventory());expect(old).toEqual(before);expect(validProfile(next)).toBe(true);
+    // Legacy totals also become the hexagon's per-map record; nothing else changes.
+    expect(core).toEqual(withHexRecord(before));expect(inventory).toEqual(defaultInventory());expect(old).toEqual(before);expect(validProfile(next)).toBe(true);
   });
   it('repairs only invalid equipped marker and keeps owned colors, wallet and paid ledgers',()=>{
     const old={...legacyWallet(),inventory:{...defaultInventory(),ownedMarkerIds:['default','ring'],ownedMarkerColorIds:['slot','coral'],equippedMarkerId:'gone',equippedMarkerColorId:'coral'}};
-    const next=migrateProfile(old)!;expect(next.inventory).toEqual({...old.inventory,equippedMarkerId:'default'});const {inventory,...core}=next;expect(core).toEqual(legacyWallet());
+    const next=migrateProfile(old)!;expect(next.inventory).toEqual({...old.inventory,equippedMarkerId:'default'});const {inventory,...core}=next;expect(core).toEqual(withHexRecord(legacyWallet()));
   });
   it('repairs only invalid/unowned color and keeps the equipped marker',()=>{
     const old={...legacyWallet(),inventory:{...defaultInventory(),ownedMarkerIds:['default','hex'],equippedMarkerId:'hex',equippedMarkerColorId:'violet'}};
