@@ -74,7 +74,7 @@ export class ShopUI {
       const name=document.createElement('strong');name.textContent=product.name;card.append(name);
       const state=document.createElement('small'),owned=!!this.profile&&ownedItem(this.profile,this.kind,product.id),equipped=owned&&equippedItem(this.profile!,this.kind)===product.id;
       state.className='state '+(equipped?'equipped':owned?'owned':reward?'locked':'price');state.textContent=equipped?'장착 중':owned?'보유 중':reward?'완성 보상':product.price+' 코인';card.append(state);
-      card.addEventListener('click',()=>{this.selected=product.id;this.picked=true;this.render();});list.append(card);
+      card.addEventListener('click',()=>{this.selected=product.id;this.render();});list.append(card);
     }
     if(focusId)Array.from(list.querySelectorAll<HTMLElement>('[data-product-id]')).find(b=>b.dataset.productId===focusId)?.focus({preventScroll:true});
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;action.classList.add('sun');get('shop-preview').replaceChildren();
@@ -90,20 +90,19 @@ export class ShopUI {
     action.classList.toggle('sun',!owned);
     action.disabled=owned?equipped:!!reward||this.profile.coins<product.price;
   }
-  private effects=new EffectPreview();private effectsFor='';private picked=false;
+  private effects=new EffectPreview();private effectsFor='';
   /**
-   * Every marker stands on its pedestal. Picking a premium marker swaps the pedestal for a small
-   * board that plays its capture once and then fades back; the ▶ buttons replay one scene once.
+   * Every marker stands on its pedestal; nothing plays by itself. The ▶ buttons of a premium
+   * marker swap the pedestal for a small board that plays one scene once, then fade back.
    */
   private showEffects(markerId:string):void{
-    const scenes=this.dialog.open?previewScenes(markerId):[],picked=this.picked;this.picked=false;
+    const scenes=this.dialog.open?previewScenes(markerId):[];
     const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};
     nav.replaceChildren();nav.classList.toggle('empty',!scenes.length);
     for(const scene of scenes){const button=document.createElement('button');button.className='chip';button.textContent='▶ '+labels[scene];button.dataset.scene=scene;
       button.addEventListener('click',()=>this.playEffect(markerId,scene));nav.append(button);}
     if(this.effectsFor===markerId)return;
     this.effectsFor=markerId;this.effects.stop();get('shop-stage').classList.remove('playing');
-    if(scenes.length&&picked)this.playEffect(markerId,'capture');
   }
   private playEffect(markerId:string,scene:PreviewScene):void{
     const stage=get('shop-stage'),color=markerArt(this.appearance(markerId),this.slotColor,true).bodyColor;

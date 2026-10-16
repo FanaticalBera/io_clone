@@ -11,7 +11,7 @@ function legacyWallet(){
   p.worlds=[{matchId:'legacy',participants:[{participantId:'h',observedLifeId:1,paidLifeId:1,initialTerritoryCells:7,ownerId:'old',closed:true}]}];
   const {inventory,...legacy}=p;return legacy;
 }
-const withHexRecord=(w:ReturnType<typeof legacyWallet>)=>({...w,stats:{...w.stats,maps:{hex:{best:w.stats.bestTerritoryPercent,clears:w.stats.classicClears,runs:w.stats.runsPlayed}}}});
+const withHexRecord=(w:ReturnType<typeof legacyWallet>)=>({...w,stats:{...w.stats,maps:{hex:{best:w.stats.bestTerritoryPercent,clears:w.stats.classicClears,runs:w.stats.runsPlayed,kills:w.stats.totalKills,longest:w.stats.longestRunSeconds}}}});
 describe('additive Inventory migration',()=>{
   it('adds only defaults to a valid legacy profile without resetting any wallet data',()=>{
     const old=legacyWallet(),before=structuredClone(old),next=migrateProfile(old)!;const {inventory,...core}=next;

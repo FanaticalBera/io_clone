@@ -394,3 +394,5 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 }
 @media(orientation:landscape) and (max-height:400px){.profile-stats strong[data-long="true"]{font-size:clamp(14px,2.4vw,20px)}}
 .profile-stats #profile-longest{font-size:clamp(16px,min(6.5vh,3vw),32px)}
+/* Map card totals wrap as whole items ("완주 2회", "14판", "342킬") instead of being cut. */
+.profile-map-sub{display:flex;flex-wrap:wrap;gap:0 6px;overflow:visible;white-space:normal}.profile-map-sub>span{white-space:nowrap}.profile-map-sub>span+span::before{content:'·';margin-right:6px}

@@ -5,7 +5,7 @@ export function profileViewModel(profile:PlayerProfileV1){
  const inventory=profile.inventory,markerIds=new Set(inventory.ownedMarkerIds),colorIds=new Set(inventory.ownedMarkerColorIds);
  const marker=markerDefinition(inventory.equippedMarkerId)??markerDefinition(DEFAULT_MARKER_ID)!;
  const color=markerColorDefinition(inventory.equippedMarkerColorId)??markerColorDefinition(DEFAULT_MARKER_COLOR_ID)!;
- const maps=MAP_PRESETS.map(p=>({id:p.id,name:p.name,...(profile.stats.maps?.[p.id]??{best:0,clears:0,runs:0})}));
+ const maps=MAP_PRESETS.map(p=>({id:p.id,name:p.name,best:0,clears:0,runs:0,kills:0,longest:0,...(profile.stats.maps?.[p.id]??{})}));
  const lastMap=Math.max(0,maps.findIndex(m=>m.id===(profile.stats.lastMap??'hex')));
  return {coins:profile.coins,stats:{...profile.stats},maps,lastMap,collection:{markersOwned:MARKERS.filter(m=>markerIds.has(m.id)).length,markersTotal:MARKERS.length,colorsOwned:MARKER_COLORS.filter(c=>colorIds.has(c.id)).length,colorsTotal:MARKER_COLORS.length},
   equipped:{markerId:marker.id,markerName:marker.name,colorId:color.id,colorName:color.name,colorValue:color.value}};

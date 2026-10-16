@@ -15,15 +15,15 @@ describe('per-map profile records',()=>{
  it('moves a legacy profile’s totals onto the hexagon and starts the card there',()=>{
   const legacy=emptyProfile() as unknown as {stats:Record<string,unknown>};delete legacy.stats.maps;
   Object.assign(legacy.stats,{runsPlayed:12,classicClears:2,bestTerritoryPercent:41.5});
-  const p=migrateProfile(legacy)!;expect(p.stats.maps).toEqual({hex:{best:41.5,clears:2,runs:12}});expect(validProfile(p)).toBe(true);
-  const view=profileViewModel(p);expect(view.maps[view.lastMap]).toMatchObject({id:'hex',best:41.5,clears:2,runs:12});
+  const p=migrateProfile(legacy)!;expect(p.stats.maps).toEqual({hex:{best:41.5,clears:2,runs:12,kills:0,longest:0}});expect(validProfile(p)).toBe(true);
+  const view=profileViewModel(p);expect(view.maps[view.lastMap]).toMatchObject({id:'hex',best:41.5,clears:2,runs:12,kills:0});
  });
  it('records each run on its own board and remembers the last board played',()=>{
   const p=migrateProfile(emptyProfile())!;
   grantProfileReward(p,run(9709,2000,1),admission(1));
   grantProfileReward(p,run(9577,9577,2,'FULL_CAPTURE_WIN'),admission(2));
   grantProfileReward(p,run(9709,500,3),admission(3));
-  expect(p.stats.maps).toEqual({rect:{best:20.5,clears:0,runs:2},hex:{best:100,clears:1,runs:1}});
+  expect(p.stats.maps).toEqual({rect:{best:20.5,clears:0,runs:2,kills:0,longest:10},hex:{best:100,clears:1,runs:1,kills:0,longest:10}});
   expect(p.stats.lastMap).toBe('rect');expect(p.stats.runsPlayed).toBe(3);expect(p.stats.classicClears).toBe(1);expect(validProfile(p)).toBe(true);
  });
  it('counts a run on an unknown board only in the totals',()=>{
@@ -31,7 +31,7 @@ describe('per-map profile records',()=>{
   expect(p.stats.maps).toEqual({});expect(p.stats.lastMap).toBeUndefined();expect(p.stats.runsPlayed).toBe(1);
  });
  it('rejects malformed map records',()=>{
-  for(const maps of [{nope:{best:1,clears:0,runs:1}},{hex:{best:101,clears:0,runs:1}},{hex:{best:5,clears:-1,runs:1}},[]]){const p=emptyProfile() as unknown as {stats:Record<string,unknown>};p.stats.maps=maps;expect(validProfile(p)).toBe(false);}
+  for(const maps of [{nope:{best:1,clears:0,runs:1}},{hex:{best:101,clears:0,runs:1}},{hex:{best:5,clears:-1,runs:1}},{hex:{best:5,clears:0,runs:1,kills:-2}},{hex:{best:5,clears:0,runs:1,longest:-1}},[]]){const p=emptyProfile() as unknown as {stats:Record<string,unknown>};p.stats.maps=maps;expect(validProfile(p)).toBe(false);}
   const p=emptyProfile() as unknown as {stats:Record<string,unknown>};p.stats.lastMap='nope';expect(validProfile(p)).toBe(false);
  });
 });

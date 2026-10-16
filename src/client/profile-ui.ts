@@ -16,7 +16,7 @@ export class ProfileUI {
    '<section class="profile-stats" aria-label="누적 기록"><article class="profile-map"><div class="profile-modes" aria-label="모드"><span class="mode-chip on">클래식</span></div>'+
    '<div class="profile-map-bar"><button id="profile-map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="profile-map-icon" class="map-icon" aria-hidden="true"></span><strong id="profile-map-name">—</strong><button id="profile-map-next" class="map-step" aria-label="다음 맵">›</button></div>'+
    '<span id="profile-map-dots" class="map-dots" aria-hidden="true"></span><div class="profile-map-best"><small>최고 점유율</small><strong id="profile-best">—</strong></div>'+
-   '<p class="profile-map-sub">완주 <b id="profile-map-clears">—</b> · <b id="profile-map-runs">—</b></p></article>'+
+   '<p class="profile-map-sub"><span>완주 <b id="profile-map-clears">—</b></span><span><b id="profile-map-runs">—</b></span><span><b id="profile-map-kills">—</b></span></p></article>'+
    [['runs','총 플레이'],['kills','총 처치'],['clears','총 완주'],['longest','최장 생존']].map(([id,label])=>'<article><small>'+label+'</small><strong id="profile-'+id+'">—</strong></article>').join('')+'</section>'+
    '</div><footer class="profile-footer"><span id="profile-status" role="status">불러오는 중…</span><button id="profile-reload" class="btn mini" hidden>다시 읽기</button></footer></div>';
   document.getElementById('app')!.append(this.dialog);
@@ -41,7 +41,7 @@ export class ProfileUI {
  private renderMap():void{
   const m=this.model;if(!m)return;const index=this.mapIndex??m.lastMap,map=m.maps[index];
   this.get('profile-map-name').textContent=map.name;this.get('profile-map-icon').innerHTML=MAP_ICONS[map.id]??'';
-  this.value('profile-best',map.runs?map.best.toFixed(1)+'%':'—');this.get('profile-map-clears').textContent=map.runs?map.clears.toLocaleString()+'회':'—';this.get('profile-map-runs').textContent=map.runs.toLocaleString()+'판';
+  this.value('profile-best',map.runs?map.best.toFixed(1)+'%':'—');this.get('profile-map-clears').textContent=map.clears.toLocaleString()+'회';this.get('profile-map-runs').textContent=map.runs.toLocaleString()+'판';this.get('profile-map-kills').textContent=map.kills.toLocaleString()+'킬';
   this.get('profile-map-dots').replaceChildren(...m.maps.map((_,i)=>{const dot=document.createElement('i');if(i===index)dot.className='on';return dot;}));
  }
  private render():void {

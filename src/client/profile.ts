@@ -6,8 +6,8 @@ export const PROFILE_HISTORY_LIMIT=256,PROFILE_WORLD_LIMIT=32;
 export interface RunAdmission {matchId:string;participantId:string;lifeId:number;initialTerritoryCells:number;ownerId:string}
 export interface ParticipantLedger {participantId:string;observedLifeId:number;paidLifeId:number;initialTerritoryCells:number;ownerId:string;closed:boolean}
 export interface WorldLedger {matchId:string;participants:ParticipantLedger[]}
-/** Best territory, classic clears and runs on one board preset. */
-export interface MapRecord {best:number;clears:number;runs:number}
+/** Best territory, classic clears, runs, kills and longest run on one board preset (kills/longest added later, so optional). */
+export interface MapRecord {best:number;clears:number;runs:number;kills?:number;longest?:number}
 export interface PlayerProfileV1 {version:1;inventory:PlayerInventory;coins:number;stats:{runsPlayed:number;classicClears:number;totalKills:number;bestTerritoryPercent:number;longestRunSeconds:number;maps?:Record<string,MapRecord>;lastMap?:string};processedRuns:RewardResult[];worlds:WorldLedger[]}
 export interface RewardReceipt {status:'granted'|'duplicate'|'ignored'|'failed';reward:RewardResult|null;balance:number}
 export function emptyProfile():PlayerProfileV1{return{version:1,inventory:defaultInventory(),coins:0,stats:{runsPlayed:0,classicClears:0,totalKills:0,bestTerritoryPercent:0,longestRunSeconds:0,maps:{}},processedRuns:[],worlds:[]};}
@@ -19,7 +19,7 @@ const percent=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100
 function validMaps(stats:Record<string,unknown>):boolean{
  if(stats.lastMap!==undefined&&!(typeof stats.lastMap==='string'&&MAP_IDS.has(stats.lastMap)))return false;
  if(stats.maps===undefined)return true;if(!object(stats.maps))return false;
- return Object.entries(stats.maps).every(([id,r])=>MAP_IDS.has(id)&&object(r)&&percent(r.best)&&safe(r.clears)&&safe(r.runs));
+ return Object.entries(stats.maps).every(([id,r])=>MAP_IDS.has(id)&&object(r)&&percent(r.best)&&safe(r.clears)&&safe(r.runs)&&(r.kills===undefined||safe(r.kills))&&(r.longest===undefined||(typeof r.longest==='number'&&Number.isFinite(r.longest)&&r.longest>=0)));
 }
 function validProfileBase(value:unknown):value is Omit<PlayerProfileV1,'inventory'> {
  if(!object(value)||value.version!==1||!safe(value.coins)||!object(value.stats)||!['runsPlayed','classicClears','totalKills'].every(k=>safe((value.stats as Record<string,unknown>)[k]))||typeof value.stats.bestTerritoryPercent!=='number'||!Number.isFinite(value.stats.bestTerritoryPercent)||value.stats.bestTerritoryPercent<0||value.stats.bestTerritoryPercent>100||typeof value.stats.longestRunSeconds!=='number'||!Number.isFinite(value.stats.longestRunSeconds)||value.stats.longestRunSeconds<0||!validMaps(value.stats)||
@@ -36,7 +36,7 @@ export function migrateProfile(value:unknown):PlayerProfileV1|null {
  if(!validProfileBase(value))return null;
  const profile={...structuredClone(value),inventory:normalizeInventory((value as Record<string,unknown>).inventory)} as PlayerProfileV1;
  // Records from before per-map stats were almost all on the hexagon, so they become its record.
- if(!profile.stats.maps){const s=profile.stats;profile.stats.maps=s.runsPlayed?{hex:{best:s.bestTerritoryPercent,clears:s.classicClears,runs:s.runsPlayed}}:{};}
+ if(!profile.stats.maps){const s=profile.stats;profile.stats.maps=s.runsPlayed?{hex:{best:s.bestTerritoryPercent,clears:s.classicClears,runs:s.runsPlayed,kills:s.totalKills,longest:s.longestRunSeconds}}:{};}
  return profile;
 }
 export function admitRun(profile:PlayerProfileV1,a:RunAdmission):boolean {
@@ -57,7 +57,8 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  const reward=calculateReward(result,p.initialTerritoryCells),coins=profile.coins+reward.totalCoins,kills=profile.stats.totalKills+result.kills,runs=profile.stats.runsPlayed+1,clears=profile.stats.classicClears+Number(result.endReason==='FULL_CAPTURE_WIN');
  if(![coins,kills,runs,clears].every(safe))throw new Error('Profile integer overflow');
  const mapId=presetForCellCount(result.mapCellCount),maps={...(profile.stats.maps??{})};
- if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0};maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(result.endReason==='FULL_CAPTURE_WIN'),runs:r.runs+1};}
+ if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0},mapKills=(r.kills??0)+result.kills;if(!safe(mapKills))throw new Error('Profile integer overflow');
+  maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(result.endReason==='FULL_CAPTURE_WIN'),runs:r.runs+1,kills:mapKills,longest:Math.max(r.longest??0,result.durationTicks/result.simulationHz)};}
  profile.coins=coins;profile.stats={runsPlayed:runs,classicClears:clears,totalKills:kills,bestTerritoryPercent:Math.max(profile.stats.bestTerritoryPercent,result.bestTerritoryPercent),longestRunSeconds:Math.max(profile.stats.longestRunSeconds,result.durationTicks/result.simulationHz),maps,...(mapId?{lastMap:mapId}:profile.stats.lastMap?{lastMap:profile.stats.lastMap}:{})};
  p.paidLifeId=result.lifeId;profile.processedRuns.push(reward);if(profile.processedRuns.length>PROFILE_HISTORY_LIMIT)profile.processedRuns.splice(0,profile.processedRuns.length-PROFILE_HISTORY_LIMIT);
  return{status:'granted',reward:{...reward},balance:profile.coins};
