@@ -23,7 +23,7 @@ describe('per-map profile records',()=>{
   grantProfileReward(p,run(9709,2000,1),admission(1));
   grantProfileReward(p,run(9577,9577,2,'FULL_CAPTURE_WIN'),admission(2));
   grantProfileReward(p,run(9709,500,3),admission(3));
-  expect(p.stats.maps).toEqual({rect:{best:20.5,clears:0,runs:2,kills:0,longest:10},hex:{best:100,clears:1,runs:1,kills:0,longest:10}});
+  expect(p.stats.maps).toEqual({rect:{best:20.5,clears:0,runs:2,kills:0,longest:10,topKills:0},hex:{best:100,clears:1,runs:1,kills:0,longest:10,topKills:0,fastest:10}});
   expect(p.stats.lastMap).toBe('rect');expect(p.stats.runsPlayed).toBe(3);expect(p.stats.classicClears).toBe(1);expect(validProfile(p)).toBe(true);
  });
  it('counts a run on an unknown board only in the totals',()=>{
@@ -33,5 +33,20 @@ describe('per-map profile records',()=>{
  it('rejects malformed map records',()=>{
   for(const maps of [{nope:{best:1,clears:0,runs:1}},{hex:{best:101,clears:0,runs:1}},{hex:{best:5,clears:-1,runs:1}},{hex:{best:5,clears:0,runs:1,kills:-2}},{hex:{best:5,clears:0,runs:1,longest:-1}},[]]){const p=emptyProfile() as unknown as {stats:Record<string,unknown>};p.stats.maps=maps;expect(validProfile(p)).toBe(false);}
   const p=emptyProfile() as unknown as {stats:Record<string,unknown>};p.stats.lastMap='nope';expect(validProfile(p)).toBe(false);
+ });
+ it('reports records broken on the same board, never on its first run or on a tie',()=>{
+  const p=migrateProfile(emptyProfile())!,kills=(r:RunResult,k:number)=>({...r,kills:k});
+  expect(grantProfileReward(p,kills(run(9709,2000,1),2),admission(1)).records).toBeUndefined();
+  expect(grantProfileReward(p,kills(run(9709,2000,2),2),admission(2)).records).toBeUndefined();
+  expect(grantProfileReward(p,kills(run(9709,2500,3),5),admission(3)).records).toEqual({best:true,kills:true});
+  // A first run on another board breaks nothing there.
+  expect(grantProfileReward(p,kills(run(9577,4000,4),9),admission(4)).records).toBeUndefined();
+ });
+ it('counts a faster full capture as a record and keeps the fastest time',()=>{
+  const p=migrateProfile(emptyProfile())!,win=(life:number,ticks:number)=>({...run(9577,9577,life,'FULL_CAPTURE_WIN'),durationTicks:ticks,endedAtTick:30+ticks});
+  grantProfileReward(p,win(1,9000),admission(1));
+  expect(grantProfileReward(p,win(2,12000),admission(2)).records).toBeUndefined();
+  expect(grantProfileReward(p,win(3,6000),admission(3)).records).toEqual({fastest:true});
+  expect(p.stats.maps!.hex.fastest).toBe(200);
  });
 });

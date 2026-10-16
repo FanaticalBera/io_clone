@@ -406,3 +406,36 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
 .title-option[aria-pressed=true]{background:var(--ink);color:#ffc93c}
 #members li{gap:8px}.member-marker{width:30px;height:30px;flex:none;display:flex}.member-marker svg{width:100%;height:100%}
 #members li>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Run result: the equipped marker leads the card. A win takes the whole screen (gold rays, falling
+   land-colour confetti, marker on a gold pedestal with a crown); a death greys and tips the marker.
+   Records broken this run get a 신기록 badge beside the stat. */
+.run-figure{position:relative;width:76px;height:76px;flex:none;display:flex;align-items:flex-end;justify-content:center}
+.run-figure::before{content:"";position:absolute;left:8px;right:8px;bottom:0;height:14px;border-radius:50%;background:#1f1b2d33}
+.run-marker{position:relative;width:62px;height:62px;margin-bottom:6px}.run-marker svg{width:100%;height:100%}
+.run-crown{position:absolute;left:50%;top:-14px;transform:translateX(-50%);font-size:26px;z-index:1;display:none}
+#run-results:not([data-outcome="win"]) .run-marker{filter:grayscale(1) brightness(1.08);transform:rotate(-16deg) translateY(4px);opacity:.9}
+.rec-badge{display:inline-block;margin-top:5px;padding:1px 7px;border-radius:7px;background:#e8453c;color:#fff;font:12px var(--display);animation:rec-pop .35s ease-out both}
+@keyframes rec-pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.run-rays,.run-confetti{position:absolute;inset:0;pointer-events:none;display:none;overflow:hidden}
+#run-results[data-outcome="win"]{background:#1f1b2dd9}
+#run-results[data-outcome="win"] .run-rays{display:block;background:repeating-conic-gradient(from 0deg at 50% 42%,#ffd23f1f 0 7deg,transparent 7deg 20deg);animation:rays-turn 24s linear infinite;mask:radial-gradient(circle at 50% 42%,#000 10%,transparent 60%)}
+@keyframes rays-turn{to{transform:rotate(1turn)}}
+#run-results[data-outcome="win"] .run-confetti{display:block}
+.run-confetti i{position:absolute;top:-24px;width:14px;height:12px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);opacity:.9;animation:confetti-fall 2.6s ease-in both}
+@keyframes confetti-fall{to{transform:translateY(110vh) rotate(var(--spin));opacity:.2}}
+#run-results[data-outcome="win"] .run-panel{background:transparent;border:0;box-shadow:none;align-items:center;text-align:center;overflow:visible;position:relative}
+#run-results[data-outcome="win"] .run-head{flex-direction:column;gap:4px}
+#run-results[data-outcome="win"] .run-figure{width:110px;height:92px}
+#run-results[data-outcome="win"] .run-figure::before{left:2px;right:2px;height:38px;background:#fff7d6;border:3px solid var(--ink);box-shadow:0 6px 0 #b8860b}
+#run-results[data-outcome="win"] .run-marker{width:66px;height:66px;margin-bottom:16px}
+#run-results[data-outcome="win"] .run-crown{display:block;animation:crown-drop .6s .25s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes crown-drop{from{transform:translate(-50%,-60px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+#run-results[data-outcome="win"] #run-title{font-size:52px;color:#ffc93c;-webkit-text-stroke:7px var(--ink);paint-order:stroke fill;text-shadow:0 5px 0 var(--ink)}
+#run-results[data-outcome="win"] #run-reason{color:#fff}
+#run-results[data-outcome="win"] .run-stats{width:100%}#run-results[data-outcome="win"] .run-stats>div{background:#fff;box-shadow:0 4px 0 var(--ink)}
+#run-results[data-outcome="win"] .run-reward{width:100%;border-style:solid;border-color:var(--ink);box-shadow:0 4px 0 var(--ink);justify-content:center}
+#run-results[data-outcome="win"] .run-actions{width:100%}
+@media(orientation:landscape) and (max-height:430px){#run-results[data-outcome="win"] .run-head{flex-direction:row;gap:14px}#run-results[data-outcome="win"] #run-title{font-size:40px}
+ #run-results[data-outcome="win"] .run-figure{width:92px;height:80px}#run-results[data-outcome="win"] .run-marker{width:54px;height:54px;margin-bottom:14px}
+ .run-figure{width:60px;height:60px}.run-marker{width:48px;height:48px}}
+@media(prefers-reduced-motion:reduce){.run-rays,.run-confetti i,.run-crown,.rec-badge{animation:none!important}}

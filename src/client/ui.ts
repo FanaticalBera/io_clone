@@ -9,7 +9,7 @@ import type {RewardReceipt} from './profile.js';
 import {deathMessage} from './death-message.js';
 import {ICONS} from './icons.js';
 import {cssHex} from './theme.js';
-import {markerPreview,type MarkerAppearance} from './marker-art.js';
+import {markerPreview,markerArt,type MarkerAppearance} from './marker-art.js';
 import {MAP_PRESETS} from '../shared/map-presets.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
 export interface UIActions { pickTitle?:(title:string)=>void; roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
@@ -75,9 +75,9 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  <div class="room-members card"><div class="members-head"><h3>참가자</h3><p id="room-status"></p></div><ul id="members"></ul><button id="start" data-testid="start" class="btn sun big">라운드 시작 ${ICONS.play}</button></div>
 </section>
 <section id="results" class="card results-panel" hidden><p class="eyebrow" id="result-mode">판 종료</p><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="btn sun">다시 연습</button><button id="result-leave" class="btn">나가기</button></div><small id="next-round"></small></section>
-<div id="run-results" hidden><section class="run-panel card" role="dialog" aria-modal="true" aria-labelledby="run-title">
- <div class="run-head"><svg class="run-badge" viewBox="0 0 70 70" aria-hidden="true"><polygon class="badge-side" points="35,8 64,24 64,54 35,70 6,54 6,24"/><polygon class="badge-top" points="35,3 64,19 64,49 35,65 6,49 6,19"/><path class="glyph death" d="M25 24l20 20M45 24 25 44"/><path class="glyph win" d="M22 42l-2-16 9 7 6-11 6 11 9-7-2 16Z"/><path class="glyph loss" d="M27 46V22h16l-3 6 3 6H27"/></svg><div><h2 id="run-title">탈락!</h2><p id="run-reason"></p></div></div>
- <div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong></div><div><small>생존 시간</small><strong id="run-time"></strong></div><div><small>처치</small><strong id="run-kills"></strong></div></div>
+<div id="run-results" hidden><div class="run-rays" aria-hidden="true"></div><div id="run-confetti" class="run-confetti" aria-hidden="true"></div><section class="run-panel card" role="dialog" aria-modal="true" aria-labelledby="run-title">
+ <div class="run-head"><div class="run-figure" aria-hidden="true"><span class="run-crown">👑</span><div id="run-marker" class="run-marker"></div></div><div><h2 id="run-title">탈락!</h2><p id="run-reason"></p></div></div>
+ <div class="run-stats"><div><small>최고 점유율</small><strong id="run-best"></strong><span id="rec-best" class="rec-badge" hidden>신기록</span></div><div><small id="run-time-label">생존 시간</small><strong id="run-time"></strong><span id="rec-time" class="rec-badge" hidden>신기록</span></div><div><small>처치</small><strong id="run-kills"></strong><span id="rec-kills" class="rec-badge" hidden>신기록</span></div></div>
  <div class="run-reward">${ICONS.coin}<strong id="run-coins">…</strong><span class="reward-label">코인 획득</span><span id="run-balance">보상 저장 중</span><button id="reward-retry" class="btn mini" hidden>저장 재시도</button></div>
  <div class="run-actions"><button id="run-retry" class="btn sun">${ICONS.retry}다시 하기</button><button id="run-menu" class="btn">메인 메뉴</button></div>
 </section></div>
@@ -267,7 +267,20 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   else if(view.phase==='FINISHED'&&!self.run)this.showResults(view.matchId,view.results??[],self.participantId,view.gameMode,view.outcome,view.owners.length);
  }
  setProfileBalance(coins:number|null):void {get('menu-coins').textContent=coins===null?'저장 불가':coins.toLocaleString();}
- showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';}
+ /** Hexagon confetti in the player's land colour, falling once behind the win screen. */
+ private celebrate():void{
+  const host=get('run-confetti'),land=cssHex(markerArt(this.homeAppearance??{markerId:'default',markerColorId:'slot'},SLOT_COLORS[0],true).bodyColor);
+  const colors=[land,'#ffc93c','#ffffff'];host.replaceChildren(...Array.from({length:30},(_,i)=>{const piece=document.createElement('i');
+   piece.style.left=(i*37%100)+'%';piece.style.background=colors[i%3];piece.style.animationDelay=(i%10)*.12+'s';piece.style.animationDuration=(2.2+(i%5)*.35)+'s';piece.style.setProperty('--spin',((i*53)%360)+'deg');return piece;}));
+ }
+ /** Coins count up on a win; records broken this run get their badge. */
+ private countCoins(amount:number):void{
+  const node=get('run-coins'),start=performance.now(),step=(now:number)=>{const t=Math.min(1,(now-start)/750);node.textContent='+'+Math.round(amount*(1-(1-t)**3)).toLocaleString();if(t<1)requestAnimationFrame(step);};requestAnimationFrame(step);
+ }
+ showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;
+  const records=receipt.records??{};get('rec-best').hidden=!records.best;get('rec-time').hidden=!(records.longest||records.fastest);get('rec-kills').hidden=!records.kills;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';
+  if(amount&&get('run-results').dataset.outcome==='win'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)this.countCoins(amount);
+ }
  setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}
  get hasRunResult():boolean{return !!this.runKey;}
  /** Whether the live field is what the player sees: the game screen with no settings, result card or results table over it. */
@@ -282,6 +295,10 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
    const kind=result.endReason==='FULL_CAPTURE_WIN'?'win':result.endReason==='DEATH'?'death':'loss';get('run-results').dataset.outcome=kind;
    get('run-title').textContent=kind==='win'?'완전 점령!':kind==='death'?'탈락!':'판 종료';
    get('run-reason').textContent=kind==='death'?(this.deathText||'이번 생존의 기록'):kind==='loss'?'다른 참가자가 100%를 달성했어요':'월드 전체를 내 땅으로 만들었어요';
+   // Win and loss alike show the equipped marker: gold pedestal and crown for a win, greyed and tipped otherwise.
+   get('run-marker').replaceChildren(markerPreview(this.homeAppearance??{markerId:'default',markerColorId:'slot'},SLOT_COLORS[0]));
+   get('run-time-label').textContent=kind==='win'?'걸린 시간':'생존 시간';for(const id of ['rec-best','rec-time','rec-kills'])get(id).hidden=true;
+   if(kind==='win')this.celebrate();else get('run-confetti').replaceChildren();
    get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
    this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('minimap').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();this.changed();
   };
