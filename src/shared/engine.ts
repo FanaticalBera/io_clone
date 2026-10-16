@@ -126,45 +126,58 @@ export function applySimultaneousCaptures(match:MatchState,returners:Participant
  }observer({tick:match.tick,participants:trace});}
  }finally{endRunResolution(match);}
 }
-export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set(),returnHomes?:ReadonlyMap<string,number>):void {
+export function resolveAtTime(match:MatchState,eventTick=match.tick,wallVictims:ReadonlySet<string>=new Set(),returnHomes?:ReadonlyMap<string,number>,intermediateVisits?:ReadonlyMap<string,readonly number[]>):void {
  beginRunResolution(match);try{
  for(let iteration=0;iteration<32;iteration++){
   const ordered=[...match.participants].sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
   const alive=ordered.filter(p=>p.lifeState==='ALIVE');
   const existingMasks=match.trailMasks.slice(),masks=existingMasks.slice(),pending=new Map<Participant,number>();
+  const visits=iteration===0?intermediateVisits:undefined;
+  const extraPending=visits?new Map<Participant,number[]>():undefined;
   for(const p of alive){
    if(!isProtected(match,p,eventTick))p.protectedUntilTick=0;
+   for(const id of visits?.get(p.participantId)??[])if(match.owners[id]!==p.slot+1){
+    p.protectedUntilTick=0;
+    if(!p.trailCells.has(id)&&id!==p.cellId){const ids=extraPending!.get(p)??[];if(!ids.includes(id))ids.push(id);extraPending!.set(p,ids);}
+    masks[id]|=slotBit(p.slot);
+   }
    if(match.owners[p.cellId]!==p.slot+1){
     p.protectedUntilTick=0;
     if(!p.trailCells.has(p.cellId))pending.set(p,p.cellId);
     masks[p.cellId]|=slotBit(p.slot);
    }
   }
-  const deaths=new Map<Participant,Participant[]>();
+  const deaths=new Map<Participant,{attacker:Participant;cellId:number}[]>();
   for(const attacker of alive){
    if(isProtected(match,attacker,eventTick))continue;
-   for(const victim of alive)if(victim!==attacker&&(masks[attacker.cellId]&(slotBit(victim.slot)))){
-    const attackers=deaths.get(victim)??[];attackers.push(attacker);deaths.set(victim,attackers);
+   for(const victim of alive)if(victim!==attacker){
+    const bit=slotBit(victim.slot),cellId=visits?.get(attacker.participantId)?.find(id=>(masks[id]&bit)!==0)??((masks[attacker.cellId]&bit)?attacker.cellId:undefined);
+    if(cellId===undefined)continue;
+    const attackers=deaths.get(victim)??[];attackers.push({attacker,cellId});deaths.set(victim,attackers);
    }
   }
   const audit=hasDeathObserver(match)&&(deaths.size>0||wallVictims.size>0||alive.some(p=>p.territoryCount===0||(p.trailCells.size&&match.owners[p.cellId]===p.slot+1)));
   const ownersBefore=audit?[...match.owners]:[],trailMasksBefore=audit?[...existingMasks]:[],pendingTrails=audit?[...pending].map(([p,cellId])=>({participantId:p.participantId,cellId})):[];
+  if(audit&&extraPending)for(const [p,ids]of extraPending)for(const cellId of ids)pendingTrails.push({participantId:p.participantId,cellId});
   const diagnostics=audit?new Map<Participant,ResolutionDeathDiagnostic>(alive.map(p=>[p,{eventTick,iteration,ownersBefore,trailMasksBefore,pendingTrails,victimTrailBefore:[...p.trailCells],existingTrailContact:false,pendingTrailContact:false,captureOverlapCells:[],wallIntersection:wallVictims.has(p.participantId)}])):null;
   for(const [victim,attackers]of deaths){
-   attackers.sort((a,b)=>match.priority.indexOf(a.slot)-match.priority.indexOf(b.slot));
-   const attacker=attackers[0],existing=(existingMasks[attacker.cellId]&(slotBit(victim.slot)))!==0,provisional=pending.get(victim)===attacker.cellId;
+   attackers.sort((a,b)=>match.priority.indexOf(a.attacker.slot)-match.priority.indexOf(b.attacker.slot));
+   const {attacker,cellId}=attackers[0],existing=(existingMasks[cellId]&(slotBit(victim.slot)))!==0,provisional=pending.get(victim)===cellId||!!extraPending?.get(victim)?.includes(cellId);
    const diagnostic=diagnostics?.get(victim);if(diagnostic){diagnostic.existingTrailContact=existing;diagnostic.pendingTrailContact=provisional;}
-   markDead(match,victim,'TRAIL_CUT',attacker,{cause:existing?'EXISTING_TRAIL_CONTACT':'PENDING_TRAIL_CONTACT',cellId:attacker.cellId,eventTick},diagnostic);
+   markDead(match,victim,'TRAIL_CUT',attacker,{cause:existing?'EXISTING_TRAIL_CONTACT':'PENDING_TRAIL_CONTACT',cellId,eventTick},diagnostic);
   }
   let wallDeaths=0;
   for(const p of alive)if(wallVictims.has(p.participantId)&&markDead(match,p,'WALL_HIT',undefined,{cause:'WALL_HIT',cellId:p.cellId,eventTick},diagnostics?.get(p)))wallDeaths++;
+  // All contacts above share one frozen trail snapshot, including zero-duration
+  // wall-notch visits. Publish surviving trails only after simultaneous cuts.
+  if(extraPending)for(const [p,ids]of extraPending)if(p.lifeState==='ALIVE')for(const id of ids)addTrail(match,p,id);
   for(const [p,id]of pending)if(p.lifeState==='ALIVE')addTrail(match,p,id);
   const earlyHomes=iteration===0?returnHomes:undefined;
   const returners=ordered.filter(p=>p.lifeState==='ALIVE'&&p.trailCells.size&&match.owners[earlyHomes?.get(p.participantId)??p.cellId]===p.slot+1);
   applySimultaneousCaptures(match,returners,eventTick,iteration,earlyHomes);
   let territoryDeaths=0;
   for(const p of ordered)if(p.lifeState==='ALIVE'&&p.territoryCount===0){markDead(match,p,'TERRITORY_LOST',undefined,{cause:'TERRITORY_LOST',cellId:p.cellId,eventTick},diagnostics?.get(p));territoryDeaths++;}
-  if(!deaths.size&&!pending.size&&!returners.length&&!territoryDeaths&&!wallDeaths){const outcome=evaluateMode(match,eventTick);if(outcome)finishMatch(match,outcome);return;}
+  if(!deaths.size&&!pending.size&&!extraPending?.size&&!returners.length&&!territoryDeaths&&!wallDeaths){const outcome=evaluateMode(match,eventTick);if(outcome)finishMatch(match,outcome);return;}
  }
  throw new Error('Derived event limit');
  }finally{endRunResolution(match);}
@@ -203,8 +216,17 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
   for(const p of match.participants){const motion=motions.get(p.participantId);
    if(motion&&p.lifeState==='ALIVE'&&p.lifeId===motion.lifeId){const t=Math.min(fraction,motion.stopT);p.position={x:motion.start.x+motion.delta.x*t,y:motion.start.y+motion.delta.y*t};}
   }
+  // A wall-notch crossing can report multiple cells at one quantized instant.
+  // Keep the final head cell, but resolve all visits together with other actors.
+  const previous=group.length>1?new Map<string,number>():undefined,visits=group.length>1?new Map<string,number[]>():undefined;
+  let visitedHomes:Map<string,number>|undefined;
   for(const e of group){const p=match.participants.find(p=>p.participantId===e.participantId);
    if(p&&p.lifeState==='ALIVE'&&p.lifeId===e.lifeId){
+    const prior=previous?.get(p.participantId);
+    if(prior!==undefined){const ids=visits!.get(p.participantId)??[];ids.push(prior);visits!.set(p.participantId,ids);
+     if(match.owners[prior]===p.slot+1&&(p.trailCells.size||ids.some(id=>match.owners[id]!==p.slot+1))){visitedHomes??=new Map();visitedHomes.set(p.participantId,prior);}
+    }
+    previous?.set(p.participantId,e.cellId);
     if(!p.trailCells.size&&p.trailOriginCellId===null&&match.owners[p.cellId]===p.slot+1&&match.owners[e.cellId]!==p.slot+1)p.trailOriginCellId=p.cellId;
     p.cellId=e.cellId;
    }
@@ -212,8 +234,9 @@ export function advanceMovement(match:MatchState,inputs:TickInputs=new Map()):vo
   const walls=new Set(wallEntries.filter(e=>e.time===time&&match.participants.some(p=>p.participantId===e.participantId&&p.lifeId===e.lifeId&&p.lifeState==='ALIVE')).map(e=>e.participantId));
   // The time key is quantized; preserve the exact inside-boundary impact position.
   for(const p of match.participants)if(walls.has(p.participantId))p.position={...motions.get(p.participantId)!.movement.position};
-  const homes=margin?new Map(homeEntries.filter(e=>e.time===time&&match.participants.some(p=>p.participantId===e.participantId&&p.lifeId===e.lifeId&&p.lifeState==='ALIVE'&&match.owners[e.homeCellId]===p.slot+1)).map(e=>[e.participantId,e.homeCellId])):undefined;
-  resolveAtTime(match,match.tick+fraction,walls,homes);
+  const homes=margin?new Map(homeEntries.filter(e=>e.time===time&&match.participants.some(p=>p.participantId===e.participantId&&p.lifeId===e.lifeId&&p.lifeState==='ALIVE'&&match.owners[e.homeCellId]===p.slot+1)).map(e=>[e.participantId,e.homeCellId])):visitedHomes;
+  if(margin&&visitedHomes)for(const [id,home]of visitedHomes)if(!homes!.has(id))homes!.set(id,home);
+  resolveAtTime(match,match.tick+fraction,walls,homes,visits?.size?visits:undefined);
  }
  if(match.phase==='RUNNING')for(const p of match.participants){const motion=motions.get(p.participantId);if(motion&&p.lifeState==='ALIVE'&&p.lifeId===motion.lifeId)p.position={...motion.movement.position};}
 }

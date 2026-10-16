@@ -49,7 +49,12 @@ export function traceMovement(map:MapDefinition,start:Vec,startCell:number,direc
  let cellId=startCell, t=0;
  const startProbe=movementCell(map,at(epsilon));
  if(startProbe<0)return {position:{...start},cellId,entries,blocked:true,boundaryT:0};
- if(startProbe!==cellId){cellId=startProbe;entries.push({t:0,cellId,position:{...start}});}
+ if(startProbe!==cellId){
+  // The previous step can end inside overlapping padded flanks. The next
+  // start probe changes the chosen flank at t=0, but still visits the notch.
+  if(!map.cells[cellId].neighbors.includes(startProbe)){const between=notchBetween(map,cellId,startProbe);if(between>=0)entries.push({t:0,cellId:between,position:{...start}});}
+  cellId=startProbe;entries.push({t:0,cellId,position:{...start}});
+ }
  const normals=movementNormals(map);
  for(let count=0;count<=MAX_ENTRY_EVENTS;count++){
   const center=map.cells[cellId].center;

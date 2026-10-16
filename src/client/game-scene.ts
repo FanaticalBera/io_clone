@@ -78,13 +78,15 @@ export class GameScene extends Phaser.Scene {
  /** New capture blooms by premium markers get their themed burst and tile bloom. */
  private themeCaptures():void{
   const effects=this.captureEffects,map=this.map;if(!effects||!this.trails||!map)return;
-  const view=this.cameras.main.worldView,now=performance.now();
+  const view=this.cameras.main.worldView;
   for(const effect of effects.model.effects){
    if(this.themedBlooms.has(effect))continue;this.themedBlooms.add(effect);
    const local=effect.participantId===this.selfId,{x,y}=effect.origin;
    if(!local&&(x<view.x-200||x>view.right+200||y<view.y-200||y>view.bottom+200))continue;
+   const markerId=this.avatars.get(effect.participantId)?.marker.markerId??'';
+   if(!CAPTURE_THEMES[markerId]?.particles||!hasTrail(markerId))continue;
    const cells=[...effect.chunks.values()].flat().map(c=>({x:map.cells[c.id].center.x,y:map.cells[c.id].center.y,delay:c.delay}));
-   this.trails.capture(this.avatars.get(effect.participantId)?.marker.markerId??'',effect.origin,cells,local,effect.startedAt);
+   this.trails.capture(markerId,effect.origin,cells,local,effect.startedAt);
   }
  }
  private avatars=new Map<string,{container:Phaser.GameObjects.Container;marker:PlayerMarker;shield:Phaser.GameObjects.Arc;label:Phaser.GameObjects.Text;life:number;territory:number;alive:boolean}>();

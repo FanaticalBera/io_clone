@@ -9,6 +9,23 @@ function mutual(reverse=false){
  if(reverse)m.participants.reverse();resolveAtTime(m);return{m,a,b};
 }
 describe('T10: simultaneous contact batches',()=>{
+ it('includes intermediate wall visits in simultaneous provisional cuts, independent of participant order',()=>{
+  for(const reverse of [false,true]){
+   const {m,a,b,id}=captureFixture();setOwner(m,id(-2,0),1);setOwner(m,id(3,0),2);
+   a.cellId=id(-1,0);b.cellId=id(2,0);if(reverse)m.participants.reverse();
+   const contact=id(0,0);
+   resolveAtTime(m,m.tick,new Set(),undefined,new Map([[a.participantId,[contact]],[b.participantId,[contact]]]));
+   expect(a.lifeState).toBe('ELIMINATED');expect(b.lifeState).toBe('ELIMINATED');
+   expect(a.kills).toBe(1);expect(b.kills).toBe(1);expect(m.trailMasks.every(v=>v===0)).toBe(true);
+  }
+ });
+ it('cuts an intermediate visit before a same-time home return closes the victim trail',()=>{
+  const {m,a,b,id}=captureFixture();setOwner(m,id(0,0),1);setOwner(m,id(3,0),2);
+  a.cellId=id(0,0);b.cellId=id(2,1);addTrail(m,a,id(1,0));
+  resolveAtTime(m,m.tick,new Set(),undefined,new Map([[b.participantId,[id(1,0)]]]));
+  expect(a.lifeState).toBe('ELIMINATED');expect(b.kills).toBe(1);
+  expect(m.events.some(e=>e.type==='CAPTURE'&&e.participantId===a.participantId)).toBe(false);
+ });
  it('allows mutual cuts independently of participant array order',()=>{
   for(const reversed of [false,true]){const {a,b}=mutual(reversed);expect(a.lifeState).toBe('ELIMINATED');expect(b.lifeState).toBe('ELIMINATED');expect(a.kills).toBe(1);expect(b.kills).toBe(1);}
  });

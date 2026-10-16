@@ -101,7 +101,11 @@ const isLegendary=(markerId:string)=>markerDefinition(markerId)?.legendary===tru
 export class MarkerTrails {
  private emitters=new Map<string,Phaser.GameObjects.Particles.ParticleEmitter>();
  private followers=new Map<string,Follower>();private blooms:Bloom[]=[];
- constructor(private scene:Phaser.Scene,private depth=4.5){}
+ private onShutdown=()=>this.destroy();
+ constructor(private scene:Phaser.Scene,private depth=4.5){
+  scene.events.once(Phaser.Scenes.Events.SHUTDOWN,this.onShutdown);
+  scene.events.once(Phaser.Scenes.Events.DESTROY,this.onShutdown);
+ }
  private texture(shape:Shape):string{
   const key='trail:'+shape;if(this.scene.textures.exists(key))return key;
   const g=this.scene.make.graphics({x:0,y:0},false);drawShape(g,shape);g.generateTexture(key,TEX,TEX);g.destroy();return key;
@@ -177,5 +181,8 @@ export class MarkerTrails {
   }this.blooms.length=kept;
  }
  forget(id:string):void{this.followers.delete(id);}
- destroy():void{for(const e of this.emitters.values())e.destroy();this.emitters.clear();this.followers.clear();this.blooms=[];}
+ destroy():void{
+  this.scene.events.off(Phaser.Scenes.Events.SHUTDOWN,this.onShutdown);this.scene.events.off(Phaser.Scenes.Events.DESTROY,this.onShutdown);
+  for(const e of this.emitters.values())e.destroy();this.emitters.clear();this.followers.clear();this.blooms=[];
+ }
 }

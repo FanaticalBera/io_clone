@@ -1,5 +1,5 @@
 import { HEX_EPS, MAX_ENTRY_EVENTS, moveSpeed } from './config.js';
-import { wallMargin, movementCell } from './wall-margin.js';
+import { faceLimit, movementCell, notchBetween } from './wall-margin.js';
 import { HEX_DIRECTIONS, axialToWorld } from './hex.js';
 export function normalizeDirection(dx, dy) {
     if (!Number.isFinite(dx) || !Number.isFinite(dy) || Math.abs(dx) > 1e6 || Math.abs(dy) > 1e6)
@@ -54,16 +54,23 @@ export function traceMovement(map, start, startCell, direction, distance) {
         return { position: { ...start }, cellId: startCell, entries: [], blocked: false, boundaryT: null };
     const delta = { x: normalized.x * distance, y: normalized.y * distance }, entries = [];
     const at = (t) => ({ x: start.x + delta.x * t, y: start.y + delta.y * t });
-    const epsilon = HEX_EPS * 4 / distance, half = Math.sqrt(3) * map.side / 2;
+    const epsilon = HEX_EPS * 4 / distance;
     let cellId = startCell, t = 0;
     const startProbe = movementCell(map, at(epsilon));
     if (startProbe < 0)
         return { position: { ...start }, cellId, entries, blocked: true, boundaryT: 0 };
     if (startProbe !== cellId) {
+        // The previous step can end inside overlapping padded flanks. The next
+        // start probe changes the chosen flank at t=0, but still visits the notch.
+        if (!map.cells[cellId].neighbors.includes(startProbe)) {
+            const between = notchBetween(map, cellId, startProbe);
+            if (between >= 0)
+                entries.push({ t: 0, cellId: between, position: { ...start } });
+        }
         cellId = startProbe;
         entries.push({ t: 0, cellId, position: { ...start } });
     }
-    const normals = movementNormals(map), margin = wallMargin(map);
+    const normals = movementNormals(map);
     for (let count = 0; count <= MAX_ENTRY_EVENTS; count++) {
         const center = map.cells[cellId].center;
         let crossing = Infinity;
@@ -72,7 +79,7 @@ export function traceMovement(map, start, startCell, direction, distance) {
             const denominator = delta.x * n.x + delta.y * n.y;
             if (denominator <= 1e-12)
                 continue;
-            const extent = half + (map.cells[cellId].neighbors[k] < 0 ? margin : 0);
+            const extent = faceLimit(map, cellId, k);
             const candidate = (extent - (start.x - center.x) * n.x - (start.y - center.y) * n.y) / denominator;
             if (candidate >= t - epsilon && candidate < crossing)
                 crossing = Math.max(t, candidate);
@@ -88,8 +95,15 @@ export function traceMovement(map, start, startCell, direction, distance) {
             throw new Error('Geometry made no progress');
         if (entries.length >= MAX_ENTRY_EVENTS)
             throw new Error('Movement event limit');
-        cellId = next;
         t = crossing;
+        // Flanks of a straightened notch overlap, so a move along the wall can pass from one flank to
+        // the other; it still crosses the notch cell between them, so trails and captures stay connected.
+        if (!map.cells[cellId].neighbors.includes(next)) {
+            const between = notchBetween(map, cellId, next);
+            if (between >= 0)
+                entries.push({ t, cellId: between, position: at(t) });
+        }
+        cellId = next;
         entries.push({ t, cellId, position: at(t) });
     }
     throw new Error('Movement event limit');
