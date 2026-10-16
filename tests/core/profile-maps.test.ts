@@ -57,4 +57,10 @@ describe('per-map profile records',()=>{
   expect(p.stats.maps!.hex.best).toBe(31.3);expect(p.stats.maps!['timed:hex']).toMatchObject({best:8.3,runs:2,clears:0});
   expect(p.stats.lastMap).toBe('hex');expect(validProfile(p)).toBe(true);
  });
+ it('keeps growth records apart and reports the previous best for the result screen',()=>{
+  const p=migrateProfile(emptyProfile())!,grow=(life:number,cells:number)=>({...run(9577,cells,life,'TIME_LOSS'),mode:'growth' as const});
+  expect(grantProfileReward(p,grow(1,500),admission(1)).previousBest).toBeNull();
+  const second=grantProfileReward(p,grow(2,800),admission(2));expect(second.previousBest).toBe(5.2);expect(second.records).toEqual({best:true});
+  expect(p.stats.maps!['growth:hex']).toMatchObject({best:8.3,runs:2});expect(p.stats.maps!['timed:hex']).toBeUndefined();expect(validProfile(p)).toBe(true);
+ });
 });

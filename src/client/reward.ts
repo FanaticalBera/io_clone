@@ -9,10 +9,10 @@ export function validateRewardRun(r:RunResult):void {
 }
 export function calculateReward(result:RunResult,initialTerritoryCells=7):RewardResult {
  validateRewardRun(result);if(!integer(initialTerritoryCells)||initialTerritoryCells<1||initialTerritoryCells>result.mapCellCount)throw new Error('Invalid starting territory');
- const eligible=result.bestTerritoryPercent>=REWARD_RULES.minimumTerritoryPercent||result.kills>0||result.endReason==='FULL_CAPTURE_WIN'||result.endReason==='TIME_WIN';
+ const eligible=result.bestTerritoryPercent>=REWARD_RULES.minimumTerritoryPercent||result.kills>0||result.endReason==='FULL_CAPTURE_WIN'||(result.endReason==='TIME_WIN'&&result.mode!=='growth');
  const baseCoins=eligible?REWARD_RULES.baseCoins:0;
  const territoryCoins=eligible?Math.floor(Math.round(result.bestTerritoryPercent*10)*REWARD_RULES.territoryCoinsPerPercent/10):0;
  const killCoins=result.kills*REWARD_RULES.killCoins;
- const clearBonusCoins=result.endReason==='FULL_CAPTURE_WIN'?REWARD_RULES.classicClearBonus:result.endReason==='TIME_WIN'?REWARD_RULES.timedWinBonus:0;
+ const clearBonusCoins=result.endReason==='FULL_CAPTURE_WIN'?REWARD_RULES.classicClearBonus:result.endReason==='TIME_WIN'&&result.mode!=='growth'?REWARD_RULES.timedWinBonus:0;
  return{runId:result.runId,baseCoins,territoryCoins,killCoins,clearBonusCoins,totalCoins:baseCoins+territoryCoins+killCoins+clearBonusCoins};
 }

@@ -1,6 +1,6 @@
 import {MAP_ICONS} from './map-icons.js';
 import type {MatchView,ResultRow,MatchOutcome,RunResult} from '../shared/model.js';
-import {createMode,GAME_MODES,territoryPercent,type GameModeConfig,type GameModeId} from '../shared/modes.js';
+import {createMode,GAME_MODES,territoryPercent,isTimedMode,type GameModeConfig,type GameModeId} from '../shared/modes.js';
 import {normalizeNickname} from '../shared/names.js';
 import {SLOT_COLORS} from './player-colors.js';
 import {SettingsStore,type ColorStyle} from './settings.js';
@@ -191,7 +191,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private stepMap(delta:number):void {this.mapIndex=(this.mapIndex+delta+MAP_PRESETS.length)%MAP_PRESETS.length;save('hexhold.map',this.selectedMap().id);this.renderMap();}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
  /** Mode for single play; a saved choice (hexhold.mode) until the mode picker is designed. */
- selectedGameMode():GameModeId{const saved=stored('hexhold.mode');return saved==='timed'?'timed':'classic';}
+ selectedGameMode():GameModeId{const saved=stored('hexhold.mode');return saved==='timed'||saved==='growth'?saved:'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
  private closeGamePanels():void{for(const id of ['game-tools','leaderboard','leave-confirm'])get(id).hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');get('ranking-toggle').setAttribute('aria-pressed','false');}
 
@@ -264,13 +264,13 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
      const r=document.createElement('span');r.className='mini-rank';r.textContent=String(rank);const dot=document.createElement('i');dot.setAttribute('aria-hidden','true');
      const n=document.createElement('span');n.className='mini-name';n.textContent=p.nickname;const pct=document.createElement('b');pct.textContent=percent;item.append(r,dot,n,pct);mini.append(item);}
    });
-   if(view.gameMode.id==='timed')this.renderGap(ordered,selfId);
+   if(view.gameMode.id==='timed')this.renderGap(ordered,selfId);else if(view.gameMode.id==='growth')this.renderBestLine(view,selfId);
   }
   if(!self)return;
   const death=get('death');death.hidden=self.lifeState==='ALIVE'||view.phase!=='RUNNING'||this.hasRunResult;
   if(self.lifeState==='ELIMINATED')this.deathText=deathMessage(self.deathReason,self.deathContext);
   // A timed round brings the fallen player back: count down instead of ending.
-  const respawn=self.lifeState==='DEAD_WAIT'&&view.gameMode.id==='timed'?Math.max(1,Math.ceil((self.respawnAtTick-view.tick)/view.config.simulationHz)):0;
+  const respawn=self.lifeState==='DEAD_WAIT'&&isTimedMode(view.gameMode.id)?Math.max(1,Math.ceil((self.respawnAtTick-view.tick)/view.config.simulationHz)):0;
   death.textContent=respawn?'영토를 잃었어요 · '+respawn+'초 후 부활':self.lifeState==='SPAWN_BLOCKED'?'안전한 '+(1+3*view.config.spawnRadius*(view.config.spawnRadius+1))+'칸을 찾고 있어요.':self.lifeState==='ELIMINATED'?this.deathText:'시작 위치를 준비하고 있어요.';
   if(self.run?.result&&self.lifeState!=='SPAWN_BLOCKED'&&self.lifeState!=='DEAD_WAIT')this.showRunResult(self.run.result,init);
   else if(self.lifeState==='ALIVE')this.clearRunResult();
@@ -289,6 +289,35 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   if(me===0){line.classList.add('lead');line.textContent='2위와 '+gap(ordered[0].territoryCount,ordered[1].territoryCount)+' 차이';}
   else line.textContent='1위까지 '+gap(ordered[0].territoryCount,ordered[me].territoryCount);
   mini.append(line);
+ }
+ /** Growth challenge: the mini board's extra line is my best this round. */
+ private renderBestLine(view:MatchView,selfId:string|null):void{
+  const me=view.participants.find(p=>p.participantId===selfId);if(!me?.run)return;
+  const line=document.createElement('li');line.className='gap-line lead';line.textContent='이번 최고 '+territoryPercent(Math.max(me.run.bestTerritoryCells,me.territoryCount),this.totalCells).toFixed(1)+'%';get('mini-board').append(line);
+ }
+ /** Growth challenge result: my best territory this round leads; my record, kills and place follow. */
+ private renderGrowth(result:RunResult):void{
+  const host=get('run-podium');host.replaceChildren();get('run-results').dataset.mode='growth';
+  // One decimal, like the saved records it is compared with.
+  const view=this.lastView;
+  const label=document.createElement('p');label.className='grow-label';label.textContent='이번 경기 최고 점유율';
+  const big=document.createElement('h2');big.className='pod-title grow-best';big.textContent=result.bestTerritoryPercent.toFixed(1)+'%';
+  const badge=document.createElement('i');badge.className='rec-badge grow-rec';badge.dataset.rec='best';badge.textContent='신기록';badge.hidden=true;
+  const sub=document.createElement('p');sub.id='grow-sub';sub.className='pod-sub';sub.textContent='기록 저장 중…';
+  const row=document.createElement('div');row.className='pod-mine';
+  const place=view?.results?.find(r=>r.participantId===result.participantId)?.rank;
+  for(const [name,value,rec] of [['처치',String(result.kills),'kills'],...(place?[['봇 포함 순위',place+'위','']]:[])]){
+   const item=document.createElement('span');const l=document.createElement('small');l.textContent=name;const v=document.createElement('b');v.textContent=value;item.append(l,v);
+   if(rec){const b=document.createElement('i');b.className='rec-badge';b.dataset.rec=rec;b.textContent='신기록';b.hidden=true;item.append(b);}row.append(item);}
+  const head=document.createElement('div');head.className='grow-head';head.append(big,badge);
+  host.append(label,head,sub,row);
+ }
+ /** Fills the growth result's record line once the reward is saved; a new best gets the confetti. */
+ private growthReceipt(receipt:RewardReceipt):void{
+  const sub=document.getElementById('grow-sub');if(!sub||get('run-results').dataset.mode!=='growth')return;
+  const previous=receipt.previousBest,record=!!receipt.records?.best;
+  sub.textContent=previous===undefined?'':previous===null?'이 맵의 첫 기록이에요':record?'이전 기록 '+previous.toFixed(1)+'% 돌파!':'내 기록 '+previous.toFixed(1)+'%';
+  if(record){get('run-results').dataset.outcome='win';this.celebrate();}
  }
  /** Final standings: a podium when I am in the top three (or tied first), else the top three in a line and my card. */
  private renderPodium(result:RunResult):void{
@@ -342,7 +371,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   const node=get('run-coins'),start=performance.now(),step=(now:number)=>{const t=Math.min(1,(now-start)/750);node.textContent='+'+Math.round(amount*(1-(1-t)**3)).toLocaleString();if(t<1)requestAnimationFrame(step);};requestAnimationFrame(step);
  }
  showReward(runId:string,receipt:RewardReceipt):void {if(this.runKey!==runId)return;
-  const records=receipt.records??{};for(const badge of get('run-podium').querySelectorAll<HTMLElement>('[data-rec]'))badge.hidden=!records[badge.dataset.rec as 'best'|'kills'];get('rec-best').hidden=!records.best;get('rec-time').hidden=!(records.longest||records.fastest);get('rec-kills').hidden=!records.kills;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';
+  const records=receipt.records??{};this.growthReceipt(receipt);for(const badge of get('run-podium').querySelectorAll<HTMLElement>('[data-rec]'))badge.hidden=!records[badge.dataset.rec as 'best'|'kills'];get('rec-best').hidden=!records.best;get('rec-time').hidden=!(records.longest||records.fastest);get('rec-kills').hidden=!records.kills;const amount=receipt.reward?.totalCoins;get('run-coins').textContent=amount!==undefined?'+'+amount.toLocaleString():receipt.status==='failed'?'저장 실패':'지급 내역 없음';get('run-balance').textContent=receipt.status==='failed'?'보상을 저장하지 못했어요':receipt.reward?'보유 '+receipt.balance.toLocaleString():'다시 지급하지 않았어요';get('reward-retry').hidden=receipt.status!=='failed';
   if(amount&&get('run-results').dataset.outcome==='win'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)this.countCoins(amount);
  }
  setRunRetryAvailable(available:boolean):void {get<HTMLButtonElement>('run-retry').disabled=!available;}
@@ -364,7 +393,8 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
    get('run-time-label').textContent=kind==='win'?'걸린 시간':'생존 시간';for(const id of ['rec-best','rec-time','rec-kills'])get(id).hidden=true;
    if(kind==='win')this.celebrate();else get('run-confetti').replaceChildren();
    const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS';get('run-results').dataset.mode=timed?'timed':'classic';get('run-podium').hidden=!timed;
-   if(timed){get('run-results').dataset.outcome=result.endReason==='TIME_WIN'?'win':'loss';this.renderPodium(result);if(result.endReason==='TIME_WIN')this.celebrate();}
+   if(timed&&result.mode==='growth'){get('run-results').dataset.outcome='loss';this.renderGrowth(result);}
+   else if(timed){get('run-results').dataset.outcome=result.endReason==='TIME_WIN'?'win':'loss';this.renderPodium(result);if(result.endReason==='TIME_WIN')this.celebrate();}
    get('run-best').textContent=result.bestTerritoryPercent.toFixed(1)+'%';const seconds=Math.floor(result.durationTicks/result.simulationHz);get('run-time').textContent=Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');get('run-kills').textContent=String(result.kills);
    this.closeGamePanels();get('results').hidden=true;get('death').hidden=true;get('joystick').hidden=true;get('hud').hidden=true;get('minimap').hidden=true;get('rotate-hint').hidden=true;get('run-results').hidden=false;get('run-retry').focus();this.changed();
   };

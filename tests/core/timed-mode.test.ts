@@ -55,4 +55,10 @@ describe('3-minute round',()=>{
   expect(a.run!.result!.endReason).toBe('TIME_WIN');expect(b.run!.result!.endReason).toBe('TIME_LOSS');
   expect(()=>unpackSnapshot(packSnapshot(buildView(m),1,0,'a'))).not.toThrow();
  });
+ it('runs the growth challenge on the same rules: results carry the mode and first place pays no bonus',()=>{
+  const m=createMatch({mapRadius:8,maxSlots:2,spawnRadius:1},7,[{participantId:'a',slot:0,nickname:'A',kind:'HUMAN'},{participantId:'b',slot:1,nickname:'B',kind:'HUMAN'}],'g',{id:'growth'});
+  for(let i=0;i<5;i++)stepMatch(m);finishWith(m,{a:12,b:3});
+  const a=m.participants[0].run!.result!;expect(a.mode).toBe('growth');expect(a.endReason).toBe('TIME_WIN');
+  expect(calculateReward(a).clearBonusCoins).toBe(0);expect(()=>unpackSnapshot(packSnapshot(buildView(m),1,0,'a'))).not.toThrow();
+ });
 });

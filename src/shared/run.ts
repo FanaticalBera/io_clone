@@ -18,7 +18,7 @@ export function queueRunDeath(match:MatchState,p:Participant,atTick:number):void
 function finishRun(match:MatchState,p:Participant,endReason:RunResult['endReason'],atTick:number):void {
  const run=p.run;if(!run||run.result)return;
  const best=run.bestTerritoryCells;
- run.result=Object.freeze({runId:run.runId,matchId:match.matchId,participantId:p.participantId,lifeId:run.lifeId,endReason,startedAtTick:run.startedAtTick,endedAtTick:atTick,durationTicks:Math.max(0,atTick-run.startedAtTick),simulationHz:match.config.simulationHz,mapCellCount:match.map.cells.length,kills:Math.max(0,p.kills-run.initialKills),bestTerritoryCells:best,bestTerritoryPercent:territoryPercent(best,match.map.cells.length)});
+ run.result=Object.freeze({...(match.gameMode.id!=='classic'?{mode:match.gameMode.id}:{}),runId:run.runId,matchId:match.matchId,participantId:p.participantId,lifeId:run.lifeId,endReason,startedAtTick:run.startedAtTick,endedAtTick:atTick,durationTicks:Math.max(0,atTick-run.startedAtTick),simulationHz:match.config.simulationHz,mapCellCount:match.map.cells.length,kills:Math.max(0,p.kills-run.initialKills),bestTerritoryCells:best,bestTerritoryPercent:territoryPercent(best,match.map.cells.length)});
 }
 export function settleRuns(match:MatchState):void {
  recordBestTerritories(match);for(const p of match.participants)if(p.run?.pendingDeathAtTick!==null&&p.run?.pendingDeathAtTick!==undefined)finishRun(match,p,'DEATH',p.run.pendingDeathAtTick);

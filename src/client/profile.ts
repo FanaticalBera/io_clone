@@ -11,12 +11,13 @@ export interface MapRecord {best:number;clears:number;runs:number;kills?:number;
 /** Records a granted run broke on its board (same board, strictly better; never on its first run there). */
 export interface RunRecords {best?:true;longest?:true;kills?:true;fastest?:true}
 export interface PlayerProfileV1 {version:1;inventory:PlayerInventory;coins:number;stats:{runsPlayed:number;classicClears:number;totalKills:number;bestTerritoryPercent:number;longestRunSeconds:number;maps?:Record<string,MapRecord>;lastMap?:string};processedRuns:RewardResult[];worlds:WorldLedger[]}
-export interface RewardReceipt {status:'granted'|'duplicate'|'ignored'|'failed';reward:RewardResult|null;balance:number;records?:RunRecords}
+/** previousBest: this mode and board's best before the run (null on its first run there). */
+export interface RewardReceipt {status:'granted'|'duplicate'|'ignored'|'failed';reward:RewardResult|null;balance:number;records?:RunRecords;previousBest?:number|null}
 export function emptyProfile():PlayerProfileV1{return{version:1,inventory:defaultInventory(),coins:0,stats:{runsPlayed:0,classicClears:0,totalKills:0,bestTerritoryPercent:0,longestRunSeconds:0,maps:{}},processedRuns:[],worlds:[]};}
 const safe=(v:unknown):v is number=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=0;
 const text=(v:unknown,max=128):v is string=>typeof v==='string'&&v.length>0&&v.length<=max;
 const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
-const MAP_IDS=new Set<string>(MAP_PRESETS.flatMap(p=>[p.id,'timed:'+p.id]));
+const MAP_IDS=new Set<string>(MAP_PRESETS.flatMap(p=>[p.id,'timed:'+p.id,'growth:'+p.id]));
 const percent=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=100;
 function validMaps(stats:Record<string,unknown>):boolean{
  if(stats.lastMap!==undefined&&!(typeof stats.lastMap==='string'&&MAP_PRESETS.some(p=>p.id===stats.lastMap)))return false;
@@ -59,7 +60,8 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  const reward=calculateReward(result,p.initialTerritoryCells),coins=profile.coins+reward.totalCoins,kills=profile.stats.totalKills+result.kills,runs=profile.stats.runsPlayed+1,clears=profile.stats.classicClears+Number(result.endReason==='FULL_CAPTURE_WIN');
  if(![coins,kills,runs,clears].every(safe))throw new Error('Profile integer overflow');
  // Timed rounds keep separate records per board ('timed:<map>'); the profile card shows the classic ones.
- const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS',preset=presetForCellCount(result.mapCellCount),mapId=preset&&timed?'timed:'+preset:preset,maps={...(profile.stats.maps??{})};
+ const timed=result.endReason==='TIME_WIN'||result.endReason==='TIME_LOSS',preset=presetForCellCount(result.mapCellCount),mapId=preset&&timed?(result.mode==='growth'?'growth:':'timed:')+preset:preset,maps={...(profile.stats.maps??{})};
+ const previousBest=mapId&&maps[mapId]?.runs?maps[mapId].best:null;
  const seconds=result.durationTicks/result.simulationHz,win=result.endReason==='FULL_CAPTURE_WIN',records:RunRecords={};
  if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0},mapKills=(r.kills??0)+result.kills;if(!safe(mapKills))throw new Error('Profile integer overflow');
   if(r.runs>0){if(result.bestTerritoryPercent>r.best)records.best=true;if(r.topKills!==undefined&&result.kills>r.topKills)records.kills=true;
@@ -68,5 +70,5 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  const lastMap=mapId&&!timed?mapId:profile.stats.lastMap;
  profile.coins=coins;profile.stats={runsPlayed:runs,classicClears:clears,totalKills:kills,bestTerritoryPercent:Math.max(profile.stats.bestTerritoryPercent,result.bestTerritoryPercent),longestRunSeconds:Math.max(profile.stats.longestRunSeconds,result.durationTicks/result.simulationHz),maps,...(lastMap?{lastMap}:{})};
  p.paidLifeId=result.lifeId;profile.processedRuns.push(reward);if(profile.processedRuns.length>PROFILE_HISTORY_LIMIT)profile.processedRuns.splice(0,profile.processedRuns.length-PROFILE_HISTORY_LIMIT);
- return{status:'granted',reward:{...reward},balance:profile.coins,...(Object.keys(records).length?{records}:{})};
+ return{status:'granted',reward:{...reward},balance:profile.coins,...(Object.keys(records).length?{records}:{}),...(mapId?{previousBest}:{})};
 }

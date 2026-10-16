@@ -1,5 +1,5 @@
 import type { GameConfig } from './config.js';
-import type {GameModeConfig,ModeState} from './modes.js';
+import type {GameModeConfig,GameModeId,ModeState} from './modes.js';
 export interface Vec { x: number; y: number }
 export interface Axial { q: number; r: number }
 export interface Cell extends Axial { id: number; center: Vec; neighbors: number[]; vertices: Vec[] }
@@ -15,7 +15,8 @@ export type DeathCause='EXISTING_TRAIL_CONTACT'|'PENDING_TRAIL_CONTACT'|'TRAIL_C
 export interface DeathContext {cause:DeathCause|'TRAIL_CONTACT';cellId:number;eventTick?:number}
 export interface ParticipantSpec { participantId: string; slot: number; nickname: string; kind: 'HUMAN' | 'BOT'; personality?: Personality }
 export type RunEndReason='DEATH'|'FULL_CAPTURE_WIN'|'FULL_CAPTURE_LOSS'|'TIME_WIN'|'TIME_LOSS';
-export interface RunResult {runId:string;matchId:string;participantId:string;lifeId:number;endReason:RunEndReason;startedAtTick:number;endedAtTick:number;durationTicks:number;simulationHz:number;mapCellCount:number;kills:number;bestTerritoryCells:number;bestTerritoryPercent:number}
+/** mode is set on results of non-classic rounds. */
+export interface RunResult {mode?:GameModeId;runId:string;matchId:string;participantId:string;lifeId:number;endReason:RunEndReason;startedAtTick:number;endedAtTick:number;durationTicks:number;simulationHz:number;mapCellCount:number;kills:number;bestTerritoryCells:number;bestTerritoryPercent:number}
 export interface HumanRun {runId:string;lifeId:number;startedAtTick:number;initialKills:number;bestTerritoryCells:number;pendingDeathAtTick:number|null;result:Readonly<RunResult>|null}
 export interface Participant extends ParticipantSpec {
  // direction is actual heading; null target means keep heading until input.

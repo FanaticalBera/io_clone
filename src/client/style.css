@@ -514,3 +514,15 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
 @media(orientation:landscape) and (max-height:340px){.pod-title{font-size:24px}.pod-sub{font-size:12px}.podium{margin-top:0}.pod-marker{width:26px;height:26px}
  .pod.p1 .pod-block{height:44px}.pod.p2 .pod-block{height:34px}.pod.p3 .pod-block{height:30px}.pod-block b{font-size:15px}.pod-mine b{font-size:13px}.pod-mine small{font-size:11px}
  #run-results[data-mode="timed"] .run-actions .btn{height:38px}#run-results[data-mode="timed"] .run-reward{min-height:32px}}
+/* Growth challenge result: my best territory leads, with my record and the round's extras below. */
+#run-results[data-mode="growth"]{background:#1f1b2dd9}
+#run-results[data-mode="growth"] .run-panel{background:transparent;border:0;box-shadow:none;align-items:center;text-align:center;overflow:visible;position:relative;width:min(640px,calc(100vw - 24px))}
+#run-results[data-mode="growth"] .run-head,#run-results[data-mode="growth"] .run-stats{display:none}
+#run-results[data-mode="growth"] .run-reward{width:auto;min-width:min(520px,100%);border-style:solid;border-color:var(--ink);box-shadow:0 4px 0 var(--ink);justify-content:center}
+#run-results[data-mode="growth"] .run-actions{width:min(520px,100%)}
+.grow-label{margin:0;color:#fff;font:15px var(--display)}
+.grow-head{display:flex;align-items:center;gap:10px}
+.grow-best{font-size:64px;color:#fff}#run-results[data-outcome="win"] .grow-best{color:#ffc93c}
+.grow-rec{font-size:14px;padding:2px 9px}
+@media(orientation:landscape) and (max-height:430px){.grow-best{font-size:48px}#run-results[data-mode="growth"] .run-panel{gap:6px;padding:6px 10px}
+ #run-results[data-mode="growth"] .run-actions .btn{height:42px}#run-results[data-mode="growth"] .run-reward{min-height:36px;padding:2px 12px}}

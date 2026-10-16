@@ -55,7 +55,7 @@ function validRun(value:unknown,p:Record<string,unknown>,snapshot:Record<string,
     (value.pendingDeathAtTick!==null&&(typeof value.pendingDeathAtTick!=='number'||!Number.isFinite(value.pendingDeathAtTick)||value.pendingDeathAtTick<Number(value.startedAtTick)||value.pendingDeathAtTick>Number(snapshot.tick))))return false;
  const result=value.result;if(result===null)return p.lifeState!=='ELIMINATED'&&value.pendingDeathAtTick===null;
  return record(result)&&result.runId===value.runId&&result.matchId===snapshot.matchId&&result.participantId===p.participantId&&result.lifeId===value.lifeId&&
-  ['DEATH','FULL_CAPTURE_WIN','FULL_CAPTURE_LOSS','TIME_WIN','TIME_LOSS'].includes(String(result.endReason))&&result.startedAtTick===value.startedAtTick&&
+  ['DEATH','FULL_CAPTURE_WIN','FULL_CAPTURE_LOSS','TIME_WIN','TIME_LOSS'].includes(String(result.endReason))&&(result.mode===undefined||isGameModeId(result.mode))&&result.startedAtTick===value.startedAtTick&&
   typeof result.endedAtTick==='number'&&Number.isFinite(result.endedAtTick)&&result.endedAtTick>=Number(result.startedAtTick)&&result.endedAtTick<=Number(snapshot.tick)&&
   result.durationTicks===result.endedAtTick-Number(result.startedAtTick)&&result.simulationHz===hz&&result.mapCellCount===count&&
   Number.isSafeInteger(result.kills)&&Number(result.kills)>=0&&Number(result.kills)<=Number(p.kills)&&
