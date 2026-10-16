@@ -16,6 +16,11 @@ const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1
 const SINGLE_MODES:readonly GameModeId[]=['classic','growth'];
 const SINGLE_MODE_NAMES:Readonly<Partial<Record<GameModeId,string>>>={classic:'클래식',growth:'3분 성장 도전'};
 const SINGLE_MODE_NOTES:Readonly<Partial<Record<GameModeId,string>>>={classic:'맵 전체를 내 땅으로. 한 번 죽으면 끝',growth:'3분 동안 최고 점유율 기록 높이기. 죽어도 3초 뒤 부활'};
+/** Modes in the rules card: name, where it is played, and how it is won. */
+const TUTORIAL_MODES:readonly [GameModeId,string,string,string][]=[
+ ['classic','클래식','싱글·친구','100% 점령 · 죽으면 끝'],
+ ['growth','3분 성장 도전','싱글','3분 최고 점유율 기록 · 부활'],
+ ['timed','3분 점령전','친구 방','3분 뒤 영토 1위 · 부활']];
 export interface UIActions { roomMode?:(id:GameModeId)=>void; pickTitle?:(title:string)=>void; roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
@@ -90,7 +95,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <dialog id="tutorial" aria-labelledby="tutorial-title"><h2 id="tutorial-title">세 가지만 기억하세요</h2><div class="rule-grid">
  <article><div class="rule-picture" aria-hidden="true"><i class="tile land"></i><i class="tile trail"></i><i class="tile trail"></i><i class="tile land"></i></div><h3>돌아와야 내 땅</h3><p>내 땅 밖에 선을 긋고<br>내 땅으로 돌아오면 점령해요.</p></article>
  <article><div class="rule-picture" aria-hidden="true"><i class="tile trail"></i><i class="tile cut"></i><i class="tile trail"></i><i class="tile edge"></i></div><h3>선과 판 끝을 조심</h3><p>상대가 내 선을 끊거나<br>판 끝 갈색 선을 넘으면 탈락해요.</p></article>
- <article><div class="rule-picture" aria-hidden="true"><i class="tile land"></i><i class="tile land"></i><b>100%</b></div><h3 id="tutorial-mode-title">완전 점령</h3><p id="tutorial-mode-description">맵 전체를 내 땅으로 만들면 승리</p></article></div>
+ <article class="rule-modes"><h3>모드마다 승리가 달라요</h3><ul id="tutorial-modes"></ul></article></div>
  <p class="tutorial-control">PC: WASD · 방향키 · 마우스 &nbsp;|&nbsp; 모바일: 조이스틱 · 화면 드래그 · 트랙패드 (설정)</p><div class="menu-actions"><button id="tutorial-go" data-testid="tutorial-go" class="btn sun">시작하기</button></div></dialog>
 <dialog id="settings-dialog" aria-labelledby="settings-title"><header class="sheet-head"><h2 id="settings-title">설정</h2><p class="settings-help">이 기기에 자동 저장돼요 · 온라인 판은 설정 중에도 계속돼요</p><button id="settings-close" class="btn sun">완료</button></header>
  <div class="settings-body">
@@ -231,7 +236,12 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private refreshControls():void{get('joystick').hidden=!this.controlsActive||this.isSettingsOpen()||!matchMedia('(pointer:coarse)').matches||this.settings.get().mobileControls!=='joystick';}
  nickname():string {const name=normalizeNickname(get<HTMLInputElement>('nickname').value);if(!name)throw new Error('닉네임은 공백 정리 후 1–16자로 입력하세요.');save('hexhold.nickname',name);return name;}
  private requestPlay(action:()=>void):void {try{this.nickname();if(stored('hexhold.tutorialSeen')!=='1')this.tutorial(action);else action();}catch(error){this.message((error as Error).message);}}
- private tutorial(action:(()=>void)|null):void {this.pending=action;get('tutorial-go').textContent=action?'시작하기':'닫기';const mode=this.mode==='MENU'?createMode():this.activeMode;get('tutorial-mode-title').textContent=GAME_MODES[mode.id].subtitle;get('tutorial-mode-description').textContent=GAME_MODES[mode.id].description+' · '+GAME_MODES[mode.id].rules(mode);get<HTMLDialogElement>('tutorial').showModal();}
+ /** The rules card lists every mode with its win rule; the one about to be played (or being played) stands out. */
+ private renderTutorialModes(current:GameModeId):void{
+  get('tutorial-modes').replaceChildren(...TUTORIAL_MODES.map(([id,name,where,rule])=>{const li=document.createElement('li');if(id===current)li.className='on';
+   const b=document.createElement('b');b.textContent=name;const w=document.createElement('small');w.textContent=where;const p=document.createElement('span');p.textContent=rule;li.append(b,w,p);return li;}));
+ }
+ private tutorial(action:(()=>void)|null):void {this.pending=action;get('tutorial-go').textContent=action?'시작하기':'닫기';const mode=this.mode==='MENU'?createMode(this.selectedGameMode()):this.activeMode;this.renderTutorialModes(mode.id);get<HTMLDialogElement>('tutorial').showModal();}
  private closeTutorial():void {get<HTMLDialogElement>('tutorial').close();save('hexhold.tutorialSeen','1');const action=this.pending;this.pending=null;action?.();}
  showMenu():void {
   this.controlsActive=false;

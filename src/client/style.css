@@ -548,3 +548,14 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
 .profile-modes button{appearance:none;cursor:pointer}.profile-modes button[aria-pressed=true]{background:var(--ink);color:var(--sun)}
 @media(orientation:landscape) and (max-height:400px){.profile-modes{display:flex}.mode-chip{padding:0 6px;font-size:11px}}
 .profile-modes .mode-chip{white-space:nowrap}@media(orientation:landscape) and (max-height:400px){.profile-modes{gap:4px}.profile-modes .mode-chip{padding:0 6px;font-size:11px;min-height:0;height:20px}}
+/* Rules card listing the modes; the current one is highlighted. */
+.rule-modes h3{margin-top:0!important}
+#tutorial-modes{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+#tutorial-modes li{padding:2px 6px;border-radius:8px;font:12px/1.35 var(--display);color:var(--muted)}
+#tutorial-modes li b{font-weight:400;color:var(--ink);margin-right:4px}#tutorial-modes li small{font-size:10.5px;padding:0 4px;border-radius:5px;background:#e3e3f2;margin-right:4px}
+#tutorial-modes li span{display:block}
+#tutorial-modes li.on{background:#fff3c4;box-shadow:inset 0 0 0 2px var(--ink)}
+@media(orientation:landscape) and (max-height:340px){#tutorial-modes{gap:1px;margin-top:3px}#tutorial-modes li{font-size:11px;line-height:1.25;padding:1px 5px}}
+#tutorial .rule-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr)}
+#tutorial-modes li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(orientation:landscape) and (max-height:430px){#tutorial h2{font-size:21px;margin:0}#tutorial .rule-grid{margin:8px 0;gap:8px}#tutorial .rule-grid article{padding:8px 10px}#tutorial .rule-grid h3{margin:4px 0 2px}#tutorial .menu-actions .btn{height:44px;min-height:0}.tutorial-control{margin:0 0 6px}}
