@@ -344,16 +344,17 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .room-members{padding:clamp(8px,2.6vh,14px) 14px clamp(10px,3vh,16px);gap:clamp(5px,1.8vh,8px)}
 #members li{min-height:clamp(34px,10.5vh,44px)}
 #start{height:clamp(44px,14vh,58px);font-size:clamp(19px,5.6vh,24px)}
-/* Shop effect preview: a small live board in place of the pedestal, with scene chips. */
-.shop-fx{width:100%;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
-.shop-fx[hidden],.pedestal[hidden]{display:none}
-.shop-fx-board{flex:1 1 auto;min-height:96px;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#eef1f6}
+/* Shop effect preview: the pedestal and a small board share one fixed stage; the board
+   fades in over the pedestal while a scene plays once, then fades back out. */
+.shop-stage{position:relative;width:100%;height:clamp(80px,calc(34vh - 26px),132px);flex:none;display:flex;justify-content:center;align-items:flex-end}
+.shop-stage .pedestal{transition:opacity .25s}
+.shop-fx-board{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .25s;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#eef1f6}
 .shop-fx-board canvas{display:block}
-.shop-fx-scenes{display:flex;gap:6px;justify-content:center}
-.shop-fx-scenes .chip{height:26px;min-height:0;line-height:1;display:inline-flex;align-items:center;padding:0 12px;border:2.5px solid var(--ink);border-radius:10px;background:#fff;font:400 14px var(--display);color:var(--ink);cursor:pointer}
+.shop-stage.playing .shop-fx-board{opacity:1}.shop-stage.playing .pedestal{opacity:0}
+.shop-fx-scenes{display:flex;gap:6px;justify-content:center;flex:none;min-height:24px;margin-top:8px}
+.shop-fx-scenes.empty{visibility:hidden}
+.shop-fx-scenes .chip{height:24px;min-height:0;line-height:1;display:inline-flex;align-items:center;padding:0 9px;border:2.5px solid var(--ink);border-radius:10px;background:#fff;font:400 13px var(--display);color:var(--ink);cursor:pointer}
 .shop-fx-scenes .chip[aria-pressed=true]{background:var(--ink);color:var(--sun)}
-/* Keep the chip row's space when a marker has one scene, so the board does not resize. */
-.shop-fx-scenes.single{visibility:hidden}
 .shop-detail>strong,.shop-detail>small{flex:none}
 .shop-detail>small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-@media(orientation:landscape) and (max-height:340px){.shop-fx-board{min-height:70px}.shop-fx{gap:4px;margin-bottom:2px}.shop-fx-scenes .chip{height:22px;padding:0 9px;font-size:13px}}
+@media(orientation:landscape) and (max-height:340px){.shop-fx-scenes{min-height:20px;margin-top:4px}.shop-fx-scenes .chip{height:20px;padding:0 7px;font-size:12px}}

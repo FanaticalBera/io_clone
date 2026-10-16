@@ -20,14 +20,14 @@ export class ShopUI {
     this.dialog.innerHTML='<header class="sheet-bar"><button id="shop-close" class="btn icon" aria-label="상점 닫기">'+ICONS.back+'</button><h2 id="shop-title">상점</h2>'+
       '<nav class="shop-tabs" aria-label="상품 종류"><button id="shop-markers" aria-pressed="true">마커</button><button id="shop-colors" aria-pressed="false">색상</button></nav>'+
       '<span class="coin-pill">'+ICONS.coin+'<strong id="shop-coins">…</strong></span></header>'+
-      '<div class="sheet-panel shop-content"><aside class="shop-detail"><div id="shop-pedestal" class="pedestal"><div id="shop-preview"></div></div><div id="shop-fx" class="shop-fx" hidden><div id="shop-fx-board" class="shop-fx-board"></div><nav id="shop-fx-scenes" class="shop-fx-scenes" aria-label="이펙트 장면"></nav></div><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="btn sun" disabled>불러오는 중</button></aside>'+
+      '<div class="sheet-panel shop-content"><aside class="shop-detail"><div id="shop-stage" class="shop-stage"><div id="shop-pedestal" class="pedestal"><div id="shop-preview"></div></div><div id="shop-fx-board" class="shop-fx-board" aria-hidden="true"></div></div><nav id="shop-fx-scenes" class="shop-fx-scenes" aria-label="이펙트 다시 보기"></nav><strong id="shop-item-name"></strong><small id="shop-item-note"></small><button id="shop-action" class="btn sun" disabled>불러오는 중</button></aside>'+
       '<div class="shop-main"><div class="shop-filters"><nav id="shop-categories" class="shop-categories" aria-label="마커 카테고리"></nav><button id="shop-owned" class="chip owned" aria-pressed="false"><i aria-hidden="true"></i>보유만</button></div>'+
       '<div id="shop-items" class="shop-items" aria-label="상품 목록"></div>'+
       '<footer class="shop-footer"><span id="shop-status" role="status" aria-live="polite">마음에 드는 마커와 색상을 골라 보세요.</span><button id="shop-reload" class="btn mini" hidden>저장 다시 읽기</button></footer></div></div>';
     get('app').append(this.dialog);
     get('shop-open').addEventListener('click',()=>this.open());
     get('shop-close').addEventListener('click',()=>this.dialog.close());
-    this.dialog.addEventListener('close',()=>this.effects.hide());
+    this.dialog.addEventListener('close',()=>{this.effects.hide();get('shop-stage').classList.remove('playing');this.effectsFor='';});
     get('shop-markers').addEventListener('click',()=>this.selectKind('marker'));
     get('shop-colors').addEventListener('click',()=>this.selectKind('marker-color'));
     get('shop-owned').addEventListener('click',()=>{this.ownedOnly=!this.ownedOnly;this.render();});
@@ -74,7 +74,7 @@ export class ShopUI {
       const name=document.createElement('strong');name.textContent=product.name;card.append(name);
       const state=document.createElement('small'),owned=!!this.profile&&ownedItem(this.profile,this.kind,product.id),equipped=owned&&equippedItem(this.profile!,this.kind)===product.id;
       state.className='state '+(equipped?'equipped':owned?'owned':reward?'locked':'price');state.textContent=equipped?'장착 중':owned?'보유 중':reward?'완성 보상':product.price+' 코인';card.append(state);
-      card.addEventListener('click',()=>{this.selected=product.id;this.render();});list.append(card);
+      card.addEventListener('click',()=>{this.selected=product.id;this.picked=true;this.render();});list.append(card);
     }
     if(focusId)Array.from(list.querySelectorAll<HTMLElement>('[data-product-id]')).find(b=>b.dataset.productId===focusId)?.focus({preventScroll:true});
     const product=productDefinition(this.kind,this.selected),action=get<HTMLButtonElement>('shop-action');action.disabled=true;action.classList.add('sun');get('shop-preview').replaceChildren();
@@ -90,18 +90,26 @@ export class ShopUI {
     action.classList.toggle('sun',!owned);
     action.disabled=owned?equipped:!!reward||this.profile.coins<product.price;
   }
-  private effects=new EffectPreview();private scene:PreviewScene='capture';private effectsFor='';
-  /** Premium markers swap the pedestal for a small board replaying their effects, with scene chips. */
+  private effects=new EffectPreview();private effectsFor='';private picked=false;
+  /**
+   * Every marker stands on its pedestal. Picking a premium marker swaps the pedestal for a small
+   * board that plays its capture once and then fades back; the ▶ buttons replay one scene once.
+   */
   private showEffects(markerId:string):void{
-    const scenes=this.dialog.open?previewScenes(markerId):[];
-    get('shop-pedestal').hidden=scenes.length>0;get('shop-fx').hidden=!scenes.length;
-    if(!scenes.length){this.effects.hide();this.effectsFor='';return;}
-    if(this.effectsFor!==markerId||!scenes.includes(this.scene)){this.scene='capture';this.effectsFor=markerId;}
-    const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};nav.replaceChildren();nav.classList.toggle('single',scenes.length<2);
-    for(const scene of scenes){const chip=document.createElement('button');chip.className='chip';chip.textContent=labels[scene];chip.setAttribute('aria-pressed',String(scene===this.scene));
-      chip.addEventListener('click',()=>{this.scene=scene;this.showEffects(markerId);});nav.append(chip);}
-    const color=markerArt(this.appearance(markerId),this.slotColor,true).bodyColor;
-    this.effects.show(get('shop-fx-board'),markerId,color,color,this.scene);
+    const scenes=this.dialog.open?previewScenes(markerId):[],picked=this.picked;this.picked=false;
+    const nav=get('shop-fx-scenes'),labels:Record<PreviewScene,string>={capture:'점령',kill:'처치',death:'죽음'};
+    nav.replaceChildren();nav.classList.toggle('empty',!scenes.length);
+    for(const scene of scenes){const button=document.createElement('button');button.className='chip';button.textContent='▶ '+labels[scene];button.dataset.scene=scene;
+      button.addEventListener('click',()=>this.playEffect(markerId,scene));nav.append(button);}
+    if(this.effectsFor===markerId)return;
+    this.effectsFor=markerId;this.effects.stop();get('shop-stage').classList.remove('playing');
+    if(scenes.length&&picked)this.playEffect(markerId,'capture');
+  }
+  private playEffect(markerId:string,scene:PreviewScene):void{
+    const stage=get('shop-stage'),color=markerArt(this.appearance(markerId),this.slotColor,true).bodyColor;
+    const mark=(on:boolean)=>{for(const b of get('shop-fx-scenes').querySelectorAll<HTMLElement>('button'))b.setAttribute('aria-pressed',String(on&&b.dataset.scene===scene));};
+    stage.classList.add('playing');mark(true);
+    this.effects.play(get('shop-fx-board'),markerId,color,color,scene,()=>{stage.classList.remove('playing');mark(false);});
   }
   /** Plays the reveal for the bought marker, then one per reward it unlocked. */
   private async reveal(ids:string[]):Promise<void>{
