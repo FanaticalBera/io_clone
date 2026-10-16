@@ -484,3 +484,23 @@ button.home-titles{border:0;cursor:pointer}.home-titles.none{background:#3b3655;
  #run-results[data-mode="timed"] .run-reward{min-height:36px;padding:2px 12px}#run-results[data-mode="timed"] #run-coins{font-size:20px}
  #run-results[data-mode="timed"] .run-actions .btn{height:40px}#run-results[data-mode="timed"] #run-retry{font-size:19px}
 }
+/* Round timer keeps one width (digits differ in width in this font); podium crown drops straight down onto the marker. */
+.round-timer{width:96px;padding:0}.round-timer b{display:block;width:100%;text-align:center}
+#run-results[data-outcome="win"] .pod.me .pod-crown{animation:pod-crown-drop .6s .25s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes pod-crown-drop{from{transform:translateY(-50px);opacity:0}to{transform:none;opacity:1}}
+.pod-crown{position:relative;z-index:1;margin-bottom:-8px}
+@media(orientation:landscape) and (max-height:430px){
+ #run-results[data-mode="timed"] .run-panel{gap:6px;padding:6px 10px}
+ .pod-title{font-size:30px;-webkit-text-stroke:5px var(--ink);text-shadow:0 3px 0 var(--ink)}.pod-sub{font-size:13px}
+ .podium{margin-top:4px;gap:8px}.pod{width:108px}.pod-marker{width:32px;height:32px}.pod-crown{font-size:17px;margin-bottom:-6px}.pod-name{font-size:12px;margin:1px 0 2px}
+ .pod.p1 .pod-block{height:56px}.pod.p2 .pod-block{height:42px}.pod.p3 .pod-block{height:36px}.pod-block{padding-top:2px}.pod-block b{font-size:18px}.pod-block small{font-size:10.5px}
+ .pod-card{margin-top:4px;padding:6px 12px}.pod-rank{font-size:32px}.pod-card .pod-marker{width:38px;height:38px}.pod-stats strong{font-size:17px}
+ #run-results[data-mode="timed"] .run-reward{min-height:36px;padding:2px 12px}#run-results[data-mode="timed"] #run-coins{font-size:20px}
+ #run-results[data-mode="timed"] .run-actions .btn{height:42px}#run-results[data-mode="timed"] #run-retry{font-size:19px}
+}
+/* Round timer as a slim translucent strip under the minimap, so it hides as little of the field as possible. */
+.round-timer{left:50%;right:auto;top:calc(var(--top) + 76px);transform:translateX(-50%);width:84px;height:24px;flex-direction:row;gap:0;justify-content:center;padding:0;
+ background:#ffffffcc;color:var(--ink);border:2px solid var(--ink);border-radius:10px;box-shadow:none}
+.round-timer small{display:none}.round-timer b{font:400 17px/1 var(--number)}
+.round-timer.hot{background:#e8453c;color:#fff;animation:timer-beat3 1s ease-in-out infinite}
+@keyframes timer-beat3{50%{transform:translateX(-50%) scale(1.1)}}
