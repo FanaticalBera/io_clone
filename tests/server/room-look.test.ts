@@ -18,3 +18,14 @@ describe('friend room member looks',()=>{
   expect(validRequest({requestId:'r1',marker:'x'.repeat(25)})).toBe(false);expect(validRequest({requestId:'r1',color:7})).toBe(false);
  });
 });
+describe('friend room mode',()=>{
+ it('lets only the host switch between classic and the 3-minute round, between rounds; growth is single play only',()=>{
+  const {store,manager}=fixture(),a=store.create(),b=store.create();a.connected=b.connected=true;
+  manager.createFriend(a,'A','classic');const room=manager.rooms.get(a.roomId!)!;manager.joinFriend(b,'B',room.code!);
+  expect(manager.setMode(b,'timed').ok).toBe(false);
+  expect(manager.setMode(a,'growth').ok).toBe(false);expect(manager.createFriend(store.create(),'C','growth').ok).toBe(false);
+  expect(manager.setMode(a,'timed').ok).toBe(true);expect(room.gameMode.id).toBe('timed');
+  expect(manager.start(a).ok).toBe(true);expect(room.phase).not.toBe('WAITING');
+  expect(manager.setMode(a,'classic').ok).toBe(false);
+ });
+});

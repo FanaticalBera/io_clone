@@ -6,7 +6,7 @@ import {perfNow,perfAdd} from '../shared/perf-sink.js';
 import {decodeFrame,encodeFrame,LAN_AWAY_GRACE_MS,LAN_HEARTBEAT_MS,LAN_HEARTBEAT_TIMEOUT_MS,type FrameChannel} from '../shared/lan-protocol.js';
 // How NetworkSession reaches the authority: the online server over socket.io, or a LAN host over frames (PRD 5.2).
 // Both expose the same ServerEvents, so the session, UI and renderer do not know which one they talk to.
-export type CommandEvent='room:quickJoin'|'room:create'|'room:join'|'room:start'|'room:map'|'room:leave'|'run:retry'|'control:background'|'control:foreground';
+export type CommandEvent='room:quickJoin'|'room:create'|'room:join'|'room:start'|'room:map'|'room:mode'|'room:leave'|'run:retry'|'control:background'|'control:foreground';
 export type TransportEvents=ServerEvents&{disconnect:()=>void;connect_error:(error:AppError|null)=>void};
 type Handler<E extends keyof TransportEvents>=TransportEvents[E];
 export interface GameTransport {

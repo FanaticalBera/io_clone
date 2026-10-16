@@ -15,6 +15,8 @@ import type {Ack,RoomPhase,RoomView} from './protocol.js';
 import {normalizeNickname} from './names.js';
 // Room rules shared by the online server and the LAN host phone (PRD 5.1). Platform-neutral: Web Crypto only.
 /** The session fields room logic reads and writes. The server's socket session satisfies this structurally. */
+/** Modes a room can play; the growth challenge is single play only. */
+const ROOM_MODES:readonly GameModeId[]=['classic','timed'];
 export interface RoomSession {
  token:string;connected:boolean;roomId:string|null;memberId:string|null;expiresAt:number;background:boolean;
  highestReceivedSeq:number;inputMatchId:string|null;inputLifeId:number;
@@ -28,7 +30,7 @@ import {createMode,roundDeadlineTicks,isGameModeId,type GameModeConfig,type Game
 export interface Member<S extends RoomSession=RoomSession> {memberId:string;session:S;nickname:string;title?:string;marker?:string;color?:string;joinOrder:number;waitingForNextRound:boolean;graceUntil:number|null}
 export const MAX_HUMAN_ROOM_MEMBERS=8;
 export interface Room<S extends RoomSession=RoomSession> {
- roomId:string;mode:'PUBLIC'|'FRIEND';readonly gameMode:GameModeConfig;mapId:string;code:string|null;createdAt:number;phase:RoomPhase;phaseDeadline:number|null;
+ roomId:string;mode:'PUBLIC'|'FRIEND';gameMode:GameModeConfig;mapId:string;code:string|null;createdAt:number;phase:RoomPhase;phaseDeadline:number|null;
  members:Map<string,Member<S>>;hostId:string|null;match:MatchState|null;roundNumber:number;revision:number;snapshotSeq:number;
  accumulator:number;lastStepAt:number;emptyDeadline:number|null;inputs:Map<string,DirectionInput>;bots:Map<string,BotMemory>;
 }
@@ -51,7 +53,7 @@ export class RoomManager<S extends RoomSession=RoomSession> {
   if(room.mode==='FRIEND'&&!room.hostId)room.hostId=member.memberId;return member;
  }
  quickJoin(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unknown,look?:MemberLook):Ack {
-  if(!isGameModeId(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
+  if(!ROOM_MODES.includes(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
   if(session.roomId)return {ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
   this.advance();
@@ -61,7 +63,7 @@ export class RoomManager<S extends RoomSession=RoomSession> {
   this.addMember(room,session,name,false,title,look);return{ok:true,roomId:room.roomId};
  }
 createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unknown,look?:MemberLook):Ack {
-  if(!isGameModeId(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
+  if(!ROOM_MODES.includes(gameMode))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
   if(session.roomId)return{ok:false,code:'ALREADY_IN_ROOM',message:'이미 방에 참가하고 있습니다.'};
   const name=normalizeNickname(nickname);if(!name)return{ok:false,code:'INVALID_NICKNAME',message:'닉네임은 1–16자로 입력하세요.'};
   let code='';for(let attempt=0;attempt<32;attempt++){const candidate=this.codeGenerator();if(!/^[A-HJ-NP-Z2-9]{8}$/.test(candidate))throw new Error('Invalid generated code');if(![...this.rooms.values()].some(r=>r.code===candidate)){code=candidate;break;}}
@@ -81,6 +83,16 @@ createFriend(session:S,nickname:unknown,gameMode:GameModeId='classic',title?:unk
  /** Server config with the room's board preset applied (shape, radius and player cap). */
  roomConfig(room:Room<S>):GameConfig {return {...this.config,...mapPreset(room.mapId).config};}
  /** Host-only, between rounds. A board that cannot seat everyone already here is refused. */
+ /** Host-only, between rounds: classic or the 3-minute round (the growth challenge is single play only). */
+ setMode(session:S,raw:unknown):Ack {
+  const current=this.member(session);if(!current)return{ok:false,code:'ROOM_NOT_FOUND',message:'참가 중인 방이 없습니다.'};
+  const {room,member}=current;
+  if(room.mode!=='FRIEND'||room.hostId!==member.memberId)return{ok:false,code:'NOT_HOST',message:'방장만 모드를 바꿀 수 있어요.'};
+  if(room.phase!=='WAITING')return{ok:false,code:'BAD_PHASE',message:'라운드 사이에만 모드를 바꿀 수 있어요.'};
+  if(!ROOM_MODES.includes(raw as GameModeId))return{ok:false,code:'INVALID_INPUT',message:'지원하지 않는 게임 모드입니다.'};
+  if(room.gameMode.id!==raw){room.gameMode=createMode(raw as GameModeId);room.revision++;}
+  return{ok:true,roomId:room.roomId};
+ }
  setMap(session:S,raw:unknown):Ack {
   const current=this.member(session);if(!current)return{ok:false,code:'ROOM_NOT_FOUND',message:'참가 중인 방이 없습니다.'};
   const {room,member}=current;

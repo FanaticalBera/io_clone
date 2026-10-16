@@ -48,7 +48,7 @@ const diagnosticsEnabled=(import.meta.env.DEV||import.meta.env.MODE==='test')&&n
 const botHud=diagnosticsEnabled?new BotDebugHud(id=>{scene.setBotDebugFollow(id);if(id)input.enabled=false;},()=>void startPractice(undefined,true),data=>scene.setBotDebugOverlay(data)):null;
 if(diagnosticsEnabled)Object.assign(window,{__HEXHOLD_DIAGNOSTICS__:{get:()=>practice?.diagnostics()??null}});
 const ui=new UI({rewardRetry:()=>{if(ui.currentRunResult)void rewards.present(ui.currentRunResult,true);},practice:()=>void startPractice(),leave:()=>void leave(),restart:()=>void restartRun(),
- quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),pickTitle:title=>{try{localStorage.setItem(TITLE_KEY,title);}catch{}applyTitles();},roomMap:id=>void changeRoomMap(id),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;pausePractice(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
+ quick:()=>void enterOnline('room:quickJoin'),create:()=>void enterOnline('room:create'),join:code=>void enterOnline('room:join',code),start:()=>void startOnline(),pickTitle:title=>{try{localStorage.setItem(TITLE_KEY,title);}catch{}applyTitles();},roomMap:id=>void changeRoomMap(id),roomMode:id=>void changeRoomMode(id),retry:()=>void retryOnline(),settingsOpen:open=>{input.enabled=false;pausePractice(open||document.hidden);if(!open&&scene.view&&(scene.selfId||practice?.spectating))display(scene.view,scene.selfId);},testVibration:()=>haptics.kill(),screenChanged:()=>syncRender()},settings);
 // Phaser draws only while the live field is on screen (performance PRD 4); elsewhere it shows a still frame.
 let rendererReady=false;
 // Measurement builds can keep Phaser drawing behind overlays (?perfNoSleep=1) to compare against the still frame.
@@ -69,6 +69,8 @@ function applyTitles():void{let saved:string|null=null;try{saved=localStorage.ge
  roomTitle=saved===''?undefined:saved!==null&&earned.includes(saved)?saved:earned.at(-1);ui.setHomeTitles(earned,roomTitle);}
 function applyProfile(p:PlayerProfileV1):void {earned=earnedTitles(p.inventory.ownedMarkerIds);applyTitles();roomLook={marker:p.inventory.equippedMarkerId,color:p.inventory.equippedMarkerColorId};profileTrace('UI_BALANCE');ui.setProfileBalance(p.coins);profileUI.setProfile(p);profileTrace('UI_SHOP');shop.setProfile(p);profileTrace('UI_MARKER');scene.setMarkerAppearance({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});ui.setHomeMarker({markerId:p.inventory.equippedMarkerId,markerColorId:p.inventory.equippedMarkerColorId});if(scene.view&&scene.selfId&&ui.mode!=='MENU')ui.updateView(scene.view,scene.selfId,false,scene.playerColors());profileTrace('UI_PROFILE_OK');}
 profileStore.subscribe(applyProfile);
+let profileMaps:Record<string,{best:number;runs:number}>={};profileStore.subscribe(p=>{profileMaps=p.stats.maps??{};});
+ui.recordFor=(mode,map)=>{const r=profileMaps[(mode==='classic'?'':mode+':')+map];return r?.runs?r.best:null;};
 ui.markerFor=id=>{const look=scene.markerState().find(m=>m.participantId===id);return look?.markerId?{markerId:look.markerId,markerColorId:look.markerColorId??'slot'}:null;};
 const markerGift=testMarkerGiftKind(location.search,import.meta.env.DEV);
 void (async()=>{
@@ -159,7 +161,7 @@ function onRoom(view:RoomView):void {
  if(view.waitingForNextRound||view.phase==='WAITING'||view.phase==='COUNTDOWN'){input.enabled=false;preview();ui.showRoom(view);}
  else if(view.phase==='RESULTS'&&view.results&&view.selfParticipantId){ui.mode='ONLINE';ui.showResults(view.matchId!,view.results,view.selfParticipantId,view.gameMode,view.outcome,view.mapCellCount);input.enabled=false;}
 }
-async function enterOnline(event:'room:quickJoin'|'room:create'|'room:join',code?:string,gameMode:GameModeId=ui.selectedGameMode()):Promise<void> {
+async function enterOnline(event:'room:quickJoin'|'room:create'|'room:join',code?:string,gameMode:GameModeId='classic'):Promise<void> {
  lastOnlineAction=()=>enterOnline(event,code,gameMode);let activeSession:NetworkSession|null=null;
  try{
   const nickname=ui.nickname();rewards.retire();input.enabled=false;input.reset();botHud?.stop();practice?.dispose();practice=null;await stopOnline();
@@ -176,6 +178,7 @@ if(import.meta.env.MODE==='test'){testHistory.push(raw);if(testHistory.length>51
   await session.connect();if(online!==session)return;const response=await session.command(event,{nickname,...(roomTitle?{title:roomTitle}:{}),...(roomLook?{marker:roomLook.marker,color:roomLook.color}:{}),...(code?{code}:{}),...(event!=='room:join'?{gameMode}:{})});if(!response.ok)ui.message(response.message,true);
  }catch(error){if(activeSession&&online!==activeSession)return;ui.message((error as Error).message||'서버에 연결할 수 없어요.',true);}
 }
+async function changeRoomMode(id:GameModeId):Promise<void>{try{const response=await online?.command('room:mode',{mode:id});if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message);}}
 async function changeRoomMap(id:string):Promise<void>{try{const response=await online?.command('room:map',{map:id});if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message);}}
 async function startOnline():Promise<void>{try{const response=await online?.command('room:start');if(response&&!response.ok)ui.message(response.message);}catch(error){ui.message((error as Error).message,true);}}
 async function retryOnline():Promise<void>{await stopOnline();if(expired){clearSessionToken();expired=false;}if(lastOnlineAction)await lastOnlineAction();}

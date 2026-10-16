@@ -12,7 +12,11 @@ import {cssHex} from './theme.js';
 import {markerPreview,markerArt,type MarkerAppearance} from './marker-art.js';
 import {MAP_PRESETS} from '../shared/map-presets.js';
 const showDeathDiagnostic=new URLSearchParams(location.search).get('debug')==='1';
-export interface UIActions { pickTitle?:(title:string)=>void; roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
+/** Single play offers classic and the growth challenge; the 3-minute round is for friend rooms. */
+const SINGLE_MODES:readonly GameModeId[]=['classic','growth'];
+const SINGLE_MODE_NAMES:Readonly<Partial<Record<GameModeId,string>>>={classic:'클래식',growth:'3분 성장 도전'};
+const SINGLE_MODE_NOTES:Readonly<Partial<Record<GameModeId,string>>>={classic:'맵 전체를 내 땅으로. 한 번 죽으면 끝',growth:'3분 동안 최고 점유율 기록 높이기. 죽어도 3초 뒤 부활'};
+export interface UIActions { roomMode?:(id:GameModeId)=>void; pickTitle?:(title:string)=>void; roomMap?:(id:string)=>void; rewardRetry?:()=>void;  practice:()=>void; leave:()=>void; restart:()=>void; quick?:()=>void; create?:()=>void; join?:(code:string)=>void; start?:()=>void; retry?:()=>void; settingsOpen?:(open:boolean)=>void;screenChanged?:()=>void; testVibration?:()=>boolean }
 export interface RoomDisplay {
  roomId:string;code:string|null;mode:'PUBLIC'|'FRIEND';phase:string;phaseDeadline:number|null;
  members:{memberId:string;nickname:string;title?:string;marker?:string;color?:string;connected:boolean;waitingForNextRound:boolean}[];
@@ -49,7 +53,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   <small id="nickname-hint" class="sr-only">1–16자 · 다음 판에도 이 이름으로</small>
   <div class="play-group">
    <button id="practice" data-testid="practice" class="btn play-main"><span class="play-text"><strong>싱글 플레이</strong><span class="mode-line">봇과 함께 · <span id="mode-name">클래식</span> <span id="mode-subtitle">100% 점령</span></span></span><span class="play-icon">${ICONS.play}</span></button>
-   <div id="map-bar" class="map-bar" role="group" aria-label="맵 선택"><button id="map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="map-icon" class="map-icon" aria-hidden="true"></span><span class="map-text"><strong id="map-name"></strong><small id="map-note"></small></span><span id="map-dots" class="map-dots" aria-hidden="true"></span><button id="map-next" class="map-step" aria-label="다음 맵">›</button></div>
+   <button id="map-bar" class="map-bar setup-bar" aria-haspopup="dialog" aria-label="싱글 플레이 모드와 맵 변경"><strong id="setup-mode"></strong><span class="setup-dot">·</span><span id="map-icon" class="map-icon" aria-hidden="true"></span><strong id="map-name"></strong><small class="setup-change">변경 ›</small></button>
   </div>
   <section class="friend-card" aria-labelledby="friend-title"><div class="friend-head"><h2 id="friend-title">친구와 함께</h2><span id="friend-hint">방을 만들거나 코드로 들어가요</span></div>
    <div class="friend-actions"><button id="create" data-testid="create" class="btn dark">${ICONS.plus}방 만들기</button><label class="code-field"><span class="sr-only">친구 방 코드</span><input id="room-code" data-testid="room-code" maxlength="8" placeholder="방 코드"><button id="join" data-testid="join" class="btn mini sun">입장</button></label></div></section>
@@ -72,7 +76,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
 <div id="death" data-testid="death" role="status" hidden></div>
 <section id="room-panel" class="room-panel" hidden>
  <button id="room-leave" class="btn back">${ICONS.back}나가기</button>
- <div class="room-info"><div class="room-head"><p class="eyebrow" id="room-kind">친구 방</p><p id="room-game-mode"></p></div><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><div id="room-map" class="map-bar room-map" role="group" aria-label="이번 판 맵"><button id="room-map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="room-map-icon" class="map-icon" aria-hidden="true"></span><span class="map-text"><strong id="room-map-name"></strong><small id="room-map-note"></small></span><button id="room-map-next" class="map-step" aria-label="다음 맵">›</button></div><p id="room-host-note" class="room-note" hidden>방장이 앱을 나가면 최대 60초 동안 모두의 경기가 멈춰요.</p></div>
+ <div class="room-info"><div class="room-head"><p class="eyebrow" id="room-kind">친구 방</p><p id="room-game-mode"></p></div><h2 id="room-title"></h2><div id="invite"><strong id="friend-code" aria-label="방 코드"></strong><button id="copy-link" class="btn">${ICONS.copy}초대 링크 복사</button></div><div id="room-mode" class="room-mode" role="group" aria-label="이번 판 모드"><button data-mode="classic"><b>클래식</b><small>100% 점령</small></button><button data-mode="timed"><b>3분 점령전</b><small>3분 · 영토 1위</small></button></div><div id="room-map" class="map-bar room-map" role="group" aria-label="이번 판 맵"><button id="room-map-prev" class="map-step" aria-label="이전 맵">‹</button><span id="room-map-icon" class="map-icon" aria-hidden="true"></span><span class="map-text"><strong id="room-map-name"></strong><small id="room-map-note"></small></span><button id="room-map-next" class="map-step" aria-label="다음 맵">›</button></div><p id="room-host-note" class="room-note" hidden>방장이 앱을 나가면 최대 60초 동안 모두의 경기가 멈춰요.</p></div>
  <div class="room-members card"><div class="members-head"><h3>참가자</h3><p id="room-status"></p></div><ul id="members"></ul><button id="start" data-testid="start" class="btn sun big">라운드 시작 ${ICONS.play}</button></div>
 </section>
 <section id="results" class="card results-panel" hidden><p class="eyebrow" id="result-mode">판 종료</p><h2 id="winner-result">이번 판의 영역 기록</h2><p id="personal-result"></p><div class="table-scroll"><table><thead><tr><th>순위 · 참가자</th><th>점유율</th><th>영토 칸</th><th>처치 / 사망</th></tr></thead><tbody id="result-rows"></tbody></table></div><div class="menu-actions"><button id="restart" data-testid="restart" class="btn sun">다시 연습</button><button id="result-leave" class="btn">나가기</button></div><small id="next-round"></small></section>
@@ -123,7 +127,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   get('kill-vibration').addEventListener('change',()=>this.settings.update({killVibration:get<HTMLInputElement>('kill-vibration').checked}));
   bind('vibration-test',()=>{get('vibration-status').textContent=this.actions.testVibration?.()?'진동을 요청했어요. 무음 설정이나 기기에 따라 느껴지지 않을 수 있어요.':'이 환경에서는 진동을 실행할 수 없어요.';});
   this.settings.subscribe(()=>this.refreshSettings());this.refreshSettings();
-  bind('practice',()=>this.requestPlay(this.actions.practice));bind('map-prev',()=>this.stepMap(-1));bind('map-next',()=>this.stepMap(1));this.renderMap();
+  bind('practice',()=>this.requestPlay(this.actions.practice));bind('map-bar',()=>this.openSetup());this.renderMap();
   bind('create',()=>this.requestPlay(()=>this.actions.create?this.actions.create():this.message('온라인 연결을 준비하고 있어요.')));
   bind('join',()=>this.requestPlay(()=>this.actions.join?this.actions.join(get<HTMLInputElement>('room-code').value.trim().toUpperCase()):this.message('온라인 연결을 준비하고 있어요.')));
   bind('leave',()=>{get('leave-confirm').hidden=true;this.actions.leave();});bind('room-leave',this.actions.leave);bind('result-leave',this.actions.leave);bind('restart',this.actions.restart);
@@ -131,7 +135,7 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
   // Touching the play area (field or joystick) closes the ☰ menu; the same touch goes on to steer.
   document.addEventListener('pointerdown',event=>{if(get('game-tools').hidden)return;const target=event.target as Node;if(get('field').contains(target)||get('joystick').contains(target)){get('game-tools').hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');}},{capture:true});
   bind('start',()=>this.actions.start?.());
-  get('home-titles').addEventListener('click',event=>{event.preventDefault();this.openTitlePicker();});bind('room-map-prev',()=>this.stepRoomMap(-1));bind('room-map-next',()=>this.stepRoomMap(1));bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
+  get('home-titles').addEventListener('click',event=>{event.preventDefault();this.openTitlePicker();});for(const b of get('room-mode').querySelectorAll<HTMLElement>('button'))b.addEventListener('click',()=>this.actions.roomMode?.(b.dataset.mode as GameModeId));bind('room-map-prev',()=>this.stepRoomMap(-1));bind('room-map-next',()=>this.stepRoomMap(1));bind('rules',()=>this.tutorial(null));bind('tutorial-go',()=>this.closeTutorial());
   bind('notice-close',()=>get('notice').hidden=true);bind('retry',()=>this.actions.retry?.());bind('fallback-practice',()=>{get('notice').hidden=true;this.requestPlay(this.actions.practice);});
   get<HTMLDialogElement>('tutorial').addEventListener('cancel',event=>{event.preventDefault();this.closeTutorial();});
   bind('copy-link',()=>{const code=get('friend-code').textContent??'';
@@ -174,24 +178,46 @@ ${iconButton('settings','설정',ICONS.gear,'title="설정"')}
  private mapIndex=Math.max(0,MAP_PRESETS.findIndex(p=>p.id===stored('hexhold.map')));
  /** Board chosen for single play. */
  selectedMap(){return MAP_PRESETS[this.mapIndex];}
+ /** The single-play bar sums up the chosen mode and board; the yellow button's line follows the mode. */
  private renderMap():void {
-  const preset=this.selectedMap();get('map-name').textContent=preset.name;get('map-note').textContent=preset.note;
-  get('map-icon').innerHTML=MAP_ICONS[preset.id];get('map-bar').dataset.map=preset.id;
-  get('map-dots').replaceChildren(...MAP_PRESETS.map((_,i)=>{const dot=document.createElement('i');if(i===this.mapIndex)dot.className='on';return dot;}));
+  const preset=this.selectedMap(),mode=this.selectedGameMode();get('map-name').textContent=preset.name;
+  get('map-icon').innerHTML=MAP_ICONS[preset.id];get('map-bar').dataset.map=preset.id;get('setup-mode').textContent=SINGLE_MODE_NAMES[mode]??'';
+  get('mode-name').textContent=mode==='growth'?'3분 동안':'클래식';get('mode-subtitle').textContent=mode==='growth'?'최고 점유율 기록 높이기':'100% 점령';
+ }
+ /** My best on a mode and board, for the setup sheet (null before the first run there). */
+ recordFor:(mode:GameModeId,map:string)=>number|null=()=>null;
+ /** Single-play setup: two mode cards and the boards in one row; nothing changes until 선택 완료. */
+ private openSetup():void{
+  let dialog=document.getElementById('setup-sheet') as HTMLDialogElement|null;
+  if(!dialog){dialog=document.createElement('dialog');dialog.id='setup-sheet';dialog.className='setup-sheet';dialog.setAttribute('aria-labelledby','setup-head');
+   dialog.innerHTML='<div class="setup-top"><h3 id="setup-head">싱글 플레이 설정</h3><button id="setup-close" class="setup-x" aria-label="닫기">✕</button></div><div id="setup-modes" class="setup-modes"></div><div id="setup-maps" class="setup-maps"></div><div class="setup-foot"><span id="setup-record"></span><button id="setup-done" class="btn sun">선택 완료</button></div>';
+   get('app').append(dialog);dialog.querySelector('#setup-close')!.addEventListener('click',()=>dialog!.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog!.close();});}
+  let mode=this.selectedGameMode(),map=this.selectedMap().id;
+  const draw=()=>{
+   const modes=dialog!.querySelector('#setup-modes')!,maps=dialog!.querySelector('#setup-maps')!;modes.replaceChildren();maps.replaceChildren();
+   for(const id of SINGLE_MODES){const card=document.createElement('button');card.className='setup-mode';card.setAttribute('aria-pressed',String(id===mode));
+    const b=document.createElement('b');b.textContent=SINGLE_MODE_NAMES[id]??'';const s=document.createElement('small');s.textContent=SINGLE_MODE_NOTES[id]??'';card.append(b,s);card.addEventListener('click',()=>{mode=id;draw();});modes.append(card);}
+   for(const preset of MAP_PRESETS){const tile=document.createElement('button');tile.className='setup-map';tile.setAttribute('aria-pressed',String(preset.id===map));
+    const icon=document.createElement('span');icon.className='map-icon';icon.innerHTML=MAP_ICONS[preset.id];const name=document.createElement('span');name.textContent=preset.name;tile.append(icon,name);
+    tile.addEventListener('click',()=>{map=preset.id;draw();});maps.append(tile);}
+   const best=this.recordFor(mode,map);dialog!.querySelector('#setup-record')!.textContent=(SINGLE_MODE_NAMES[mode]??'')+' · '+(MAP_PRESETS.find(p=>p.id===map)?.name??'')+(best===null?' · 아직 기록 없음':' 내 기록 '+best.toFixed(1)+'%');
+  };
+  (dialog.querySelector('#setup-done') as HTMLButtonElement).onclick=()=>{save('hexhold.mode',mode);this.mapIndex=Math.max(0,MAP_PRESETS.findIndex(p=>p.id===map));save('hexhold.map',map);this.renderMap();dialog!.close();};
+  draw();dialog.showModal();
  }
  private roomMapId='hex';
  /** Friend rooms show the board; only the host, between rounds, gets the arrows. */
  private renderRoomMap(view:RoomDisplay):void {
   const preset=MAP_PRESETS.find(p=>p.id===view.map)??MAP_PRESETS[0],canChange=view.mode==='FRIEND'&&view.phase==='WAITING'&&view.hostId===view.selfMemberId;
-  this.roomMapId=preset.id;get('room-map').hidden=view.mode!=='FRIEND';
-  get('room-map-name').textContent=preset.name;get('room-map-note').textContent=canChange?preset.note:'방장이 골라요 · '+preset.note;get('room-map-icon').innerHTML=MAP_ICONS[preset.id];
+  this.roomMapId=preset.id;get('room-map').hidden=view.mode!=='FRIEND';get('room-mode').hidden=view.mode!=='FRIEND'||!canChange;
+  for(const b of get('room-mode').querySelectorAll<HTMLElement>('button'))b.setAttribute('aria-pressed',String(b.dataset.mode===view.gameMode.id));
+  get('room-map-name').textContent=preset.name;get('room-map-note').textContent=canChange?preset.note:'방장이 골라요 · '+GAME_MODES[view.gameMode.id].name+' · '+preset.note;get('room-map-icon').innerHTML=MAP_ICONS[preset.id];
   for(const id of ['room-map-prev','room-map-next'])get(id).hidden=!canChange;
  }
  private stepRoomMap(delta:number):void {const i=MAP_PRESETS.findIndex(p=>p.id===this.roomMapId);this.actions.roomMap?.(MAP_PRESETS[(i+delta+MAP_PRESETS.length)%MAP_PRESETS.length].id);}
- private stepMap(delta:number):void {this.mapIndex=(this.mapIndex+delta+MAP_PRESETS.length)%MAP_PRESETS.length;save('hexhold.map',this.selectedMap().id);this.renderMap();}
  setHomeMarker(appearance:MarkerAppearance):void {this.homeAppearance={...appearance};get('home-marker').replaceChildren(markerPreview(appearance,SLOT_COLORS[0]));}
- /** Mode for single play; a saved choice (hexhold.mode) until the mode picker is designed. */
- selectedGameMode():GameModeId{const saved=stored('hexhold.mode');return saved==='timed'||saved==='growth'?saved:'classic';}
+ /** Mode for single play (classic or the growth challenge), chosen in the setup sheet. */
+ selectedGameMode():GameModeId{return stored('hexhold.mode')==='growth'?'growth':'classic';}
  private togglePanel(panel:string,button:string):void{const open=get(panel).hidden;this.closeGamePanels();get(panel).hidden=!open;get(button).setAttribute('aria-pressed',String(open));}
  private closeGamePanels():void{for(const id of ['game-tools','leaderboard','leave-confirm'])get(id).hidden=true;get('game-tools-toggle').setAttribute('aria-expanded','false');get('ranking-toggle').setAttribute('aria-pressed','false');}
 

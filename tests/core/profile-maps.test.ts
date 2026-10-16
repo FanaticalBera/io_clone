@@ -54,7 +54,7 @@ describe('per-map profile records',()=>{
   grantProfileReward(p,run(9577,3000,1),admission(1));
   expect(grantProfileReward(p,timed(2,500),admission(2)).records).toBeUndefined();
   expect(grantProfileReward(p,timed(3,800,'TIME_WIN'),admission(3)).records).toEqual({best:true});
-  expect(p.stats.maps!.hex.best).toBe(31.3);expect(p.stats.maps!['timed:hex']).toMatchObject({best:8.3,runs:2,clears:0});
+  expect(p.stats.maps!.hex.best).toBe(31.3);expect(p.stats.maps!['timed:hex']).toMatchObject({best:8.3,runs:2,clears:1});
   expect(p.stats.lastMap).toBe('hex');expect(validProfile(p)).toBe(true);
  });
  it('keeps growth records apart and reports the previous best for the result screen',()=>{

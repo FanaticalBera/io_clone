@@ -66,7 +66,8 @@ export function grantProfileReward(profile:PlayerProfileV1,result:RunResult,admi
  if(mapId){const r=maps[mapId]??{best:0,clears:0,runs:0},mapKills=(r.kills??0)+result.kills;if(!safe(mapKills))throw new Error('Profile integer overflow');
   if(r.runs>0){if(result.bestTerritoryPercent>r.best)records.best=true;if(r.topKills!==undefined&&result.kills>r.topKills)records.kills=true;
    if(timed){}else if(win){if(r.fastest!==undefined&&seconds<r.fastest)records.fastest=true;}else if(r.longest!==undefined&&seconds>r.longest)records.longest=true;}
-  maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(win),runs:r.runs+1,kills:mapKills,longest:Math.max(r.longest??0,seconds),topKills:Math.max(r.topKills??0,result.kills),...(win||r.fastest!==undefined?{fastest:Math.min(r.fastest??Infinity,win?seconds:Infinity)}:{})};}
+  // clears: full captures for classic, first places for the 3-minute round.
+  maps[mapId]={best:Math.max(r.best,result.bestTerritoryPercent),clears:r.clears+Number(timed?result.endReason==='TIME_WIN'&&result.mode!=='growth':win),runs:r.runs+1,kills:mapKills,longest:Math.max(r.longest??0,seconds),topKills:Math.max(r.topKills??0,result.kills),...(win||r.fastest!==undefined?{fastest:Math.min(r.fastest??Infinity,win?seconds:Infinity)}:{})};}
  const lastMap=mapId&&!timed?mapId:profile.stats.lastMap;
  profile.coins=coins;profile.stats={runsPlayed:runs,classicClears:clears,totalKills:kills,bestTerritoryPercent:Math.max(profile.stats.bestTerritoryPercent,result.bestTerritoryPercent),longestRunSeconds:Math.max(profile.stats.longestRunSeconds,result.durationTicks/result.simulationHz),maps,...(lastMap?{lastMap}:{})};
  p.paidLifeId=result.lifeId;profile.processedRuns.push(reward);if(profile.processedRuns.length>PROFILE_HISTORY_LIMIT)profile.processedRuns.splice(0,profile.processedRuns.length-PROFILE_HISTORY_LIMIT);
