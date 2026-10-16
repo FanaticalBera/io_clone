@@ -358,3 +358,39 @@ dialog.sheet[open]{display:flex;flex-direction:column;gap:10px}
 .shop-detail>strong,.shop-detail>small{flex:none}
 .shop-detail>small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 @media(orientation:landscape) and (max-height:340px){.shop-fx-scenes{min-height:20px;margin-top:4px}.shop-fx-scenes .chip{height:20px;padding:0 7px;font-size:12px}}
+/* Profile: the map record card (mode chips, map picker, best, clears/runs), labels and numbers on one line,
+   and the storage note pinned to the bottom of the left column so its border never breaks. */
+.profile-panel{position:relative}
+.profile-collection{padding-bottom:30px}
+.profile-footer{position:absolute;left:0;bottom:0;width:262px;box-sizing:border-box;padding:0 12px 8px;text-align:center;font:11px var(--display)}
+.profile-stats small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-stats strong{white-space:nowrap;overflow-wrap:normal}
+.profile-map{gap:4px!important}
+.profile-modes{display:flex;gap:6px}
+.mode-chip{padding:1px 9px;border:2px solid var(--ink);border-radius:9px;background:#fff;font:12px var(--display);color:var(--ink)}.mode-chip.on{background:var(--ink);color:var(--sun)}
+.profile-map-bar{display:flex;align-items:center;gap:6px;min-width:0}
+.profile-map-bar strong{flex:1;min-width:0;text-align:center;font:400 17px var(--display)!important;overflow:hidden;text-overflow:ellipsis}
+.profile-map .map-step{width:28px;height:28px;border-color:var(--ink);color:var(--ink);background:#fff;font-size:17px}
+.profile-map .map-icon{width:30px;height:26px;background:#3b3366;border-color:var(--ink)}
+.profile-map .map-dots{justify-content:center}.profile-map .map-dots i{background:#1f1b2d40}.profile-map .map-dots i.on{background:var(--ink)}
+.profile-map-best{display:flex;flex-direction:column;gap:2px}
+.profile-map-sub{margin:0;font:13px var(--display);color:var(--muted);white-space:nowrap}.profile-map-sub b{color:var(--ink);font-weight:400}
+@media(orientation:landscape) and (max-height:340px){.profile-footer{width:220px}.profile-map .map-step{width:24px;height:24px}.profile-map-bar strong{font-size:15px!important}.profile-modes{display:none}}
+@media(orientation:portrait){.profile-footer{position:static;width:auto}.profile-collection{padding-bottom:14px}}
+/* Profile sizing that follows the screen: the map card gets the wider column and numbers shrink with
+   the viewport, so nothing wraps or overflows on short landscape phones. */
+.profile-stats{grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(0,1fr))}
+.profile-stats strong{font-size:clamp(20px,min(7vh,3.6vw),32px)}
+.profile-stats #profile-best{font-size:clamp(26px,min(10vh,5vw),44px)}
+.profile-stats strong[data-long="true"]{font:400 clamp(15px,min(5.4vh,2.5vw),22px)/1.15 var(--display)}
+.profile-map-sub{overflow:hidden;text-overflow:ellipsis}
+@media(orientation:landscape) and (max-height:400px){
+ .profile-collection{width:200px;gap:8px;padding:10px 12px 26px}.profile-footer{width:200px;font-size:10px;padding-bottom:6px}
+ .profile-collection .pedestal.small{width:72px;height:66px}.profile-collection .pedestal.small::before{height:32px}.profile-collection .pedestal.small>div{width:46px;height:46px}
+ .profile-owned{gap:6px}.profile-owned>div{font-size:13px}.profile-dex{min-height:0;height:32px}
+ .profile-stats{gap:8px;padding:10px 12px}.profile-stats article{padding:8px 10px}
+ .profile-map .map-icon{display:none}.profile-map .map-step{width:24px;height:24px;font-size:15px}.profile-map-bar strong{font-size:14px!important}
+ .profile-map-sub{font-size:12px}.profile-modes{display:none}
+}
+@media(orientation:landscape) and (max-height:400px){.profile-stats strong[data-long="true"]{font-size:clamp(14px,2.4vw,20px)}}
+.profile-stats #profile-longest{font-size:clamp(16px,min(6.5vh,3vw),32px)}

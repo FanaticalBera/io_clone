@@ -1,5 +1,6 @@
 import type {GameConfig} from './config.js';
-import {MAP_SHAPE} from './hex.js';
+import {MAP_SHAPE,mapCellCount} from './hex.js';
+import {DEFAULT_CONFIG} from './config.js';
 /** Board choices for single play. Config overrides only; the hexagon keeps the default config untouched. */
 export interface MapPreset {id:'hex'|'rect'|'islands'|'donut'|'cross'|'mini';name:string;note:string;config:Partial<GameConfig>}
 export const MAP_PRESETS:readonly Readonly<MapPreset>[]=Object.freeze([
@@ -10,4 +11,9 @@ export const MAP_PRESETS:readonly Readonly<MapPreset>[]=Object.freeze([
  {id:'cross',name:'십자',note:'광장과 네 갈래 · 8명',config:{mapShape:MAP_SHAPE.CROSS,maxSlots:8}},
  {id:'mini',name:'꼬마 육각',note:'빠른 한 판 · 4명',config:{mapRadius:24,maxSlots:4}}
 ].map(p=>Object.freeze(p as MapPreset)));
+/** The preset a run was played on, from its board's cell count (each preset's count is distinct). */
+export function presetForCellCount(count:number):MapPreset['id']|null{
+ for(const p of MAP_PRESETS){const c={...DEFAULT_CONFIG,...p.config};if(mapCellCount(c.mapRadius,c.mapShape??0)===count)return p.id;}
+ return null;
+}
 export const mapPreset=(id:string|null|undefined)=>MAP_PRESETS.find(p=>p.id===id)??MAP_PRESETS[0];
